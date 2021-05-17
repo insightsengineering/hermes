@@ -1,0 +1,18 @@
+Package: hermes
+Type: Package
+Title: Preprocessing, analyzing, and reporting of RNA-seq data
+Date: 2021-05-17
+Version: 0.0.1.9000
+Authors@R: c(
+  person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre"))
+  )
+Description: Preprocessing, analyzing, and reporting of RNA-seq data.
+License: file LICENSE
+Encoding: UTF-8
+LazyData: false
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 3.6)
+Imports:
+    testthat (>= 2.0)

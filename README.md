@@ -1,2 +1,3 @@
 # hermes
-RNAseq analysis package
+
+`hermes` facilitates preprocessing, analyzing, and reporting of RNA-seq data. 

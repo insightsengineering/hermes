@@ -1,0 +1,13 @@
+design/*
+^\.CI-FORCE-RELEASE-VERSION$
+^.*\.Rproj$
+^\.Rproj\.user$
+^_pkgdown\.yml$
+^docs$
+^\.github$
+README.*
+man-roxygen/*
+TODO\.md
+^\.drone\.yml$
+^Jenkinsfile$
+^\.lintr$

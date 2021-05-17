@@ -1,0 +1,15 @@
+url: https://go.roche.com/nest-docs/releases/latest/api-reference/hermes
+
+template:
+  params:
+    bootswatch: cerulean
+
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.roche.com/NEST/hermes
+
+reference:
+  - title: tbd
+    contents:
+      - tbd
