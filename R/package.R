@@ -4,5 +4,6 @@
 #'
 "_PACKAGE"
 
+#' @import methods
 #' @import testthat
 NULL

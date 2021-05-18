@@ -15,4 +15,11 @@ RoxygenNote: 7.1.1
 Depends: 
     R (>= 3.6)
 Imports:
+    methods,
+    S4Vectors,
+    SummarizedExperiment,
     testthat (>= 2.0)
+Collate: 
+    'HermesData-validate.R'
+    'HermesData-class.R'
+    'package.R'
