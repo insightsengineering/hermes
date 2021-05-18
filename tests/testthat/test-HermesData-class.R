@@ -23,6 +23,7 @@ test_that("HermesData objects can be created with default constructor .HermesDat
   )
   result <- expect_silent(.HermesData(object))
   expect_is(result, "HermesData")
+  expect_true(validObject(result))
 })
 
 test_that("HermesData validation fails as expected", {

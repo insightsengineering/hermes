@@ -28,6 +28,7 @@ NULL
 #'   functions where intermediate objects may not be valid within the scope of
 #'   the function.
 #'   
+#' @aliases HermesData
 #' @exportClass HermesData
 #' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom S4Vectors setValidity2

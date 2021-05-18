@@ -4,6 +4,7 @@
 \name{HermesData-class}
 \alias{HermesData-class}
 \alias{.HermesData}
+\alias{HermesData}
 \title{HermesData}
 \description{
 The \link{HermesData} class is an extension of \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
