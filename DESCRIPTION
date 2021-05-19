@@ -22,4 +22,5 @@ Imports:
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
+    'HermesData-methods.R'
     'package.R'
