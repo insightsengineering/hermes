@@ -1,5 +1,5 @@
 get_se <- function() {
-  SummarizedExperiment::SummarizedExperiment(
+  SummarizedExperiment(
     list(counts = matrix(1L, 2, 1)),
     rowData = data.frame(
       HGNC = c(1, 1),

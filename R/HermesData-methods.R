@@ -17,8 +17,6 @@
 #' @param ... (`HermesData`)\cr objects to row bind.
 #'
 #' @return The combined [HermesData] object.
-#' 
-#' @importMethodsFrom SummarizedExperiment rbind
 #'
 #' @examples
 #' a <- b <- hermes:::.HermesData(summarized_experiment)
@@ -45,6 +43,8 @@ NULL
 #' @return The metadata which is a list.
 #' @importFrom S4Vectors `metadata<-`
 #' @importMethodsFrom S4Vectors metadata
+#' @exportMethod metadata
+#' @export `metadata<-`
 #' 
 #' @examples 
 #' a <- hermes:::.HermesData(summarized_experiment)
@@ -60,7 +60,8 @@ NULL
 #'
 #' These methods access and set the counts assay in a [HermesData] object.
 #' 
-#' @name counts
+#' @rdname counts
+#' @aliases counts
 #' 
 #' @param object (`HermesData`)\cr object to access the counts from.
 #' @param value (`matrix`)\cr what should the counts assay be replaced with.
@@ -68,7 +69,6 @@ NULL
 #' @return The counts assay.
 #'  
 #' @importFrom BiocGenerics counts
-#' @importFrom SummarizedExperiment assay
 #' @export
 #' 
 #' @examples 
@@ -81,14 +81,13 @@ setMethod(
   f = "counts",
   signature = "HermesData",
   definition = function(object) {
-    SummarizedExperiment::assay(object)
+    assay(object)
   }
 )
 
-#' @name counts
+#' @describeIn counts
 #' 
 #' @importFrom BiocGenerics `counts<-`
-#' @importFrom SummarizedExperiment `assay<-`
 #' @export
 #' 
 #' @examples 
