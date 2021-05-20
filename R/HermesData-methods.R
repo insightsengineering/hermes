@@ -8,7 +8,6 @@
 #' @export 
 #'
 #' @examples
-#' hd <- rbind(hd1, hd2)
 
 setMethod(f = "rbind", 
           "HermesData",

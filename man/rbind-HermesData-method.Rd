@@ -15,6 +15,3 @@ A HermesData
 \description{
 Combines HermesData objects with the same samples but differnet features of interest (rows in assays).
 }
-\examples{
-hd <- rbind(hd1, hd2)
-}
