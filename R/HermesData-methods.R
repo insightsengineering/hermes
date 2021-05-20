@@ -1,3 +1,5 @@
+# rbind ----
+
 #' Row Binding of HermesData Objects
 #'
 #' This method combines HermesData objects with the same samples but different
@@ -15,6 +17,7 @@
 #' @param ... (`HermesData`)\cr objects to row bind.
 #'
 #' @return The combined [HermesData] object.
+#' 
 #' @importMethodsFrom SummarizedExperiment rbind
 #'
 #' @examples
@@ -27,9 +30,11 @@
 #' 
 NULL
 
-#' Metadata Accessor
+# metadata ----
+
+#' Metadata Accessor and Setter
 #'
-#' This method accesses the metadata in a [HermesData] object.
+#' These methods access or set the metadata in a [HermesData] object.
 #' 
 #' @note Note that this just inherits [S4Vectors::metadata,Annotated-method()].
 #' 
@@ -38,6 +43,7 @@ NULL
 #' @param x (`HermesData`)\cr object to access the metadata from.
 #'
 #' @return The metadata which is a list.
+#' @importFrom S4Vectors `metadata<-`
 #' @importMethodsFrom S4Vectors metadata
 #' 
 #' @examples 
@@ -47,3 +53,54 @@ NULL
 #' metadata(a)
 #' 
 NULL
+
+# counts ----
+
+#' Counts Accessor and Setter
+#'
+#' These methods access and set the counts assay in a [HermesData] object.
+#' 
+#' @name counts
+#' 
+#' @param object (`HermesData`)\cr object to access the counts from.
+#' @param value (`matrix`)\cr what should the counts assay be replaced with.
+#'
+#' @return The counts assay.
+#'  
+#' @importFrom BiocGenerics counts
+#' @importFrom SummarizedExperiment assay
+#' @export
+#' 
+#' @examples 
+#' a <- hermes:::.HermesData(summarized_experiment)
+#' result <- counts(a)
+#' class(result)
+#' head(result)
+#' 
+setMethod(
+  f = "counts",
+  signature = "HermesData",
+  definition = function(object) {
+    SummarizedExperiment::assay(object)
+  }
+)
+
+#' @name counts
+#' 
+#' @importFrom BiocGenerics `counts<-`
+#' @importFrom SummarizedExperiment `assay<-`
+#' @export
+#' 
+#' @examples 
+#' counts(a) <- counts(a) + 100L
+#' head(counts(a))
+#' 
+setReplaceMethod(
+  f = "counts", 
+  signature = signature(object = "HermesData", value = "matrix"),
+  definition = function(object, value) {
+    assay(object) <- value
+    validObject(object)
+    object
+  }
+)   
