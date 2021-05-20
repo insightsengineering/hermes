@@ -24,4 +24,8 @@ reference:
     contents:
       - expression_set
       - summarized_experiment
+  - title: Methods
+    contents:
+      - rbind
+      - metadata
       

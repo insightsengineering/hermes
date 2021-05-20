@@ -17,11 +17,16 @@ get_se <- function() {
       SampleID = 1,
       LowDepthFlag = 1,
       TechnicalFailureFlag = 1
+    ),
+    metadata = list(
+      filename = "bla.txt",
+      hash = "9352983502"
     )
   )
 }
 
 # rbind ----
+
 test_that("rbind function works as expected for HermesData objects",{
   object <- get_se()
   h1 <- .HermesData(object[1])
@@ -42,4 +47,17 @@ test_that("rbind function works as expected when binding SummarizedExperiment wi
   expect_is(result1, "SummarizedExperiment")
   result2 <- expect_silent(rbind(h1, object))
   expect_is(result2, "SummarizedExperiment")
+})
+
+# ---- metadata
+
+test_that("metadata accessor works as expected", {
+  object <- get_se()
+  h1 <- .HermesData(object)
+  result <- expect_silent(metadata(h1))
+  expected <- list(
+    filename = "bla.txt",
+    hash = "9352983502"
+  )
+  expect_identical(result, expected)
 })
