@@ -15,7 +15,6 @@
 #' @param ... (`HermesData`)\cr objects to row bind.
 #'
 #' @return The combined [HermesData] object.
-#' @export
 #' @importMethodsFrom SummarizedExperiment rbind
 #'
 #' @examples
