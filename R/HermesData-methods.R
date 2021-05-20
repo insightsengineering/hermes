@@ -3,35 +3,27 @@
 #' This method combines HermesData objects with the same samples but different
 #' features of interest (rows in assays).
 #'
-#' @details Note that this is used implicitly via the generic [base::rbind()]
-#'   function, see [methods::rbind2()] for more information about the
-#'   dispatching details.
-#' @aliases rbind
+#' @note Note that this just inherits
+#'   [SummarizedExperiment::rbind,SummarizedExperiment-method()]. When binding a
+#'   [HermesData] object with a [SummarizedExperiment::SummarizedExperiment]
+#'   object, then the result will be a
+#'   [SummarizedExperiment::SummarizedExperiment] object (the more general
+#'   class).
 #'
-#' @param x (`HermesData`)\cr upper object.
-#' @param y (`HermesData`)\cr lower object.
+#' @name rbind
+#'
+#' @param ... (`HermesData`)\cr objects to row bind.
 #'
 #' @return The combined [HermesData] object.
 #' @export
+#' @importMethodsFrom SummarizedExperiment rbind
 #'
 #' @examples
-#' # todo
+#' a <- b <- hermes:::.HermesData(summarized_experiment)
+#' result <- rbind(a, b)
+#' class(result)
+#'
+#' result2 <- rbind(summarized_experiment, b)
+#' class(result2)
 #' 
-setMethod(
-  f = "rbind2", 
-  c("HermesData", "HermesData"),
-  function(x, y, ...) {
-    args <- list(x, y)
-    SummarizedExperiment:::.rbind.SummarizedExperiment(args)
-  }
-)
-
-.rbind2.error <- function(x, y, ...) {
-  stop("one argument is not of class HermesData, please first convert it")
-}
-
-#' @export
-setMethod(f = "rbind2", c("ANY", "HermesData"), .rbind2.error)
-
-#' @export
-setMethod(f = "rbind2", c("HermesData", "ANY"), .rbind2.error)
+NULL
