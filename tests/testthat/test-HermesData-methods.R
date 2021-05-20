@@ -37,7 +37,6 @@ test_that("rbind function works as expected for HermesData objects",{
   expect_equal(dim(result), dim(h3))
   expect_equal(rowData(result), rowData(h3))
   expect_equal(colData(result), colData(h3))
-  expect_equal(result, h3)
 })
 
 test_that("rbind function works as expected when binding SummarizedExperiment with HermesData", {
