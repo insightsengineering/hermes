@@ -15,7 +15,7 @@ NULL
 #' assert_that(is(a, "character"))
 #' "Error: a is not of class character"
  
-on_failure(is) <- function(call, env) {
+assertthat::on_failure(is) <- function(call, env) {
   obj_name <- deparse(call$object)
   class <- eval(call$class2, env)
   paste(obj_name, "is not of class", class)
