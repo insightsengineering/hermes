@@ -12,11 +12,10 @@ NULL
 #' @describeIn validate validates that the first assay is `counts` containing
 #'   non-missing, integer, non-negative values.
 #' @param object (`SummarizedExperiment`)\cr object to validate.
-#' @importFrom SummarizedExperiment assayNames assay
 #'   
 validate_counts <- function(object) {
   
-  nams <- SummarizedExperiment::assayNames(object)
+  nams <- assayNames(object)
   if (!("counts" %in% nams)) {
     return("no 'counts' assay found")
   }
@@ -26,7 +25,7 @@ validate_counts <- function(object) {
   
   msg <- NULL
   
-  counts <- SummarizedExperiment::assay(object)
+  counts <- assay(object)
   if (!is.integer(counts)) {
     msg <- c(msg, "'counts' must be numeric in integer mode")
   }
@@ -71,7 +70,6 @@ validate_non_empty <- function(df) {
 
 #' @describeIn validate validates that the object contains `rowData` with
 #'   required columns.
-#' @importFrom SummarizedExperiment rowData
 #'   
 validate_row_data <- function(object) {
   msg <- NULL
@@ -79,7 +77,7 @@ validate_row_data <- function(object) {
   non_empty_cols <- c("HGNC", "GeneID", "Chromosome", "StartBP", "EndBP", "WidthBP")
   additional_cols <- c("HGNCGeneName", "CanonicalTranscript", "ProteinTranscript", "LowExpressionFlag")
   required_cols <- c(non_empty_cols, additional_cols)
-  row_data <- SummarizedExperiment::rowData(object)
+  row_data <- rowData(object)
   
   colnams <- colnames(row_data)
   msg <- c(msg, validate_cols(required_cols, colnams))
@@ -94,7 +92,6 @@ validate_row_data <- function(object) {
 
 #' @describeIn validate validates that the object contains `colData` with
 #'   required columns.
-#' @importFrom SummarizedExperiment colData
 #'   
 validate_col_data <- function(object) {
   msg <- NULL
@@ -102,7 +99,7 @@ validate_col_data <- function(object) {
   non_empty_cols <- c("SampleID")
   additional_cols <- c("LowDepthFlag", "TechnicalFailureFlag")
   required_cols <- c(non_empty_cols, additional_cols)
-  col_data <- SummarizedExperiment::colData(object)
+  col_data <- colData(object)
   
   colnams <- colnames(col_data)
   msg <- c(msg, validate_cols(required_cols, colnams))

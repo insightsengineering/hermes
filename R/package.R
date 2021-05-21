@@ -5,5 +5,6 @@
 "_PACKAGE"
 
 #' @import methods
+#' @import SummarizedExperiment
 #' @import testthat
 NULL

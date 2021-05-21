@@ -1,7 +1,7 @@
 # .HermesData ----
 
 test_that("HermesData objects can be created with default constructor .HermesData", {
-  object <- SummarizedExperiment::SummarizedExperiment(
+  object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     rowData = data.frame(
       HGNC = 1, 
@@ -27,7 +27,7 @@ test_that("HermesData objects can be created with default constructor .HermesDat
 })
 
 test_that("HermesData validation fails as expected", {
-  object <- SummarizedExperiment::SummarizedExperiment(
+  object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1))
   )
   expect_error(.HermesData(object), "required columns .+ not present")

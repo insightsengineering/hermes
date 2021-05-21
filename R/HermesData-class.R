@@ -30,7 +30,6 @@ NULL
 #'   
 #' @aliases HermesData
 #' @exportClass HermesData
-#' @importClassesFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom S4Vectors setValidity2
 #'
 .HermesData <- setClass(

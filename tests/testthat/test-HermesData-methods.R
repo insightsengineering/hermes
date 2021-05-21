@@ -1,5 +1,5 @@
 get_se <- function() {
-  SummarizedExperiment::SummarizedExperiment(
+  SummarizedExperiment(
     list(counts = matrix(1L, 2, 1)),
     rowData = data.frame(
       HGNC = c(1, 1),
@@ -27,7 +27,7 @@ get_se <- function() {
 
 # rbind ----
 
-test_that("rbind function works as expected for HermesData objects",{
+test_that("rbind function works as expected for HermesData objects", {
   object <- get_se()
   h1 <- .HermesData(object[1])
   h2 <- .HermesData(object[2])
@@ -48,7 +48,7 @@ test_that("rbind function works as expected when binding SummarizedExperiment wi
   expect_is(result2, "SummarizedExperiment")
 })
 
-# ---- metadata
+# metadata ----
 
 test_that("metadata accessor works as expected", {
   object <- get_se()
@@ -59,4 +59,30 @@ test_that("metadata accessor works as expected", {
     hash = "9352983502"
   )
   expect_identical(result, expected)
+})
+
+test_that("metadata setter works as expected", {
+  object <- get_se()
+  h1 <- .HermesData(object)
+  value <- list(a = "foo")
+  expect_silent(metadata(h1) <- value)
+  expect_identical(metadata(h1), value)
+})
+
+# counts ----
+
+test_that("counts accessor works as expected", {
+  object <- get_se()
+  h1 <- .HermesData(object)
+  result <- expect_silent(counts(h1))
+  expect_is(result, "matrix")
+  expect_identical(dim(result), dim(h1))
+})
+
+test_that("counts setter works as expected", {
+  object <- get_se()
+  h1 <- .HermesData(object)
+  value <- matrix(0L, nrow = nrow(h1), ncol = ncol(h1))
+  expect_silent(counts(h1) <- value)
+  expect_equivalent(counts(h1), value)
 })
