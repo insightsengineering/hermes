@@ -24,5 +24,7 @@ Collate:
     'HermesData-validate.R'
     'HermesData-class.R'
     'HermesData-methods.R'
+    'assertthat.R'
     'data.R'
     'package.R'
+    'test-assertthat.R'
