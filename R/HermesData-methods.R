@@ -28,6 +28,36 @@
 #' 
 NULL
 
+# cbind ----
+
+#' Column Binding of HermesData Objects
+#'
+#' This method combines HermesData objects with the same ranges but different
+#' samples (columns in assays).
+#'
+#' @note Note that this just inherits
+#'   [SummarizedExperiment::cbind,SummarizedExperiment-method()]. When binding a
+#'   [HermesData] object with a [SummarizedExperiment::SummarizedExperiment]
+#'   object, then the result will be a
+#'   [SummarizedExperiment::SummarizedExperiment] object (the more general
+#'   class).
+#'
+#' @name cbind
+#'
+#' @param ... (`HermesData`)\cr objects to column bind.
+#'
+#' @return The combined [HermesData] object.
+#'
+#' @examples
+#' a <- b <- hermes:::.HermesData(summarized_experiment)
+#' result <- cbind(a, b)
+#' class(result)
+#'
+#' result2 <- cbind(summarized_experiment, b)
+#' class(result2)
+#' 
+NULL
+
 # metadata ----
 
 #' Metadata Accessor and Setter

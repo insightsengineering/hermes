@@ -1,6 +1,6 @@
 get_se <- function() {
   SummarizedExperiment(
-    list(counts = matrix(1L, 2, 1)),
+    list(counts = matrix(1L, 2, 2)),
     rowData = data.frame(
       HGNC = c(1, 1),
       GeneID = c(1, 1),
@@ -14,9 +14,9 @@ get_se <- function() {
       LowExpressionFlag = c(1, 1)
     ),
     colData = data.frame(
-      SampleID = 1,
-      LowDepthFlag = 1,
-      TechnicalFailureFlag = 1
+      SampleID = c(1, 1),
+      LowDepthFlag = c(1, 1),
+      TechnicalFailureFlag = c(1,1)
     ),
     metadata = list(
       filename = "bla.txt",
@@ -45,6 +45,29 @@ test_that("rbind function works as expected when binding SummarizedExperiment wi
   result1 <- expect_silent(rbind(object, h1))
   expect_is(result1, "SummarizedExperiment")
   result2 <- expect_silent(rbind(h1, object))
+  expect_is(result2, "SummarizedExperiment")
+})
+
+# cbind ----
+
+test_that("cbind function works as expected for HermesData objects", {
+  object <- get_se()
+  h1 <- .HermesData(object[,1])
+  h2 <- .HermesData(object[,2])
+  h3 <- .HermesData(object)
+  result <- expect_silent(cbind(h1, h2))
+  expect_is(result, "HermesData")
+  expect_equal(dim(result), dim(h3))
+  expect_equal(rowData(result), rowData(h3))
+  expect_equal(colData(result), colData(h3))
+})
+
+test_that("cbind function works as expected when binding SummarizedExperiment with HermesData", {
+  object <- get_se()
+  h1 <- .HermesData(object)
+  result1 <- expect_silent(cbind(object, h1))
+  expect_is(result1, "SummarizedExperiment")
+  result2 <- expect_silent(cbind(h1, object))
   expect_is(result2, "SummarizedExperiment")
 })
 
