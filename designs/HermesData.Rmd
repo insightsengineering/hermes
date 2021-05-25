@@ -42,15 +42,17 @@ The `gSummarizedExperiment` class in `rnaseqTools` is an extention to the `Summa
 
 #### `HermesData`
 
-The `HermesData` object has similarities from the `SummarizedExperiment` and the `gSummarizedExperiment` objects. To be specific,
+The `HermesData` function has similarities from the `SummarizedExperiment` and the `gSummarizedExperiment` functions. To be specific,
 
-* The first assay must be `counts` containing non-missing, integer, non-negative values.
+* The `gSummarizedExperiment()` takes `assays`, `rowData`, `colData` and `metadata` as input, while `HermesData()` directly takes `SummarizedExperiment` object as input.
 
-* Similar to the `gSummarizedExperiment()`, `HermesData()` must have mandatory rowData (HGNC, HGNCGeneName, etc) and colData (Filename, SampleID, etc). 
+* The first assay must be `counts` containing non-missing, integer, non-negative values. If the assay is not included, or containing missing/non-interger/negative values, the function will stop and return error message.
+
+* Similar to the `gSummarizedExperiment()`, `HermesData()` must have mandatory rowData (HGNC, HGNCGeneName, etc) and colData (Filename, SampleID, etc). If the input does not include these rowData or colData elements, the function will assign the elements with NA values. 
 
   + At this point, we don't look up GeneID row data. It will be updated later.
 
 
-* The `gSummarizedExperiment()` takes `assays`, `rowData`, `colData` and `metadata` as input, while `HermesData()` directly takes `SummarizedExperiment` object as input.
+
 
  
