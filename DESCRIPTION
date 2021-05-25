@@ -16,6 +16,7 @@ Depends:
     R (>= 3.6),
     SummarizedExperiment (>= 1.16)
 Imports:
+    assertthat,
     BiocGenerics,
     methods,
     S4Vectors,
@@ -27,4 +28,3 @@ Collate:
     'assertthat.R'
     'data.R'
     'package.R'
-    'test-assertthat.R'
