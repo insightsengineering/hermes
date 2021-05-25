@@ -11,12 +11,12 @@ get_se <- function() {
       HGNCGeneName = c(1, 1),
       CanonicalTranscript = c(1, 1),
       ProteinTranscript = c(1, 1),
-      LowExpressionFlag = c(1, 1)
+      LowExpressionFlag = c(TRUE, FALSE)
     ),
     colData = data.frame(
-      SampleID = c(1, 1),
-      LowDepthFlag = c(1, 1),
-      TechnicalFailureFlag = c(1,1)
+      SampleID = c(1, 2),
+      LowDepthFlag = c(TRUE, FALSE),
+      TechnicalFailureFlag = c(FALSE, TRUE)
     ),
     metadata = list(
       filename = "bla.txt",
@@ -108,4 +108,20 @@ test_that("counts setter works as expected", {
   value <- matrix(0L, nrow = nrow(h1), ncol = ncol(h1))
   expect_silent(counts(h1) <- value)
   expect_equivalent(counts(h1), value)
+})
+
+# subset ----
+
+test_that("subset function works as expected for HermesData objects", {
+  h <- .HermesData(get_se())
+  result <- expect_silent(subset(
+    h, 
+    subset = LowExpressionFlag, 
+    select = !TechnicalFailureFlag
+  ))
+  expect_is(result, "HermesData")
+  expect_identical(nrow(result), sum(rowData(h)$LowExpressionFlag))
+  expect_identical(ncol(result), sum(!h$TechnicalFailureFlag))
+  expect_true(all(rowData(result)$LowExpressionFlag))
+  expect_true(all(!result$TechnicalFailureFlag))
 })

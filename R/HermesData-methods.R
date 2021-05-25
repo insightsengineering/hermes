@@ -133,3 +133,24 @@ setReplaceMethod(
     object
   }
 )   
+
+# subset ----
+
+#' Subsetting HermesData Objects
+#'
+#' This method subsets HermesData objects, based on expressions involving the
+#' `rowData` columns and the `colData` columns.
+#'
+#' @note Note that this just inherits
+#'   [SummarizedExperiment::subset,SummarizedExperiment-method()].
+#'
+#' @name subset
+#'
+#' @return The subsetted [HermesData] object.
+#'
+#' @examples
+#' a <- hermes:::.HermesData(summarized_experiment)
+#' a
+#' subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
+#' 
+NULL
