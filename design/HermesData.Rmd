@@ -51,8 +51,64 @@ The `HermesData` function has similarities from the `SummarizedExperiment` and t
 * Similar to the `gSummarizedExperiment()`, `HermesData()` must have mandatory rowData (HGNC, HGNCGeneName, etc) and colData (Filename, SampleID, etc). If the input does not include these rowData or colData elements, the function will assign the elements with NA values. 
 
   + At this point, we don't look up GeneID row data. It will be updated later.
+  
+  
+## Idea 1: take SE as argument
 
+Let's say we need to have an assay in the SE. Otherwise we don't have any data.
 
+First: what is if there is no `colData`? Let's try with a very simple SE:
 
+```{r}
+library(SummarizedExperiment)
+se <- SummarizedExperiment(matrix(1:4, 2, 2))
+se
+rownames(colData(se))
+```
 
- 
+OK, if the assay did not have row names, the SE also does not have.
+But if the assay has row names:
+
+```{r}
+my_assay <- matrix(1:4, 2, 2, dimnames = list(c("a", "b"), c("c", "d")))
+rownames(my_assay)
+se <- SummarizedExperiment(my_assay)
+rownames(colData(se))
+rownames(rowData(se))
+```
+Then the SE also has row names.
+
+So if we take an SE, it will already have correct row names for `colData` and `rowData.` We can see what goes wrong when using the internal constructor:
+
+```{r}
+# hermes:::.HermesData(se)
+```
+
+OK so what we want to help the user is to add the mandatory columns for `colData` and `rowData`, as well as annotate the genes (i.e. adding row data) via IGIS (we'll implement that in the next sprint).
+
+Question: there are some columns can't be completely `NA`. These are captured in the internal package constants `.row_data_non_empty_cols` and `.col_data_non_empty_cols`. We don't try to impute these in the constructor since later this would anyway fail the validation. That means these columns need to be supplied by the input object already.
+
+```{r}
+annotate_igis <- identity # to be implemented later
+
+HermesData <- function(object) {
+  assert_that(
+    is_class(object, "SummarizedExperiment"),
+    not_empty(assays(object)),
+    not_empty(rowData(object)),
+    not_empty(colData(object))
+  )
+  
+  object <- annotate_igis(object)
+  
+  missing_row <- setdiff(.row_data_additional_cols, names(rowData(object)))
+  rowData(object)[, missing_row] <- NA
+  
+  missing_col <- setdiff(.col_data_additional_cols, names(colData(object)))
+  colData(object)[, missing_col] <- NA
+  
+  .HermesData(object)
+}
+```
+
+We don't tinker with the assays here since that needs to be already correctly set in the object (counts assay with non-negative integers etc.).
