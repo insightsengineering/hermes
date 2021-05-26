@@ -32,3 +32,13 @@ test_that("HermesData validation fails as expected", {
   )
   expect_error(.HermesData(object), "required columns .+ not present")
 })
+
+# makeSummarizedExperimentFromExpressionSet ----
+
+test_that("SummarizedExperiment object is created by makeSummarizedExperimentFromExpressionSet() function", {
+  #needs ExpressionSet example/object here
+  object <- 
+  result <- expect_silent(makeSummarizedExperimentFromExpressionSet(object))
+  expect_is(result, "SummarizedExperiment")
+  expect_true(validObject(result))
+})

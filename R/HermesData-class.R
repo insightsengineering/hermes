@@ -31,7 +31,23 @@ NULL
 #' @aliases HermesData
 #' @exportClass HermesData
 #' @importFrom S4Vectors setValidity2
-#'
+#' @examples
+#' You can also import an ExpressionSet by using the makeSummarizedExperimentFromExpressionSet() function 
+#' to convert to a SummarizedExperiment object and then convert again into an HermesData object. 
+#' 
+#' # Convert to SummarizedExperiment using the default naive range mapper
+#' se <- makeSummarizedExperimentFromExpressionSet(sample.ExpressionSet)
+#' 
+#' # Convert to SummarizedExperiment using the probe range mapper
+#' se <- makeSummarizedExperimentFromExpressionSet(sample.ExpressionSet, probeRangeMapper)
+#' 
+#' # Convert to SummarizedExperiment using the gene range mapper
+#' se <- makeSummarizedExperimentFromExpressionSet(sample.ExpressionSet,
+#'                                           geneRangeMapper("TxDb.Hsapiens.UCSC.hg19.knownGene"))
+#'                                           
+#' # Convert to HermesData
+#' result <- hermes:::.HermesData(se)
+#' 
 .HermesData <- setClass(
   "HermesData",
   contains = "SummarizedExperiment"
