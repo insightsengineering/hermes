@@ -11,49 +11,18 @@ vignette: >
 
 ## The `HermesData`
 
-### Comparison of `SummarizedExperiment`, `gSummarizedExperiment` and `HermesData`
+The `HermesData` constructor shall borrow ideas from the legacy [se2gSE](https://github.roche.com/Rpackages/rnaseqTools/blob/dae3c425cf5bf0d45848323f722b558ce3bbf851/R/gSE_Build.R#L39)  and [gSummarizedExperiment](https://github.roche.com/Rpackages/rnaseqTools/blob/dae3c425cf5bf0d45848323f722b558ce3bbf851/R/gSE-class.R#L175) functions. To be specific,
 
-#### `SummarizedExperiment` 
+* The `gSummarizedExperiment()` takes `assays`, `rowData`, `colData` and `metadata` as input, while `HermesData()` should directly take `SummarizedExperiment` object as input, similar like `se2gSE()`.
 
-The `SummarizedExperiment` class is similar to the historical `ExpressionSet`, the main distinction being that `SummarizedExperiment` is more flexible in its row information, allowing both `GRanges` based as well as those described by arbitrary DataFrames. This makes it ideally suited to a variety of experiments, particularly sequencing based experiments such as RNA-Seq and ChIP-Seq.
+* The first assay must be `counts` containing non-missing, integer, non-negative values.
 
-#### `gSummarizedExperiment` 
+* Similar to the `gSummarizedExperiment()`, `HermesData()` must have mandatory `rowData` (HGNC, HGNCGeneName, etc) and `colData` (Filename, SampleID, etc) columns. If the input does not include these `rowData` or `colData` columns, the function will fill the columns with `NA` values. 
 
-The `gSummarizedExperiment` class in `rnaseqTools` is an extention to the `SummarizedExperiment` class by imposing mandatory columns on both the feature data (rowData) and the phenotype data (colData). So the structure of a `gSummarizedExperiment` object is exactly the same as a `SummarizedExperiment` object except that in a `gSummarizedExperiment` object:
-
-* **rowData** must contain the following variables that are retrived from the `igis` package: 
-    + HGNC: standardised nomenclature to human genes assigned by the The HUGO Gene Nomenclature Committee
-    + HGNCGeneName: HGNC gene names
-    + GeneID: Unique stable identifiers for genes and other loci for a subset of model organisms, using either EntrezID (by Entrez Gene) or EnsemblID (Ensembl databse).
-    + Chromosome: Chromosome number of a given feature
-    + StartBP: Genomic start position (as in base pair) of a given gene 
-    + EndBP: Genomic end position (as in base pair) of a given gene 
-    + WidthBP: length (as in base pair) of a given gene 
-    + CanonicalTransript: 
-    + ProteinTranscript: 
-    + LowExpressionFlag: whether a gene should be considered as a low expressed gene and exclude from drownstream analyses. 
-
-          
-* **colData** must contain variables: 
-    + Filename: path to the raw fastq files 
-    + SampleID: sample identification 
-    + LowDepthFlag: suggests whether a sample's libarary size is smaller than usual and be excluded. 
-    + TechnicalFailureFlag: suggests whether a sample may be considered a technical failure and be excluded. 
-
-#### `HermesData`
-
-The `HermesData` function has similarities from the `SummarizedExperiment` and the `gSummarizedExperiment` functions. To be specific,
-
-* The `gSummarizedExperiment()` takes `assays`, `rowData`, `colData` and `metadata` as input, while `HermesData()` directly takes `SummarizedExperiment` object as input.
-
-* The first assay must be `counts` containing non-missing, integer, non-negative values. If the assay is not included, or containing missing/non-interger/negative values, the function will stop and return error message.
-
-* Similar to the `gSummarizedExperiment()`, `HermesData()` must have mandatory rowData (HGNC, HGNCGeneName, etc) and colData (Filename, SampleID, etc). If the input does not include these rowData or colData elements, the function will assign the elements with NA values. 
-
-  + At this point, we don't look up GeneID row data. It will be updated later.
+Note: At this point, we don't yet look up gene annotation data. It will be updated later.
   
   
-## Idea 1: take SE as argument
+## Idea: take SE as argument
 
 Let's say we need to have an assay in the SE. Otherwise we don't have any data.
 
