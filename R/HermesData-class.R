@@ -22,7 +22,17 @@ NULL
 #'   - `SampleID`
 #'   - `LowDepthFlag`
 #'   - `TechnicalFailureFlag`
-#'
+#'   
+#' @examples
+#' You can also import an [Biobase::ExpressionSet] by using the [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] 
+#' function to convert to a SummarizedExperiment object and then convert again into an HermesData object. 
+#' 
+#' # Convert to SummarizedExperiment using the default naive range mapper
+#' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
+#'                                           
+#' # Convert to HermesData
+#' result <- hermes:::.HermesData(se)
+#' 
 #' @note Note that we use [S4Vectors::setValidity2()] to define the validity
 #'   method, which allows us to turn off the validity checks in internal
 #'   functions where intermediate objects may not be valid within the scope of
@@ -31,22 +41,6 @@ NULL
 #' @aliases HermesData
 #' @exportClass HermesData
 #' @importFrom S4Vectors setValidity2
-#' @examples
-#' You can also import an ExpressionSet by using the makeSummarizedExperimentFromExpressionSet() function 
-#' to convert to a SummarizedExperiment object and then convert again into an HermesData object. 
-#' 
-#' # Convert to SummarizedExperiment using the default naive range mapper
-#' se <- makeSummarizedExperimentFromExpressionSet(sample.ExpressionSet)
-#' 
-#' # Convert to SummarizedExperiment using the probe range mapper
-#' se <- makeSummarizedExperimentFromExpressionSet(sample.ExpressionSet, probeRangeMapper)
-#' 
-#' # Convert to SummarizedExperiment using the gene range mapper
-#' se <- makeSummarizedExperimentFromExpressionSet(sample.ExpressionSet,
-#'                                           geneRangeMapper("TxDb.Hsapiens.UCSC.hg19.knownGene"))
-#'                                           
-#' # Convert to HermesData
-#' result <- hermes:::.HermesData(se)
 #' 
 .HermesData <- setClass(
   "HermesData",
