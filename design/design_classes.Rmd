@@ -142,5 +142,109 @@ counts(rhd)
 
 So that works well. Actually, since the validity method is the same, we can also do the same for the validation.
 
+### Coercion
 
- 
+We might also want to allow users to coerce between HD and RHD. We can walk the inheritance path up to the SE level and then use the coercion between SE and RSE before calling the constructor.
+
+```{r}
+setAs(
+  from = "RHD",
+  to = "HD",
+  def = function(from) {
+    rse <- as(from, "RangedSummarizedExperiment")
+    HD(as(rse, "SummarizedExperiment"))
+  }
+)
+
+setAs(
+  from = "HD",
+  to = "RHD",
+  def = function(from) {
+    se <- as(from, "SummarizedExperiment")
+    RHD(as(from, "RangedSummarizedExperiment"))
+  }
+)
+```
+
+Try that this works:
+
+```{r}
+as(rhd, "HD")
+as(hd, "RHD")
+```
+
+### Row ranges
+
+We will want to use the `rowRanges()` method on RHD (and HD where nothing is there).
+
+```{r}
+rowRanges(rhd)
+rowRanges(hd)
+```
+
+So this works. The big advantage here is that we get this for free via inheriting from RSE and we don't need to do anything ourselves.
+
+### Binding
+
+```{r}
+rbind(rhd, rhd)
+cbind(rhd, rhd)
+```
+
+So just works.
+
+### Constructor from (R)SE
+
+Here we could have a single function and then decide based on RSE vs. SE input class.
+
+```{r}
+library(assertthat)
+MakeHD <- function(object) {
+  assert_that(is_class(object, "SummarizedExperiment"))
+  # check here things, annotate etc.
+  if (is(object, "RangedSummarizedExperiment")) RHD(object) else HD(object)
+}
+```
+
+Try out:
+
+```{r}
+MakeHD(se)
+MakeHD(rse)
+```
+
+### Constructor from matrix
+
+Also here we could have a single function.
+
+```{r}
+HDfromMatrix <- function(counts, ...) {
+  # se will either be SE or RSE, depending on ... contents.
+  se <- SummarizedExperiment(
+    list(counts = counts),
+    ...
+  )
+  # Then MakeHD will do depending on that HD or RHD.
+  MakeHD(se)
+}
+```
+
+Try this out.
+
+```{r}
+counts <- matrix(1:4, 2, 2)
+hd <- HDfromMatrix(counts, colData = data.frame(A = c(1, 2)), rowData = data.frame(B = c(1, 2)))
+rowRanges <- GRanges(
+  c("chr1", "chr2"),
+  IRanges(c(124L, 134214L), width=100),
+  strand=c("+", "-"),
+  feature_id= c(1L, 2L),
+  B = c(1, 2)
+)
+rhd <- HDfromMatrix(counts, rowRanges = rowRanges, colData = data.frame(A = c(1, 2)))
+```
+
+So this works.
+
+
+
