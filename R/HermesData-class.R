@@ -30,7 +30,7 @@ NULL
 #' # Convert to SummarizedExperiment using the default naive range mapper.
 #' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
 #'                                           
-#' # Convert to HermesData
+#' # Convert to HermesData.
 #' result <- hermes:::.HermesData(se)
 #' 
 #' @note Note that we use [S4Vectors::setValidity2()] to define the validity
