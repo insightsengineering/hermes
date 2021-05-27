@@ -1,0 +1,146 @@
+---
+title: "Design: Class inheritance in hermes"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+This vignette explores what could be a good class inheritance design in the hermes package.
+
+## Objectives
+
+We want to have two classes: 
+- `HermesData` (short HD) which is a "normal" `SummarizedExperiment` (short SE)
+- `RangedHermesData` (short RHD) which should have row ranges in addition.
+
+Both of the classes should fulfill same validation requirements, they need to have certain `rowData` and `colData` columns and specific assay.
+
+## Question
+
+The question is now how these classes relate to each other, as well as if we want to inherit from `RangedSummarizedExperiment` (short RSE).
+
+## Idea 1: parallel inheritance
+
+Here we inherit in parallel:
+- HD inherits from SE
+- RHD inherits from RSE
+
+For illustration we work with the acronyms here so we don't intersect with the classes already in this package.
+
+```{r}
+library(SummarizedExperiment)
+
+HD <- setClass(
+  "HD",
+  contains = "SummarizedExperiment"
+)
+
+RHD <- setClass(
+  "RHD",
+  contains = "RangedSummarizedExperiment"
+)
+```
+
+### Validation
+
+Let's see how we can define the validation methods here.
+
+We can define a function:
+
+```{r}
+.validate.HD <- function(object) {
+  msg <- NULL
+  if (!("counts" %in% assayNames(object))) {
+    msg <- c(msg, "counts needs to be an assay")
+  }
+  if (!("A" %in% names(colData(object)))) {
+    msg <- c(msg, "column A needs to be in colData")
+  }
+  if (!("B" %in% names(rowData(object)))) {
+    msg <- c(msg, "column B needs to be in rowData")
+  }
+  msg
+}
+```
+
+Then set the validity methods for both classes to this function:
+
+```{r}
+setValidity2(
+  "HD",
+  method = .validate.HD
+)
+
+setValidity2(
+  "RHD",
+  method = .validate.HD
+)
+```
+
+Then try this out:
+
+```{r}
+se <- SummarizedExperiment(
+  list(counts = matrix(1:4, 2, 2)),
+  colData = data.frame(A = c(1, 2)),
+  rowData = data.frame(B = c(3, 4))
+)
+hd <- HD(se)
+```
+
+This works, but:
+
+```{r}
+RHD(se)
+```
+
+does not work. Seems we need to create the RSE differently.
+
+```{r}
+rse <- as(se, "RangedSummarizedExperiment")
+rhd <- RHD(rse)
+```
+
+OK so it works like that, nice.
+
+### Shared methods
+
+How can we define the shared methods that work the same way, e.g. the `counts` accessor method, here?
+
+One idea is to define a class union first.
+
+```{r}
+setClassUnion(
+  "AHD",
+  c("HD", "RHD")
+)
+```
+
+Then the define the method for that super class:
+
+```{r}
+setMethod(
+  "counts",
+  signature = "AHD",
+  definition = function(object) {
+    assay(object, "counts")
+  }
+)
+```
+
+Try out:
+
+```{r}
+counts(hd)
+counts(rhd)
+```
+
+So that works well. Actually, since the validity method is the same, we can also do the same for the validation.
+
+
+ 
