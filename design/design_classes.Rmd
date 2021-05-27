@@ -18,7 +18,7 @@ We want to have two classes:
 - `HermesData` (short HD) which is a "normal" `SummarizedExperiment` (short SE)
 - `RangedHermesData` (short RHD) which should have row ranges in addition.
 
-Both of the classes should fulfill same validation requirements, they need to have certain `rowData` and `colData` columns and specific assay.
+Both of the classes should fulfill same validation requirements, they need to have certain `rowData` and `colData` columns and specific assay ("counts").
 
 ## Question
 
@@ -233,7 +233,11 @@ Try this out.
 
 ```{r}
 counts <- matrix(1:4, 2, 2)
-hd <- HDfromMatrix(counts, colData = data.frame(A = c(1, 2)), rowData = data.frame(B = c(1, 2)))
+hd <- HDfromMatrix(counts, 
+                   colData = data.frame(A = c(1, 2)), 
+                   rowData = data.frame(B = c(1, 2)))
+hd
+
 rowRanges <- GRanges(
   c("chr1", "chr2"),
   IRanges(c(124L, 134214L), width=100),
@@ -242,6 +246,7 @@ rowRanges <- GRanges(
   B = c(1, 2)
 )
 rhd <- HDfromMatrix(counts, rowRanges = rowRanges, colData = data.frame(A = c(1, 2)))
+rhd
 ```
 
 So this works.
