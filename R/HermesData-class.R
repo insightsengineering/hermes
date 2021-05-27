@@ -23,10 +23,10 @@ NULL
 #'   - `LowDepthFlag`
 #'   - `TechnicalFailureFlag`
 #'   
+#' An [Biobase::ExpressionSet] object can be imported by using the [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] 
+#' function to convert to a SummarizedExperiment object before converting again into an HermesData object.
+#'  
 #' @examples
-#' You can also import an [Biobase::ExpressionSet] by using the [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] 
-#' function to convert to a SummarizedExperiment object and then convert again into an HermesData object. 
-#' 
 #' # Convert to SummarizedExperiment using the default naive range mapper.
 #' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
 #'                                           
