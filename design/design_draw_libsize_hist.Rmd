@@ -1,0 +1,47 @@
+---
+title: "Design: draw_libsize_hist()"
+author: "Jeff Luong"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+Update and replace the `draw_hist()` function from `rnaseqTools` to use `ggplot2` and use an `HermesData` object as input.
+
+## Idea
+
+In order to plot the library depth, we need to access the counts data in the `HermesData` object.
+
+```{r}
+#Creating the HermesData object from the example SummarizedExperiment object.
+result <- .HermesData(summarized_experiment)
+
+#Accessing the counts data.
+assays(result)$counts
+
+#Calculating the library depth per sample.
+colSums(assays(result)$counts)
+
+#Coercing the library depth into a data frame because ggplot requires a data frame object.
+matrix <- as.data.frame(colSums(assays(object)$counts))
+
+#Putting the final function together.
+draw_libsize_hist <- function(object, ...){
+  matrix <- as.data.frame(colSums(assays(object)$counts))
+  colnames(matrix) <- "depth"
+  ggplot(matrix, aes(depth)) +
+    geom_histogram(color = "white", bins = 30) +
+    ggtitle("Histogram of Library Sizes") +
+    xlab("Library Depth") +
+    ylab("Frequency")
+}
+
+#Running the function.
+draw_libsize_hist(result)
+```
