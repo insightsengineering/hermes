@@ -16,6 +16,7 @@ Depends:
     R (>= 3.6),
     SummarizedExperiment (>= 1.16)
 Imports:
+    assertthat,
     BiocGenerics,
     methods,
     S4Vectors,
@@ -24,5 +25,6 @@ Collate:
     'HermesData-validate.R'
     'HermesData-class.R'
     'HermesData-methods.R'
+    'assertthat.R'
     'data.R'
     'package.R'
