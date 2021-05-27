@@ -27,7 +27,7 @@ NULL
 #' You can also import an [Biobase::ExpressionSet] by using the [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] 
 #' function to convert to a SummarizedExperiment object and then convert again into an HermesData object. 
 #' 
-#' # Convert to SummarizedExperiment using the default naive range mapper
+#' # Convert to SummarizedExperiment using the default naive range mapper.
 #' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
 #'                                           
 #' # Convert to HermesData
