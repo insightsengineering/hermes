@@ -9,6 +9,12 @@
 #'   case validation passes.
 NULL
 
+# Constants which are used in multiple places.
+.row_data_non_empty_cols <- c("HGNC", "GeneID", "Chromosome", "StartBP", "EndBP", "WidthBP")
+.row_data_additional_cols <- c("HGNCGeneName", "CanonicalTranscript", "ProteinTranscript", "LowExpressionFlag")
+.col_data_non_empty_cols <- c("SampleID")
+.col_data_additional_cols <- c("LowDepthFlag", "TechnicalFailureFlag")
+
 #' @describeIn validate validates that the first assay is `counts` containing
 #'   non-missing, integer, non-negative values.
 #' @param object (`SummarizedExperiment`)\cr object to validate.
@@ -74,8 +80,8 @@ validate_non_empty <- function(df) {
 validate_row_data <- function(object) {
   msg <- NULL
   
-  non_empty_cols <- c("HGNC", "GeneID", "Chromosome", "StartBP", "EndBP", "WidthBP")
-  additional_cols <- c("HGNCGeneName", "CanonicalTranscript", "ProteinTranscript", "LowExpressionFlag")
+  non_empty_cols <- .row_data_non_empty_cols
+  additional_cols <- .row_data_additional_cols
   required_cols <- c(non_empty_cols, additional_cols)
   row_data <- rowData(object)
   
@@ -96,8 +102,8 @@ validate_row_data <- function(object) {
 validate_col_data <- function(object) {
   msg <- NULL
   
-  non_empty_cols <- c("SampleID")
-  additional_cols <- c("LowDepthFlag", "TechnicalFailureFlag")
+  non_empty_cols <- .col_data_non_empty_cols
+  additional_cols <- .col_data_additional_cols
   required_cols <- c(non_empty_cols, additional_cols)
   col_data <- colData(object)
   
