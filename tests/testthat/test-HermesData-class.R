@@ -42,7 +42,7 @@ test_that("HermesData objects can be created with constructor HermesData", {
 
 test_that("HermesData constructor fails with readable error message when there are no assays", {
   input <- SummarizedExperiment()
-  expect_error(HermesData(input), "assays(object) has an empty dimension")
+  expect_error(HermesData(input), "assays(object) has an empty dimension", fixed = TRUE)
 })
 
 # makeSummarizedExperimentFromExpressionSet ----
