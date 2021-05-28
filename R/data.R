@@ -7,7 +7,7 @@
 #' @format A [Biobase::ExpressionSet] object with 20 samples covering 5085
 #'   features (Entrez gene IDs).
 #' @source This is an artificial dataset designed to resemble real data.
-#' @seealso summarized_experiment which contains the same data as 
+#' @seealso summarized_experiment which contains similar data as 
 #'   [SummarizedExperiment::SummarizedExperiment].
 "expression_set"
 
@@ -19,5 +19,5 @@
 #' @format A [SummarizedExperiment::SummarizedExperiment] object with 20 samples covering
 #'   5085 features (Entrez gene IDs).
 #' @source This is an artificial dataset designed to resemble real data.
-#' @seealso expression_set which contains the same data as [Biobase::ExpressionSet].
+#' @seealso expression_set which contains similar data as [Biobase::ExpressionSet].
 "summarized_experiment"

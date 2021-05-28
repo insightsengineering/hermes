@@ -33,10 +33,21 @@ with additional validation criteria:
 \item \code{TechnicalFailureFlag}
 }
 }
+
+An \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet} object can be imported by using the
+\link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet} function to
+convert to a SummarizedExperiment object before converting again into an
+HermesData object.
 }
 \note{
 Note that we use \code{\link[S4Vectors:S4Vectors-internals]{S4Vectors::setValidity2()}} to define the validity
 method, which allows us to turn off the validity checks in internal
 functions where intermediate objects may not be valid within the scope of
 the function.
+}
+\examples{
+# Convert to SummarizedExperiment using the default naive range mapper.
+se <- makeSummarizedExperimentFromExpressionSet(expression_set)
+# Then convert to HermesData.
+
 }

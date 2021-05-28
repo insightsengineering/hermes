@@ -23,16 +23,16 @@ NULL
 #'   - `LowDepthFlag`
 #'   - `TechnicalFailureFlag`
 #'   
-#' An [Biobase::ExpressionSet] object can be imported by using the [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] 
-#' function to convert to a SummarizedExperiment object before converting again into an HermesData object.
-#'  
+#' An [Biobase::ExpressionSet] object can be imported by using the
+#' [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] function to
+#' convert to a SummarizedExperiment object before converting again into an
+#' HermesData object.
+#' 
 #' @examples
 #' # Convert to SummarizedExperiment using the default naive range mapper.
 #' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
-#'                                           
-#' # Convert to HermesData.
-#' result <- hermes:::.HermesData(se)
-#' 
+#' # Then convert to HermesData.
+#'
 #' @note Note that we use [S4Vectors::setValidity2()] to define the validity
 #'   method, which allows us to turn off the validity checks in internal
 #'   functions where intermediate objects may not be valid within the scope of
