@@ -52,11 +52,13 @@ NULL
   contains = "SummarizedExperiment"
 )
 
+#' @rdname HermesData-class
 .RangedHermesData <- setClass(
   "RangedHermesData",
   contains = "RangedSummarizedExperiment"
 )
 
+#' @rdname HermesData-class
 setClassUnion(
   name = "AnyHermesData",
   members = c("HermesData", "RangedHermesData")

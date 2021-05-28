@@ -7,6 +7,9 @@
 \alias{HermesData}
 \alias{RangedHermesData}
 \alias{AnyHermesData}
+\alias{RangedHermesData-class}
+\alias{.RangedHermesData}
+\alias{AnyHermesData-class}
 \title{HermesData and RangedHermesData}
 \description{
 The \link{HermesData} class is an extension of \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
