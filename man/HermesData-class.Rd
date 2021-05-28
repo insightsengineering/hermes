@@ -6,11 +6,18 @@
 \alias{.HermesData}
 \alias{HermesData}
 \title{HermesData}
+\usage{
+HermesData(object)
+}
+\arguments{
+\item{object}{(\code{SummarizedExperiment})\cr input to create \link{HermesData} from.}
+}
 \description{
 The \link{HermesData} class is an extension of \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
-with additional validation criteria:
+with additional validation criteria.
 }
 \details{
+The additional criteria are:
 \itemize{
 \item The first assay must be \code{counts} containing non-missing, integer, non-negative values.
 \item The following columns must be in \code{rowData}:
@@ -49,5 +56,8 @@ the function.
 # Convert to SummarizedExperiment using the default naive range mapper.
 se <- makeSummarizedExperimentFromExpressionSet(expression_set)
 # Then convert to HermesData.
+
+hermes_data <- HermesData(summarized_experiment)
+hermes_data
 
 }

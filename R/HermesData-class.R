@@ -4,8 +4,9 @@ NULL
 #' HermesData
 #' 
 #' The [HermesData] class is an extension of [SummarizedExperiment::SummarizedExperiment]
-#' with additional validation criteria:
+#' with additional validation criteria.
 #' 
+#' The additional criteria are:
 #' - The first assay must be `counts` containing non-missing, integer, non-negative values.
 #' - The following columns must be in `rowData`:
 #'   - `HGNC`
@@ -56,3 +57,26 @@ S4Vectors::setValidity2("HermesData", function(object) {
   
   if (is.null(msg)) TRUE else msg
 })
+
+#' @rdname HermesData-class
+#' @param object (`SummarizedExperiment`)\cr input to create [HermesData] from.
+#' @examples 
+#' hermes_data <- HermesData(summarized_experiment)
+#' hermes_data
+#' 
+HermesData <- function(object) {
+  assert_that(
+    is_class(object, "SummarizedExperiment"),
+    not_empty(assays(object)),
+    not_empty(rowData(object)),
+    not_empty(colData(object))
+  )
+  
+  missing_row <- setdiff(.row_data_additional_cols, names(rowData(object)))
+  rowData(object)[, missing_row] <- NA
+  
+  missing_col <- setdiff(.col_data_additional_cols, names(colData(object)))
+  colData(object)[, missing_col] <- NA
+  
+  .HermesData(object)
+}

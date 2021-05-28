@@ -33,6 +33,18 @@ test_that("HermesData validation fails as expected", {
   expect_error(.HermesData(object), "required columns .+ not present")
 })
 
+# HermesData ----
+
+test_that("HermesData objects can be created with constructor HermesData", {
+  result <- expect_silent(HermesData(summarized_experiment))
+  expect_is(result, "HermesData")
+})
+
+test_that("HermesData constructor fails with readable error message when there are no assays", {
+  input <- SummarizedExperiment()
+  expect_error(HermesData(input), "assays(object) has an empty dimension")
+})
+
 # makeSummarizedExperimentFromExpressionSet ----
 
 test_that("SummarizedExperiment can be created from ExpressionSet", {
