@@ -4,7 +4,7 @@ NULL
 #' HermesData and RangedHermesData
 #' 
 #' The [HermesData] class is an extension of [SummarizedExperiment::SummarizedExperiment]
-#' with additional validation criteria:
+#' with additional validation criteria.
 #' 
 #' - The first assay must be `counts` containing non-missing, integer, non-negative values.
 #' - The following columns must be in `rowData`:
@@ -28,7 +28,7 @@ NULL
 #' additional validation requirements. Methods can be defined for both classes at the
 #' same time with the [AnyHermesData] signature.
 #'   
-#' An [Biobase::ExpressionSet] object can be imported by using the
+#' A [Biobase::ExpressionSet] object can be imported by using the
 #' [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] function to
 #' first convert it to a [SummarizedExperiment::SummarizedExperiment] object before
 #' converting it again into a [HermesData] object.

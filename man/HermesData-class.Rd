@@ -10,7 +10,7 @@
 \title{HermesData and RangedHermesData}
 \description{
 The \link{HermesData} class is an extension of \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
-with additional validation criteria:
+with additional validation criteria.
 }
 \details{
 \itemize{
@@ -41,7 +41,7 @@ Analogously, \link{RangedHermesData} is an extension of
 additional validation requirements. Methods can be defined for both classes at the
 same time with the \link{AnyHermesData} signature.
 
-An \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet} object can be imported by using the
+A \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet} object can be imported by using the
 \link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet} function to
 first convert it to a \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment} object before
 converting it again into a \link{HermesData} object.

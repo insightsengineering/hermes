@@ -13,6 +13,7 @@ reference:
   - title: Classes
     contents:
       - HermesData
+      - RangedHermesData
   - title: Internal Helper Functions
     contents:
       - validate_counts
