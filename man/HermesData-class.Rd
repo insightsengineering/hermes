@@ -52,3 +52,9 @@ method, which allows us to turn off the validity checks in internal
 functions where intermediate objects may not be valid within the scope of
 the function.
 }
+\examples{
+# Convert to SummarizedExperiment using the default naive range mapper.
+se <- makeSummarizedExperimentFromExpressionSet(expression_set)
+# Then convert to HermesData.
+
+}
