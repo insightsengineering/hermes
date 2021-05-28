@@ -27,4 +27,5 @@ Collate:
     'HermesData-methods.R'
     'assertthat.R'
     'data.R'
+    'graphs.R'
     'package.R'
