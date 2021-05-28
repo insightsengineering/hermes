@@ -11,6 +11,12 @@
 \alias{.RangedHermesData}
 \alias{AnyHermesData-class}
 \title{HermesData and RangedHermesData}
+\usage{
+HermesData(object)
+}
+\arguments{
+\item{object}{(\code{SummarizedExperiment})\cr input to create \link{HermesData} from.}
+}
 \description{
 The \link{HermesData} class is an extension of \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
 with additional validation criteria.
