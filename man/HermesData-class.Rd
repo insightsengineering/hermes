@@ -5,13 +5,12 @@
 \alias{HermesData-class}
 \alias{.HermesData}
 \alias{HermesData}
-\title{HermesData}
-\usage{
-HermesData(object)
-}
-\arguments{
-\item{object}{(\code{SummarizedExperiment})\cr input to create \link{HermesData} from.}
-}
+\alias{RangedHermesData}
+\alias{AnyHermesData}
+\alias{RangedHermesData-class}
+\alias{.RangedHermesData}
+\alias{AnyHermesData-class}
+\title{HermesData and RangedHermesData}
 \description{
 The \link{HermesData} class is an extension of \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
 with additional validation criteria.
@@ -41,10 +40,15 @@ The additional criteria are:
 }
 }
 
-An \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet} object can be imported by using the
+Analogously, \link{RangedHermesData} is an extension of
+\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::RangedSummarizedExperiment} and has the same
+additional validation requirements. Methods can be defined for both classes at the
+same time with the \link{AnyHermesData} signature.
+
+A \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet} object can be imported by using the
 \link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet} function to
-convert to a SummarizedExperiment object before converting again into an
-HermesData object.
+first convert it to a \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment} object before
+converting it again into a \link{HermesData} object.
 }
 \note{
 Note that we use \code{\link[S4Vectors:S4Vectors-internals]{S4Vectors::setValidity2()}} to define the validity
