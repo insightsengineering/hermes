@@ -20,7 +20,7 @@ object into a \link{HermesData} object. Note that this data does not yet have th
 required columns in the \code{featureData} and \code{phenoData}.
 }
 \seealso{
-summarized_experiment which contains the same data as
+summarized_experiment which contains similar data as
 \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}.
 }
 \keyword{datasets}

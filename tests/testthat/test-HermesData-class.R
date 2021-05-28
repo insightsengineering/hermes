@@ -35,12 +35,9 @@ test_that("HermesData validation fails as expected", {
 
 # makeSummarizedExperimentFromExpressionSet ----
 
-test_that("SummarizedExperiment and HermesData objects are created properly", {
+test_that("SummarizedExperiment can be created from ExpressionSet", {
   object <- expression_set
   result <- expect_silent(makeSummarizedExperimentFromExpressionSet(object))
-  hermesdata <- expect_silent(.HermesData(result))
   expect_is(result, "SummarizedExperiment")
-  expect_is(hermesdata, "HermesData")
   expect_true(validObject(result))
-  expect_true(validObject(hermesdata))
 })
