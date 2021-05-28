@@ -1,7 +1,7 @@
 #' @include HermesData-validate.R
 NULL
 
-#' HermesData
+#' HermesData and RangedHermesData
 #' 
 #' The [HermesData] class is an extension of [SummarizedExperiment::SummarizedExperiment]
 #' with additional validation criteria:
@@ -23,23 +23,23 @@ NULL
 #'   - `LowDepthFlag`
 #'   - `TechnicalFailureFlag`
 #'   
-#' An [Biobase::ExpressionSet] object can be imported by using the [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] 
-#' function to convert to a SummarizedExperiment object before converting again into an HermesData object.
-#'  
-#' @examples
-#' # Convert to SummarizedExperiment using the default naive range mapper.
-#' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
-#'                                           
-#' # Convert to HermesData.
-#' result <- hermes:::.HermesData(se)
+#' Analogously, [RangedHermesData] is an extension of
+#' [SummarizedExperiment::RangedSummarizedExperiment] and has the same
+#' additional validation requirements. Methods can be defined for both classes at the
+#' same time with the [AnyHermesData] signature.
+#'   
+#' An [Biobase::ExpressionSet] object can be imported by using the
+#' [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] function to
+#' first convert it to a [SummarizedExperiment::SummarizedExperiment] object before
+#' converting it again into a [HermesData] object.
 #' 
 #' @note Note that we use [S4Vectors::setValidity2()] to define the validity
 #'   method, which allows us to turn off the validity checks in internal
 #'   functions where intermediate objects may not be valid within the scope of
 #'   the function.
 #'   
-#' @aliases HermesData
-#' @exportClass HermesData
+#' @aliases HermesData RangedHermesData AnyHermesData
+#' @exportClass HermesData RangedHermesData AnyHermesData
 #' @importFrom S4Vectors setValidity2
 #' 
 .HermesData <- setClass(
@@ -47,7 +47,17 @@ NULL
   contains = "SummarizedExperiment"
 )
 
-S4Vectors::setValidity2("HermesData", function(object) {
+.RangedHermesData <- setClass(
+  "RangedHermesData",
+  contains = "RangedSummarizedExperiment"
+)
+
+setClassUnion(
+  name = "AnyHermesData",
+  members = c("HermesData", "RangedHermesData")
+)
+
+S4Vectors::setValidity2("AnyHermesData", function(object) {
   msg <- NULL
   
   msg <- c(msg, validate_counts(object))
