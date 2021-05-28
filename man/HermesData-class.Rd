@@ -34,8 +34,10 @@ with additional validation criteria:
 }
 }
 
-An \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet} object can be imported by using the \link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet}
-function to convert to a SummarizedExperiment object before converting again into an HermesData object.
+An \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet} object can be imported by using the
+\link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet} function to
+convert to a SummarizedExperiment object before converting again into an
+HermesData object.
 }
 \note{
 Note that we use \code{\link[S4Vectors:S4Vectors-internals]{S4Vectors::setValidity2()}} to define the validity
@@ -46,8 +48,6 @@ the function.
 \examples{
 # Convert to SummarizedExperiment using the default naive range mapper.
 se <- makeSummarizedExperimentFromExpressionSet(expression_set)
-                                          
-# Convert to HermesData.
-result <- hermes:::.HermesData(se)
+# Then convert to HermesData.
 
 }
