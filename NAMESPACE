@@ -2,7 +2,9 @@
 
 export(`metadata<-`)
 export(is_class)
+exportClasses(AnyHermesData)
 exportClasses(HermesData)
+exportClasses(RangedHermesData)
 exportMethods("counts<-")
 exportMethods(counts)
 exportMethods(metadata)
