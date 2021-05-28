@@ -20,7 +20,8 @@ Imports:
     BiocGenerics,
     methods,
     S4Vectors,
-    testthat (>= 2.0)
+    testthat (>= 2.0),
+    ggplot2
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'

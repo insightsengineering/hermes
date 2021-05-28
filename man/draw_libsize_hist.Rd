@@ -4,7 +4,7 @@
 \alias{draw_libsize_hist}
 \title{Histogram of Library Sizes}
 \usage{
-draw_libsize_hist(object, bins, ...)
+draw_libsize_hist(object, bins)
 }
 \arguments{
 \item{object}{A \link{HermesData} object.}
@@ -15,6 +15,7 @@ draw_libsize_hist(object, bins, ...)
 Histogram of Library Sizes
 }
 \examples{
-draw_libsize_hist(HermesData, 30)
+result <- hermes:::.HermesData(summarized_experiment)
+draw_libsize_hist(result, 30)
 
 }
