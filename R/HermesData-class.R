@@ -77,6 +77,7 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
 
 #' @rdname HermesData-class
 #' @param object (`SummarizedExperiment`)\cr input to create [HermesData] from.
+#' @export
 #' @examples 
 #' hermes_data <- HermesData(summarized_experiment)
 #' hermes_data
