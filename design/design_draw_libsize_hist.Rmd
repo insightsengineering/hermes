@@ -23,25 +23,25 @@ In order to plot the library depth, we need to access the counts data in the `He
 result <- .HermesData(summarized_experiment)
 
 #Accessing the counts data.
-assays(result)$counts
+counts(result)
 
 #Calculating the library depth per sample.
-colSums(assays(result)$counts)
+colSums(counts(result))
 
 #Coercing the library depth into a data frame because ggplot requires a data frame object.
-matrix <- as.data.frame(colSums(assays(object)$counts))
+df <- as.data.frame(colSums(counts(result)))
 
 #Putting the final function together.
-draw_libsize_hist <- function(object, ...){
-  matrix <- as.data.frame(colSums(assays(object)$counts))
-  colnames(matrix) <- "depth"
-  ggplot(matrix, aes(depth)) +
-    geom_histogram(color = "white", bins = 30) +
+draw_libsize_hist <- function(object, bins, ...){
+  df <- as.data.frame(colSums(counts(object)))
+  ggplot(df, aes(colSums(counts(result)))) +
+    geom_histogram(color = "white", bins = bins) +
+    stat_bin(bins = bins, geom = "text", aes(label = ifelse(..count.. > 0, ..count.., "")), vjust = -0.25) +
     ggtitle("Histogram of Library Sizes") +
     xlab("Library Depth") +
     ylab("Frequency")
 }
 
 #Running the function.
-draw_libsize_hist(result)
+draw_libsize_hist(result, 30)
 ```
