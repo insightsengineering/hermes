@@ -53,7 +53,7 @@ chromosome factors, and directly print a stack bars based on original chromosome
 ## Miscellaneous issue 2: NA in LowExpressionFlag
 As the `LowExpressionFlag` is optional in `HermesData` object. If a SE object does not include `LowExpressionFlag`,  `HermesData()` will add this factor into rowData with all values in NA. 
 
-The `HermesData` object will lead to error message in ggplot since all `LowExpressionFlag` values are NA. We may need one test in `assert_that()` to dectect if all values in the `LowExpressionFlag` are NA.
+This `HermesData` object will lead to error message in ggplot since all `LowExpressionFlag` values are NA. We may need one test in `assert_that()` to dectect if all values in the `LowExpressionFlag` are NA.
 
 
  
