@@ -30,4 +30,7 @@ reference:
       - rbind
       - metadata
       - counts
+  - title: Graphs
+    contents:
+      - draw_libsize_hist
       

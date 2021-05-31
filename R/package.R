@@ -4,6 +4,7 @@
 #'
 "_PACKAGE"
 
+#' @import ggplot2
 #' @import methods
 #' @import SummarizedExperiment
 #' @import testthat

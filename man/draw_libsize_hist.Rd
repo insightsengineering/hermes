@@ -4,18 +4,24 @@
 \alias{draw_libsize_hist}
 \title{Histogram of Library Sizes}
 \usage{
-draw_libsize_hist(object, bins)
+draw_libsize_hist(object, bins = 30L, fill = "darkgrey")
 }
 \arguments{
-\item{object}{A \link{HermesData} object.}
+\item{object}{(\code{HermesData})\cr input.}
 
-\item{bins}{Number of evenly distributed groups desired.}
+\item{bins}{(\code{count})\cr number of evenly distributed groups desired.}
+
+\item{fill}{(\code{string})\cr color of the bars filling.}
+}
+\value{
+The \code{ggplot} object with the histogram.
 }
 \description{
-Histogram of Library Sizes
+This creates a histogram of the library sizes of the \link{HermesData} object.
 }
 \examples{
 result <- hermes:::.HermesData(summarized_experiment)
-draw_libsize_hist(result, 30)
+draw_libsize_hist(result)
+draw_libsize_hist(result, bins = 10L, fill = "blue")
 
 }
