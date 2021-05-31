@@ -10,12 +10,30 @@
 \alias{RangedHermesData-class}
 \alias{.RangedHermesData}
 \alias{AnyHermesData-class}
+\alias{HermesDataFromMatrix}
 \title{HermesData and RangedHermesData}
+\usage{
+HermesData(object)
+
+HermesDataFromMatrix(counts, ...)
+}
+\arguments{
+\item{object}{(\code{SummarizedExperiment})\cr input to create \link{HermesData} from.
+If this is a \code{RangedSummarizedExperiment}, then the result will be
+\link{RangedHermesData}.}
+
+\item{counts}{(\code{matrix})\cr counts to create the \link{HermesData} object from.}
+
+\item{...}{additional arguments, e.g. \code{rowData}, \code{colData}, etc. passed to
+\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment()}} internally. Note that if \code{rowRanges}
+is passed instead of \code{rowData}, then the result will be a \link{RangedHermesData} object.}
+}
 \description{
 The \link{HermesData} class is an extension of \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
 with additional validation criteria.
 }
 \details{
+The additional criteria are:
 \itemize{
 \item The first assay must be \code{counts} containing non-missing, integer, non-negative values.
 \item The following columns must be in \code{rowData}:
@@ -59,5 +77,20 @@ the function.
 # Convert to SummarizedExperiment using the default naive range mapper.
 se <- makeSummarizedExperimentFromExpressionSet(expression_set)
 # Then convert to HermesData.
+
+# Create objects starting from a SummarizedExperiment.
+hermes_data <- HermesData(summarized_experiment)
+hermes_data
+ranged_summarized_experiment <- as(summarized_experiment, "RangedSummarizedExperiment")
+ranged_hermes_data <- HermesData(ranged_summarized_experiment)
+ranged_hermes_data
+
+# Create objects from a matrix and additional arguments.
+counts_matrix <- assay(summarized_experiment)
+HermesDataFromMatrix(
+  counts = counts_matrix, 
+  rowData = rowData(summarized_experiment),
+  colData = colData(summarized_experiment)
+)
 
 }
