@@ -1,0 +1,60 @@
+---
+title: "design_draw_libsize_qq()"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+Include `design_draw_libsize_qq()` to `Hermes` by updating and replacing the `draw_qq()` function from `rnaseqTools` to use `ggplot2`, use an `HermesData` object as input.
+
+## Idea
+
+In order to plot the sample against theoretical queantiles of library size in a QQ plot, we need to access the counts data in the `HermesData` object.
+
+```{r}
+#Creating the HermesData object from the example SummarizedExperiment object.
+result <- .HermesData(summarized_experiment)
+
+#Accessing the counts data.
+counts(result)
+
+#Calculating the library depth per sample.
+colSums(counts(result))
+
+# Check the class
+is_class(result, AnyHermesData)
+
+#Coercing the library depth into a data frame because ggplot requires a data frame object.
+df <- as.data.frame(colSums(counts(result)))
+
+
+
+
+# design_draw_libsize_qq Function 
+design_draw_libsize_qq <- function(object, ...) {
+  is_class(object, )
+  
+}
+  
+# OLD function
+draw_qq <- function(rawdat, ...) {
+  
+  check_class(rawdat, c("matrix", "data.frame"))
+  
+  qqnorm(colSums(rawdat, na.rm = TRUE), 
+         main = "QQ plot of library sizes", 
+         pch = 16,
+         ...)
+  qqline(colSums(rawdat, na.rm = TRUE), 
+         col = "dimgray", 
+         lwd = 2, lty = 2)
+}
+
+```
+
