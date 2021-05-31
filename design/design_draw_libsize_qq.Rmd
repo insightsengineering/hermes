@@ -28,32 +28,36 @@ counts(result)
 colSums(counts(result))
 
 # Check the class
-is_class(result, AnyHermesData)
+is_class(result, 'AnyHermesData')
 
 #Coercing the library depth into a data frame because ggplot requires a data frame object.
-df <- as.data.frame(colSums(counts(result)))
+df <- data.frame(libsize = colSums(counts(result)))
 
-
-
+#QQ Plot
+ggplot(df, aes(sample=libsize)) +
+  stat_qq() +
+  stat_qq_line() +
+  theme_classic() +
+  ggtitle("QQ plot of Library Sizes") +
+  xlab("Theoretical Quantiles") +
+   ylab("Sample Quantiles") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) 
 
 # design_draw_libsize_qq Function 
 design_draw_libsize_qq <- function(object, ...) {
-  is_class(object, )
+  assert_that(
+    is_class(object, "AnyHermesData")
+  )
+  df <- data.frame(libsize = colSums(counts(result)))
   
-}
-  
-# OLD function
-draw_qq <- function(rawdat, ...) {
-  
-  check_class(rawdat, c("matrix", "data.frame"))
-  
-  qqnorm(colSums(rawdat, na.rm = TRUE), 
-         main = "QQ plot of library sizes", 
-         pch = 16,
-         ...)
-  qqline(colSums(rawdat, na.rm = TRUE), 
-         col = "dimgray", 
-         lwd = 2, lty = 2)
+  ggplot(df, aes(sample=libsize)) +
+  stat_qq() +
+  stat_qq_line() +
+  theme_classic() +
+  ggtitle("QQ plot of Library Sizes") +
+  xlab("Theoretical Quantiles") +
+   ylab("Sample Quantiles") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) 
 }
 
 ```
