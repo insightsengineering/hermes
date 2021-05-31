@@ -22,7 +22,7 @@ object, then the result will be a
 class).
 }
 \examples{
-a <- b <- hermes:::.HermesData(summarized_experiment)
+a <- b <- HermesData(summarized_experiment)
 result <- cbind(a, b)
 class(result)
 

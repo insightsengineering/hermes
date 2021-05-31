@@ -19,7 +19,7 @@
 #' @return The combined [HermesData] object.
 #'
 #' @examples
-#' a <- b <- hermes:::.HermesData(summarized_experiment)
+#' a <- b <- HermesData(summarized_experiment)
 #' result <- rbind(a, b)
 #' class(result)
 #'
@@ -49,7 +49,7 @@ NULL
 #' @return The combined [HermesData] object.
 #'
 #' @examples
-#' a <- b <- hermes:::.HermesData(summarized_experiment)
+#' a <- b <- HermesData(summarized_experiment)
 #' result <- cbind(a, b)
 #' class(result)
 #'
@@ -77,7 +77,7 @@ NULL
 #' @export `metadata<-`
 #' 
 #' @examples 
-#' a <- hermes:::.HermesData(summarized_experiment)
+#' a <- HermesData(summarized_experiment)
 #' metadata(a)
 #' metadata(a) <- list(new = "my metadata")
 #' metadata(a)
@@ -102,7 +102,7 @@ NULL
 #' @export
 #' 
 #' @examples 
-#' a <- hermes:::.HermesData(summarized_experiment)
+#' a <- HermesData(summarized_experiment)
 #' result <- counts(a)
 #' class(result)
 #' head(result)
@@ -149,7 +149,7 @@ setReplaceMethod(
 #' @return The subsetted [HermesData] object.
 #'
 #' @examples
-#' a <- hermes:::.HermesData(summarized_experiment)
+#' a <- HermesData(summarized_experiment)
 #' a
 #' subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
 #' 

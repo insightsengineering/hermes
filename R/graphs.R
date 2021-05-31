@@ -7,9 +7,10 @@
 #' @param fill (`string`)\cr color of the bars filling.
 #' @return The `ggplot` object with the histogram.
 #' 
+#' @importFrom rlang .data
 #' @export
 #' @examples
-#' result <- hermes:::.HermesData(summarized_experiment)
+#' result <- HermesData(summarized_experiment)
 #' draw_libsize_hist(result)
 #' draw_libsize_hist(result, bins = 10L, fill = "blue")
 #'
@@ -22,9 +23,14 @@ draw_libsize_hist <- function(object,
     is.string(fill)
   )
   df <- data.frame(libsize = colSums(counts(object)))
-  ggplot(df, aes(x = libsize)) +
+  ggplot(df, aes(x = .data$libsize)) +
     geom_histogram(bins = bins, fill = fill) +
-    stat_bin(bins = bins, geom = "text", aes(label = ifelse(..count.. > 0, ..count.., "")), vjust = -0.25) +
+    stat_bin(
+      bins = bins, 
+      geom = "text", 
+      aes(label = ifelse(.data$..count.. > 0, .data$..count.., "")), 
+      vjust = -0.25
+    ) +
     ggtitle("Histogram of Library Sizes") +
     xlab("Library Size") +
     ylab("Frequency")
