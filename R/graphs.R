@@ -29,3 +29,45 @@ draw_libsize_hist <- function(object,
     xlab("Library Size") +
     ylab("Frequency")
 }
+
+# draw_nonzero_boxplot ----
+
+#' Boxplot of non-zero genes
+#'
+#' @param object (`HermesData`)\cr input.
+#' @param jitter (``)\cr `geom_point` aesthetic parameter, default 0.2
+#' @param alpha (``)\ct `geom_point` aesthetic parameter, default 1/4
+#' @param ... 
+#'
+#' @return The `ggplot` object with the histogram.
+#' @export
+#'
+#' @examples
+#' result <- hermes:::.HermesData(summarized_experiment)
+#' draw_nonzero_boxplot(result)
+#' draw_nonzero_boxplot(result, jitter = 0.1, alpha = 1/3)
+#' 
+draw_nonzero_boxplot <- function(object, 
+                                 jitter = 0.2,
+                                 alpha = 1/4, 
+                                 ...){
+  assert_that(
+    is_class(object, "HermesData"),
+    is.numeric(jitter),
+    is.numeric(alpha)
+  )
+  noNA_count <- apply(count_results, 
+                      MARGIN =  2,
+                      FUN = function(x) count(x != 0))
+  
+  df <- data.frame(no_na = noNA_count, x = "Sample")
+  ggplot(df, aes(y = .data$no_na, x = x)) +
+    geom_boxplot(outlier.shape = NA) +
+    stat_boxplot(geom = "errorbar") +
+    geom_point(position = position_jitter(width = jitter),
+               alpha = alpha) +
+    stat_n_text(text.box = TRUE) +
+    ggtitle("Distribution of non-zero expression genes") +
+    xlab("Library") +
+    ylab("Number of non-zero genes")
+}

@@ -3,6 +3,7 @@
 export(HermesData)
 export(`metadata<-`)
 export(draw_libsize_hist)
+export(draw_nonzero_boxplot)
 export(is_class)
 exportClasses(AnyHermesData)
 exportClasses(HermesData)

@@ -75,7 +75,56 @@ draw_nonzero_boxplot <- function(object, jitter = 0.2, alpha = 1/4, ...){
 #Running the function.
 draw_nonzero_boxplot(result)
 
-#### Question in the example the oulier are labeled, here are not 
-# should I modify taking out the geom_point and leaving outlier option with label instead? not sure if it is possible to do both
+
+```
+## Question
+In the example the oulier are labeled, here are not. Should I modify taking out the geom_point and leaving outlier option with label instead? not sure if it is possible to do both.
+## Answer
+This could be  because count will be hidden by the same named function in dplyr. Better use sum here instead.
+
+```{r}
+#Calculating the number  of non zero gene per counts.
+noNA_count <- apply(count_results, 
+                    MARGIN =  2,
+                    FUN = function(x) sum(x != 0))
+
+#Coercing into a data frame because ggplot requires a data frame object.
+df <- data.frame(no_na = noNA_count, x = "Sample")
+
+# and then plotting it 
+ggplot(df) +
+     geom_boxplot(aes(y = no_na, x= x)) +
+     stat_boxplot(geom = "errorbar", aes(y = no_na, x= x)) +
+     ggtitle("Distribution of non-zero expression genes") +
+     xlab("Library") +
+     ylab("Number of non-zero genes")
+
+
+
+#Putting the final function together.
+library(ggplot2.utils)
+
+draw_nonzero_boxplot <- function(object, 
+                                 jitter = 0.2,
+                                 alpha = 1/4, 
+                                 ...){
+  noNA_count <- apply(count_results, 
+                      MARGIN =  2,
+                      FUN = function(x) count(x != 0))
+  
+  df <- data.frame(no_na = noNA_count, x = "Sample")
+  ggplot(df, aes(y = .data$no_na, x = x)) +
+    geom_boxplot(outlier.shape = NA) +
+    stat_boxplot(geom = "errorbar") +
+    geom_point(position = position_jitter(width = jitter),
+               alpha = alpha) +
+    stat_n_text(text.box = TRUE) +
+    ggtitle("Distribution of non-zero expression genes") +
+    xlab("Library") +
+    ylab("Number of non-zero genes")
+  }
+
+#Running the function.
+draw_nonzero_boxplot(result)
 
 ```
