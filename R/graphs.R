@@ -32,16 +32,16 @@ draw_libsize_hist <- function(object,
 
 # draw_nonzero_boxplot ----
 
-#' Boxplot of non-zero genes
+#' Boxplot (with overlay data points) of non-zero genes
 #'
 #' @param object (`HermesData`)\cr input.
-#' @param jitter (``)\cr `geom_point` aesthetic parameter, default 0.2
-#' @param alpha (``)\ct `geom_point` aesthetic parameter, default 1/4
-#' @param ... 
+#' @param jitter (`numeric`)\cr `geom_point` aesthetic parameter, default 0.2
+#' @param alpha (`numeric`)\cr `geom_point` aesthetic parameter, default 1/4
+#' @param ... \cr other graphical parameters
 #'
 #' @return The `ggplot` object with the histogram.
 #' @export
-#'
+#' 
 #' @examples
 #' result <- hermes:::.HermesData(summarized_experiment)
 #' draw_nonzero_boxplot(result)
@@ -56,12 +56,14 @@ draw_nonzero_boxplot <- function(object,
     is.numeric(jitter),
     is.numeric(alpha)
   )
-  noNA_count <- apply(count_results, 
+  
+  noNA_count <- apply(counts(object), 
                       MARGIN =  2,
-                      FUN = function(x) count(x != 0))
+                      FUN = function(x) sum(x != 0))
   
   df <- data.frame(no_na = noNA_count, x = "Sample")
-  ggplot(df, aes(y = .data$no_na, x = x)) +
+  
+  ggplot(df, aes(y = .data$no_na, x = .data$x)) +
     geom_boxplot(outlier.shape = NA) +
     stat_boxplot(geom = "errorbar") +
     geom_point(position = position_jitter(width = jitter),

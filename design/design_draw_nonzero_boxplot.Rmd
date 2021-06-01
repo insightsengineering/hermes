@@ -28,13 +28,13 @@ count_results <- counts(result)
 
 Then, for each column of the count matrix, we need to count the number of no zero genes and then create a dataframe. The dataframe will contain two columns and n rows (corrisponding to the number of columns in the counts matrix) containing one the counts and the other the name of the corrisponding counts column matrix. The derived data has to be a dataframe because  ggplot requires a data frame object. 
 
+To count the non zero cells it is better to use the function `sum` instead of `count` .
+
 ```{r}
 #Calculating the number  of non zero gene per counts.
 noNA_count <- apply(count_results, 
               MARGIN =  2,
               FUN = function(x) sum(x != 0))
-
-#### QUESTION if I load dplyr the function above does not work, but if I do not load dplyr I cannot use mutate and pipes.. do you know why there is this problem??
 
 #Coercing into a data frame because ggplot requires a data frame object.
 df <- data.frame(no_na = noNA_count, x = "Sample")
@@ -52,26 +52,28 @@ ggplot(df) +
 #Putting the final function together.
 library(ggplot2.utils)
 
-draw_nonzero_boxplot <- function(object, jitter = 0.2, alpha = 1/4, ...){
-  count_results <- counts(object)
-  
-    noNA_count <- apply(count_results, 
+draw_nonzero_boxplot <- function(object, 
+                                 jitter = 0.2,
+                                 alpha = 1/4, ...){
+  noNA_count <- apply(counts(object), 
               MARGIN =  2,
               FUN = function(x) sum(x != 0))
-    
-    df <- data.frame(no_na = noNA_count, x = "Sample")
-                     
-    ggplot(df, aes(y = .data$no_na, x = .data$x)) +
-      geom_boxplot(outlier.shape = NA) +
-      stat_boxplot(geom = "errorbar") +
-      geom_point(position = position_jitter(width = jitter),
-                 alpha = alpha) +
-      stat_n_text(text.box = TRUE) +
-      ggtitle("Distribution of non-zero expression genes") +
-      xlab("Library") +
-      ylab("Number of non-zero genes")
+  
+  df <- data.frame(no_na = noNA_count, x = "Sample")
+  
+  ggplot(df, aes(y = .data$no_na, x = .data$x)) +
+    geom_boxplot(outlier.shape = NA) +
+    stat_boxplot(geom = "errorbar") +
+    geom_point(position = position_jitter(width = jitter),
+               alpha = alpha) +
+    stat_n_text(text.box = TRUE) +
+    ggtitle("Distribution of non-zero expression genes") +
+    xlab("Library") +
+    ylab("Number of non-zero genes")
 }
 
 #Running the function.
 draw_nonzero_boxplot(result)
+
+
 ```

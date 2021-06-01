@@ -2,24 +2,24 @@
 % Please edit documentation in R/graphs.R
 \name{draw_nonzero_boxplot}
 \alias{draw_nonzero_boxplot}
-\title{Boxplot of non-zero genes}
+\title{Boxplot (with overlay data points) of non-zero genes}
 \usage{
 draw_nonzero_boxplot(object, jitter = 0.2, alpha = 1/4, ...)
 }
 \arguments{
 \item{object}{(\code{HermesData})\cr input.}
 
-\item{jitter}{(``)\cr \code{geom_point} aesthetic parameter, default 0.2}
+\item{jitter}{(\code{numeric})\cr \code{geom_point} aesthetic parameter, default 0.2}
 
-\item{alpha}{(``)\ct \code{geom_point} aesthetic parameter, default 1/4}
+\item{alpha}{(\code{numeric})\cr \code{geom_point} aesthetic parameter, default 1/4}
 
-\item{...}{}
+\item{...}{\cr other graphical parameters}
 }
 \value{
 The \code{ggplot} object with the histogram.
 }
 \description{
-Boxplot of non-zero genes
+Boxplot (with overlay data points) of non-zero genes
 }
 \examples{
 result <- hermes:::.HermesData(summarized_experiment)
