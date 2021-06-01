@@ -54,9 +54,9 @@ draw_libsize_qq <- function(object,
              is.string(colour),
              is.string(linetype)
   )
-  df <- data.frame(libsize = colSums(counts(result)))
+  df <- data.frame(libsize = colSums(counts(object)))
   
-  ggplot(df, aes(sample=libsize)) +
+  ggplot(df, aes(sample=.data$libsize)) +
     stat_qq() +
     stat_qq_line(colour=colour, linetype=linetype) +
     theme_classic() +
