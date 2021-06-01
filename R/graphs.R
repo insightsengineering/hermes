@@ -45,6 +45,8 @@ draw_libsize_hist <- function(object,
 #' @param log (`flag`)\cr should the counts be log transformed (log2).
 #' @return The `ggplot` object with the density plot.
 #' 
+#' @importFrom tidyr gather
+#' @importFrom rlang .data
 #' @export
 #' @examples
 #' result <- HermesData(summarized_experiment)
@@ -68,7 +70,7 @@ draw_libsize_densities <- function(object,
     xlab <- "Counts"
   }
   df.long <- gather(df, key = "Sample", value = "Counts")
-  ggplot(df.long, aes(Counts, group = Sample)) +
+  ggplot(df.long, aes(.data$Counts, group = .data$Sample)) +
     geom_density() +
     expand_limits(x = -2.5) +
     ggtitle(title) +
