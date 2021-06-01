@@ -18,11 +18,12 @@ Depends:
 Imports:
     assertthat,
     BiocGenerics,
+    ggplot2,
     methods,
     rlang,
     S4Vectors,
     testthat (>= 2.0),
-    ggplot2
+    utils.nest
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
