@@ -53,7 +53,7 @@ draw_libsize_densities <- function(object,
                                    log = TRUE){
   assert_that(
     is_class(object, "HermesData"),
-    is.logical(log)
+    is.flag(log)
   )
   if(isTRUE(log)){
     df <- as.data.frame(log2(counts(object) + 1))
