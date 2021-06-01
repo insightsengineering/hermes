@@ -15,10 +15,12 @@ draw_libsize_densities(object, log = TRUE)
 The \code{ggplot} object with the density plot.
 }
 \description{
-This creates a density plot of the log2/count distribution of the \link{HermesData} object.
+This creates a density plot of the (log) counts distributions of the \link{HermesData} object where each line
+on the plot corresponds to a sample.
 }
 \examples{
 result <- HermesData(summarized_experiment)
-draw_libsize_densities(result, TRUE)
+draw_libsize_densities(result)
+draw_libsize_densities(result, FALSE)
 
 }
