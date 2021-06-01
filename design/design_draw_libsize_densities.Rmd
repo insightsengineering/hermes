@@ -1,0 +1,59 @@
+---
+title: "Design: draw_libsize_densities()"
+author: "Jeff Luong"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+Update and replace the `draw_countdist()` function from `rnaseqTools` to use `ggplot2` and use an `HermesData` object as input.
+
+## Idea
+
+In order to plot the library depth, we need to access the counts data in the `HermesData` object.
+
+```{r}
+#Creating the HermesData object from the example SummarizedExperiment object.
+result <- .HermesData(summarized_experiment)
+
+#Accessing the counts data.
+counts(result)
+
+#Transforming counts data into Log2.
+log2(counts(result) + 1)
+
+#Coercing the data into a data frame because ggplot requires a data frame object.
+df <- data.frame(log2(counts(result) + 1))
+
+#Tranforming the data into long format.
+df.long <- tidyr::gather(df)
+
+#Putting the final function together.
+draw_libsize_densities <- function(object, log){
+  assert_that(
+    isClass(object, "HermesData"),
+    is.logical(log)
+  )
+  if(isTRUE(log)){
+    df <- as.data.frame(log2(counts(object) + 1))
+  } else {
+    df <- as.data.frame(counts(object))
+  }
+  df.long <- gather(df)
+  ggplot(df.long, aes(value, group = key)) +
+    geom_density() +
+    expand_limits(x = -2.5) +
+    ggtitle(ifelse(isTRUE(log), "Log2 Count Distribution", "Count Distribution")) +
+    xlab(ifelse(isTRUE(log), "Log2(Count + 1)", "Counts")) +
+    ylab("Density")
+}
+
+#Running the function.
+draw_libsize_densities(result, TRUE)
+```
