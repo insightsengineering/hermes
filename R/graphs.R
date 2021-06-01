@@ -41,7 +41,7 @@ draw_libsize_hist <- function(object,
 #' This creates a density plot of the log2/count distribution of the [HermesData] object.
 #'
 #' @param object (`HermesData`)\cr input.
-#' @param log (`logical`)\cr TRUE or FALSE vector for Log2 transformation.
+#' @param log (`flag`)\cr should the counts be log transformed (log2).
 #' @return The `ggplot` object with the density plot.
 #' 
 #' @export
