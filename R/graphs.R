@@ -36,7 +36,7 @@ draw_libsize_hist <- function(object,
     ylab("Frequency")
 }
 
-#' Density Plot of Log2/Count Distribution
+#' Density Plot of (Log) Counts Distributions
 #'
 #' This creates a density plot of the log2/count distribution of the [HermesData] object.
 #'
