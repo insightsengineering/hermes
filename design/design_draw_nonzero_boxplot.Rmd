@@ -38,8 +38,7 @@ noNA_count <- apply(count_results,
 #### QUESTION if I load dplyr the function above does not work, but if I do not load dplyr I cannot use mutate and pipes.. do you know why there is this problem??
 
 #Coercing into a data frame because ggplot requires a data frame object.
-df <- data.frame(noNA_count)
-df$x <- "Sample"
+df <- data.frame(no_na = noNA_count, x = "Sample")
 
 # and then plotting it 
 ggplot(df) +
