@@ -3,6 +3,7 @@
 export(HermesData)
 export(HermesDataFromMatrix)
 export(`metadata<-`)
+export(draw_libsize_densities)
 export(draw_libsize_hist)
 export(is_class)
 exportClasses(AnyHermesData)

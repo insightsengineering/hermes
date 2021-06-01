@@ -38,7 +38,8 @@ draw_libsize_hist <- function(object,
 
 #' Density Plot of (Log) Counts Distributions
 #'
-#' This creates a density plot of the log2/count distribution of the [HermesData] object.
+#' This creates a density plot of the (log) counts distributions of the [HermesData] object where each line
+#' on the plot corresponds to a sample. 
 #'
 #' @param object (`HermesData`)\cr input.
 #' @param log (`flag`)\cr should the counts be log transformed (log2).
@@ -47,7 +48,8 @@ draw_libsize_hist <- function(object,
 #' @export
 #' @examples
 #' result <- HermesData(summarized_experiment)
-#' draw_libsize_densities(result, TRUE)
+#' draw_libsize_densities(result)
+#' draw_libsize_densities(result, FALSE)
 #'
 draw_libsize_densities <- function(object,
                                    log = TRUE){
@@ -55,16 +57,21 @@ draw_libsize_densities <- function(object,
     is_class(object, "HermesData"),
     is.flag(log)
   )
+  counts <- as.data.frame(counts(object))
   if(isTRUE(log)){
-    df <- as.data.frame(log2(counts(object) + 1))
+    df <- log2(counts + 1)
+    title <- "Log2 Count Distribution"
+    xlab <- "Log2(Count + 1)"
   } else {
-    df <- as.data.frame(counts(object))
+    df <- counts
+    title <- "Count Distribution"
+    xlab <- "Counts"
   }
-  df.long <- gather(df)
-  ggplot(df.long, aes(value, group = key)) +
+  df.long <- gather(df, key = "Sample", value = "Counts")
+  ggplot(df.long, aes(Counts, group = Sample)) +
     geom_density() +
     expand_limits(x = -2.5) +
-    ggtitle(ifelse(isTRUE(log), "Log2 Count Distribution", "Count Distribution")) +
-    xlab(ifelse(isTRUE(log), "Log2(Count + 1)", "Counts")) +
+    ggtitle(title) +
+    xlab(xlab) +
     ylab("Density")
 }
