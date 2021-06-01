@@ -1,6 +1,8 @@
 #' @include HermesData-validate.R
 NULL
 
+# HermesData-class ----
+
 #' HermesData and RangedHermesData
 #' 
 #' The [HermesData] class is an extension of [SummarizedExperiment::SummarizedExperiment]
@@ -65,6 +67,8 @@ setClassUnion(
   members = c("HermesData", "RangedHermesData")
 )
 
+# HermesData-validity ----
+
 S4Vectors::setValidity2("AnyHermesData", function(object) {
   msg <- NULL
   
@@ -75,12 +79,20 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
   if (is.null(msg)) TRUE else msg
 })
 
+# HermesData-constructors ----
+
 #' @rdname HermesData-class
 #' @param object (`SummarizedExperiment`)\cr input to create [HermesData] from.
+#'   If this is a `RangedSummarizedExperiment`, then the result will be 
+#'   [RangedHermesData].
 #' @export
 #' @examples 
+#' # Create objects starting from a SummarizedExperiment.
 #' hermes_data <- HermesData(summarized_experiment)
 #' hermes_data
+#' ranged_summarized_experiment <- as(summarized_experiment, "RangedSummarizedExperiment")
+#' ranged_hermes_data <- HermesData(ranged_summarized_experiment)
+#' ranged_hermes_data
 #' 
 HermesData <- function(object) {
   assert_that(
@@ -96,5 +108,36 @@ HermesData <- function(object) {
   missing_col <- setdiff(.col_data_additional_cols, names(colData(object)))
   colData(object)[, missing_col] <- NA
   
-  .HermesData(object)
+  if (is(object, "RangedSummarizedExperiment")) {
+    .RangedHermesData(object) 
+  } else {
+    .HermesData(object)
+  }
+}
+
+#' @rdname HermesData-class
+#' @param counts (`matrix`)\cr counts to create the [HermesData] object from.
+#' @param ... additional arguments, e.g. `rowData`, `colData`, etc. passed to 
+#'   [SummarizedExperiment::SummarizedExperiment()] internally. Note that if `rowRanges`
+#'   is passed instead of `rowData`, then the result will be a [RangedHermesData] object.
+#' @export
+#' @examples 
+#' # Create objects from a matrix and additional arguments.
+#' counts_matrix <- assay(summarized_experiment)
+#' HermesDataFromMatrix(
+#'   counts = counts_matrix, 
+#'   rowData = rowData(summarized_experiment),
+#'   colData = colData(summarized_experiment)
+#' )
+#' 
+HermesDataFromMatrix <- function(counts, ...) {
+  assert_that(is.matrix(counts))
+  
+  # Note: `object` will either be of class `SummarizedExperiment` or 
+  # `RangedSummarizedExperiment`, depending on additional input arguments.
+  object <- SummarizedExperiment(
+    list(counts = counts),
+    ...
+  )
+  HermesData(object)
 }

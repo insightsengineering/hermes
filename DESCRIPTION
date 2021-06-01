@@ -19,6 +19,7 @@ Imports:
     assertthat,
     BiocGenerics,
     methods,
+    rlang,
     S4Vectors,
     testthat (>= 2.0),
     ggplot2,

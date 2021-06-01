@@ -27,7 +27,7 @@ These methods access and set the counts assay in a \link{HermesData} object.
 }}
 
 \examples{
-a <- hermes:::.HermesData(summarized_experiment)
+a <- HermesData(summarized_experiment)
 result <- counts(a)
 class(result)
 head(result)
