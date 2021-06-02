@@ -30,7 +30,7 @@ draw_libsize_hist <- function(object,
     ylab("Frequency")
 }
 
-#' Q-Q plot of Library Sizes.
+#' Q-Q Plot of Library Sizes
 #'
 #' This creates a Q-Q plot of the library sizes of the [HermesData] object.
 #'
