@@ -42,8 +42,8 @@ draw_libsize_hist <- function(object,
 #' non-zero expressed genes per sample.
 #'
 #' @param object (`HermesData`)\cr input.
-#' @param jitter (`number`)\cr `geom_point` aesthetic parameter, default 0.2
-#' @param alpha (`number`)\cr `geom_point` aesthetic parameter, default 1/4
+#' @param jitter (`number`)\cr `geom_point` aesthetic parameter.
+#' @param alpha (`number`)\cr `geom_point` aesthetic parameter.
 #'
 #' @return The `ggplot` object with the histogram.
 #' @export
