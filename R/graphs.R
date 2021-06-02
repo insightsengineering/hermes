@@ -74,7 +74,7 @@ draw_nonzero_boxplot <- function(object,
       alpha = alpha
     ) +
     stat_n_text(text.box = TRUE) +
-    ggtitle("Distribution of non-zero expression genes") +
+    ggtitle("Distribution of non-zero expressed genes") +
     xlab("Library") +
     ylab("Number of non-zero genes")
 }
