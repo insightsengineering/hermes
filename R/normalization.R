@@ -7,7 +7,7 @@
 #' @param prior_count average count to be added to each observation to avoid 
 #'   taking log of zero, used only when log=TRUE
 #'   
-#' @return Values for the settings used to perform the normalization procedure.
+#' @return List with the above settings used to perform the normalization procedure.
 #' 
 #' @note Note, to be used with the normalize function.
 #'   
