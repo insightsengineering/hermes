@@ -36,8 +36,6 @@ draw_libsize_hist <- function(object,
     ylab("Frequency")
 }
 
-# draw_nonzero_boxplot ----
-
 #' Boxplot (with overlay data points) of non-zero genes
 #'
 #' @param object (`HermesData`)\cr input.
