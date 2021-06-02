@@ -98,3 +98,24 @@ test_that("subset function works as expected for HermesData objects", {
   expect_true(all(rowData(result)$LowExpressionFlag))
   expect_true(all(!result$TechnicalFailureFlag))
 })
+
+
+# filter ----
+
+test_that("filter works as expected for HermesData", {
+  object <- get_se()
+  h1 <- HermesData(object)
+  result <- expect_silent(filter(h1))
+  expect_is(result, "HermesData")
+  # Only one gene, but no samples fulfill filter criteria:
+  expect_identical(dim(result), c(1L, 0L)) 
+})
+
+test_that("filter works as expected for RangedHermesData", {
+  object <- get_rse()
+  h1 <- HermesData(object)
+  result <- expect_silent(filter(h1))
+  expect_is(result, "RangedHermesData")
+  # Only one gene, but no samples fulfill filter criteria:
+  expect_identical(dim(result), c(1L, 0L)) 
+})
