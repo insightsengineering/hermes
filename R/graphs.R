@@ -46,7 +46,7 @@ draw_libsize_hist <- function(object,
 #' draw_libsize_qq(result, colour = "blue", linetype = "solid")
 #'
 draw_libsize_qq <- function(object, 
-                            colour="grey",
+                            color = "grey",
                             linetype = "dashed") {
   assert_that(
     is_class(object, "AnyHermesData"),
