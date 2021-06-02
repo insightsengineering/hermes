@@ -39,7 +39,7 @@ draw_libsize_hist <- function(object,
 #' Boxplot (with overlay data points) of non-zero genes
 #'
 #' @param object (`HermesData`)\cr input.
-#' @param jitter (`numeric`)\cr `geom_point` aesthetic parameter, default 0.2
+#' @param jitter (`number`)\cr `geom_point` aesthetic parameter, default 0.2
 #' @param alpha (`numeric`)\cr `geom_point` aesthetic parameter, default 1/4
 #' @param ... \cr other graphical parameters
 #'
