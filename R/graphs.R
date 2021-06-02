@@ -77,3 +77,46 @@ draw_libsize_densities <- function(object,
     xlab(xlab) +
     ylab("Density")
 }
+
+#' Boxplot of Non-zero Genes
+#' 
+#' This draws a boxplot, with overlaid data points, of the number of 
+#' non-zero expressed genes per sample.
+#'
+#' @param object (`HermesData`)\cr input.
+#' @param jitter (`number`)\cr `geom_point` aesthetic parameter.
+#' @param alpha (`number`)\cr `geom_point` aesthetic parameter.
+#'
+#' @return The `ggplot` object with the histogram.
+#' @export
+#' 
+#' @examples
+#' result <- HermesData(summarized_experiment)
+#' draw_nonzero_boxplot(result)
+#' draw_nonzero_boxplot(result, jitter = 0.1, alpha = 1/3)
+#' 
+draw_nonzero_boxplot <- function(object, 
+                                 jitter = 0.2,
+                                 alpha = 1/4) {
+  assert_that(
+    is_class(object, "HermesData"),
+    is.number(jitter),
+    is.number(alpha)
+  )
+  
+  no_na_count <- colSums(counts(object) != 0)
+  
+  df <- data.frame(no_na = no_na_count, x = "Sample")
+  
+  ggplot(df, aes(y = .data$no_na, x = .data$x)) +
+    geom_boxplot(outlier.shape = NA) +
+    stat_boxplot(geom = "errorbar") +
+    geom_point(
+      position = position_jitter(width = jitter),
+      alpha = alpha
+    ) +
+    stat_n_text(text.box = TRUE) +
+    ggtitle("Distribution of non-zero expressed genes") +
+    xlab("Library") +
+    ylab("Number of non-zero genes")
+}
