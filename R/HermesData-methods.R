@@ -170,7 +170,7 @@ setGeneric("filter")
 #' @rdname filter
 #' @aliases filter
 #' 
-#' @param object (`AnyHermesData`)\cr object to filter.
+#' @param x (`AnyHermesData`)\cr object to filter.
 #'
 #' @return The filtered [AnyHermesData] object.
 #'  
@@ -193,8 +193,8 @@ setMethod(
     )
     subset(
       x,
-      subset = (LowExpressionFlag == FALSE),
-      select = (LowDepthFlag == FALSE & TechnicalFailureFlag == FALSE)
+      subset = (.data$LowExpressionFlag == FALSE),
+      select = (.data$LowDepthFlag == FALSE & .data$TechnicalFailureFlag == FALSE)
     )
   }
 )

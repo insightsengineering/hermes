@@ -8,7 +8,7 @@
 \S4method{filter}{AnyHermesData}(x)
 }
 \arguments{
-\item{object}{(\code{AnyHermesData})\cr object to filter.}
+\item{x}{(\code{AnyHermesData})\cr object to filter.}
 }
 \value{
 The filtered \link{AnyHermesData} object.
