@@ -23,6 +23,8 @@ Imports:
     rlang,
     S4Vectors,
     testthat (>= 2.0),
+    ggplot2,
+    ggplot2.utils,
     utils.nest
 Collate: 
     'HermesData-validate.R'

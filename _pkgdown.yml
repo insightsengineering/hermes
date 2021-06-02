@@ -40,4 +40,5 @@ reference:
   - title: Graphs
     contents:
       - draw_libsize_hist
+      - draw_nonzero_boxplot
       
