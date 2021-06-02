@@ -57,7 +57,7 @@ draw_nonzero_boxplot <- function(object,
                                  ...){
   assert_that(
     is_class(object, "HermesData"),
-    is.numeric(jitter),
+    is.number(jitter),
     is.numeric(alpha)
   )
   
