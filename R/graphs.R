@@ -36,12 +36,13 @@ draw_libsize_hist <- function(object,
     ylab("Frequency")
 }
 
-#' Boxplot (with overlay data points) of non-zero genes
+#' Boxplot of Non-zero Genes
+#' 
+#' This design a boxplot, with overlay data points, of the number of non-zero expression genes per one sample
 #'
 #' @param object (`HermesData`)\cr input.
 #' @param jitter (`number`)\cr `geom_point` aesthetic parameter, default 0.2
-#' @param alpha (`numeric`)\cr `geom_point` aesthetic parameter, default 1/4
-#' @param ... \cr other graphical parameters
+#' @param alpha (`number`)\cr `geom_point` aesthetic parameter, default 1/4
 #'
 #' @return The `ggplot` object with the histogram.
 #' @export
@@ -53,20 +54,16 @@ draw_libsize_hist <- function(object,
 #' 
 draw_nonzero_boxplot <- function(object, 
                                  jitter = 0.2,
-                                 alpha = 1/4, 
-                                 ...){
+                                 alpha = 1/4){
   assert_that(
     is_class(object, "HermesData"),
     is.number(jitter),
-    is.numeric(alpha)
+    is.number(alpha)
   )
   
-  no_na_count <- apply(
-    counts(object), 
-                      MARGIN =  2,
-                      FUN = function(x) sum(x != 0))
+  no_na_count <- colSums(counts(object) != 0)
   
-  df <- data.frame(no_na = noNA_count, x = "Sample")
+  df <- data.frame(no_na = no_na_count, x = "Sample")
   
   ggplot(df, aes(y = .data$no_na, x = .data$x)) +
     geom_boxplot(outlier.shape = NA) +

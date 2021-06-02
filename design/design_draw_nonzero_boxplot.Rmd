@@ -32,17 +32,20 @@ To count the non zero cells it is better to use the function `sum` instead of `c
 
 ```{r}
 #Calculating the number  of non zero gene per counts.
-noNA_count <- apply(count_results, 
+no_na_count <- apply(count_results, 
               MARGIN =  2,
               FUN = function(x) sum(x != 0))
 
+# this could also be simplified as 
+no_na_count <- colSums(counts(result) != 0)
+
 #Coercing into a data frame because ggplot requires a data frame object.
-df <- data.frame(no_na = noNA_count, x = "Sample")
+df <- data.frame(no_na = no_na_count, x = "Sample")
 
 # and then plotting it 
 ggplot(df) +
-     geom_boxplot(aes(y = noNA_count, x= x)) +
-     stat_boxplot(geom = "errorbar", aes(y = noNA_count, x= x)) +
+     geom_boxplot(aes(y = no_na, x= x)) +
+     stat_boxplot(geom = "errorbar", aes(y = no_na, x= x)) +
      ggtitle("Distribution of non-zero expression genes") +
      xlab("Library") +
      ylab("Number of non-zero genes")
@@ -55,11 +58,9 @@ library(ggplot2.utils)
 draw_nonzero_boxplot <- function(object, 
                                  jitter = 0.2,
                                  alpha = 1/4, ...){
-  noNA_count <- apply(counts(object), 
-              MARGIN =  2,
-              FUN = function(x) sum(x != 0))
+  no_na_count <- colSums(counts(object) != 0)
   
-  df <- data.frame(no_na = noNA_count, x = "Sample")
+  df <- data.frame(no_na = no_na_count, x = "Sample")
   
   ggplot(df, aes(y = .data$no_na, x = .data$x)) +
     geom_boxplot(outlier.shape = NA) +
