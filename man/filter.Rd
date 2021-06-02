@@ -19,6 +19,10 @@ i.e. only features without low expression (\code{LowExpressionFlag}) and without
 without low depth (\code{LowDepthFlag}) or technical failure (\code{TechnicalFailureFlag})
 remain in the returend subset.
 }
+\note{
+Internal implementation cannot use the \code{\link[=subset]{subset()}} method since that
+requires non-standard evaluation of arguments.
+}
 \examples{
 a <- HermesData(summarized_experiment)
 dim(a)

@@ -173,6 +173,8 @@ setGeneric("filter")
 #' @param x (`AnyHermesData`)\cr object to filter.
 #'
 #' @return The filtered [AnyHermesData] object.
+#' @note Internal implementation cannot use the [subset()] method since that
+#'   requires non-standard evaluation of arguments.
 #'  
 #' @export
 #' 
@@ -186,15 +188,17 @@ setMethod(
   f = "filter",
   signature = signature(x = "AnyHermesData"),
   definition = function(x) {
+    low_exp <- rowData(x)$LowExpressionFlag
+    low_depth <- colData(x)$LowDepthFlag
+    tech_fail <- colData(x)$TechnicalFailureFlag
     assert_that(
-      noNA(rowData(x)$LowExpressionFlag),
-      noNA(colData(x)$LowDepthFlag),
-      noNA(colData(x)$TechnicalFailureFlag)
+      noNA(low_exp),
+      noNA(low_depth),
+      noNA(tech_fail),
+      msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
     )
-    subset(
-      x,
-      subset = (.data$LowExpressionFlag == FALSE),
-      select = (.data$LowDepthFlag == FALSE & .data$TechnicalFailureFlag == FALSE)
-    )
+    rows <- !low_exp
+    cols <- !low_depth & !tech_fail
+    x[rows, cols]
   }
 )

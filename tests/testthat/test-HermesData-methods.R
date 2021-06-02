@@ -119,3 +119,14 @@ test_that("filter works as expected for RangedHermesData", {
   # Only one gene, but no samples fulfill filter criteria:
   expect_identical(dim(result), c(1L, 0L)) 
 })
+
+test_that("filter shows readable error message when there are NA in flag variables", {
+  object <- get_se()
+  object$LowDepthFlag[1] <- NA
+  h1 <- HermesData(object)
+  expect_error(
+    filter(h1),
+    "still NA in quality flags, please first run add_quality_flags() to fill them",
+    fixed = TRUE
+  )
+})
