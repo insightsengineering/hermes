@@ -61,7 +61,8 @@ draw_nonzero_boxplot <- function(object,
     is.numeric(alpha)
   )
   
-  noNA_count <- apply(counts(object), 
+  no_na_count <- apply(
+    counts(object), 
                       MARGIN =  2,
                       FUN = function(x) sum(x != 0))
   
