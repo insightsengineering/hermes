@@ -24,6 +24,7 @@ Imports:
     rlang,
     S4Vectors,
     testthat (>= 2.0),
+    tidyr,
     utils.nest
 Collate: 
     'HermesData-validate.R'

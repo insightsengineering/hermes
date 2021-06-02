@@ -36,6 +36,48 @@ draw_libsize_hist <- function(object,
     ylab("Frequency")
 }
 
+#' Density Plot of (Log) Counts Distributions
+#'
+#' This creates a density plot of the (log) counts distributions of the [HermesData] object where each line
+#' on the plot corresponds to a sample. 
+#'
+#' @param object (`HermesData`)\cr input.
+#' @param log (`flag`)\cr should the counts be log transformed (log2).
+#' @return The `ggplot` object with the density plot.
+#' 
+#' @importFrom tidyr gather
+#' @importFrom rlang .data
+#' @export
+#' @examples
+#' result <- HermesData(summarized_experiment)
+#' draw_libsize_densities(result)
+#' draw_libsize_densities(result, FALSE)
+#'
+draw_libsize_densities <- function(object,
+                                   log = TRUE){
+  assert_that(
+    is_class(object, "HermesData"),
+    is.flag(log)
+  )
+  counts <- as.data.frame(counts(object))
+  if(isTRUE(log)){
+    df <- log2(counts + 1)
+    title <- "Log2 Count Distribution"
+    xlab <- "Log2(Count + 1)"
+  } else {
+    df <- counts
+    title <- "Count Distribution"
+    xlab <- "Counts"
+  }
+  df.long <- gather(df, key = "Sample", value = "Counts")
+  ggplot(df.long, aes(.data$Counts, group = .data$Sample)) +
+    geom_density() +
+    expand_limits(x = -2.5) +
+    ggtitle(title) +
+    xlab(xlab) +
+    ylab("Density")
+}
+
 #' Boxplot of Non-zero Genes
 #' 
 #' This draws a boxplot, with overlaid data points, of the number of 
