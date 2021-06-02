@@ -54,7 +54,6 @@ draw_libsize_qq <- function(object,
     is.string(linetype)
   )
   df <- data.frame(libsize = colSums(counts(object)))
-  
   ggplot(df, aes(sample = .data$libsize)) +
     stat_qq() +
     stat_qq_line(color = color, linetype=linetype) +
@@ -64,5 +63,4 @@ draw_libsize_qq <- function(object,
     ylab("Sample Quantiles") +
     theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
     theme(axis.text.y = element_text(angle=90))
-
 }
