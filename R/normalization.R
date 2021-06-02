@@ -14,19 +14,19 @@
 #' @export
 #' @examples
 #' control <- control_normalize()
-#' control1 <- control_normalize(log = FALSE, lib_sizes = 1000000L, prior_count = 0.5)
+#' control1 <- control_normalize(log = FALSE, lib_size = 1000000L, prior_count = 0.5)
 #'               
 control_normalize <- function(log = TRUE,
-                              lib_sizes = NULL,
+                              lib_size = NULL,
                               prior_count = 1) {
   assert_that(
     is.flag(log),
-    is.null(lib_sizes) || utils.nest::is_integer_vector(lib_sizes),
+    is.null(lib_size) || utils.nest::is_integer_vector(lib_size),
     is.number(prior_count) && prior_count >= 0
   )
   list(
     log = log,
-    lib_sizes = lib_sizes,
+    lib_size = lib_size,
     prior_count = prior_count
   )
 }

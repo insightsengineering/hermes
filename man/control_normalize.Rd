@@ -4,15 +4,15 @@
 \alias{control_normalize}
 \title{Settings for the normalize function}
 \usage{
-control_normalize(log = TRUE, lib_sizes = NULL, prior_count = 1)
+control_normalize(log = TRUE, lib_size = NULL, prior_count = 1)
 }
 \arguments{
 \item{log}{logical, if TRUE then log2 values are returned}
 
+\item{lib_size}{library size, defaults to colSums(y)}
+
 \item{prior_count}{average count to be added to each observation to avoid
 taking log of zero, used only when log=TRUE}
-
-\item{lib_size}{library size, defaults to colSums(y)}
 }
 \value{
 Values for the settings used to perform the normalization procedure.
@@ -25,6 +25,6 @@ Note, to be used with the normalize function.
 }
 \examples{
 control <- control_normalize()
-control1 <- control_normalize(log = FALSE, lib_sizes = 1000000L, prior_count = 0.5)
+control1 <- control_normalize(log = FALSE, lib_size = 1000000L, prior_count = 0.5)
               
 }
