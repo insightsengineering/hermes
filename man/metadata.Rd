@@ -4,13 +4,13 @@
 \alias{metadata}
 \title{Metadata Accessor and Setter}
 \arguments{
-\item{x}{(\code{HermesData})\cr object to access the metadata from.}
+\item{x}{(\code{AnyHermesData})\cr object to access the metadata from.}
 }
 \value{
 The metadata which is a list.
 }
 \description{
-These methods access or set the metadata in a \link{HermesData} object.
+These methods access or set the metadata in a \link{AnyHermesData} object.
 }
 \note{
 Note that this just inherits \code{\link[S4Vectors:Annotated-class]{S4Vectors::metadata,Annotated-method()}}.
