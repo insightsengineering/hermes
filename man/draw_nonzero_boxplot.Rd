@@ -9,15 +9,16 @@ draw_nonzero_boxplot(object, jitter = 0.2, alpha = 1/4)
 \arguments{
 \item{object}{(\code{HermesData})\cr input.}
 
-\item{jitter}{(\code{number})\cr \code{geom_point} aesthetic parameter, default 0.2}
+\item{jitter}{(\code{number})\cr \code{geom_point} aesthetic parameter.}
 
-\item{alpha}{(\code{number})\cr \code{geom_point} aesthetic parameter, default 1/4}
+\item{alpha}{(\code{number})\cr \code{geom_point} aesthetic parameter.}
 }
 \value{
 The \code{ggplot} object with the histogram.
 }
 \description{
-This design a boxplot, with overlay data points, of the number of non-zero expression genes per one sample
+This draws a boxplot, with overlaid data points, of the number of
+non-zero expressed genes per sample.
 }
 \examples{
 result <- HermesData(summarized_experiment)
