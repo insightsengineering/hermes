@@ -55,7 +55,7 @@ draw_libsize_hist <- function(object,
 #' 
 draw_nonzero_boxplot <- function(object, 
                                  jitter = 0.2,
-                                 alpha = 1/4){
+                                 alpha = 1/4) {
   assert_that(
     is_class(object, "HermesData"),
     is.number(jitter),
