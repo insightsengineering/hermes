@@ -38,7 +38,8 @@ draw_libsize_hist <- function(object,
 
 #' Boxplot of Non-zero Genes
 #' 
-#' This design a boxplot, with overlay data points, of the number of non-zero expression genes per one sample
+#' This draws a boxplot, with overlaid data points, of the number of 
+#' non-zero expressed genes per sample.
 #'
 #' @param object (`HermesData`)\cr input.
 #' @param jitter (`number`)\cr `geom_point` aesthetic parameter, default 0.2
