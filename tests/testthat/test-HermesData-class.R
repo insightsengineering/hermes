@@ -14,18 +14,6 @@ test_that("HermesData validation fails as expected", {
   expect_error(.HermesData(object), "required columns .+ not present")
 })
 
-# HermesData ----
-
-test_that("HermesData objects can be created with constructor HermesData", {
-  result <- expect_silent(HermesData(summarized_experiment))
-  expect_is(result, "HermesData")
-})
-
-test_that("HermesData constructor fails with readable error message when there are no assays", {
-  input <- SummarizedExperiment()
-  expect_error(HermesData(input), "assays(object) has an empty dimension", fixed = TRUE)
-})
-
 # .RangedHermesData ----
 
 test_that("RangedHermesData objects can be created with default constructor .RangedHermesData", {
@@ -55,4 +43,44 @@ test_that("SummarizedExperiment can be created from ExpressionSet", {
   result <- expect_silent(makeSummarizedExperimentFromExpressionSet(object))
   expect_is(result, "SummarizedExperiment")
   expect_true(validObject(result))
+})
+
+# HermesData ----
+
+test_that("HermesData objects can be created with constructor HermesData", {
+  result <- expect_silent(HermesData(summarized_experiment))
+  expect_is(result, "HermesData")
+})
+
+test_that("HermesData constructor fails with readable error message when there are no assays", {
+  input <- SummarizedExperiment()
+  expect_error(HermesData(input), "assays(object) has an empty dimension", fixed = TRUE)
+})
+
+test_that("RangedHermesData objects can be created with constructor HermesData", {
+  result <- expect_silent(HermesData(get_rse()))
+  expect_is(result, "RangedHermesData")
+})
+
+# HermesDataFromMatrix ----
+
+test_that("HermesData objects can be created with constructor HermesDataFromMatrix", {
+  counts <- assay(summarized_experiment)
+  result <- expect_silent(HermesDataFromMatrix(
+    counts = counts,
+    rowData = rowData(summarized_experiment),
+    colData = colData(summarized_experiment)
+  ))
+  expect_is(result, "HermesData")
+})
+
+test_that("RangedHermesData objects can be created with constructor HermesDataFromMatrix", {
+  rse <- get_rse()
+  counts <- assay(rse)
+  result <- expect_silent(HermesDataFromMatrix(
+    counts = counts,
+    rowRanges = rowRanges(rse),
+    colData = colData(rse)
+  ))
+  expect_is(result, "RangedHermesData")
 })

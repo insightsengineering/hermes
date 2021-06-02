@@ -4,10 +4,10 @@
 \alias{rbind}
 \title{Row Binding of HermesData Objects}
 \arguments{
-\item{...}{(\code{HermesData})\cr objects to row bind.}
+\item{...}{(\code{AnyHermesData})\cr objects to row bind.}
 }
 \value{
-The combined \link{HermesData} object.
+The combined \link{AnyHermesData} object.
 }
 \description{
 This method combines HermesData objects with the same samples but different
@@ -22,7 +22,7 @@ object, then the result will be a
 class).
 }
 \examples{
-a <- b <- hermes:::.HermesData(summarized_experiment)
+a <- b <- HermesData(summarized_experiment)
 result <- rbind(a, b)
 class(result)
 

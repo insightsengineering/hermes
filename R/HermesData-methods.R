@@ -14,12 +14,12 @@
 #'
 #' @name rbind
 #'
-#' @param ... (`HermesData`)\cr objects to row bind.
+#' @param ... (`AnyHermesData`)\cr objects to row bind.
 #'
-#' @return The combined [HermesData] object.
+#' @return The combined [AnyHermesData] object.
 #'
 #' @examples
-#' a <- b <- hermes:::.HermesData(summarized_experiment)
+#' a <- b <- HermesData(summarized_experiment)
 #' result <- rbind(a, b)
 #' class(result)
 #'
@@ -44,12 +44,12 @@ NULL
 #'
 #' @name cbind
 #'
-#' @param ... (`HermesData`)\cr objects to column bind.
+#' @param ... (`AnyHermesData`)\cr objects to column bind.
 #'
-#' @return The combined [HermesData] object.
+#' @return The combined [AnyHermesData] object.
 #'
 #' @examples
-#' a <- b <- hermes:::.HermesData(summarized_experiment)
+#' a <- b <- HermesData(summarized_experiment)
 #' result <- cbind(a, b)
 #' class(result)
 #'
@@ -62,13 +62,13 @@ NULL
 
 #' Metadata Accessor and Setter
 #'
-#' These methods access or set the metadata in a [HermesData] object.
+#' These methods access or set the metadata in a [AnyHermesData] object.
 #' 
 #' @note Note that this just inherits [S4Vectors::metadata,Annotated-method()].
 #' 
 #' @name metadata
 #' 
-#' @param x (`HermesData`)\cr object to access the metadata from.
+#' @param x (`AnyHermesData`)\cr object to access the metadata from.
 #'
 #' @return The metadata which is a list.
 #' @importFrom S4Vectors `metadata<-`
@@ -77,7 +77,7 @@ NULL
 #' @export `metadata<-`
 #' 
 #' @examples 
-#' a <- hermes:::.HermesData(summarized_experiment)
+#' a <- HermesData(summarized_experiment)
 #' metadata(a)
 #' metadata(a) <- list(new = "my metadata")
 #' metadata(a)
@@ -93,7 +93,7 @@ NULL
 #' @rdname counts
 #' @aliases counts
 #' 
-#' @param object (`HermesData`)\cr object to access the counts from.
+#' @param object (`AnyHermesData`)\cr object to access the counts from.
 #' @param value (`matrix`)\cr what should the counts assay be replaced with.
 #'
 #' @return The counts assay.
@@ -102,14 +102,14 @@ NULL
 #' @export
 #' 
 #' @examples 
-#' a <- hermes:::.HermesData(summarized_experiment)
+#' a <- HermesData(summarized_experiment)
 #' result <- counts(a)
 #' class(result)
 #' head(result)
 #' 
 setMethod(
   f = "counts",
-  signature = "HermesData",
+  signature = "AnyHermesData",
   definition = function(object) {
     assay(object)
   }
@@ -126,13 +126,13 @@ setMethod(
 #' 
 setReplaceMethod(
   f = "counts", 
-  signature = signature(object = "HermesData", value = "matrix"),
+  signature = signature(object = "AnyHermesData", value = "matrix"),
   definition = function(object, value) {
     assay(object) <- value
     validObject(object)
     object
   }
-)   
+)
 
 # subset ----
 
@@ -145,12 +145,60 @@ setReplaceMethod(
 #'   [SummarizedExperiment::subset,SummarizedExperiment-method()].
 #'
 #' @name subset
-#'
-#' @return The subsetted [HermesData] object.
+#' 
+#' @param x (`AnyHermesData`)\cr object to subset from.
+#' @return The subsetted [AnyHermesData] object.
 #'
 #' @examples
-#' a <- hermes:::.HermesData(summarized_experiment)
+#' a <- HermesData(summarized_experiment)
 #' a
 #' subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
 #' 
 NULL
+
+# filter ----
+
+setGeneric("filter")
+
+#' Filter HermesData on Subset Passing Default QC Flags
+#'
+#' This is a short cut to subset a [AnyHermesData] object for the default QC flag, 
+#' i.e. only features without low expression (`LowExpressionFlag`) and without samples
+#' without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
+#' remain in the returend subset.
+#' 
+#' @rdname filter
+#' @aliases filter
+#' 
+#' @param x (`AnyHermesData`)\cr object to filter.
+#'
+#' @return The filtered [AnyHermesData] object.
+#' @note Internal implementation cannot use the [subset()] method since that
+#'   requires non-standard evaluation of arguments.
+#'  
+#' @export
+#' 
+#' @examples 
+#' a <- HermesData(summarized_experiment)
+#' dim(a)
+#' result <- filter(a)
+#' dim(result)
+#' 
+setMethod(
+  f = "filter",
+  signature = signature(x = "AnyHermesData"),
+  definition = function(x) {
+    low_exp <- rowData(x)$LowExpressionFlag
+    low_depth <- colData(x)$LowDepthFlag
+    tech_fail <- colData(x)$TechnicalFailureFlag
+    assert_that(
+      noNA(low_exp),
+      noNA(low_depth),
+      noNA(tech_fail),
+      msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
+    )
+    rows <- !low_exp
+    cols <- !low_depth & !tech_fail
+    x[rows, cols]
+  }
+)

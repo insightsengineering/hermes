@@ -4,10 +4,10 @@
 \alias{cbind}
 \title{Column Binding of HermesData Objects}
 \arguments{
-\item{...}{(\code{HermesData})\cr objects to column bind.}
+\item{...}{(\code{AnyHermesData})\cr objects to column bind.}
 }
 \value{
-The combined \link{HermesData} object.
+The combined \link{AnyHermesData} object.
 }
 \description{
 This method combines HermesData objects with the same ranges but different
@@ -22,7 +22,7 @@ object, then the result will be a
 class).
 }
 \examples{
-a <- b <- hermes:::.HermesData(summarized_experiment)
+a <- b <- HermesData(summarized_experiment)
 result <- cbind(a, b)
 class(result)
 

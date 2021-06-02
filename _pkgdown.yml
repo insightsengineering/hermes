@@ -14,6 +14,10 @@ reference:
     contents:
       - HermesData
       - RangedHermesData
+  - title: Constructors
+    contents:
+      - HermesData
+      - HermesDataFromMatrix
   - title: Internal Helper Functions
     contents:
       - validate_counts
@@ -27,11 +31,16 @@ reference:
       - summarized_experiment
   - title: Methods
     contents:
+      - cbind
       - rbind
       - metadata
       - counts
+      - filter
+      - subset
   - title: Graphs
     contents:
       - draw_libsize_hist
       - draw_libsize_qq
+      - draw_libsize_densities
+      - draw_nonzero_boxplot
       
