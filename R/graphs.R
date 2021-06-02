@@ -44,8 +44,7 @@ draw_libsize_hist <- function(object,
 #' result <- hermes:::.HermesData(summarized_experiment)
 #' draw_libsize_qq(result)
 #' draw_libsize_qq(result, colour = "blue", linetype = "solid")
-
-
+#'
 draw_libsize_qq <- function(object, 
                             colour="grey",
                             linetype = "dashed") {
