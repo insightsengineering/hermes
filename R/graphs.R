@@ -71,8 +71,10 @@ draw_nonzero_boxplot <- function(object,
   ggplot(df, aes(y = .data$no_na, x = .data$x)) +
     geom_boxplot(outlier.shape = NA) +
     stat_boxplot(geom = "errorbar") +
-    geom_point(position = position_jitter(width = jitter),
-               alpha = alpha) +
+    geom_point(
+      position = position_jitter(width = jitter),
+      alpha = alpha
+    ) +
     stat_n_text(text.box = TRUE) +
     ggtitle("Distribution of non-zero expression genes") +
     xlab("Library") +
