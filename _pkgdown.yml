@@ -31,9 +31,12 @@ reference:
       - summarized_experiment
   - title: Methods
     contents:
+      - cbind
       - rbind
       - metadata
       - counts
+      - filter
+      - subset
   - title: Graphs
     contents:
       - draw_libsize_hist

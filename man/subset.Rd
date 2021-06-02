@@ -3,8 +3,11 @@
 \name{subset}
 \alias{subset}
 \title{Subsetting HermesData Objects}
+\arguments{
+\item{x}{(\code{AnyHermesData})\cr object to subset from.}
+}
 \value{
-The subsetted \link{HermesData} object.
+The subsetted \link{AnyHermesData} object.
 }
 \description{
 This method subsets HermesData objects, based on expressions involving the
