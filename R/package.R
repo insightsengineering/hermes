@@ -5,6 +5,7 @@
 "_PACKAGE"
 
 #' @import ggplot2
+#' @import ggplot2.utils
 #' @import methods
 #' @import SummarizedExperiment
 #' @import testthat
