@@ -47,7 +47,7 @@ draw_libsize_hist <- function(object,
 #' @export
 #' 
 #' @examples
-#' result <- hermes:::.HermesData(summarized_experiment)
+#' result <- HermesData(summarized_experiment)
 #' draw_nonzero_boxplot(result)
 #' draw_nonzero_boxplot(result, jitter = 0.1, alpha = 1/3)
 #' 
