@@ -1,9 +1,9 @@
 #' Settings for the normalize function
 #' 
 #' @param log (`flag`)\cr whether log2 values are returned, otherwise original scale is used.
-#' @param lib_size library size, defaults to colSums(y)
-#' @param prior_count average count to be added to each observation to avoid 
-#'   taking log of zero, used only when log=TRUE
+#' @param lib_size (`numeric`)\cr library size, the default is colSums(y).
+#' @param prior_count (`count`)\cr average count to be added to each observation to avoid 
+#'   taking log of zero, used only when log=TRUE.
 #'   
 #' @return List with the above settings used to perform the normalization procedure.
 #' 
@@ -12,7 +12,8 @@
 #' @export
 #' @examples
 #' control <- control_normalize()
-#' control1 <- control_normalize(log = FALSE, lib_size = 1000000L, prior_count = 0.5)
+#' control1 <- control_normalize(log = FALSE, lib_size = 1000000L, prior_count = .5)
+#' control2 <- control_normalize(lib_size = c(10L, 5L))
 #'               
 control_normalize <- function(log = TRUE,
                               lib_size = NULL,

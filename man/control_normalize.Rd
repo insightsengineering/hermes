@@ -7,15 +7,15 @@
 control_normalize(log = TRUE, lib_size = NULL, prior_count = 1)
 }
 \arguments{
-\item{log}{logical, if TRUE then log2 values are returned}
+\item{log}{(\code{flag})\cr whether log2 values are returned, otherwise original scale is used.}
 
-\item{lib_size}{library size, defaults to colSums(y)}
+\item{lib_size}{(\code{numeric})\cr library size, the default is colSums(y).}
 
-\item{prior_count}{average count to be added to each observation to avoid
-taking log of zero, used only when log=TRUE}
+\item{prior_count}{(\code{count})\cr average count to be added to each observation to avoid
+taking log of zero, used only when log=TRUE.}
 }
 \value{
-Values for the settings used to perform the normalization procedure.
+List with the above settings used to perform the normalization procedure.
 }
 \description{
 Settings for the normalize function
@@ -25,6 +25,7 @@ Note, to be used with the normalize function.
 }
 \examples{
 control <- control_normalize()
-control1 <- control_normalize(log = FALSE, lib_size = 1000000L, prior_count = 0.5)
+control1 <- control_normalize(log = FALSE, lib_size = 1000000L, prior_count = .5)
+control2 <- control_normalize(lib_size = c(10L, 5L))
               
 }
