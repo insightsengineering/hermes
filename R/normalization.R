@@ -2,7 +2,7 @@
 
 #' Settings for the normalize function
 #' 
-#' @param log logical, if TRUE then log2 values are returned
+#' @param log (`flag`)\cr whether log2 values are returned, otherwise original scale is used.
 #' @param lib_size library size, defaults to colSums(y)
 #' @param prior_count average count to be added to each observation to avoid 
 #'   taking log of zero, used only when log=TRUE
