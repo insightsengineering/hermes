@@ -31,4 +31,5 @@ Collate:
     'assertthat.R'
     'data.R'
     'graphs.R'
+    'normalization.R'
     'package.R'
