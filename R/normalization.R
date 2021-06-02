@@ -1,5 +1,3 @@
-# control_normalize ----
-
 #' Settings for the normalize function
 #' 
 #' @param log (`flag`)\cr whether log2 values are returned, otherwise original scale is used.
