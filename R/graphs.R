@@ -162,10 +162,6 @@ draw_libsize_hist <- function(object,
     ylab("Frequency")
 }
 
->>>>>>> devel
-
-
-
 #' Stacked Barplot of Low Expression Genes by Chromosome
 #'
 #' This creates a barplot of genes of the [HermesData] object, showing the proportions of genes with low expression per chromosome.
@@ -201,9 +197,4 @@ draw_genes_barplot <- function(object,
     geom_bar(aes(fill = .data$LowExpressionFlag)) +
     ggtitle("Stacked Barplot of Filtered Genes by Chromosome") +
     xlab("Chromosome") +
-<<<<<<< HEAD
     ylab("Number of Genes")
-=======
-    ylab("Number of Genes")
-}
->>>>>>> devel
