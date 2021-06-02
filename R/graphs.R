@@ -35,8 +35,8 @@ draw_libsize_hist <- function(object,
 #' This creates a Q-Q plot of the library sizes of the [HermesData] object.
 #'
 #' @param object (`HermesData`)\cr input.
-#' @param colour (`string`)\cr color of QQ-line, default colour grey.
-#' @param linetype (`string`)\cr linetype of  QQ-line, default linetype dashed.
+#' @param colour (`string`)\cr color of Q-Q line.
+#' @param linetype (`string`)\cr linetype of  Q-Q line.
 #' @return The `ggplot` object with the histogram.
 #' 
 #' @export
