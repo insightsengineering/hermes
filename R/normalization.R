@@ -34,7 +34,7 @@ control_normalize <- function(log = TRUE,
 #' @param object (`HermesData`)\cr input.
 #' @param control (`list`)\cr list of settings used to perform the normalization procedure.
 #'   
-#' @return Matrix of TPM normalized gene counts per sample.
+#' @return A numeric matrix with normalized counts using the TPM method.
 #'   
 #' @importFrom edgeR rpkm
 #' @importFrom edgeR tpm
