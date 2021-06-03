@@ -62,7 +62,7 @@ draw_libsize_qq <- function(object,
   df <- data.frame(libsize = colSums(counts(object)))
   ggplot(df, aes(sample = .data$libsize)) +
     stat_qq() +
-    stat_qq_line(color = color, linetype=linetype) +
+    stat_qq_line(color = color, linetype = linetype) +
     theme_classic() +
     ggtitle("Q-Q Plot of Library Sizes") +
     xlab("Theoretical Quantiles") +
