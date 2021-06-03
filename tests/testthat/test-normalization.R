@@ -26,7 +26,6 @@ test_that("control_normalize fails as expected with invalid settings", {
 
 test_that("h_tpm function works as expected with default settings", {
   object <- expect_silent(HermesData(summarized_experiment))
-  cont <- control_normalize()
   result <- h_tpm(object, cont)
   expect_is(result, "matrix")
 })
@@ -38,10 +37,7 @@ test_that("h_tpm function works as expected with custom settings", {
   expect_is(result, "matrix")
 })
 
-test_that("h_tpm function fails as expected with invalid and/or missing settings", {
+test_that("h_tpm function fails as expected with invalid settings", {
   object <- get_se()
-  cont <- control_normalize()
   expect_error(h_tpm(object, cont))
-  object <- HermesData(get_se())
-  expect_error(h_tpm(object))
 })

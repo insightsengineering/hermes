@@ -4,7 +4,7 @@
 \alias{h_tpm}
 \title{Transcripts per Million (TPM) Normalization}
 \usage{
-h_tpm(object, control)
+h_tpm(object, control = control_normalize())
 }
 \arguments{
 \item{object}{(\code{HermesData})\cr input.}
