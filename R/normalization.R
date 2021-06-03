@@ -29,3 +29,28 @@ control_normalize <- function(log = TRUE,
     prior_count = prior_count
   )
 }
+#' Transcripts per Million (TPM) Normalization
+#' 
+#' @param object (`HermesData`)\cr input.
+#' @param control (`list`)\cr list of settings used to perform the normalization procedure.
+#'   
+#' @return Matrix of TPM normalized gene counts per sample.
+#'   
+#' @export
+#' @examples
+#' h <- HermesData(summarized_experiment)
+#' cont <- control_normalize()
+#' counts_tpm <- h_tpm(h, cont)
+#' str(counts_tpm)
+#' 
+h_tpm <- function(object, 
+                  control) {
+  rpkm <- h_rpkm(object, control_normalize(log = FALSE))
+  rpkm_sums <- colSums(rpkm, na.rm = TRUE)
+  tpm <- sweep(rpkm, MARGIN = 2, STATS = rpkm_sums, FUN = "/") * 1e6
+  if (control$log) {
+    log2(tpm + control$prior_count)
+  } else {
+    tpm
+  }
+}

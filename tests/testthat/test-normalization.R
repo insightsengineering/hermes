@@ -21,3 +21,27 @@ test_that("control_normalize fails as expected with invalid settings", {
   expect_error(control_normalize(lib_sizes = 0L))
   expect_error(control_normalize(prior_count = -1))
 })
+
+# h_tpm ----
+
+test_that("h_tpm function works as expected with default settings", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  cont <- control_normalize()
+  result <- h_tpm(object, cont)
+  expect_is(result, "matrix")
+})
+
+test_that("h_tpm function works as expected with custom settings", {
+  object <- HermesData(get_se())
+  cont <- expect_silent(control_normalize(log = TRUE, lib_sizes = 140000000L, prior_count = 7))
+  result <- h_tpm(object, cont)
+  expect_is(result, "matrix")
+})
+
+test_that("h_tpm function fails as expected with invalid and/or missing settings", {
+  object <- get_se()
+  cont <- control_normalize()
+  expect_error(h_tpm(object, cont))
+  object <- HermesData(get_se())
+  expect_error(h_tpm(object))
+})
