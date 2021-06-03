@@ -28,8 +28,7 @@ test_that("assertion with is_hermes_data gives readable error message", {
   )
 })
 
-
-# is_counts_vector
+# is_counts_vector ----
 
 test_that("is_counts_vector accepts positive integer vectors", {
   expect_true(is_counts_vector(c(1L, 2L)))

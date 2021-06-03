@@ -3,13 +3,15 @@
 \name{assertions}
 \alias{assertions}
 \alias{is_class}
-\alias{is_counts_vector}
 \alias{is_hermes_data}
+\alias{is_counts_vector}
 \title{Additional Assertions for \code{assert_that}}
 \usage{
 is_class(object, class2)
-is_counts_vector(x)
+
 is_hermes_data(object)
+
+is_counts_vector(x)
 }
 \arguments{
 \item{object}{any object.}
@@ -26,19 +28,19 @@ We provide additional assertion functions which can be used together with
 \itemize{
 \item \code{is_class}: checks the class.
 
-\item \code{is_counts_vector}: checks for a vector of counts (positive integers).
-
 \item \code{is_hermes_data}: checks the class.
+
+\item \code{is_counts_vector}: checks for a vector of counts (positive integers).
 }}
 
 \examples{
 a <- 5
 is_class(a, "character")
 
-a <- 5
-is_class(a, "character")
-
 is_hermes_data(HermesData(summarized_experiment))
 is_hermes_data(42)
+
+a <- 5
+is_class(a, "character")
 
 }
