@@ -26,3 +26,21 @@ on_failure(is_class) <- function(call, env) {
   class <- eval(call$class2, env)
   paste(obj_name, "is not of class", class)
 }
+
+# is_counts_vector ----
+
+#' @describeIn assertions checks for a vector of counts (positive integers).
+#' @param x vector to check.
+#' @export
+#' @examples
+#' a <- 5
+#' is_class(a, "character")
+#' 
+is_counts_vector <- function(x) {
+  is.integer(x) && all(x > 0) && noNA(x) && not_empty(x)
+}
+
+on_failure(is_counts_vector) <- function(call, env) {
+  x_name <- deparse(call$x)
+  paste(x_name, "is not a vector of counts (positive integers)")
+}

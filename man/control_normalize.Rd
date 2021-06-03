@@ -2,30 +2,30 @@
 % Please edit documentation in R/normalization.R
 \name{control_normalize}
 \alias{control_normalize}
-\title{Settings for the normalize function}
+\title{Control Settings for Counts Normalization}
 \usage{
-control_normalize(log = TRUE, lib_size = NULL, prior_count = 1)
+control_normalize(log = TRUE, lib_sizes = NULL, prior_count = 1)
 }
 \arguments{
-\item{log}{(\code{flag})\cr whether log2 values are returned, otherwise original scale is used.}
+\item{log}{(\code{flag})\cr whether \code{log2} values are returned, otherwise original scale is used.}
 
-\item{lib_size}{(\code{numeric})\cr library size, the default is colSums(y).}
+\item{lib_sizes}{(\code{numeric})\cr library sizes, the default is the vector with the sum of the
+counts for each of the samples.}
 
 \item{prior_count}{(\code{count})\cr average count to be added to each observation to avoid
-taking log of zero, used only when log=TRUE.}
+taking log of zero, used only when \code{log = TRUE}.}
 }
 \value{
 List with the above settings used to perform the normalization procedure.
 }
 \description{
-Settings for the normalize function
+Control Settings for Counts Normalization
 }
 \note{
-Note, to be used with the normalize function.
+To be used with the \code{normalize()} function.
 }
 \examples{
-control <- control_normalize()
-control1 <- control_normalize(log = FALSE, lib_size = 1000000L, prior_count = .5)
-control2 <- control_normalize(lib_size = c(10L, 5L))
+control_normalize()
+control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
               
 }

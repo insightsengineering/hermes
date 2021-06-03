@@ -3,14 +3,19 @@
 \name{assertions}
 \alias{assertions}
 \alias{is_class}
+\alias{is_counts_vector}
 \title{Additional Assertions for \code{assert_that}}
 \usage{
 is_class(object, class2)
+
+is_counts_vector(x)
 }
 \arguments{
 \item{object}{any object.}
 
 \item{class2}{(\code{character} or class definition)\cr the class to which \code{object} could belong.}
+
+\item{x}{vector to check.}
 }
 \description{
 We provide additional assertion functions which can be used together with
@@ -19,9 +24,14 @@ We provide additional assertion functions which can be used together with
 \section{Functions}{
 \itemize{
 \item \code{is_class}: checks the class.
+
+\item \code{is_counts_vector}: checks for a vector of counts (positive integers).
 }}
 
 \examples{
+a <- 5
+is_class(a, "character")
+
 a <- 5
 is_class(a, "character")
 
