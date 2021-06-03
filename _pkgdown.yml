@@ -49,4 +49,6 @@ reference:
     contents:
       - is_class
       - is_counts_vector
+      - is_hermes_data
+      
       
