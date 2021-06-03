@@ -158,10 +158,11 @@ draw_nonzero_boxplot <- function(object,
 
 #' Stacked Barplot of Low Expression Genes by Chromosome
 #'
-#' This creates a barplot of genes of the [HermesData] object, showing the proportions of genes with low expression per chromosome.
+#' This creates a barplot of chromosomes for the [HermesData] object with the proportions of low expression genes.
 #'
-#' @param object (`HermesData`)\cr input.
-#' @param chromosomes (`character`)\cr names of the chromosomes which should be displayed. The chromosomes not in the name list will be displayed in "Others" category.
+#' @param object (`AnyHermesData`)\cr input.
+#' @param chromosomes (`character`)\cr names of the chromosomes which should be displayed. 
+#' @param include_others (`logical`)\cr option to show the chromosomes not in namelist as "others". The default is TRUE.
 #' @return The `ggplot` object with the histogram.
 #' 
 #' @importFrom rlang .data
@@ -169,25 +170,33 @@ draw_nonzero_boxplot <- function(object,
 #' @examples
 #' object <- HermesData(summarized_experiment)
 #' 
-#' # display chromosomes 1-22, X, Y, and MT
+#' # Display chromosomes 1-22, X, Y, and MT. Other chromosomes are displayed in "others".
 #' draw_genes_barplot(object)
 #'
-#' # display chromosomes 1 and 2 only
+#' # Display chromosomes 1 and 2. Other chromosomes are displayed in "others".
 #' draw_genes_barplot(object, chromosomes = c("1", "2"))
 #' 
+#' # Display chromosomes 1 and 2 only.
+#' draw_genes_barplot(object, chromosomes = c("1", "2"), include_others = FALSE)
+#' 
 draw_genes_barplot <- function(object, 
-                               chromosomes = c(as.character(c(1:22)), "X", "Y", "MT", "Others")) {
+                               chromosomes = c(as.character(c(1:22)), "X", "Y", "MT"),
+                               include_others = TRUE) {
   assert_that(
     is_class(object, "HermesData"),
     noNA(rowData(object)$LowExpressionFlag)
   )
   
-  df <- data.frame(Chromosome = rowData(object)$Chromosome, LowExpressionFlag = rowData(object)$LowExpressionFlag, stringsAsFactors = FALSE)
+  df <- data.frame(Chromosome = rowData(object)$Chromosome, 
+                   LowExpressionFlag = rowData(object)$LowExpressionFlag, 
+                   stringsAsFactors = FALSE)
   
   chromosomes <- unique(c(chromosomes, "Others"))
   df$chr <- factor(ifelse(df$Chromosome %in% chromosomes, df$Chromosome, "Others"), levels = chromosomes)
   
-  ggplot(data=df, aes(x=.data$chr)) + 
+  if(isFALSE(include_others)) df <- subset(df, df$chr != "Others")
+  
+  ggplot(data = df, aes(x = .data$chr)) + 
     geom_bar(aes(fill = .data$LowExpressionFlag)) +
     ggtitle("Stacked Barplot of Filtered Genes by Chromosome") +
     xlab("Chromosome") +
