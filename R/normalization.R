@@ -44,8 +44,15 @@ control_normalize <- function(log = TRUE,
 #' str(counts_tpm)
 #' 
 h_tpm <- function(object, 
-                  control) {
-  rpkm <- h_rpkm(object, control_normalize(log = FALSE))
+                  control = control_normalize()) {
+  # rpkm <- h_rpkm(object, control_normalize(log = FALSE))
+  rpkm <- edgeR::rpkm(
+    y = counts(object),
+    gene.length = rowData(object)$WidthBP,
+    lib.size = control$lib_sizes,
+    log = control$log,
+    prior.count = control$prior_count
+  )
   rpkm_sums <- colSums(rpkm, na.rm = TRUE)
   tpm <- sweep(rpkm, MARGIN = 2, STATS = rpkm_sums, FUN = "/") * 1e6
   if (control$log) {
