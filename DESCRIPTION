@@ -19,10 +19,12 @@ Imports:
     assertthat,
     BiocGenerics,
     ggplot2,
+    ggplot2.utils,
     methods,
     rlang,
     S4Vectors,
     testthat (>= 2.0),
+    tidyr,
     utils.nest
 Collate: 
     'HermesData-validate.R'
@@ -31,4 +33,5 @@ Collate:
     'assertthat.R'
     'data.R'
     'graphs.R'
+    'normalization.R'
     'package.R'

@@ -31,10 +31,25 @@ reference:
       - summarized_experiment
   - title: Methods
     contents:
+      - cbind
       - rbind
       - metadata
       - counts
+      - filter
+      - subset
   - title: Graphs
     contents:
       - draw_libsize_hist
+      - draw_libsize_qq
+      - draw_libsize_densities
+      - draw_nonzero_boxplot
+  - title: Control Functions
+    contents:
+      - control_normalize
+  - title: Assertions
+    contents:
+      - is_class
+      - is_counts_vector
+      - is_hermes_data
+      
       
