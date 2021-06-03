@@ -68,7 +68,6 @@ setMethod(
     chosen_assay <- assay(x, y)
     sample_cor_matrix <- stats::cor(chosen_assay, method = "pearson")
     
-    #annotation_col <- tern::explicit_na(as.character(colData(object)$TechnicalFailureFlag))
     .HermesDataCor(
       sample_cor_matrix,
       flag_data = colData(x)[, c("TechnicalFailureFlag", "LowDepthFlag")]
@@ -104,12 +103,12 @@ from the previously used `pheatmap` arguments to this, see [here](https://jokerg
 library(ComplexHeatmap)
 
 left_annotation <- rowAnnotation(
-  LowDepthFlag = factor(df$LowDepthFlag),
+  LowDepthFlag = factor(anno$LowDepthFlag),
   col = list(LowDepthFlag = c("FALSE" = "green", "TRUE" = "red"))
 )
 
 top_annotation <- HeatmapAnnotation(
-  TechnicalFailureFlag = factor(df$TechnicalFailureFlag),
+  TechnicalFailureFlag = factor(anno$TechnicalFailureFlag),
   col = list(TechnicalFailureFlag = c("FALSE" = "green", "TRUE" = "red"))
 )
 
@@ -132,6 +131,7 @@ setMethod(
                         flag_colors = c("FALSE" = "green", "TRUE" = "red"),
                         cor_colors = circlize::colorRamp2(c(0, 0.5, 1), c("red", "yellow", "green")),
                         ...) {
+    df <- x@flag_data
     left_annotation <- rowAnnotation(
       LowDepthFlag = factor(df$LowDepthFlag),
       col = list(LowDepthFlag = flag_colors)
@@ -145,7 +145,8 @@ setMethod(
       col = cor_colors,
       name = "Correlation",
       left_annotation = left_annotation,
-      top_annotation = top_annotation
+      top_annotation = top_annotation,
+      ...
     )
   }
 )
@@ -155,5 +156,8 @@ Let's try it out:
 
 ```{r}
 plot(result)
+
+# We can also pass options to `Heatmap()`:
+plot(result, show_column_names = FALSE, show_row_names = FALSE)
 ```
 
