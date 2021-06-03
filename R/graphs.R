@@ -68,7 +68,7 @@ draw_libsize_qq <- function(object,
     xlab("Theoretical Quantiles") +
     ylab("Sample Quantiles") +
     theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
-    theme(axis.text.y = element_text(angle=90))
+    theme(axis.text.y = element_text(angle = 90))
 }
 
 #' Density Plot of (Log) Counts Distributions
