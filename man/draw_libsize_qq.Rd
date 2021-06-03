@@ -2,25 +2,26 @@
 % Please edit documentation in R/graphs.R
 \name{draw_libsize_qq}
 \alias{draw_libsize_qq}
-\title{Q-Q plot of Library Sizes.}
+\title{Q-Q Plot of Library Sizes}
 \usage{
-draw_libsize_qq(object, colour = "grey", linetype = "dashed")
+draw_libsize_qq(object, color = "grey", linetype = "dashed")
 }
 \arguments{
 \item{object}{(\code{HermesData})\cr input.}
 
-\item{colour}{(\code{string})\cr color of QQ-line, default colour grey.}
+\item{color}{(\code{string})\cr color of Q-Q line.}
 
-\item{linetype}{(\code{string})\cr linetype of  QQ-line, default linetype dashed.}
+\item{linetype}{(\code{string})\cr linetype of  Q-Q line.}
 }
 \value{
-The \code{ggplot} object with the histogram.
+The \code{ggplot} object with the Q-Q Plot.
 }
 \description{
 This creates a Q-Q plot of the library sizes of the \link{HermesData} object.
 }
 \examples{
-result <- hermes:::.HermesData(summarized_experiment)
+result <- HermesData(summarized_experiment)
 draw_libsize_qq(result)
-draw_libsize_qq(result, colour = "blue", linetype = "solid")
+draw_libsize_qq(result, color = "blue", linetype = "solid")
+
 }
