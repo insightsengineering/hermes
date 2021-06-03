@@ -116,5 +116,5 @@ normalized `HermesData` assays.
 
 Based on the easy use of `ggfortify`'s `autoplot`, we don't actually need to include dedicated
 plot function ourselves in `hermes`. We can document in the examples how to use that, as well as in
-the BAC.
+the Biomarker Analysis Catalog (BAC).
 
