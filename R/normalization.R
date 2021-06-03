@@ -29,3 +29,33 @@ control_normalize <- function(log = TRUE,
     prior_count = prior_count
   )
 }
+#'
+#' Helper function to get Reads per Kilobase per Million (RPKM)
+#' @param 
+#' 
+#' @return 
+#' 
+#' @note To be used with the `normalize()` function.
+#' 
+#' @export
+#' @examples 
+#' h <- HermesData(summarized_experiment)
+#' cont <- control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
+#' counts_rpkm <- h_rpkm(h, cont)
+#' str(counts_rpkm)
+#' 
+h_rpkm <- function(object, 
+                   control) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control),
+    noNA(rowData(object)$WidthBP)
+  )
+  edgeR::rpkm(
+    y = counts(object),
+    gene.length = rowData(object)$WidthBP,
+    lib.size = control$lib_sizes,
+    log = control$log,
+    prior.count = control$prior_count
+  )
+}

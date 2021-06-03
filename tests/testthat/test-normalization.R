@@ -21,3 +21,10 @@ test_that("control_normalize fails as expected with invalid settings", {
   expect_error(control_normalize(lib_sizes = 0L))
   expect_error(control_normalize(prior_count = -1))
 })
+
+# h_rpkm ----
+
+test_that("h_rpkm function works as expected with default settings", {
+  result <- h_rpkm()
+  expect_is(result, "matrix")
+})
