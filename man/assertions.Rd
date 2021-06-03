@@ -4,16 +4,21 @@
 \alias{assertions}
 \alias{is_class}
 \alias{is_hermes_data}
+\alias{is_counts_vector}
 \title{Additional Assertions for \code{assert_that}}
 \usage{
 is_class(object, class2)
 
 is_hermes_data(object)
+
+is_counts_vector(x)
 }
 \arguments{
 \item{object}{any object.}
 
 \item{class2}{(\code{character} or class definition)\cr the class to which \code{object} could belong.}
+
+\item{x}{vector to check.}
 }
 \description{
 We provide additional assertion functions which can be used together with
@@ -24,6 +29,8 @@ We provide additional assertion functions which can be used together with
 \item \code{is_class}: checks the class.
 
 \item \code{is_hermes_data}: checks the class.
+
+\item \code{is_counts_vector}: checks for a vector of counts (positive integers).
 }}
 
 \examples{
@@ -32,5 +39,8 @@ is_class(a, "character")
 
 is_hermes_data(HermesData(summarized_experiment))
 is_hermes_data(42)
+
+a <- 5
+is_class(a, "character")
 
 }

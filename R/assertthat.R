@@ -44,3 +44,21 @@ on_failure(is_hermes_data) <- function(call, env) {
   obj_name <- deparse(call$object)
   paste(obj_name, "is not a HermesData or RangedHermesData object")
 }
+
+# is_counts_vector ----
+
+#' @describeIn assertions checks for a vector of counts (positive integers).
+#' @param x vector to check.
+#' @export
+#' @examples
+#' a <- 5
+#' is_class(a, "character")
+#' 
+is_counts_vector <- function(x) {
+  is.integer(x) && all(x > 0) && noNA(x) && not_empty(x)
+}
+
+on_failure(is_counts_vector) <- function(call, env) {
+  x_name <- deparse(call$x)
+  paste(x_name, "is not a vector of counts (positive integers)")
+}
