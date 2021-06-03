@@ -26,3 +26,21 @@ on_failure(is_class) <- function(call, env) {
   class <- eval(call$class2, env)
   paste(obj_name, "is not of class", class)
 }
+
+# is_hermes_data ----
+
+#' @describeIn assertions checks the class.
+#' @param object any object.
+#' @export
+#' @examples
+#' is_hermes_data(HermesData(summarized_experiment))
+#' is_hermes_data(42)
+#' 
+is_hermes_data <- function(object) {
+  is_class(object, "AnyHermesData")
+}
+
+on_failure(is_hermes_data) <- function(call, env) {
+  obj_name <- deparse(call$object)
+  paste(obj_name, "is not a HermesData or RangedHermesData object")
+}

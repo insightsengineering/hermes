@@ -42,4 +42,9 @@ reference:
       - draw_libsize_hist
       - draw_libsize_densities
       - draw_nonzero_boxplot
+  - title: Assertions
+    contents:
+      - is_class
+      - is_hermes_data
+      
       
