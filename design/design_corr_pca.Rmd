@@ -1,0 +1,120 @@
+---
+title: "Design: PCA analysis and plot"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+This vignette explores the PCA analysis and plot.
+
+## Idea
+
+We want to replace [`draw_pca()`](https://github.roche.com/Rpackages/rnaseqTools/blob/dae3c425cf5bf0d45848323f722b558ce3bbf851/R/gSE_Metrics.R#L233).
+- One function `calc_pca()` should do calculate the PCA
+- the other function `draw_pca()` takes those results and create the plot (but see below...)
+- The advantage of this modular design is that we can better test the PCA calculation and the user can also modify things / have their function before putting into the drawing function.
+
+## Workflow
+
+The workflow is expected as follows:
+1. `HermesData` object created
+2. QC flags added
+3. Filtering
+4. Normalization
+5. PCA on the assay of interest (this can be original counts, CPM, log CPM, etc. which come
+out of the normalization)
+6. Plot
+
+## Calculation Function
+
+According to the workflow above, the PCA functions no longer need to calculate the CPM, log of it,
+or any subsetting or filtering, as this has been done beforehand already.
+
+However the user needs to be able to specify the assay to use.
+We fix the scale and centering settings of the PCA analysis as they are advised. Since we scale,
+we need to omit any genes that are constant across all samples.
+
+```{r}
+calc_pca <- function(object,
+                     assay_name = "counts") {
+  assert_that(
+    is_hermes_data(object),
+    is.string(assay_name)
+  )
+  
+  # Obtain a matrix where each column is a gene, and keep only non-constant genes.
+  x_samples <- assay(object, assay_name)
+  x_genes <- t(x_samples)
+  gene_is_constant <- apply(x_genes, MARGIN = 2L, FUN = isConstant)
+  x_genes_remaining <- x_genes[, !gene_is_constant]
+  
+  stats::prcomp(
+    x = x_genes_remaining,
+    center = TRUE,
+    scale = TRUE, 
+    tol = sqrt(.Machine$double.eps)  # Omit essentially constant principal components.
+  )
+}
+
+object <- HermesData(summarized_experiment)
+pca <- calc_pca(object)
+summary(pca)
+```
+
+## Plot Function
+
+Now we can do the plot based on the PCA result.
+
+### Evaluation of `ggfortify`
+
+We could add this new package (which is already e.g. on BEE) to our docker containers.
+
+```{r}
+install.packages("ggfortify")
+library(ggfortify)
+autoplot(pca)
+help(autoplot.prcomp)
+```
+
+So it seems this has quite a few options. See [here](https://rpubs.com/sinhrks/plot_pca) for more background. For example:
+
+```{r}
+# Different components.
+autoplot(pca, x = 2, y = 4)
+
+# Draw eigenvectors.
+autoplot(pca, loadings = TRUE, loadings.label = TRUE)
+
+# This fails, seems like a bug:
+# autoplot(pca, loadings.data = pca$rotation[1:3, ], loadings = TRUE) 
+```
+
+Only issue here is that I have not found a good way so far to only plot selected eigenvectors here.
+
+```{r}
+# Sample labels.
+autoplot(pca, label = TRUE, label.size = 2, label.hjust = 1, label.vjust = 1)
+
+# Color by a factor in colData.
+dta <- as.data.frame(colData(object))
+autoplot(pca, data = dta, colour = "SEX")
+```
+
+So that works pretty nicely.
+
+### Alternatives
+
+Users could also go independently to [PCAtools](https://bioconductor.org/packages/release/bioc/html/PCAtools.html) starting from the 
+normalized `HermesData` assays.
+
+### Conclusion
+
+Based on the easy use of `ggfortify`'s `autoplot`, we don't actually need to include dedicated
+plot function ourselves in `hermes`. We can document in the examples how to use that, as well as in
+the BAC.
+

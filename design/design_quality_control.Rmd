@@ -1,0 +1,171 @@
+---
+title: "Design: Adding quality control flags"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+%\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+  
+This vignette prototypes the quality control flags addition functionality.
+
+## Idea
+
+After the user imports `HermesData` from a `SummarizedExperiment`, they still need to add 
+certain quality control flag information to the object. 
+- The settings are provided by a corresponding control function (which thresholds to use)
+- Note that these columns must already be present in the object, but can be completely `NA` in the beginning.
+- User interface is a function `add_quality_flags()`. No need for a generic here since this is quite
+specific.
+- Actual work is done by helper functions, one for each of the flags.
+
+## Control function
+
+This will import a function from the `tern` package for asserting proportion input.
+
+```{r}
+control_quality <- function(expression_min_cpm = 1,
+                            expression_min_prop = 0.25,
+                            technical_min_corr = 0.5,
+                            depth_min = NULL) {
+  assert_that(
+    is.number(expression_min_cpm) && expression_min_cpm >= 0,
+    tern::is_proportion(expression_min_prop),
+    tern::is_proportion(technical_min_corr),
+    is.null(depth_min) || is.number(depth_min)
+  )  
+  list(
+    expression_min_cpm = expression_min_cpm,
+    expression_min_prop = expression_min_prop,
+    technical_min_corr = technical_min_corr,
+    depth_min = depth_min
+  )
+}
+
+cont <- control_quality()
+```
+
+## Helper functions
+
+These do the actual work.
+
+### `h_low_expression_flag()`
+
+This calculates a low expression flag with one logical outcome per gene.
+
+This function compares the CPM with a minimum expression CPM threshold. It counts for each gene how
+many samples don't pass this threshold. If too many, then it flags this gene as "low expression" gene.
+
+Note that we don't return any metadata, in contrast to the old function. This is because the control
+information together with the returned logical flag variable provide all the information already (e.g.
+number of genes total, excluded and included is easily obtained).
+
+```{r}
+h_low_expression_flag <- function(object, control) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
+  )
+  cpm <- edgeR::cpm(counts(object))
+  threshold_n_samples <- ceiling(ncol(cpm) * control$expression_min_prop)
+  n_samples_below_min_cpm <- rowSums(cpm <= control$expression_min_cpm)
+  n_samples_below_min_cpm > threshold_n_samples
+}
+
+object <- HermesData(summarized_experiment)
+res <- h_low_expression_flag(object, cont)
+head(res)
+```
+
+### `h_tech_failure_flag()`
+
+This calculates a technical failure flag with one logical outcome per sample.
+
+This function first calculates the Pearson correlation matrix of the sample wise CPMs. So we have a matrix
+that shows the correlation between samples. Then we compare the average correlation per sample with a threshold - if the average correlation is too low, the sample is flagged as "technical failure".
+
+For now we don't return the correlation matrix. I think this is needed for PCA so we then get a dedicated function which we can reuse here.
+  
+```{r}
+h_tech_failure_flag <- function(object, control) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
+  )
+  cpm <- edgeR::cpm(counts(object))
+  sample_cor_matrix <- stats::cor(cpm, method = "pearson")
+  average_cor_per_sample <- colMeans(sample_cor_matrix)
+  average_cor_per_sample < control$technical_min_corr
+}
+
+h_tech_failure_flag(object, cont)
+```
+
+### `h_low_depth_flag()`
+
+This calculates a low depth flag with one logical outcome per sample.
+
+It computes the library size (total number of counts) per sample (removing any NAs).
+If this number is too low, the sample is flagged as "low depth". By default,
+this threshold is gives as the first quartile minus 1.5 times the inter quartile range. So anything
+below the usual lower boxplot whisker would be too low.
+
+```{r}
+h_low_depth_flag <- function(object, control) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
+  )
+  lib_sizes <- colSums(counts(object))
+  if (is.null(control$depth_min)) {
+    lower_upper_quartiles <- quantile(lib_sizes, probs = c(0.25, 0.75))
+    control$depth_min <- lower_upper_quartiles[1] - 1.5 * diff(lower_upper_quartiles)
+  }
+  lib_sizes < control$depth_min
+}
+
+h_low_depth_flag(object, cont)
+```
+
+## User function
+
+Finally we get to the user interfacing function.
+
+This sets the flags and saves the control options as metadata. In addition, it checks if the 
+object already has such metadata. In that case, it only proceeds if the user wants to overwrite the
+previous results.
+
+```{r}
+add_quality_flags <- function(object, 
+                              control = control_quality(),
+                              overwrite = FALSE) {
+  assert_that(
+    is_hermes_data(object),
+    is.flag(overwrite)
+  )
+  already_added <- ("control_quality_flags" %in% names(metadata(object))) 
+  if (already_added) {
+    if (overwrite) {
+      message("previously have added quality flags, but overwriting now")
+    } else {
+      stop("previously have added quality flags, please double check or ask for overwrite")
+    }
+  }
+  
+  rowData(object)$LowExpressionFlag <- h_low_expression_flag(object, control)
+  colData(object)$TechnicalFailureFlag <- h_tech_failure_flag(object, control)
+  colData(object)$LowDepthFlag <- h_low_depth_flag(object, control)
+  
+  metadata(object)$control_quality_flags <- control
+  
+  object
+}
+
+result <- add_quality_flags(object, cont)
+result2 <- add_quality_flags(result, cont)
+result2 <- add_quality_flags(result, cont, overwrite = TRUE)
+```
+
