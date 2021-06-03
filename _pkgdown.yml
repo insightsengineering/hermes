@@ -43,6 +43,7 @@ reference:
       - draw_libsize_qq
       - draw_libsize_densities
       - draw_nonzero_boxplot
+      - draw_genes_barplot
   - title: Control Functions
     contents:
       - control_normalize
