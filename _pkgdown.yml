@@ -26,6 +26,7 @@ reference:
       - validate_row_data
       - validate_col_data
       - h_cpm
+      - h_low_expression_flag
   - title: Example Data
     contents:
       - expression_set
