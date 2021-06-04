@@ -29,3 +29,32 @@ control_normalize <- function(log = TRUE,
     prior_count = prior_count
   )
 }
+
+#' Counts per Million (CPM) Normalization
+#'
+#' @param object (`HermesData`) \cr input.
+#' @param control (`list`) \cr list of settings used to perform the normalization procedure.
+#'
+#' @return A numeric matrix with normalized counts using the CPM method.
+#' @export
+#'
+#' @importFrom edgeR cpm
+#' @examples
+#' h <- HermesData(summarized_experiment)
+#' cont <- control_normalize()
+#' counts_cpm <- h_cpm(h, cont)
+#' str(counts_cpm)
+#' 
+h_cpm <- function(object, 
+                  control = control_normalize()) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
+  )
+  edgeR::cpm(
+    y = counts(object),
+    lib.size = control$lib_sizes,
+    log = control$log,
+    prior.count = control$prior_count
+  )
+}
