@@ -12,14 +12,13 @@ control_quality(
 )
 }
 \arguments{
-\item{min_cpm}{(\code{number})\cr minimum cpm for each gene within the sample to pass, default is 1.}
+\item{min_cpm}{(\code{number})\cr minimum CPM for each gene within the sample to pass.}
 
 \item{min_readcount_prop}{(\code{proportion})\cr minimum percentage of samples with acceptable read count of certain gene, default is 0.25.}
 
-\item{min_corr}{(\code{proportion})\cr minimum correlation of RNAseq results, default is 0.5.}
+\item{min_corr}{(\code{proportion})\cr minimum correlation of RNAseq results.}
 
-\item{min_depth}{(\code{number})\cr minimum library depth, default is \code{NULL}, which means lower quartile minus 1.5 times
-of the interquartile range is used as the threshold.}
+\item{min_depth}{(\code{number})\cr minimum library depth.}
 }
 \value{
 List with the above criteria to flag observations.
