@@ -29,13 +29,15 @@ test_that("h_rpkm function works as expected with default settings", {
   cont <- control_normalize()
   result <- h_rpkm(object, cont)
   expect_is(result, "matrix")
+  expect_equal(dim(object), dim(result))
 })
 
 test_that("h_rpkm function works as expected with custom settings", {
   object <- HermesData(get_se())
   cont <- expect_silent(control_normalize(log = TRUE, lib_sizes = 180000000L, prior_count = 5))
   result <- h_rpkm(object, cont)
-  expect_is(result, "matrix")
+  expect_gt(min(result), 0)
+  expect_equal(dim(object), dim(result))
 })
 
 test_that("h_rpkm function fails as expected with invalid settings", {
