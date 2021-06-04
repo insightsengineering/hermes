@@ -9,7 +9,7 @@ h_low_expression_flag(object, control = control_quality())
 \arguments{
 \item{object}{(\code{HermesData}) \cr input.}
 
-\item{control}{(\code{list}) \cr list of settings used to perform the normalization procedure.}
+\item{control}{(\code{list}) \cr list of settings used to perform the quality control procedure.}
 }
 \value{
 A logical vector indicating whether each gene in HermesData object has low expression.
@@ -19,7 +19,8 @@ Quality Control: Low Expression Flag
 }
 \examples{
 object <- HermesData(summarized_experiment)
-control <- control_quality()
+result <- h_low_expression_flag(object)
+control <- control_quality(min_cpm = 5, min_readcount_prop = 0.5)
 result <- h_low_expression_flag(object, control)
 head(result)
 

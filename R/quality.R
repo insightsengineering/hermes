@@ -38,7 +38,7 @@ control_quality <- function(min_cpm = 1,
 #' Quality Control: Low Expression Flag
 #'
 #' @param object (`HermesData`) \cr input.
-#' @param control (`list`) \cr list of settings used to perform the normalization procedure.
+#' @param control (`list`) \cr list of settings used to perform the quality control procedure.
 #'
 #' @return A logical vector indicating whether each gene in HermesData object has low expression.
 #' @export
@@ -46,7 +46,8 @@ control_quality <- function(min_cpm = 1,
 #' @importFrom edgeR cpm
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#' control <- control_quality()
+#' result <- h_low_expression_flag(object)
+#' control <- control_quality(min_cpm = 5, min_readcount_prop = 0.5)
 #' result <- h_low_expression_flag(object, control)
 #' head(result)
 #' 

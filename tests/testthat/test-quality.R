@@ -43,15 +43,15 @@ test_that("control_quality fails as expected with invalid settings", {
 test_that("h_low_expression_flag function works as expected with default settings", {
   object <- expect_silent(HermesData(summarized_experiment))
   control <- control_quality()
-  result <- h_low_expression_flag(object, control)
+  result <- expect_silent(h_low_expression_flag(object, control))
   expect_is(result, "logical")
   expect_equal(length(result), nrow(object))
 })
 
-test_that("h_low_expression_flag function works as expected with default settings", {
+test_that("h_low_expression_flag function works as expected with custom settings", {
   object <- expect_silent(HermesData(summarized_experiment))
   control <- control_quality(min_cpm = 5, min_readcount_prop = 0.5, min_corr = .1, min_depth = 3)
-  result <- h_low_expression_flag(object, control)
+  result <- expect_silent(h_low_expression_flag(object, control))
   expect_is(result, "logical")
   expect_equal(length(result), nrow(object))
 })
@@ -59,7 +59,7 @@ test_that("h_low_expression_flag function works as expected with default setting
 test_that("h_low_expression_flag fails as expected with invalid settings", {
   object1 <- get_se()
   object2 <- matrix(1:4, 2, 2)
-  object3 <- HermesData(get_se())
+  object3 <- expect_silent(HermesData(get_se()))
   cont1 <- control_quality()
   cont2 <- list(1, 2, 3, 4)
   expect_error(h_low_expression_flag(object1, cont1))
