@@ -37,7 +37,6 @@ control_normalize <- function(log = TRUE,
 #' @return A numeric matrix with normalized counts using the TPM method.
 #'   
 #' @importFrom edgeR rpkm
-#' @importFrom edgeR tpm
 #' @examples
 #' h <- HermesData(summarized_experiment)
 #' cont <- control_normalize()

@@ -12,7 +12,7 @@ h_tpm(object, control = control_normalize())
 \item{control}{(\code{list})\cr list of settings used to perform the normalization procedure.}
 }
 \value{
-Matrix of TPM normalized gene counts per sample.
+A numeric matrix with normalized counts using the TPM method.
 }
 \description{
 Transcripts per Million (TPM) Normalization

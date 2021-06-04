@@ -25,7 +25,8 @@ Imports:
     S4Vectors,
     testthat (>= 2.0),
     tidyr,
-    utils.nest
+    utils.nest,
+    edgeR
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
