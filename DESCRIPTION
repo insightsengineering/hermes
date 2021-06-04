@@ -22,6 +22,7 @@ Imports:
     ggplot2.utils,
     methods,
     rlang,
+    stats,
     S4Vectors,
     tern, 
     testthat (>= 2.0),

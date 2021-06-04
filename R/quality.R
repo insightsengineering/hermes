@@ -43,11 +43,12 @@ control_quality <- function(min_cpm = 1,
 #' @return A logical vector indicating whether a sample in HermesData object has low average read depth.
 #' @export
 #'
+#' @importFrom stats quantile
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#' result <- h_low_expression_flag(object, control)
+#' result <- h_low_depth_flag(object)
 #' control <- control_quality(min_depth = 5)
-#' result <- h_low_expression_flag(object, control)
+#' result <- h_low_depth_flag(object, control)
 #' head(result)
 #' 
 
