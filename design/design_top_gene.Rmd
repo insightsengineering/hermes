@@ -82,7 +82,8 @@ top_n_top <- average_expression %>%
 ggplot(top_min_treshold) +
   geom_col (aes( y = average_expression, x = name)) +
   scale_x_discrete(name = "HGNC gene names") +
-  scale_y_continuous(name = "Averaged CPM") 
+  scale_y_continuous(name = "Averaged CPM") +
+  theme(axis.text.x = element_text(angle = 90))
 
 # label need to be rotate for readibility
 
@@ -90,23 +91,60 @@ ggplot(top_min_treshold) +
 ggplot(top_n_top) +
   geom_col (aes( y = average_expression, x = name)) +
   scale_x_discrete(name = "HGNC gene names") +
-  scale_y_continuous(name = "Averaged CPM") 
-
-
-
+  scale_y_continuous(name = "Averaged CPM") +
+  theme(axis.text.x = element_text(angle = 90))
 
 
 ``` 
 
-So now putting the two functions togheter , need also to add an option to specify either 1 or the other option
+So now putting the two functions togheter , need also to add an option to specify either 1 or the other option. I think with `FALSE` should be ok . 
+QUESTION for assert that what need to be used if can be a number or FALSE?
 
 ```{r}
-top_genes <- function(object, 
-                      n_top = 10L , 
-                      min_threshold = FALSE) {
-  
-  
+top_genes <- function(object = result,
+                      n_top = 10L, 
+                      min_threshold = NA) {
+  assert_that(
+    is_class(object, "HermesData") #,
+    #is.number(n_top),
+    #is.number(min_threshold) 
+    # QUESTION I need to check that only one of the two is numeric?? how to do that??
+    )
+
+n_top <- n_top
+min_threshold <- min_threshold
+
+average_expression <- rowMeans(counts(object))
+
+average_expression <- as.data.frame(average_expression) %>%
+  arrange(desc(average_expression))
+
+row_names <- rownames(average_expression)
+
+average_expression <- average_expression %>%
+  mutate(name = factor(row_names, levels = row_names))
+
+if(!is.na(min_threshold)){
+  df <- average_expression %>%
+    filter(average_expression >= min_threshold)
+  } else if (!is.na(n_top)){
+    df <- average_expression %>%
+      slice_head(n = n_top , with_ties = TRUE)  
+  }
 }
+
+
+df <- top_genes(result)
+
+draw_top_barplot <- function(df) {
+  ggplot(df) +
+    geom_col (aes( y = .data$average_expression, x = .data$name)) +
+    scale_x_discrete(name = "HGNC gene names") +
+    scale_y_continuous(name = "Averaged CPM") +
+    theme(axis.text.x = element_text(angle = 90))
+  }
+
+draw_top_barplot(df)
 
 ``` 
 
