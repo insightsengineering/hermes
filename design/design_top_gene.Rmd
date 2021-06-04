@@ -1,0 +1,26 @@
+---
+title: "Design: top_genes()"
+author: "Simona Rossomanno"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+Update and replace the `draw_top_gene()` function from `rnaseqTools` to use  `top_genes()`, to derive the top expressing genes, `draw_top_barplot()` to draw the bar plots using `ggplt2` and use an `HermesData` object as input.
+
+## Idea
+First we need to access the count data in Hermes data and select the top expressing ones. The selection could be based on the number of genes that we want to plot , for example the top 10, or based on a expression treshold.
+
+```{r}
+#Creating the HermesData object from the example SummarizedExperiment object.
+result <- HermesData(summarized_experiment)
+
+#Accessing the counts data.
+count_results <- counts(result)
+```
