@@ -71,6 +71,8 @@ draw_libsize_qq <- function(object,
     theme(axis.text.y = element_text(angle = 90))
 }
 
+<<<<<<< HEAD
+=======
 #' Density Plot of (Log) Counts Distributions
 #'
 #' This creates a density plot of the (log) counts distributions of the [HermesData] object where each line
@@ -156,13 +158,52 @@ draw_nonzero_boxplot <- function(object,
     ylab("Number of non-zero genes")
 }
 
+
+#' Histogram of Library Sizes
+#'
+#' This creates a histogram of the library sizes of the [HermesData] object.
+#'
+#' @param object (`HermesData`)\cr input.
+#' @param bins (`count`)\cr number of evenly distributed groups desired.
+#' @param fill (`string`)\cr color of the bars filling.
+#' @return The `ggplot` object with the histogram.
+#' 
+#' @importFrom rlang .data
+#' @export
+#' @examples
+#' result <- HermesData(summarized_experiment)
+#' draw_libsize_hist(result)
+#' draw_libsize_hist(result, bins = 10L, fill = "blue")
+#'
+draw_libsize_hist <- function(object, 
+                              bins = 30L,
+                              fill = "darkgrey") {
+  assert_that(
+    is_class(object, "HermesData"),
+    is.count(bins),
+    is.string(fill)
+  )
+  df <- data.frame(libsize = colSums(counts(object)))
+  ggplot(df, aes(x = .data$libsize)) +
+    geom_histogram(bins = bins, fill = fill) +
+    stat_bin(
+      bins = bins, 
+      geom = "text", 
+      aes(label = ifelse(.data$..count.. > 0, .data$..count.., "")), 
+      vjust = -0.25
+    ) +
+    ggtitle("Histogram of Library Sizes") +
+    xlab("Library Size") +
+    ylab("Frequency")
+}
+
 #' Stacked Barplot of Low Expression Genes by Chromosome
 #'
 #' This creates a barplot of chromosomes for the [HermesData] object with the proportions of low expression genes.
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param chromosomes (`character`)\cr names of the chromosomes which should be displayed. 
-#' @param include_others (`logical`)\cr option to show the chromosomes not in namelist as "others". The default is TRUE.
+#' @param include_others (`flag`)\cr option to show the chromosomes not in `chromosomes` as "Others".
 #' @return The `ggplot` object with the histogram.
 #' 
 #' @importFrom rlang .data
@@ -184,17 +225,21 @@ draw_genes_barplot <- function(object,
                                include_others = TRUE) {
   assert_that(
     is_class(object, "HermesData"),
-    noNA(rowData(object)$LowExpressionFlag)
+    noNA(rowData(object)$LowExpressionFlag),
+    is.flag(include_others),
+    !any(duplicated(chromosomes))
   )
   
-  df <- data.frame(Chromosome = rowData(object)$Chromosome, 
-                   LowExpressionFlag = rowData(object)$LowExpressionFlag, 
-                   stringsAsFactors = FALSE)
+  df <- data.frame(
+    Chromosome = rowData(object)$Chromosome, 
+    LowExpressionFlag = rowData(object)$LowExpressionFlag, 
+    stringsAsFactors = FALSE
+  )
   
-  chromosomes <- unique(c(chromosomes, "Others"))
+  chromosomes <- c(chromosomes, "Others")
   df$chr <- factor(ifelse(df$Chromosome %in% chromosomes, df$Chromosome, "Others"), levels = chromosomes)
   
-  if(isFALSE(include_others)) df <- subset(df, df$chr != "Others")
+  if(!include_others) df <- df[df$chr != "Others", ]
   
   ggplot(data = df, aes(x = .data$chr)) + 
     geom_bar(aes(fill = .data$LowExpressionFlag)) +
