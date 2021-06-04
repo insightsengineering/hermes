@@ -46,6 +46,7 @@ reference:
   - title: Control Functions
     contents:
       - control_normalize
+      - control_quality
   - title: Assertions
     contents:
       - is_class
