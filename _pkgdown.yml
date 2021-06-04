@@ -25,6 +25,7 @@ reference:
       - validate_non_empty
       - validate_row_data
       - validate_col_data
+      - h_low_depth_flag
   - title: Example Data
     contents:
       - expression_set
