@@ -23,7 +23,7 @@ control_quality <- function(min_cpm = 1,
     is.number(min_cpm) && min_cpm >= 0,
     tern::is_proportion(min_readcount_prop),
     tern::is_proportion(min_corr),
-    is.null(min_depth) || (is.number(min_depth) && min_depth >= 0)
+    is.null(min_depth) || tern::is_nonnegative_count(min_depth)
   )  
   list(
     min_cpm = min_cpm,
