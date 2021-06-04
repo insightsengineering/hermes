@@ -97,55 +97,76 @@ ggplot(top_n_top) +
 ``` 
 
 So now putting the two functions togheter , need also to add an option to specify either 1 or the other option. I think with `FALSE` should be ok . 
-QUESTION for assert that what need to be used if can be a number or NA?
-
 adding also another function call that the summary function can be choose even if the default is rowmean
 
 ```{r}
 top_genes <- function(object = result,
-                      summary_fun = "rowMeans", 
+                      assay = "", 
+                      summary_fun = rowMeans, 
                       n_top = 10L, 
                       min_threshold = NA) {
   assert_that(
-    is_class(object, "HermesData") #,
+    is_class(object, "AnyHermesData"),
+    is.function(summary_fun) #,
+    #is??? (assay)
     #is.number(n_top),
     #is.number(min_threshold) 
-    # QUESTION I need to check that only one of the two is numeric?? how to do that??
+    # QUESTION  which assert function can I use when are either positive and numeric or NA? 
+    # how to assert that only one of the two is numeric? I added a print error but not sure if it is enough
     )
-
   
-summary_fun <- summary_fun  
-n_top <- n_top
-min_threshold <- min_threshold
-
-average_expression <- summary_fun(counts(object))
-
-average_expression <- as.data.frame(average_expression) %>%
-  arrange(desc(average_expression))
-
-row_names <- rownames(average_expression)
-
-average_expression <- average_expression %>%
+  object <- object
+  assay <- assay
+  summary_fun <- summary_fun  
+  n_top <- n_top
+  min_threshold <- min_threshold
+  
+  
+  # QUESTION: instead of using a variable name average expression should I make it more generic? is there a way that it reflect the summary function used?? 
+  
+  average_expression <- summary_fun(counts(object))
+  average_expression <- as.data.frame(average_expression) %>%
+    arrange(desc(average_expression))
+  
+  row_names <- rownames(average_expression)
+  average_expression <- average_expression %>%
   mutate(name = factor(row_names, levels = row_names))
-
-if(!is.na(min_threshold)){
-  df <- average_expression %>%
-    filter(average_expression >= min_threshold)
-  } else if (!is.na(n_top)){
+  
+  if(!is.na(min_threshold) & !is.na(n_top)) {
+    print("ERROR: one of the two parameters (n_top or min_threshold) has to be NA")
+    }
+  
+  if(!is.na(min_threshold)){
     df <- average_expression %>%
-      slice_head(n = n_top , with_ties = TRUE)  
+      filter(average_expression >= min_threshold)
+    } else if (!is.na(n_top)){
+      df <- average_expression %>%
+        slice_head(n = n_top , with_ties = TRUE)  
+    }
   }
-}
 
 
 df <- top_genes(result)
 
-draw_top_barplot <- function(df) {
+draw_top_barplot <- function(df, 
+                             ylab = "Averaged CPM", 
+                             title = "Top most expressed genes") {
+  
+  assert_that(
+    is.character(ylab),
+    is.character(title)
+    )
+  
+  ylab = ylab
+  title = title
+  
   ggplot(df) +
     geom_col (aes( y = .data$average_expression, x = .data$name)) +
     scale_x_discrete(name = "HGNC gene names") +
-    scale_y_continuous(name = "Averaged CPM") +
-    theme(axis.text.x = element_text(angle = 90))
+    scale_y_continuous(name = paste(ylab, sep = ""))  +
+    theme(axis.text.x = element_text(angle = 90)) +
+    ggtitle(paste(title, sep = "")) +
+    theme(plot.title = element_text(hjust = 0.5))
   }
 
 draw_top_barplot(df)
