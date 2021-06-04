@@ -31,12 +31,15 @@ control_normalize <- function(log = TRUE,
 }
 #'
 #' Helper function to get Reads per Kilobase per Million (RPKM)
-#' @param 
 #' 
-#' @return 
+#' @param object (`HermesData`)\cr input object. 
+#' @param control (`list`)\cr list of settings used to perform the normalization procedure. 
+#' 
+#' @return A numeric matrix with normalized counts using the RPKM method.
 #' 
 #' @note To be used with the `normalize()` function.
 #' 
+#' @importFrom edgeR rpkm
 #' @export
 #' @examples 
 #' h <- HermesData(summarized_experiment)
