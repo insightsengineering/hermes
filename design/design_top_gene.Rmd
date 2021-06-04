@@ -38,9 +38,9 @@ average_expression <- rowMeans(count_results)
 We then subset based either on the first `n_top` or on `min_threshold` and create a dataframe. The dataframe will contain two columns and n rows (corrisponding to the number of rows in the counts matrix) containing one the name of the gene and the other the corrisponding average gene expression. The derived data has to be a dataframe because  `ggplots2` requires a data frame object. 
 
 questions: 
-    * is it better to have the data converted to dataframe in the `draw_top_barplot()` function instead of the `top_genes()` one?
-    * do we need to plot normalised data instead?
-    * should we account for more than one set? ei for an additional by group?
+    * is it better to have the data converted to dataframe in the `draw_top_barplot()` function instead of the `top_genes()` one? YES
+    * do we need to plot normalised data instead? user can choose the relevant sample
+    * should we account for more than one set? ei for an additional by group? not for now
 
 ```{r}
 #set as criteria number of genes for example the first 10
@@ -76,8 +76,7 @@ top_min_treshold <- average_expression %>%
 
 # or on n_top
 top_n_top <- average_expression %>%
-  slice_head(n = n_top , with_ties = TRUE)  #Should ties be kept together? The default, TRUE, may return more rows than you request. Use FALSE to ignore ties, and return the first n rows.
-
+  slice_head(n = n_top , with_ties = TRUE)  #with_ties = TRUE, may return more rows than you request. 
 
 ggplot(top_min_treshold) +
   geom_col (aes( y = average_expression, x = name)) +
@@ -98,7 +97,7 @@ ggplot(top_n_top) +
 ``` 
 
 So now putting the two functions togheter , need also to add an option to specify either 1 or the other option. I think with `FALSE` should be ok . 
-QUESTION for assert that what need to be used if can be a number or FALSE?
+QUESTION for assert that what need to be used if can be a number or NA?
 
 ```{r}
 top_genes <- function(object = result,
