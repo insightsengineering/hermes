@@ -52,8 +52,24 @@ min_threshold <- 50000L
 library("dplyr")
 
 average_expression <- data.frame(average_expression) %>%
-  arrange(desc(average_expression)) 
+  arrange(desc(average_expression)) %>%
+  mutate(name = rownames(average_expression))
 
+
+
+# note to m,ake sure that the order in the plot is descending then this need to be taken in account:
+# from  https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html
+# Reordering groups in a ggplot2 chart can be a struggle. This is due to the fact that ggplot2 takes into account the order of the factor
+#levels, not the order you observe in your data frame. You can sort your input data frame with sort() or arrange(), it will never have any
+# impact on your ggplot2 output.
+
+# The mutate() function of dplyr allows to create a new variable or modify an existing one. 
+# It is possible to use it to recreate a factor with a specific order and then use that in the ggplot call
+
+average_expression <- data.frame(average_expression) %>%
+    mutate(name = factor(name, levels = name))
+
+### DOES NOT WORK!!!
 
 ``` 
 the dataframe can then selected and  plotted. 
@@ -73,6 +89,26 @@ ggplot(top_min_treshold %>%
   geom_col (aes( y = average_expression, x = rownames(top_min_treshold))) +
   scale_x_discrete(name = "HGNC gene names") +
   scale_y_continuous(name = "Averaged CPM") 
+
+## QUESTION why the data are not sorted in the plot??? 
+
+
+
+
+
+top_min_treshold %>%
+  arrange(average_expression) %>%    # First sort by val. This sort the dataframe but NOT the factor levels
+  mutate(name=factor(name, levels=name)) %>%   # This trick update the factor levels
+
+ggplot(top_min_treshold) +
+  geom_col (
+    aes(y = average_expression, 
+        x = reorder(rownames(top_min_treshold), average_expression))
+    ) +
+  scale_x_discrete(name = "HGNC gene names") +
+  scale_y_continuous(name = "Averaged CPM") 
+
+# now are sorted but how do I get a discending order?
 
 # or 
 
