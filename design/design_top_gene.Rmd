@@ -99,8 +99,11 @@ ggplot(top_n_top) +
 So now putting the two functions togheter , need also to add an option to specify either 1 or the other option. I think with `FALSE` should be ok . 
 QUESTION for assert that what need to be used if can be a number or NA?
 
+adding also another function call that the summary function can be choose even if the default is rowmean
+
 ```{r}
 top_genes <- function(object = result,
+                      summary_fun = "rowMeans", 
                       n_top = 10L, 
                       min_threshold = NA) {
   assert_that(
@@ -110,10 +113,12 @@ top_genes <- function(object = result,
     # QUESTION I need to check that only one of the two is numeric?? how to do that??
     )
 
+  
+summary_fun <- summary_fun  
 n_top <- n_top
 min_threshold <- min_threshold
 
-average_expression <- rowMeans(counts(object))
+average_expression <- summary_fun(counts(object))
 
 average_expression <- as.data.frame(average_expression) %>%
   arrange(desc(average_expression))
@@ -143,6 +148,9 @@ draw_top_barplot <- function(df) {
     theme(axis.text.x = element_text(angle = 90))
   }
 
+draw_top_barplot(df)
+
+df <- top_genes(result, n_top = NA, min_threshold = 50000)
 draw_top_barplot(df)
 
 ``` 
