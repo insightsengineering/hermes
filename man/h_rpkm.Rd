@@ -7,7 +7,7 @@
 h_rpkm(object, control)
 }
 \arguments{
-\item{object}{(\code{HermesData})\cr input object.}
+\item{object}{(\code{AnyHermesData})\cr input object.}
 
 \item{control}{(\code{list})\cr list of settings used to perform the normalization procedure.}
 }
