@@ -27,21 +27,23 @@ test_that("control_normalize fails as expected with invalid settings", {
 test_that("h_cpm function works as expected with default settings", {
   object <- expect_silent(HermesData(summarized_experiment))
   cont <- control_normalize()
-  result <- h_cpm(object, cont)
+  result <- expect_silent(h_cpm(object, cont))
   expect_is(result, "matrix")
+  expect_equal(dim(result), dim(object))
 })
 
 test_that("t_cpm function works as expected with custom settings", {
   object <- HermesData(get_se())
   cont <- expect_silent(control_normalize(log = TRUE, lib_sizes = 60000000L, prior_count = 3))
-  result <- h_cpm(object,cont)
+  result <- expect_silent(h_cpm(object,cont))
   expect_is(result, "matrix")
+  expect_equal(dim(result), dim(object))
 })
 
 test_that("h_cpm function fails as expected with invalid settings", {
   object1 <- get_se()
   object2 <- matrix(1:4, 2, 2)
-  object3 <- HermesData(get_se())
+  object3 <- expect_silent(HermesData(get_se()))
   cont1 <- control_normalize()
   cont2 <- list(1, 2, 3)
   expect_error(h_cpm(object1, cont1))

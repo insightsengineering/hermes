@@ -7,12 +7,12 @@
 h_cpm(object, control = control_normalize())
 }
 \arguments{
-\item{object}{(\code{HermesData}) \cr input}
+\item{object}{(\code{HermesData}) \cr input.}
 
-\item{control}{(\code{list}) \cr list of settings used to perform the normalization procedure}
+\item{control}{(\code{list}) \cr list of settings used to perform the normalization procedure.}
 }
 \value{
-A numeric matrix with normalized count using CPM method
+A numeric matrix with normalized counts using the CPM method.
 }
 \description{
 Counts per Million (CPM) Normalization
