@@ -35,3 +35,4 @@ Collate:
     'graphs.R'
     'normalization.R'
     'package.R'
+    'quality.R'
