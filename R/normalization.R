@@ -37,6 +37,7 @@ control_normalize <- function(log = TRUE,
 #' @return A numeric matrix with normalized counts using the VOOM method.
 #'   
 #' @export
+#' @importFrom limma voom
 #' @examples
 #' h <- HermesData(summarized_experiment)
 #' cont <- control_normalize()
