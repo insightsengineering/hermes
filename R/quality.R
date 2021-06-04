@@ -51,7 +51,6 @@ control_quality <- function(min_cpm = 1,
 #' result <- h_low_expression_flag(object, control)
 #' head(result)
 #' 
-
 h_low_expression_flag <- function(object, 
                                   control = control_quality()) {
   assert_that(
