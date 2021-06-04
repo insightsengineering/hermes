@@ -32,5 +32,3 @@ control_quality <- function(min_cpm = 1,
     min_depth = min_depth
   )
 }
-
-cont <- control_quality()
