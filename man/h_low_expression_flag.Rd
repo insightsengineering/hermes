@@ -12,7 +12,7 @@ h_low_expression_flag(object, control = control_quality())
 \item{control}{(\code{list}) \cr list of settings used to perform the normalization procedure.}
 }
 \value{
-A logical vector indicating whether each gene in HermesData object has low expression
+A logical vector indicating whether each gene in HermesData object has low expression.
 }
 \description{
 Quality Control: Low Expression Flag

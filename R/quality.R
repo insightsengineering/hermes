@@ -40,7 +40,7 @@ control_quality <- function(min_cpm = 1,
 #' @param object (`HermesData`) \cr input.
 #' @param control (`list`) \cr list of settings used to perform the normalization procedure.
 #'
-#' @return A logical vector indicating whether each gene in HermesData object has low expression
+#' @return A logical vector indicating whether each gene in HermesData object has low expression.
 #' @export
 #'
 #' @importFrom edgeR cpm
