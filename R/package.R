@@ -7,7 +7,6 @@
 #' @import ggplot2
 #' @import ggplot2.utils
 #' @import methods
-#' @import BiocGenerics
 #' @import SummarizedExperiment
 #' @import testthat
 NULL

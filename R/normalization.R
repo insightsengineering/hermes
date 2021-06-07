@@ -180,6 +180,7 @@ h_voom <- function(object,
 #' @return The [AnyHermesData] object with additional assays containing the normalized counts.
 #'   The `control` is saved in the `metadata` of the object for future reference.
 #'  
+#' @importFrom BiocGenerics normalize
 #' @export
 #' @examples 
 #' a <- HermesData(summarized_experiment)
