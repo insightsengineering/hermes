@@ -27,6 +27,8 @@ reference:
       - validate_col_data
       - h_rpkm
       - h_cpm
+      - h_tpm
+      - h_voom
       - h_low_expression_flag
       - h_tech_failure_flag
   - title: Example Data
