@@ -28,6 +28,7 @@ reference:
       - h_rpkm
       - h_cpm
       - h_low_expression_flag
+      - h_tech_failure_flag
   - title: Example Data
     contents:
       - expression_set
