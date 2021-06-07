@@ -27,8 +27,7 @@ Imports:
     tern, 
     testthat (>= 2.0),
     tidyr,
-    utils.nest,
-    edgeR
+    utils.nest
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
