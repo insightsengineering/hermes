@@ -1,10 +1,14 @@
 #' Principal Components Analysis and Plot
 #'
 #' @param object (`HermesData`) \cr input.
-#' @param assay_name (`Character string`) \cr Indicating the name of the assay of interest, with possible options: "counts", "cpm", "tpm", "rpkm", "voom". Default assay is "counts".
+#' @param assay_name (`Character string`) \cr Indicating the name of the assay
+#'   of interest, with possible options: "counts", "cpm", "tpm", "rpkm", "voom".
+#'   Default assay is "counts".
 #'
-#' @return A list with class "prcomp" containing standard deviations of the principal components, rotation (matrix of variable loadings), and 
-#' 
+#' @return A list with class "prcomp" containing standard deviations of the
+#'   principal components, rotation (matrix whose columns contain the
+#'   eigenvectors), the rotated data and the cenetering and scaling used
+#'   
 #' @note Genes with constant value across all samples are excluded from the analysis.
 #' @export
 #'
@@ -27,7 +31,7 @@ calc_pca <- function(object,
   gene_is_constant <- apply(x_genes, MARGIN = 2L, FUN = isConstant)
   x_genes_remaining <- x_genes[, !gene_is_constant]
 
-  stats::prcomp(
+  sample_pca <- stats::prcomp(
     x = x_genes_remaining,
     center = TRUE,
     scale = TRUE,
@@ -37,8 +41,8 @@ calc_pca <- function(object,
 
 ## Difficult to test other assays besides "counts" without the normalization method defined to be able to easily create a 
 ##### normalized HermesData object
-object <- HermesData(summarized_experiment)
-h_norm <- normalize(object) ## NEED TO SET METHOD for normalization first to be able to use this function for other assays besides "counts"
-assayNames(h_norm)
-pca <- calc_pca(h_norm, assay_name = "cpm")
-summary(pca)
+#object <- HermesData(summarized_experiment)
+# h_norm <- normalize(object) ## NEED TO SET METHOD for normalization first to be able to use this function for other assays besides "counts"
+# assayNames(h_norm)
+# pca <- calc_pca(h_norm, assay_name = "cpm")
+# summary(pca)

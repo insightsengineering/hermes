@@ -155,3 +155,24 @@ draw_nonzero_boxplot <- function(object,
     xlab("Library") +
     ylab("Number of non-zero genes")
 }
+
+
+install.packages("ggfortify")
+library(ggfortify)
+
+.HermesDataPca <- setClass(
+  Class = "HermesDataPca",
+  contains = "list"
+)
+
+# .HermesDataPca(
+#   sample_pca
+# )
+
+setMethod(
+  f = "plot",
+  signature = "HermesDataPca",
+  definition = function(x) {
+    autoplot(pca)
+  }
+)
