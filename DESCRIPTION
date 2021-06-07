@@ -21,6 +21,8 @@ Imports:
     edgeR,
     ggplot2,
     ggplot2.utils,
+    graphics,
+    ggfortify,
     limma,
     methods,
     rlang,
@@ -36,6 +38,7 @@ Collate:
     'HermesData-methods.R'
     'assertthat.R'
     'data.R'
+    'metrics.R'
     'graphs.R'
     'normalization.R'
     'package.R'

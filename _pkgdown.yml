@@ -14,6 +14,7 @@ reference:
     contents:
       - HermesData
       - RangedHermesData
+      - HermesDataPca
   - title: Constructors
     contents:
       - HermesData
@@ -52,6 +53,7 @@ reference:
       - draw_libsize_densities
       - draw_nonzero_boxplot
       - draw_genes_barplot
+      - plot
   - title: Control Functions
     contents:
       - control_normalize
@@ -61,5 +63,8 @@ reference:
       - is_class
       - is_counts_vector
       - is_hermes_data
+  - title: Metrics
+    contents:
+      - calc_pca
       
       

@@ -210,22 +210,37 @@ draw_genes_barplot <- function(object,
     ylab("Number of Genes")
 }  
 
-install.packages("ggfortify")
+# PCA Plot ----
+#' PCA Plot Function
+#' Plot function uses `autoplot()` function from `ggplot2` package to plot
+#' principal components analysis on [HermesDataPca] object.
+#' @rdname plot
+#' @aliases plot
+#' 
+#' @param x (`HermesDataPca`)\cr object of pca values to plot.
+#'   
+#' @return A plot for PCA.
+#' 
+#' @include metrics.R
+#' @importFrom graphics plot
+#' @importFrom ggplot2 autoplot
+#' 
+#' @exportMethod plot
+#' 
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' result <- calc_pca(object)
+#' plot(result)
+#' plot(result, variance_percentage = FALSE)
+#' plot(result, label = TRUE, shape = TRUE)
+#' plot(result, loadings = TRUE, loadings.label = TRUE)
+
+install.packages("ggfortify", repos = "http://cran.us.r-project.org")
 library(ggfortify)
-
-.HermesDataPca <- setClass(
-  Class = "HermesDataPca",
-  contains = "list"
-)
-
-# .HermesDataPca(
-#   sample_pca
-# )
-
 setMethod(
   f = "plot",
-  signature = "HermesDataPca",
-  definition = function(x) {
-    autoplot(pca)
+  signature = c("HermesDataPca"),
+  definition = function(x, ...) {
+    ggplot2::autoplot(x, ...)
   }
 )
