@@ -171,7 +171,8 @@ draw_nonzero_boxplot <- function(object,
 #' @return A [HermesDataCor] object with calculated correlations and QC flags (technical failure and low depth).
 #' 
 #' @include metrics.R
-#' @exportMethod plot
+#' @importFrom graphics plot
+#' @export
 #' 
 #' @examples
 #' object <- HermesData(summarized_experiment)

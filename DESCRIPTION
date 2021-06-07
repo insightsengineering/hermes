@@ -20,6 +20,7 @@ Imports:
     BiocGenerics,
     ggplot2,
     ggplot2.utils,
+    graphics,
     methods,
     rlang,
     S4Vectors,
