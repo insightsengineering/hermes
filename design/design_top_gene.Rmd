@@ -100,7 +100,7 @@ So now putting the two functions togheter , need also to add an option to specif
 
 ```{r}
 top_genes <- function(object = result,
-                      assay_name = counts, 
+                      assay_name = "counts", 
                       summary_fun = rowMeans, 
                       n_top = 10L, 
                       min_threshold = NA) {
@@ -116,7 +116,7 @@ top_genes <- function(object = result,
   n_top <- n_top
   min_threshold <- min_threshold
  
-  average_expression <- summary_fun(assay_name(object))
+  average_expression <- summary_fun(assay(object, assay_name))
   average_expression <- as.data.frame(average_expression) %>%
     arrange(desc(average_expression))
   
