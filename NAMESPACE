@@ -3,6 +3,7 @@
 export(HermesData)
 export(HermesDataFromMatrix)
 export(`metadata<-`)
+export(add_quality_flags)
 export(control_normalize)
 export(control_quality)
 export(draw_genes_barplot)

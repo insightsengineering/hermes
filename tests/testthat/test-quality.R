@@ -127,3 +127,30 @@ test_that("h_tech_failure_flag fails as expected with invalid settings", {
   expect_error(h_tech_failure_flag(object2, cont1))
   expect_error(h_tech_failure_flag(object2, cont2))
 })
+
+# add_quality_flags ----
+test_that("add_quality_flags function works as expected with default settings", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  control <- control_quality()
+  result <- expect_silent(add_quality_flags(object, control))
+  expect_is(result, "HermesData")
+})
+
+test_that("add_quality_flags function works as expected with custom settings", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  control <- control_quality(min_cpm = 10, min_readcount_prop = 0.2, min_corr = 0.3, min_depth = 5)
+  result <- expect_silent(add_quality_flags(object, control))
+  expect_is(result, "HermesData")
+})
+
+test_that("add_quality_flags fails as expected with invalid settings", {
+  object1 <- get_se()
+  object2 <- matrix(1:10, 2, 5)
+  object3 <- expect_silent(HermesData(get_se()))
+  cont1 <- "0.5"
+  cont2 <- list(1, 2, 3, 4)
+  expect_error(add_quality_flags(object1, cont1))
+  expect_error(add_quality_flags(object3, cont2))
+  expect_error(add_quality_flags(object2, cont1))
+  expect_error(add_quality_flags(object2, cont2))
+})

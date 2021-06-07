@@ -118,3 +118,43 @@ h_tech_failure_flag <- function(object,
   corr_matrix <- stats::cor(cpm, method = "pearson")
   colMeans(corr_matrix) < control$min_corr
 }
+
+#' Add Quality Flags
+#' 
+#' @param object (`HermesData`) \cr input.
+#' @param control (`list`) \cr list of settings used to perform the quality control procedure.
+#' @param overwrite (`flag`)\cr whether previous results need to be overwritten.
+#'   
+#' @return A HermesData object with added quality flags.
+#' @export
+#' 
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' control <- control_quality()
+#' result <- add_quality_flags(object, control)
+#' result <- add_quality_flags(object, control, overwrite = TRUE)
+#'               
+add_quality_flags <- function(object, 
+                              control = control_quality(),
+                              overwrite = FALSE) {
+  assert_that(
+    is_hermes_data(object),
+    is.flag(overwrite)
+  )
+  already_added <- ("control_quality_flags" %in% names(metadata(object))) 
+  if (already_added) {
+    if (overwrite) {
+      message("previously have added quality flags, but overwriting now")
+    } else {
+      stop("previously have added quality flags, please double check or ask for overwrite")
+    }
+  }
+  
+  rowData(object)$LowExpressionFlag <- h_low_expression_flag(object, control)
+  colData(object)$TechnicalFailureFlag <- h_tech_failure_flag(object, control)
+  colData(object)$LowDepthFlag <- h_low_depth_flag(object, control)
+  
+  metadata(object)$control_quality_flags <- control
+  
+  object
+}
