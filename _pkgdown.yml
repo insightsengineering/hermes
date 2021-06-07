@@ -14,6 +14,7 @@ reference:
     contents:
       - HermesData
       - RangedHermesData
+      - HermesDataCor
   - title: Constructors
     contents:
       - HermesData
@@ -43,10 +44,14 @@ reference:
       - draw_libsize_qq
       - draw_libsize_densities
       - draw_nonzero_boxplot
+      - plot
   - title: Control Functions
     contents:
       - control_normalize
       - control_quality
+  - title: Metrics
+    contents:
+      - cor
   - title: Assertions
     contents:
       - is_class

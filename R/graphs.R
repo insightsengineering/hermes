@@ -155,3 +155,53 @@ draw_nonzero_boxplot <- function(object,
     xlab("Library") +
     ylab("Number of non-zero genes")
 }
+
+# plot ----
+
+#' Plot Function
+#' 
+#' @rdname plot
+#' @aliases plot
+#' 
+#' @param x (`HermesDataCor`)\cr object of correlation values to plot.
+#' @param flag_colors (`character`)\cr a vector that specifies the colors 
+#' @param cor_colors (`string`)\cr the correlation coefficient (or covariance) to be computed, either "pearson", "kendall", or "spearman". 
+#' @param ... arguments to be passed to 
+#'   
+#' @return A [HermesDataCor] object with calculated correlations and QC flags (technical failure and low depth).
+#' 
+#' @include metrics.R
+#' @exportMethod plot
+#' 
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' result <- cor(x = object)
+#' plot(result)
+#' plot(result, show_column_names = FALSE, show_row_names = FALSE)
+#'
+setMethod(
+  f = "plot",
+  signature = "HermesDataCor",
+  definition = function(x, 
+                        flag_colors = c("FALSE" = "green", "TRUE" = "red"),
+                        cor_colors = circlize::colorRamp2(c(0, 0.5, 1), c("red", "yellow", "green")),
+                        ...) {
+    df <- x@flag_data
+    left_annotation <- ComplexHeatmap::rowAnnotation(
+      LowDepthFlag = factor(df$LowDepthFlag),
+      col = list(LowDepthFlag = flag_colors)
+    )
+    top_annotation <- ComplexHeatmap::HeatmapAnnotation(
+      TechnicalFailureFlag = factor(df$TechnicalFailureFlag),
+      col = list(TechnicalFailureFlag = flag_colors)
+    )
+    ComplexHeatmap::Heatmap(
+      matrix = x,
+      col = cor_colors,
+      name = "Correlation",
+      left_annotation = left_annotation,
+      top_annotation = top_annotation,
+      ...
+    )
+  }
+)
