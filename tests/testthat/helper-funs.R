@@ -2,7 +2,7 @@
 
 get_se <- function() {
   SummarizedExperiment(
-    list(counts = matrix(1L, 2, 2)),
+    list(counts = matrix(1:4, 2, 2)),
     rowData = data.frame(
       HGNC = c(1, 1),
       GeneID = c(1, 1),
@@ -31,7 +31,7 @@ get_se <- function() {
 
 get_rse <- function() {
   SummarizedExperiment(
-    list(counts = matrix(1L, 2, 2)),
+    list(counts = matrix(1:4, 2, 2)),
     rowRanges = GRanges(
       c("chr1", "chr2"),
       IRanges(c(124L, 134214L), width=100),

@@ -136,3 +136,37 @@ test_that("h_voom fails as expected with invalid settings", {
   expect_error(h_voom(object2, cont1))
   expect_error(h_voom(object2, cont2))
 })
+
+# normalize ----
+
+test_that("normalize works as expected for HermesData", {
+  object <- get_se()
+  h1 <- HermesData(object)
+  result <- expect_silent(normalize(h1))
+  expect_is(result, "HermesData")
+  expect_named(assays(result), c("counts", "cpm", "rpkm", "tpm", "voom"))
+})
+
+test_that("normalize works as expected for RangedHermesData", {
+  object <- get_rse()
+  h1 <- HermesData(object)
+  result <- expect_silent(normalize(h1))
+  expect_is(result, "RangedHermesData")
+  expect_named(assays(result), c("counts", "cpm", "rpkm", "tpm", "voom"))
+})
+
+test_that("normalize fails as expected with wrong method choice", {
+  object <- get_rse()
+  h1 <- HermesData(object)
+  expect_error(normalize(h1, method = "bla"))
+  expect_error(normalize(h1, method = c("cpm", "bla")))
+})
+
+test_that("normalize works when global environment overwrites helper function", {
+  object <- get_rse()
+  h1 <- HermesData(object)
+  h_cpm <<- function(object, control) {
+    stop("wrong helper function was used")
+  }
+  expect_silent(normalize(h1, method = "cpm"))
+})

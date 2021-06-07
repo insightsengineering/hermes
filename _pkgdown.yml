@@ -42,6 +42,7 @@ reference:
       - counts
       - filter
       - subset
+      - normalize
   - title: Graphs
     contents:
       - draw_libsize_hist
