@@ -18,8 +18,10 @@ Depends:
 Imports:
     assertthat,
     BiocGenerics,
+    edgeR,
     ggplot2,
     ggplot2.utils,
+    limma,
     methods,
     rlang,
     stats,
