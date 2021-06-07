@@ -24,6 +24,7 @@ Imports:
     methods,
     rlang,
     S4Vectors,
+    tern, 
     testthat (>= 2.0),
     tidyr,
     utils.nest
@@ -36,3 +37,4 @@ Collate:
     'graphs.R'
     'normalization.R'
     'package.R'
+    'quality.R'
