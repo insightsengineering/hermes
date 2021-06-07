@@ -18,11 +18,15 @@ Depends:
 Imports:
     assertthat,
     BiocGenerics,
+    edgeR,
     ggplot2,
     ggplot2.utils,
+    limma,
     methods,
     rlang,
+    stats,
     S4Vectors,
+    tern, 
     testthat (>= 2.0),
     tidyr,
     utils.nest
@@ -35,3 +39,4 @@ Collate:
     'graphs.R'
     'normalization.R'
     'package.R'
+    'quality.R'
