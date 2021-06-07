@@ -4,12 +4,12 @@
 \alias{h_tech_failure_flag}
 \title{Quality Control: Technical Failure Flag}
 \usage{
-h_tech_failure_flag(object, threshold.corr = 0.5)
+h_tech_failure_flag(object, control = control_quality())
 }
 \arguments{
 \item{object}{(\code{HermesData}) \cr input.}
 
-\item{threshold.corr}{(\code{number})\cr threshold correlation parameter to perform the quality control procedure.}
+\item{control}{(\code{list}) \cr list of settings used to perform the quality control procedure.}
 }
 \value{
 A logical vector indicating whether each sample in HermesData object has failed the technical failure control.
@@ -20,6 +20,7 @@ Quality Control: Technical Failure Flag
 \examples{
 object <- HermesData(summarized_experiment)
 result <- h_tech_failure_flag(object)
-result <- h_tech_failure_flag(object, threshold.corr = 0.35)
+control <- control_quality(min_corr = 0.35)
+result <- h_tech_failure_flag(object, control)
 
 }

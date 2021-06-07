@@ -39,7 +39,7 @@ test_that("control_quality fails as expected with invalid settings", {
   expect_error(control_quality(min_depth = c(1, 2)))
 })
 
-# Quality Control: Low Expression Flag ----
+# h_low_expression_flag ----
 test_that("h_low_expression_flag function works as expected with default settings", {
   object <- expect_silent(HermesData(summarized_experiment))
   control <- control_quality()
@@ -68,7 +68,7 @@ test_that("h_low_expression_flag fails as expected with invalid settings", {
   expect_error(h_low_expression_flag(object2, cont2))
 })
 
-# Quality Control: Technical Failure Flag ----
+# h_tech_failure_flag ----
 test_that("h_tech_failure_flag function works as expected with default settings", {
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(h_tech_failure_flag(object))
@@ -78,9 +78,10 @@ test_that("h_tech_failure_flag function works as expected with default settings"
 
 test_that("h_tech_failure_flag function works as expected with custom settings", {
   object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(h_tech_failure_flag(object, threshold.corr = 0.3))
+  control <- control_quality(min_corr = 0.35)
+  result <- expect_silent(h_tech_failure_flag(object, control))
   expect_is(result, "logical")
-  expect_equal(length(result), (ncol(object)))
+  expect_equal(length(result), ncol(object))
 })
 
 test_that("h_tech_failure_flag fails as expected with invalid settings", {
@@ -89,8 +90,8 @@ test_that("h_tech_failure_flag fails as expected with invalid settings", {
   object3 <- expect_silent(HermesData(get_se()))
   cont1 <- "0.5"
   cont2 <- list(1, 2, 3, 4)
-  expect_error(h_low_expression_flag(object1, cont1))
-  expect_error(h_low_expression_flag(object3, cont2))
-  expect_error(h_low_expression_flag(object2, cont1))
-  expect_error(h_low_expression_flag(object2, cont2))
+  expect_error(h_tech_failure_flag(object1, cont1))
+  expect_error(h_tech_failure_flag(object3, cont2))
+  expect_error(h_tech_failure_flag(object2, cont1))
+  expect_error(h_tech_failure_flag(object2, cont2))
 })

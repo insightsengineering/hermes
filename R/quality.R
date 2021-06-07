@@ -66,7 +66,7 @@ h_low_expression_flag <- function(object,
 #' Quality Control: Technical Failure Flag
 #'
 #' @param object (`HermesData`) \cr input.
-#' @param threshold.corr (`number`)\cr threshold correlation parameter to perform the quality control procedure.
+#' @param control (`list`) \cr list of settings used to perform the quality control procedure.
 #'
 #' @return A logical vector indicating whether each sample in HermesData object has failed the technical failure control.
 #' @export
@@ -75,14 +75,16 @@ h_low_expression_flag <- function(object,
 #' @examples
 #' object <- HermesData(summarized_experiment)
 #' result <- h_tech_failure_flag(object)
-#' result <- h_tech_failure_flag(object, threshold.corr = 0.35)
+#' control <- control_quality(min_corr = 0.35)
+#' result <- h_tech_failure_flag(object, control)
 #' 
 h_tech_failure_flag <- function(object,
-                                  threshold.corr = 0.5) {
+                                control = control_quality()) {
   assert_that(
-    is_hermes_data(object)
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
   )
   cpm <- edgeR::cpm(counts(object))
-  corr.matrix <- stats::cor(cpm, method = "pearson")
-  colMeans(corr.matrix) < threshold.corr
+  corr_matrix <- stats::cor(cpm, method = "pearson")
+  colMeans(corr_matrix) < control$min_corr
 }
