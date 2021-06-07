@@ -124,7 +124,7 @@ top_genes <- function(object = result,
   
   # QUESTION: instead of using a variable name average expression should I make it more generic? is there a way that it reflect the summary function used?? 
   
-  average_expression <- summary_fun(counts(object))
+  average_expression <- summary_fun(assay(object, assay_name))
   average_expression <- as.data.frame(average_expression) %>%
     arrange(desc(average_expression))
   
@@ -175,4 +175,3 @@ df <- top_genes(result, n_top = NA, min_threshold = 50000)
 draw_top_barplot(df)
 
 ``` 
-
