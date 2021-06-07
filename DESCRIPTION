@@ -21,14 +21,14 @@ Imports:
     edgeR,
     ggplot2,
     ggplot2.utils,
+    limma,
     methods,
     rlang,
     S4Vectors,
     tern, 
     testthat (>= 2.0),
     tidyr,
-    utils.nest,
-    limma
+    utils.nest
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'

@@ -126,6 +126,13 @@ test_that("h_voom function works as expected with custom settings", {
 })
 
 test_that("h_voom fails as expected with invalid settings", {
-  object <- get_se()
-  expect_error(h_voom(object, cont))
+  object1 <- get_se()
+  object2 <- matrix(1:4, 2, 2)
+  object3 <- HermesData(get_se())
+  cont1 <- control_normalize()
+  cont2 <- list(1, 2, 3)
+  expect_error(h_voom(object1, cont1))
+  expect_error(h_voom(object3, cont2))
+  expect_error(h_voom(object2, cont1))
+  expect_error(h_voom(object2, cont2))
 })
