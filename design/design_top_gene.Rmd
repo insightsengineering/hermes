@@ -96,35 +96,27 @@ ggplot(top_n_top) +
 
 ``` 
 
-So now putting the two functions togheter , need also to add an option to specify either 1 or the other option. I think with `FALSE` should be ok . 
-adding also another function call that the summary function can be choose even if the default is rowmean
+So now putting the two functions togheter , need also to add an option to specify either 1 or the other option. I think with `NA` should be ok . adding also another function call that the summary function can be choose even if the default is rowmean
 
 ```{r}
 top_genes <- function(object = result,
-                      assay = "", 
+                      assay_name = counts, 
                       summary_fun = rowMeans, 
                       n_top = 10L, 
                       min_threshold = NA) {
   assert_that(
     is_class(object, "AnyHermesData"),
-    is.function(summary_fun) #,
-    #is??? (assay)
-    #is.number(n_top),
-    #is.number(min_threshold) 
-    # QUESTION  which assert function can I use when are either positive and numeric or NA? 
-    # how to assert that only one of the two is numeric? I added a print error but not sure if it is enough
+    is.function(summary_fun),
+    is.string(assay_name),
+    is.null(n_top) && !is.null(min_threshold) || is.null(min_threshold) && !is.null(n_top), 
+    one_provided(n_top, min_threshold)
     )
   
-  object <- object
-  assay <- assay
-  summary_fun <- summary_fun  
+  
   n_top <- n_top
   min_threshold <- min_threshold
-  
-  
-  # QUESTION: instead of using a variable name average expression should I make it more generic? is there a way that it reflect the summary function used?? 
-  
-  average_expression <- summary_fun(assay(object, assay_name))
+ 
+  average_expression <- summary_fun(assay_name(object))
   average_expression <- as.data.frame(average_expression) %>%
     arrange(desc(average_expression))
   
@@ -149,7 +141,7 @@ top_genes <- function(object = result,
 df <- top_genes(result)
 
 draw_top_barplot <- function(df, 
-                             ylab = "Averaged CPM", 
+                             ylab = "Averaged Counts", 
                              title = "Top most expressed genes") {
   
   assert_that(
