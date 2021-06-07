@@ -80,7 +80,7 @@ test_that("h_tech_failure_flag function works as expected with custom settings",
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(h_tech_failure_flag(object, threshold.corr = 0.3))
   expect_is(result, "logical")
-  expect_equal(length(result), (ncol(object)))
+  expect_equal(length(result), ncol(object))
 })
 
 test_that("h_tech_failure_flag fails as expected with invalid settings", {
