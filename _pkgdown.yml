@@ -30,6 +30,7 @@ reference:
       - h_tpm
       - h_voom
       - h_low_expression_flag
+      - h_tech_failure_flag
   - title: Example Data
     contents:
       - expression_set
