@@ -24,6 +24,7 @@ Imports:
     limma,
     methods,
     rlang,
+    stats,
     S4Vectors,
     tern, 
     testthat (>= 2.0),

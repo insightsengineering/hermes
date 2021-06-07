@@ -63,6 +63,36 @@ h_low_expression_flag <- function(object,
   n_samples_below_min_cpm > threshold_n_samples
 }
 
+#' Quality Control: Low Depth Flag
+#'
+#' @param object (`HermesData`) \cr input.
+#' @param control (`list`) \cr list of settings used to perform the quality control procedure.
+#'
+#' @return A logical vector indicating whether a sample in HermesData object has low average read depth.
+#' @export
+#'
+#' @importFrom stats quantile
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' result <- h_low_depth_flag(object)
+#' control <- control_quality(min_depth = 5)
+#' result <- h_low_depth_flag(object, control)
+#' head(result)
+#' 
+h_low_depth_flag <- function(object,
+                             control = control_quality()) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
+  )
+  lib_sizes <- colSums(counts(object))
+  if (is.null(control$min_depth)) {
+    lower_upper_quartiles <- quantile(lib_sizes, probs = c(0.25, 0.75))
+    control$min_depth <- lower_upper_quartiles[1] - 1.5 * diff(lower_upper_quartiles)
+  }
+  lib_sizes < control$min_depth
+}
+
 #' Quality Control: Technical Failure Flag
 #'
 #' @param object (`HermesData`) \cr input.
