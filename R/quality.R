@@ -79,7 +79,6 @@ h_low_expression_flag <- function(object,
 #' result <- h_low_depth_flag(object, control)
 #' head(result)
 #' 
-
 h_low_depth_flag <- function(object,
                              control = control_quality()) {
   assert_that(
@@ -93,4 +92,3 @@ h_low_depth_flag <- function(object,
   }
   lib_sizes < control$min_depth
 }
-

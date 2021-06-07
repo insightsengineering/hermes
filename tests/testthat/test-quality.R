@@ -39,7 +39,8 @@ test_that("control_quality fails as expected with invalid settings", {
   expect_error(control_quality(min_depth = c(1, 2)))
 })
 
-# Quality Control: Low Expression Flag ----
+# h_low_expression_flag ----
+
 test_that("h_low_expression_flag function works as expected with default settings", {
   object <- expect_silent(HermesData(summarized_experiment))
   control <- control_quality()
@@ -68,7 +69,8 @@ test_that("h_low_expression_flag fails as expected with invalid settings", {
   expect_error(h_low_expression_flag(object2, cont2))
 })
 
-# Quality Control: Low Depth Flag ----
+# h_low_depth_flag ----
+
 test_that("h_low_depth_flag function works as expected with default settings", {
   object <- expect_silent(HermesData(summarized_experiment))
   control <- control_quality()
