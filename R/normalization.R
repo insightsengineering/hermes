@@ -175,6 +175,7 @@ h_voom <- function(object,
 #' @param object (`AnyHermesData`)\cr object to normalize.
 #' @param methods (`character`)\cr which normalization methods to use, see details. 
 #' @param control (named `list`)\cr settings produced by [control_normalize()].
+#' @param ... not used.
 #'
 #' @return The [AnyHermesData] object with additional assays containing the normalized counts.
 #'   The `control` is saved in the `metadata` of the object for future reference.

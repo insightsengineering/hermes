@@ -14,10 +14,10 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: 
     R (>= 3.6),
+    BiocGenerics,
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
-    BiocGenerics,
     edgeR,
     ggplot2,
     ggplot2.utils,

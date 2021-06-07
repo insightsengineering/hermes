@@ -98,7 +98,6 @@ NULL
 #'
 #' @return The counts assay.
 #'  
-#' @importFrom BiocGenerics counts
 #' @export
 #' 
 #' @examples 
@@ -117,7 +116,6 @@ setMethod(
 
 #' @describeIn counts
 #' 
-#' @importFrom BiocGenerics `counts<-`
 #' @export
 #' 
 #' @examples 

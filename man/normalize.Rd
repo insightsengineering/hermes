@@ -18,6 +18,8 @@
 \item{methods}{(\code{character})\cr which normalization methods to use, see details.}
 
 \item{control}{(named \code{list})\cr settings produced by \code{\link[=control_normalize]{control_normalize()}}.}
+
+\item{...}{not used.}
 }
 \value{
 The \link{AnyHermesData} object with additional assays containing the normalized counts.
