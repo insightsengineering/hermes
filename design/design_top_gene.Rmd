@@ -1,0 +1,169 @@
+---
+title: "Design: top_genes()"
+author: "Simona Rossomanno"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+Update and replace the `draw_top_gene()` function from `rnaseqTools`. The function will be split in two functions: one function  `top_genes()`, to derive the top expressing genes and use an `HermesData` object as input, and a second function `draw_top_barplot()` to draw the bar plots using `ggplt2`.
+
+## Idea
+First we need to access the count data in Hermes data and select the top expressing ones. The selection could be based on the number of genes that we want to plot defined as `n_plot`, for example the top 10, or based on a given min average expression treshold `min_threshold` .
+
+```{r}
+#Creating the HermesData object from the example SummarizedExperiment object.
+result <- HermesData(summarized_experiment)
+
+#Accessing the counts data.
+# for testing we could make sure that result is a hermesdata object 
+count_results <- counts(result)
+
+```
+then we need to compute the average expression across the coulmns and order the data by the average expression.  
+
+```{r}
+# computing the average gene count across column
+average_expression <- rowMeans(count_results)
+
+```
+
+
+We then subset based either on the first `n_top` or on `min_threshold` and create a dataframe. The dataframe will contain two columns and n rows (corrisponding to the number of rows in the counts matrix) containing one the name of the gene and the other the corrisponding average gene expression. The derived data has to be a dataframe because  `ggplots2` requires a data frame object. 
+
+questions: 
+    * is it better to have the data converted to dataframe in the `draw_top_barplot()` function instead of the `top_genes()` one? YES
+    * do we need to plot normalised data instead? user can choose the relevant sample
+    * should we account for more than one set? ei for an additional by group? not for now
+
+```{r}
+#set as criteria number of genes for example the first 10
+# here we could check that the numbers are positive integers
+n_top <- 10L
+min_threshold <- 50000L
+
+# creating the subset dataframe 
+library("dplyr")
+
+average_expression <- as.data.frame(average_expression) %>%
+  arrange(desc(average_expression))
+
+# note to make sure that the order in the plot is descending then this need to be taken in account:
+# from  https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html
+# Reordering groups in a ggplot2 chart can be a struggle. This is due to the fact that ggplot2 takes into account the order of the factor levels, not the order you observe in your data frame. 
+# You can sort your input data frame with sort() or arrange(), it will never have any  impact on your ggplot2 output.
+
+# The mutate() function of dplyr allows to create a new variable or modify an existing one. 
+# It is possible to use it to recreate a factor with a specific order and then use that in the ggplot call
+row_names <- rownames(average_expression)
+
+average_expression <- average_expression %>%
+  mutate(name = factor(row_names, levels = row_names))
+
+``` 
+the dataframe can then selected and  plotted. 
+
+```{r}
+# selecting on min_treshold
+top_min_treshold <- average_expression %>%
+   filter(average_expression >= min_threshold)
+
+# or on n_top
+top_n_top <- average_expression %>%
+  slice_head(n = n_top , with_ties = TRUE)  #with_ties = TRUE, may return more rows than you request. 
+
+ggplot(top_min_treshold) +
+  geom_col (aes( y = average_expression, x = name)) +
+  scale_x_discrete(name = "HGNC gene names") +
+  scale_y_continuous(name = "Averaged CPM") +
+  theme(axis.text.x = element_text(angle = 90))
+
+# label need to be rotate for readibility
+
+
+ggplot(top_n_top) +
+  geom_col (aes( y = average_expression, x = name)) +
+  scale_x_discrete(name = "HGNC gene names") +
+  scale_y_continuous(name = "Averaged CPM") +
+  theme(axis.text.x = element_text(angle = 90))
+
+
+``` 
+
+So now putting the two functions togheter , need also to add an option to specify either 1 or the other option. I think with `NA` should be ok . adding also another function call that the summary function can be choose even if the default is rowmean
+
+```{r}
+top_genes <- function(object = result,
+                      assay_name = "counts", 
+                      summary_fun = rowMeans, 
+                      n_top = 10L, 
+                      min_threshold = NA ) {
+  assert_that(
+    is_class(object, "AnyHermesData"),
+    is.function(summary_fun),
+    is.string(assay_name),
+    (is.number(n_top) && is.na(min_threshold)) || (is.na(n_top) && is.number(min_threshold)) # this will be converted to a one_provided() in assertthat.R file
+    )
+  
+  
+  n_top <- n_top
+  min_threshold <- min_threshold
+ 
+  average_expression <- summary_fun(assay(object, assay_name))
+  average_expression <- as.data.frame(average_expression) %>%
+    arrange(desc(average_expression))
+  
+  row_names <- rownames(average_expression)
+  average_expression <- average_expression %>%
+  mutate(name = factor(row_names, levels = row_names))
+  
+  if(!is.na(min_threshold) & !is.na(n_top)) {
+    print("ERROR: one of the two parameters (n_top or min_threshold) has to be NA")
+    }
+  
+  if(!is.na(min_threshold)){
+    df <- average_expression %>%
+      filter(average_expression >= min_threshold)
+    } else if (!is.na(n_top)){
+      df <- average_expression %>%
+        slice_head(n = n_top , with_ties = TRUE)  
+    }
+  }
+
+
+result <- HermesData(summarized_experiment)
+df <- top_genes(object = result)
+
+draw_top_barplot <- function(df, 
+                             ylab = "Averaged Counts", 
+                             title = "Top most expressed genes") {
+  
+  assert_that(
+    is.character(ylab),
+    is.character(title)
+    )
+  
+  ylab = ylab
+  title = title
+  
+  ggplot(df) +
+    geom_col (aes( y = .data$average_expression, x = .data$name)) +
+    scale_x_discrete(name = "HGNC gene names") +
+    scale_y_continuous(name = paste(ylab, sep = ""))  +
+    theme(axis.text.x = element_text(angle = 90)) +
+    ggtitle(paste(title, sep = "")) +
+    theme(plot.title = element_text(hjust = 0.5))
+  }
+
+draw_top_barplot(df)
+
+df <- top_genes(result, n_top = NA, min_threshold = 50000)
+draw_top_barplot(df)
+
+``` 
