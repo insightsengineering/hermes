@@ -2,7 +2,7 @@
 % Please edit documentation in R/normalization.R
 \name{h_rpkm}
 \alias{h_rpkm}
-\title{Helper function to get Reads per Kilobase per Million (RPKM)}
+\title{Reads per Kilobase per Million (RPKM) Normalization}
 \usage{
 h_rpkm(object, control)
 }
@@ -15,7 +15,7 @@ h_rpkm(object, control)
 A numeric matrix with normalized counts using the RPKM method.
 }
 \description{
-Helper function to get Reads per Kilobase per Million (RPKM)
+Reads per Kilobase per Million (RPKM) Normalization
 }
 \note{
 To be used with the \code{normalize()} function.
