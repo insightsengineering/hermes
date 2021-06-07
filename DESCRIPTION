@@ -21,6 +21,7 @@ Imports:
     edgeR,
     ggplot2,
     ggplot2.utils,
+    limma,
     methods,
     rlang,
     S4Vectors,

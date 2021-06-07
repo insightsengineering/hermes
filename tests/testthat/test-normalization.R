@@ -109,3 +109,30 @@ test_that("h_tpm function fails as expected with invalid settings", {
   expect_error(h_tpm(object2, cont1))
   expect_error(h_tpm(object2, cont2))
 })
+
+# h_voom ----
+
+test_that("h_voom function works as expected with default settings", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  result <- expect_silent(h_voom(object))
+  expect_is(result, "matrix")
+})
+
+test_that("h_voom function works as expected with custom settings", {
+  object <- HermesData(summarized_experiment)
+  cont <- control_normalize(log = TRUE, lib_sizes = 1000000L, prior_count = 10)
+  result <- expect_silent(h_voom(object, cont))
+  expect_is(result, "matrix")
+})
+
+test_that("h_voom fails as expected with invalid settings", {
+  object1 <- get_se()
+  object2 <- matrix(1:4, 2, 2)
+  object3 <- HermesData(get_se())
+  cont1 <- control_normalize()
+  cont2 <- list(1, 2, 3)
+  expect_error(h_voom(object1, cont1))
+  expect_error(h_voom(object3, cont2))
+  expect_error(h_voom(object2, cont1))
+  expect_error(h_voom(object2, cont2))
+})

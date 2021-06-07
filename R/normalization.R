@@ -114,3 +114,35 @@ h_tpm <- function(object,
     tpm
   }
 }
+
+#' VOOM Normalization
+#' 
+#' @param object (`HermesData`)\cr input.
+#' @param control (`list`)\cr list of settings used to perform the normalization procedure.
+#'   
+#' @return A numeric matrix with normalized counts using the VOOM method.
+#'   
+#' @export
+#' @importFrom limma voom
+#' @examples
+#' h <- HermesData(summarized_experiment)
+#' cont <- control_normalize()
+#' counts_voom <- h_voom(h, cont)
+#' str(counts_voom)
+#'               
+h_voom <- function(object, 
+                   control = control_normalize()) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
+  )
+  norm_log2 <- limma::voom(
+    counts = counts(object),
+    lib.size = control$lib_sizes
+  )$E
+  if (control$log) {
+    norm_log2
+  } else {
+    2^norm_log2
+  }
+}
