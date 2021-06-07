@@ -103,13 +103,12 @@ top_genes <- function(object = result,
                       assay_name = "counts", 
                       summary_fun = rowMeans, 
                       n_top = 10L, 
-                      min_threshold = NA) {
+                      min_threshold = NA ) {
   assert_that(
     is_class(object, "AnyHermesData"),
     is.function(summary_fun),
     is.string(assay_name),
-    is.null(n_top) && !is.null(min_threshold) || is.null(min_threshold) && !is.null(n_top), 
-    one_provided(n_top, min_threshold)
+    (is.number(n_top) && is.na(min_threshold)) || (is.na(n_top) && is.number(min_threshold)) # this will be converted to a one_provided() in assertthat.R file
     )
   
   
@@ -138,7 +137,8 @@ top_genes <- function(object = result,
   }
 
 
-df <- top_genes(result)
+result <- HermesData(summarized_experiment)
+df <- top_genes(object = result)
 
 draw_top_barplot <- function(df, 
                              ylab = "Averaged Counts", 
