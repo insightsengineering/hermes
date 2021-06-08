@@ -35,7 +35,7 @@ draw_libsize_hist <- function(object,
     xlab("Library Size") +
     ylab("Frequency")
 }
-#'
+
 #' Q-Q Plot of Library Sizes
 #'
 #' This creates a Q-Q plot of the library sizes of the [HermesData] object.
@@ -155,6 +155,112 @@ draw_nonzero_boxplot <- function(object,
     xlab("Library") +
     ylab("Number of non-zero genes")
 }
+
+#' Stacked Barplot of Low Expression Genes by Chromosome
+#'
+#' This creates a barplot of chromosomes for the [HermesData] object with the proportions of low expression genes.
+#'
+#' @param object (`AnyHermesData`)\cr input.
+#' @param chromosomes (`character`)\cr names of the chromosomes which should be displayed. 
+#' @param include_others (`flag`)\cr option to show the chromosomes not in `chromosomes` as "Others".
+#' @return The `ggplot` object with the histogram.
+#' 
+#' @importFrom rlang .data
+#' @export
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' 
+#' # Display chromosomes 1-22, X, Y, and MT. Other chromosomes are displayed in "Others".
+#' draw_genes_barplot(object)
+#'
+#' # Display chromosomes 1 and 2. Other chromosomes are displayed in "Others".
+#' draw_genes_barplot(object, chromosomes = c("1", "2"))
+#' 
+#' # Display chromosomes 1 and 2 only.
+#' draw_genes_barplot(object, chromosomes = c("1", "2"), include_others = FALSE)
+#' 
+draw_genes_barplot <- function(object, 
+                               chromosomes = c(1:22, "X", "Y", "MT"),
+                               include_others = TRUE) {
+  assert_that(
+    is_hermes_data(object),
+    noNA(rowData(object)$LowExpressionFlag),
+    is.flag(include_others),
+    !any(duplicated(chromosomes)),
+    !("Others" %in% chromosomes)
+  )
+  
+  df <- data.frame(
+    Chromosome = rowData(object)$Chromosome, 
+    LowExpressionFlag = rowData(object)$LowExpressionFlag, 
+    stringsAsFactors = FALSE
+  )
+  
+  df$chr <- factor(
+    ifelse(df$Chromosome %in% chromosomes, df$Chromosome, "Others"), 
+    levels = c(chromosomes, "Others")
+  )
+  
+  if(!include_others) df <- df[df$chr != "Others", ]
+  
+  ggplot(data = df, aes(x = .data$chr)) + 
+    geom_bar(aes(fill = .data$LowExpressionFlag)) +
+    ggtitle("Stacked Barplot of Filtered Genes by Chromosome") +
+    xlab("Chromosome") +
+    ylab("Number of Genes")
+}  
+
+# PCA ----
+
+#' PCA Plot
+#' 
+#' This plot method uses [ggplot2::autoplot()] function with the corresponding method
+#' from the `ggfortify` package to plot the results of a principal components analysis
+#' saved in a [HermesDataPca] object.
+#' 
+#' @rdname plot_pca
+#' @aliases plot_pca
+#' 
+#' @param x (`HermesDataPca`)\cr what to plot.
+#' @param y not used.
+#' @param x_comp (`count`)\cr principal component number used in x axis.
+#' @param y_comp (`count`)\cr principal component number used in y axis.
+#' @param ... additional arguments passed internally to [ggfortify::autoplot.prcomp].
+#'   
+#' @return The `ggplot` object with the PCA plot.
+#' 
+#' @include metrics.R
+#' @importFrom graphics plot
+#' @importFrom ggplot2 autoplot
+#' 
+#' @export
+#' 
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' result <- calc_pca(object)
+#' plot(result)
+#' plot(result, x_comp = 2, y_comp = 3)
+#' plot(result, variance_percentage = FALSE)
+#' plot(result, label = TRUE)
+#' 
+setMethod(
+  f = "plot",
+  signature = c(x = "HermesDataPca"),
+  definition = function(x, y, x_comp = 1, y_comp = 2, ...) {
+    assert_that(
+      missing(y),
+      is.count(x_comp),
+      is.count(y_comp),
+      !are_equal(x_comp, y_comp)
+    )
+    ggplot2::autoplot(
+      object = x, 
+      x = x_comp,
+      y = y_comp,
+      ...
+    )
+  }
+)
 
 # plot ----
 

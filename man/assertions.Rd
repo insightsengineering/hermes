@@ -5,6 +5,7 @@
 \alias{is_class}
 \alias{is_hermes_data}
 \alias{is_counts_vector}
+\alias{is_list_with}
 \title{Additional Assertions for \code{assert_that}}
 \usage{
 is_class(object, class2)
@@ -12,6 +13,8 @@ is_class(object, class2)
 is_hermes_data(object)
 
 is_counts_vector(x)
+
+is_list_with(x, elements)
 }
 \arguments{
 \item{object}{any object.}
@@ -19,6 +22,8 @@ is_counts_vector(x)
 \item{class2}{(\code{character} or class definition)\cr the class to which \code{object} could belong.}
 
 \item{x}{vector to check.}
+
+\item{elements}{(\code{character})\cr names of elements which should be in the list \code{x}.}
 }
 \description{
 We provide additional assertion functions which can be used together with
@@ -31,6 +36,8 @@ We provide additional assertion functions which can be used together with
 \item \code{is_hermes_data}: checks the class.
 
 \item \code{is_counts_vector}: checks for a vector of counts (positive integers).
+
+\item \code{is_list_with}: checks for a list containing elements.
 }}
 
 \examples{
@@ -42,5 +49,9 @@ is_hermes_data(42)
 
 a <- 5
 is_class(a, "character")
+
+b <- list(a = 5, b = 3)
+is_list_with(b, c("a", "c"))
+is_list_with(b, c("a", "b"))
 
 }

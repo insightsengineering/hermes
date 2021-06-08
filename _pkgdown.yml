@@ -15,6 +15,7 @@ reference:
       - HermesData
       - RangedHermesData
       - HermesDataCor
+      - HermesDataPca
   - title: Constructors
     contents:
       - HermesData
@@ -26,6 +27,13 @@ reference:
       - validate_non_empty
       - validate_row_data
       - validate_col_data
+      - h_rpkm
+      - h_cpm
+      - h_tpm
+      - h_voom
+      - h_low_expression_flag
+      - h_low_depth_flag
+      - h_tech_failure_flag
   - title: Example Data
     contents:
       - expression_set
@@ -38,13 +46,19 @@ reference:
       - counts
       - filter
       - subset
+      - normalize
+  - title: Functions
+    contents:
+      - add_quality_flags
+      - calc_pca
   - title: Graphs
     contents:
       - draw_libsize_hist
       - draw_libsize_qq
       - draw_libsize_densities
       - draw_nonzero_boxplot
-      - plot
+      - draw_genes_barplot
+      - plot_pca
   - title: Control Functions
     contents:
       - control_normalize
@@ -57,5 +71,4 @@ reference:
       - is_class
       - is_counts_vector
       - is_hermes_data
-      
-      
+      - is_list_with

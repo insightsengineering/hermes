@@ -13,21 +13,26 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: 
+    ggfortify,
     R (>= 3.6),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
     BiocGenerics,
+    edgeR,
     ggplot2,
     ggplot2.utils,
     graphics,
+    limma,
     methods,
     rlang,
+    stats,
     S4Vectors,
-    tern, 
+    tern,
     testthat (>= 2.0),
     tidyr,
-    utils.nest
+    utils.nest,
+    magrittr
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
@@ -39,3 +44,4 @@ Collate:
     'normalization.R'
     'package.R'
     'quality.R'
+    'utils-pipe.R'
