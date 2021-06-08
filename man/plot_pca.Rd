@@ -5,10 +5,18 @@
 \alias{plot_pca}
 \title{PCA Plot}
 \usage{
-\S4method{plot}{HermesDataPca,ANY}(x, y, ...)
+\S4method{plot}{HermesDataPca,ANY}(x, x_comp = 1, y_comp = 2, ...)
 }
 \arguments{
 \item{x}{(\code{HermesDataPca})\cr what to plot.}
+
+\item{x_comp}{(\code{count})\cr principal component number used in x axis.}
+
+\item{y_comp}{(\code{count})\cr principal component number used in y axis.}
+
+\item{...}{additional arguments passed internally to \link[ggfortify:autoplot.pca_common]{ggfortify::autoplot.prcomp}.}
+
+\item{y}{not used.}
 }
 \value{
 The \code{ggplot} object with the PCA plot.
@@ -22,6 +30,7 @@ saved in a \link{HermesDataPca} object.
 object <- HermesData(summarized_experiment)
 result <- calc_pca(object)
 plot(result)
+plot(result, x_comp = 2, y_comp = 3)
 plot(result, variance_percentage = FALSE)
 plot(result, label = TRUE)
 

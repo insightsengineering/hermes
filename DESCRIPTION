@@ -28,10 +28,11 @@ Imports:
     rlang,
     stats,
     S4Vectors,
-    tern, 
+    tern,
     testthat (>= 2.0),
     tidyr,
-    utils.nest
+    utils.nest,
+    magrittr
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
@@ -43,3 +44,4 @@ Collate:
     'normalization.R'
     'package.R'
     'quality.R'
+    'utils-pipe.R'

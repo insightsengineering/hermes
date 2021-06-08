@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{calc_pca}
 \alias{calc_pca}
-\alias{HermesDataPca}
+\alias{`HermesDataPca-class`}
 \title{Principal Components Analysis Calculation Function}
 \usage{
 calc_pca(object, assay_name = "counts")
@@ -30,9 +30,6 @@ normalization.
 the analysis internally.
 \item Centering and scaling is applied internally.
 }
-}
-\note{
-
 }
 \examples{
 object <- HermesData(summarized_experiment) \%>\%

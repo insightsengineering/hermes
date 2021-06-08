@@ -17,7 +17,7 @@ setOldClass("prcomp")
 #'   the analysis internally.
 #' - Centering and scaling is applied internally.
 #' 
-#' @aliases HermesDataPca
+#' @aliases `HermesDataPca-class`
 #' @exportClass HermesDataPca
 #' 
 #' @param object (`AnyHermesData`) \cr input.
@@ -27,8 +27,6 @@ setOldClass("prcomp")
 #'
 #' @return A [HermesDataPca] object which is an extension of the [stats::prcomp] class
 #'   to enable use of plot method for plotting PCA.
-#'   
-#' @note 
 #'
 #' @importFrom S4Vectors isConstant
 #' @importFrom stats prcomp
