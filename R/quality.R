@@ -42,7 +42,7 @@ control_quality <- function(min_cpm = 1,
   )  
   list(
     min_cpm = min_cpm,
-    min_readcount_prop = min_cpm_prop,
+    min_cpm_prop = min_cpm_prop,
     min_corr = min_corr,
     min_depth = min_depth
   )
@@ -83,7 +83,7 @@ control_quality <- function(min_cpm = 1,
 #' head(colData(result)$LowDepthFlag)
 #' 
 #' # It is possible to overwrite flags if needed, which will trigger a message.
-#' result2 <- add_quality_flags(result, control, overwrite = TRUE)
+#' result2 <- add_quality_flags(result, control_quality(min_cpm = 1000), overwrite = TRUE)
 #'               
 add_quality_flags <- function(object, 
                               control = control_quality(),
@@ -132,7 +132,7 @@ h_low_expression_flag <- function(object,
                                   control = control_quality()) {
   assert_that(
     is_hermes_data(object),
-    utils.nest::is_fully_named_list(control)
+    is_list_with(control, c("min_cpm_prop", "min_cpm"))
   )
   cpm <- edgeR::cpm(counts(object))
   threshold_n_samples <- ceiling(ncol(cpm) * control$min_cpm_prop)
@@ -158,7 +158,7 @@ h_low_depth_flag <- function(object,
                              control = control_quality()) {
   assert_that(
     is_hermes_data(object),
-    utils.nest::is_fully_named_list(control)
+    is_list_with(control, "min_depth")
   )
   lib_sizes <- colSums(counts(object))
   if (is.null(control$min_depth)) {
@@ -187,7 +187,7 @@ h_tech_failure_flag <- function(object,
                                 control = control_quality()) {
   assert_that(
     is_hermes_data(object),
-    utils.nest::is_fully_named_list(control)
+    is_list_with(control, "min_corr")
   )
   cpm <- edgeR::cpm(counts(object))
   corr_matrix <- stats::cor(cpm, method = "pearson")

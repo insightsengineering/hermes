@@ -32,12 +32,16 @@ List with the above criteria to flag observations.
 }
 \description{
 Control function which specifies the quality flag settings.
+One or more settings can be customized. Not specified settings are left at defaults.
 }
 \note{
 To be used with the \code{\link[=add_quality_flags]{add_quality_flags()}} function.
 }
 \examples{
+# Default settings.
 control_quality()
-control_quality(min_cpm = 5, min_cpm_prop = .001, min_corr = .1, min_depth = 3)
+
+# One or more settings can be customized.
+control_quality(min_cpm = 5, min_cpm_prop = 0.001)
               
 }

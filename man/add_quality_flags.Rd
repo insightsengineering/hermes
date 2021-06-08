@@ -56,18 +56,24 @@ given control settings.
 }}
 
 \examples{
+# Adding default quality flags to HermesData object.
 object <- HermesData(summarized_experiment)
-control <- control_quality()
-result <- add_quality_flags(object, control)
-result2 <- add_quality_flags(result, control, overwrite = TRUE)
+result <- add_quality_flags(object)
+head(rowData(result)$LowExpressionFlag)
+head(colData(result)$TechnicalFailureFlag)
+head(colData(result)$LowDepthFlag)
+
+# It is possible to overwrite flags if needed, which will trigger a message.
+result2 <- add_quality_flags(result, control_quality(min_cpm = 1000), overwrite = TRUE)
               
+# Separate calculation of low expression flag.
 low_expr_flag <- h_low_expression_flag(object)
 head(low_expr_flag)
 length(low_expr_flag) == nrow(object)
 
 low_expr_flag2 <- h_low_expression_flag(
   object, 
-  control_quality(min_cpm = 5, min_readcount_prop = 0.5)
+  control_quality(min_cpm = 500, min_cpm_prop = 0.9)
 )
 head(low_expr_flag2)
 

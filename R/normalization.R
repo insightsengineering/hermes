@@ -48,7 +48,7 @@ h_cpm <- function(object,
                   control = control_normalize()) {
   assert_that(
     is_hermes_data(object),
-    utils.nest::is_fully_named_list(control)
+    is_list_with(control, c("lib_sizes", "log", "prior_count"))
   )
   edgeR::cpm(
     y = counts(object),
@@ -78,7 +78,7 @@ h_rpkm <- function(object,
                    control) {
   assert_that(
     is_hermes_data(object),
-    utils.nest::is_fully_named_list(control),
+    is_list_with(control, c("lib_sizes", "log", "prior_count")),
     noNA(rowData(object)$WidthBP)
   )
   edgeR::rpkm(
@@ -134,7 +134,7 @@ h_voom <- function(object,
                    control = control_normalize()) {
   assert_that(
     is_hermes_data(object),
-    utils.nest::is_fully_named_list(control)
+    is_list_with(control, c("lib_sizes", "log"))
   )
   norm_log2 <- limma::voom(
     counts = counts(object),

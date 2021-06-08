@@ -83,5 +83,8 @@ is_list_with <- function(x, elements) {
 on_failure(is_list_with) <- function(call, env) {
   x_name <- deparse(call$x)
   elements <- eval(call$elements, env)
-  paste(x_name, "is not a list with", paste(elements, collapse = ", "))
+  paste(
+    x_name, "is not a fully and uniquely named list containing all elements", 
+    paste(elements, collapse = ", ")
+  )
 }

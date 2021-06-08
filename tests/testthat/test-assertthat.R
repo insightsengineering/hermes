@@ -62,9 +62,10 @@ test_that("is_list_with accepts lists with the required elements", {
   expect_true(is_list_with(x, "c"))
 })
 
-test_that("is_list_with rejects non-lists or lists that are not fully named", {
+test_that("is_list_with rejects non-lists or lists that are not fully or uniquely named", {
   expect_false(is_list_with(c(a = 3), "a"))
   expect_false(is_list_with(list(a = 3, 5), "a"))
+  expect_false(is_list_with(list(a = 3, a = 5), "a"))
 })
 
 test_that("is_list_with rejects lists that don't contain all required elements", {
@@ -72,11 +73,14 @@ test_that("is_list_with rejects lists that don't contain all required elements",
   expect_false(is_list_with(list(a = 3), c("a", "b")))
 })
 
-test_that("is_counts_vector gives readable error message", {
-  a <- 5
+test_that("is_list_with gives readable error messages", {
+  a <- list(a = 3, b = 5, c = NULL)
   expect_error(
-    assert_that(is_counts_vector(a)),
-    "a is not a vector of counts (positive integers)",
-    fixed = TRUE
+    assert_that(is_list_with(a, "e")),
+    "a is not a fully and uniquely named list containing all elements e"
+  )
+  expect_error(
+    assert_that(is_list_with(a, c("a", "e"))),
+    "a is not a fully and uniquely named list containing all elements a, e"
   )
 })
