@@ -261,3 +261,62 @@ setMethod(
     )
   }
 )
+
+# Correlation heatmap ----
+
+#' Heatmap of Sample Correlations
+#' 
+#' This plot method uses the [ComplexHeatmap::Heatmap()] function
+#' to plot the correlations between samples saved in a [HermesDataCor] object.
+#' 
+#' @rdname plot_cor
+#' @aliases plot_cor
+#' 
+#' @param x (`HermesDataCor`)\cr what to plot.
+#' @param y not used.
+#' @param flag_colors (named `character`)\cr a vector that specifies the colors for `TRUE` and `FALSE`
+#'   flag values.
+#' @param cor_colors (`function`)\cr color scale function for the correlation values in the heatmap, 
+#'   produced by [circlize::colorRamp2()].
+#' @param ... other arguments to be passed to [ComplexHeatmap::Heatmap()].
+#'   
+#' @return The [ComplexHeatmap::Heatmap] object with the heatmap.
+#' 
+#' @include metrics.R
+#' @importFrom graphics plot
+#' @export
+#' 
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' result <- calc_cor(object)
+#' plot(result)
+#' plot(result, show_column_names = FALSE, show_row_names = FALSE)
+#'
+setMethod(
+  f = "plot",
+  signature = c(x = "HermesDataCor"),
+  definition = function(x, 
+                        y,
+                        flag_colors = c("FALSE" = "green", "TRUE" = "red"),
+                        cor_colors = circlize::colorRamp2(c(0, 0.5, 1), c("red", "yellow", "green")),
+                        ...) {
+    assert_that(missing(y))
+    df <- x@flag_data
+    left_annotation <- ComplexHeatmap::rowAnnotation(
+      LowDepthFlag = factor(df$LowDepthFlag),
+      col = list(LowDepthFlag = flag_colors)
+    )
+    top_annotation <- ComplexHeatmap::HeatmapAnnotation(
+      TechnicalFailureFlag = factor(df$TechnicalFailureFlag),
+      col = list(TechnicalFailureFlag = flag_colors)
+    )
+    ComplexHeatmap::Heatmap(
+      matrix = x,
+      col = cor_colors,
+      name = "Correlation",
+      left_annotation = left_annotation,
+      top_annotation = top_annotation,
+      ...
+    )
+  }
+)
