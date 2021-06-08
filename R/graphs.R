@@ -262,19 +262,25 @@ setMethod(
   }
 )
 
-# plot ----
+# Correlation heatmap ----
 
-#' Plot Function
+#' Heatmap of Sample Correlations
 #' 
-#' @rdname plot
-#' @aliases plot
+#' This plot method uses the [ComplexHeatmap::Heatmap()] function
+#' to plot the correlations between samples saved in a [HermesDataCor] object.
 #' 
-#' @param x (`HermesDataCor`)\cr object of correlation values to plot.
-#' @param flag_colors (`character`)\cr a vector that specifies the colors 
-#' @param cor_colors (`string`)\cr the correlation coefficient (or covariance) to be computed, either "pearson", "kendall", or "spearman". 
-#' @param ... arguments to be passed to 
+#' @rdname plot_cor
+#' @aliases plot_cor
+#' 
+#' @param x (`HermesDataCor`)\cr what to plot.
+#' @param y not used.
+#' @param flag_colors (named `character`)\cr a vector that specifies the colors for `TRUE` and `FALSE`
+#'   flag values.
+#' @param cor_colors (`function`)\cr color scale function for the correlation values in the heatmap, 
+#'   produced by [circlize::colorRamp2()].
+#' @param ... other arguments to be passed to [ComplexHeatmap::Heatmap()].
 #'   
-#' @return A [HermesDataCor] object with calculated correlations and QC flags (technical failure and low depth).
+#' @return The [ComplexHeatmap::Heatmap] object with the heatmap.
 #' 
 #' @include metrics.R
 #' @importFrom graphics plot
@@ -282,7 +288,7 @@ setMethod(
 #' 
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#' result <- cor(x = object)
+#' result <- calc_cor(object)
 #' plot(result)
 #' plot(result, show_column_names = FALSE, show_row_names = FALSE)
 #'
@@ -290,9 +296,11 @@ setMethod(
   f = "plot",
   signature = "HermesDataCor",
   definition = function(x, 
+                        y,
                         flag_colors = c("FALSE" = "green", "TRUE" = "red"),
                         cor_colors = circlize::colorRamp2(c(0, 0.5, 1), c("red", "yellow", "green")),
                         ...) {
+    assert_that(missing(y))
     df <- x@flag_data
     left_annotation <- ComplexHeatmap::rowAnnotation(
       LowDepthFlag = factor(df$LowDepthFlag),

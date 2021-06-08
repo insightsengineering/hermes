@@ -51,6 +51,7 @@ reference:
     contents:
       - add_quality_flags
       - calc_pca
+      - calc_cor
   - title: Graphs
     contents:
       - draw_libsize_hist
@@ -59,13 +60,11 @@ reference:
       - draw_nonzero_boxplot
       - draw_genes_barplot
       - plot_pca
+      - plot_cor
   - title: Control Functions
     contents:
       - control_normalize
       - control_quality
-  - title: Metrics
-    contents:
-      - cor
   - title: Assertions
     contents:
       - is_class

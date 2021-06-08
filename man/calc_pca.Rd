@@ -6,7 +6,7 @@
 \alias{.HermesDataPca}
 \alias{calc_pca}
 \alias{HermesDataPca}
-\title{Principal Components Analysis Calculation Function}
+\title{Principal Components Analysis Calculation}
 \usage{
 calc_pca(object, assay_name = "counts")
 }

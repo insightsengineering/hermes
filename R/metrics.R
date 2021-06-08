@@ -8,7 +8,7 @@ setOldClass("prcomp")
   contains = "prcomp"
 )
 
-#' Principal Components Analysis Calculation Function
+#' Principal Components Analysis Calculation
 #' 
 #' Perform principal components analysis of the gene count vectors across all
 #' samples.
@@ -64,66 +64,53 @@ calc_pca <- function(object,
   .HermesDataPca(pca)
 }
 
-# HermesDataCor ----
-
-#' HermesData Correlation
-#' 
-#' The [HermesDataCor] class is an extension of a [matrix] with additional quality flags.
-#' 
-#' @note The `cor()` function will return an object of [HermesDataCor] class. 
-#' @aliases HermesDataCor
-#' @exportClass HermesDataCor
-#' 
-#' @examples
-#' object <- HermesData(summarized_experiment)
-#' cor(x = object)
-#' # which will return an object of HermesDataCor. 
-#'          
+# Correlation of samples ----
+        
+#' @rdname calc_cor   
 .HermesDataCor <- setClass(
   Class = "HermesDataCor",
   contains = "matrix",
   slots = c(flag_data = "DataFrame")
 )
 
-# cor ----
-
-setGeneric("cor")
-
-#' Correlation Function
+#' Correlation between Samples of HermesData
 #' 
-#' @rdname cor
-#' @aliases cor
+#' This calculates the correlation matrix between the sample vectors of counts from 
+#' a specified assay.
 #' 
-#' @param x (`AnyHermesData`)\cr object to calculate the correlation.
-#' @param y (`string`)\cr the assay name where the counts are located in x (AnyHermesData object).
-#' @param use not used.
-#' @param method (`string`)\cr the correlation coefficient (or covariance) to be computed, either "pearson", "kendall", or "spearman". 
+#' @aliases HermesDataCor
+#' @exportClass HermesDataCor
+#' 
+#' @param object (`AnyHermesData`)\cr object to calculate the correlation.
+#' @param assay_name (`string`)\cr the assay name where the counts are located in.
+#' @param method (`string`)\cr the correlation method, see [stats::cor()] for details.
 #'   
-#' @return A [HermesDataCor] object with calculated correlations and QC flags (technical failure and low depth).
+#' @return A [HermesDataCor] object which is an extension of a [matrix] with
+#'   additional quality flags in the slot `flag_data`: This contains the 
+#'   `TechnicalFailureFlag` and `LowDepthFlag` columns describing the original 
+#'   input samples.
 #' 
 #' @importFrom stats cor
 #' @export
 #' 
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#' cor(x = object)
-#' cor(x = object, method = "spearman")
+#' calc_cor(object)
+#' calc_cor(object, method = "spearman")
 #'               
-setMethod(
-  f = "cor",
-  signature = signature(x = "AnyHermesData"),
-  definition = function(x, y = "counts", use = NULL, method = "pearson") {
-    assert_that(
-      is.string(y),
-      is.null(use)
-    )
-    
-    chosen_assay <- assay(x, y)
-    sample_cor_matrix <- stats::cor(chosen_assay, method = method)
-    
-    .HermesDataCor(
-      sample_cor_matrix,
-      flag_data = colData(x)[, c("TechnicalFailureFlag", "LowDepthFlag")]
-    )
-  }
-)
+calc_cor <- function(object,
+                     assay_name = "counts", 
+                     method = "pearson") {
+  assert_that(
+    is_hermes_data(object),
+    is.string(assay_name)
+  )
+  
+  chosen_assay <- assay(object, assay_name)
+  sample_cor_matrix <- stats::cor(chosen_assay, method = method)
+  
+  .HermesDataCor(
+    sample_cor_matrix,
+    flag_data = colData(object)[, c("TechnicalFailureFlag", "LowDepthFlag")]
+  )
+}
