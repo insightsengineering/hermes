@@ -6,31 +6,42 @@
 \usage{
 control_quality(
   min_cpm = 1,
-  min_readcount_prop = 0.25,
+  min_cpm_prop = 0.25,
   min_corr = 0.5,
   min_depth = NULL
 )
 }
 \arguments{
-\item{min_cpm}{(\code{number})\cr minimum CPM for each gene within the sample to pass.}
+\item{min_cpm}{(non-negative \code{number})\cr minimum CPM for each gene within
+the sample.}
 
-\item{min_readcount_prop}{(\code{proportion})\cr minimum percentage of samples with acceptable read count of certain gene, default is 0.25.}
+\item{min_cpm_prop}{(\code{proportion})\cr minimum percentage of samples with
+acceptable CPM of certain gene for low expression flagging.}
 
-\item{min_corr}{(\code{proportion})\cr minimum correlation of RNAseq results.}
+\item{min_corr}{(\code{proportion})\cr minimum Pearson correlation coefficient of
+CPM between samples for technical failure flagging.}
 
-\item{min_depth}{(\code{number})\cr minimum library depth.}
+\item{min_depth}{(non-negative \code{count} or \code{NULL})\cr minimum library depth
+for low depth flagging. If \code{NULL}, this will be calculated as the first
+quartile minus 1.5 times the inter-quartile range of the library size
+(depth) of all samples. (So anything below the usual lower boxplot whisker
+would be too low.)}
 }
 \value{
 List with the above criteria to flag observations.
 }
 \description{
-Control for Specified Quality Flags
+Control function which specifies the quality flag settings.
+One or more settings can be customized. Not specified settings are left at defaults.
 }
 \note{
-To be used with the \code{add_quality_flags()} function.
+To be used with the \code{\link[=add_quality_flags]{add_quality_flags()}} function.
 }
 \examples{
+# Default settings.
 control_quality()
-control_quality(min_cpm = 5, min_readcount_prop = .001, min_corr = .1, min_depth = 3)
+
+# One or more settings can be customized.
+control_quality(min_cpm = 5, min_cpm_prop = 0.001)
               
 }
