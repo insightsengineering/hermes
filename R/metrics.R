@@ -1,6 +1,8 @@
 # PCA ----
 
 setOldClass("prcomp")
+
+#' @rdname calc_pca
 .HermesDataPca <- setClass(
   Class = "HermesDataPca",
   contains = "prcomp"
@@ -17,7 +19,7 @@ setOldClass("prcomp")
 #'   the analysis internally.
 #' - Centering and scaling is applied internally.
 #' 
-#' @aliases `HermesDataPca-class`
+#' @aliases HermesDataPca
 #' @exportClass HermesDataPca
 #' 
 #' @param object (`AnyHermesData`) \cr input.

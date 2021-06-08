@@ -5,18 +5,18 @@
 \alias{plot_pca}
 \title{PCA Plot}
 \usage{
-\S4method{plot}{HermesDataPca,ANY}(x, x_comp = 1, y_comp = 2, ...)
+\S4method{plot}{HermesDataPca,ANY}(x, y = NULL, x_comp = 1, y_comp = 2, ...)
 }
 \arguments{
 \item{x}{(\code{HermesDataPca})\cr what to plot.}
+
+\item{y}{not used.}
 
 \item{x_comp}{(\code{count})\cr principal component number used in x axis.}
 
 \item{y_comp}{(\code{count})\cr principal component number used in y axis.}
 
 \item{...}{additional arguments passed internally to \link[ggfortify:autoplot.pca_common]{ggfortify::autoplot.prcomp}.}
-
-\item{y}{not used.}
 }
 \value{
 The \code{ggplot} object with the PCA plot.
