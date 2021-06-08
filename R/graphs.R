@@ -209,3 +209,55 @@ draw_genes_barplot <- function(object,
     xlab("Chromosome") +
     ylab("Number of Genes")
 }  
+
+# PCA ----
+
+#' PCA Plot
+#' 
+#' This plot method uses [ggplot2::autoplot()] function with the corresponding method
+#' from the `ggfortify` package to plot the results of a principal components analysis
+#' saved in a [HermesDataPca] object.
+#' 
+#' @rdname plot_pca
+#' @aliases plot_pca
+#' 
+#' @param x (`HermesDataPca`)\cr what to plot.
+#' @param y not used.
+#' @param x_comp (`count`)\cr principal component number used in x axis.
+#' @param y_comp (`count`)\cr principal component number used in y axis.
+#' @param ... additional arguments passed internally to [ggfortify::autoplot.prcomp].
+#'   
+#' @return The `ggplot` object with the PCA plot.
+#' 
+#' @include metrics.R
+#' @importFrom graphics plot
+#' @importFrom ggplot2 autoplot
+#' 
+#' @export
+#' 
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' result <- calc_pca(object)
+#' plot(result)
+#' plot(result, x_comp = 2, y_comp = 3)
+#' plot(result, variance_percentage = FALSE)
+#' plot(result, label = TRUE)
+#' 
+setMethod(
+  f = "plot",
+  signature = c(x = "HermesDataPca"),
+  definition = function(x, y, x_comp = 1, y_comp = 2, ...) {
+    assert_that(
+      missing(y),
+      is.count(x_comp),
+      is.count(y_comp),
+      !are_equal(x_comp, y_comp)
+    )
+    ggplot2::autoplot(
+      object = x, 
+      x = x_comp,
+      y = y_comp,
+      ...
+    )
+  }
+)

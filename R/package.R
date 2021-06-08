@@ -4,6 +4,7 @@
 #'
 "_PACKAGE"
 
+#' @import ggfortify
 #' @import ggplot2
 #' @import ggplot2.utils
 #' @import methods
