@@ -1,30 +1,4 @@
 # PCA ----
-#' Principal Components Analysis Calculation Function
-#' The `calc_pca()` function for principal components calculation function.
-#' [HermesDataPca] class is an extention of [prcomp] class to enable use of plot
-#' method for plotting PCA.
-#' @aliases HermesDataPca
-#' @exportClass HermesDataPca
-#' 
-#' @param object (`HermesData`) \cr input.
-#' @param assay_name (`Character string`) \cr Indicating the name of the assay
-#'   of interest, with possible options: "counts", "cpm", "tpm", "rpkm", "voom".
-#'   Default assay is "counts".
-#'
-#' @return A list with class "prcomp" containing standard deviations of the
-#'   principal components, rotation (matrix whose columns contain the
-#'   eigenvectors), the rotated data and the cenetering and scaling used
-#'   
-#' @note Genes with constant value across all samples are excluded from the analysis.
-#' @export calc_pca
-#'
-#' @importFrom S4Vectors isConstant
-#' @importFrom stats prcomp
-#' @examples
-#' object <- HermesData(summarized_experiment)
-#' result <- calc_pca(object)
-#' summary(result)
-#'
 
 setOldClass("prcomp")
 .HermesDataPca <- setClass(
@@ -32,8 +6,44 @@ setOldClass("prcomp")
   contains = "prcomp"
 )
 
+#' Principal Components Analysis Calculation Function
+#' 
+#' Perform principal components analysis of the gene count vectors across all
+#' samples.
+#' 
+#' - PCA should be performed after filtering out low quality genes and samples and
+#'   normalization.
+#' - In addition, genes with constant counts across all samples are excluded from 
+#'   the analysis internally.
+#' - Centering and scaling is applied internally.
+#' 
+#' @aliases HermesDataPca
+#' @exportClass HermesDataPca
+#' 
+#' @param object (`AnyHermesData`) \cr input.
+#' @param assay_name (`Character string`) \cr Indicating the name of the assay
+#'   of interest, with possible options: "counts", "cpm", "tpm", "rpkm", "voom".
+#'   Default assay is "counts".
+#'
+#' @return A [HermesDataPca] object which is an extension of the [stats::prcomp] class
+#'   to enable use of plot method for plotting PCA.
+#'   
+#' @note 
+#'
+#' @importFrom S4Vectors isConstant
+#' @importFrom stats prcomp
+#' @export
+#' 
+#' @examples
+#' object <- HermesData(summarized_experiment) %>%
+#'   add_quality_flags() %>%
+#'   filter() %>%
+#'   normalize()
+#' result <- calc_pca(object, assay_name = "tpm")
+#' summary(result)
+#'
 calc_pca <- function(object,
-                    assay_name = "counts") {
+                     assay_name = "counts") {
   assert_that(
     is_hermes_data(object),
     is.string(assay_name)
@@ -41,7 +51,7 @@ calc_pca <- function(object,
 
   x_samples <- assay(object, assay_name)
   x_genes <- t(x_samples)
-  gene_is_constant <- apply(x_genes, MARGIN = 2L, FUN = isConstant)
+  gene_is_constant <- apply(x_genes, MARGIN = 2L, FUN = S4Vectors::isConstant)
   x_genes_remaining <- x_genes[, !gene_is_constant]
 
   pca <- stats::prcomp(
@@ -51,5 +61,5 @@ calc_pca <- function(object,
     tol = sqrt(.Machine$double.eps)
   )
   
-  sample_pca <- .HermesDataPca(pca)
+  .HermesDataPca(pca)
 }
