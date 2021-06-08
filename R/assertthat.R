@@ -62,3 +62,26 @@ on_failure(is_counts_vector) <- function(call, env) {
   x_name <- deparse(call$x)
   paste(x_name, "is not a vector of counts (positive integers)")
 }
+
+# is_list_with ---- 
+
+#' @describeIn assertions checks for a list containing elements.
+#' @param elements (`character`)\cr names of elements which should be in the list `x`.
+#' @importFrom utils.nest is_character_vector is_fully_named_list
+#' @export
+#' @examples
+#' b <- list(a = 5, b = 3)
+#' is_list_with(b, c("a", "c"))
+#' is_list_with(b, c("a", "b"))
+#' 
+is_list_with <- function(x, elements) {
+  assert_that(utils.nest::is_character_vector(elements))
+  utils.nest::is_fully_named_list(x) &&
+    all(elements %in% names(x)) 
+}
+
+on_failure(is_list_with) <- function(call, env) {
+  x_name <- deparse(call$x)
+  elements <- eval(call$elements, env)
+  paste(x_name, "is not a list with", paste(elements, collapse = ", "))
+}

@@ -45,6 +45,9 @@ reference:
       - filter
       - subset
       - normalize
+  - title: Functions
+    contents:
+      - add_quality_flags
   - title: Graphs
     contents:
       - draw_libsize_hist
@@ -61,5 +64,5 @@ reference:
       - is_class
       - is_counts_vector
       - is_hermes_data
-      
+      - is_list_with
       

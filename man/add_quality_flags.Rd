@@ -2,27 +2,91 @@
 % Please edit documentation in R/quality.R
 \name{add_quality_flags}
 \alias{add_quality_flags}
+\alias{h_low_expression_flag}
+\alias{h_low_depth_flag}
+\alias{h_tech_failure_flag}
 \title{Add Quality Flags}
 \usage{
 add_quality_flags(object, control = control_quality(), overwrite = FALSE)
+
+h_low_expression_flag(object, control = control_quality())
+
+h_low_depth_flag(object, control = control_quality())
+
+h_tech_failure_flag(object, control = control_quality())
 }
 \arguments{
-\item{object}{(\code{HermesData}) \cr input.}
+\item{object}{(\code{AnyHermesData}) \cr input.}
 
-\item{control}{(\code{list}) \cr list of settings used to perform the quality control procedure.}
+\item{control}{(\code{list}) \cr list of settings used to perform the quality control procedure,
+produced by \code{\link[=control_quality]{control_quality()}}.}
 
 \item{overwrite}{(\code{flag})\cr whether previous results need to be overwritten.}
 }
 \value{
-A HermesData object with added quality flags.
+The input object with added quality flags.
 }
 \description{
-Add Quality Flags
+This function adds quality flag information to a \link{AnyHermesData} object:
+\itemize{
+\item \code{LowExpressionFlag}: for each gene, counts how many samples don't pass a minimum
+expression CPM threshold. If too many, then it flags this gene as "low expression" gene.
+\item \code{TechnicalFailureFlag}: first calculates the Pearson correlation matrix of the sample wise
+CPM values, resulting in a matrix measuring the correlation between samples.
+Then compares the average correlation per sample with a threshold - if it is too low,
+then the sample is flagged as "technical failure".
+\item \code{LowDepthFlag}: computes the library size (total number of counts) per sample
+(removing any NAs). If this number is too low, the sample is flagged as "low depth".
 }
+}
+\details{
+While \code{object} already has the variables above (as this is enforced by the validation method
+for \link{AnyHermesData}), they are usually still \code{NA} after the initial creation.
+}
+\section{Functions}{
+\itemize{
+\item \code{h_low_expression_flag}: creates the low expression flag for genes
+given control settings.
+
+\item \code{h_low_depth_flag}: creates the low depth (library size) flag for samples
+given control settings.
+
+\item \code{h_tech_failure_flag}: creates the technical failure flag for samples
+given control settings.
+}}
+
 \examples{
 object <- HermesData(summarized_experiment)
 control <- control_quality()
 result <- add_quality_flags(object, control)
-result <- add_quality_flags(object, control, overwrite = TRUE)
+result2 <- add_quality_flags(result, control, overwrite = TRUE)
               
+low_expr_flag <- h_low_expression_flag(object)
+head(low_expr_flag)
+length(low_expr_flag) == nrow(object)
+
+low_expr_flag2 <- h_low_expression_flag(
+  object, 
+  control_quality(min_cpm = 5, min_readcount_prop = 0.5)
+)
+head(low_expr_flag2)
+
+low_depth_flag <- h_low_depth_flag(object)
+head(low_depth_flag)
+length(low_depth_flag) == ncol(object)
+
+low_depth_flag2 <- h_low_depth_flag(object, control_quality(min_depth = 5))
+head(low_depth_flag2)
+
+object <- HermesData(summarized_experiment)
+tech_failure_flag <- h_tech_failure_flag(object)
+head(tech_failure_flag)
+length(tech_failure_flag) == ncol(object)
+
+tech_failure_flag2 <- h_tech_failure_flag(object, control_quality(min_corr = 0.35))
+head(tech_failure_flag2)
+
+}
+\seealso{
+\code{\link[=control_quality]{control_quality()}} for the detailed settings specifications.
 }

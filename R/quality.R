@@ -1,138 +1,89 @@
 #' Control for Specified Quality Flags
 #' 
-#' @param min_cpm (`number`)\cr minimum CPM for each gene within the sample to pass.
-#' @param min_readcount_prop (`proportion`)\cr minimum percentage of samples with acceptable read count of certain gene, default is 0.25.
-#' @param min_corr (`proportion`)\cr minimum correlation of RNAseq results.
-#' @param min_depth (`number`)\cr minimum library depth. 
+#' Control function which specifies the quality flag settings.
+#' One or more settings can be customized. Not specified settings are left at defaults.
+#' 
+#' @param min_cpm (non-negative `number`)\cr minimum CPM for each gene within
+#'   the sample.
+#' @param min_cpm_prop (`proportion`)\cr minimum percentage of samples with
+#'   acceptable CPM of certain gene for low expression flagging.
+#' @param min_corr (`proportion`)\cr minimum Pearson correlation coefficient of
+#'   CPM between samples for technical failure flagging.
+#' @param min_depth (non-negative `count` or `NULL`)\cr minimum library depth
+#'   for low depth flagging. If `NULL`, this will be calculated as the first
+#'   quartile minus 1.5 times the inter-quartile range of the library size
+#'   (depth) of all samples. (So anything below the usual lower boxplot whisker
+#'   would be too low.)
 #'   
 #' @return List with the above criteria to flag observations.
 #' 
-#' @note To be used with the `add_quality_flags()` function.
+#' @note To be used with the [add_quality_flags()] function.
 #'
 #' @importFrom tern is_proportion
 #' @importFrom tern is_nonnegative_count
 #' @export
 #' 
 #' @examples
+#' # Default settings.
 #' control_quality()
-#' control_quality(min_cpm = 5, min_readcount_prop = .001, min_corr = .1, min_depth = 3)
+#' 
+#' # One or more settings can be customized.
+#' control_quality(min_cpm = 5, min_cpm_prop = 0.001)
 #'               
 control_quality <- function(min_cpm = 1,
-                            min_readcount_prop = 0.25,
+                            min_cpm_prop = 0.25,
                             min_corr = 0.5,
                             min_depth = NULL) {
   assert_that(
     is.number(min_cpm) && min_cpm >= 0,
-    tern::is_proportion(min_readcount_prop),
+    tern::is_proportion(min_cpm_prop),
     tern::is_proportion(min_corr),
     is.null(min_depth) || tern::is_nonnegative_count(min_depth)
   )  
   list(
     min_cpm = min_cpm,
-    min_readcount_prop = min_readcount_prop,
+    min_readcount_prop = min_cpm_prop,
     min_corr = min_corr,
     min_depth = min_depth
   )
 }
 
-#' Quality Control: Low Expression Flag
-#'
-#' @param object (`HermesData`) \cr input.
-#' @param control (`list`) \cr list of settings used to perform the quality control procedure.
-#'
-#' @return A logical vector indicating whether each gene in HermesData object has low expression.
-#' @export
-#'
-#' @importFrom edgeR cpm
-#' @examples
-#' object <- HermesData(summarized_experiment)
-#' result <- h_low_expression_flag(object)
-#' control <- control_quality(min_cpm = 5, min_readcount_prop = 0.5)
-#' result <- h_low_expression_flag(object, control)
-#' head(result)
-#' 
-h_low_expression_flag <- function(object, 
-                                  control = control_quality()) {
-  assert_that(
-    is_hermes_data(object),
-    utils.nest::is_fully_named_list(control)
-  )
-  cpm <- edgeR::cpm(counts(object))
-  threshold_n_samples <- ceiling(ncol(cpm) * control$min_readcount_prop)
-  n_samples_below_min_cpm <- rowSums(cpm <= control$min_cpm)
-  n_samples_below_min_cpm > threshold_n_samples
-}
-
-#' Quality Control: Low Depth Flag
-#'
-#' @param object (`HermesData`) \cr input.
-#' @param control (`list`) \cr list of settings used to perform the quality control procedure.
-#'
-#' @return A logical vector indicating whether a sample in HermesData object has low average read depth.
-#' @export
-#'
-#' @importFrom stats quantile
-#' @examples
-#' object <- HermesData(summarized_experiment)
-#' result <- h_low_depth_flag(object)
-#' control <- control_quality(min_depth = 5)
-#' result <- h_low_depth_flag(object, control)
-#' head(result)
-#' 
-h_low_depth_flag <- function(object,
-                             control = control_quality()) {
-  assert_that(
-    is_hermes_data(object),
-    utils.nest::is_fully_named_list(control)
-  )
-  lib_sizes <- colSums(counts(object))
-  if (is.null(control$min_depth)) {
-    lower_upper_quartiles <- quantile(lib_sizes, probs = c(0.25, 0.75))
-    control$min_depth <- lower_upper_quartiles[1] - 1.5 * diff(lower_upper_quartiles)
-  }
-  lib_sizes < control$min_depth
-}
-
-#' Quality Control: Technical Failure Flag
-#'
-#' @param object (`HermesData`) \cr input.
-#' @param control (`list`) \cr list of settings used to perform the quality control procedure.
-#'
-#' @return A logical vector indicating whether each sample in HermesData object has failed the technical failure control.
-#' @export
-#'
-#' @importFrom edgeR cpm
-#' @examples
-#' object <- HermesData(summarized_experiment)
-#' result <- h_tech_failure_flag(object)
-#' control <- control_quality(min_corr = 0.35)
-#' result <- h_tech_failure_flag(object, control)
-#' 
-h_tech_failure_flag <- function(object,
-                                control = control_quality()) {
-  assert_that(
-    is_hermes_data(object),
-    utils.nest::is_fully_named_list(control)
-  )
-  cpm <- edgeR::cpm(counts(object))
-  corr_matrix <- stats::cor(cpm, method = "pearson")
-  colMeans(corr_matrix) < control$min_corr
-}
-
 #' Add Quality Flags
 #' 
-#' @param object (`HermesData`) \cr input.
-#' @param control (`list`) \cr list of settings used to perform the quality control procedure.
+#' This function adds quality flag information to a [AnyHermesData] object:
+#' - `LowExpressionFlag`: for each gene, counts how many samples don't pass a minimum 
+#'   expression CPM threshold. If too many, then it flags this gene as "low expression" gene.
+#' - `TechnicalFailureFlag`: first calculates the Pearson correlation matrix of the sample wise
+#'   CPM values, resulting in a matrix measuring the correlation between samples. 
+#'   Then compares the average correlation per sample with a threshold - if it is too low, 
+#'   then the sample is flagged as "technical failure".
+#' - `LowDepthFlag`: computes the library size (total number of counts) per sample 
+#'   (removing any NAs). If this number is too low, the sample is flagged as "low depth".
+#' 
+#' While `object` already has the variables above (as this is enforced by the validation method
+#' for [AnyHermesData]), they are usually still `NA` after the initial creation.
+#' 
+#' @param object (`AnyHermesData`) \cr input.
+#' @param control (`list`) \cr list of settings used to perform the quality control procedure, 
+#'   produced by [control_quality()].
 #' @param overwrite (`flag`)\cr whether previous results need to be overwritten.
 #'   
-#' @return A HermesData object with added quality flags.
+#' @return The input object with added quality flags.
+#' 
+#' @seealso [control_quality()] for the detailed settings specifications.
+#' 
 #' @export
 #' 
 #' @examples
+#' # Adding default quality flags to HermesData object.
 #' object <- HermesData(summarized_experiment)
-#' control <- control_quality()
-#' result <- add_quality_flags(object, control)
-#' result <- add_quality_flags(object, control, overwrite = TRUE)
+#' result <- add_quality_flags(object)
+#' head(rowData(result)$LowExpressionFlag)
+#' head(colData(result)$TechnicalFailureFlag)
+#' head(colData(result)$LowDepthFlag)
+#' 
+#' # It is possible to overwrite flags if needed, which will trigger a message.
+#' result2 <- add_quality_flags(result, control, overwrite = TRUE)
 #'               
 add_quality_flags <- function(object, 
                               control = control_quality(),
@@ -157,4 +108,88 @@ add_quality_flags <- function(object,
   metadata(object)$control_quality_flags <- control
   
   object
+}
+
+#' @describeIn add_quality_flags creates the low expression flag for genes 
+#'   given control settings.
+#' 
+#' @importFrom edgeR cpm
+#' @export
+#' 
+#' @examples
+#' # Separate calculation of low expression flag.
+#' low_expr_flag <- h_low_expression_flag(object)
+#' head(low_expr_flag)
+#' length(low_expr_flag) == nrow(object)
+#' 
+#' low_expr_flag2 <- h_low_expression_flag(
+#'   object, 
+#'   control_quality(min_cpm = 500, min_cpm_prop = 0.9)
+#' )
+#' head(low_expr_flag2)
+#' 
+h_low_expression_flag <- function(object, 
+                                  control = control_quality()) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
+  )
+  cpm <- edgeR::cpm(counts(object))
+  threshold_n_samples <- ceiling(ncol(cpm) * control$min_cpm_prop)
+  n_samples_below_min_cpm <- rowSums(cpm <= control$min_cpm)
+  n_samples_below_min_cpm > threshold_n_samples
+}
+
+#' @describeIn add_quality_flags creates the low depth (library size) flag for samples 
+#'   given control settings.
+#' 
+#' @importFrom stats quantile
+#' @export
+#' 
+#' @examples
+#' low_depth_flag <- h_low_depth_flag(object)
+#' head(low_depth_flag)
+#' length(low_depth_flag) == ncol(object)
+#' 
+#' low_depth_flag2 <- h_low_depth_flag(object, control_quality(min_depth = 5))
+#' head(low_depth_flag2)
+#' 
+h_low_depth_flag <- function(object,
+                             control = control_quality()) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
+  )
+  lib_sizes <- colSums(counts(object))
+  if (is.null(control$min_depth)) {
+    lower_upper_quartiles <- quantile(lib_sizes, probs = c(0.25, 0.75))
+    control$min_depth <- lower_upper_quartiles[1] - 1.5 * diff(lower_upper_quartiles)
+  }
+  lib_sizes < control$min_depth
+}
+
+#' @describeIn add_quality_flags creates the technical failure flag for samples 
+#'   given control settings.
+#'   
+#' @importFrom edgeR cpm
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' tech_failure_flag <- h_tech_failure_flag(object)
+#' head(tech_failure_flag)
+#' length(tech_failure_flag) == ncol(object)
+#' 
+#' tech_failure_flag2 <- h_tech_failure_flag(object, control_quality(min_corr = 0.35))
+#' head(tech_failure_flag2)
+#' 
+h_tech_failure_flag <- function(object,
+                                control = control_quality()) {
+  assert_that(
+    is_hermes_data(object),
+    utils.nest::is_fully_named_list(control)
+  )
+  cpm <- edgeR::cpm(counts(object))
+  corr_matrix <- stats::cor(cpm, method = "pearson")
+  colMeans(corr_matrix) < control$min_corr
 }
