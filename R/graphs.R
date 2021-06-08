@@ -246,9 +246,9 @@ draw_genes_barplot <- function(object,
 setMethod(
   f = "plot",
   signature = c(x = "HermesDataPca"),
-  definition = function(x, y = NULL, x_comp = 1, y_comp = 2, ...) {
+  definition = function(x, y, x_comp = 1, y_comp = 2, ...) {
     assert_that(
-      is.null(y),
+      missing(y),
       is.count(x_comp),
       is.count(y_comp),
       !are_equal(x_comp, y_comp)

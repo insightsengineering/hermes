@@ -5,7 +5,7 @@
 \alias{plot_pca}
 \title{PCA Plot}
 \usage{
-\S4method{plot}{HermesDataPca,ANY}(x, y = NULL, x_comp = 1, y_comp = 2, ...)
+\S4method{plot}{HermesDataPca,ANY}(x, y, x_comp = 1, y_comp = 2, ...)
 }
 \arguments{
 \item{x}{(\code{HermesDataPca})\cr what to plot.}
