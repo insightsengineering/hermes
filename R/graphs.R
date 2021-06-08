@@ -294,7 +294,7 @@ setMethod(
 #'
 setMethod(
   f = "plot",
-  signature = "HermesDataCor",
+  signature = c(x = "HermesDataCor"),
   definition = function(x, 
                         y,
                         flag_colors = c("FALSE" = "green", "TRUE" = "red"),
