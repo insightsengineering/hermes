@@ -21,7 +21,7 @@
 #' object <- top_genes(object = result)
 #' object <- top_genes(result, n_top = NULL, min_threshold = 50000)
 #' object <- top_genes(result, summary_fun = rowMax)
-#' 
+
 .HermesDataTopGenes <- setClass(
   Class = "HermesDataTopGenes",
   contains = "data.frame",
@@ -48,11 +48,17 @@ top_genes <- function(object,
     assay_name
   ))
   
+  assert_that(
+    is.numeric(average_expression), 
+    identical(length(average_expression), nrow(object)),
+    is.vector(average_expression)
+    )
+  
   average_expression <- data.frame(expression = average_expression)
   #colnames(average_expression) <- c("expression")
   average_expression <- average_expression[order(average_expression$expression, decreasing = TRUE), , drop = FALSE]
   
-  row_names <- rownames(average_expression)
+  row_names <- rownames(object)
   average_expression$name <- factor(
     row_names,
     levels = row_names
