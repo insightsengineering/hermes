@@ -31,7 +31,7 @@
 top_genes <- function(object,
                       assay_name = "counts",
                       summary_fun = rowMeans,
-                      n_top = 10L,
+                      n_top = if(is.null(min_threshold)) 10L else NULL,
                       min_threshold = NULL) {
   assert_that(
     is_hermes_data(object),
@@ -57,7 +57,11 @@ top_genes <- function(object,
   )
   
   keep_row <- if (!is.null(min_threshold)) {
-    assert_that(is.number(min_threshold))
+    assert_that(
+      is.number(min_threshold),
+      min_threshold > 0,
+      is.finite(min_threshold)
+    )
     df$expression >= min_threshold
   } else {
     assert_that(is.count(n_top))

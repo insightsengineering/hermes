@@ -13,7 +13,7 @@ top_genes(
   object,
   assay_name = "counts",
   summary_fun = rowMeans,
-  n_top = 10L,
+  n_top = if (is.null(min_threshold)) 10L else NULL,
   min_threshold = NULL
 )
 
