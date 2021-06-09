@@ -55,6 +55,7 @@ The additional criteria are:
 \item \code{LowDepthFlag}
 \item \code{TechnicalFailureFlag}
 }
+\item The object must have row and column names.
 }
 
 Analogously, \link{RangedHermesData} is an extension of

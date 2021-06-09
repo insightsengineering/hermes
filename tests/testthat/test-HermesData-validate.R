@@ -178,3 +178,44 @@ test_that("validate_col_data returns messages as expected for invalid object", {
     "columns SampleID only contain NAs"
   )
 })
+
+# validate_names ----
+
+test_that("validate_names returns NULL for a valid object", {
+  object <- SummarizedExperiment(
+    list(counts = matrix(
+      data = 1:4, 
+      nrow = 2, 
+      ncol = 2,
+      dimnames = list(c("a", "b"), c("X", "Y"))
+    ))
+  )
+  expect_null(validate_names(object))
+})
+
+test_that("validate_names returns messages as expected for invalid object", {
+  object <- SummarizedExperiment(
+    list(counts = matrix(1L, 1, 1))
+  )
+  expect_identical(
+    validate_names(object),
+    c("'object' must have rownames", "'object' must have colnames")
+  )
+  
+  object <- SummarizedExperiment(
+    list(counts = matrix(1L, 1, 1, dimnames = list(NULL, "bla")))
+  )
+  expect_identical(
+    validate_names(object),
+    "'object' must have rownames"
+  )
+  
+  object <- SummarizedExperiment(
+    list(counts = matrix(1L, 1, 1, dimnames = list("bla", NULL)))
+  )
+  expect_identical(
+    validate_names(object),
+    "'object' must have colnames"
+  )
+})
+
