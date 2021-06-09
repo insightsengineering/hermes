@@ -218,7 +218,7 @@ draw_genes_barplot <- function(object,
 #' the values in the data, and x is discrete variable. The input is a the data frame.
 #' the data frame can be created with the function top_genes().
 #'
-#' @param object (`class`)\cr input.
+#' @param object (`HermesDataTopGenes`)\cr input.
 #' @param ylab (`string`)\cr input.
 #' @param title (`string`)\cr input.
 #'
@@ -226,10 +226,15 @@ draw_genes_barplot <- function(object,
 #'
 #' @examples
 #' result <- HermesData(summarized_experiment)
-#' df <- top_genes(object = result)
-#' draw_top_barplot(df)
-#' df <- top_genes(result, n_top = NA, min_threshold = 50000)
-#' draw_top_barplot(df)
+#' obj <- top_genes(object = result)
+#' draw_top_barplot(obj)
+#' 
+#' obj <- top_genes(result, n_top = NULL, min_threshold = 50000)
+#' draw_top_barplot(obj)
+#' 
+#' obj <- top_genes(result, summary_fun = rowMax)
+#' draw_top_barplot(obj, ylab = "Maximum Count")
+#'  
 #'
 draw_top_barplot <- function(object,
                              ylab = "Averaged Counts",
@@ -241,11 +246,10 @@ draw_top_barplot <- function(object,
     is.character(title)
   )
   
-  ylab = ylab
-  title = title
+  df <-  data.frame(object)
   
-  ggplot(object@df) +
-    geom_col (aes( y = .data@df$average_expression, x = .data@df$name)) +
+  ggplot(df) +
+    geom_col (aes( y = .data$expression, x = .data$name)) +
     scale_x_discrete(name = "HGNC gene names") +
     scale_y_continuous(name = paste(ylab, sep = ""))  +
     theme(axis.text.x = element_text(angle = 90)) +
