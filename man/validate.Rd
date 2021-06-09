@@ -7,6 +7,7 @@
 \alias{validate_non_empty}
 \alias{validate_row_data}
 \alias{validate_col_data}
+\alias{validate_names}
 \title{Internal Helper Functions for Validation of HermesData Objects}
 \usage{
 validate_counts(object)
@@ -18,6 +19,8 @@ validate_non_empty(df)
 validate_row_data(object)
 
 validate_col_data(object)
+
+validate_names(object)
 }
 \arguments{
 \item{object}{(\code{SummarizedExperiment})\cr object to validate.}
@@ -53,5 +56,7 @@ required columns.
 
 \item \code{validate_col_data}: validates that the object contains \code{colData} with
 required columns.
+
+\item \code{validate_names}: validates that the object contains row and column names.
 }}
 

@@ -117,3 +117,18 @@ validate_col_data <- function(object) {
   
   msg
 }
+
+#' @describeIn validate validates that the object contains row and column names.
+#'   
+validate_names <- function(object) {
+  msg <- NULL
+  
+  if (is.null(rownames(object))) {
+    msg <- c(msg, "'object' must have rownames")
+  }
+  if (is.null(colnames(object))) {
+    msg <- c(msg, "'object' must have colnames")
+  }
+  
+  msg
+}

@@ -25,6 +25,7 @@ NULL
 #'   - `SampleID`
 #'   - `LowDepthFlag`
 #'   - `TechnicalFailureFlag`
+#' - The object must have row and column names.
 #'   
 #' Analogously, [RangedHermesData] is an extension of
 #' [SummarizedExperiment::RangedSummarizedExperiment] and has the same
@@ -75,6 +76,7 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
   msg <- c(msg, validate_counts(object))
   msg <- c(msg, validate_row_data(object))
   msg <- c(msg, validate_col_data(object))
+  msg <- c(msg, validate_names(object))
   
   if (is.null(msg)) TRUE else msg
 })
