@@ -209,3 +209,46 @@ draw_genes_barplot <- function(object,
     xlab("Chromosome") +
     ylab("Number of Genes")
 }  
+
+
+
+#' Barplot top genes
+#'
+#' Create a bar plot where the y is continuos and heights of the bars represent
+#' the values in the data, and x is discrete variable. The input is a the data frame.
+#' the data frame can be created with the function top_genes().
+#'
+#' @param df (`data.frame`)\cr input.
+#' @param ylab (`string`)\cr input.
+#' @param title (`string`)\cr input.
+#'
+#' @return The `ggplot` object with the histogram.
+#'
+#' @examples
+#' result <- HermesData(summarized_experiment)
+#' df <- top_genes(object = result)
+#' draw_top_barplot(df)
+#' df <- top_genes(result, n_top = NA, min_threshold = 50000)
+#' draw_top_barplot(df)
+#'
+draw_top_barplot <- function(df,
+                             ylab = "Averaged Counts",
+                             title = "Top most expressed genes") {
+  
+  assert_that(
+    is.data.frame(df),
+    is.character(ylab),
+    is.character(title)
+  )
+  
+  ylab = ylab
+  title = title
+  
+  ggplot(df) +
+    geom_col (aes( y = .data$average_expression, x = .data$name)) +
+    scale_x_discrete(name = "HGNC gene names") +
+    scale_y_continuous(name = paste(ylab, sep = ""))  +
+    theme(axis.text.x = element_text(angle = 90)) +
+    ggtitle(paste(title, sep = "")) +
+    theme(plot.title = element_text(hjust = 0.5))
+}
