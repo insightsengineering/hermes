@@ -1,0 +1,53 @@
+---
+title: "Design: The plot method to produce all plots"
+author: "Namrata Bhatia"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+A plot method to produce all plots
+
+## Idea
+
+```{r}
+# result <- HermesData(summarized_experiment)
+# 
+# all_plots <- function(object) {
+#   a <- draw_libsize_hist(object)
+#   b <- draw_libsize_qq(object)
+#   c <- draw_libsize_densities(object)
+#   d <- draw_nonzero_boxplot(object)
+#   e <- draw_genes_barplot(object)
+# list(a, b, c, d, e)
+# }
+# 
+# all_plots(object = result)
+
+.HermesDataPca <- setClass(
+  Class = "AnyHermesDataAllPlots",
+  contains = "AnyHermesData"
+)
+
+setMethod(
+  f = "plot",
+  signature = c(x = "AnyHermesDataAllPlots"),
+  definition = function(object) {
+    assert_that(
+      is_hermes_data(object)
+    )
+  a <- draw_libsize_hist(object)
+  b <- draw_libsize_qq(object)
+  c <- draw_libsize_densities(object)
+  d <- draw_nonzero_boxplot(object)
+  e <- draw_genes_barplot(object)
+  list(a, b, c, d, e)
+  }
+)
+```
