@@ -14,6 +14,8 @@ reference:
     contents:
       - HermesData
       - RangedHermesData
+      - HermesDataCor
+      - HermesDataPca
       - HermesDataTopGenes
   - title: Constructors
     contents:
@@ -49,6 +51,8 @@ reference:
   - title: Functions
     contents:
       - add_quality_flags
+      - calc_pca
+      - calc_cor
   - title: Graphs
     contents:
       - draw_libsize_hist
@@ -56,6 +60,8 @@ reference:
       - draw_libsize_densities
       - draw_nonzero_boxplot
       - draw_genes_barplot
+      - plot_pca
+      - plot_cor
       - draw_top_barplot
   - title: Control Functions
     contents:
@@ -67,4 +73,3 @@ reference:
       - is_counts_vector
       - is_hermes_data
       - is_list_with
-      
