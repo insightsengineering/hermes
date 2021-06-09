@@ -37,21 +37,27 @@ a numeric vector with one value per gene.}
 \item{min_threshold}{(\code{number} or \code{NULL} )\cr selection criteria based on a minimum
 summary statistics threshold.}
 
-\item{title}{(\code{string})\cr input.}
+\item{x_lab}{(\code{string})\cr x-axis label.}
 
-\item{ylab}{(\code{string})\cr input.}
+\item{y_lab}{(\code{string})\cr y-axis label.}
+
+\item{title}{(\code{string})\cr plot title.}
 }
 \value{
 A \link{HermesDataTopGenes} object.
 }
 \description{
 This creates a \link{HermesDataTopGenes} object, which extends \code{data.frame}. It
-contains two columns: \code{expression} containing the statistic values calculated
-by \code{summary_fun} across columns, and \code{name} with the names of the rows. The
-data frame is sorted in descending order of \code{expression} and only the top
-entries according to the selection criteria are included.
+contains two columns:
+\itemize{
+\item \code{expression}: containing the statistic values calculated by \code{summary_fun} across columns.
+\item \code{name}: the gene names.
+}
 }
 \details{
+The data frame is sorted in descending order of \code{expression} and only the top
+entries according to the selection criteria are included.
+
 Note that exactly one of the arguments \code{n_top} and \code{min_threshold} must be
 provided.
 }
@@ -65,9 +71,9 @@ on the x-axis.
 \examples{
 object <- HermesData(summarized_experiment)
 top_genes(object)
-top_genes(result, n_top = NULL, min_threshold = 50000)
-result <- top_genes(result, summary_fun = rowMax)
+top_genes(object, n_top = NULL, min_threshold = 50000)
+result <- top_genes(object, summary_fun = rowMax)
 
-autoplot(result, ylab = "Maximum Count", title = "My top genes")
+autoplot(result, y_lab = "Maximum Count", title = "My top genes")
 
 }

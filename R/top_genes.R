@@ -72,6 +72,7 @@ top_genes <- function(object,
   )
 }
 
+# HermesDataTopGenes ----
 #' @rdname top_genes
 #' @aliases HermesDataTopGenes
 #' @exportClass HermesDataTopGenes
@@ -83,6 +84,8 @@ top_genes <- function(object,
     assay_name = "character"
   )
 )
+
+# autoplot ----
 
 #' @describeIn top_genes Creates a bar plot from a [HermesDataTopGenes] object, 
 #'   where the y axis shows the expression statistics for each of the top genes
