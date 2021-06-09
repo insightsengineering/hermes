@@ -40,3 +40,4 @@ Collate:
     'normalization.R'
     'package.R'
     'quality.R'
+    'metrics.R'
