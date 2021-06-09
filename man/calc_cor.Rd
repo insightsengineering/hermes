@@ -6,9 +6,17 @@
 \alias{HermesDataCor-class}
 \alias{.HermesDataCor}
 \alias{HermesDataCor}
+\alias{autoplot,HermesDataCor-method}
 \title{Correlation between Samples of HermesData}
 \usage{
 calc_cor(object, assay_name = "counts", method = "pearson")
+
+\S4method{autoplot}{HermesDataCor}(
+  object,
+  flag_colors = c(`FALSE` = "green", `TRUE` = "red"),
+  cor_colors = circlize::colorRamp2(c(0, 0.5, 1), c("red", "yellow", "green")),
+  ...
+)
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr object to calculate the correlation.}
@@ -16,20 +24,36 @@ calc_cor(object, assay_name = "counts", method = "pearson")
 \item{assay_name}{(\code{string})\cr the assay name where the counts are located in.}
 
 \item{method}{(\code{string})\cr the correlation method, see \code{\link[stats:cor]{stats::cor()}} for details.}
+
+\item{flag_colors}{(named \code{character})\cr a vector that specifies the colors for \code{TRUE} and \code{FALSE}
+flag values.}
+
+\item{cor_colors}{(\code{function})\cr color scale function for the correlation values in the heatmap,
+produced by \code{\link[circlize:colorRamp2]{circlize::colorRamp2()}}.}
+
+\item{...}{other arguments to be passed to \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}}.}
 }
 \value{
-A \link{HermesDataCor} object which is an extension of a \link{matrix} with
-additional quality flags in the slot \code{flag_data}: This contains the
-\code{TechnicalFailureFlag} and \code{LowDepthFlag} columns describing the original
-input samples.
+A \link{HermesDataCor} object.
 }
 \description{
 This calculates the correlation matrix between the sample vectors of counts from
-a specified assay.
+a specified assay, as a \link{HermesDataCor} object which is an extension of a \link{matrix} with
+additional quality flags in the slot \code{flag_data}: This contains the
+\code{TechnicalFailureFlag} and \code{LowDepthFlag} columns describing the original input samples.
 }
+\section{Functions}{
+\itemize{
+\item \code{autoplot,HermesDataCor-method}: This plot method uses the \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}} function
+to plot the correlations between samples saved in a \link{HermesDataCor} object.
+}}
+
 \examples{
 object <- HermesData(summarized_experiment)
 calc_cor(object)
-calc_cor(object, method = "spearman")
+result <- calc_cor(object, method = "pearson")
               
+autoplot(result)
+autoplot(result, show_column_names = FALSE, show_row_names = FALSE)
+
 }

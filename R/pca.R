@@ -8,14 +8,17 @@
 #' - In addition, genes with constant counts across all samples are excluded from 
 #'   the analysis internally.
 #' - Centering and scaling is applied internally.
+#' - Plots can be obtained with the [ggplot2::autoplot()] function
+#'   with the corresponding method from the `ggfortify` package to plot the
+#'   results of a principal components analysis saved in a [HermesDataPca]
+#'   object. See [ggfortify::autoplot.prcomp()] for details.
 #' 
 #' @param object (`AnyHermesData`) \cr input.
 #' @param assay_name (`Character string`) \cr Indicating the name of the assay
 #'   of interest, with possible options: "counts", "cpm", "tpm", "rpkm", "voom".
 #'   Default assay is "counts".
 #'
-#' @return A [HermesDataPca] object which is an extension of the [stats::prcomp] class
-#'   to enable use of plot method for plotting PCA.
+#' @return A [HermesDataPca] object which is an extension of the [stats::prcomp] class.
 #'
 #' @importFrom S4Vectors isConstant
 #' @importFrom stats prcomp
@@ -28,6 +31,11 @@
 #'   normalize()
 #' result <- calc_pca(object, assay_name = "tpm")
 #' summary(result)
+#' 
+#' autoplot(result)
+#' autoplot(result, x = 2, y = 3)
+#' autoplot(result, variance_percentage = FALSE)
+#' autoplot(result, label = TRUE)
 #'
 calc_pca <- function(object,
                      assay_name = "counts") {
@@ -59,44 +67,4 @@ setOldClass("prcomp")
 .HermesDataPca <- setClass(
   Class = "HermesDataPca",
   contains = "prcomp"
-)
-
-#' @describeIn calc_pca This plot method uses [ggplot2::autoplot()] function
-#'   with the corresponding method from the `ggfortify` package to plot the
-#'   results of a principal components analysis saved in a [HermesDataPca]
-#'   object.
-#' 
-#' @param x (`HermesDataPca`)\cr what to plot.
-#' @param y not used.
-#' @param x_comp (`count`)\cr principal component number used in x axis.
-#' @param y_comp (`count`)\cr principal component number used in y axis.
-#' @param ... additional arguments passed internally to [ggfortify::autoplot.prcomp].
-#' 
-#' @importFrom graphics plot
-#' @importFrom ggplot2 autoplot
-#' @export
-#' 
-#' @examples
-#' plot(result)
-#' plot(result, x_comp = 2, y_comp = 3)
-#' plot(result, variance_percentage = FALSE)
-#' plot(result, label = TRUE)
-#' 
-setMethod(
-  f = "plot",
-  signature = c(x = "HermesDataPca"),
-  definition = function(x, y, x_comp = 1, y_comp = 2, ...) {
-    assert_that(
-      missing(y),
-      is.count(x_comp),
-      is.count(y_comp),
-      !are_equal(x_comp, y_comp)
-    )
-    ggplot2::autoplot(
-      object = x, 
-      x = x_comp,
-      y = y_comp,
-      ...
-    )
-  }
 )

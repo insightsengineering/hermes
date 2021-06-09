@@ -6,12 +6,9 @@
 \alias{HermesDataPca-class}
 \alias{.HermesDataPca}
 \alias{HermesDataPca}
-\alias{plot,HermesDataPca,ANY-method}
 \title{Principal Components Analysis Calculation}
 \usage{
 calc_pca(object, assay_name = "counts")
-
-\S4method{plot}{HermesDataPca,ANY}(x, y, x_comp = 1, y_comp = 2, ...)
 }
 \arguments{
 \item{object}{(\code{AnyHermesData}) \cr input.}
@@ -19,20 +16,9 @@ calc_pca(object, assay_name = "counts")
 \item{assay_name}{(\verb{Character string}) \cr Indicating the name of the assay
 of interest, with possible options: "counts", "cpm", "tpm", "rpkm", "voom".
 Default assay is "counts".}
-
-\item{x}{(\code{HermesDataPca})\cr what to plot.}
-
-\item{y}{not used.}
-
-\item{x_comp}{(\code{count})\cr principal component number used in x axis.}
-
-\item{y_comp}{(\code{count})\cr principal component number used in y axis.}
-
-\item{...}{additional arguments passed internally to \link[ggfortify:autoplot.pca_common]{ggfortify::autoplot.prcomp}.}
 }
 \value{
-A \link{HermesDataPca} object which is an extension of the \link[stats:prcomp]{stats::prcomp} class
-to enable use of plot method for plotting PCA.
+A \link{HermesDataPca} object which is an extension of the \link[stats:prcomp]{stats::prcomp} class.
 }
 \description{
 Perform principal components analysis of the gene count vectors across all
@@ -45,16 +31,12 @@ normalization.
 \item In addition, genes with constant counts across all samples are excluded from
 the analysis internally.
 \item Centering and scaling is applied internally.
-}
-}
-\section{Functions}{
-\itemize{
-\item \code{plot,HermesDataPca,ANY-method}: This plot method uses \code{\link[ggplot2:autoplot]{ggplot2::autoplot()}} function
+\item Plots can be obtained with the \code{\link[ggplot2:autoplot]{ggplot2::autoplot()}} function
 with the corresponding method from the \code{ggfortify} package to plot the
 results of a principal components analysis saved in a \link{HermesDataPca}
-object.
-}}
-
+object. See \code{\link[ggfortify:autoplot.pca_common]{ggfortify::autoplot.prcomp()}} for details.
+}
+}
 \examples{
 object <- HermesData(summarized_experiment) \%>\%
   add_quality_flags() \%>\%
@@ -63,9 +45,9 @@ object <- HermesData(summarized_experiment) \%>\%
 result <- calc_pca(object, assay_name = "tpm")
 summary(result)
 
-plot(result)
-plot(result, x_comp = 2, y_comp = 3)
-plot(result, variance_percentage = FALSE)
-plot(result, label = TRUE)
+autoplot(result)
+autoplot(result, x = 2, y = 3)
+autoplot(result, variance_percentage = FALSE)
+autoplot(result, label = TRUE)
 
 }
