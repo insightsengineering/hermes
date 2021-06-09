@@ -1,0 +1,45 @@
+---
+title: "Design: flag_technical_failure()"
+author: "Jeff Luong"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+Create a `flag_technical_failure()` function to allow a user to define a sample manually as a technical failure/outlier from a `HermesData` object.
+
+## Idea
+
+```{r}
+#Creating the HermesData object from the example SummarizedExperiment object.
+result <- HermesData(summarized_experiment)
+
+#Collect sample names/IDs from the HermesData object.
+samples <- colnames(object)
+
+#Match user specified technical failure IDs to the sample IDs.
+match(sample_ids, samples)
+
+#Change technical failure flag in the HermesData object.
+colData(result)$TechnicalFailureFlag[sample_ids] <- TRUE
+
+#Putting the final function together.
+flag_technical_failure <- function(object,
+                                   sample_ids){
+  assert_that(
+    is_hermes_data(object),
+    is_character_vector(sample_ids)
+  )
+  samples <- colnames(object)
+  matches <- match(sample_ids, samples)
+  colData(object)$TechnicalFailureFlag[matches] <- TRUE
+  
+  colData(object)$TechnicalFailureFlag
+}
+```
