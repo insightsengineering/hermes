@@ -18,7 +18,9 @@
 #'
 #' @examples
 #' result <- HermesData(summarized_experiment)
-#' df <- top_genes(object = result)
+#' object <- top_genes(object = result)
+#' object <- top_genes(result, n_top = NULL, min_threshold = 50000)
+#' object <- top_genes(result, summary_fun = rowMax)
 #' 
 .HermesDataTopGenes <- setClass(
   Class = "HermesDataTopGenes",

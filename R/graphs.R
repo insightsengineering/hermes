@@ -226,14 +226,15 @@ draw_genes_barplot <- function(object,
 #'
 #' @examples
 #' result <- HermesData(summarized_experiment)
-#' obj <- top_genes(object = result)
-#' draw_top_barplot(obj)
 #' 
-#' obj <- top_genes(result, n_top = NULL, min_threshold = 50000)
-#' draw_top_barplot(obj)
+#' object <- top_genes(object = result)
+#' draw_top_barplot(object)
 #' 
-#' obj <- top_genes(result, summary_fun = rowMax)
-#' draw_top_barplot(obj, ylab = "Maximum Count")
+#' object <- top_genes(result, n_top = NULL, min_threshold = 50000)
+#' draw_top_barplot(object)
+#' 
+#' object <- top_genes(result, summary_fun = rowMax)
+#' draw_top_barplot(object, ylab = "Maximum Count")
 #'  
 #'
 draw_top_barplot <- function(object,
