@@ -210,58 +210,6 @@ draw_genes_barplot <- function(object,
     ylab("Number of Genes")
 }  
 
-# PCA ----
-
-#' PCA Plot
-#' 
-#' This plot method uses [ggplot2::autoplot()] function with the corresponding method
-#' from the `ggfortify` package to plot the results of a principal components analysis
-#' saved in a [HermesDataPca] object.
-#' 
-#' @rdname plot_pca
-#' @aliases plot_pca
-#' 
-#' @param x (`HermesDataPca`)\cr what to plot.
-#' @param y not used.
-#' @param x_comp (`count`)\cr principal component number used in x axis.
-#' @param y_comp (`count`)\cr principal component number used in y axis.
-#' @param ... additional arguments passed internally to [ggfortify::autoplot.prcomp].
-#'   
-#' @return The `ggplot` object with the PCA plot.
-#' 
-#' @include metrics.R
-#' @importFrom graphics plot
-#' @importFrom ggplot2 autoplot
-#' 
-#' @export
-#' 
-#' @examples
-#' object <- HermesData(summarized_experiment)
-#' result <- calc_pca(object)
-#' plot(result)
-#' plot(result, x_comp = 2, y_comp = 3)
-#' plot(result, variance_percentage = FALSE)
-#' plot(result, label = TRUE)
-#' 
-setMethod(
-  f = "plot",
-  signature = c(x = "HermesDataPca"),
-  definition = function(x, y, x_comp = 1, y_comp = 2, ...) {
-    assert_that(
-      missing(y),
-      is.count(x_comp),
-      is.count(y_comp),
-      !are_equal(x_comp, y_comp)
-    )
-    ggplot2::autoplot(
-      object = x, 
-      x = x_comp,
-      y = y_comp,
-      ...
-    )
-  }
-)
-
 # Correlation heatmap ----
 
 #' Heatmap of Sample Correlations
@@ -282,7 +230,7 @@ setMethod(
 #'   
 #' @return The [ComplexHeatmap::Heatmap] object with the heatmap.
 #' 
-#' @include metrics.R
+#' @include cor.R
 #' @importFrom graphics plot
 #' @export
 #' 
@@ -324,48 +272,3 @@ setMethod(
 
 
 
-#' Barplot top genes
-#'
-#' Create a bar plot where the y is continuos and heights of the bars represent
-#' the values in the data, and x is discrete variable. The input is a the data frame.
-#' the data frame can be created with the function top_genes().
-#'
-#' @param object (`HermesDataTopGenes`)\cr input.
-#' @param ylab (`string`)\cr input.
-#' @param title (`string`)\cr input.
-#'
-#' @return The `ggplot` object with the histogram.
-#'
-#' @examples
-#' result <- HermesData(summarized_experiment)
-#' 
-#' object <- top_genes(object = result)
-#' draw_top_barplot(object)
-#' 
-#' object <- top_genes(result, n_top = NULL, min_threshold = 50000)
-#' draw_top_barplot(object)
-#' 
-#' object <- top_genes(result, summary_fun = rowMax)
-#' draw_top_barplot(object, ylab = "Maximum Count")
-#'  
-#'
-draw_top_barplot <- function(object,
-                             ylab = "Averaged Counts",
-                             title = "Top most expressed genes") {
-  
-  assert_that(
-    is_class(object, "HermesDataTopGenes"),
-    is.character(ylab),
-    is.character(title)
-  )
-  
-  df <-  data.frame(object)
-  
-  ggplot(df) +
-    geom_col (aes( y = .data$expression, x = .data$name)) +
-    scale_x_discrete(name = "HGNC gene names") +
-    scale_y_continuous(name = paste(ylab, sep = ""))  +
-    theme(axis.text.x = element_text(angle = 90)) +
-    ggtitle(paste(title, sep = "")) +
-    theme(plot.title = element_text(hjust = 0.5))
-}

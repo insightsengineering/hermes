@@ -53,6 +53,7 @@ reference:
       - add_quality_flags
       - calc_pca
       - calc_cor
+      - top_genes
   - title: Graphs
     contents:
       - draw_libsize_hist
@@ -60,9 +61,6 @@ reference:
       - draw_libsize_densities
       - draw_nonzero_boxplot
       - draw_genes_barplot
-      - plot_pca
-      - plot_cor
-      - draw_top_barplot
   - title: Control Functions
     contents:
       - control_normalize
