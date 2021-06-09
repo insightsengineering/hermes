@@ -1,0 +1,101 @@
+---
+title: "Design: summary method"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+This vignette explores the design of the summary method for HermesData objects.
+
+## Idea
+
+The user would like to get some high level summary statistics for a given HermesData object.
+
+## Inspiration sources
+
+### Default summary method
+
+By default we get the following summary:
+
+```{r}
+object <- HermesData(summarized_experiment)
+summary(object)
+```
+
+### DESeq2
+
+Let's see what the `DESeq2` package provides.
+
+```{r}
+library(DESeq2)
+countData <- matrix(1:100,ncol=4)
+condition <- factor(c("A","A","B","B"))
+dds <- DESeqDataSetFromMatrix(countData, DataFrame(condition), ~ condition)
+class(dds)
+summary(dds)
+```
+So nothing in addition.
+
+### Vector
+
+Both of these actually just inherit through `SummarizedExperiment` from `S4Vectors::Vector` with the corresponding method:
+
+```{r}
+getMethod("summary", "Vector")
+S4Vectors:::.Vector_summary
+```
+
+## Ideas
+
+### Specialized text
+
+As a minimum we could specialize a bit the text of the summary but otherwise keep it similar like the above.
+
+```{r}
+.summary1 <- function (object) 
+{
+    n_genes <- nrow(object)
+    n_samples <- ncol(object)
+    n_feature_cols <- ncol(rowData(object))
+    n_sample_cols <- ncol(colData(object))
+    
+    paste(
+      classNameForDisplay(object), "object with", 
+      n_samples, "samples of", n_genes, "genes, described by",
+      n_feature_cols, "feature data columns and", n_sample_cols, "sample data columns."
+    )
+}
+
+.summary1(object)
+
+rhd <- HermesData(as(summarized_experiment, "RangedSummarizedExperiment"))
+.summary1(rhd)
+```
+
+### Add more information
+
+We can add more information.
+
+```{r}
+.summary2 <- function (object) 
+{
+    n_genes <- nrow(object)
+    n_samples <- ncol(object)
+    rd <- rowData(object)
+    n_feature_cols <- ncol(rd)
+    cd <- colData(object)
+    n_sample_cols <- ncol(cd)
+    
+    paste(
+      classNameForDisplay(object), "object with", 
+      n_samples, "samples of", n_genes, "genes.", described by",
+      n_feature_cols, "feature data columns and", n_sample_cols, "sample data columns."
+    )
+}
+```
+
