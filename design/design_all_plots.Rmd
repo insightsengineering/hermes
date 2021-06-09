@@ -34,7 +34,9 @@ setMethod(
   c <- draw_libsize_densities(object)
   d <- draw_nonzero_boxplot(object)
   e <- draw_genes_barplot(object)
-  list(a, b, c, d, e)
+  result <- list(a, b, c, d, e)
+  sapply(result, grid::grid.draw)
+  invisible(result)
   }
 )
 
