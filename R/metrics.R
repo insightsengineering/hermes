@@ -115,30 +115,11 @@ calc_cor <- function(object,
   )
 }
 
-#' Derivation of Top Genes 
-#' 
-#' This creates a `data.frame` containing specified summary across columns and
-#' the names of the rows. The data frame is sorted in descending order and the
-#' top entries matching the selection criteria are selected.
-#' Note that exactly one of the settings `n_top` and `min_threshold` must be provided.
-#'
-#' @param object (`AnyHermedData`)\cr input.
-#' @param assay_name (`string`)\cr name of the assay to use for the sorting of genes.
-#' @param summary_fun (`function`)\cr summary statistics function to apply to the assay resulting in 
-#'   a vector with one number per gene.
-#' @param n_top (`count` or `NULL`)\cr selection criteria based on number of entries.
-#' @param min_threshold (`number` or `NULL` )\cr selection criteria based on a minimum 
-#'   summary statistics threshold.
-#'
-#' @return `HermesDataTopGenes`\cr class object.
-#' @export
-#'
-#' @examples
-#' result <- HermesData(summarized_experiment)
-#' object <- top_genes(object = result)
-#' object <- top_genes(result, n_top = NULL, min_threshold = 50000)
-#' object <- top_genes(result, summary_fun = rowMax)
+# Top Genes ----
 
+#' @rdname top_genes
+#' @aliases HermesDataTopGenes
+#' @exportClass HermesDataTopGenes
 .HermesDataTopGenes <- setClass(
   Class = "HermesDataTopGenes",
   contains = "data.frame",
@@ -148,6 +129,36 @@ calc_cor <- function(object,
   )
 )
 
+#' Derivation of Top Genes 
+#' 
+#' This creates a [HermesDataTopGenes] object, which extends `data.frame`. It
+#' contains two columns: `expression` containing the statistic values calculated
+#' by `summary_fun` across columns, and `name` with the names of the rows. The
+#' data frame is sorted in descending order of `expression` and only the top
+#' entries according to the selection criteria are included.
+#'
+#' Note that exactly one of the arguments `n_top` and `min_threshold` must be
+#' provided.
+#'
+#' @name top_genes
+#' 
+#' @param object (`AnyHermedData`)\cr input.
+#' @param assay_name (`string`)\cr name of the assay to use for the sorting of genes.
+#' @param summary_fun (`function`)\cr summary statistics function to apply to the assay resulting in 
+#'   a numeric vector with one value per gene.
+#' @param n_top (`count` or `NULL`)\cr selection criteria based on number of entries.
+#' @param min_threshold (`number` or `NULL` )\cr selection criteria based on a minimum 
+#'   summary statistics threshold.
+#'
+#' @return A [HermesDataTopGenes] object.
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' top_genes(object)
+#' top_genes(result, n_top = NULL, min_threshold = 50000)
+#' top_genes(result, summary_fun = rowMax)
+#' 
 top_genes <- function(object,
                       assay_name = "counts",
                       summary_fun = rowMeans,
@@ -160,36 +171,31 @@ top_genes <- function(object,
     one_provided(n_top, min_threshold)
   )
   
-  average_expression <- summary_fun(assay(
-    object,
-    assay_name
-  ))
-  
+  x <- assay(object, assay_name)
+  stat_values <- summary_fun(x)
   assert_that(
-    is.numeric(average_expression), 
-    identical(length(average_expression), nrow(object)),
-    is.vector(average_expression)
-    )
+    is.numeric(stat_values), 
+    identical(length(stat_values), nrow(object)),
+    is.vector(stat_values)
+  )
   
-  average_expression <- data.frame(expression = average_expression)
-  #colnames(average_expression) <- c("expression")
-  average_expression <- average_expression[order(average_expression$expression, decreasing = TRUE), , drop = FALSE]
-  
+  df <- data.frame(expression = stat_values)
+  df <- df[order(df$expression, decreasing = TRUE), , drop = FALSE]
   row_names <- rownames(object)
-  average_expression$name <- factor(
+  df$name <- factor(
     row_names,
     levels = row_names
   )
   
   keep_row <- if (!is.null(min_threshold)) {
     assert_that(is.number(min_threshold))
-    average_expression$expression >= min_threshold
+    df$expression >= min_threshold
   } else {
     assert_that(is.count(n_top))
     seq_len(n_top)
   }
+  df <- df[keep_row, ]
   
-  df <- average_expression[keep_row, ]
   .HermesDataTopGenes(
     df,
     summary_fun_name = deparse(substitute(summary_fun)),

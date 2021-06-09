@@ -41,7 +41,6 @@ Collate:
     'data.R'
     'metrics.R'
     'graphs.R'
-    'metrics.R'
     'normalization.R'
     'package.R'
     'quality.R'
