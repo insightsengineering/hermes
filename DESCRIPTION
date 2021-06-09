@@ -24,6 +24,7 @@ Imports:
     ggplot2.utils,
     graphics,
     limma,
+    magrittr,
     methods,
     rlang,
     stats,
@@ -31,8 +32,7 @@ Imports:
     tern,
     testthat (>= 2.0),
     tidyr,
-    utils.nest,
-    magrittr
+    utils.nest
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'

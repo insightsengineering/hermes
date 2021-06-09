@@ -91,6 +91,8 @@ top_genes <- function(object,
 
 # autoplot ----
 
+setGeneric("autoplot")
+
 #' @describeIn top_genes Creates a bar plot from a [HermesDataTopGenes] object, 
 #'   where the y axis shows the expression statistics for each of the top genes
 #'   on the x-axis.
