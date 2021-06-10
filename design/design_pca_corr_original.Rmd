@@ -18,8 +18,44 @@ See [video](drive.google.com/file/d/18T_VPw746RIJRCksY4TFWtK5PtImStkY/view) from
 - In the example, redundant variables which have very high correlation with PC1 e.g.
 - can identify sample variables for possible diff expression analysis model inclusion to adjust for batch effects
 
-The final plot is similar to what we do in the `autoplot()` method for `HermesDataCor()` objects.
+The final plot is similar to what we do in the `autoplot` method for `HermesDataCor` objects.
 
-## Idea
+## High-level iddea
+
+1. create a new generic function `correlate`
+  - change current function `calc_cor` to method for `AnyHermesData` objects, still produces then `HermesDataCor` object
+- have a new `correlate` method that works on `HermesDataPca` objects, and in addition takes the original HermesData, and produces a `HermesDataPcaCor` object
+  - internally it checks consistency of the two inputs
+  - then takes the `colData` from HermesData object and correlate its columns with the principal components from the PCA object.
+1. add a new `autoplot` method for `HermesDataPcaCor` objects
+  - creates the heatmap, similar as the `HermesDataCor` method
+
+### Alternatives considered
+
+- `HermesDataPca` gets additional slots
+  - not really needed since the `HermesData` object is not modified in the `calc_pca` function, in particular the sample information (`colData`) is untouched
+- add a new correlation function, e.g. `calc_pca_cor`
+  - then the user has to remember another function name
+  
+## Details for correlating sample vars with PCs
+
+### Starting point: `biokitr` approach
+
+In [entry function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L14) and [calculation function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L195) we can see the following being done:
+- categorical vars:
+  - also int values with less than 10 different values will be converted to factors
+  - skip if number of levels is too high or if only one constant value across all samples
+- continuous vars:
+  - all get `log10(x)` transformed (0s are replaced by 1s)
+- R2 matrix is filled
+  - R2 is calculated [here](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L232) 
+    - first centering (but not scaling) the y variable, i.e. the principal component
+    - samples where the sample var is `NA` are removed from the data
+    - via `limma::lmFit` fit linear regression model on the sample var design matrix
+    - calculate sum of squares and manually derive R2 from that 
+  - "top explanatory variables" are identified by comparing R2 with threshold (not sure where this is shown / used downstream)
+  
+### Plan
+
 
 
