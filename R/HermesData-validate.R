@@ -59,12 +59,16 @@ validate_cols <- function(required, actual) {
   }
 }
 
+#' @describeIn validate checks whether the whole vector is `NA`.
+#' @param x (`vector`)\cr vector to check.
+#' 
+all_na <- function(x) all(is.na(x))
+
 #' @describeIn validate validates that the data frame is not containing only
 #'   `NA`, per column.
 #' @param df (`data.frame`)\cr data frame to validate.
 #'   
 validate_non_empty <- function(df) {
-  all_na <- function(x) all(is.na(x))
   is_all_na <- vapply(df, all_na, TRUE)
   if (any(is_all_na)) {
     cols_all_na <- names(df)[is_all_na]

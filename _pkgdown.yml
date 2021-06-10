@@ -23,6 +23,7 @@ reference:
       - HermesDataFromMatrix
   - title: Internal Helper Functions
     contents:
+      - all_na
       - validate_counts
       - validate_cols
       - validate_non_empty
