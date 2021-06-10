@@ -18,7 +18,7 @@ draw_libsize_hist <- function(object,
                               bins = 30L,
                               fill = "darkgrey") {
   assert_that(
-    is_class(object, "HermesData"),
+    is_hermes_data(object),
     is.count(bins),
     is.string(fill)
   )
@@ -55,7 +55,7 @@ draw_libsize_qq <- function(object,
                             color = "grey",
                             linetype = "dashed") {
   assert_that(
-    is_class(object, "AnyHermesData"),
+    is_hermes_data(object),
     is.string(color),
     is.string(linetype)
   )
@@ -91,7 +91,7 @@ draw_libsize_qq <- function(object,
 draw_libsize_densities <- function(object,
                                    log = TRUE){
   assert_that(
-    is_class(object, "HermesData"),
+    is_hermes_data(object),
     is.flag(log)
   )
   counts <- as.data.frame(counts(object))
@@ -134,7 +134,7 @@ draw_nonzero_boxplot <- function(object,
                                  jitter = 0.2,
                                  alpha = 1/4) {
   assert_that(
-    is_class(object, "HermesData"),
+    is_hermes_data(object),
     is.number(jitter),
     is.number(alpha)
   )
@@ -150,7 +150,7 @@ draw_nonzero_boxplot <- function(object,
       position = position_jitter(width = jitter),
       alpha = alpha
     ) +
-    stat_n_text(text.box = TRUE) +
+    stat_n_text(text_box = TRUE) +
     ggtitle("Distribution of non-zero expressed genes") +
     xlab("Library") +
     ylab("Number of non-zero genes")
@@ -209,3 +209,42 @@ draw_genes_barplot <- function(object,
     xlab("Chromosome") +
     ylab("Number of Genes")
 }  
+
+
+#' All standard plots in default setting
+#'
+#' This generates all standard plots - histogram and q-q plot of library sizes, density plot of the (log) counts
+#' distributions, boxplot of the number of number of non-zero expressed genes per sample, and a stacked barplot of low
+#' expression genes by chromosome at default setting.
+#' 
+#' @name plot_all
+#' @aliases autoplot
+#' 
+#' @param object (`AnyHermesData`)\cr input.
+#'
+#' @return A list with the `ggplot` objects from [draw_libsize_hist()], [draw_libsize_qq()], [draw_libsize_densities],
+#'   [draw_nonzero_boxplot()] and [draw_genes_barplot()] functions with default settings.
+#' @export
+#'
+#' @examples
+#' result <- HermesData(summarized_experiment)
+#' autoplot(result)
+#' 
+setMethod(
+  f = "autoplot",
+  signature = c(object = "AnyHermesData"),
+  definition = function(object) {
+    assert_that(
+      is_hermes_data(object)
+    )
+    result <- list(
+      libsize_hist = draw_libsize_hist(object), 
+      libsize_qq = draw_libsize_qq(object), 
+      libsize_densities = draw_libsize_densities(object), 
+      nonzero_boxplot = draw_nonzero_boxplot(object), 
+      genes_barplot = draw_genes_barplot(object)
+    )
+    sapply(result, grid::grid.draw)
+    invisible(result)
+  }
+)
