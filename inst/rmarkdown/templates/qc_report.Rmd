@@ -1,0 +1,107 @@
+---
+params:
+  title:
+    label: "Title of the report"
+    value: "QC Report"
+    input: text
+  author: 
+    label: "Author(s) of the report: <NAME> (Team/Department i.e. PDD DSX)"
+    value: "PDD - Data Science Acceleration (DSX)"
+    input: text
+#  input_data_object:
+#    label: "[REQUIRED] data object input."
+#    value: "~/NEST/hermes/data/summarized_experiment.rda"
+#    input: file
+  Hermes_QC_output_dir:
+    label: "[REQUIRED] Path to Hermes QC output directory (this is the only requried parameter of the report)"
+    value: "~/"  # "~/XX/XXX"
+    input: file
+  
+title: "`r params$title`"
+author: '`r params$author`'
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output:
+  html_document:
+    self_contained: true
+    code_folding: hide
+    mathjax: default
+    number_sections: true
+    theme: yeti
+    toc: true
+    toc_depth: 2
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+editor_options:
+  chunk_output_type: console
+---
+```{r setup, message = FALSE}
+# -----------------------------------------------------------------------------
+# Developer
+
+# The name and version of this report template (printed in last section)
+#templateName <- params$title
+templateName <- "qc_report"
+templateVersion <- "1.0.0"
+# Set TRUE to enable rmarkdown cache
+knitr::opts_chunk$set(cache = FALSE, cache.lazy = FALSE)
+# Set FALSE to skip all output (plots, tables), useful for debugging 
+showOutput <- TRUE
+
+# -----------------------------------------------------------------------------
+
+# Knitr options (important to set error=FALSE, otherwise the evaluation does not stop after an error!)
+knitr::opts_chunk$set(eval = TRUE, echo = TRUE, message = TRUE, warning = TRUE, error = FALSE)
+
+# Libraries
+library(hermes)
+```
+
+```{r initialize}
+# Check that required parameters were set by user
+#requiredPaths <- c("biokit_output_dir")
+#checkPathsExist(params, requiredPaths)
+#requiredParams <- c("color_vars")
+#checkParamsNotEmpty(params, requiredParams)
+
+# -----------------------------------------------------------------------------
+```
+
+```{r}
+result <-HermesData(summarized_experiment)
+#result <- HermesData(params$input_data_object)
+#test <- params$input_data_object
+#head(test)
+
+```
+
+## Dataset Summary
+
+The data set was composed of `r ncol(result)` samples and `r nrow(result)` genes. 
+
+## Technical Metrics
+
+### Histogram of Library Sizes
+
+First, we check how the distribution of library sizes looks like across all samples. The median library size is <b>`r sprintf("%0.3G", median(colSums(counts(result))))`</b>. 
+According to [Standards, Guidelines and Best Practices for RNA-Seq (The ENCODE Consortium)](https://www.encodeproject.org/documents/cede0cbe-d324-4ce7-ace4-f0c3eddf5972/@@download/attachment/ENCODE%20Best%20Practices%20for%20RNA_v2.pdf "ENCODE Project Homepage"), the sequencing depth/library size is usually determined by the goals of the experiment and the nature of the RNA sample. The minimum library size required is around 20-30 million aligned reads. 
+
+```{r genes_hist_libdepth,results='asis'}
+draw_libsize_hist(result)
+```
+
+### Q-Q Plot of Library Sizes
+
+The distribution of library sizes is then compared to the normal distribution. The linearity of the points will suggest if the distribution of library sizes is normally distributed.
+
+```{r genes_qqplot_libdepth, results = 'asis'}
+draw_libsize_qq(result)
+```
+
+<!-- ---------------------------------------------------------------------- -->
+<!-- Prints the parameters and session information                          -->
+<!-- Include at end of each biokitr report                                  -->
+<!-- ---------------------------------------------------------------------- -->
+```{r session_info, results = "asis"}
+#printReproducibilitySection(params, templateName, templateVersion)   
+```
