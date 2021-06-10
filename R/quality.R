@@ -208,15 +208,22 @@ h_tech_failure_flag <- function(object,
 #' @examples
 #' # Manually flag technical failures in a HermesData object.
 #' object <- HermesData(summarized_experiment)
+#' result <- flag_tech_failure(object, "06520101B0017R")
 #' result <- flag_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
 #' 
 flag_tech_failure <- function(object,
                               sample_ids) {
+  samples <- colnames(object)
   assert_that(
     is_hermes_data(object),
     is_character_vector(sample_ids)
   )
-  samples <- colnames(object)
+  for (i in sample_ids) {
+    assert_that(
+      !is.na(match(i, samples)),
+      msg = "One or more sample IDs not found in the HermesData object."
+    )
+  }
   matches <- match(sample_ids, samples)
   colData(object)$TechnicalFailureFlag[matches] <- TRUE
   

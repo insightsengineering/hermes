@@ -160,6 +160,10 @@ test_that("h_tech_failure_flag fails as expected with invalid settings", {
 test_that("flag_tech_failure function works as expected with custom settings", {
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(flag_tech_failure(object, c("06520063C0043R", "06520105C0017R", "06520092C0017R", "06520103C0017R")))
+  expect_true(colData(result)$TechnicalFailureFlag[3])
+  expect_true(colData(result)$TechnicalFailureFlag[4])
+  expect_true(colData(result)$TechnicalFailureFlag[5])
+  expect_true(colData(result)$TechnicalFailureFlag[6])
 })
 
 test_that("flag_tech_failure fails as expected with invalid settings", {
