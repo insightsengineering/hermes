@@ -1,0 +1,25 @@
+---
+title: "Design: PCA analysis and plot"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+  
+## Objective
+
+Systematic analysis of correlations between all sample variables (`colData`) and the principal components. Also including the 2 QC variables.
+See [video](drive.google.com/file/d/18T_VPw746RIJRCksY4TFWtK5PtImStkY/view) from minute 8 onwards.
+- High values mean high correlation.
+- In the example, redundant variables which have very high correlation with PC1 e.g.
+- can identify sample variables for possible diff expression analysis model inclusion to adjust for batch effects
+
+The final plot is similar to what we do in the `autoplot()` method for `HermesDataCor()` objects.
+
+## Idea
+
+
