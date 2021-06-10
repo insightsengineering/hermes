@@ -193,3 +193,32 @@ h_tech_failure_flag <- function(object,
   corr_matrix <- stats::cor(cpm, method = "pearson")
   colMeans(corr_matrix) < control$min_corr
 }
+
+#' Flag Technical Failures
+#' 
+#' Setter function which allows the user to define a sample manually as a technical failure. 
+#' 
+#' @param object (`AnyHermesData`)\cr input.
+#' @param sample_ids (`list`) \cr list of sample IDs to be flagged manually as technical failures.
+#'   
+#' @return HermesData object with modified technical failure flags.
+#' 
+#' @export
+#' 
+#' @examples
+#' # Manually flag technical failures in a HermesData object.
+#' object <- HermesData(summarized_experiment)
+#' result <- flag_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
+#' 
+flag_tech_failure <- function(object,
+                              sample_ids){
+  assert_that(
+    is_hermes_data(object),
+    is_character_vector(sample_ids)
+  )
+  samples <- colnames(object)
+  matches <- match(sample_ids, samples)
+  colData(object)$TechnicalFailureFlag[matches] <- TRUE
+  
+  object
+}
