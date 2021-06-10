@@ -50,6 +50,7 @@ reference:
     contents:
       - add_quality_flags
       - calc_pca
+      - flag_tech_failure
   - title: Graphs
     contents:
       - draw_libsize_hist
