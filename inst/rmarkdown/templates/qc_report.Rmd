@@ -8,10 +8,10 @@ params:
     label: "Author(s) of the report: <NAME> (Team/Department i.e. PDD DSX)"
     value: "PDD - Data Science Acceleration (DSX)"
     input: text
-#  input_data_object:
-#    label: "[REQUIRED] data object input."
-#    value: "~/NEST/hermes/data/summarized_experiment.rda"
-#    input: file
+  input_data_object:
+    label: "[REQUIRED] data object input."
+    value: "/home/rstudio/NEST/hermes/data/summarized_experiment.rda"
+    input: file
   Hermes_QC_output_dir:
     label: "[REQUIRED] Path to Hermes QC output directory (this is the only requried parameter of the report)"
     value: "~/"  # "~/XX/XXX"
@@ -68,7 +68,10 @@ library(hermes)
 ```
 
 ```{r}
-result <-HermesData(summarized_experiment)
+obj_name <- load(params$input_data_object)
+se <- get(obj_name)
+result <- HermesData(se)
+
 #result <- HermesData(params$input_data_object)
 #test <- params$input_data_object
 #head(test)
