@@ -1,0 +1,78 @@
+---
+title: "Design: diff_expression()"
+author: "Haocheng"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+Update and replace the `cal_diff_limma()` function from `rnaseqTools` to use a `HermesData` object and a string with factor name for comparison as input.
+
+## Idea
+
+To make the function easy to use, we only need users to input a `HermesData` object. The `diff_expression()` function extracts the count assay with  from `HermesData` object.  
+In addition, we only need users to input a string with factor name in colData for the `HermesData` object. The `diff_expression()` function generates design component.  
+
+We may create helper functions to transfer the `HermesData` object and the factor compatible to run `limma` and `DESeq2` functions, respectively.
+
+We may create functions for plotting later.
+
+
+## Analysis using limma package
+
+```{r}
+#Creating the HermesData object and read rowData information
+library(hermes)
+library(limma)
+
+object <- HermesData(summarized_experiment)
+
+string <- "SEX"
+
+### use model.matrix() function to create design matrix
+eval(parse(text=paste0("design <- model.matrix( ~", string, ",colData(object))")))
+
+### use the counts() function to extract count assay, then pass it to limma::voom()
+v1 <- limma::voom(counts(object))
+
+### Linear Model for Series of Arrays
+v2 <- limma::lmFit(v1, design)
+
+### Empirical Bayes Statistics for Differential Expression
+v3 <- limma::eBayes(v2)
+```
+
+
+## Analysis using DESeq2 package
+ 
+```{r}
+#Creating the HermesData object and read rowData information
+library(hermes)
+library(DESeq2)
+
+object <- HermesData(summarized_experiment)
+
+string <- "SEX"
+
+### extract the factor from colData
+cond <- factor(colData(object)[,string])
+
+### use the counts() function to extract count assay, then pass it to DESeqDataSetFromMatrix()
+ 
+dds <- DESeqDataSetFromMatrix(counts(object), DataFrame(cond), ~ cond)
+
+### standard analysis
+dds <- DESeq(dds)
+res <- results(dds)
+```
+
+## Miscellaneous issue 1: filter out low expression genes, as well as samples with low depth or technical failure from subsequent workflow
+
+In the `rnaseqTools` vignettes `pg101_example_voom.Rmd`, the authors suggest to filter out low expression genes, as well as samples with low depth or technical failure from subsequent workflow. As we directly take a `HermesData` as object, users cannot manually take filtering. We may set an option `filtering = TRUE` to impose the filtering process. Users can change it to `FALSE` to skip this procedure.  
+ 
