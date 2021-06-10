@@ -14,49 +14,108 @@ editor_options:
 
 Update and replace the `cal_diff_limma()` function from `rnaseqTools` to use a `HermesData` object and a string with factor name for comparison as input.
 
+## Consideration: where to filter out low expression genes, as well as samples with low depth or technical failure from subsequent workflow
+
+In the `rnaseqTools` vignettes `pg101_example_voom.Rmd`, the authors suggest to filter out low expression genes, as well as samples with low depth or technical failure from subsequent workflow. As we directly take a `HermesData` as object, users cannot manually take filtering. We may set an option `filtering = TRUE` to impose the filtering process. Users can change it to `FALSE` to skip this procedure.  
+ 
 ## Idea
 
-To make the function easy to use, we only need users to input a `HermesData` object. The `diff_expression()` function extracts the count assay with  from `HermesData` object.  
-In addition, we only need users to input a string with factor name in colData for the `HermesData` object. The `diff_expression()` function generates design component.  
+- To make the function easy to use, we only need users to input a `HermesData` object. 
+- The `diff_expression()` function extracts the count or other assay with (normalized) counts from the `HermesData` object.  
+  - It also warns the user if there are samples or genes which have failed flags.
+- In addition, we only need users to input a string with factor name in colData for the `HermesData` object. The `diff_expression()` function generates design component.  
+- We may create helper functions to transfer the `HermesData` object and the factor compatible to run `limma` and `DESeq2` functions, respectively.
+- We may create functions for plotting later.
 
-We may create helper functions to transfer the `HermesData` object and the factor compatible to run `limma` and `DESeq2` functions, respectively.
+## Workflow
 
-We may create functions for plotting later.
+Later the user would proceed like this maybe:
+- first create, add flags, filter, normalize HermesData object
+- then do `diff_expression()` on it, choose the method as argument
+- then apply `autoplot()` on the result to obtain e.g. volcano plot
+  - implies that we need to have e.g. `HermesDataDiffExpr` object as result of function call above
 
+## Prototypes
 
-## Analysis using limma package
+Example:
 
 ```{r}
-#Creating the HermesData object and read rowData information
-library(hermes)
-library(limma)
+object <- HermesData(summarized_experiment) %>%
+  add_quality_flags() %>%
+  filter() %>%
+  normalize()
+```
 
-object <- HermesData(summarized_experiment)
 
-string <- "SEX"
+### Class
 
-Hermes_limma <- function ( object, 
-                           design.cov) {
-    
-  eval(parse(text=paste0("design <- model.matrix( ~", string, ",colData(object))")))
-  
+```{r}
+.HermesDataDiffExpr <- setClass(
+  Class = "HermesDataDiffExpr",
+  contains = "data.frame"
 )
+```
 
-### use model.matrix() function to create design matrix
 
+### `diff_expression()`
 
-### use the counts() function to extract count assay, then pass it to limma::voom()
-v1 <- limma::voom(counts(object))
+```{r}
+diff_expression <- function(object,
+                            group,
+                            method = c("voom", "deseq2"),
+                            assay_name = switch(method, voom = "voom", deseq2 = "counts")) {
+  assert_that(
+    is_hermes_data(object),
+    is.string(group),
+    tern::is_df_with_nlevels_factor(df = colData(object), variable = group, n_levels = 2L),
+    is.string(assay_name),
+  )
+  method <- match.arg(method)
+  if (method == "voom") {
+    assert_that(assay_name == "voom", msg = "please use voom normalized counts as assay")
+  }
+  le_flag <- rowData(object)$LowExpressionFlag
+  # other flags here
+  if (all_na(le_flag) || any(le_flag)) {
+    warning("please ensure that you add QC flags and filter based on them before DE analysis")
+  }
+  
+  group_var <- colData(object)[[group]]
+  x <- assay(object, assay_name)
 
-### Linear Model for Series of Arrays
-v2 <- limma::lmFit(v1, design)
+  result <- if(method == "voom") {
+    h_diff_expr_voom(x, group_var)
+  } else {
+    h_diff_expr_deseq2(x, group_var)
+  }
+  .HermesDataDiffExpr(result)
+}
+```
 
-### Empirical Bayes Statistics for Differential Expression
-v3 <- limma::eBayes(v2)
+### Analysis using limma package
+
+```{r}
+h_diff_expr_voom <- function(x, group_var) {
+  assert_that(
+    is.matrix(x),
+    is.factor(group_var)
+  )
+  design <- model.matrix(~ group_var)  
+  fit <- limma::lmFit(x, design)
+  eb <- limma::eBayes(fit)
+  limma::topTable(eb, coef = 2, n = nrow(x), lfc = log2(1))
+}
+
+x <- assay(object, "voom")
+group_var <- factor(colData(object)$SEX)
+voom_res <- h_diff_expr_voom(x, group_var)
+head(voom_res)
 ```
 
 
 ## Analysis using DESeq2 package
+
+try to obtain the same result structure - data frame with these columns above
  
 ```{r}
 #Creating the HermesData object and read rowData information
@@ -79,7 +138,4 @@ dds <- DESeq(dds)
 res <- results(dds)
 ```
 
-## Miscellaneous issue 1: filter out low expression genes, as well as samples with low depth or technical failure from subsequent workflow
 
-In the `rnaseqTools` vignettes `pg101_example_voom.Rmd`, the authors suggest to filter out low expression genes, as well as samples with low depth or technical failure from subsequent workflow. As we directly take a `HermesData` as object, users cannot manually take filtering. We may set an option `filtering = TRUE` to impose the filtering process. Users can change it to `FALSE` to skip this procedure.  
- 
