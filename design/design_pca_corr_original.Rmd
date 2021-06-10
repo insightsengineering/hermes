@@ -12,7 +12,7 @@ editor_options:
   
 ## Objective
 
-Systematic analysis of correlations between all sample variables (`colData`) and the principal components. Also including the 2 QC variables.
+Systematic analysis of correlations between all sample variables (`colData`) and the principal components of the samples. Also including the 2 QC variables.
 See [video](drive.google.com/file/d/18T_VPw746RIJRCksY4TFWtK5PtImStkY/view) from minute 8 onwards.
 - High values mean high correlation.
 - In the example, redundant variables which have very high correlation with PC1 e.g.
@@ -24,7 +24,7 @@ The final plot is similar to what we do in the `autoplot` method for `HermesData
 
 1. create a new generic function `correlate`
   - change current function `calc_cor` to method for `AnyHermesData` objects, still produces then `HermesDataCor` object
-- have a new `correlate` method that works on `HermesDataPca` objects, and in addition takes the original HermesData, and produces a `HermesDataPcaCor` object
+  - have a new `correlate` method that works on `HermesDataPca` objects, and in addition takes the original HermesData, and produces a `HermesDataPcaCor` object
   - internally it checks consistency of the two inputs
   - then takes the `colData` from HermesData object and correlate its columns with the principal components from the PCA object.
 1. add a new `autoplot` method for `HermesDataPcaCor` objects
@@ -39,9 +39,11 @@ The final plot is similar to what we do in the `autoplot` method for `HermesData
   
 ## Details for correlating sample vars with PCs
 
+Let's think about how exactly we are going to correlate the `colData` columns with the principal components from the PCA object.
+
 ### Starting point: `biokitr` approach
 
-In [entry function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L14) and [calculation function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L195) we can see the following being done:
+In the [entry function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L14) and the [calculation function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L195) we can see the following being done:
 - categorical vars:
   - also int values with less than 10 different values will be converted to factors
   - skip if number of levels is too high or if only one constant value across all samples
@@ -49,13 +51,104 @@ In [entry function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa
   - all get `log10(x)` transformed (0s are replaced by 1s)
 - R2 matrix is filled
   - R2 is calculated [here](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L232) 
-    - first centering (but not scaling) the y variable, i.e. the principal component
+    - first centering (but not scaling) the y matrix, i.e. the principal components
+    - note that y is a matrix here with one column for each component, and one row for each sample.
     - samples where the sample var is `NA` are removed from the data
-    - via `limma::lmFit` fit linear regression model on the sample var design matrix
-    - calculate sum of squares and manually derive R2 from that 
+    - via `limma::lmFit` fit separate linear regression models on the sample var design matrix for each
+      of the PCs.
+    - calculate sum of squares and manually derive R2 from that for each PC.
   - "top explanatory variables" are identified by comparing R2 with threshold (not sure where this is shown / used downstream)
   
-### Plan
+## Prototypes
+
+Our example:
+
+```{r}
+object <- HermesData(summarized_experiment) %>%
+  add_quality_flags() %>%
+  filter() %>%
+  normalize()
+result <- calc_pca(object)
+pca <- result$x
+dim(pca)
+```
+
+### Calculation of R2 between one sample var and PC matrix
+
+This gives back a vector of R2 values, one per PC.
+
+```{r}
+h_pca_var_rsquared <- function(pca, x) {
+  assert_that(
+    is.matrix(pca),
+    is.numeric(x) || is.factor(x),
+    identical(length(x), nrow(pca)),
+    all(abs(colMeans(pca)) < 1e-10)
+  )
+  use_sample <- !is.na(x)
+  x <- x[use_sample]
+  pca <- pca[use_sample, ]
+  design <- stats::model.matrix(~ x)
+  # Transpose such that PCs are in rows, and samples in columns.
+  y0 <- t(pca)
+  fit <- limma::lmFit(y0, design = design)
+  ## Compute total sum of squares
+  sst <- rowSums(y0^2)
+  ## Compute residual sum of squares
+  ssr <- sst - fit$df.residual * fit$sigma^2
+  r2 <- ssr / sst
+  r2
+}
+
+x <- factor(colData(object)$COUNTRY)
+h_pca_var_rsquared(x, pca)
+
+x <- colData(object)$STDSSDY
+h_pca_var_rsquared(x, pca)
+```
+
+### Process sample vars data frame and rotation matrix
+
+Helper to check for a column being constant:
+
+```{r}
+is_constant <- function(x) {
+  if (is.numeric(x)) {
+    isConstant(x)
+  } else if (is.factor(x)) {
+    isConstant(as.integer(x))
+  } else if (is.character(x)) {
+    identical(length(unique(x)), 1L)
+  } else if (is.logical(x)) {
+    all(x) || all(!x)
+  } else {
+    stop("not supported type")
+  }
+}
+```
+
+
+```{r}
+h_pca_df_r2_matrix <- function(pca, df) {
+  assert_that(
+    is.matrix(pca),
+    is.data.frame(df),
+    identical(nrow(pca), nrow(df))
+  )
+  is_accepted_type <- vapply(df, function(x) {
+    is.numeric(x) || is.character(x) || is.factor(x) || is.logical(x)
+  }, TRUE)
+  df <- df[, is_accepted_type]
+  is_all_na <- vapply(df, all_na, TRUE)
+  df <- df[, !is_all_na]
+  is_all_constant <- vapply(df, is_constant, TRUE)
+  df <- df[, !is_all_constant]
+}
+
+df <- colData(object)
+```
+
+
 
 
 
