@@ -217,8 +217,8 @@ draw_genes_barplot <- function(object,
 #' distributions, boxplot of the number of number of non-zero expressed genes per sample, and a stacked barplot of low
 #' expression genes by chromosome at default setting.
 #' 
-#' @rdname autoplot
-#' @aliases plot_all
+#' @name plot_all
+#' @aliases autoplot
 #' 
 #' @param object (`AnyHermesData`)\cr input.
 #'
@@ -243,7 +243,7 @@ setMethod(
       libsize_densities = draw_libsize_densities(object), 
       nonzero_boxplot = draw_nonzero_boxplot(object), 
       genes_barplot = draw_genes_barplot(object)
-      )
+    )
     sapply(result, grid::grid.draw)
     invisible(result)
   }

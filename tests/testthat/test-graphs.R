@@ -15,7 +15,5 @@ test_that("autoplot function works as expected on RangedHermesData", {
 
 test_that("autoplot fails as expected with invalid objects", {
   object1 <- get_se()
-  object2 <- matrix(1:4, 2, 2)
   expect_error(autoplot(object1))
-  expect_error(autoplot(object2))
 })
