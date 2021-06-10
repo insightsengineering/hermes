@@ -211,7 +211,7 @@ h_tech_failure_flag <- function(object,
 #' result <- flag_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
 #' 
 flag_tech_failure <- function(object,
-                              sample_ids){
+                              sample_ids) {
   assert_that(
     is_hermes_data(object),
     is_character_vector(sample_ids)
