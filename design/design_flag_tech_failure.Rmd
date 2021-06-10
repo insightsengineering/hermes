@@ -40,6 +40,6 @@ flag_technical_failure <- function(object,
   matches <- match(sample_ids, samples)
   colData(object)$TechnicalFailureFlag[matches] <- TRUE
   
-  colData(object)$TechnicalFailureFlag
+  object
 }
 ```
