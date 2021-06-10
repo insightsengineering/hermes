@@ -209,3 +209,34 @@ draw_genes_barplot <- function(object,
     xlab("Chromosome") +
     ylab("Number of Genes")
 }  
+
+
+#' Generate all plots in default setting
+#' 
+#' @param object (`AnyHermesData`)\cr input.
+#'
+#' @return The `ggplot` objects from `draw_libsize_hist()`, `draw_libsize_qq`, `draw_libsize_densities`,
+#'   `draw_nonzero_boxplot()` and `draw_genes_barplot()` functions with default settings.
+#' @export
+#'
+#' @examples
+#' result <- HermesData(summarized_experiment)
+#' autoplot(result)
+
+setMethod(
+  f = "autoplot",
+  signature = c(object = "AnyHermesData"),
+  definition = function(object) {
+    assert_that(
+      is_hermes_data(object)
+    )
+    a <- draw_libsize_hist(object)
+    b <- draw_libsize_qq(object)
+    c <- draw_libsize_densities(object)
+    d <- draw_nonzero_boxplot(object)
+    e <- draw_genes_barplot(object)
+    result <- list(a, b, c, d, e)
+    sapply(result, grid::grid.draw)
+    invisible(result)
+  }
+)
