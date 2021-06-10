@@ -35,8 +35,15 @@ object <- HermesData(summarized_experiment)
 
 string <- "SEX"
 
+Hermes_limma <- function ( object, 
+                           design.cov) {
+    
+  eval(parse(text=paste0("design <- model.matrix( ~", string, ",colData(object))")))
+  
+)
+
 ### use model.matrix() function to create design matrix
-eval(parse(text=paste0("design <- model.matrix( ~", string, ",colData(object))")))
+
 
 ### use the counts() function to extract count assay, then pass it to limma::voom()
 v1 <- limma::voom(counts(object))
