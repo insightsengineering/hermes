@@ -4,20 +4,26 @@
 \alias{validate}
 \alias{validate_counts}
 \alias{validate_cols}
+\alias{all_na}
 \alias{validate_non_empty}
 \alias{validate_row_data}
 \alias{validate_col_data}
+\alias{validate_names}
 \title{Internal Helper Functions for Validation of HermesData Objects}
 \usage{
 validate_counts(object)
 
 validate_cols(required, actual)
 
+all_na(x)
+
 validate_non_empty(df)
 
 validate_row_data(object)
 
 validate_col_data(object)
+
+validate_names(object)
 }
 \arguments{
 \item{object}{(\code{SummarizedExperiment})\cr object to validate.}
@@ -25,6 +31,8 @@ validate_col_data(object)
 \item{required}{(\code{character})\cr required column names.}
 
 \item{actual}{(\code{actual})\cr actual column names.}
+
+\item{x}{(\code{vector})\cr vector to check.}
 
 \item{df}{(\code{data.frame})\cr data frame to validate.}
 }
@@ -45,6 +53,8 @@ non-missing, integer, non-negative values.
 \item \code{validate_cols}: validates that required column names are contained in
 actual column names.
 
+\item \code{all_na}: checks whether the whole vector is \code{NA}.
+
 \item \code{validate_non_empty}: validates that the data frame is not containing only
 \code{NA}, per column.
 
@@ -53,5 +63,7 @@ required columns.
 
 \item \code{validate_col_data}: validates that the object contains \code{colData} with
 required columns.
+
+\item \code{validate_names}: validates that the object contains row and column names.
 }}
 

@@ -88,3 +88,30 @@ on_failure(is_list_with) <- function(call, env) {
     paste(elements, collapse = ", ")
   )
 }
+
+# one_provided ----
+
+#' @describeIn assertions checks that exactly one of two inputs is not `NULL`.
+#' @param one first input.
+#' @param two second input.
+#' @export
+#'
+#' @examples
+#' a <- 10
+#' b <- 10
+#' one_provided(a, b)
+#' one_provided(a, NULL)
+#' 
+one_provided <- function(one, two) {
+  (is.null(one) && !is.null(two)) || 
+    (is.null(two) && !is.null(one)) 
+}
+
+on_failure(one_provided) <- function(call, env) {
+  one_name <- deparse(call$one)
+  two_name <- deparse(call$two)
+  paste(
+    "only one of", one_name, "and", two_name, 
+    "must be specified, the other needs to be set to NULL"
+  )
+}
