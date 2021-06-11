@@ -78,6 +78,7 @@ control_quality <- function(min_cpm = 1,
 #' # Adding default quality flags to HermesData object.
 #' object <- HermesData(summarized_experiment)
 #' result <- add_quality_flags(object)
+#' which(get_tech_failure(result) != get_tech_failure(object))
 #' head(rowData(result)$LowExpressionFlag)
 #' head(colData(result)$TechnicalFailureFlag)
 #' head(colData(result)$LowDepthFlag)
@@ -194,7 +195,27 @@ h_tech_failure_flag <- function(object,
   colMeans(corr_matrix) < control$min_corr
 }
 
-#' Flag Technical Failures
+#' Get Technical Failure Flags
+#' 
+#' Getter function which allows easy access to the technical failure flags.
+#' 
+#' @param object (`AnyHermesData`)\cr input.
+#' 
+#' @return Named logical vector containing the technical failure flags for all samples.
+#' 
+#' @export
+#' @examples 
+#' object <- HermesData(summarized_experiment)
+#' get_tech_failure(object)
+#' 
+get_tech_failure <- function(object) {
+  assert_that(is_hermes_data(object))
+  flag_vals <- colData(object)$TechnicalFailureFlag
+  samples <- colnames(object)
+  setNames(flag_vals, samples)
+}
+
+#' Set Technical Failure Flags
 #' 
 #' Setter function which allows the user to define a sample manually as a technical failure. 
 #' 
@@ -208,24 +229,18 @@ h_tech_failure_flag <- function(object,
 #' @examples
 #' # Manually flag technical failures in a HermesData object.
 #' object <- HermesData(summarized_experiment)
-#' result <- flag_tech_failure(object, "06520101B0017R")
-#' result <- flag_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
+#' get_tech_failure(object)["06520101B0017R"]
+#' result <- set_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
+#' get_tech_failure(result)["06520101B0017R"]
 #' 
-flag_tech_failure <- function(object,
-                              sample_ids) {
-  samples <- colnames(object)
+set_tech_failure <- function(object,
+                             sample_ids) {
   assert_that(
     is_hermes_data(object),
-    is_character_vector(sample_ids)
+    is_character_vector(sample_ids),
+    all(sample_ids %in% colnames(object))
   )
-  for (i in sample_ids) {
-    assert_that(
-      !is.na(match(i, samples)),
-      msg = "One or more sample IDs not found in the HermesData object."
-    )
-  }
-  matches <- match(sample_ids, samples)
+  matches <- match(sample_ids, colnames(object))
   colData(object)$TechnicalFailureFlag[matches] <- TRUE
-  
   object
 }
