@@ -219,7 +219,7 @@ draw_genes_barplot <- function(object,
 #' expression genes by chromosome at default setting.
 #' 
 #' @rdname plot_all
-#' @aliases autoplot
+#' @aliases plot_all
 #' 
 #' @param object (`AnyHermesData`)\cr input.
 #'
