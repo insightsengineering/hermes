@@ -203,6 +203,7 @@ h_tech_failure_flag <- function(object,
 #' 
 #' @return Named logical vector containing the technical failure flags for all samples.
 #' 
+#' @importFrom stats setNames
 #' @export
 #' @examples 
 #' object <- HermesData(summarized_experiment)
@@ -212,7 +213,7 @@ get_tech_failure <- function(object) {
   assert_that(is_hermes_data(object))
   flag_vals <- colData(object)$TechnicalFailureFlag
   samples <- colnames(object)
-  setNames(flag_vals, samples)
+  stats::setNames(flag_vals, samples)
 }
 
 #' Set Technical Failure Flags
@@ -220,10 +221,12 @@ get_tech_failure <- function(object) {
 #' Setter function which allows the user to define a sample manually as a technical failure. 
 #' 
 #' @param object (`AnyHermesData`)\cr input.
-#' @param sample_ids (`list`) \cr list of sample IDs to be flagged manually as technical failures.
+#' @param sample_ids (`character`) \cr sample IDs to be flagged as technical failures.
 #'   
 #' @return HermesData object with modified technical failure flags.
-#' 
+#' @seealso [add_quality_flags()] which automatically sets all (gene and sample) quality flags,
+#'   including these technical failure flags.
+#'   
 #' @export
 #' 
 #' @examples

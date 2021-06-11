@@ -159,10 +159,10 @@ test_that("h_tech_failure_flag fails as expected with invalid settings", {
 # get_tech_failure ----
 
 test_that("get_tech_failure function works as expected", {
-  object <- expect_silent(HermesData(summarized_experiment))
-  expect_false(any(get_tech_failure(object)[ids]))
-  result <- expect_silent(set_tech_failure(object, ids))
-  expect_true(all(get_tech_failure(result)[ids]))
+  object <- HermesData(get_se())
+  result <- expect_silent(get_tech_failure(object))
+  expected <- c(X = FALSE, Y = TRUE)
+  expect_identical(result, expected)
 })
 
 test_that("get_tech_failure fails as expected with invalid input", {
