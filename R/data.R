@@ -21,3 +21,12 @@
 #' @source This is an artificial dataset designed to resemble real data.
 #' @seealso expression_set which contains similar data as [Biobase::ExpressionSet].
 "summarized_experiment"
+
+#' Example `MultiAssayExperiment` Data
+#'
+#' This example [MultiAssayExperiment::MultiAssayExperiment] can be used to .
+#' 
+#' @format A [MultiAssayExperiment::MultiAssayExperiment] object with .
+#' @source This is an artificial dataset designed to resemble real data.
+#' @seealso summarized_experiment which contains similar data as [SummarizedExperiment::SummarizedExperiment].
+"multi_assay_experiment"
