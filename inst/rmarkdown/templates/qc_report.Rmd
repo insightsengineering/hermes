@@ -1,5 +1,6 @@
 ---
 params:
+  
   title:
     label: "Title of the report"
     value: "QC Report"
@@ -16,7 +17,22 @@ params:
     label: "[REQUIRED] Path to Hermes QC output directory (this is the only requried parameter of the report)"
     value: "/home/"  # "~/XX/XXX"
     input: file
-  
+  min_cpm:
+    label: "min_cpm (non-negative `number`) minimum CPM for each gene within the sample."
+    value: 1 # default 1
+    input: numeric
+  min_cpm_prop:
+    label: "min_cpm_prop (`proportion`) minimum percentage of samples with acceptable CPM of certain gene for low expression flagging."
+    value: 0.25
+    input: numeric
+  min_corr:
+    label: "min_corr (`proportion`) minimum Pearson correlation coefficient of CPM between samples for technical failure flagging."
+    value: 0.5
+    input: numeric
+#  min_depth:
+#    label: "min_depth (non-negative `count` or `NULL`)\cr minimum library depth for low depth flagging. If `NULL`, this will be calculated as the first quartile minus 1.5 times the inter-quartile range of the library size (depth) of all samples. (So anything below the usual lower boxplot whisker would be too low.)"
+#    value: NULL
+#    input: numeric
 title: "`r params$title`"
 author: '`r params$author`'
 date: '`r format(Sys.time(), "%d %B %Y")`'
@@ -72,7 +88,9 @@ library(hermes)
 obj_name <- load(params$input_data_object)
 se <- get(obj_name)
 result <- HermesData(se)
-result_qc <- add_quality_flags(result)
+#, params$min_depth
+control <- control_quality(params$min_cpm, params$min_cpm_prop, params$min_corr)
+result_qc <- add_quality_flags(result, control)
 ```
 
 # Dataset Summary
@@ -110,8 +128,9 @@ draw_libsize_densities(result)
 
 This step is necessary to flag out genes with low expression. Genes with very low counts across all libraries provide little evidence for differential expression and they interfere with some of the statistical analyses conducted later in the pipeline. Therefore, these genes should be filtered out prior to the analysis. 
 
-There are many ways to filter out genes with lower counts. When there are n biological replicates in each group, we usually filter on a minimum counts per million threshold present in at least n samples. In this dataset, we choose to retain genes if they are expressed at a counts-per-million (CPM) above 
+There are many ways to filter out genes with lower counts. When there are n biological replicates in each group, we usually filter on a minimum counts per million threshold present in at least n samples. In this dataset, we choose to retain genes if they are expressed at a counts-per-million (CPM) above <b> `r params$min_cpm` </b>
 
+<b>`r h_low_expression_flag(result)`</b>
 
 ## Boxplot of Non-zero Genes
 
@@ -134,6 +153,7 @@ draw_genes_barplot(result)
 ```{r}
 
 # For reference rnaseqTool results
+# in Hermes draw_top_barplot
 #gSE <- eset2gSE(example_ExpressionSet)
 #draw_top_gene(gSE = gSE.postqc,
  #             subset = Chromosome %in% as.character(c(1:22)),
@@ -147,13 +167,25 @@ draw_genes_barplot(result)
 
 ## Genes with highest variability
 # missing not in graph.R
+```{r}
+draw_top_gene(gSE = gSE.postqc,
+              subset = Chromosome %in% as.character(c(1:22)),
+              FUN = function(x) {sqrt(rowVars(x))}, 
+              par_opts = list(main = "Top 10 most variable autosome genes", 
+                              xlab = "HGNC gene names", 
+                              ylab = "CPM Standard Deviation", 
+                              cex.names = 0.5))
+```
+
+
 
 ```{r}
 
 # For reference rnaseqTool results
-gSE <- eset2gSE(example_ExpressionSet)
-gse.qc <- gQCproc(gSE)
-gse.postqc <- subset(gse.qc, LowExpressionFlag == 0, LowDepthFlag == 0 & TechnicalFailureFlag == 0)
+#gSE <- eset2gSE(example_ExpressionSet)
+#gse.qc <- gQCproc(gSE)
+#gse.postqc <- subset(gse.qc, LowExpressionFlag == 0, LowDepthFlag == 0 & TechnicalFailureFlag == 0)
+#getmeta(rowData(gse.postqc), "threshold.cpm")
 #draw_top_gene(gSE = gSE.postqc)
 ```
 
