@@ -1,0 +1,36 @@
+---
+title: "Design: Annotation of genes via IGIS"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+  
+## Objective
+
+We would like to be able to use existing R APIs for annotating genes based on gene IDs as the starting point. Thereby we can keep up to date with new Ensembl versions that are published and are flexible whether IGIS (gRED) or GI-HDAP (pRED) is used.
+
+For gRED molecules, the canonical source for Ensembl (Entrez for legacy) annotations is IGIS. Therefore we want to be able to fetch the required feature data columns for the genes based on the IDs from IGIS. 
+
+Fortunately, the nice R-package `igis` is available. 
+
+## Workflow
+
+1. Make a connection object
+  - provide a wrapper that loads the right IGIS version based on the gene IDs.
+  - e.g. `connection <- connect(pattern = genes(object), db = "igis")` where `object` is a `HermesData` object and `db` identifies the data base to use.
+  - In the future we might have other data bases, such as the pRED one, to connect to.
+  - `genes()` is a new method for generic defined in package `GenomicFeatures` to access gene names in object
+  - then `connection` result has a class: here `Igis`
+  - internally that calls `igis::Igis` where we use "human" species and the version is determined
+    by the gene IDs format found in `object`.
+2. Then annotate the object
+  - e.g. define an `annotation` method: this can have a getter function, where we just give back
+    the relevant data frame columns from `rowData(object)`.
+  - and then the replacement method can be used like:
+    `annotation(object) <- query(genes = genes(object), connection)`
+  - So here we need a new generic function `query` and a method for `character`, `Igis` signature.
