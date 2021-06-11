@@ -16,17 +16,20 @@ reference:
       - RangedHermesData
       - HermesDataCor
       - HermesDataPca
+      - HermesDataTopGenes
   - title: Constructors
     contents:
       - HermesData
       - HermesDataFromMatrix
   - title: Internal Helper Functions
     contents:
+      - all_na
       - validate_counts
       - validate_cols
       - validate_non_empty
       - validate_row_data
       - validate_col_data
+      - validate_names
       - h_rpkm
       - h_cpm
       - h_tpm
@@ -52,6 +55,9 @@ reference:
       - add_quality_flags
       - calc_pca
       - calc_cor
+      - top_genes
+      - get_tech_failure
+      - set_tech_failure
   - title: Graphs
     contents:
       - draw_libsize_hist
@@ -59,8 +65,7 @@ reference:
       - draw_libsize_densities
       - draw_nonzero_boxplot
       - draw_genes_barplot
-      - plot_pca
-      - plot_cor
+      - plot_all
   - title: Control Functions
     contents:
       - control_normalize

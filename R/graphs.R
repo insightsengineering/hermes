@@ -18,7 +18,7 @@ draw_libsize_hist <- function(object,
                               bins = 30L,
                               fill = "darkgrey") {
   assert_that(
-    is_class(object, "HermesData"),
+    is_hermes_data(object),
     is.count(bins),
     is.string(fill)
   )
@@ -55,7 +55,7 @@ draw_libsize_qq <- function(object,
                             color = "grey",
                             linetype = "dashed") {
   assert_that(
-    is_class(object, "AnyHermesData"),
+    is_hermes_data(object),
     is.string(color),
     is.string(linetype)
   )
@@ -91,7 +91,7 @@ draw_libsize_qq <- function(object,
 draw_libsize_densities <- function(object,
                                    log = TRUE){
   assert_that(
-    is_class(object, "HermesData"),
+    is_hermes_data(object),
     is.flag(log)
   )
   counts <- as.data.frame(counts(object))
@@ -134,7 +134,7 @@ draw_nonzero_boxplot <- function(object,
                                  jitter = 0.2,
                                  alpha = 1/4) {
   assert_that(
-    is_class(object, "HermesData"),
+    is_hermes_data(object),
     is.number(jitter),
     is.number(alpha)
   )
@@ -150,7 +150,7 @@ draw_nonzero_boxplot <- function(object,
       position = position_jitter(width = jitter),
       alpha = alpha
     ) +
-    stat_n_text(text.box = TRUE) +
+    stat_n_text(text_box = TRUE) +
     ggtitle("Distribution of non-zero expressed genes") +
     xlab("Library") +
     ylab("Number of non-zero genes")
@@ -210,113 +210,42 @@ draw_genes_barplot <- function(object,
     ylab("Number of Genes")
 }  
 
-# PCA ----
+# autoplot(AnyHermesData) ----
 
-#' PCA Plot
-#' 
-#' This plot method uses [ggplot2::autoplot()] function with the corresponding method
-#' from the `ggfortify` package to plot the results of a principal components analysis
-#' saved in a [HermesDataPca] object.
-#' 
-#' @rdname plot_pca
-#' @aliases plot_pca
-#' 
-#' @param x (`HermesDataPca`)\cr what to plot.
-#' @param y not used.
-#' @param x_comp (`count`)\cr principal component number used in x axis.
-#' @param y_comp (`count`)\cr principal component number used in y axis.
-#' @param ... additional arguments passed internally to [ggfortify::autoplot.prcomp].
-#'   
-#' @return The `ggplot` object with the PCA plot.
-#' 
-#' @include metrics.R
-#' @importFrom graphics plot
-#' @importFrom ggplot2 autoplot
-#' 
-#' @export
-#' 
-#' @examples
-#' object <- HermesData(summarized_experiment)
-#' result <- calc_pca(object)
-#' plot(result)
-#' plot(result, x_comp = 2, y_comp = 3)
-#' plot(result, variance_percentage = FALSE)
-#' plot(result, label = TRUE)
-#' 
-setMethod(
-  f = "plot",
-  signature = c(x = "HermesDataPca"),
-  definition = function(x, y, x_comp = 1, y_comp = 2, ...) {
-    assert_that(
-      missing(y),
-      is.count(x_comp),
-      is.count(y_comp),
-      !are_equal(x_comp, y_comp)
-    )
-    ggplot2::autoplot(
-      object = x, 
-      x = x_comp,
-      y = y_comp,
-      ...
-    )
-  }
-)
-
-# Correlation heatmap ----
-
-#' Heatmap of Sample Correlations
-#' 
-#' This plot method uses the [ComplexHeatmap::Heatmap()] function
-#' to plot the correlations between samples saved in a [HermesDataCor] object.
-#' 
-#' @rdname plot_cor
-#' @aliases plot_cor
-#' 
-#' @param x (`HermesDataCor`)\cr what to plot.
-#' @param y not used.
-#' @param flag_colors (named `character`)\cr a vector that specifies the colors for `TRUE` and `FALSE`
-#'   flag values.
-#' @param cor_colors (`function`)\cr color scale function for the correlation values in the heatmap, 
-#'   produced by [circlize::colorRamp2()].
-#' @param ... other arguments to be passed to [ComplexHeatmap::Heatmap()].
-#'   
-#' @return The [ComplexHeatmap::Heatmap] object with the heatmap.
-#' 
-#' @include metrics.R
-#' @importFrom graphics plot
-#' @export
-#' 
-#' @examples
-#' object <- HermesData(summarized_experiment)
-#' result <- calc_cor(object)
-#' plot(result)
-#' plot(result, show_column_names = FALSE, show_row_names = FALSE)
+#' All standard plots in default setting
 #'
+#' This generates all standard plots - histogram and q-q plot of library sizes, density plot of the (log) counts
+#' distributions, boxplot of the number of number of non-zero expressed genes per sample, and a stacked barplot of low
+#' expression genes by chromosome at default setting.
+#' 
+#' @rdname plot_all
+#' @aliases plot_all
+#' 
+#' @param object (`AnyHermesData`)\cr input.
+#'
+#' @return A list with the `ggplot` objects from [draw_libsize_hist()], [draw_libsize_qq()], [draw_libsize_densities],
+#'   [draw_nonzero_boxplot()] and [draw_genes_barplot()] functions with default settings.
+#' @export
+#'
+#' @examples
+#' result <- HermesData(summarized_experiment)
+#' autoplot(result)
+#' 
 setMethod(
-  f = "plot",
-  signature = c(x = "HermesDataCor"),
-  definition = function(x, 
-                        y,
-                        flag_colors = c("FALSE" = "green", "TRUE" = "red"),
-                        cor_colors = circlize::colorRamp2(c(0, 0.5, 1), c("red", "yellow", "green")),
-                        ...) {
-    assert_that(missing(y))
-    df <- x@flag_data
-    left_annotation <- ComplexHeatmap::rowAnnotation(
-      LowDepthFlag = factor(df$LowDepthFlag),
-      col = list(LowDepthFlag = flag_colors)
+  f = "autoplot",
+  signature = c(object = "AnyHermesData"),
+  definition = function(object) {
+    assert_that(
+      is_hermes_data(object)
     )
-    top_annotation <- ComplexHeatmap::HeatmapAnnotation(
-      TechnicalFailureFlag = factor(df$TechnicalFailureFlag),
-      col = list(TechnicalFailureFlag = flag_colors)
+    result <- list(
+      libsize_hist = draw_libsize_hist(object), 
+      libsize_qq = draw_libsize_qq(object), 
+      libsize_densities = draw_libsize_densities(object), 
+      nonzero_boxplot = draw_nonzero_boxplot(object), 
+      genes_barplot = draw_genes_barplot(object)
     )
-    ComplexHeatmap::Heatmap(
-      matrix = x,
-      col = cor_colors,
-      name = "Correlation",
-      left_annotation = left_annotation,
-      top_annotation = top_annotation,
-      ...
-    )
+    sapply(result, grid::grid.draw)
+    invisible(result)
   }
 )

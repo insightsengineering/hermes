@@ -22,8 +22,8 @@ Imports:
     edgeR,
     ggplot2,
     ggplot2.utils,
-    graphics,
     limma,
+    magrittr,
     methods,
     rlang,
     stats,
@@ -31,17 +31,18 @@ Imports:
     tern,
     testthat (>= 2.0),
     tidyr,
-    utils.nest,
-    magrittr
+    utils.nest
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
     'HermesData-methods.R'
     'assertthat.R'
+    'cor.R'
     'data.R'
-    'metrics.R'
     'graphs.R'
     'normalization.R'
     'package.R'
+    'pca.R'
     'quality.R'
+    'top_genes.R'
     'utils-pipe.R'
