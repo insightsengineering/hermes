@@ -91,6 +91,8 @@ In order to ensure that, we need to add another validation check for HermesData 
 we require that its rownames equal the GeneID column in rowData.
 
 ```{r}
+library(igis)
+
 #' @importFrom GenomicFeatures genes 
 setMethod(
   f = "genes",
