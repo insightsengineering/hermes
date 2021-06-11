@@ -56,6 +56,8 @@ reference:
       - calc_pca
       - calc_cor
       - top_genes
+      - get_tech_failure
+      - set_tech_failure
   - title: Graphs
     contents:
       - draw_libsize_hist

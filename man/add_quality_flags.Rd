@@ -59,6 +59,7 @@ given control settings.
 # Adding default quality flags to HermesData object.
 object <- HermesData(summarized_experiment)
 result <- add_quality_flags(object)
+which(get_tech_failure(result) != get_tech_failure(object))
 head(rowData(result)$LowExpressionFlag)
 head(colData(result)$TechnicalFailureFlag)
 head(colData(result)$LowDepthFlag)

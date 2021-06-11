@@ -1,5 +1,5 @@
 ---
-title: "Design: flag_technical_failure()"
+title: "Design: flag_tech_failure()"
 author: "Jeff Luong"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -12,7 +12,7 @@ editor_options:
 
 ## Objective
 
-Create a `flag_technical_failure()` function to allow a user to define a sample manually as a technical failure/outlier from a `HermesData` object.
+Create a `flag_tech_failure()` function to allow a user to define a sample manually as a technical failure/outlier from a `HermesData` object.
 
 ## Idea
 
@@ -30,8 +30,8 @@ match(sample_ids, samples)
 colData(result)$TechnicalFailureFlag[sample_ids] <- TRUE
 
 #Putting the final function together.
-flag_technical_failure <- function(object,
-                                   sample_ids){
+flag_tech_failure <- function(object,
+                              sample_ids){
   assert_that(
     is_hermes_data(object),
     is_character_vector(sample_ids)
