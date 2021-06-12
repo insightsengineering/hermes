@@ -21,16 +21,18 @@ In the `rnaseqTools` vignettes `pg101_example_voom.Rmd`, the authors suggest to 
 ## Idea
 
 - To make the function easy to use, we only need users to input a `HermesData` object. 
-- The `diff_expression()` function extracts the count or other assay with (normalized) counts from the `HermesData` object.  
-  - It also warns the user if there are samples or genes which have failed flags.
+- The `diff_expression()` function extracts the count assay from the `HermesData` object. The function only accepts un-normalized counts assay for analysis.
+- It also warns the user if there are samples or genes which have failed flags. 
 - In addition, we only need users to input a string with factor name in colData for the `HermesData` object. The `diff_expression()` function generates design component.  
-- We may create helper functions to transfer the `HermesData` object and the factor compatible to run `limma` and `DESeq2` functions, respectively.
-- We may create functions for plotting later.
+- We may create helper functions to transfer the `HermesData` object and the factor compatible to run `limma` and `DESeq2` methods, respectively.
+  - If the method is `limma`, the `diff_expression()` runs `limma::voom`, `limma::lmFit` and `limma::eBayes` sequentially to obtain a data frame in the class `HermesDataDiffExpr`.
+  - If the assay is `deseq2`, the `diff_expression()` runs `DESeq` to obtain a data frame in the class `HermesDataDiffExpr`.
+- We use `autoplot()` functions for plotting the `HermesDataDiffExpr` data. 
 
 ## Workflow
 
 Later the user would proceed like this maybe:
-- first create, add flags, filter, normalize HermesData object
+- first create, add flags, filter HermesData object
 - then do `diff_expression()` on it, choose the method as argument
 - then apply `autoplot()` on the result to obtain e.g. volcano plot
   - implies that we need to have e.g. `HermesDataDiffExpr` object as result of function call above
@@ -42,8 +44,7 @@ Example:
 ```{r}
 object <- HermesData(summarized_experiment) %>%
   add_quality_flags() %>%
-  filter() %>%
-  normalize()
+  filter() 
 ```
 
 
@@ -62,31 +63,36 @@ object <- HermesData(summarized_experiment) %>%
 ```{r}
 diff_expression <- function(object,
                             group,
-                            method = c("voom", "deseq2"),
-                            assay_name = switch(method, voom = "voom", deseq2 = "counts")) {
+                            method = c("limma_voom", "deseq2")) {
   assert_that(
     is_hermes_data(object),
     is.string(group),
-    tern::is_df_with_nlevels_factor(df = colData(object), variable = group, n_levels = 2L),
-    is.string(assay_name),
+    group %in% colnames(colData(object)), ## tern::is_df_with_nlevels_factor does not work
+    length(unique(colData(object)[[group]])) == 2L, ## tern::is_df_with_nlevels_factor does not work
+    is.string(method), 
+    method %in% c("limma_voom", "deseq2")
   )
-  method <- match.arg(method)
-  if (method == "voom") {
-    assert_that(assay_name == "voom", msg = "please use voom normalized counts as assay")
-  }
-  le_flag <- rowData(object)$LowExpressionFlag
-  # other flags here
-  if (all_na(le_flag) || any(le_flag)) {
+  
+  method <- match.arg(method, c("limma_voom", "deseq2"))
+  
+  qc_flag <- c(
+    rowData(object)$LowExpressionFlag,
+    object$LowDepthFlag,
+    object$TechnicalFailureFlag
+  )
+  
+  # QC flag should not have NA. If there is any NA or any flag = TRUE, show warnning message)
+  if (anyNA(qc_flag) || any(qc_flag)) {
     warning("please ensure that you add QC flags and filter based on them before DE analysis")
   }
   
   group_var <- colData(object)[[group]]
-  x <- assay(object, assay_name)
+  obj_count <- counts(object)
 
-  result <- if(method == "voom") {
-    h_diff_expr_voom(x, group_var)
+  result <- if(method == "limma_voom") {
+    h_diff_expr_limma(obj_count, group_var)
   } else {
-    h_diff_expr_deseq2(x, group_var)
+    h_diff_expr_deseq2(obj_count, group_var)
   }
   .HermesDataDiffExpr(result)
 }
@@ -95,21 +101,15 @@ diff_expression <- function(object,
 ### Analysis using limma package
 
 ```{r}
-h_diff_expr_voom <- function(x, group_var) {
-  assert_that(
-    is.matrix(x),
-    is.factor(group_var)
-  )
+h_diff_expr_limma <- function(obj_count, group_var) {
+  
+  obj_count_voom <- limma::voom(obj_count)
   design <- model.matrix(~ group_var)  
-  fit <- limma::lmFit(x, design)
+  fit <- limma::lmFit(obj_count_voom, design)
   eb <- limma::eBayes(fit)
-  limma::topTable(eb, coef = 2, n = nrow(x), lfc = log2(1))
+  limma::topTable(eb, coef = 2, n = nrow(obj_count_voom), sort.by="p" ) ## use adj p-value to sort
 }
 
-x <- assay(object, "voom")
-group_var <- factor(colData(object)$SEX)
-voom_res <- h_diff_expr_voom(x, group_var)
-head(voom_res)
 ```
 
 
@@ -118,24 +118,56 @@ head(voom_res)
 try to obtain the same result structure - data frame with these columns above
  
 ```{r}
-#Creating the HermesData object and read rowData information
-library(hermes)
-library(DESeq2)
+h_diff_expr_deseq2 <- function(obj_count, group_var) {
+  
+  cond <- factor(group_var)
+  dds <- DESeqDataSetFromMatrix(obj_count, DataFrame(cond), ~ cond)
+  dds <- DESeq(dds)
+  dds_res <- data.frame(results(dds))
+  dds_res <- dds_res[order(dds_res$padj),] ## use adj p-value to sort
+  
+  ### rename log2FoldChange to logFC
+  ### rename pvalue to P.Value
+  ### rename padj to adj.P.Val
+  ### make the name consistent to limma_voom result
+  colnames(dds_res) <- c("baseMean", "logFC", "lfcSE", "stat", "P.Value", "adj.P.Val") 
+}
 
-object <- HermesData(summarized_experiment)
-
-string <- "SEX"
-
-### extract the factor from colData
-cond <- factor(colData(object)[,string])
-
-### use the counts() function to extract count assay, then pass it to DESeqDataSetFromMatrix()
- 
-dds <- DESeqDataSetFromMatrix(counts(object), DataFrame(cond), ~ cond)
-
-### standard analysis
-dds <- DESeq(dds)
-res <- results(dds)
 ```
 
+## autoplot for vacano plot
+```{r}
+library(ggrepel)
 
+setMethod(
+  f = "autoplot",
+  signature = signature(object = "HermesDataDiffExpr"),
+  definition = function(object,
+                        adj.P.Val.threshold = 0.05,
+                        logFC.threshold = 2.5) {
+    
+      object$difexpr <- "NO"
+      object$difexpr[object$logFC > abs(logFC.threshold) &
+                           object$adj.P.Val < adj.P.Val.threshold] <- "UP" 
+      object$difexpr[object$logFC < -abs(logFC.threshold) &
+                           object$adj.P.Val < adj.P.Val.threshold] <- "DOWN"
+      
+      object$label <- NA
+      object$label[object$difexpr != "NO"] <- rownames(object)[object$difexpr != "NO"]
+    
+      ggplot(data=object, 
+             aes(x=logFC, 
+             y=-log10(adj.P.Val), 
+             col=difexpr,
+             label=label)
+      ) +
+      geom_point() + 
+      theme_minimal() + 
+      geom_text_repel() +
+      xlab("log2 fold change") + 
+      ylab("-log10 adjusted p-value") +
+      geom_vline(xintercept=c(-abs(logFC.threshold), abs(logFC.threshold)), col="black") +
+      geom_hline(yintercept=-log10(adj.P.Val.threshold), col="black")
+  }
+)
+```
