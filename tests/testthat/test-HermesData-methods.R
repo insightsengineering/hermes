@@ -130,3 +130,32 @@ test_that("filter shows readable error message when there are NA in flag variabl
     fixed = TRUE
   )
 })
+
+# summary ----
+test_that("summary works as expected for HermesData", {
+  object <- HermesData(summarized_experiment)
+  cd <- as.data.frame(colData(object))
+  rd <- as.data.frame(rowData(object))
+  result <- expect_silent(summary(object))
+  expect_is(result, "HermesDataSummary")
+  expect_identical(result@class_name, class(object)[[1]])
+  expect_identical(result@assay_names, assayNames(object))
+  expect_identical(result@n_genes, nrow(object))
+  expect_identical(result@n_samples, ncol(object))
+  expect_identical(length(result@genes_fail), sum(rd$LowExpressionFlag))
+  expect_identical(length(result@samples_fail), sum(cd$TechnicalFailureFlag, cd$LowDepthFlag))
+})
+
+test_that("summary works as expected for RangedHermesData", {
+  object <- HermesData(get_rse())
+  cd <- as.data.frame(colData(object))
+  rd <- as.data.frame(rowData(object))
+  result <- expect_silent(summary(object))
+  expect_is(result, "HermesDataSummary")
+  expect_identical(result@class_name, class(object)[[1]])
+  expect_identical(result@assay_names, assayNames(object))
+  expect_identical(result@n_genes, nrow(object))
+  expect_identical(result@n_samples, ncol(object))
+  expect_identical(length(result@genes_fail), sum(rd$LowExpressionFlag))
+  expect_identical(length(result@samples_fail), sum(cd$TechnicalFailureFlag, cd$LowDepthFlag))
+})
