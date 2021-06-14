@@ -172,6 +172,38 @@ test_that("get_tech_failure fails as expected with invalid input", {
   expect_error(get_tech_failure(object2))
 })
 
+# get_low_depth ----
+
+test_that("get_low_depth function works as expected", {
+  object <- HermesData(get_se())
+  result <- expect_silent(get_low_depth(object))
+  expected <- c(X = TRUE, Y = FALSE)
+  expect_identical(result, expected)
+})
+
+test_that("get_low_depth fails as expected with invalid input", {
+  object1 <- get_se()
+  object2 <- matrix(1:10, 2, 5)
+  expect_error(get_low_depth(object1))
+  expect_error(get_low_depth(object2))
+})
+
+# get_low_expression ----
+
+test_that("get_low_expression function works as expected", {
+  object <- HermesData(get_se())
+  result <- expect_silent(get_low_expression(object))
+  expected <- c(a = TRUE, b = FALSE)
+  expect_identical(result, expected)
+})
+
+test_that("get_low_expression fails as expected with invalid input", {
+  object1 <- get_se()
+  object2 <- matrix(1:10, 2, 5)
+  expect_error(get_low_expression(object1))
+  expect_error(get_low_expression(object2))
+})
+
 # set_tech_failure ----
 
 test_that("set_tech_failure function works as expected", {
