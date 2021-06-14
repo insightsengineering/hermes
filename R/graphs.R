@@ -210,6 +210,7 @@ draw_genes_barplot <- function(object,
     ylab("Number of Genes")
 }  
 
+# autoplot(AnyHermesData) ----
 
 #' All standard plots in default setting
 #'
@@ -217,8 +218,8 @@ draw_genes_barplot <- function(object,
 #' distributions, boxplot of the number of number of non-zero expressed genes per sample, and a stacked barplot of low
 #' expression genes by chromosome at default setting.
 #' 
-#' @name plot_all
-#' @aliases autoplot
+#' @rdname plot_all
+#' @aliases plot_all
 #' 
 #' @param object (`AnyHermesData`)\cr input.
 #'

@@ -78,6 +78,7 @@ control_quality <- function(min_cpm = 1,
 #' # Adding default quality flags to HermesData object.
 #' object <- HermesData(summarized_experiment)
 #' result <- add_quality_flags(object)
+#' which(get_tech_failure(result) != get_tech_failure(object))
 #' head(rowData(result)$LowExpressionFlag)
 #' head(colData(result)$TechnicalFailureFlag)
 #' head(colData(result)$LowDepthFlag)
@@ -192,4 +193,89 @@ h_tech_failure_flag <- function(object,
   cpm <- edgeR::cpm(counts(object))
   corr_matrix <- stats::cor(cpm, method = "pearson")
   colMeans(corr_matrix) < control$min_corr
+}
+
+#' Get Quality Flags
+#' 
+#' Separate getter functions which allow easy access to the quality control flags.
+#' 
+#' @param object (`AnyHermesData`)\cr input.
+#' 
+#' @return Named logical vector containing the failure flags for all samples or genes, 
+#'   respectively.
+#' 
+#' @importFrom stats setNames
+#' @name get_quality_flags
+#' 
+#' @examples 
+#' object <- HermesData(summarized_experiment)
+#' 
+NULL
+
+#' @describeIn get_quality_flags get the technical failure flags for all samples.
+#' @export
+#' @examples 
+#' head(get_tech_failure(object))
+#'
+get_tech_failure <- function(object) {
+  assert_that(is_hermes_data(object))
+  flag_vals <- colData(object)$TechnicalFailureFlag
+  samples <- colnames(object)
+  stats::setNames(flag_vals, samples)
+}
+
+#' @describeIn get_quality_flags get the low depth failure flags for all samples.
+#' @export
+#' @examples 
+#' head(get_low_depth(object))
+#'
+get_low_depth <- function(object) {
+  assert_that(is_hermes_data(object))
+  flag_vals <- colData(object)$LowDepthFlag
+  samples <- colnames(object)
+  stats::setNames(flag_vals, samples)
+}
+
+#' @describeIn get_quality_flags get the low expression failure flags for all genes.
+#' @export
+#' @examples 
+#' head(get_low_expression(object))
+#'
+get_low_expression <- function(object) {
+  assert_that(is_hermes_data(object))
+  flag_vals <- rowData(object)$LowExpressionFlag
+  genes <- rownames(object)
+  stats::setNames(flag_vals, genes)
+}
+
+#' Set Technical Failure Flags
+#' 
+#' Setter function which allows the user to define a sample manually as a technical failure. 
+#' 
+#' @param object (`AnyHermesData`)\cr input.
+#' @param sample_ids (`character`) \cr sample IDs to be flagged as technical failures.
+#'   
+#' @return HermesData object with modified technical failure flags.
+#' @seealso [add_quality_flags()] which automatically sets all (gene and sample) quality flags,
+#'   including these technical failure flags.
+#'   
+#' @export
+#' 
+#' @examples
+#' # Manually flag technical failures in a HermesData object.
+#' object <- HermesData(summarized_experiment)
+#' get_tech_failure(object)["06520101B0017R"]
+#' result <- set_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
+#' get_tech_failure(result)["06520101B0017R"]
+#' 
+set_tech_failure <- function(object,
+                             sample_ids) {
+  assert_that(
+    is_hermes_data(object),
+    is_character_vector(sample_ids),
+    all(sample_ids %in% colnames(object))
+  )
+  matches <- match(sample_ids, colnames(object))
+  colData(object)$TechnicalFailureFlag[matches] <- TRUE
+  object
 }
