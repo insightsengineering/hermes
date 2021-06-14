@@ -16,14 +16,14 @@ Update and replace the `cal_diff_limma()` function from `rnaseqTools` to use a `
 
 ## Consideration: where to filter out low expression genes, as well as samples with low depth or technical failure from subsequent workflow
 
-In the `rnaseqTools` vignettes `pg101_example_voom.Rmd`, the authors suggest to filter out low expression genes, as well as samples with low depth or technical failure from subsequent workflow. As we directly take a `HermesData` as object, users cannot manually take filtering. We may set an option `filtering = TRUE` to impose the filtering process. Users can change it to `FALSE` to skip this procedure.  
+In the `rnaseqTools` vignettes `pg101_example_voom.Rmd`, the authors suggest to filter out low expression genes, as well as samples with low depth or technical failure from subsequent workflow. As we directly take a `HermesData` as object, users cannot manually take filtering.  
  
 ## Idea
 
 - To make the function easy to use, we only need users to input a `HermesData` object. 
-- The `diff_expression()` function extracts the count assay from the `HermesData` object. The function only accepts un-normalized counts assay for analysis.
+- The `diff_expression()` function extracts the count assay from the `HermesData` object. (The function only accepts un-normalized counts assay for analysis.)
 - It also warns the user if there are samples or genes which have failed flags. 
-- In addition, we only need users to input a string with factor name in colData for the `HermesData` object. The `diff_expression()` function generates design component.  
+- In addition, we only need users to input a string with factor name in colData for the `HermesData` object. The `diff_expression()` function generates the corresponding design component.  
 - We may create helper functions to transfer the `HermesData` object and the factor compatible to run `limma` and `DESeq2` methods, respectively.
   - If the method is `limma`, the `diff_expression()` runs `limma::voom`, `limma::lmFit` and `limma::eBayes` sequentially to obtain a data frame in the class `HermesDataDiffExpr`.
   - If the assay is `deseq2`, the `diff_expression()` runs `DESeq` to obtain a data frame in the class `HermesDataDiffExpr`.
@@ -32,7 +32,7 @@ In the `rnaseqTools` vignettes `pg101_example_voom.Rmd`, the authors suggest to 
 ## Workflow
 
 Later the user would proceed like this maybe:
-- first create, add flags, filter HermesData object
+- first create, add flags, filter the `HermesData` object
 - then do `diff_expression()` on it, choose the method as argument
 - then apply `autoplot()` on the result to obtain e.g. volcano plot
   - implies that we need to have e.g. `HermesDataDiffExpr` object as result of function call above
@@ -66,13 +66,12 @@ diff_expression <- function(object,
                             method = c("limma_voom", "deseq2")) {
   assert_that(
     is_hermes_data(object),
-    is.string(group),
-    group %in% colnames(colData(object)), ## tern::is_df_with_nlevels_factor does not work
-    length(unique(colData(object)[[group]])) == 2L, ## tern::is_df_with_nlevels_factor does not work
-    is.string(method), 
-    method %in% c("limma_voom", "deseq2")
+    is.string(group)
   )
-  
+  df <- as.data.frame(colData(object))
+  assert_that(
+    tern::is_df_with_nlevels_factor(df = df, variable = group, n_levels = 2L)
+  )
   method <- match.arg(method, c("limma_voom", "deseq2"))
   
   qc_flag <- c(
