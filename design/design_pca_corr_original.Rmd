@@ -1,0 +1,263 @@
+---
+title: "Design: PCA analysis and plot"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+  
+## Objective
+
+Systematic analysis of correlations between all sample variables (`colData`) and the principal components of the samples. Also including the 2 QC variables.
+See [video](drive.google.com/file/d/18T_VPw746RIJRCksY4TFWtK5PtImStkY/view) from minute 8 onwards.
+- High values mean high correlation.
+- In the example, redundant variables which have very high correlation with PC1 e.g.
+- can identify sample variables for possible diff expression analysis model inclusion to adjust for batch effects
+
+The final plot is similar to what we do in the `autoplot` method for `HermesDataCor` objects.
+
+## High-level iddea
+
+1. create a new generic function `correlate`
+  - change current function `calc_cor` to method for `AnyHermesData` objects, still produces then `HermesDataCor` object
+  - have a new `correlate` method that works on `HermesDataPca` objects, and in addition takes the original HermesData, and produces a `HermesDataPcaCor` object
+  - internally it checks consistency of the two inputs
+  - then takes the `colData` from HermesData object and correlate its columns with the principal components from the PCA object.
+1. add a new `autoplot` method for `HermesDataPcaCor` objects
+  - creates the heatmap, similar as the `HermesDataCor` method
+
+### Alternatives considered
+
+- `HermesDataPca` gets additional slots
+  - not really needed since the `HermesData` object is not modified in the `calc_pca` function, in particular the sample information (`colData`) is untouched
+- add a new correlation function, e.g. `calc_pca_cor`
+  - then the user has to remember another function name
+  
+## Details for correlating sample vars with PCs
+
+Let's think about how exactly we are going to correlate the `colData` columns with the principal components from the PCA object.
+
+### Starting point: `biokitr` approach
+
+In the [entry function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L14) and the [calculation function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L195) we can see the following being done:
+- categorical vars:
+  - also int values with less than 10 different values will be converted to factors
+  - skip if number of levels is too high or if only one constant value across all samples
+- continuous vars:
+  - all get `log10(x)` transformed (0s are replaced by 1s)
+- R2 matrix is filled
+  - R2 is calculated [here](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L232) 
+    - first centering (but not scaling) the y matrix, i.e. the principal components
+    - note that y is a matrix here with one column for each component, and one row for each sample.
+    - samples where the sample var is `NA` are removed from the data
+    - via `limma::lmFit` fit separate linear regression models on the sample var design matrix for each
+      of the PCs.
+    - calculate sum of squares and manually derive R2 from that for each PC.
+  - "top explanatory variables" are identified by comparing R2 with threshold (not sure where this is shown / used downstream)
+  
+## Prototypes
+
+Our example:
+
+```{r}
+object <- HermesData(summarized_experiment) %>%
+  add_quality_flags() %>%
+  filter() %>%
+  normalize()
+result <- calc_pca(object)
+pca <- result$x
+dim(pca)
+```
+
+### Calculation of R2 between one sample var and PC matrix
+
+This gives back a vector of R2 values, one per PC.
+
+```{r}
+h_pca_var_rsquared <- function(pca, x) {
+  assert_that(
+    is.matrix(pca),
+    is.numeric(x) || is.factor(x) || is.character(x) || is.logical(x),
+    identical(length(x), nrow(pca)),
+    all(abs(colMeans(pca)) < 1e-10)
+  )
+  use_sample <- !is.na(x)
+  x <- x[use_sample]
+  pca <- pca[use_sample, ]
+  design <- stats::model.matrix(~ x)
+  # Transpose such that PCs are in rows, and samples in columns.
+  y0 <- t(pca)
+  fit <- limma::lmFit(y0, design = design)
+  ## Compute total sum of squares
+  sst <- rowSums(y0^2)
+  ## Compute residual sum of squares
+  ssr <- sst - fit$df.residual * fit$sigma^2
+  r2 <- ssr / sst
+  r2
+}
+
+x <- factor(colData(object)$COUNTRY)
+h_pca_var_rsquared(pca, x)
+
+x <- colData(object)$STDSSDY
+h_pca_var_rsquared(pca, x)
+
+x <- colData(object)$LowDepthFlag
+h_pca_var_rsquared(pca, x)
+```
+
+### Process sample vars data frame and rotation matrix
+
+Helper to check for a column being constant:
+
+```{r}
+is_constant <- function(x) {
+  assert_that(is.vector(x))
+  x <- x[!is.na(x)]
+  if (is.numeric(x)) {
+    isConstant(x)
+  } else if (is.factor(x)) {
+    isConstant(as.integer(x))
+  } else if (is.character(x)) {
+    identical(length(unique(x)), 1L)
+  } else if (is.logical(x)) {
+    all(x) || all(!x)
+  } else {
+    stop("not supported type")
+  }
+}
+
+is_constant(c(1, 2))
+is_constant(c(NA, 1))
+is_constant(c("a", "a"))
+```
+
+Now we can write our prototype that takes the PC matrix as well as a data frame of sample vars,
+filters down the sample vars, and then returns the matrix with R2 values for the remaining sample vars.
+
+Filter conditions required for the sample vars are:
+- must be numeric, character, factor or logical. e.g. Date variables would need to be transformed 
+  before.
+- cannot just be completely `NA`
+- cannot have constant value
+- if character or factor, cannot have too many unique values
+  (must have less or equal than half the number of samples)
+
+```{r}
+h_pca_df_r2_matrix <- function(pca, df) {
+  assert_that(
+    is.matrix(pca),
+    is.data.frame(df),
+    identical(nrow(pca), nrow(df))
+  )
+  # Sequentially filter down the columns in `df`.
+  is_accepted_type <- vapply(df, function(x) {
+    is.numeric(x) || is.character(x) || is.factor(x) || is.logical(x)
+  }, TRUE)
+  df <- df[, is_accepted_type]
+  is_all_na <- vapply(df, all_na, TRUE)
+  df <- df[, !is_all_na]
+  is_all_constant <- vapply(df, is_constant, TRUE)
+  df <- df[, !is_all_constant]
+  too_many_levels <- vapply(df, function(x) {
+    (is.character(x) || is.factor(x)) && (length(unique(x)) > nrow(df)/2)
+  }, TRUE)
+  df <- df[, !too_many_levels]
+  # On all remaining columns, run R2 analysis vs. all principal components.
+  vapply(
+    X = df, 
+    FUN = h_pca_var_rsquared, 
+    pca = pca, 
+    FUN.VALUE = rep(0.5, ncol(pca))
+  )
+}
+```
+
+So we can try this out:
+
+```{r}
+df <- as.data.frame(colData(object))
+
+r2_matrix <- h_pca_df_r2_matrix(pca, df)
+dim(r2_matrix)
+dim(df)
+dim(pca)
+```
+
+So we see that we filtered down from 87 sample vars in input `df` to only 40 that were correlated
+with the (18) PCs across the 19 samples.
+
+### `HermesDataPcaCor` class
+
+This is similar like `HermesDataCor`.
+
+```{r}
+.HermesDataPcaCor <- setClass(
+  Class = "HermesDataPcaCor",
+  contains = "matrix"
+)
+```
+
+### `correlate` method
+
+Now we can write the method that will be the user interface.
+
+```{r}
+setGeneric("correlate", def = function(object, ...) {})
+
+setMethod(
+  f = "correlate",
+  signature = c(object = "HermesDataPca"),
+  definition = function(object, data) {
+    assert_that(is_hermes_data(data))
+    pca <- object$x
+    assert_that(identical(rownames(pca), colnames(data)))
+    df <- as.data.frame(colData(data))
+    r2_matrix <- h_pca_df_r2_matrix(pca, df)
+    .HermesDataPcaCor(r2_matrix)
+  }
+)
+```
+
+Let's try it out.
+
+```{r}
+result_cor <- correlate(result, object)
+```
+
+### Plotting method
+
+This can be very similar to the `HermesDataCor` method, and actually simpler since we don't require any annotations here.
+
+```{r}
+setMethod(
+  f = "autoplot",
+  signature = c(object = "HermesDataPcaCor"),
+  definition = function(object,
+                        cor_colors = circlize::colorRamp2(c(0, 0.5, 1), c("blue", "green", "yellow")),
+                        ...) {
+    ComplexHeatmap::Heatmap(
+      matrix = t(object),
+      col = cor_colors,
+      name = "R2",
+      ...
+    )
+  }
+)
+```
+
+Let's try it out.
+
+```{r}
+autoplot(result_cor)
+```
+
+OK few things we still can address in production:
+- keep PCs ordered, i.e. not allow reordering
+- play around with the color scheme for the R2 values
+
+Also in production we need to change current function `calc_cor` to method for `AnyHermesData` objects, still produces then `HermesDataCor` object. 

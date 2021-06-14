@@ -17,6 +17,7 @@ reference:
       - HermesDataCor
       - HermesDataPca
       - HermesDataTopGenes
+      - HermesDataSummary
   - title: Constructors
     contents:
       - HermesData
@@ -50,12 +51,15 @@ reference:
       - filter
       - subset
       - normalize
+      - summary
   - title: Functions
     contents:
       - add_quality_flags
       - calc_pca
       - calc_cor
       - top_genes
+      - get_quality_flags
+      - set_tech_failure
   - title: Graphs
     contents:
       - draw_libsize_hist
@@ -63,6 +67,7 @@ reference:
       - draw_libsize_densities
       - draw_nonzero_boxplot
       - draw_genes_barplot
+      - plot_all
   - title: Control Functions
     contents:
       - control_normalize

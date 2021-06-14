@@ -155,3 +155,73 @@ test_that("h_tech_failure_flag fails as expected with invalid settings", {
   expect_error(h_tech_failure_flag(object2, cont1))
   expect_error(h_tech_failure_flag(object2, cont2))
 })
+
+# get_tech_failure ----
+
+test_that("get_tech_failure function works as expected", {
+  object <- HermesData(get_se())
+  result <- expect_silent(get_tech_failure(object))
+  expected <- c(X = FALSE, Y = TRUE)
+  expect_identical(result, expected)
+})
+
+test_that("get_tech_failure fails as expected with invalid input", {
+  object1 <- get_se()
+  object2 <- matrix(1:10, 2, 5)
+  expect_error(get_tech_failure(object1))
+  expect_error(get_tech_failure(object2))
+})
+
+# get_low_depth ----
+
+test_that("get_low_depth function works as expected", {
+  object <- HermesData(get_se())
+  result <- expect_silent(get_low_depth(object))
+  expected <- c(X = TRUE, Y = FALSE)
+  expect_identical(result, expected)
+})
+
+test_that("get_low_depth fails as expected with invalid input", {
+  object1 <- get_se()
+  object2 <- matrix(1:10, 2, 5)
+  expect_error(get_low_depth(object1))
+  expect_error(get_low_depth(object2))
+})
+
+# get_low_expression ----
+
+test_that("get_low_expression function works as expected", {
+  object <- HermesData(get_se())
+  result <- expect_silent(get_low_expression(object))
+  expected <- c(a = TRUE, b = FALSE)
+  expect_identical(result, expected)
+})
+
+test_that("get_low_expression fails as expected with invalid input", {
+  object1 <- get_se()
+  object2 <- matrix(1:10, 2, 5)
+  expect_error(get_low_expression(object1))
+  expect_error(get_low_expression(object2))
+})
+
+# set_tech_failure ----
+
+test_that("set_tech_failure function works as expected", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  ids <- c("06520063C0043R", "06520105C0017R", "06520092C0017R", "06520103C0017R")
+  expect_false(any(get_tech_failure(object)[ids]))
+  result <- expect_silent(set_tech_failure(object, ids))
+  expect_true(all(get_tech_failure(result)[ids]))
+})
+
+test_that("set_tech_failure fails as expected with invalid inputs", {
+  object1 <- get_se()
+  object2 <- matrix(1:10, 2, 5)
+  object3 <- expect_silent(HermesData(get_se()))
+  sample_ids1 <- "0.5"
+  sample_ids2 <- list(1, 2, 3, 4)
+  expect_error(set_tech_failure(object1, sample_ids1))
+  expect_error(set_tech_failure(object2, sample_ids2))
+  expect_error(set_tech_failure(object3, sample_ids2))
+  expect_error(set_tech_failure(object3, sample_ids1))
+})
