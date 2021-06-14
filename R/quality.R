@@ -195,25 +195,57 @@ h_tech_failure_flag <- function(object,
   colMeans(corr_matrix) < control$min_corr
 }
 
-#' Get Technical Failure Flags
+#' Get Quality Flags
 #' 
-#' Getter function which allows easy access to the technical failure flags.
+#' Separate getter functions which allow easy access to the quality control flags.
 #' 
 #' @param object (`AnyHermesData`)\cr input.
 #' 
-#' @return Named logical vector containing the technical failure flags for all samples.
+#' @return Named logical vector containing the failure flags for all samples or genes, 
+#'   respectively.
 #' 
 #' @importFrom stats setNames
-#' @export
+#' @name get_quality_flags
+#' 
 #' @examples 
 #' object <- HermesData(summarized_experiment)
-#' get_tech_failure(object)
 #' 
+NULL
+
+#' @describeIn get_quality_flags get the technical failure flags for all samples.
+#' @export
+#' @examples 
+#' head(get_tech_failure(object))
+#'
 get_tech_failure <- function(object) {
   assert_that(is_hermes_data(object))
   flag_vals <- colData(object)$TechnicalFailureFlag
   samples <- colnames(object)
   stats::setNames(flag_vals, samples)
+}
+
+#' @describeIn get_quality_flags get the low depth failure flags for all samples.
+#' @export
+#' @examples 
+#' head(get_low_depth(object))
+#'
+get_low_depth <- function(object) {
+  assert_that(is_hermes_data(object))
+  flag_vals <- colData(object)$LowDepthFlag
+  samples <- colnames(object)
+  stats::setNames(flag_vals, samples)
+}
+
+#' @describeIn get_quality_flags get the low expression failure flags for all genes.
+#' @export
+#' @examples 
+#' head(get_low_expression(object))
+#'
+get_low_expression <- function(object) {
+  assert_that(is_hermes_data(object))
+  flag_vals <- rowData(object)$LowExpressionFlag
+  genes <- rownames(object)
+  stats::setNames(flag_vals, genes)
 }
 
 #' Set Technical Failure Flags
