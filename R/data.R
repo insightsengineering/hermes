@@ -24,8 +24,10 @@
 
 #' Example `MultiAssayExperiment` Data
 #'
-#' This example [MultiAssayExperiment::MultiAssayExperiment] can be used to .
+#' This example [MultiAssayExperiment::MultiAssayExperiment] can be used as test data.
 #' 
-#' @format A [MultiAssayExperiment::MultiAssayExperiment] object with .
+#' @format A [MultiAssayExperiment::MultiAssayExperiment] object with 3 separate SE objects. The first SE object 
+#'   contains 5 samples and covers 1000 features (Entrez gene IDs). The second SE object contains 9 samples with 
+#'   2500 features. The third SE object contains 6 samples with 1300 features.
 #' @source This is an artificial dataset designed to resemble real data.
 "multi_assay_experiment"
