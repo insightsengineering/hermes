@@ -17,6 +17,7 @@ reference:
       - HermesDataCor
       - HermesDataPca
       - HermesDataTopGenes
+      - HermesDataSummary
   - title: Constructors
     contents:
       - HermesData
@@ -50,6 +51,7 @@ reference:
       - filter
       - subset
       - normalize
+      - summary
   - title: Functions
     contents:
       - add_quality_flags
