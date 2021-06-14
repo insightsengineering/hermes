@@ -1,0 +1,181 @@
+---
+title: "Design: summary method"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+This vignette explores the design of the summary method for HermesData objects.
+
+## Idea
+
+The user would like to get some high level summary statistics for a given HermesData object.
+
+## Inspiration sources
+
+### Default summary method
+
+By default we get the following summary:
+
+```{r}
+object <- HermesData(summarized_experiment)
+summary(object)
+```
+
+### DESeq2
+
+Let's see what the `DESeq2` package provides.
+
+```{r}
+library(DESeq2)
+countData <- matrix(1:100,ncol=4)
+condition <- factor(c("A","A","B","B"))
+dds <- DESeqDataSetFromMatrix(countData, DataFrame(condition), ~ condition)
+class(dds)
+summary(dds)
+```
+So nothing in addition.
+
+### Vector
+
+Both of these actually just inherit through `SummarizedExperiment` from `S4Vectors::Vector` with the corresponding method:
+
+```{r}
+getMethod("summary", "Vector")
+S4Vectors:::.Vector_summary
+```
+
+## Ideas
+
+### Specialized text
+
+As a minimum we could specialize a bit the text of the summary but otherwise keep it similar like the above.
+
+```{r}
+.summary1 <- function (object) 
+{
+    n_genes <- nrow(object)
+    n_samples <- ncol(object)
+    n_feature_cols <- ncol(rowData(object))
+    n_sample_cols <- ncol(colData(object))
+    
+    paste(
+      classNameForDisplay(object), "object with", 
+      n_samples, "samples of", n_genes, "genes, described by",
+      n_feature_cols, "feature data columns and", n_sample_cols, "sample data columns."
+    )
+}
+
+.summary1(object)
+
+rhd <- HermesData(as(summarized_experiment, "RangedSummarizedExperiment"))
+.summary1(rhd)
+```
+
+### Add more information
+
+We can add more information. Now for that, it is better that we proceed in steps.
+1. have a summary method that creates a HermesDataSummary object
+1. have a show method for HermesDataSummary that produces the console output
+
+That way we separate the extraction / calculation of information from printing, 
+and the user could also access summary information directly.
+
+```{r}
+.HermesDataSummary <- setClass(
+  Class = "HermesDataSummary",
+  slots = c(
+    class_name = "character",
+    n_genes = "integer",
+    n_samples = "integer",
+    additional_feature_cols = "character",
+    additional_sample_cols = "character",
+    no_qc_flags_filled = "logical",
+    genes_fail = "character",
+    samples_fail = "character",
+    lib_sizes = "numeric",
+    assay_names = "character"
+  )
+)
+
+.summary2 <- function(object) 
+{
+  rd <- rowData(object)
+  additional_feature_cols <- setdiff(
+    names(rd),
+    union(.row_data_non_empty_cols, .row_data_additional_cols)
+  )
+  genes_fail <- rownames(object)[which(rd$LowExpressionFlag)]
+  cd <- colData(object)
+  additional_sample_cols <- setdiff(
+    names(cd),
+    union(.col_data_non_empty_cols, .col_data_additional_cols)
+  )
+  samples_fail <- colnames(object)[which(cd$TechnicalFailureFlag | cd$LowDepthFlag)]
+  no_qc_flags_filled <- is.null(metadata(object)$control_quality) &&
+    all_na(rd$LowExpressionFlag) &&
+    all_na(cd$TechnicalFailureFlag) &&
+    all_na(cd$LowDepthFlag)
+  .HermesDataSummary(
+    class_name = classNameForDisplay(object),
+    n_genes = nrow(object),
+    n_samples = ncol(object),
+    additional_feature_cols = additional_feature_cols,
+    additional_sample_cols = additional_sample_cols,
+    no_qc_flags_filled = no_qc_flags_filled,
+    genes_fail = genes_fail,
+    samples_fail = samples_fail,
+    lib_sizes = colSums(counts(object)),
+    assay_names = assayNames(object)
+  )
+}
+
+.summary2(object)
+```
+
+We can define this as the summary method:
+
+```{r}
+setMethod(
+  f = "summary",
+  signature = c(object = "AnyHermesData"),
+  definition = .summary2
+)
+```
+
+Therefore we can use it:
+
+```{r}
+summary(object)
+```
+
+Now we can write the show method:
+
+```{r}
+setMethod(
+  f = "show",
+  signature = c(object = "HermesDataSummary"),
+  definition = function(object) {
+    cat(
+      object@class_name, "object with", 
+      object@n_samples, "samples of", object@n_genes, "genes."
+    )
+    # etc. - more here to come during production. 
+  }
+)
+```
+
+So we can use it - implicitly or explicitly:
+
+```{r}
+summary(object)
+res <- summary(object)
+res
+str(res)
+```
+
