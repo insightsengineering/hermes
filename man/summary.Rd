@@ -4,6 +4,7 @@
 \name{HermesDataSummary-class}
 \alias{HermesDataSummary-class}
 \alias{.HermesDataSummary}
+\alias{summary}
 \alias{HermesDataSummary}
 \alias{summary,AnyHermesData-method}
 \alias{show,HermesDataSummary-method}

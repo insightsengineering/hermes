@@ -206,7 +206,7 @@ setMethod(
 # summary ----
 
 #' @rdname summary
-#' @aliases HermesDataSummary
+#' @aliases summary HermesDataSummary
 #' @exportClass HermesDataSummary
 .HermesDataSummary <- setClass(
   Class = "HermesDataSummary",
