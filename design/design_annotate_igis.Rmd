@@ -1,0 +1,257 @@
+---
+title: "Design: Annotation of genes via IGIS"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+  
+## Objective
+
+We would like to be able to use existing R APIs for annotating genes based on gene IDs as the starting point. Thereby we can keep up to date with new Ensembl versions that are published and are flexible whether IGIS (gRED) or GI-HDAP (pRED) is used.
+
+For gRED molecules, the canonical source for Ensembl (Entrez for legacy) annotations is IGIS. Therefore we want to be able to fetch the required feature data columns for the genes based on the IDs from IGIS. 
+
+Fortunately, the nice R-package `igis` is available. 
+
+## Workflow
+
+1. Establish a connection to data base
+  - provide a wrapper that loads the right IGIS version based on the gene IDs.
+  - e.g. `connection <- connect(prefix = prefix(object), db = "igis")` where `object` is a `HermesData` object and `db` identifies the data base to use.
+  - `prefix()` is a new generic function/method to access slot of same name in HermesData object: it is either "ENSG" or "GeneID" and filled at creation.
+  - In the future we might have other data bases, such as the pRED one, to connect to.
+  - then `connection` result has a class: here `Igis`
+  - internally that calls `igis::Igis` where we use "human" species and the version is determined
+    by the gene IDs format found in `object`.
+2. Then annotate the HermesData object
+  - e.g. define an `annotation` method: this can have a getter function, where we just give back
+    the relevant data frame columns from `rowData(object)`.
+  - and then the replacement method can be used like:
+    `annotation(object) <- query(genes = genes(object), connection)`
+  - `genes()` is a new method for generic defined in package `GenomicFeatures` to access gene names in object
+  - So here we need a new generic function `query` and a method for `character`, `Igis` signature.
+
+## Prototypes
+
+### Additional prefix slot and getter method
+
+Just for illustration we create a new class here, but it would be the same for `HermesData` and `RangedHermesData`: just an additional slot `prefix`.
+
+```{r}
+# this will be folded into both HermesData and RangedHermesData class definitions:
+.HD <- setClass(
+  Class = "HD", 
+  contains = "HermesData",
+  slots = c(prefix = "character")
+)
+
+# this will be like this:
+setGeneric("prefix", def = function(object, ...) {
+  object@prefix
+})
+
+# the constructor then also fills the prefix slot - this will later be folded into HermesData()
+# constructor:
+HD <- function(object) {
+  start <- HermesData(object)
+  gene_ids <- rownames(object)
+  prefix <- if (all(grepl("^ENSG", gene_ids))) {
+    "ENSG"
+  } else if (all(grepl("^GeneID", gene_ids))) {
+    "GeneID"
+  } else {
+    stop("hermes currently only supports EnsemblID or EntrezID as gene IDs")
+  }
+  .HD(
+    start,
+    prefix = prefix
+  )
+}
+```
+
+### Example
+
+So now our typical example is:
+
+```{r}
+object <- HD(summarized_experiment)
+prefix(object)
+```
+
+
+### genes getter method
+
+Actually this is just a synonym for `rownames()` really.
+In order to ensure that, we need to add another validation check for HermesData objects:
+we require that its rownames equal the GeneID column in rowData.
+
+```{r}
+library(igis)
+
+#' @importFrom GenomicFeatures genes 
+setMethod(
+  f = "genes",
+  signature = c(x = "AnyHermesData"),
+  definition = function(x, ...) {
+    rownames(x)
+  }
+)
+
+# later assert this via validation method:
+identical(rownames(object), rowData(object)$GeneID)
+
+# then we can safely use this:
+head(genes(object))
+```
+
+### Connection function
+
+As mentioned above, this can later be extended easily to other `db` options.
+
+```{r}
+connect <- function(prefix = c("ENSG", "GeneID"), db = "igis") {
+  prefix <- match.arg(prefix)
+  db <- match.arg(db)
+  if (db == "igis") {
+    version <- switch(
+      prefix,
+      ENSG = "4.0",
+      GeneID = "3.0"
+    )
+    igis::Igis(species = "human", version = version)
+  }
+}
+
+connection <- connect(prefix(object))
+class(connection)
+```
+
+### annotation method
+
+This gives back the relevant data frame columns from `rowData(object)`.
+
+```{r}
+# Define a package constant:
+.row_data_annotation_cols <- c(
+  "HGNC",
+  "HGNCGeneName",
+  "GeneID",
+  "Chromosome",
+  "StartBP",
+  "EndBP",
+  "WidthBP",
+  "CanonicalTranscript",
+  "ProteinTranscript"
+)
+
+#' @importFrom BiocGenerics annotation
+setMethod(
+  f = "annotation",
+  signature = c(object = "AnyHermesData"),
+  definition = function(object, ...) {
+    rowData(object)[, .row_data_annotation_cols]
+  }
+)
+
+head(annotation(object))
+```
+
+### query method
+
+Now we are ready to query from Igis e.g. - again we define this as a generic function so that it
+can be easily extended once we need other connections.
+
+```{r}
+setGeneric("query", def = function(genes, connection) {})
+
+setMethod(
+  f = "query",
+  signature = c(genes = "character", connection = "Igis"),
+  definition = function(genes, connection) {
+    trans <- igis::transcriptsByGeneId(
+      geneIds = genes, 
+      canonical = TRUE, 
+      igis = connection
+    )
+    df <- cbind(
+      setNames(
+        mcols(trans),
+        c(
+          "HGNC", 
+          "GeneID", 
+          "CanonicalTranscript", 
+          "HGNCGeneName", 
+          "ProteinTranscript"
+        )
+      ),
+      Chromosome = as.vector(seqnames(trans)),
+      StartBP = start(trans),
+      EndBP = end(trans),
+      WidthBP = width(trans)
+    )
+    rownames(df) <- genes
+    df[, .row_data_annotation_cols]
+  }
+)
+```
+
+Let's try this out:
+
+```{r}
+new_annotations <- query(genes(object), connection)
+head(new_annotations)
+```
+
+Note: If there is too much time delay between the connection creation and the query, then the error:
+````
+could not run statement: MySQL server has gone away 
+````
+can be thrown. In that case just create a new connection again.
+
+### Annotation replacement method
+
+This basically just uses the data frame replacement method: That part of the `rowData` which is the
+annotation gets replaced with the provided data frame.
+
+```{r}
+setReplaceMethod(
+  f = "annotation",
+  signature = c(object = "AnyHermesData", value = "DataFrame"),
+  function(object, value) {
+    # In production add here more checks/assertions if needed (e.g. test
+    # whether wrong things could be inserted here into rowData) - 
+    # do we need to align the row names etc.
+    # and then finally insert:
+    rowData(object)[, .row_data_annotation_cols] <- value[, .row_data_annotation_cols]
+    object
+  }
+)
+```
+
+Let's try:
+
+```{r}
+# first remove some info
+rowData(object)[, "CanonicalTranscript"] <- ""
+
+# then fill in
+annotation(object) <- new_annotations
+
+head(annotation(object))
+```
+
+But the class of object is still:
+
+```{r}
+class(object)
+rd <- rowData(object)
+head(rd)
+head(annotation(object))
+```
+
+
