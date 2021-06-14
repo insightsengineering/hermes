@@ -29,10 +29,19 @@ params:
     label: "min_corr (`proportion`) minimum Pearson correlation coefficient of CPM between samples for technical failure flagging."
     value: 0.5
     input: numeric
-#  min_depth:
-#    label: "min_depth (non-negative `count` or `NULL`)\cr minimum library depth for low depth flagging. If `NULL`, this will be calculated as the first quartile minus 1.5 times the inter-quartile range of the library size (depth) of all samples. (So anything below the usual lower boxplot whisker would be too low.)"
-#    value: NULL
-#    input: numeric
+  min_depth:
+    label: "min_depth (non-negative `count` or `NULL`) minimum library depth for low depth flagging. If `NULL`, this will be calculated as the first quartile minus 1.5 times the inter-quartile range of the library size (depth) of all samples. (So anything below the usual lower boxplot whisker would be too low.)"
+    value: NULL
+    input: numeric
+  top_gene_n_top: 
+    label: "Top expressed genes"
+    value: NULL # default 10L by specifing NULL, alternatively 5 [if top_gene_n_top not NULL, top_gene_min_threshold must be NULL]
+    input: numeric
+  top_gene_min_threshold:
+    label: "Minimum expression level threshold"
+    value: 50000 # default specifing NULL, alternatively 5 [if top_gene_min_threshold not NULL, top_gene_n_top must be NULL]
+    input: numeric
+    
 title: "`r params$title`"
 author: '`r params$author`'
 date: '`r format(Sys.time(), "%d %B %Y")`'
@@ -88,9 +97,9 @@ library(hermes)
 obj_name <- load(params$input_data_object)
 se <- get(obj_name)
 result <- HermesData(se)
-#, params$min_depth
-control <- control_quality(params$min_cpm, params$min_cpm_prop, params$min_corr)
+control <- control_quality(params$min_cpm, params$min_cpm_prop, params$min_corr, params$min_depth)
 result_qc <- add_quality_flags(result, control)
+#result_tg <- top_genes(result, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
 ```
 
 # Dataset Summary
@@ -128,9 +137,11 @@ draw_libsize_densities(result)
 
 This step is necessary to flag out genes with low expression. Genes with very low counts across all libraries provide little evidence for differential expression and they interfere with some of the statistical analyses conducted later in the pipeline. Therefore, these genes should be filtered out prior to the analysis. 
 
-There are many ways to filter out genes with lower counts. When there are n biological replicates in each group, we usually filter on a minimum counts per million threshold present in at least n samples. In this dataset, we choose to retain genes if they are expressed at a counts-per-million (CPM) above <b> `r params$min_cpm` </b>
+There are many ways to filter out genes with lower counts. When there are n biological replicates in each group, we usually filter on a minimum counts per million threshold present in at least n samples. In this dataset, we choose to retain genes if they are expressed at a counts-per-million (CPM) above <b> `r params$min_cpm` </b> in at least in <b> `r (params$min_cpm_prop)*100`% </b> of the samples. These thresholds can be modified.
 
-<b>`r h_low_expression_flag(result)`</b>
+Total number of genes before filtering: `r nrow(result)`
+Total number of genes after filtering: 
+Rate of passing:
 
 ## Boxplot of Non-zero Genes
 
@@ -149,44 +160,35 @@ draw_genes_barplot(result)
 ```
 
 ## Genes with extremely high counts
-# missing not in graph.R
+
+This bar plot shows the shows the expression counts (y axis) for each of the <b> ` r nrow(result_tg)` </b> top genes (x-axis) with.
+
 ```{r}
-
-# For reference rnaseqTool results
-# in Hermes draw_top_barplot
-#gSE <- eset2gSE(example_ExpressionSet)
-#draw_top_gene(gSE = gSE.postqc,
- #             subset = Chromosome %in% as.character(c(1:22)),
-  #            FUN = function(x) {sqrt(rowVars(x))}, 
-   #           par_opts = list(main = "Top 10 most variable autosome genes", 
-    #                          xlab = "HGNC gene names", 
-     #                         ylab = "CPM Standard Deviation", 
-      #                        cex.names = 0.5))
+#autoplot(result_tg, y_lab = "Maximum Count", title = "Top genes")
 ```
-
 
 ## Genes with highest variability
 # missing not in graph.R
 ```{r}
-draw_top_gene(gSE = gSE.postqc,
-              subset = Chromosome %in% as.character(c(1:22)),
-              FUN = function(x) {sqrt(rowVars(x))}, 
-              par_opts = list(main = "Top 10 most variable autosome genes", 
-                              xlab = "HGNC gene names", 
-                              ylab = "CPM Standard Deviation", 
-                              cex.names = 0.5))
+# draw_top_gene(gSE = gse.postqc,
+#              subset = Chromosome %in% as.character(c(1:22)),
+#              FUN = function(x) {sqrt(rowVars(x))}, 
+#              par_opts = list(main = "Top 10 most variable autosome genes", 
+#                              xlab = "HGNC gene names", 
+#                              ylab = "CPM Standard Deviation", 
+#                              cex.names = 0.5))
 ```
 
 
 
-```{r}
+```{r, echo=FALSE}
 
 # For reference rnaseqTool results
 #gSE <- eset2gSE(example_ExpressionSet)
-#gse.qc <- gQCproc(gSE)
-#gse.postqc <- subset(gse.qc, LowExpressionFlag == 0, LowDepthFlag == 0 & TechnicalFailureFlag == 0)
+#gse.qc <- gQCproc(gSE) 
+#gse.postqc <- subset(gse.qc, LowExpressionFlag == 0, LowDepthFlag == 0 & TechnicalFailureFlag == 0) # dropping low expression genes, samples with low depth or technical failure 
 #getmeta(rowData(gse.postqc), "threshold.cpm")
-#draw_top_gene(gSE = gSE.postqc)
+
 ```
 
 # Sample filtering
