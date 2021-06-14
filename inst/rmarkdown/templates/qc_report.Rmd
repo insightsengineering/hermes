@@ -2,12 +2,12 @@
 params:
   
   title:
-    label: "Title of the report"
-    value: "QC Report"
+    label: "Title of the report [Customize title name as desired]"
+    value: "RNASeq QC Report"
     input: text
   author: 
     label: "Author(s) of the report: <NAME> (Team/Department i.e. PDD DSX)"
-    value: "PDD - Data Science Acceleration (DSX)"
+    value: "Martha Mailman (PDD - Data Science Acceleration (DSX))"
     input: text
   input_data_object:
     label: "[REQUIRED] data object input."
@@ -34,14 +34,21 @@ params:
     value: NULL
     input: numeric
   top_gene_n_top: 
-    label: "Top expressed genes"
-    value: NULL # default 10L by specifing NULL, alternatively 5 [if top_gene_n_top not NULL, top_gene_min_threshold must be NULL]
+    label: "Filter for top expressed genes"
+    value: 10 # default 10L by specifing NULL, alternatively 5 [if top_gene_n_top not NULL, top_gene_min_threshold must be NULL]
     input: numeric
   top_gene_min_threshold:
-    label: "Minimum expression level threshold"
-    value: 50000 # default specifing NULL, alternatively 5 [if top_gene_min_threshold not NULL, top_gene_n_top must be NULL]
+    label: "Filter for minimum expression level threshold"
+    value: NULL # default specifing NULL, alternatively 50000 [if top_gene_min_threshold not NULL, top_gene_n_top must be NULL]
     input: numeric
-    
+  assay_name:
+    label: "Indicating the name of the assay of interest, with possible options: counts, cpm, tpm, rpkm, voom."
+    value: "counts"
+    input: text
+  cor_method:
+    label: "Specifies the correlation method, see [stats::cor()] for details."
+    value: "pearson"
+    input: text
 title: "`r params$title`"
 author: '`r params$author`'
 date: '`r format(Sys.time(), "%d %B %Y")`'
@@ -94,21 +101,26 @@ library(hermes)
 
 ```{r}
 # Load Data and get object HermesData 
+# Section 1 - Pre Gene Filtering
 obj_name <- load(params$input_data_object)
 se <- get(obj_name)
 result <- HermesData(se)
+
+# Section 2 - Post Gene Filtering & Normalization
 control <- control_quality(params$min_cpm, params$min_cpm_prop, params$min_corr, params$min_depth)
-result_qc <- add_quality_flags(result, control)
-#result_tg <- top_genes(result, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
+result_fil <- HermesData(se) %>%
+  add_quality_flags(control) %>%
+  filter(h_low_expression_flag==0, h_low_depth_flag==0, h_tech_failure_flag==0) %>%
+  normalize()
 ```
 
 # Dataset Summary
 
 The data set was composed of `r ncol(result)` samples and `r nrow(result)` genes. 
 
-# Technical Metrics
+## Technical Metrics {.tabset}
 
-## Histogram of Library Sizes
+### Histogram of Library Sizes 
 
 First, we check how the distribution of library sizes looks like across all samples. The median library size is <b>`r sprintf("%0.3G", median(colSums(counts(result))))`</b>. 
 According to [Standards, Guidelines and Best Practices for RNA-Seq (The ENCODE Consortium)](https://www.encodeproject.org/documents/cede0cbe-d324-4ce7-ace4-f0c3eddf5972/@@download/attachment/ENCODE%20Best%20Practices%20for%20RNA_v2.pdf "ENCODE Project Homepage"), the sequencing depth/library size is usually determined by the goals of the experiment and the nature of the RNA sample. The minimum library size required is around 20-30 million aligned reads. 
@@ -117,7 +129,7 @@ According to [Standards, Guidelines and Best Practices for RNA-Seq (The ENCODE C
 draw_libsize_hist(result)
 ```
 
-## Q-Q Plot of Library Sizes
+### Q-Q Plot of Library Sizes {.tabset}
 
 The distribution of library sizes is then compared to the normal distribution. The linearity of the points will suggest if the distribution of library sizes is normally distributed.
 
@@ -125,31 +137,25 @@ The distribution of library sizes is then compared to the normal distribution. T
 draw_libsize_qq(result)
 ```
 
-## Density Plot of (Log) Counts Distributions
+### Density Plot of (Log) Counts Distributions {.tabset}
 
 In this plot, each line represents density of expression of all the genes within one sample. Lines that deviate from the majority may suggest inconsistent read depth or technical failure of the samples. The peaks in log2 (count) distribution indicate the log2(count) value at which the majority of genes are expressed. 
 
 ```{r genes_density_libdepth, results = "asis"}
 draw_libsize_densities(result)
 ```
+## {-}
 
-# Gene filtering
+
+# Gene filtering {.tabset}
 
 This step is necessary to flag out genes with low expression. Genes with very low counts across all libraries provide little evidence for differential expression and they interfere with some of the statistical analyses conducted later in the pipeline. Therefore, these genes should be filtered out prior to the analysis. 
 
 There are many ways to filter out genes with lower counts. When there are n biological replicates in each group, we usually filter on a minimum counts per million threshold present in at least n samples. In this dataset, we choose to retain genes if they are expressed at a counts-per-million (CPM) above <b> `r params$min_cpm` </b> in at least in <b> `r (params$min_cpm_prop)*100`% </b> of the samples. These thresholds can be modified.
 
-Total number of genes before filtering: `r nrow(result)`
-Total number of genes after filtering: 
-Rate of passing:
-
-## Boxplot of Non-zero Genes
-
-This boxplot shows overlaid data points, of the number of non-zero expressed genes per sample.
-
-```{r}
-draw_nonzero_boxplot(result)
-```
+Total number of genes before filtering: `r nrow(result)` <br />
+Total number of genes after filtering:  `r nrow(result_fil)` <br />
+Rate of passing: `r round((100/nrow(result))*nrow(result_fil),1)` <br>
 
 ## Stacked Barplot of Low Expression Genes by Chromosome
 
@@ -160,24 +166,65 @@ draw_genes_barplot(result)
 ```
 
 ## Genes with extremely high counts
-
-This bar plot shows the shows the expression counts (y axis) for each of the <b> ` r nrow(result_tg)` </b> top genes (x-axis) with.
-
 ```{r}
-#autoplot(result_tg, y_lab = "Maximum Count", title = "Top genes")
+result_tg <- top_genes(result, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
 ```
 
-## Genes with highest variability
-# missing not in graph.R
+This bar plot shows the shows the expression counts (y axis) for each of the <b> `r nrow(result_tg)` </b> top genes (x-axis) with.
+
 ```{r}
-# draw_top_gene(gSE = gse.postqc,
-#              subset = Chromosome %in% as.character(c(1:22)),
-#              FUN = function(x) {sqrt(rowVars(x))}, 
-#              par_opts = list(main = "Top 10 most variable autosome genes", 
-#                              xlab = "HGNC gene names", 
-#                              ylab = "CPM Standard Deviation", 
-#                              cex.names = 0.5))
+autoplot(result_tg, y_lab = "Maximum Count", title = "Top genes")
 ```
+
+## Genes with high variability
+
+This bar plot shows the shows the expression standard deviation (y axis) for each of the <b> `r nrow(result_tg)` </b> top genes (x-axis) with.
+
+```{r}
+result_sds <- top_genes(result, summary_fun = rowSds, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
+autoplot(result_sds, y_lab = "Standard Deviation across samples", title = "Top variability genes")
+```
+{-}
+
+# Sample filtering {.tabset}
+
+This step is necessary to flag out samples with low depth or technical failure. There are three approaches:   
+
+## Technical failure
+
+Human usually has similar RNAseq profile; therefore, correlation of RNAseq among patients should be high. If a patient's absolute correlation score is lower than a threshold (default = 0.5, <b>`r params$min_corr` </b> used in this report), it is likely that the sample preparation went wrong.
+
+## Low depth samples 
+
+Identified by lower quartile minus 1.5*IQR (default) or user-defined threshold: <b> `r params$top_gene_min_threshold` </b> 
+
+## Boxplot of Non-zero Genes
+
+In this plot, each data point represents the number of non-zero expressed genes in a sample. Samples with a lower number non-zero count genes may be also of interest. 
+
+```{r}
+draw_nonzero_boxplot(result) 
+```
+
+## Principal Components Analysis
+
+Perform principal components analysis of the gene count vectors across all samples. PCA should be performed after filtering out low quality genes and samples and normalization. In addition, genes with constant counts across all samples are excluded from the analysis internally. Centering and scaling is applied internally. In this analysis the `r params$assay_name` assay was used.
+
+```{r}
+result_pca <- calc_pca(result, assay_name = params$assay_name)
+autoplot(result_pca, label = TRUE)
+```
+
+## Correlation between Samples of HermesData
+
+Correlation matrix between the sample vectors of counts from a specified assay, containing quality flags (`TechnicalFailureFlag`, `LowDepthFlag`) describing the original input samples.
+
+```{r}
+result_cor <- calc_cor(result, method = params$cor_method) 
+autoplot(result_cor)
+```
+{-}
+
 
 
 
@@ -190,21 +237,6 @@ This bar plot shows the shows the expression counts (y axis) for each of the <b>
 #getmeta(rowData(gse.postqc), "threshold.cpm")
 
 ```
-
-# Sample filtering
-
-This step is necessary to flag out samples with low depth or technical failure. There are three approaches:   
-
-
-
-
-
-
-3. Boxplots of non-zero count genes in each sample  
-    In this plot, each data point represents the number of non-zero genes in a sample. Samples with a lower number non-zero count genes may be also of interest. 
-    
-
-
 
 <!-- ---------------------------------------------------------------------- -->
 <!-- Prints the parameters and session information                          -->
