@@ -28,5 +28,4 @@
 #' 
 #' @format A [MultiAssayExperiment::MultiAssayExperiment] object with .
 #' @source This is an artificial dataset designed to resemble real data.
-#' @seealso summarized_experiment which contains similar data as [SummarizedExperiment::SummarizedExperiment].
 "multi_assay_experiment"
