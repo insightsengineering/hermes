@@ -132,6 +132,7 @@ test_that("filter shows readable error message when there are NA in flag variabl
 })
 
 # summary ----
+
 test_that("summary works as expected for HermesData", {
   object <- HermesData(summarized_experiment)
   cd <- as.data.frame(colData(object))
@@ -158,4 +159,33 @@ test_that("summary works as expected for RangedHermesData", {
   expect_identical(result@n_samples, ncol(object))
   expect_identical(length(result@genes_fail), sum(rd$LowExpressionFlag))
   expect_identical(length(result@samples_fail), sum(cd$TechnicalFailureFlag, cd$LowDepthFlag))
+})
+
+# show-summary ----
+
+test_that("show for summary works as expected for HermesData with quality flags", {
+  object <- summary(HermesData(summarized_experiment))
+  result <- capture_output(show(object))
+  expect_match(
+    result, 
+    "^HermesData object with 20 samples of 5085 genes.\n- Library sizes"
+  )
+  expect_match(
+    result, 
+    "Samples with too low depth or technical failures (2)",
+    fixed = TRUE
+  )
+})
+
+test_that("show for summary also works without quality flags", {
+  se <- get_se()
+  rowData(se)$LowExpressionFlag <- NA
+  colData(se)$LowDepthFlag <- NA
+  colData(se)$TechnicalFailureFlag <- NA
+  object <- summary(HermesData(se))
+  result <- capture_output(show(object))
+  expect_match(
+    result, 
+    "- QC flags still need to be added"
+  )
 })
