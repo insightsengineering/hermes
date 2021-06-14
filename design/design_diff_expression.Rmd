@@ -50,15 +50,40 @@ object <- HermesData(summarized_experiment) %>%
 
 ### Class
 
+We require that the `HermesDataDiffExpr` has columns:
+- `log2_fc`: estimate of the log2 fold change between the 2 levels of the provided factor
+- `stat`: test statistic (depends on the method used)
+- `p_val`: raw p-value
+- `adj_p_val`: adjusted p-value
+
 ```{r}
 .HermesDataDiffExpr <- setClass(
   Class = "HermesDataDiffExpr",
   contains = "data.frame"
 )
+
+.diff_expr_cols <- c(
+  "log2_fc",
+  "stat",
+  "p_val",
+  "adj_p_val"
+)
+  
+S4Vectors::setValidity2(
+  Class = "HermesDataDiffExpr",
+  method = function(object) {
+    msg <- validate_cols(
+      required = .diff_expr_cols,
+      actual = colnames(object)
+    )
+    if (is.null(msg)) TRUE else msg
+  }
+)
 ```
 
-
 ### `diff_expression()`
+
+We use here new getter functions for QC flags.
 
 ```{r}
 diff_expression <- function(object,
@@ -66,75 +91,131 @@ diff_expression <- function(object,
                             method = c("limma_voom", "deseq2")) {
   assert_that(
     is_hermes_data(object),
-    is.string(group)
-  )
-  df <- as.data.frame(colData(object))
-  assert_that(
-    tern::is_df_with_nlevels_factor(df = df, variable = group, n_levels = 2L)
+    is.string(group),
+    tern::is_df_with_nlevels_factor(
+      df = as.data.frame(colData(object)), 
+      variable = group, 
+      n_levels = 2L
+    )
   )
   method <- match.arg(method, c("limma_voom", "deseq2"))
   
-  qc_flag <- c(
-    rowData(object)$LowExpressionFlag,
-    object$LowDepthFlag,
-    object$TechnicalFailureFlag
+  if (anyNA(get_tech_failure(object))) {
+    warning("NAs in technical failure flags, please make sure to use `add_quality_flags()` beforehand")
+  }
+  if (anyNA(get_low_depth(object))) {
+    warning("NAs in low depth flags, please make sure to use `add_quality_flags()` beforehand")
+  }
+  if (anyNA(get_low_expression(object))) {
+    warning("NAs in low expression flags, please make sure to use `add_quality_flags()` beforehand")
+  }
+  form <- as.formula(paste("~", group))
+  design <- model.matrix(form, data = colData(object))  
+  result <- switch(
+    method,
+    "limma_voom" = h_diff_expr_limma(object, design),
+    "deseq2" = h_diff_expr_deseq2(object, design)
   )
-  
-  # QC flag should not have NA. If there is any NA or any flag = TRUE, show warnning message)
-  if (anyNA(qc_flag) || any(qc_flag)) {
-    warning("please ensure that you add QC flags and filter based on them before DE analysis")
-  }
-  
-  group_var <- colData(object)[[group]]
-  obj_count <- counts(object)
-
-  result <- if(method == "limma_voom") {
-    h_diff_expr_limma(obj_count, group_var)
-  } else {
-    h_diff_expr_deseq2(obj_count, group_var)
-  }
   .HermesDataDiffExpr(result)
 }
 ```
 
+Note that we mainly do checks in this function and produce the model matrix.
+
 ### Analysis using limma package
 
 ```{r}
-h_diff_expr_limma <- function(obj_count, group_var) {
-  
-  obj_count_voom <- limma::voom(obj_count)
-  design <- model.matrix(~ group_var)  
+library(limma)
+
+h_diff_expr_limma <- function(object, design) {
+  assert_that(
+    is_hermes_data(object),
+    is.matrix(design)
+  )
+  obj_count_voom <- limma::voom(counts(object))
   fit <- limma::lmFit(obj_count_voom, design)
   eb <- limma::eBayes(fit)
-  limma::topTable(eb, coef = 2, n = nrow(obj_count_voom), sort.by="p" ) ## use adj p-value to sort
+  top_tab <- limma::topTable(
+    eb, 
+    coef = 2L, 
+    n = nrow(obj_count_voom),  # Retain all genes.
+    sort.by = "p"  # Use adjusted p-value to sort.
+  ) 
+  with(
+    top_tab,
+    data.frame(
+      log2_fc = logFC,
+      stat = t,
+      p_val = P.Value,
+      adj_p_val = adj.P.Val,
+      row.names = rownames(top_tab)
+    )
+  )
 }
+```
 
+Let's try this out:
+
+```{r}
+design <- model.matrix(~ SEX, colData(object))
+res_limma <- h_diff_expr_limma(object, design)
+head(res_limma)
 ```
 
 
 ## Analysis using DESeq2 package
 
-try to obtain the same result structure - data frame with these columns above
+We try here to obtain the same result structure - data frame with these columns above.
  
 ```{r}
-h_diff_expr_deseq2 <- function(obj_count, group_var) {
-  
-  cond <- factor(group_var)
-  dds <- DESeqDataSetFromMatrix(obj_count, DataFrame(cond), ~ cond)
-  dds <- DESeq(dds)
-  dds_res <- data.frame(results(dds))
-  dds_res <- dds_res[order(dds_res$padj),] ## use adj p-value to sort
-  
-  ### rename log2FoldChange to logFC
-  ### rename pvalue to P.Value
-  ### rename padj to adj.P.Val
-  ### make the name consistent to limma_voom result
-  colnames(dds_res) <- c("baseMean", "logFC", "lfcSE", "stat", "P.Value", "adj.P.Val") 
-}
+library(DESeq2)
 
+h_diff_expr_deseq2 <- function(object, design) {
+  assert_that(
+    is_hermes_data(object),
+    is.matrix(design)
+  )
+  deseq_data <- DESeqDataSet(se = object, design = design)
+  deseq_data_processed <- DESeq(deseq_data, quiet = TRUE)
+  deseq_data_res <- results(deseq_data_processed) # Note: this has multiple options we might want to use.
+  deseq_data_res_df <- as.data.frame(deseq_data_res)
+  deseq_data_res_df <- deseq_data_res_df[order(deseq_data_res_df$padj), ]  # Use adj p-value to sort.
+  with(
+    deseq_data_res_df,
+    data.frame(
+      log2_fc = log2FoldChange,
+      stat = stat,
+      p_val = pvalue,
+      adj_p_val = padj,
+      row.names = rownames(deseq_data_res_df)
+    )
+  )
+}
+```
+
+Let's also try this out:
+
+```{r}
+design <- model.matrix(~ SEX, colData(object))
+res_deseq2 <- h_diff_expr_deseq2(object, design)
+head(res_deseq2)
+```
+
+Now we can try out the wrapper function too:
+
+```{r}
+colData(object)$SEX <- factor(colData(object)$SEX)
+res1 <- diff_expression(object, "SEX", method = "limma_voom")
+res2 <- diff_expression(object, "SEX", method = "deseq2")
+
+head(res1)
+head(res2)
 ```
 
 ## autoplot for vacano plot
+
+Now let's look at the volcano plot.
+
 ```{r}
 library(ggrepel)
 
@@ -146,22 +227,21 @@ setMethod(
                         logFC.threshold = 2.5) {
     
       object$difexpr <- "NO"
-      object$difexpr[object$logFC > abs(logFC.threshold) &
-                           object$adj.P.Val < adj.P.Val.threshold] <- "UP" 
-      object$difexpr[object$logFC < -abs(logFC.threshold) &
-                           object$adj.P.Val < adj.P.Val.threshold] <- "DOWN"
+      object$difexpr[object$log2_fc > abs(logFC.threshold) &
+                       object$adj_p_val < adj.P.Val.threshold] <- "UP" 
+      object$difexpr[object$log2_fc < -abs(logFC.threshold) &
+                       object$adj_p_val < adj.P.Val.threshold] <- "DOWN"
       
       object$label <- NA
       object$label[object$difexpr != "NO"] <- rownames(object)[object$difexpr != "NO"]
     
       ggplot(data=object, 
-             aes(x=logFC, 
-             y=-log10(adj.P.Val), 
+             aes(x=log2_fc, 
+             y=-log10(adj_p_val), 
              col=difexpr,
              label=label)
       ) +
       geom_point() + 
-      theme_minimal() + 
       geom_text_repel() +
       xlab("log2 fold change") + 
       ylab("-log10 adjusted p-value") +
@@ -170,3 +250,10 @@ setMethod(
   }
 )
 ```
+
+Let's try it out:
+
+```{r}
+autoplot(res1)
+```
+
