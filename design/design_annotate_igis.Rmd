@@ -245,4 +245,13 @@ annotation(object) <- new_annotations
 head(annotation(object))
 ```
 
+But the class of object is still:
+
+```{r}
+class(object)
+rd <- rowData(object)
+head(rd)
+head(annotation(object))
+```
+
 
