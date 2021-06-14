@@ -1,6 +1,6 @@
 set.seed(100)
 
-#Starting with the example SE object
+# Start with the example SE object.
 se <- summarized_experiment
 
 #Randomly fill the counts assay
@@ -57,8 +57,11 @@ assaylist <- list(se1 = se1, se2 = se2, se3 = se3)
 ExpList <- ExperimentList(assaylist)
 
 #Create a MultiAssayExperiment object
-mae <- MultiAssayExperiment(
+multi_assay_experiment <- MultiAssayExperiment(
   experiments = ExpList,
   colData = colDat,
   sampleMap = sampMap
 )
+
+# Save it in the package.
+usethis::use_data(multi_assay_experiment)
