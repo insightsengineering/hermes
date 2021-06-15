@@ -72,7 +72,7 @@ editor_options:
 # Developer
 
 # The name and version of this report template (printed in last section)
-templateName <- "RNAseq_qc_report"
+templateName <- params$template_name
 templateVersion <- "1.0.0"
 # Set TRUE to enable rmarkdown cache
 knitr::opts_chunk$set(cache = FALSE, cache.lazy = FALSE)
