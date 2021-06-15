@@ -20,6 +20,7 @@ Depends:
 Imports:
     assertthat,
     BiocGenerics,
+    DESeq2,
     edgeR,
     ggplot2,
     ggplot2.utils,
