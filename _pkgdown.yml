@@ -38,6 +38,7 @@ reference:
       - h_low_expression_flag
       - h_low_depth_flag
       - h_tech_failure_flag
+      - h_diff_expr_voom
   - title: Example Data
     contents:
       - expression_set
