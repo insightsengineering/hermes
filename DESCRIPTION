@@ -43,6 +43,7 @@ Collate:
     'normalization.R'
     'package.R'
     'pca.R'
+    'pca_cor_samplevar.R'
     'quality.R'
     'top_genes.R'
     'utils-pipe.R'

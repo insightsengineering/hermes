@@ -1,6 +1,22 @@
+#' @rdname calc_cor
+#' @aliases calc_cor  
+#' @aliases HermesDataCor
+#' @exportClass HermesDataCor 
+#' 
+.HermesDataCor <- setClass(
+  Class = "HermesDataCor",
+  contains = "matrix",
+  slots = c(flag_data = "DataFrame")
+)
+
+setGeneric("calc_cor",
+           function(object, assay_name = "counts", method = "pearson")
+           {standardGeneric("calc_cor")}
+)
+
 #' Correlation between Samples of HermesData
 #' 
-#' This calculates the correlation matrix between the sample vectors of counts from 
+#' @describeIn calc_cor This calculates the correlation matrix between the sample vectors of counts from 
 #' a specified assay, as a [HermesDataCor] object which is an extension of a [matrix] with
 #' additional quality flags in the slot `flag_data`: This contains the 
 #' `TechnicalFailureFlag` and `LowDepthFlag` columns describing the original input samples.
@@ -12,6 +28,7 @@
 #' @return A [HermesDataCor] object.
 #' 
 #' @importFrom stats cor
+#' 
 #' @export
 #' 
 #' @examples
@@ -19,30 +36,25 @@
 #' calc_cor(object)
 #' result <- calc_cor(object, method = "pearson")
 #'               
-calc_cor <- function(object,
-                     assay_name = "counts", 
-                     method = "pearson") {
-  assert_that(
-    is_hermes_data(object),
-    is.string(assay_name)
-  )
-  
-  chosen_assay <- assay(object, assay_name)
-  sample_cor_matrix <- stats::cor(chosen_assay, method = method)
-  
-  .HermesDataCor(
-    sample_cor_matrix,
-    flag_data = colData(object)[, c("TechnicalFailureFlag", "LowDepthFlag")]
-  )
-}
-
-#' @rdname calc_cor  
-#' @aliases HermesDataCor
-#' @exportClass HermesDataCor 
-.HermesDataCor <- setClass(
-  Class = "HermesDataCor",
-  contains = "matrix",
-  slots = c(flag_data = "DataFrame")
+setMethod(
+  f = "calc_cor",
+  signature = "AnyHermesData",
+  definition = function(object,
+                        assay_name = "counts", 
+                        method = "pearson") {
+    assert_that(
+      is_hermes_data(object),
+      is.string(assay_name)
+    )
+    
+    chosen_assay <- assay(object, assay_name)
+    sample_cor_matrix <- stats::cor(chosen_assay, method = method)
+    
+    .HermesDataCor(
+      sample_cor_matrix,
+      flag_data = colData(object)[, c("TechnicalFailureFlag", "LowDepthFlag")]
+    )
+  }
 )
 
 #' @describeIn calc_cor This plot method uses the [ComplexHeatmap::Heatmap()] function
