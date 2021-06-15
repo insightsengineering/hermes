@@ -50,8 +50,11 @@ draw_libsize_hist <- function(object,
 #' result <- HermesData(summarized_experiment)
 #' draw_libsize_qq(result)
 #' draw_libsize_qq(result, color = "blue", linetype = "solid")
-#'
-draw_libsize_qq <- function(object, 
+#' # We can also add sample name as label.
+#' draw_libsize_qq(result) + geom_text(label = colnames(result), stat = "qq")
+#' draw_libsize_qq(result, color = "blue", linetype = "solid") + geom_text(label = colnames(result), stat = "qq")
+#' 
+draw_libsize_qq <- function(object,
                             color = "grey",
                             linetype = "dashed") {
   assert_that(
