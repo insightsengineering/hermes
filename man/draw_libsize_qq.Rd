@@ -23,5 +23,7 @@ This creates a Q-Q plot of the library sizes of the \link{HermesData} object.
 result <- HermesData(summarized_experiment)
 draw_libsize_qq(result)
 draw_libsize_qq(result, color = "blue", linetype = "solid")
+# We can also add sample names as labels.
+draw_libsize_qq(result) + geom_text(label = colnames(result), stat = "qq")
 
 }
