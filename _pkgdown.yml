@@ -39,6 +39,7 @@ reference:
       - h_low_expression_flag
       - h_low_depth_flag
       - h_tech_failure_flag
+      - h_diff_expr_voom
       - h_pca_var_rsquared
       - h_pca_df_r2_matrix
   - title: Example Data
