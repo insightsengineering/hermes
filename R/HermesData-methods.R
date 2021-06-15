@@ -343,6 +343,13 @@ setMethod(
   }
 )
 
+# correlate ----
+
+#' @name correlate
+#' @title Generic Function for Correlation Calculations
+#' @seealso [pca_cor_samplevar] and [calc_cor] which are the methods included for this generic function.
+setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
+
 # autoplot ----
 
 setGeneric("autoplot")

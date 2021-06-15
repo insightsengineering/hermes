@@ -18,6 +18,7 @@ reference:
       - HermesDataPca
       - HermesDataTopGenes
       - HermesDataSummary
+      - HermesDataPcaCor
   - title: Constructors
     contents:
       - HermesData
@@ -39,10 +40,13 @@ reference:
       - h_low_depth_flag
       - h_tech_failure_flag
       - h_diff_expr_voom
+      - h_pca_var_rsquared
+      - h_pca_df_r2_matrix
   - title: Example Data
     contents:
       - expression_set
       - summarized_experiment
+      - multi_assay_experiment
   - title: Methods
     contents:
       - cbind
@@ -53,11 +57,13 @@ reference:
       - subset
       - normalize
       - summary
+      - correlate
+      - pca_cor_samplevar
+      - calc_cor
   - title: Functions
     contents:
       - add_quality_flags
       - calc_pca
-      - calc_cor
       - top_genes
       - get_quality_flags
       - set_tech_failure
@@ -79,3 +85,4 @@ reference:
       - is_counts_vector
       - is_hermes_data
       - is_list_with
+      - is_constant

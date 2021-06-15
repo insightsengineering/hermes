@@ -61,6 +61,8 @@ calc_pca <- function(object,
 
 setOldClass("prcomp")
 
+# HermesDataPca ----
+
 #' @rdname calc_pca
 #' @aliases HermesDataPca
 #' @exportClass HermesDataPca
