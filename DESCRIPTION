@@ -39,7 +39,7 @@ Collate:
     'HermesData-class.R'
     'HermesData-methods.R'
     'assertthat.R'
-    'cor.R'
+    'calc_cor.R'
     'data.R'
     'differential.R'
     'graphs.R'
