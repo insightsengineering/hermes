@@ -17,3 +17,21 @@ test_that("h_diff_expr_voom fails if design matrix is not correct", {
   design_diff_obs <- model.matrix(~ SEX, colData(object)[1:10, ])
   expect_error(h_diff_expr_voom(object, design_diff_obs))
 })
+
+# h_diff_expr_deseq2 ----
+
+test_that("h_diff_expr_deseq2 works as expected", {
+  object <- HermesData(summarized_experiment)
+  design <- model.matrix(~ SEX, colData(object))
+  result <- h_diff_expr_deseq2(object, design)
+  expect_is(result, "data.frame")
+  expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
+  expect_true(S4Vectors::isSorted(result$adj_p_val))
+  expect_setequal(rownames(object), rownames(result))
+})
+
+test_that("h_diff_expr_deseq2 fails if design matrix is not correct", {
+  object <- HermesData(summarized_experiment)
+  design_diff_obs <- model.matrix(~ SEX, colData(object)[1:10, ])
+  expect_error(h_diff_expr_deseq2(object, design_diff_obs))
+})

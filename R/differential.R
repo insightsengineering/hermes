@@ -51,3 +51,45 @@ h_diff_expr_voom <- function(object, design) {
     )
   )
 }
+
+#' DESeq2 Differential Expression Analysis
+#'
+#' This helper functions performs the differential expression analysis with
+#' [DESeq2::DESeq()] for a given [AnyHermesData] input and `design` matrix.
+#'
+#' @param object (`HermesData`)\cr input.
+#' @param design (`matrix`)\cr design matrix.
+#' @return A data frame with columns `log2_fc` (estimated log2 fold change),
+#'   `stat` (test statistic), `p_val` (raw p-value), `adj_p_pval` (adjusted p-value).
+#' 
+#' @importFrom DESeq2 DESeqDataSet DESeq results
+#' @export
+#' 
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' design <- model.matrix(~ SEX, colData(object))
+#' result <- h_diff_expr_deseq2(object, design)
+#' head(result)
+#' 
+h_diff_expr_deseq2 <- function(object, design) {
+  assert_that(
+    is_hermes_data(object),
+    is.matrix(design)
+  )
+  deseq_data <- DESeq2::DESeqDataSet(se = object, design = design)
+  deseq_data_processed <- DESeq2::DESeq(deseq_data, quiet = TRUE)
+  deseq_data_res <- DESeq2::results(deseq_data_processed)
+  deseq_data_res_df <- as.data.frame(deseq_data_res)
+  adj_pval_order <- order(deseq_data_res_df$padj)
+  deseq_data_res_df_sorted <- deseq_data_res_df[adj_pval_order, ]
+  with(
+    deseq_data_res_df_sorted,
+    data.frame(
+      log2_fc = log2FoldChange,
+      stat = stat,
+      p_val = pvalue,
+      adj_p_val = padj,
+      row.names = rownames(deseq_data_res_df_sorted)
+    )
+  )
+}
