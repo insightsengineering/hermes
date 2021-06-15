@@ -162,10 +162,10 @@ setGeneric("filter")
 
 #' Filter HermesData on Subset Passing Default QC Flags
 #'
-#' This is a short cut to subset a [AnyHermesData] object for the default QC flag, 
-#' i.e. only features without low expression (`LowExpressionFlag`) and without samples
+#' This filters a [AnyHermesData] object using the default QC flags. That is, 
+#' only genes without low expression (`LowExpressionFlag`) and samples
 #' without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
-#' remain in the returend subset.
+#' remain in the returned filtered object.
 #' 
 #' @rdname filter
 #' @aliases filter
@@ -173,7 +173,7 @@ setGeneric("filter")
 #' @param x (`AnyHermesData`)\cr object to filter.
 #'
 #' @return The filtered [AnyHermesData] object.
-#' @note Internal implementation cannot use the [subset()] method since that
+#' @note The internal implementation cannot use the [subset()] method since that
 #'   requires non-standard evaluation of arguments.
 #'  
 #' @export
@@ -188,9 +188,9 @@ setMethod(
   f = "filter",
   signature = signature(x = "AnyHermesData"),
   definition = function(x) {
-    low_exp <- rowData(x)$LowExpressionFlag
-    low_depth <- colData(x)$LowDepthFlag
-    tech_fail <- colData(x)$TechnicalFailureFlag
+    low_exp <- get_low_expression(x)
+    low_depth <- get_low_depth(x)
+    tech_fail <- get_tech_failure(x)
     assert_that(
       noNA(low_exp),
       noNA(low_depth),
@@ -342,3 +342,7 @@ setMethod(
     }
   }
 )
+
+# autoplot ----
+
+setGeneric("autoplot")
