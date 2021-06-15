@@ -13,7 +13,7 @@ h_diff_expr_deseq2(object, design)
 }
 \value{
 A data frame with columns \code{log2_fc} (estimated log2 fold change),
-\code{stat} (test statistic), \code{p_val} (raw p-value), \code{adj_p_pval} (adjusted p-value).
+\code{stat} (Wald statistic), \code{p_val} (raw p-value), \code{adj_p_pval} (Benjamini-Hochberg adjusted p-value).
 }
 \description{
 This helper functions performs the differential expression analysis with
@@ -25,4 +25,7 @@ design <- model.matrix(~ SEX, colData(object))
 result <- h_diff_expr_deseq2(object, design)
 head(result)
 
+}
+\references{
+\insertRef{DESeq2_package}{hermes}
 }

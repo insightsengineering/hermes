@@ -32,6 +32,8 @@ test_that("h_diff_expr_deseq2 works as expected", {
 
 test_that("h_diff_expr_deseq2 fails if design matrix is not correct", {
   object <- HermesData(summarized_experiment)
+  design_too_wide <- model.matrix(~ SEX + COUNTRY, colData(object))
+  expect_error(h_diff_expr_voom(object, design_too_wide))
   design_diff_obs <- model.matrix(~ SEX, colData(object)[1:10, ])
   expect_error(h_diff_expr_deseq2(object, design_diff_obs))
 })

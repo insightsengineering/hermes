@@ -60,10 +60,13 @@ h_diff_expr_voom <- function(object, design) {
 #' @param object (`HermesData`)\cr input.
 #' @param design (`matrix`)\cr design matrix.
 #' @return A data frame with columns `log2_fc` (estimated log2 fold change),
-#'   `stat` (test statistic), `p_val` (raw p-value), `adj_p_pval` (adjusted p-value).
+#'   `stat` (Wald statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg adjusted p-value).
 #' 
 #' @importFrom DESeq2 DESeqDataSet DESeq results
 #' @export
+#' 
+#' @references 
+#' \insertRef{DESeq2_package}{hermes}
 #' 
 #' @examples
 #' object <- HermesData(summarized_experiment)
@@ -74,7 +77,8 @@ h_diff_expr_voom <- function(object, design) {
 h_diff_expr_deseq2 <- function(object, design) {
   assert_that(
     is_hermes_data(object),
-    is.matrix(design)
+    is.matrix(design),
+    identical(dim(design), c(ncol(object), 2L))
   )
   deseq_data <- DESeq2::DESeqDataSet(se = object, design = design)
   deseq_data_processed <- DESeq2::DESeq(deseq_data, quiet = TRUE)
