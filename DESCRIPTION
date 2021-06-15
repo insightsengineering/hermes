@@ -12,6 +12,7 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+RdMacros: Rdpack
 Depends: 
     ggfortify,
     R (>= 3.6),
@@ -25,6 +26,7 @@ Imports:
     limma,
     magrittr,
     methods,
+    Rdpack,
     rlang,
     stats,
     S4Vectors,

@@ -1,110 +1,44 @@
-#' Functions for Differential Gene Expression Analysis
+#' Limma/Voom Differential Expression Analysis
 #'
-#' This creates a histogram of the library sizes of the [HermesDataDiffExpr] object.
+#' This helper functions performs the differential expression analysis with the `voom`
+#' method from the `limma` package (via [limma::voom()], [limma::lmFit()] and [limma::eBayes()])
+#' for given counts in a [AnyHermesData] object and a corresponding `design` matrix.
 #'
-#' @param object (`HermesData`)\cr input.
-#' @param group (`string`)\cr color of the bars filling.
-#' @param method (`string`)\cr we support limma-voom (limma_voom) and DESeq/DESeq2 (deseq2) tools.
-#' @return A `HermesDataDiffExpr` object.
+#' @param object (`AnyHermesData`)\cr input.
+#' @param design (`matrix`)\cr design matrix.
+#' @return A data frame with columns `log2_fc` (estimated log2 fold change),
+#'   `stat` (moderated t-statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg 
+#'   adjusted p-value).
 #' 
-#' @importFrom rlang .data 
+#' @importFrom limma voom lmFit eBayes topTable
 #' @export
-#' @examples
-#' object <- HermesData(summarized_experiment) %>% add_quality_flags() %>% filter()
-#' diff_expression(object, "SEX", method = "limma_voom")
-#' diff_expression(object, "SEX", method = "deseq2")
-#'
-diff_expression <- function(object,
-                            group,
-                            method = c("limma_voom", "deseq2")) {
+#' 
+#' @references 
+#' \insertRef{limma_package}{hermes}
+#' 
+#' \insertRef{voom_method}{hermes}
+#' 
+#' @examples 
+#' object <- HermesData(summarized_experiment)
+#' design <- model.matrix(~ SEX, colData(object))
+#' result <- h_diff_expr_voom(object, design)
+#' head(result)
+#' 
+h_diff_expr_voom <- function(object, design) {
   assert_that(
     is_hermes_data(object),
-    is.string(group)
-    #tern::is_df_with_nlevels_factor(
-    #  df = as.data.frame(colData(object)), 
-    #  variable = group, 
-    #  n_levels = 2L
-    #)
+    is.matrix(design),
+    identical(dim(design), c(ncol(object), 2L))
   )
-  method <- match.arg(method, c("limma_voom", "deseq2"))
-  
-  if (anyNA(get_tech_failure(object))) {
-    warning("NAs in technical failure flags, please make sure to use `add_quality_flags()` beforehand")
-  }
-  if (anyNA(get_low_depth(object))) {
-    warning("NAs in low depth flags, please make sure to use `add_quality_flags()` beforehand")
-  }
-  if (anyNA(get_low_expression(object))) {
-    warning("NAs in low expression flags, please make sure to use `add_quality_flags()` beforehand")
-  }
-  form <- as.formula(paste("~", group))
-  design <- model.matrix(form, data = colData(object))  
-  result <- switch(
-    method,
-    "limma_voom" = h_diff_expr_limma(object, design),
-    "deseq2" = h_diff_expr_deseq2(object, design)
-  )
-  invisible(.HermesDataDiffExpr(result))
-}
-
-
-
-#' @rdname diff_expression
-#' @exportClass HermesDataDiffExpr
-#' @importFrom S4Vectors setValidity2
-.HermesDataDiffExpr <- setClass(
-  Class = "HermesDataDiffExpr",
-  contains = "data.frame"
-)
-
-
-# HermesDataDiffExpr validity 
-
-S4Vectors::setValidity2(
-  Class = "HermesDataDiffExpr",
-  method = function(object) {
-    .diff_expr_cols <- c(
-      "log2_fc",
-      "stat",
-      "p_val",
-      "adj_p_val"
-    )
-    msg <- validate_cols(
-      required = .diff_expr_cols,
-      actual = colnames(object)
-    )
-    if (is.null(msg)) TRUE else msg
-  }
-)
-
-#' Helper function to use limma-voom method
-#'
-#' This creates a data frame with folder change and p-values for all genes  
-#'
-#' @param object (`HermesData`)\cr input.
-#' @param design (`matrix`)\cr design matrix to run limma-voom analysis.
-#' @return A data frame with limma-voom analysis results.
-#' 
-#' @importFrom rlang .data
-#' @importFrom limma voom
-#' @importFrom limma lmFit
-#' @importFrom limma eBayes
-#' @importFrom limma topTable
-#' @export
-#'
-h_diff_expr_limma <- function(object, design) {
-  assert_that(
-    is_hermes_data(object),
-    is.matrix(design)
-  )
-  obj_count_voom <- limma::voom(counts(object))
-  fit <- limma::lmFit(obj_count_voom, design)
-  eb <- limma::eBayes(fit)
+  voom_counts <- limma::voom(counts(object))
+  lm_fit <- limma::lmFit(voom_counts, design)
+  eb_stats <- limma::eBayes(lm_fit)
   top_tab <- limma::topTable(
-    eb, 
+    eb_stats, 
     coef = 2L, 
-    n = nrow(obj_count_voom),  # Retain all genes.
-    sort.by = "p"  # Use adjusted p-value to sort.
+    number = Inf,  # Retain all genes.
+    adjust.method = "BH",
+    sort.by = "p"  # Sort by p-value.
   ) 
   with(
     top_tab,
@@ -117,37 +51,3 @@ h_diff_expr_limma <- function(object, design) {
     )
   )
 }
-
-#' Helper function to use DESeq2 method
-#'
-#' This creates a data frame with folder change and p-values for all genes  
-#'
-#' @param object (`HermesData`)\cr input.
-#' @param design (`matrix`)\cr design matrix to run DESeq2 analysis.
-#' @return A data frame with DESeq2 analysis results.
-#' 
-#' @importFrom rlang .data
-#' @export
-h_diff_expr_deseq2 <- function(object, design) {
-  assert_that(
-    is_hermes_data(object),
-    is.matrix(design)
-  )
-  deseq_data <- DESeqDataSet(se = object, design = design)
-  deseq_data_processed <- DESeq(deseq_data, quiet = TRUE)
-  deseq_data_res <- results(deseq_data_processed) # Note: this has multiple options we might want to use.
-  deseq_data_res_df <- as.data.frame(deseq_data_res)
-  deseq_data_res_df <- deseq_data_res_df[order(deseq_data_res_df$padj), ]  # Use adj p-value to sort.
-  with(
-    deseq_data_res_df,
-    data.frame(
-      log2_fc = log2FoldChange,
-      stat = stat,
-      p_val = pvalue,
-      adj_p_val = padj,
-      row.names = rownames(deseq_data_res_df)
-    )
-  )
-}
-
- 
