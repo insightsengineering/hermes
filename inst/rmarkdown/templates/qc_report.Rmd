@@ -7,7 +7,7 @@ params:
     input: text
   author: 
     label: "Author(s) of the report: <NAME> (Team/Department i.e. PDD DSX)"
-    value: "Martha Mailman (PDD - Data Science Acceleration (DSX))"
+    value: "Firstname Lastname (PDD - Data Science Acceleration (DSX))"
     input: text
   input_data_object:
     label: "[REQUIRED] data object input."
@@ -72,8 +72,7 @@ editor_options:
 # Developer
 
 # The name and version of this report template (printed in last section)
-#templateName <- params$title
-templateName <- "qc_report"
+templateName <- "RNAseq_qc_report"
 templateVersion <- "1.0.0"
 # Set TRUE to enable rmarkdown cache
 knitr::opts_chunk$set(cache = FALSE, cache.lazy = FALSE)
@@ -90,6 +89,7 @@ library(hermes)
 ```
 
 ```{r initialize}
+#if we want to utilize this, we would need to add functions
 # Check that required parameters were set by user
 #requiredPaths <- c("biokit_output_dir")
 #checkPathsExist(params, requiredPaths)
@@ -107,7 +107,12 @@ se <- get(obj_name)
 result <- HermesData(se)
 
 # Section 2 - Post Gene Filtering & Normalization
+# Normalization only
 control <- control_quality(params$min_cpm, params$min_cpm_prop, params$min_corr, params$min_depth)
+result_norm <- HermesData(se) %>%
+  add_quality_flags(control) %>%
+  normalize()
+# QC and Normalization
 result_fil <- HermesData(se) %>%
   add_quality_flags(control) %>%
   filter(h_low_expression_flag==0, h_low_depth_flag==0, h_tech_failure_flag==0) %>%
@@ -129,7 +134,7 @@ According to [Standards, Guidelines and Best Practices for RNA-Seq (The ENCODE C
 draw_libsize_hist(result)
 ```
 
-### Q-Q Plot of Library Sizes {.tabset}
+### Q-Q Plot of Library Sizes
 
 The distribution of library sizes is then compared to the normal distribution. The linearity of the points will suggest if the distribution of library sizes is normally distributed.
 
@@ -137,7 +142,7 @@ The distribution of library sizes is then compared to the normal distribution. T
 draw_libsize_qq(result)
 ```
 
-### Density Plot of (Log) Counts Distributions {.tabset}
+### Density Plot of (Log) Counts Distributions
 
 In this plot, each line represents density of expression of all the genes within one sample. Lines that deviate from the majority may suggest inconsistent read depth or technical failure of the samples. The peaks in log2 (count) distribution indicate the log2(count) value at which the majority of genes are expressed. 
 
@@ -152,10 +157,6 @@ draw_libsize_densities(result)
 This step is necessary to flag out genes with low expression. Genes with very low counts across all libraries provide little evidence for differential expression and they interfere with some of the statistical analyses conducted later in the pipeline. Therefore, these genes should be filtered out prior to the analysis. 
 
 There are many ways to filter out genes with lower counts. When there are n biological replicates in each group, we usually filter on a minimum counts per million threshold present in at least n samples. In this dataset, we choose to retain genes if they are expressed at a counts-per-million (CPM) above <b> `r params$min_cpm` </b> in at least in <b> `r (params$min_cpm_prop)*100`% </b> of the samples. These thresholds can be modified.
-
-Total number of genes before filtering: `r nrow(result)` <br />
-Total number of genes after filtering:  `r nrow(result_fil)` <br />
-Rate of passing: `r round((100/nrow(result))*nrow(result_fil),1)` <br>
 
 ## Stacked Barplot of Low Expression Genes by Chromosome
 
@@ -226,22 +227,63 @@ autoplot(result_cor)
 {-}
 
 
+# Gene filtering and Normalization effects
 
+Total number of genes before filtering: `r nrow(result)` <br />
+Total number of genes after filtering:  `r nrow(result_fil)` <br />
+Rate of passing: `r round((100/nrow(result))*nrow(result_fil),1)` <br>
 
-```{r, echo=FALSE}
+## Technical Metrics After Normalization and Gene Filtering {.tabset}
 
-# For reference rnaseqTool results
-#gSE <- eset2gSE(example_ExpressionSet)
-#gse.qc <- gQCproc(gSE) 
-#gse.postqc <- subset(gse.qc, LowExpressionFlag == 0, LowDepthFlag == 0 & TechnicalFailureFlag == 0) # dropping low expression genes, samples with low depth or technical failure 
-#getmeta(rowData(gse.postqc), "threshold.cpm")
+### Histogram of Library Sizes 
 
+```{r , results='asis'}
+draw_libsize_hist(result_fil)
 ```
+
+### Q-Q Plot of Library Sizes 
+
+```{r , results = 'asis'}
+draw_libsize_qq(result_fil)
+```
+
+### Density Plot of (Log) Counts Distributions 
+
+```{r , results = "asis"}
+draw_libsize_densities(result_fil)
+```
+
+{-}
+
+## Principal Components Analysis Comparison{.tabset}
+
+### PCA after Normalization
+```{r}
+result_pca_norm <- calc_pca(result_norm, assay_name = params$assay_name)
+autoplot(result_pca_norm, label = TRUE)
+```
+
+### PCA after QC and Normalization 
+
+```{r}
+result_pca_fil <- calc_pca(result_fil, assay_name = params$assay_name)
+autoplot(result_pca_fil, label = TRUE)
+```
+
+{-}
+
+### Count distribution post normalization
+
+### QC results on genes
+
+### QC results on samples 
 
 <!-- ---------------------------------------------------------------------- -->
 <!-- Prints the parameters and session information                          -->
 <!-- Include at end of each biokitr report                                  -->
 <!-- ---------------------------------------------------------------------- -->
 ```{r session_info, results = "asis"}
+
+# if we want to use we need to add function
 #printReproducibilitySection(params, templateName, templateVersion)   
 ```
