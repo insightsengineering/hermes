@@ -14,13 +14,13 @@
 The filtered \link{AnyHermesData} object.
 }
 \description{
-This is a short cut to subset a \link{AnyHermesData} object for the default QC flag,
-i.e. only features without low expression (\code{LowExpressionFlag}) and without samples
+This filters a \link{AnyHermesData} object using the default QC flags. That is,
+only genes without low expression (\code{LowExpressionFlag}) and samples
 without low depth (\code{LowDepthFlag}) or technical failure (\code{TechnicalFailureFlag})
-remain in the returend subset.
+remain in the returned filtered object.
 }
 \note{
-Internal implementation cannot use the \code{\link[=subset]{subset()}} method since that
+The internal implementation cannot use the \code{\link[=subset]{subset()}} method since that
 requires non-standard evaluation of arguments.
 }
 \examples{
