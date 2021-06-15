@@ -109,9 +109,8 @@ result <- HermesData(se)
 # Section 2 - Post Gene Filtering & Normalization
 # Normalization only
 control <- control_quality(params$min_cpm, params$min_cpm_prop, params$min_corr, params$min_depth)
-result_norm <- HermesData(se) %>%
-  add_quality_flags(control) %>%
-  normalize()
+object <- HermesData(se) %>%
+  add_quality_flags(control)
 # QC and Normalization
 result_fil <- HermesData(se) %>%
   add_quality_flags(control) %>%
