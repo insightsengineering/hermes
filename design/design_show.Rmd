@@ -1,0 +1,153 @@
+---
+title: "Design: show method"
+author: "Lyndsee Zhang"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+This vignette explores the design of the show method for HermesData objects.
+
+## Idea
+
+The user would like to show some information for a given HermesData object.
+
+## Inspiration sources
+
+### Default show method
+
+By default we get the following show:
+
+```{r}
+object <- HermesData(summarized_experiment)
+show(object)
+```
+
+Compare it with the summary: 
+```{r}
+summary(object)
+```
+
+### DESeq2
+
+Let's see what the `DESeq2` package provides.
+
+```{r}
+library(DESeq2)
+countData <- matrix(1:100,ncol=4)
+condition <- factor(c("A","A","B","B"))
+dds <- DESeqDataSetFromMatrix(countData, DataFrame(condition), ~ condition)
+summary(dds)
+DESeq2::show(dds)
+```
+Seems the same as our default, and less information in fact.
+
+## Ideas
+
+### Specialized text
+
+We could specialize the text of the show, like in `summary()`. First check out the `show()` method code. Then remove some fields and update the titles. 
+
+```{r}
+getMethod(f = "show", signature = "SummarizedExperiment")
+
+test_show <- function (object) 
+{
+    cat("class:", class(object), "\n")
+    nms <- assayNames(object)
+    if (is.null(nms)) 
+        nms <- character(length(assays(object, withDimnames = FALSE)))
+    coolcat("assays(%d): %s\n", nms)
+    dimnames <- dimnames(object)
+    dlen <- sapply(dimnames, length)
+    if (dlen[[1]]) 
+        coolcat("genes(%d): %s\n", dimnames[[1]])
+    else cat("genes: NULL\n")
+    coolcat("gene data(%d): %s\n", names(rowData(object, 
+        use.names = FALSE)))
+    if (dlen[[2]]) 
+        coolcat("samples(%d): %s\n", dimnames[[2]])
+    else cat("samples: NULL\n")
+    coolcat("clinical data(%d): %s\n", names(colData(object)))
+}
+  
+test_show(object)
+
+rhd <- HermesData(as(summarized_experiment, "RangedSummarizedExperiment"))
+test_show(rhd)
+```
+
+### Borrowing From `summary()` `show()` Method
+
+Start from `show()` method from `summary()` and add changes from above. 
+
+```{r}
+setMethod(
+  f = "show",
+  signature = c("HermesData"),
+  definition = function(object) {
+    cat_nl(
+      "class:", 
+      class(object)
+      )
+    
+    nms <- assayNames(object)
+    if (is.null(nms)) 
+        nms <- character(length(assays(object, withDimnames = FALSE)))
+    S4Vectors::coolcat(
+      "assays(%d): %s\n", 
+      nms
+    )
+    
+    dimnames <- dimnames(object)
+    dlen <- sapply(dimnames, length)
+    if (dlen[[1]]) 
+        S4Vectors::coolcat(
+          "genes(%d): %s\n", 
+          dimnames[[1]]
+          )
+    else catnl(
+          "genes: NULL"
+          )
+    
+    S4Vectors::coolcat(
+      "gene data(%d): %s\n", 
+      names(rowData(object, use.names = FALSE))
+      )
+    
+    if (dlen[[2]]) 
+        coolcat(
+          "samples(%d): %s\n", 
+          dimnames[[2]]
+          )
+    else cat_nl(
+      "samples: NULL"
+      )
+    
+    S4Vectors::coolcat(
+      "clinical data(%d): %s\n", 
+      names(colData(object))
+      )
+  }    
+)
+
+```
+
+Therefore we can use it:
+
+```{r}
+show(object)
+```
+
+... and it doesn't interfere with the `show()` method on `HermesDataSummary` class.
+
+```{r}
+summary(object)
+res <- summary(object)
+res
+str(res)
+```
