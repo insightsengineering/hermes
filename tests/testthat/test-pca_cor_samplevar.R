@@ -49,29 +49,22 @@ test_that("h_pca_df_r2_matrix fails as expected with invalid settings", {
 
 # correlate-HermesDataPca ----
 
-# todo: Namrata continue here with simplifiying tests
-
 test_that("correlate method on HermesDataPca works as expected", {
   object <- HermesData(summarized_experiment)
-  pca <- expect_silent(calc_pca(object)$x)
   df <- expect_silent(as.data.frame(colData(object)))
-  r2_all <- expect_silent(h_pca_df_r2_matrix(pca, df))
-  
-  object_pca <- expect_silent(calc_pca(object))
-  result <- expect_silent(correlate(object_pca, object))
-  
+  pca <- expect_silent(calc_pca(object))
+  result <- expect_silent(correlate(pca, object))
   is(result, "HermesDataPcaCor")
-  expect_identical(nrow(r2_all), nrow(result))
-  expect_identical(ncol(r2_all), ncol(result))
-  expect_identical(rownames(r2_all), rownames(result))
-  expect_identical(colnames(r2_all), colnames(result))
+  expect_identical(nrow(result), ncol(pca$x))
+  expect_lt(ncol(result), ncol(df))
+  expect_identical(rownames(result), colnames(pca$x))
+  expect_true(all(colnames(result) %in% colnames(df)))
 })
 
 test_that("correlate method fails as expected with invalid settings", {
   object <- HermesData(summarized_experiment)
   pca <- expect_silent(calc_pca(object))
   result <- expect_silent(correlate(pca, object))
-  
   expect_error(correlate(pca, colData(object)))
   expect_error(correlate(pca$x, object))
 })
