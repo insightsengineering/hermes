@@ -39,6 +39,7 @@ Collate:
     'assertthat.R'
     'cor.R'
     'data.R'
+    'differential.R'
     'graphs.R'
     'normalization.R'
     'package.R'
