@@ -119,23 +119,30 @@ draw_libsize_densities <- function(object,
 #' non-zero expressed genes per sample.
 #'
 #' @param object (`HermesData`)\cr input.
-#' @param jitter (`number`)\cr `geom_point` aesthetic parameter.
+#' @param position (`number`)\cr `geom_point` aesthetic parameter.
 #' @param alpha (`number`)\cr `geom_point` aesthetic parameter.
 #'
 #' @return The `ggplot` object with the histogram.
 #' @export
 #' 
 #' @examples
+#' #Default Boxplot
 #' result <- HermesData(summarized_experiment)
 #' draw_nonzero_boxplot(result)
-#' draw_nonzero_boxplot(result, jitter = 0.1, alpha = 1/3)
 #' 
+#' #Example for reusing position for labeling.
+#' library(ggrepel)
+#' pos <- position_jitter(0.5)
+#' draw_nonzero_boxplot(result, pos = pos) +
+#'   geom_text_repel(aes(label = result$SampleID), position = pos)
+#' 
+
 draw_nonzero_boxplot <- function(object, 
-                                 jitter = 0.2,
+                                 position = position_jitter(0.2),
                                  alpha = 1/4) {
   assert_that(
     is_hermes_data(object),
-    is.number(jitter),
+    is_class(position, "Position"),
     is.number(alpha)
   )
   
@@ -147,7 +154,7 @@ draw_nonzero_boxplot <- function(object,
     geom_boxplot(outlier.shape = NA) +
     stat_boxplot(geom = "errorbar") +
     geom_point(
-      position = position_jitter(width = jitter),
+      position = position,
       alpha = alpha
     ) +
     stat_n_text(text_box = TRUE) +

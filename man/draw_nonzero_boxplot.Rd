@@ -4,14 +4,14 @@
 \alias{draw_nonzero_boxplot}
 \title{Boxplot of Non-zero Genes}
 \usage{
-draw_nonzero_boxplot(object, jitter = 0.2, alpha = 1/4)
+draw_nonzero_boxplot(object, position = position_jitter(0.2), alpha = 1/4)
 }
 \arguments{
 \item{object}{(\code{HermesData})\cr input.}
 
-\item{jitter}{(\code{number})\cr \code{geom_point} aesthetic parameter.}
-
 \item{alpha}{(\code{number})\cr \code{geom_point} aesthetic parameter.}
+
+\item{jitter}{(\code{number})\cr \code{geom_point} aesthetic parameter.}
 }
 \value{
 The \code{ggplot} object with the histogram.
@@ -21,8 +21,14 @@ This draws a boxplot, with overlaid data points, of the number of
 non-zero expressed genes per sample.
 }
 \examples{
+#Default Boxplot
 result <- HermesData(summarized_experiment)
 draw_nonzero_boxplot(result)
-draw_nonzero_boxplot(result, jitter = 0.1, alpha = 1/3)
+
+#Example for reusing position for labeling.
+library(ggrepel)
+pos <- position_jitter(0.5)
+draw_nonzero_boxplot(result, pos = pos) +
+  geom_text_repel(aes(label = result$SampleID), position = pos)
 
 }
