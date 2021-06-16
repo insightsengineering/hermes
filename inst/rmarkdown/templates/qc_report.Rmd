@@ -219,7 +219,8 @@ autoplot(result_pca, label = TRUE)
 Correlation matrix between the sample vectors of counts from a specified assay, containing quality flags (`TechnicalFailureFlag`, `LowDepthFlag`) describing the original input samples.
 
 ```{r}
-result_cor <- calc_cor(result, method = params$cor_method) 
+# added hermes:: because couldn't find function when executing 
+result_cor <- hermes::calc_cor(result, method = params$cor_method) 
 autoplot(result_cor)
 ```
 {-}
@@ -275,13 +276,3 @@ autoplot(result_pca_fil, label = TRUE)
 ### QC results on genes
 
 ### QC results on samples 
-
-<!-- ---------------------------------------------------------------------- -->
-<!-- Prints the parameters and session information                          -->
-<!-- Include at end of each biokitr report                                  -->
-<!-- ---------------------------------------------------------------------- -->
-```{r session_info, results = "asis"}
-
-# if we want to use we need to add function
-#printReproducibilitySection(params, templateName, templateVersion)   
-```
