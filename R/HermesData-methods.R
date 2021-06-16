@@ -338,6 +338,9 @@ setMethod(
 
 #' @name correlate
 #' @title Generic Function for Correlation Calculations
+#' @param object input of which the class will be used to decide the method.
+#' @param ... additional arguments.
+#' @return Corresponding object that contains the correlation results.
 #' @seealso [pca_cor_samplevar] and [calc_cor] which are the methods included for this generic function.
 setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 
