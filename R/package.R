@@ -10,5 +10,4 @@
 #' @import methods
 #' @importFrom Rdpack reprompt
 #' @import SummarizedExperiment
-#' @import testthat
 NULL
