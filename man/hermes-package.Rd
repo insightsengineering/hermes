@@ -8,6 +8,14 @@
 \description{
 \code{hermes} facilitates preprocessing, analyzing, and reporting of RNA-seq data.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.roche.com/NEST/hermes/}
+  \item Report bugs at \url{https://github.roche.com/NEST/hermes/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: NEST \email{nestcicd@roche.com}
 
