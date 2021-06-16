@@ -38,3 +38,6 @@ design/*.html
 
 # R Environment Variables
 .Renviron
+
+# MacOS Files
+.DS_Store
