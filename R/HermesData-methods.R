@@ -201,7 +201,7 @@ setMethod(
 #' @rdname summary
 #' @aliases summary HermesDataSummary
 #' @exportClass HermesDataSummary
-.HermesDataSummary <- setClass(
+.HermesDataSummary <- setClass( # nolint
   Class = "HermesDataSummary",
   slots = c(
     class_name = "character",
