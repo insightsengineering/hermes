@@ -14,7 +14,7 @@
 #'   object. See [ggfortify::autoplot.prcomp()] for details.
 #'
 #' @param object (`AnyHermesData`) \cr input.
-#' @param assay_name (`Character string`) \cr Indicating the name of the assay
+#' @param assay_name (`string`) \cr Indicating the name of the assay
 #'   of interest, with possible options: `counts`, `cpm`, `tpm`, `rpkm`, `voom`.
 #'   Default assay is `counts`.
 #'

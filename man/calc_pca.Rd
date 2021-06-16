@@ -13,7 +13,7 @@ calc_pca(object, assay_name = "counts")
 \arguments{
 \item{object}{(\code{AnyHermesData}) \cr input.}
 
-\item{assay_name}{(\verb{Character string}) \cr Indicating the name of the assay
+\item{assay_name}{(\code{string}) \cr Indicating the name of the assay
 of interest, with possible options: \code{counts}, \code{cpm}, \code{tpm}, \code{rpkm}, \code{voom}.
 Default assay is \code{counts}.}
 }
