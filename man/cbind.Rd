@@ -2,23 +2,23 @@
 % Please edit documentation in R/HermesData-methods.R
 \name{cbind}
 \alias{cbind}
-\title{Column Binding of HermesData Objects}
+\title{Column Binding of \code{AnyHermesData} Objects}
 \arguments{
 \item{...}{(\code{AnyHermesData})\cr objects to column bind.}
 }
 \value{
-The combined \link{AnyHermesData} object.
+The combined \code{\link{AnyHermesData}} object.
 }
 \description{
-This method combines HermesData objects with the same ranges but different
+This method combines \code{\link{AnyHermesData}} objects with the same ranges but different
 samples (columns in assays).
 }
 \note{
 Note that this just inherits
 \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::cbind,SummarizedExperiment-method()}}. When binding a
-\link{HermesData} object with a \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
+\code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 object, then the result will be a
-\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment} object (the more general
+\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object (the more general
 class).
 }
 \examples{
@@ -28,5 +28,4 @@ class(result)
 
 result2 <- cbind(summarized_experiment, b)
 class(result2)
-
 }

@@ -35,7 +35,7 @@ test_that("h_cpm function works as expected with default settings", {
 test_that("t_cpm function works as expected with custom settings", {
   object <- HermesData(get_se())
   cont <- expect_silent(control_normalize(log = TRUE, lib_sizes = 60000000L, prior_count = 3))
-  result <- expect_silent(h_cpm(object,cont))
+  result <- expect_silent(h_cpm(object, cont))
   expect_is(result, "matrix")
   expect_equal(dim(result), dim(object))
 })

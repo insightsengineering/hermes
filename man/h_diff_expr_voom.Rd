@@ -2,7 +2,7 @@
 % Please edit documentation in R/differential.R
 \name{h_diff_expr_voom}
 \alias{h_diff_expr_voom}
-\title{Limma/Voom Differential Expression Analysis}
+\title{\code{limma}/\code{voom} Differential Expression Analysis}
 \usage{
 h_diff_expr_voom(object, design)
 }
@@ -23,10 +23,9 @@ for given counts in a \link{AnyHermesData} object and a corresponding \code{desi
 }
 \examples{
 object <- HermesData(summarized_experiment)
-design <- model.matrix(~ SEX, colData(object))
+design <- model.matrix(~SEX, colData(object))
 result <- h_diff_expr_voom(object, design)
 head(result)
-
 }
 \references{
 \insertRef{limma_package}{hermes}

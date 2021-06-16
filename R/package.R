@@ -1,6 +1,6 @@
 #' `hermes` Package
 #'
-#' `hermes` facilitates preprocessing, analyzing, and reporting of RNA-seq data. 
+#' `hermes` facilitates preprocessing, analyzing, and reporting of RNA-seq data.
 #'
 "_PACKAGE"
 
@@ -10,5 +10,4 @@
 #' @import methods
 #' @importFrom Rdpack reprompt
 #' @import SummarizedExperiment
-#' @import testthat
 NULL

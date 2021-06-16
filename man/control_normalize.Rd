@@ -27,5 +27,4 @@ To be used with the \code{normalize()} function.
 \examples{
 control_normalize()
 control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
-              
 }

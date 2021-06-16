@@ -13,9 +13,9 @@ calc_pca(object, assay_name = "counts")
 \arguments{
 \item{object}{(\code{AnyHermesData}) \cr input.}
 
-\item{assay_name}{(\verb{Character string}) \cr Indicating the name of the assay
-of interest, with possible options: "counts", "cpm", "tpm", "rpkm", "voom".
-Default assay is "counts".}
+\item{assay_name}{(\code{string}) \cr Indicating the name of the assay
+of interest, with possible options: \code{counts}, \code{cpm}, \code{tpm}, \code{rpkm}, \code{voom}.
+Default assay is \code{counts}.}
 }
 \value{
 A \link{HermesDataPca} object which is an extension of the \link[stats:prcomp]{stats::prcomp} class.
@@ -49,5 +49,4 @@ autoplot(result)
 autoplot(result, x = 2, y = 3)
 autoplot(result, variance_percentage = FALSE)
 autoplot(result, label = TRUE)
-
 }
