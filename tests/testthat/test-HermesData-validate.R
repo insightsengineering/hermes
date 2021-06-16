@@ -12,19 +12,21 @@ test_that("validate_counts returns messages as expected for invalid objects", {
     list(a = matrix(rnorm(4), 2, 2))
   )
   expect_identical(validate_counts(object), "no 'counts' assay found")
-  
+
   object <- SummarizedExperiment(
     list(a = matrix(rnorm(4), 2, 2), counts = matrix(1:4, 2, 2))
   )
   expect_identical(validate_counts(object), "'counts' must be the first assay")
-  
+
   object <- SummarizedExperiment(
     list(counts = matrix(c(1, 2, NA, -4), 2, 2))
   )
   expect_setequal(
     validate_counts(object),
-    c("'counts' must be numeric in integer mode", "missing values in 'counts'", 
-      "negative values in 'counts'")
+    c(
+      "'counts' must be numeric in integer mode", "missing values in 'counts'",
+      "negative values in 'counts'"
+    )
   )
 })
 
@@ -36,11 +38,11 @@ test_that("validate_cols returns NULL when columns are found", {
 
 test_that("validate_cols returns messages as expected when columns are not found", {
   expect_identical(
-    validate_cols(c("a", "b"), c("c", "d", "b")), 
+    validate_cols(c("a", "b"), c("c", "d", "b")),
     "required columns a not present"
   )
   expect_identical(
-    validate_cols(c("a", "b"), c("c", "d")), 
+    validate_cols(c("a", "b"), c("c", "d")),
     "required columns a, b not present"
   )
 })
@@ -68,15 +70,15 @@ test_that("validate_row_data returns NULL for a valid object", {
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     rowData = data.frame(
-      HGNC = 1, 
-      GeneID = 1, 
-      Chromosome = 1, 
-      StartBP = 1, 
-      EndBP = 1, 
-      WidthBP = 1, 
-      HGNCGeneName = 1, 
-      CanonicalTranscript = 1, 
-      ProteinTranscript = 1, 
+      HGNC = 1,
+      GeneID = 1,
+      Chromosome = 1,
+      StartBP = 1,
+      EndBP = 1,
+      WidthBP = 1,
+      HGNCGeneName = 1,
+      CanonicalTranscript = 1,
+      ProteinTranscript = 1,
       LowExpressionFlag = 1
     )
   )
@@ -91,17 +93,17 @@ test_that("validate_row_data returns messages as expected for invalid object", {
     validate_row_data(object),
     "required columns .+ not present"
   )
-  
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     rowData = data.frame(
-      HGNC = 1, 
-      GeneID = 1, 
-      Chromosome = 1, 
-      StartBP = 1, 
-      EndBP = 1, 
-      WidthBP = 1, 
-      HGNCGeneName = 1, 
+      HGNC = 1,
+      GeneID = 1,
+      Chromosome = 1,
+      StartBP = 1,
+      EndBP = 1,
+      WidthBP = 1,
+      HGNCGeneName = 1,
       CanonicalTranscript = 1
     )
   )
@@ -109,19 +111,19 @@ test_that("validate_row_data returns messages as expected for invalid object", {
     validate_row_data(object),
     "required columns ProteinTranscript, LowExpressionFlag not present"
   )
-  
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     rowData = data.frame(
-      HGNC = NA, 
-      GeneID = NA, 
-      Chromosome = 1, 
-      StartBP = 1, 
-      EndBP = 1, 
-      WidthBP = 1, 
-      HGNCGeneName = 1, 
-      CanonicalTranscript = 1, 
-      ProteinTranscript = 1, 
+      HGNC = NA,
+      GeneID = NA,
+      Chromosome = 1,
+      StartBP = 1,
+      EndBP = 1,
+      WidthBP = 1,
+      HGNCGeneName = 1,
+      CanonicalTranscript = 1,
+      ProteinTranscript = 1,
       LowExpressionFlag = NA
     )
   )
@@ -137,8 +139,8 @@ test_that("validate_col_data returns NULL for a valid object", {
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     colData = data.frame(
-      SampleID = 1, 
-      LowDepthFlag = 1, 
+      SampleID = 1,
+      LowDepthFlag = 1,
       TechnicalFailureFlag = 1
     )
   )
@@ -153,7 +155,7 @@ test_that("validate_col_data returns messages as expected for invalid object", {
     validate_col_data(object),
     "required columns .+ not present"
   )
-  
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     colData = data.frame(
@@ -164,12 +166,12 @@ test_that("validate_col_data returns messages as expected for invalid object", {
     validate_col_data(object),
     "required columns SampleID, LowDepthFlag not present"
   )
-  
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     colData = data.frame(
-      SampleID = NA, 
-      LowDepthFlag = 1, 
+      SampleID = NA,
+      LowDepthFlag = 1,
       TechnicalFailureFlag = NA
     )
   )
@@ -184,8 +186,8 @@ test_that("validate_col_data returns messages as expected for invalid object", {
 test_that("validate_names returns NULL for a valid object", {
   object <- SummarizedExperiment(
     list(counts = matrix(
-      data = 1:4, 
-      nrow = 2, 
+      data = 1:4,
+      nrow = 2,
       ncol = 2,
       dimnames = list(c("a", "b"), c("X", "Y"))
     ))
@@ -201,7 +203,7 @@ test_that("validate_names returns messages as expected for invalid object", {
     validate_names(object),
     c("'object' must have rownames", "'object' must have colnames")
   )
-  
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1, dimnames = list(NULL, "bla")))
   )
@@ -209,7 +211,7 @@ test_that("validate_names returns messages as expected for invalid object", {
     validate_names(object),
     "'object' must have rownames"
   )
-  
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1, dimnames = list("bla", NULL)))
   )
@@ -218,4 +220,3 @@ test_that("validate_names returns messages as expected for invalid object", {
     "'object' must have colnames"
   )
 })
-

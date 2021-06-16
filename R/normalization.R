@@ -14,7 +14,6 @@
 #' @examples
 #' control_normalize()
 #' control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
-#'
 control_normalize <- function(log = TRUE,
                               lib_sizes = NULL,
                               prior_count = 1) {
@@ -43,7 +42,6 @@ control_normalize <- function(log = TRUE,
 #' cont <- control_normalize()
 #' counts_cpm <- h_cpm(h, cont)
 #' str(counts_cpm)
-#'
 h_cpm <- function(object,
                   control = control_normalize()) {
   assert_that(
@@ -73,7 +71,6 @@ h_cpm <- function(object,
 #' cont <- control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
 #' counts_rpkm <- h_rpkm(h, cont)
 #' str(counts_rpkm)
-#'
 h_rpkm <- function(object,
                    control) {
   assert_that(
@@ -102,7 +99,6 @@ h_rpkm <- function(object,
 #' cont <- control_normalize()
 #' counts_tpm <- h_tpm(h, cont)
 #' str(counts_tpm)
-#'
 h_tpm <- function(object,
                   control = control_normalize()) {
   rpkm <- h_rpkm(object, control_normalize(log = FALSE))
@@ -129,7 +125,6 @@ h_tpm <- function(object,
 #' cont <- control_normalize()
 #' counts_voom <- h_voom(h, cont)
 #' str(counts_voom)
-#'
 h_voom <- function(object,
                    control = control_normalize()) {
   assert_that(
@@ -195,7 +190,6 @@ h_voom <- function(object,
 #' result_orig <- normalize(a, control = control_normalize(log = FALSE))
 #' tpm_orig <- assay(result_orig, "tpm")
 #' tpm_orig[1:3, 1:3]
-#'
 setMethod(
   f = "normalize",
   signature = "AnyHermesData",

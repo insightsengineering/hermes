@@ -27,11 +27,10 @@
 #' top_genes(object)
 #' top_genes(object, n_top = NULL, min_threshold = 50000)
 #' result <- top_genes(object, summary_fun = rowMax)
-#'
 top_genes <- function(object,
                       assay_name = "counts",
                       summary_fun = rowMeans,
-                      n_top = if(is.null(min_threshold)) 10L else NULL,
+                      n_top = if (is.null(min_threshold)) 10L else NULL,
                       min_threshold = NULL) {
   assert_that(
     is_hermes_data(object),
@@ -80,7 +79,7 @@ top_genes <- function(object,
 #' @rdname top_genes
 #' @aliases HermesDataTopGenes
 #' @exportClass HermesDataTopGenes
-.HermesDataTopGenes <- setClass(  #nolint
+.HermesDataTopGenes <- setClass( # nolint
   Class = "HermesDataTopGenes",
   contains = "data.frame",
   slots = c(
@@ -101,7 +100,6 @@ top_genes <- function(object,
 #'
 #' @examples
 #' autoplot(result, y_lab = "Maximum Count", title = "My top genes")
-#'
 setMethod(
   f = "autoplot",
   signature = c(object = "HermesDataTopGenes"),
@@ -120,7 +118,7 @@ setMethod(
     ggplot(df) +
       geom_col(aes(y = .data$expression, x = .data$name)) +
       scale_x_discrete(name = x_lab) +
-      scale_y_continuous(name = paste(y_lab, sep = ""))  +
+      scale_y_continuous(name = paste(y_lab, sep = "")) +
       theme(axis.text.x = element_text(angle = 90)) +
       ggtitle(paste(title, sep = "")) +
       theme(plot.title = element_text(hjust = 0.5))

@@ -20,10 +20,9 @@
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#' design <- model.matrix(~ SEX, colData(object))
+#' design <- model.matrix(~SEX, colData(object))
 #' result <- h_diff_expr_voom(object, design)
 #' head(result)
-#'
 h_diff_expr_voom <- function(object, design) {
   assert_that(
     is_hermes_data(object),
@@ -36,9 +35,9 @@ h_diff_expr_voom <- function(object, design) {
   top_tab <- limma::topTable(
     eb_stats,
     coef = 2L,
-    number = Inf,  # Retain all genes.
+    number = Inf, # Retain all genes.
     adjust.method = "BH",
-    sort.by = "p"  # Sort by p-value.
+    sort.by = "p" # Sort by p-value.
   )
   with(
     top_tab,
@@ -70,10 +69,9 @@ h_diff_expr_voom <- function(object, design) {
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#' design <- model.matrix(~ SEX, colData(object))
+#' design <- model.matrix(~SEX, colData(object))
 #' result <- h_diff_expr_deseq2(object, design)
 #' head(result)
-#'
 h_diff_expr_deseq2 <- function(object, design) {
   assert_that(
     is_hermes_data(object),

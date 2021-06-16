@@ -29,7 +29,6 @@
 #'
 #' # One or more settings can be customized.
 #' control_quality(min_cpm = 5, min_cpm_prop = 0.001)
-#'
 control_quality <- function(min_cpm = 1,
                             min_cpm_prop = 0.25,
                             min_corr = 0.5,
@@ -85,7 +84,6 @@ control_quality <- function(min_cpm = 1,
 #'
 #' # It is possible to overwrite flags if needed, which will trigger a message.
 #' result2 <- add_quality_flags(result, control_quality(min_cpm = 1000), overwrite = TRUE)
-#'
 add_quality_flags <- function(object,
                               control = control_quality(),
                               overwrite = FALSE) {
@@ -128,7 +126,6 @@ add_quality_flags <- function(object,
 #'   control_quality(min_cpm = 500, min_cpm_prop = 0.9)
 #' )
 #' head(low_expr_flag2)
-#'
 h_low_expression_flag <- function(object,
                                   control = control_quality()) {
   assert_that(
@@ -154,7 +151,6 @@ h_low_expression_flag <- function(object,
 #'
 #' low_depth_flag2 <- h_low_depth_flag(object, control_quality(min_depth = 5))
 #' head(low_depth_flag2)
-#'
 h_low_depth_flag <- function(object,
                              control = control_quality()) {
   assert_that(
@@ -183,7 +179,6 @@ h_low_depth_flag <- function(object,
 #'
 #' tech_failure_flag2 <- h_tech_failure_flag(object, control_quality(min_corr = 0.35))
 #' head(tech_failure_flag2)
-#'
 h_tech_failure_flag <- function(object,
                                 control = control_quality()) {
   assert_that(
@@ -209,14 +204,12 @@ h_tech_failure_flag <- function(object,
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#'
 NULL
 
 #' @describeIn get_quality_flags get the technical failure flags for all samples.
 #' @export
 #' @examples
 #' head(get_tech_failure(object))
-#'
 get_tech_failure <- function(object) {
   assert_that(is_hermes_data(object))
   flag_vals <- colData(object)$TechnicalFailureFlag
@@ -228,7 +221,6 @@ get_tech_failure <- function(object) {
 #' @export
 #' @examples
 #' head(get_low_depth(object))
-#'
 get_low_depth <- function(object) {
   assert_that(is_hermes_data(object))
   flag_vals <- colData(object)$LowDepthFlag
@@ -240,7 +232,6 @@ get_low_depth <- function(object) {
 #' @export
 #' @examples
 #' head(get_low_expression(object))
-#'
 get_low_expression <- function(object) {
   assert_that(is_hermes_data(object))
   flag_vals <- rowData(object)$LowExpressionFlag
@@ -267,7 +258,6 @@ get_low_expression <- function(object) {
 #' get_tech_failure(object)["06520101B0017R"]
 #' result <- set_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
 #' get_tech_failure(result)["06520101B0017R"]
-#'
 set_tech_failure <- function(object,
                              sample_ids) {
   assert_that(

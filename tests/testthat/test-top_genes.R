@@ -50,10 +50,10 @@ test_that("top_genes function fails as expected with when selection criteria are
 
 test_that("top_genes function works as expected with correct selection criteria", {
   object <- expect_silent(HermesData(summarized_experiment))
-  
+
   result1 <- expect_silent(top_genes(object, n_top = 5L))
   expect_identical(nrow(result1), 5L)
-  
+
   result2 <- expect_silent(top_genes(object, min_threshold = 200))
   expect_true(min(result2$expression) > 200)
   expect_false(identical(result1, result2))

@@ -25,8 +25,8 @@ test_that("rbind function works as expected when binding SummarizedExperiment wi
 
 test_that("cbind function works as expected for HermesData objects", {
   object <- get_se()
-  h1 <- .HermesData(object[,1])
-  h2 <- .HermesData(object[,2])
+  h1 <- .HermesData(object[, 1])
+  h2 <- .HermesData(object[, 2])
   h3 <- .HermesData(object)
   result <- expect_silent(cbind(h1, h2))
   expect_is(result, "HermesData")
@@ -88,8 +88,8 @@ test_that("counts setter works as expected", {
 test_that("subset function works as expected for HermesData objects", {
   h <- .HermesData(get_se())
   result <- expect_silent(subset(
-    h, 
-    subset = LowExpressionFlag, 
+    h,
+    subset = LowExpressionFlag,
     select = !TechnicalFailureFlag
   ))
   expect_is(result, "HermesData")
@@ -108,7 +108,7 @@ test_that("filter works as expected for HermesData", {
   result <- expect_silent(filter(h1))
   expect_is(result, "HermesData")
   # Only one gene, but no samples fulfill filter criteria:
-  expect_identical(dim(result), c(1L, 0L)) 
+  expect_identical(dim(result), c(1L, 0L))
 })
 
 test_that("filter works as expected for RangedHermesData", {
@@ -117,7 +117,7 @@ test_that("filter works as expected for RangedHermesData", {
   result <- expect_silent(filter(h1))
   expect_is(result, "RangedHermesData")
   # Only one gene, but no samples fulfill filter criteria:
-  expect_identical(dim(result), c(1L, 0L)) 
+  expect_identical(dim(result), c(1L, 0L))
 })
 
 test_that("filter shows readable error message when there are NA in flag variables", {
@@ -167,11 +167,11 @@ test_that("show for summary works as expected for HermesData with quality flags"
   object <- summary(HermesData(summarized_experiment))
   result <- capture_output(show(object))
   expect_match(
-    result, 
+    result,
     "^HermesData object with 20 samples of 5085 genes.\n- Library sizes"
   )
   expect_match(
-    result, 
+    result,
     "Samples with too low depth or technical failures (2)",
     fixed = TRUE
   )
@@ -185,7 +185,7 @@ test_that("show for summary also works without quality flags", {
   object <- summary(HermesData(se))
   result <- capture_output(show(object))
   expect_match(
-    result, 
+    result,
     "- QC flags still need to be added"
   )
 })

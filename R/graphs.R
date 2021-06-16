@@ -13,7 +13,6 @@
 #' result <- HermesData(summarized_experiment)
 #' draw_libsize_hist(result)
 #' draw_libsize_hist(result, bins = 10L, fill = "blue")
-#'
 draw_libsize_hist <- function(object,
                               bins = 30L,
                               fill = "darkgrey") {
@@ -52,7 +51,6 @@ draw_libsize_hist <- function(object,
 #' draw_libsize_qq(result, color = "blue", linetype = "solid")
 #' # We can also add sample names as labels.
 #' draw_libsize_qq(result) + geom_text(label = colnames(result), stat = "qq")
-#'
 draw_libsize_qq <- function(object,
                             color = "grey",
                             linetype = "dashed") {
@@ -89,15 +87,14 @@ draw_libsize_qq <- function(object,
 #' result <- HermesData(summarized_experiment)
 #' draw_libsize_densities(result)
 #' draw_libsize_densities(result, FALSE)
-#'
 draw_libsize_densities <- function(object,
-                                   log = TRUE){
+                                   log = TRUE) {
   assert_that(
     is_hermes_data(object),
     is.flag(log)
   )
   counts <- as.data.frame(counts(object))
-  if(isTRUE(log)){
+  if (isTRUE(log)) {
     df <- log2(counts + 1)
     title <- "Log2 Count Distribution"
     xlab <- "Log2(Count + 1)"
@@ -139,7 +136,6 @@ draw_libsize_densities <- function(object,
 #' pos <- position_jitter(0.5)
 #' draw_nonzero_boxplot(result, position = pos) +
 #'   geom_text_repel(aes(label = result$SampleID), position = pos)
-#'
 draw_nonzero_boxplot <- function(object,
                                  position = position_jitter(0.2),
                                  alpha = 0.25) {
@@ -187,7 +183,6 @@ draw_nonzero_boxplot <- function(object,
 #'
 #' # Display chromosomes 1 and 2 only.
 #' draw_genes_barplot(object, chromosomes = c("1", "2"), include_others = FALSE)
-#'
 draw_genes_barplot <- function(object,
                                chromosomes = c(1:22, "X", "Y", "MT"),
                                include_others = TRUE) {
@@ -210,7 +205,7 @@ draw_genes_barplot <- function(object,
     levels = c(chromosomes, "Others")
   )
 
-  if(!include_others) df <- df[df$chr != "Others", ]
+  if (!include_others) df <- df[df$chr != "Others", ]
 
   ggplot(data = df, aes(x = .data$chr)) +
     geom_bar(aes(fill = .data$LowExpressionFlag)) +
@@ -239,7 +234,6 @@ draw_genes_barplot <- function(object,
 #' @examples
 #' result <- HermesData(summarized_experiment)
 #' autoplot(result)
-#'
 setMethod(
   f = "autoplot",
   signature = c(object = "AnyHermesData"),

@@ -25,7 +25,6 @@
 #'
 #' result2 <- rbind(summarized_experiment, b)
 #' class(result2)
-#'
 NULL
 
 # cbind ----
@@ -55,7 +54,6 @@ NULL
 #'
 #' result2 <- cbind(summarized_experiment, b)
 #' class(result2)
-#'
 NULL
 
 # metadata ----
@@ -81,7 +79,6 @@ NULL
 #' metadata(a)
 #' metadata(a) <- list(new = "my metadata")
 #' metadata(a)
-#'
 NULL
 
 # counts ----
@@ -106,7 +103,6 @@ NULL
 #' result <- counts(a)
 #' class(result)
 #' head(result)
-#'
 setMethod(
   f = "counts",
   signature = "AnyHermesData",
@@ -123,7 +119,6 @@ setMethod(
 #' @examples
 #' counts(a) <- counts(a) + 100L
 #' head(counts(a))
-#'
 setReplaceMethod(
   f = "counts",
   signature = signature(object = "AnyHermesData", value = "matrix"),
@@ -153,7 +148,6 @@ setReplaceMethod(
 #' a <- HermesData(summarized_experiment)
 #' a
 #' subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
-#'
 NULL
 
 # filter ----
@@ -183,7 +177,6 @@ setGeneric("filter")
 #' dim(a)
 #' result <- filter(a)
 #' dim(result)
-#'
 setMethod(
   f = "filter",
   signature = signature(x = "AnyHermesData"),
@@ -217,7 +210,7 @@ setMethod(
     additional_feature_cols = "character",
     additional_sample_cols = "character",
     no_qc_flags_filled = "logical",
-    genes_fail= "character",
+    genes_fail = "character",
     samples_fail = "character",
     lib_sizes = "numeric",
     assay_names = "character"
@@ -244,7 +237,6 @@ setGeneric("summary")
 #' str(object_summary)
 #' slotNames(object_summary)
 #' object_summary@lib_sizes
-#'
 setMethod(
   f = "summary",
   signature = c("AnyHermesData"),
@@ -294,7 +286,6 @@ setMethod(
 #' @examples
 #' # Just calling the summary method like this will use the `show()` method.
 #' summary(object)
-#'
 setMethod(
   f = "show",
   signature = c("HermesDataSummary"),

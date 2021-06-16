@@ -41,7 +41,6 @@ NULL
 #' # Convert to SummarizedExperiment using the default naive range mapper.
 #' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
 #' # Then convert to HermesData.
-#'
 #' @note Note that we use [S4Vectors::setValidity2()] to define the validity
 #'   method, which allows us to turn off the validity checks in internal
 #'   functions where intermediate objects may not be valid within the scope of
@@ -51,13 +50,13 @@ NULL
 #' @exportClass HermesData RangedHermesData AnyHermesData
 #' @importFrom S4Vectors setValidity2
 #'
-.HermesData <- setClass(  #nolint
+.HermesData <- setClass( # nolint
   "HermesData",
   contains = "SummarizedExperiment"
 )
 
 #' @rdname HermesData-class
-.RangedHermesData <- setClass(  #nolint
+.RangedHermesData <- setClass( # nolint
   "RangedHermesData",
   contains = "RangedSummarizedExperiment"
 )
@@ -95,8 +94,7 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
 #' ranged_summarized_experiment <- as(summarized_experiment, "RangedSummarizedExperiment")
 #' ranged_hermes_data <- HermesData(ranged_summarized_experiment)
 #' ranged_hermes_data
-#'
-HermesData <- function(object) {  #nolint
+HermesData <- function(object) { # nolint
   assert_that(
     is_class(object, "SummarizedExperiment"),
     not_empty(assays(object)),
@@ -131,8 +129,7 @@ HermesData <- function(object) {  #nolint
 #'   rowData = rowData(summarized_experiment),
 #'   colData = colData(summarized_experiment)
 #' )
-#'
-HermesDataFromMatrix <- function(counts, ...) {  #nolint
+HermesDataFromMatrix <- function(counts, ...) { # nolint
   assert_that(is.matrix(counts))
 
   # Note: `object` will either be of class `SummarizedExperiment` or

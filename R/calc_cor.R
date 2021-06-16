@@ -25,7 +25,6 @@ NULL
 #' object <- HermesData(summarized_experiment)
 #' correlate(object)
 #' result <- correlate(object, method = "pearson")
-#'
 setMethod(
   f = "correlate",
   signature = "AnyHermesData",
@@ -47,7 +46,7 @@ setMethod(
 #' @aliases HermesDataCor
 #' @exportClass HermesDataCor
 #'
-.HermesDataCor <- setClass(  #nolint
+.HermesDataCor <- setClass( # nolint
   Class = "HermesDataCor",
   contains = "matrix",
   slots = c(flag_data = "DataFrame")
@@ -67,7 +66,6 @@ setMethod(
 #' @examples
 #' autoplot(result)
 #' autoplot(result, show_column_names = FALSE, show_row_names = FALSE)
-#'
 setMethod(
   f = "autoplot",
   signature = c(object = "HermesDataCor"),

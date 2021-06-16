@@ -24,7 +24,6 @@ NULL
 #' pca <- calc_pca(object)$x
 #' x <- colData(object)$LowDepthFlag
 #' r2 <- h_pca_var_rsquared(pca, x)
-#'
 h_pca_var_rsquared <- function(pca, x) {
   assert_that(
     is.matrix(pca),
@@ -35,7 +34,7 @@ h_pca_var_rsquared <- function(pca, x) {
   use_sample <- !is.na(x)
   x <- x[use_sample]
   pca <- pca[use_sample, ]
-  design <- stats::model.matrix(~ x)
+  design <- stats::model.matrix(~x)
   # Transpose such that PCs are in rows, and samples in columns.
   y0 <- t(pca)
   fit <- limma::lmFit(y0, design = design)
@@ -64,7 +63,6 @@ h_pca_var_rsquared <- function(pca, x) {
 #'   normalize()
 #' pca <- calc_pca(object)$x
 #' r2_all <- h_pca_df_r2_matrix(pca, as.data.frame(colData(object)))
-#'
 h_pca_df_r2_matrix <- function(pca, df) {
   assert_that(
     is.matrix(pca),
@@ -86,7 +84,7 @@ h_pca_df_r2_matrix <- function(pca, df) {
   # Filter character or factor sample variable that has too many (more than half the
   # number of samples) unique values.
   too_many_levels <- vapply(df, function(x) {
-    (is.character(x) || is.factor(x)) && (length(unique(x)) > nrow(df)/2)
+    (is.character(x) || is.factor(x)) && (length(unique(x)) > nrow(df) / 2)
   }, TRUE)
   df <- df[, !too_many_levels]
   # On all remaining columns, run R2 analysis vs. all principal components.
@@ -122,7 +120,6 @@ h_pca_df_r2_matrix <- function(pca, df) {
 #'   normalize()
 #' object_pca <- calc_pca(object)
 #' result <- correlate(object_pca, object)
-#'
 setMethod(
   f = "correlate",
   signature = c(object = "HermesDataPca"),
@@ -144,7 +141,7 @@ setMethod(
 #' @rdname pca_cor_samplevar
 #' @aliases HermesDataPcaCor
 #' @exportClass HermesDataPcaCor
-.HermesDataPcaCor <- setClass(  #nolint
+.HermesDataPcaCor <- setClass( # nolint
   Class = "HermesDataPcaCor",
   contains = "matrix"
 )
@@ -163,18 +160,15 @@ setMethod(
 #'
 #' # We can also choose to not reorder the columns.
 #' autoplot(result, cluster_columns = FALSE)
-#'
 setMethod(
   f = "autoplot",
   signature = c(object = "HermesDataPcaCor"),
-  definition = function(
-    object,
-    cor_colors = circlize::colorRamp2(
-      c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1),
-      c("blue", "green", "purple", "yellow", "orange", "red", "brown")
-    ),
-    ...
-  ) {
+  definition = function(object,
+                        cor_colors = circlize::colorRamp2(
+                          c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1),
+                          c("blue", "green", "purple", "yellow", "orange", "red", "brown")
+                        ),
+                        ...) {
     ComplexHeatmap::Heatmap(
       matrix = t(object),
       col = cor_colors,

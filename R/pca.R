@@ -36,7 +36,6 @@
 #' autoplot(result, x = 2, y = 3)
 #' autoplot(result, variance_percentage = FALSE)
 #' autoplot(result, label = TRUE)
-#'
 calc_pca <- function(object,
                      assay_name = "counts") {
   assert_that(
@@ -66,7 +65,7 @@ setOldClass("prcomp")
 #' @rdname calc_pca
 #' @aliases HermesDataPca
 #' @exportClass HermesDataPca
-.HermesDataPca <- setClass(  #nolint
+.HermesDataPca <- setClass( # nolint
   Class = "HermesDataPca",
   contains = "prcomp"
 )

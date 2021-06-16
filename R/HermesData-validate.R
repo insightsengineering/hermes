@@ -20,7 +20,6 @@ NULL
 #' @param object (`SummarizedExperiment`)\cr object to validate.
 #'
 validate_counts <- function(object) {
-
   nams <- assayNames(object)
   if (!("counts" %in% nams)) {
     return("no 'counts' assay found")
