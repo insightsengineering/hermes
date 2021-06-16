@@ -1,6 +1,5 @@
 ---
 params:
-  
   title:
     label: "Title of the report [Customize title name as desired]"
     value: "RNASeq QC Report"
