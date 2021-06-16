@@ -28,6 +28,7 @@ show(object)
 ```
 
 Compare it with the summary: 
+
 ```{r}
 summary(object)
 ```
@@ -38,12 +39,13 @@ Let's see what the `DESeq2` package provides.
 
 ```{r}
 library(DESeq2)
-countData <- matrix(1:100,ncol=4)
+countData <- matrix(1:100, ncol = 4)
 condition <- factor(c("A","A","B","B"))
 dds <- DESeqDataSetFromMatrix(countData, DataFrame(condition), ~ condition)
 summary(dds)
 DESeq2::show(dds)
 ```
+
 Seems the same as our default, and less information in fact.
 
 ## Ideas
@@ -81,60 +83,83 @@ rhd <- HermesData(as(summarized_experiment, "RangedSummarizedExperiment"))
 test_show(rhd)
 ```
 
+### Helper Methods to access "additional" genes/samples column names
+
+As we now need this in two places (`summary` method and `show` method) it makes sense to 
+factor out the helper methods to access "additional" genes/samples column names so we can also easily access the names of that.
+
+```{r}
+setGeneric("extraColDataNames", function(x, ...) standardGeneric("extraColDataNames"))
+
+setMethod(
+  f = "extraColDataNames",
+  signature = c(x = "AnyHermesData"),
+  definition = function(x, ...) {
+    cd_names <- colnames(colData(object))
+    cd_req_names <- union(.col_data_non_empty_cols, .col_data_additional_cols)
+    setdiff(cd_names, cd_req_names)
+  }
+)
+
+extraColDataNames(object)
+
+setGeneric("extraRowDataNames", function(x, ...) standardGeneric("extraRowDataNames"))
+
+setMethod(
+  f = "extraRowDataNames",
+  signature = c(x = "AnyHermesData"),
+  definition = function(x, ...) {
+    rd_names <- colnames(rowData(object))
+    rd_req_names <- union(.row_data_non_empty_cols, .row_data_additional_cols)
+    setdiff(rd_names, rd_req_names)
+  }
+)
+
+extraRowDataNames(object)
+```
+
+
 ### Borrowing From `summary()` `show()` Method
 
 Start from `show()` method from `summary()` and add changes from above. 
 
+Note that we can safely assume here:
+- there are assay names in the object, as at least "counts" needs to be there.
+- there are row names and column names in the object (also this is forced in validation method).
+
 ```{r}
+showMethods("show", classes = "HermesData")
+# removeMethod("show", "HermesData")
 setMethod(
   f = "show",
-  signature = c("HermesData"),
+  signature = "HermesData",
   definition = function(object) {
     cat_nl(
-      "class:", 
-      class(object)
-      )
-    
-    nms <- assayNames(object)
-    if (is.null(nms)) 
-        nms <- character(length(assays(object, withDimnames = FALSE)))
+      "class:",
+      S4Vectors::classNameForDisplay(object)
+    )
     S4Vectors::coolcat(
       "assays(%d): %s\n", 
-      nms
+      assayNames(object)
     )
-    
-    dimnames <- dimnames(object)
-    dlen <- sapply(dimnames, length)
-    if (dlen[[1]]) 
-        S4Vectors::coolcat(
-          "genes(%d): %s\n", 
-          dimnames[[1]]
-          )
-    else catnl(
-          "genes: NULL"
-          )
-    
     S4Vectors::coolcat(
-      "gene data(%d): %s\n", 
-      names(rowData(object, use.names = FALSE))
-      )
-    
-    if (dlen[[2]]) 
-        coolcat(
-          "samples(%d): %s\n", 
-          dimnames[[2]]
-          )
-    else cat_nl(
-      "samples: NULL"
-      )
-    
+      "genes(%d): %s\n", 
+      rownames(object)
+    )
     S4Vectors::coolcat(
-      "clinical data(%d): %s\n", 
-      names(colData(object))
-      )
+      "additional gene information(%d): %s\n", 
+      extraRowDataNames(object)
+    )
+    coolcat(
+      "samples(%d): %s\n", 
+      colnames(object)
+    )
+    S4Vectors::coolcat(
+      "additional sample information(%d): %s\n", 
+      extraColDataNames(object)
+    )
   }    
 )
-
 ```
 
 Therefore we can use it:
@@ -142,6 +167,8 @@ Therefore we can use it:
 ```{r}
 show(object)
 ```
+
+Interestingly we can't define this with signature `AnyHermesData` here, as the inherited SE method takes precedence for some reason. 
 
 ... and it doesn't interfere with the `show()` method on `HermesDataSummary` class.
 
@@ -151,3 +178,9 @@ res <- summary(object)
 res
 str(res)
 ```
+
+During production we need to figure out whether:
+- it is ok to define for signature `AnyHermesData` and it works
+- or if we just define the function separately and then define methods separately for signatures `HermesData` and `RangedHermesData`.
+
+Also in production we need to align the summary show method with this, e.g. rename "feature columns" to "gene information", and "sample columns" to "sample information". And reuse the above methods to access these additional names efficiently.
