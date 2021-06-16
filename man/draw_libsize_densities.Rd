@@ -7,7 +7,7 @@
 draw_libsize_densities(object, log = TRUE)
 }
 \arguments{
-\item{object}{(\code{HermesData})\cr input.}
+\item{object}{(\code{AnyHermesData})\cr input.}
 
 \item{log}{(\code{flag})\cr should the counts be log transformed (log2).}
 }
@@ -15,7 +15,7 @@ draw_libsize_densities(object, log = TRUE)
 The \code{ggplot} object with the density plot.
 }
 \description{
-This creates a density plot of the (log) counts distributions of the \link{HermesData} object where each line
+This creates a density plot of the (log) counts distributions of the \link{AnyHermesData} object where each line
 on the plot corresponds to a sample.
 }
 \examples{

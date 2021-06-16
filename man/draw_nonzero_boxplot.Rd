@@ -2,33 +2,33 @@
 % Please edit documentation in R/graphs.R
 \name{draw_nonzero_boxplot}
 \alias{draw_nonzero_boxplot}
-\title{Boxplot of Non-zero Genes}
+\title{Boxplot of Non-Zero Genes}
 \usage{
-draw_nonzero_boxplot(object, position = position_jitter(0.2), alpha = 1/4)
+draw_nonzero_boxplot(object, position = position_jitter(0.2), alpha = 0.25)
 }
 \arguments{
-\item{object}{(\code{HermesData})\cr input.}
+\item{object}{(\code{AnyHermesData})\cr input.}
 
-\item{alpha}{(\code{number})\cr \code{geom_point} aesthetic parameter.}
+\item{position}{(\code{Position})\cr specifies x-axis position of points, e.g. for jittering.}
 
-\item{jitter}{(\code{number})\cr \code{geom_point} aesthetic parameter.}
+\item{alpha}{(\code{proportion})\cr specifies transparency of points.}
 }
 \value{
-The \code{ggplot} object with the histogram.
+The \code{ggplot} object with the boxplot.
 }
 \description{
 This draws a boxplot, with overlaid data points, of the number of
 non-zero expressed genes per sample.
 }
 \examples{
-#Default Boxplot
+# Default boxplot.
 result <- HermesData(summarized_experiment)
 draw_nonzero_boxplot(result)
 
-#Example for reusing position for labeling.
+# Reusing the same position for labeling.
 library(ggrepel)
 pos <- position_jitter(0.5)
-draw_nonzero_boxplot(result, pos = pos) +
+draw_nonzero_boxplot(result, position = pos) +
   geom_text_repel(aes(label = result$SampleID), position = pos)
 
 }
