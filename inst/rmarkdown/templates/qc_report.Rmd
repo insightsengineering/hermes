@@ -87,16 +87,7 @@ knitr::opts_chunk$set(eval = TRUE, echo = TRUE, message = TRUE, warning = TRUE, 
 library(hermes)
 ```
 
-```{r initialize}
-#if we want to utilize this, we would need to add functions
-# Check that required parameters were set by user
-#requiredPaths <- c("biokit_output_dir")
-#checkPathsExist(params, requiredPaths)
-#requiredParams <- c("color_vars")
-#checkParamsNotEmpty(params, requiredParams)
-
-# -----------------------------------------------------------------------------
-```
+# Load Data, Filter Genes/Samples and Normalize
 
 ```{r}
 # Load Data and get object HermesData 
@@ -187,15 +178,49 @@ autoplot(result_sds, y_lab = "Standard Deviation across samples", title = "Top v
 
 # Sample filtering {.tabset}
 
-This step is necessary to flag out samples with low depth or technical failure. There are three approaches:   
+```{r}
+control_default <- control_quality()
+object_default_qc_flags <- HermesData(se) %>%
+  add_quality_flags(control_default)
+```
+
+This step is necessary to filter out samples with low depth or technical failure. There are three approaches:   
 
 ## Technical failure
 
-Human usually has similar RNAseq profile; therefore, correlation of RNAseq among patients should be high. If a patient's absolute correlation score is lower than a threshold (default = 0.5, <b>`r params$min_corr` </b> used in this report), it is likely that the sample preparation went wrong.
+Human usually has similar RNAseq profile; therefore, correlation of RNAseq among patients should be high. If a patient's absolute correlation score is lower than a threshold (default = `r control_default$min_corr`, <b>`r params$min_corr` </b> used in this report), it is likely that the sample preparation went wrong.
+
+### Comparison of default flags with resulting flags
+
+Next we list the samples where the default technical failure flags are different from the resulting ones, using
+the custom correlation score threshold:
+
+```{r}
+df_comp_tech_failure <- data.frame(
+  default = get_tech_failure(object_default_qc_flags),
+  result = get_tech_failure(object)
+)
+subset(df_comp_tech_failure, default != result)
+```
 
 ## Low depth samples 
 
-Identified by lower quartile minus 1.5*IQR (default) or user-defined threshold: <b> `r params$top_gene_min_threshold` </b> 
+Identified by lower quartile minus 1.5*IQR (default) or user-defined threshold: <b> 
+`r ifelse(is.null(params$min_depth), "still default", params$min_depth)` </b> 
+
+### Comparison of default flags with resulting flags
+
+Next we list the samples where the default low depth flags are different from the resulting ones, using
+the custom depth threshold:
+
+```{r}
+df_comp_low_depth <- data.frame(
+  default = get_low_depth(object_default_qc_flags),
+  result = get_low_depth(object)
+)
+subset(df_comp_low_depth, default != result)
+```
+
 
 ## Boxplot of Non-zero Genes
 
