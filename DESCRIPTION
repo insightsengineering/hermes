@@ -35,6 +35,8 @@ Imports:
     testthat (>= 2.0),
     tidyr,
     utils.nest
+Suggests:
+    ggrepel
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'

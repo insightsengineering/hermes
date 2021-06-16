@@ -21,7 +21,7 @@ draw_genes_barplot(
 The \code{ggplot} object with the histogram.
 }
 \description{
-This creates a barplot of chromosomes for the \link{HermesData} object with the proportions of low expression genes.
+This creates a barplot of chromosomes for the \link{AnyHermesData} object with the proportions of low expression genes.
 }
 \examples{
 object <- HermesData(summarized_experiment)

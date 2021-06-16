@@ -7,7 +7,7 @@
 draw_libsize_hist(object, bins = 30L, fill = "darkgrey")
 }
 \arguments{
-\item{object}{(\code{HermesData})\cr input.}
+\item{object}{(\code{AnyHermesData})\cr input.}
 
 \item{bins}{(\code{count})\cr number of evenly distributed groups desired.}
 
@@ -17,7 +17,7 @@ draw_libsize_hist(object, bins = 30L, fill = "darkgrey")
 The \code{ggplot} object with the histogram.
 }
 \description{
-This creates a histogram of the library sizes of the \link{HermesData} object.
+This creates a histogram of the library sizes of the \link{AnyHermesData} object.
 }
 \examples{
 result <- HermesData(summarized_experiment)

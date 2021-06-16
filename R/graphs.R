@@ -1,8 +1,8 @@
 #' Histogram of Library Sizes
 #'
-#' This creates a histogram of the library sizes of the [HermesData] object.
+#' This creates a histogram of the library sizes of the [AnyHermesData] object.
 #'
-#' @param object (`HermesData`)\cr input.
+#' @param object (`AnyHermesData`)\cr input.
 #' @param bins (`count`)\cr number of evenly distributed groups desired.
 #' @param fill (`string`)\cr color of the bars filling.
 #' @return The `ggplot` object with the histogram.
@@ -38,9 +38,9 @@ draw_libsize_hist <- function(object,
 
 #' Q-Q Plot of Library Sizes
 #'
-#' This creates a Q-Q plot of the library sizes of the [HermesData] object.
+#' This creates a Q-Q plot of the library sizes of the [AnyHermesData] object.
 #'
-#' @param object (`HermesData`)\cr input.
+#' @param object (`AnyHermesData`)\cr input.
 #' @param color (`string`)\cr color of Q-Q line.
 #' @param linetype (`string`)\cr linetype of  Q-Q line.
 #' @return The `ggplot` object with the Q-Q Plot.
@@ -75,10 +75,10 @@ draw_libsize_qq <- function(object,
 
 #' Density Plot of (Log) Counts Distributions
 #'
-#' This creates a density plot of the (log) counts distributions of the [HermesData] object where each line
+#' This creates a density plot of the (log) counts distributions of the [AnyHermesData] object where each line
 #' on the plot corresponds to a sample. 
 #'
-#' @param object (`HermesData`)\cr input.
+#' @param object (`AnyHermesData`)\cr input.
 #' @param log (`flag`)\cr should the counts be log transformed (log2).
 #' @return The `ggplot` object with the density plot.
 #' 
@@ -115,41 +115,48 @@ draw_libsize_densities <- function(object,
     ylab("Density")
 }
 
-#' Boxplot of Non-zero Genes
+#' Boxplot of Non-Zero Genes
 #' 
 #' This draws a boxplot, with overlaid data points, of the number of 
 #' non-zero expressed genes per sample.
 #'
-#' @param object (`HermesData`)\cr input.
-#' @param jitter (`number`)\cr `geom_point` aesthetic parameter.
-#' @param alpha (`number`)\cr `geom_point` aesthetic parameter.
+#' @param object (`AnyHermesData`)\cr input.
+#' @param position (`Position`)\cr specifies x-axis position of points, e.g. for jittering.
+#' @param alpha (`proportion`)\cr specifies transparency of points.
 #'
-#' @return The `ggplot` object with the histogram.
+#' @return The `ggplot` object with the boxplot.
+#' 
+#' @importFrom tern is_proportion
 #' @export
 #' 
 #' @examples
+#' # Default boxplot.
 #' result <- HermesData(summarized_experiment)
 #' draw_nonzero_boxplot(result)
-#' draw_nonzero_boxplot(result, jitter = 0.1, alpha = 1/3)
 #' 
+#' # Reusing the same position for labeling.
+#' library(ggrepel)
+#' pos <- position_jitter(0.5)
+#' draw_nonzero_boxplot(result, position = pos) +
+#'   geom_text_repel(aes(label = result$SampleID), position = pos)
+#'
 draw_nonzero_boxplot <- function(object, 
-                                 jitter = 0.2,
-                                 alpha = 1/4) {
+                                 position = position_jitter(0.2),
+                                 alpha = 0.25) {
   assert_that(
     is_hermes_data(object),
-    is.number(jitter),
-    is.number(alpha)
+    is_class(position, "Position"),
+    tern::is_proportion(alpha, include_boundaries = TRUE)
   )
   
   no_na_count <- colSums(counts(object) != 0)
-  
   df <- data.frame(no_na = no_na_count, x = "Sample")
   
   ggplot(df, aes(y = .data$no_na, x = .data$x)) +
     geom_boxplot(outlier.shape = NA) +
     stat_boxplot(geom = "errorbar") +
     geom_point(
-      position = position_jitter(width = jitter),
+      position = position,
       alpha = alpha
     ) +
     stat_n_text(text_box = TRUE) +
@@ -160,7 +167,7 @@ draw_nonzero_boxplot <- function(object,
 
 #' Stacked Barplot of Low Expression Genes by Chromosome
 #'
-#' This creates a barplot of chromosomes for the [HermesData] object with the proportions of low expression genes.
+#' This creates a barplot of chromosomes for the [AnyHermesData] object with the proportions of low expression genes.
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param chromosomes (`character`)\cr names of the chromosomes which should be displayed. 
