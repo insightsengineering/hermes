@@ -20,7 +20,8 @@
 )
 }
 \arguments{
-\item{object}{(\code{HermesDataPca})\cr input. It can be generated using \code{\link[=calc_pca]{calc_pca()}} function on \link{AnyHermesData}.}
+\item{object}{(\code{HermesDataPca})\cr input. It can be generated using \code{\link[=calc_pca]{calc_pca()}} function
+on \code{\link{AnyHermesData}}.}
 
 \item{data}{(\code{AnyHermesData})\cr input that was used originally for the PCA.}
 
@@ -49,10 +50,8 @@ object <- HermesData(summarized_experiment) \%>\%
   normalize()
 object_pca <- calc_pca(object)
 result <- correlate(object_pca, object)
-
 autoplot(result)
 
 # We can also choose to not reorder the columns.
 autoplot(result, cluster_columns = FALSE)
-
 }

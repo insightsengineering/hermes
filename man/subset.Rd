@@ -2,15 +2,15 @@
 % Please edit documentation in R/HermesData-methods.R
 \name{subset}
 \alias{subset}
-\title{Subsetting HermesData Objects}
+\title{Subsetting \code{AnyHermesData} Objects}
 \arguments{
 \item{x}{(\code{AnyHermesData})\cr object to subset from.}
 }
 \value{
-The subsetted \link{AnyHermesData} object.
+The subsetted \code{\link{AnyHermesData}} object.
 }
 \description{
-This method subsets HermesData objects, based on expressions involving the
+This method subsets \code{\link{AnyHermesData}} objects, based on expressions involving the
 \code{rowData} columns and the \code{colData} columns.
 }
 \note{
@@ -21,5 +21,4 @@ Note that this just inherits
 a <- HermesData(summarized_experiment)
 a
 subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
-
 }

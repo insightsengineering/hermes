@@ -3,8 +3,8 @@
 get_se <- function() {
   SummarizedExperiment(
     list(counts = matrix(
-      data = 1:4, 
-      nrow = 2, 
+      data = 1:4,
+      nrow = 2,
       ncol = 2,
       dimnames = list(c("a", "b"), c("X", "Y"))
     )),
@@ -37,16 +37,16 @@ get_se <- function() {
 get_rse <- function() {
   SummarizedExperiment(
     list(counts = matrix(
-      data = 1:4, 
-      nrow = 2, 
+      data = 1:4,
+      nrow = 2,
       ncol = 2,
       dimnames = list(c("a", "b"), c("X", "Y"))
     )),
     rowRanges = GRanges(
       c("chr1", "chr2"),
-      IRanges(c(124L, 134214L), width=100),
-      strand=c("+", "-"),
-      feature_id= c(1L, 2L),
+      IRanges(c(124L, 134214L), width = 100),
+      strand = c("+", "-"),
+      feature_id = c(1L, 2L),
       HGNC = c(1, 1),
       GeneID = c(1, 1),
       Chromosome = c(1, 1),

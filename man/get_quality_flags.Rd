@@ -34,11 +34,7 @@ Separate getter functions which allow easy access to the quality control flags.
 
 \examples{
 object <- HermesData(summarized_experiment)
-
 head(get_tech_failure(object))
-
 head(get_low_depth(object))
-
 head(get_low_expression(object))
-
 }

@@ -13,15 +13,15 @@ se3 <- se[1501:2800, 15:20]
 
 # Randomly adding NAs into the counts of the 3 SE objects.
 counts_matrix1 <- assays(se1)$counts
-indices1 <- arrayInd(sample(length(counts_matrix1), length(counts_matrix1)*0.1), dim(counts_matrix1))
+indices1 <- arrayInd(sample(length(counts_matrix1), length(counts_matrix1) * 0.1), dim(counts_matrix1))
 counts_matrix1[indices1] <- NA
 
 counts_matrix2 <- assays(se2)$counts
-indices2 <- arrayInd(sample(length(counts_matrix2), length(counts_matrix2)*0.15), dim(counts_matrix2))
+indices2 <- arrayInd(sample(length(counts_matrix2), length(counts_matrix2) * 0.15), dim(counts_matrix2))
 counts_matrix2[indices2] <- NA
 
 counts_matrix3 <- assays(se3)$counts
-indices3 <- arrayInd(sample(length(counts_matrix3), length(counts_matrix3)*0.25), dim(counts_matrix3))
+indices3 <- arrayInd(sample(length(counts_matrix3), length(counts_matrix3) * 0.25), dim(counts_matrix3))
 counts_matrix3[indices3] <- NA
 
 # Create sample maps for each experiment.
@@ -33,8 +33,10 @@ se1map <- data.frame(
 
 se2map <- data.frame(
   primary = c("Jack", "Jill", "Barbara", "Bob", "John", "Jane", "Claire", "Mike", "Kate"),
-  colname = c("06520103C0017R", "06520001B0023R", "06520022C0017R", "06520062C0017R", "06520046C0018R", 
-              "06520101B0017R", "06520047C0017R", "06520024B0014R", "06520080B0023R"),
+  colname = c(
+    "06520103C0017R", "06520001B0023R", "06520022C0017R", "06520062C0017R", "06520046C0018R",
+    "06520101B0017R", "06520047C0017R", "06520024B0014R", "06520080B0023R"
+  ),
   stringsAsFactors = FALSE
 )
 
@@ -48,9 +50,11 @@ maplist <- list(se1 = se1map, se2 = se2map, se3 = se3map)
 sampMap <- listToMap(maplist)
 
 # Create an example phenotype data.
-colDat <- data.frame(sex = c("M", "F", "F", "M", "M", "F", "F", "M", "F"), 
-                     age = 35:43,
-                     row.names = c("Jack", "Jill", "Barbara", "Bob", "John", "Jane", "Claire", "Mike", "Kate"))
+colDat <- data.frame(
+  sex = c("M", "F", "F", "M", "M", "F", "F", "M", "F"),
+  age = 35:43,
+  row.names = c("Jack", "Jill", "Barbara", "Bob", "John", "Jane", "Claire", "Mike", "Kate")
+)
 
 # Create a named experiment list.
 assaylist <- list(se1 = se1, se2 = se2, se3 = se3)

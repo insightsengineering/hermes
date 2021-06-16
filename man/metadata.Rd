@@ -10,7 +10,7 @@
 The metadata which is a list.
 }
 \description{
-These methods access or set the metadata in a \link{AnyHermesData} object.
+These methods access or set the metadata in a \code{\link{AnyHermesData}} object.
 }
 \note{
 Note that this just inherits \code{\link[S4Vectors:Annotated-class]{S4Vectors::metadata,Annotated-method()}}.
@@ -20,5 +20,4 @@ a <- HermesData(summarized_experiment)
 metadata(a)
 metadata(a) <- list(new = "my metadata")
 metadata(a)
-
 }

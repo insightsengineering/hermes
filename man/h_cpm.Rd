@@ -22,5 +22,4 @@ h <- HermesData(summarized_experiment)
 cont <- control_normalize()
 counts_cpm <- h_cpm(h, cont)
 str(counts_cpm)
-
 }

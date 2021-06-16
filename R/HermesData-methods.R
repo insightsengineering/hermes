@@ -1,22 +1,22 @@
 # rbind ----
 
-#' Row Binding of HermesData Objects
+#' Row Binding of `AnyHermesData` Objects
 #'
-#' This method combines HermesData objects with the same samples but different
+#' This method combines [`AnyHermesData`] objects with the same samples but different
 #' features of interest (rows in assays).
 #'
 #' @note Note that this just inherits
 #'   [SummarizedExperiment::rbind,SummarizedExperiment-method()]. When binding a
-#'   [HermesData] object with a [SummarizedExperiment::SummarizedExperiment]
+#'   [`AnyHermesData`] object with a [`SummarizedExperiment::SummarizedExperiment`]
 #'   object, then the result will be a
-#'   [SummarizedExperiment::SummarizedExperiment] object (the more general
+#'   [`SummarizedExperiment::SummarizedExperiment`] object (the more general
 #'   class).
 #'
 #' @name rbind
 #'
 #' @param ... (`AnyHermesData`)\cr objects to row bind.
 #'
-#' @return The combined [AnyHermesData] object.
+#' @return The combined [`AnyHermesData`] object.
 #'
 #' @examples
 #' a <- b <- HermesData(summarized_experiment)
@@ -25,28 +25,27 @@
 #'
 #' result2 <- rbind(summarized_experiment, b)
 #' class(result2)
-#' 
 NULL
 
 # cbind ----
 
-#' Column Binding of HermesData Objects
+#' Column Binding of `AnyHermesData` Objects
 #'
-#' This method combines HermesData objects with the same ranges but different
+#' This method combines [`AnyHermesData`] objects with the same ranges but different
 #' samples (columns in assays).
 #'
 #' @note Note that this just inherits
 #'   [SummarizedExperiment::cbind,SummarizedExperiment-method()]. When binding a
-#'   [HermesData] object with a [SummarizedExperiment::SummarizedExperiment]
+#'   [`AnyHermesData`] object with a [`SummarizedExperiment::SummarizedExperiment`]
 #'   object, then the result will be a
-#'   [SummarizedExperiment::SummarizedExperiment] object (the more general
+#'   [`SummarizedExperiment::SummarizedExperiment`] object (the more general
 #'   class).
 #'
 #' @name cbind
 #'
 #' @param ... (`AnyHermesData`)\cr objects to column bind.
 #'
-#' @return The combined [AnyHermesData] object.
+#' @return The combined [`AnyHermesData`] object.
 #'
 #' @examples
 #' a <- b <- HermesData(summarized_experiment)
@@ -55,19 +54,18 @@ NULL
 #'
 #' result2 <- cbind(summarized_experiment, b)
 #' class(result2)
-#' 
 NULL
 
 # metadata ----
 
 #' Metadata Accessor and Setter
 #'
-#' These methods access or set the metadata in a [AnyHermesData] object.
-#' 
+#' These methods access or set the metadata in a [`AnyHermesData`] object.
+#'
 #' @note Note that this just inherits [S4Vectors::metadata,Annotated-method()].
-#' 
+#'
 #' @name metadata
-#' 
+#'
 #' @param x (`AnyHermesData`)\cr object to access the metadata from.
 #'
 #' @return The metadata which is a list.
@@ -75,38 +73,36 @@ NULL
 #' @importMethodsFrom S4Vectors metadata
 #' @exportMethod metadata
 #' @export `metadata<-`
-#' 
-#' @examples 
+#'
+#' @examples
 #' a <- HermesData(summarized_experiment)
 #' metadata(a)
 #' metadata(a) <- list(new = "my metadata")
 #' metadata(a)
-#' 
 NULL
 
 # counts ----
 
 #' Counts Accessor and Setter
 #'
-#' These methods access and set the counts assay in a [HermesData] object.
-#' 
+#' These methods access and set the counts assay in a [`AnyHermesData`] object.
+#'
 #' @rdname counts
 #' @aliases counts
-#' 
+#'
 #' @param object (`AnyHermesData`)\cr object to access the counts from.
 #' @param value (`matrix`)\cr what should the counts assay be replaced with.
 #'
 #' @return The counts assay.
-#'  
+#'
 #' @importFrom BiocGenerics counts
 #' @export
-#' 
-#' @examples 
+#'
+#' @examples
 #' a <- HermesData(summarized_experiment)
 #' result <- counts(a)
 #' class(result)
 #' head(result)
-#' 
 setMethod(
   f = "counts",
   signature = "AnyHermesData",
@@ -116,16 +112,15 @@ setMethod(
 )
 
 #' @describeIn counts
-#' 
+#'
 #' @importFrom BiocGenerics `counts<-`
 #' @export
-#' 
-#' @examples 
+#'
+#' @examples
 #' counts(a) <- counts(a) + 100L
 #' head(counts(a))
-#' 
 setReplaceMethod(
-  f = "counts", 
+  f = "counts",
   signature = signature(object = "AnyHermesData", value = "matrix"),
   definition = function(object, value) {
     assay(object) <- value
@@ -136,54 +131,52 @@ setReplaceMethod(
 
 # subset ----
 
-#' Subsetting HermesData Objects
+#' Subsetting `AnyHermesData` Objects
 #'
-#' This method subsets HermesData objects, based on expressions involving the
+#' This method subsets [`AnyHermesData`] objects, based on expressions involving the
 #' `rowData` columns and the `colData` columns.
 #'
 #' @note Note that this just inherits
 #'   [SummarizedExperiment::subset,SummarizedExperiment-method()].
 #'
 #' @name subset
-#' 
+#'
 #' @param x (`AnyHermesData`)\cr object to subset from.
-#' @return The subsetted [AnyHermesData] object.
+#' @return The subsetted [`AnyHermesData`] object.
 #'
 #' @examples
 #' a <- HermesData(summarized_experiment)
 #' a
 #' subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
-#' 
 NULL
 
 # filter ----
 
 setGeneric("filter")
 
-#' Filter HermesData on Subset Passing Default QC Flags
+#' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
-#' This filters a [AnyHermesData] object using the default QC flags. That is, 
+#' This filters a [`AnyHermesData`] object using the default QC flags. That is,
 #' only genes without low expression (`LowExpressionFlag`) and samples
 #' without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
 #' remain in the returned filtered object.
-#' 
+#'
 #' @rdname filter
 #' @aliases filter
-#' 
+#'
 #' @param x (`AnyHermesData`)\cr object to filter.
 #'
-#' @return The filtered [AnyHermesData] object.
+#' @return The filtered [`AnyHermesData`] object.
 #' @note The internal implementation cannot use the [subset()] method since that
 #'   requires non-standard evaluation of arguments.
-#'  
+#'
 #' @export
-#' 
-#' @examples 
+#'
+#' @examples
 #' a <- HermesData(summarized_experiment)
 #' dim(a)
 #' result <- filter(a)
 #' dim(result)
-#' 
 setMethod(
   f = "filter",
   signature = signature(x = "AnyHermesData"),
@@ -208,7 +201,7 @@ setMethod(
 #' @rdname summary
 #' @aliases summary HermesDataSummary
 #' @exportClass HermesDataSummary
-.HermesDataSummary <- setClass(
+.HermesDataSummary <- setClass( # nolint
   Class = "HermesDataSummary",
   slots = c(
     class_name = "character",
@@ -217,7 +210,7 @@ setMethod(
     additional_feature_cols = "character",
     additional_sample_cols = "character",
     no_qc_flags_filled = "logical",
-    genes_fail= "character",
+    genes_fail = "character",
     samples_fail = "character",
     lib_sizes = "numeric",
     assay_names = "character"
@@ -226,25 +219,24 @@ setMethod(
 
 setGeneric("summary")
 
-#' Summary Method for HermesData Objects
+#' Summary Method for `AnyHermesData` Objects
 #'
-#' @describeIn summary A summary method for [AnyHermesData] object that 
-#'   creates a [HermesDataSummary] object.
+#' @describeIn summary A summary method for [`AnyHermesData`] object that
+#'   creates a [`HermesDataSummary`] object.
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #'
 #' @importFrom S4Vectors classNameForDisplay
-#' @export 
+#' @export
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
 #' object_summary <- summary(object)
-#' 
+#'
 #' # We can access parts of this S4 object with the slot operator.
 #' str(object_summary)
 #' slotNames(object_summary)
 #' object_summary@lib_sizes
-#' 
 setMethod(
   f = "summary",
   signature = c("AnyHermesData"),
@@ -265,7 +257,7 @@ setMethod(
       all_na(rd$LowExpressionFlag) &&
       all_na(cd$TechnicalFailureFlag) &&
       all_na(cd$LowDepthFlag)
-    
+
     .HermesDataSummary(
       class_name = S4Vectors::classNameForDisplay(object),
       n_genes = nrow(object),
@@ -281,11 +273,11 @@ setMethod(
   }
 )
 
-#' @describeIn summary A show method prints summary description of [HermesDataSummary] object 
+#' @describeIn summary A show method prints summary description of [`HermesDataSummary`] object
 #'   generated by the [summary()] method.
 #'
 #' @param object (`HermesDataSummary`) \cr result from the summary method applied to
-#'   [AnyHermesData] object.
+#'   [`AnyHermesData`] object.
 #'
 #' @importFrom utils.nest cat_nl
 #' @importFrom S4Vectors coolcat
@@ -294,7 +286,6 @@ setMethod(
 #' @examples
 #' # Just calling the summary method like this will use the `show()` method.
 #' summary(object)
-#'
 setMethod(
   f = "show",
   signature = c("HermesDataSummary"),
@@ -311,18 +302,18 @@ setMethod(
       sep = ""
     )
     S4Vectors::coolcat(
-      "- Included assays (%d): %s\n", 
+      "- Included assays (%d): %s\n",
       object@assay_names
     )
     if (length(object@additional_feature_cols)) {
       S4Vectors::coolcat(
-        "- Additional feature columns (%d): %s\n", 
+        "- Additional feature columns (%d): %s\n",
         object@additional_feature_cols
       )
     }
     if (length(object@additional_sample_cols)) {
       S4Vectors::coolcat(
-        "- Additional sample columns (%d): %s\n", 
+        "- Additional sample columns (%d): %s\n",
         object@additional_sample_cols
       )
     }
@@ -330,13 +321,13 @@ setMethod(
       cat_nl(
         "- QC flags still need to be added"
       )
-    } else { 
+    } else {
       S4Vectors::coolcat(
-        "- Low expression genes (%d): %s\n", 
+        "- Low expression genes (%d): %s\n",
         object@genes_fail
       )
       S4Vectors::coolcat(
-        "- Samples with too low depth or technical failures (%d): %s\n", 
+        "- Samples with too low depth or technical failures (%d): %s\n",
         object@samples_fail
       )
     }
@@ -347,6 +338,9 @@ setMethod(
 
 #' @name correlate
 #' @title Generic Function for Correlation Calculations
+#' @param object input of which the class will be used to decide the method.
+#' @param ... additional arguments.
+#' @return Corresponding object that contains the correlation results.
 #' @seealso [pca_cor_samplevar] and [calc_cor] which are the methods included for this generic function.
 setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 

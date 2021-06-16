@@ -26,5 +26,4 @@ object <- HermesData(summarized_experiment) \%>\%
 pca <- calc_pca(object)$x
 x <- colData(object)$LowDepthFlag
 r2 <- h_pca_var_rsquared(pca, x)
- 
 }

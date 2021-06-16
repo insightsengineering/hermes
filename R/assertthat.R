@@ -16,7 +16,6 @@ NULL
 #' @examples
 #' a <- 5
 #' is_class(a, "character")
-#' 
 is_class <- function(object, class2) {
   is(object, class2)
 }
@@ -35,7 +34,6 @@ on_failure(is_class) <- function(call, env) {
 #' @examples
 #' is_hermes_data(HermesData(summarized_experiment))
 #' is_hermes_data(42)
-#' 
 is_hermes_data <- function(object) {
   is_class(object, "AnyHermesData")
 }
@@ -53,7 +51,6 @@ on_failure(is_hermes_data) <- function(call, env) {
 #' @examples
 #' a <- 5
 #' is_class(a, "character")
-#' 
 is_counts_vector <- function(x) {
   is.integer(x) && all(x > 0) && noNA(x) && not_empty(x)
 }
@@ -63,7 +60,7 @@ on_failure(is_counts_vector) <- function(call, env) {
   paste(x_name, "is not a vector of counts (positive integers)")
 }
 
-# is_list_with ---- 
+# is_list_with ----
 
 #' @describeIn assertions checks for a list containing elements.
 #' @param elements (`character`)\cr names of elements which should be in the list `x`.
@@ -73,18 +70,17 @@ on_failure(is_counts_vector) <- function(call, env) {
 #' b <- list(a = 5, b = 3)
 #' is_list_with(b, c("a", "c"))
 #' is_list_with(b, c("a", "b"))
-#' 
 is_list_with <- function(x, elements) {
   assert_that(utils.nest::is_character_vector(elements))
   utils.nest::is_fully_named_list(x) &&
-    all(elements %in% names(x)) 
+    all(elements %in% names(x))
 }
 
 on_failure(is_list_with) <- function(call, env) {
   x_name <- deparse(call$x)
   elements <- eval(call$elements, env)
   paste(
-    x_name, "is not a fully and uniquely named list containing all elements", 
+    x_name, "is not a fully and uniquely named list containing all elements",
     paste(elements, collapse = ", ")
   )
 }
@@ -101,17 +97,16 @@ on_failure(is_list_with) <- function(call, env) {
 #' b <- 10
 #' one_provided(a, b)
 #' one_provided(a, NULL)
-#' 
 one_provided <- function(one, two) {
-  (is.null(one) && !is.null(two)) || 
-    (is.null(two) && !is.null(one)) 
+  (is.null(one) && !is.null(two)) ||
+    (is.null(two) && !is.null(one))
 }
 
 on_failure(one_provided) <- function(call, env) {
   one_name <- deparse(call$one)
   two_name <- deparse(call$two)
   paste(
-    "only one of", one_name, "and", two_name, 
+    "only one of", one_name, "and", two_name,
     "must be specified, the other needs to be set to NULL"
   )
 }
@@ -126,7 +121,6 @@ on_failure(one_provided) <- function(call, env) {
 #' is_constant(c(1, 2))
 #' is_constant(c(NA, 1))
 #' is_constant(c("a", "a"))
-#' 
 is_constant <- function(x) {
   assert_that(is.vector(x))
   x <- x[!is.na(x)]

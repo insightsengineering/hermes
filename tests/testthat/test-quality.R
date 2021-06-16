@@ -20,19 +20,19 @@ test_that("control_quality fails as expected with invalid settings", {
   expect_error(control_quality(min_cpm = TRUE))
   expect_error(control_quality(min_cpm = "fail"))
   expect_error(control_quality(min_cpm = c(1, 2)))
-  
+
   expect_error(control_quality(min_cpm_prop = -1))
   expect_error(control_quality(min_cpm_prop = TRUE))
   expect_error(control_quality(min_cpm_prop = "fail"))
   expect_error(control_quality(min_cpm_prop = 5))
   expect_error(control_quality(min_cpm_prop = c(1, 2)))
-  
+
   expect_error(control_quality(min_corr = -1))
   expect_error(control_quality(min_corr = TRUE))
   expect_error(control_quality(min_corr = "fail"))
   expect_error(control_quality(min_corr = 5))
   expect_error(control_quality(min_corr = c(1, 2)))
-  
+
   expect_error(control_quality(min_depth = -1))
   expect_error(control_quality(min_depth = TRUE))
   expect_error(control_quality(min_depth = "fail"))
