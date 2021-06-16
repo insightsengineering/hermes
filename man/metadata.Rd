@@ -10,7 +10,7 @@
 The metadata which is a list.
 }
 \description{
-These methods access or set the metadata in a \link{AnyHermesData} object.
+These methods access or set the metadata in a \verb{[AnyHermesData]} object.
 }
 \note{
 Note that this just inherits \code{\link[S4Vectors:Annotated-class]{S4Vectors::metadata,Annotated-method()}}.

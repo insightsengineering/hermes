@@ -2,23 +2,23 @@
 % Please edit documentation in R/HermesData-methods.R
 \name{rbind}
 \alias{rbind}
-\title{Row Binding of HermesData Objects}
+\title{Row Binding of \code{AnyHermesData} Objects}
 \arguments{
 \item{...}{(\code{AnyHermesData})\cr objects to row bind.}
 }
 \value{
-The combined \link{AnyHermesData} object.
+The combined \verb{[AnyHermesData]} object.
 }
 \description{
-This method combines HermesData objects with the same samples but different
+This method combines \verb{[AnyHermesData]} objects with the same samples but different
 features of interest (rows in assays).
 }
 \note{
 Note that this just inherits
 \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::rbind,SummarizedExperiment-method()}}. When binding a
-\link{HermesData} object with a \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
+\verb{[AnyHermesData]} object with a \verb{[SummarizedExperiment::SummarizedExperiment]}
 object, then the result will be a
-\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment} object (the more general
+\verb{[SummarizedExperiment::SummarizedExperiment]} object (the more general
 class).
 }
 \examples{

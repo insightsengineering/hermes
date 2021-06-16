@@ -41,7 +41,7 @@ draw_libsize_hist <- function(object,
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param color (`string`)\cr color of Q-Q line.
-#' @param linetype (`string`)\cr linetype of  Q-Q line.
+#' @param linetype (`string`)\cr line type of  Q-Q line.
 #' @return The `ggplot` object with the Q-Q Plot.
 #'
 #' @export
@@ -216,7 +216,7 @@ draw_genes_barplot <- function(object,
 
 # autoplot(AnyHermesData) ----
 
-#' All standard plots in default setting
+#' All Standard Plots in Default Setting
 #'
 #' This generates all standard plots - histogram and q-q plot of library sizes, density plot of the (log) counts
 #' distributions, boxplot of the number of number of non-zero expressed genes per sample, and a stacked barplot of low
@@ -227,8 +227,9 @@ draw_genes_barplot <- function(object,
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #'
-#' @return A list with the `ggplot` objects from [draw_libsize_hist()], [draw_libsize_qq()], [draw_libsize_densities],
-#'   [draw_nonzero_boxplot()] and [draw_genes_barplot()] functions with default settings.
+#' @return A list with the `ggplot` objects from [draw_libsize_hist()], [draw_libsize_qq()],
+#'   [draw_libsize_densities()], [draw_nonzero_boxplot()] and [draw_genes_barplot()]
+#'   functions with default settings.
 #' @export
 #'
 #' @examples

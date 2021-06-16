@@ -11,7 +11,7 @@ draw_libsize_qq(object, color = "grey", linetype = "dashed")
 
 \item{color}{(\code{string})\cr color of Q-Q line.}
 
-\item{linetype}{(\code{string})\cr linetype of  Q-Q line.}
+\item{linetype}{(\code{string})\cr line type of  Q-Q line.}
 }
 \value{
 The \code{ggplot} object with the Q-Q Plot.

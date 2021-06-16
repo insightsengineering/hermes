@@ -14,8 +14,8 @@ calc_pca(object, assay_name = "counts")
 \item{object}{(\code{AnyHermesData}) \cr input.}
 
 \item{assay_name}{(\verb{Character string}) \cr Indicating the name of the assay
-of interest, with possible options: "counts", "cpm", "tpm", "rpkm", "voom".
-Default assay is "counts".}
+of interest, with possible options: \code{counts}, \code{cpm}, \code{tpm}, \code{rpkm}, \code{voom}.
+Default assay is \code{counts}.}
 }
 \value{
 A \link{HermesDataPca} object which is an extension of the \link[stats:prcomp]{stats::prcomp} class.

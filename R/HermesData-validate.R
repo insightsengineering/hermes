@@ -1,7 +1,7 @@
-#' Internal Helper Functions for Validation of HermesData Objects
+#' Internal Helper Functions for Validation of `AnyHermesData` Objects
 #'
 #' These functions are used internally only and therefore not exported. They work on
-#' [SummarizedExperiment::SummarizedExperiment] objects, and [HermesData] objects are
+#' `[SummarizedExperiment::SummarizedExperiment]` objects, and `[AnyHermesData]` objects are
 #' defined by successfully passing these validation checks.
 #'
 #' @name validate

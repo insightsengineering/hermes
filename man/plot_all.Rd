@@ -3,7 +3,7 @@
 \name{autoplot,AnyHermesData-method}
 \alias{autoplot,AnyHermesData-method}
 \alias{plot_all}
-\title{All standard plots in default setting}
+\title{All Standard Plots in Default Setting}
 \usage{
 \S4method{autoplot}{AnyHermesData}(object)
 }
@@ -11,8 +11,9 @@
 \item{object}{(\code{AnyHermesData})\cr input.}
 }
 \value{
-A list with the \code{ggplot} objects from \code{\link[=draw_libsize_hist]{draw_libsize_hist()}}, \code{\link[=draw_libsize_qq]{draw_libsize_qq()}}, \link{draw_libsize_densities},
-\code{\link[=draw_nonzero_boxplot]{draw_nonzero_boxplot()}} and \code{\link[=draw_genes_barplot]{draw_genes_barplot()}} functions with default settings.
+A list with the \code{ggplot} objects from \code{\link[=draw_libsize_hist]{draw_libsize_hist()}}, \code{\link[=draw_libsize_qq]{draw_libsize_qq()}},
+\code{\link[=draw_libsize_densities]{draw_libsize_densities()}}, \code{\link[=draw_nonzero_boxplot]{draw_nonzero_boxplot()}} and \code{\link[=draw_genes_barplot]{draw_genes_barplot()}}
+functions with default settings.
 }
 \description{
 This generates all standard plots - histogram and q-q plot of library sizes, density plot of the (log) counts

@@ -2,7 +2,7 @@
 % Please edit documentation in R/differential.R
 \name{h_diff_expr_voom}
 \alias{h_diff_expr_voom}
-\title{Limma/Voom Differential Expression Analysis}
+\title{\code{limma}/\code{voom} Differential Expression Analysis}
 \usage{
 h_diff_expr_voom(object, design)
 }

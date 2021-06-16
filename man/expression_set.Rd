@@ -5,7 +5,7 @@
 \alias{expression_set}
 \title{Example \code{ExpressionSet} Data}
 \format{
-A \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet} object with 20 samples covering 5085
+A \verb{[Biobase::ExpressionSet]} object with 20 samples covering 5085
 features (Entrez gene IDs).
 }
 \source{
@@ -15,12 +15,12 @@ This is an artificial dataset designed to resemble real data.
 expression_set
 }
 \description{
-This example data can be used to try out conversion of a \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}
-object into a \link{HermesData} object. Note that this data does not yet have the
+This example data can be used to try out conversion of a \verb{[Biobase::ExpressionSet]}
+object into a \verb{[HermesData]} object. Note that this data does not yet have the
 required columns in the \code{featureData} and \code{phenoData}.
 }
 \seealso{
 summarized_experiment which contains similar data as
-\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}.
+\verb{[SummarizedExperiment::SummarizedExperiment]}.
 }
 \keyword{datasets}

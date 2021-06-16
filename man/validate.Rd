@@ -9,7 +9,7 @@
 \alias{validate_row_data}
 \alias{validate_col_data}
 \alias{validate_names}
-\title{Internal Helper Functions for Validation of HermesData Objects}
+\title{Internal Helper Functions for Validation of \code{AnyHermesData} Objects}
 \usage{
 validate_counts(object)
 
@@ -42,7 +42,7 @@ case validation passes.
 }
 \description{
 These functions are used internally only and therefore not exported. They work on
-\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment} objects, and \link{HermesData} objects are
+\verb{[SummarizedExperiment::SummarizedExperiment]} objects, and \verb{[AnyHermesData]} objects are
 defined by successfully passing these validation checks.
 }
 \section{Functions}{

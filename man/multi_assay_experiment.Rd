@@ -5,7 +5,7 @@
 \alias{multi_assay_experiment}
 \title{Example \code{MultiAssayExperiment} Data}
 \format{
-A \link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment} object with 3 separate SE objects. The first SE object
+A \verb{[MultiAssayExperiment::MultiAssayExperiment]} object with 3 separate SE objects. The first SE object
 contains 5 samples and covers 1000 features (Entrez gene IDs). The second SE object contains 9 samples with
 2500 features. The third SE object contains 6 samples with 1300 features.
 }
@@ -16,6 +16,6 @@ This is an artificial dataset designed to resemble real data.
 multi_assay_experiment
 }
 \description{
-This example \link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment} can be used as test data.
+This example \verb{[MultiAssayExperiment::MultiAssayExperiment]} can be used as test data.
 }
 \keyword{datasets}

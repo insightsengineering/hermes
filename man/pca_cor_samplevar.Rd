@@ -20,7 +20,8 @@
 )
 }
 \arguments{
-\item{object}{(\code{HermesDataPca})\cr input. It can be generated using \code{\link[=calc_pca]{calc_pca()}} function on \link{AnyHermesData}.}
+\item{object}{(\code{HermesDataPca})\cr input. It can be generated using \code{\link[=calc_pca]{calc_pca()}} function
+on \verb{[AnyHermesData]}.}
 
 \item{data}{(\code{AnyHermesData})\cr input that was used originally for the PCA.}
 

@@ -19,7 +19,7 @@
 The counts assay.
 }
 \description{
-These methods access and set the counts assay in a \link{HermesData} object.
+These methods access and set the counts assay in a \verb{[AnyHermesData]} object.
 }
 \section{Methods (by class)}{
 \itemize{

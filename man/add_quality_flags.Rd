@@ -41,7 +41,7 @@ then the sample is flagged as "technical failure".
 }
 \details{
 While \code{object} already has the variables above (as this is enforced by the validation method
-for \link{AnyHermesData}), they are usually still \code{NA} after the initial creation.
+for \verb{[AnyHermesData]}), they are usually still \code{NA} after the initial creation.
 }
 \section{Functions}{
 \itemize{
@@ -56,7 +56,7 @@ given control settings.
 }}
 
 \examples{
-# Adding default quality flags to HermesData object.
+# Adding default quality flags to `AnyHermesData` object.
 object <- HermesData(summarized_experiment)
 result <- add_quality_flags(object)
 which(get_tech_failure(result) != get_tech_failure(object))

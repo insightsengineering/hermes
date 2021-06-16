@@ -3,9 +3,9 @@ NULL
 
 # HermesData-class ----
 
-#' HermesData and RangedHermesData
+#' `HermesData` and `RangedHermesData`
 #'
-#' The [HermesData] class is an extension of [SummarizedExperiment::SummarizedExperiment]
+#' The `[HermesData]` class is an extension of `[SummarizedExperiment::SummarizedExperiment]`
 #' with additional validation criteria.
 #'
 #' The additional criteria are:
@@ -27,20 +27,20 @@ NULL
 #'   - `TechnicalFailureFlag`
 #' - The object must have row and column names.
 #'
-#' Analogously, [RangedHermesData] is an extension of
-#' [SummarizedExperiment::RangedSummarizedExperiment] and has the same
+#' Analogously, `[RangedHermesData]` is an extension of
+#' `[SummarizedExperiment::RangedSummarizedExperiment]` and has the same
 #' additional validation requirements. Methods can be defined for both classes at the
-#' same time with the [AnyHermesData] signature.
+#' same time with the `[AnyHermesData]` signature.
 #'
-#' A [Biobase::ExpressionSet] object can be imported by using the
-#' [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet] function to
-#' first convert it to a [SummarizedExperiment::SummarizedExperiment] object before
-#' converting it again into a [HermesData] object.
+#' A `[Biobase::ExpressionSet]` object can be imported by using the
+#' [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()] function to
+#' first convert it to a `[SummarizedExperiment::SummarizedExperiment]` object before
+#' converting it again into a `[HermesData]` object.
 #'
 #' @examples
-#' # Convert to SummarizedExperiment using the default naive range mapper.
+#' # Convert to `SummarizedExperiment` using the default naive range mapper.
 #' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
-#' # Then convert to HermesData.
+#' # Then convert to `HermesData`.
 #' @note Note that we use [S4Vectors::setValidity2()] to define the validity
 #'   method, which allows us to turn off the validity checks in internal
 #'   functions where intermediate objects may not be valid within the scope of
@@ -83,12 +83,12 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
 # HermesData-constructors ----
 
 #' @rdname HermesData-class
-#' @param object (`SummarizedExperiment`)\cr input to create [HermesData] from.
+#' @param object (`SummarizedExperiment`)\cr input to create `[HermesData]` from.
 #'   If this is a `RangedSummarizedExperiment`, then the result will be
-#'   [RangedHermesData].
+#'   `[RangedHermesData]`.
 #' @export
 #' @examples
-#' # Create objects starting from a SummarizedExperiment.
+#' # Create objects starting from a `SummarizedExperiment.`
 #' hermes_data <- HermesData(summarized_experiment)
 #' hermes_data
 #' ranged_summarized_experiment <- as(summarized_experiment, "RangedSummarizedExperiment")
@@ -116,10 +116,10 @@ HermesData <- function(object) { # nolint
 }
 
 #' @rdname HermesData-class
-#' @param counts (`matrix`)\cr counts to create the [HermesData] object from.
+#' @param counts (`matrix`)\cr counts to create the `[HermesData]` object from.
 #' @param ... additional arguments, e.g. `rowData`, `colData`, etc. passed to
 #'   [SummarizedExperiment::SummarizedExperiment()] internally. Note that if `rowRanges`
-#'   is passed instead of `rowData`, then the result will be a [RangedHermesData] object.
+#'   is passed instead of `rowData`, then the result will be a `[RangedHermesData]` object.
 #' @export
 #' @examples
 #' # Create objects from a matrix and additional arguments.

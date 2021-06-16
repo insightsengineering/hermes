@@ -12,13 +12,13 @@ set_tech_failure(object, sample_ids)
 \item{sample_ids}{(\code{character}) \cr sample IDs to be flagged as technical failures.}
 }
 \value{
-HermesData object with modified technical failure flags.
+\verb{[AnyHermesData]} object with modified technical failure flags.
 }
 \description{
 Setter function which allows the user to define a sample manually as a technical failure.
 }
 \examples{
-# Manually flag technical failures in a HermesData object.
+# Manually flag technical failures in a `AnyHermesData` object.
 object <- HermesData(summarized_experiment)
 get_tech_failure(object)["06520101B0017R"]
 result <- set_tech_failure(object, c("06520101B0017R", "06520047C0017R"))

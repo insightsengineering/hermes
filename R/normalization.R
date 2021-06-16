@@ -142,10 +142,10 @@ h_voom <- function(object,
   }
 }
 
-#' Normalization of HermesData
+#' Normalization of `AnyHermesData` Objects
 #'
-#' This method is normalizing the input [HermesData] according to one or more
-#' specified normalization methods. The results are saved as assitional assays
+#' This method is normalizing the input `[AnyHermesData]` according to one or more
+#' specified normalization methods. The results are saved as additional assays
 #' in the object.
 #'
 #' Possible normalization methods are:
@@ -172,7 +172,7 @@ h_voom <- function(object,
 #' @param control (named `list`)\cr settings produced by [control_normalize()].
 #' @param ... not used.
 #'
-#' @return The [AnyHermesData] object with additional assays containing the normalized counts.
+#' @return The `[AnyHermesData]` object with additional assays containing the normalized counts.
 #'   The `control` is saved in the `metadata` of the object for future reference.
 #'
 #' @importFrom BiocGenerics normalize

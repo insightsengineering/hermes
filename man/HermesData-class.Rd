@@ -11,25 +11,25 @@
 \alias{.RangedHermesData}
 \alias{AnyHermesData-class}
 \alias{HermesDataFromMatrix}
-\title{HermesData and RangedHermesData}
+\title{\code{HermesData} and \code{RangedHermesData}}
 \usage{
 HermesData(object)
 
 HermesDataFromMatrix(counts, ...)
 }
 \arguments{
-\item{object}{(\code{SummarizedExperiment})\cr input to create \link{HermesData} from.
+\item{object}{(\code{SummarizedExperiment})\cr input to create \verb{[HermesData]} from.
 If this is a \code{RangedSummarizedExperiment}, then the result will be
-\link{RangedHermesData}.}
+\verb{[RangedHermesData]}.}
 
-\item{counts}{(\code{matrix})\cr counts to create the \link{HermesData} object from.}
+\item{counts}{(\code{matrix})\cr counts to create the \verb{[HermesData]} object from.}
 
 \item{...}{additional arguments, e.g. \code{rowData}, \code{colData}, etc. passed to
 \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment()}} internally. Note that if \code{rowRanges}
-is passed instead of \code{rowData}, then the result will be a \link{RangedHermesData} object.}
+is passed instead of \code{rowData}, then the result will be a \verb{[RangedHermesData]} object.}
 }
 \description{
-The \link{HermesData} class is an extension of \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}
+The \verb{[HermesData]} class is an extension of \verb{[SummarizedExperiment::SummarizedExperiment]}
 with additional validation criteria.
 }
 \details{
@@ -58,15 +58,15 @@ The additional criteria are:
 \item The object must have row and column names.
 }
 
-Analogously, \link{RangedHermesData} is an extension of
-\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::RangedSummarizedExperiment} and has the same
+Analogously, \verb{[RangedHermesData]} is an extension of
+\verb{[SummarizedExperiment::RangedSummarizedExperiment]} and has the same
 additional validation requirements. Methods can be defined for both classes at the
-same time with the \link{AnyHermesData} signature.
+same time with the \verb{[AnyHermesData]} signature.
 
-A \link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet} object can be imported by using the
-\link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet} function to
-first convert it to a \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment} object before
-converting it again into a \link{HermesData} object.
+A \verb{[Biobase::ExpressionSet]} object can be imported by using the
+\code{\link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()}} function to
+first convert it to a \verb{[SummarizedExperiment::SummarizedExperiment]} object before
+converting it again into a \verb{[HermesData]} object.
 }
 \note{
 Note that we use \code{\link[S4Vectors:S4Vectors-internals]{S4Vectors::setValidity2()}} to define the validity
@@ -75,10 +75,10 @@ functions where intermediate objects may not be valid within the scope of
 the function.
 }
 \examples{
-# Convert to SummarizedExperiment using the default naive range mapper.
+# Convert to `SummarizedExperiment` using the default naive range mapper.
 se <- makeSummarizedExperimentFromExpressionSet(expression_set)
-# Then convert to HermesData.
-# Create objects starting from a SummarizedExperiment.
+# Then convert to `HermesData`.
+# Create objects starting from a `SummarizedExperiment.`
 hermes_data <- HermesData(summarized_experiment)
 hermes_data
 ranged_summarized_experiment <- as(summarized_experiment, "RangedSummarizedExperiment")

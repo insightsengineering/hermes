@@ -3,7 +3,7 @@
 \name{filter,AnyHermesData-method}
 \alias{filter,AnyHermesData-method}
 \alias{filter}
-\title{Filter HermesData on Subset Passing Default QC Flags}
+\title{Filter \code{AnyHermesData} on Subset Passing Default QC Flags}
 \usage{
 \S4method{filter}{AnyHermesData}(x)
 }
@@ -11,10 +11,10 @@
 \item{x}{(\code{AnyHermesData})\cr object to filter.}
 }
 \value{
-The filtered \link{AnyHermesData} object.
+The filtered \verb{[AnyHermesData]} object.
 }
 \description{
-This filters a \link{AnyHermesData} object using the default QC flags. That is,
+This filters a \verb{[AnyHermesData]} object using the default QC flags. That is,
 only genes without low expression (\code{LowExpressionFlag}) and samples
 without low depth (\code{LowDepthFlag}) or technical failure (\code{TechnicalFailureFlag})
 remain in the returned filtered object.

@@ -8,7 +8,7 @@
 \alias{.HermesDataCor}
 \alias{HermesDataCor}
 \alias{autoplot,HermesDataCor-method}
-\title{Correlation between Sample Counts of HermesData}
+\title{Correlation between Sample Counts of \code{AnyHermesData}}
 \usage{
 \S4method{correlate}{AnyHermesData}(object, assay_name = "counts", method = "pearson")
 
@@ -35,18 +35,18 @@ produced by \code{\link[circlize:colorRamp2]{circlize::colorRamp2()}}.}
 \item{...}{other arguments to be passed to \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}}.}
 }
 \value{
-A \link{HermesDataCor} object.
+A \verb{[HermesDataCor]} object.
 }
 \description{
 This calculates the correlation matrix between the sample vectors of counts from
-a specified assay, as a \link{HermesDataCor} object which is an extension of a \link{matrix} with
+a specified assay, as a \verb{[HermesDataCor]} object which is an extension of a \verb{[matrix]} with
 additional quality flags in the slot \code{flag_data}: This contains the
 \code{TechnicalFailureFlag} and \code{LowDepthFlag} columns describing the original input samples.
 }
 \section{Functions}{
 \itemize{
 \item \code{autoplot,HermesDataCor-method}: This plot method uses the \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}} function
-to plot the correlations between samples saved in a \link{HermesDataCor} object.
+to plot the correlations between samples saved in a \verb{[HermesDataCor]} object.
 }}
 
 \examples{

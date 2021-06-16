@@ -60,7 +60,7 @@ control_quality <- function(min_cpm = 1,
 #'   (removing any NAs). If this number is too low, the sample is flagged as "low depth".
 #'
 #' While `object` already has the variables above (as this is enforced by the validation method
-#' for [AnyHermesData]), they are usually still `NA` after the initial creation.
+#' for `[AnyHermesData]`), they are usually still `NA` after the initial creation.
 #'
 #' @param object (`AnyHermesData`) \cr input.
 #' @param control (`list`) \cr list of settings used to perform the quality control procedure,
@@ -74,7 +74,7 @@ control_quality <- function(min_cpm = 1,
 #' @export
 #'
 #' @examples
-#' # Adding default quality flags to HermesData object.
+#' # Adding default quality flags to `AnyHermesData` object.
 #' object <- HermesData(summarized_experiment)
 #' result <- add_quality_flags(object)
 #' which(get_tech_failure(result) != get_tech_failure(object))
@@ -246,14 +246,14 @@ get_low_expression <- function(object) {
 #' @param object (`AnyHermesData`)\cr input.
 #' @param sample_ids (`character`) \cr sample IDs to be flagged as technical failures.
 #'
-#' @return HermesData object with modified technical failure flags.
+#' @return `[AnyHermesData]` object with modified technical failure flags.
 #' @seealso [add_quality_flags()] which automatically sets all (gene and sample) quality flags,
 #'   including these technical failure flags.
 #'
 #' @export
 #'
 #' @examples
-#' # Manually flag technical failures in a HermesData object.
+#' # Manually flag technical failures in a `AnyHermesData` object.
 #' object <- HermesData(summarized_experiment)
 #' get_tech_failure(object)["06520101B0017R"]
 #' result <- set_tech_failure(object, c("06520101B0017R", "06520047C0017R"))

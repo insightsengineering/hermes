@@ -1,4 +1,4 @@
-#' Limma/Voom Differential Expression Analysis
+#' `limma`/`voom` Differential Expression Analysis
 #'
 #' This helper functions performs the differential expression analysis with the `voom`
 #' method from the `limma` package (via [limma::voom()], [limma::lmFit()] and [limma::eBayes()])

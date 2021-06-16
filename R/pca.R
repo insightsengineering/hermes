@@ -15,8 +15,8 @@
 #'
 #' @param object (`AnyHermesData`) \cr input.
 #' @param assay_name (`Character string`) \cr Indicating the name of the assay
-#'   of interest, with possible options: "counts", "cpm", "tpm", "rpkm", "voom".
-#'   Default assay is "counts".
+#'   of interest, with possible options: `counts`, `cpm`, `tpm`, `rpkm`, `voom`.
+#'   Default assay is `counts`.
 #'
 #' @return A [HermesDataPca] object which is an extension of the [stats::prcomp] class.
 #'
