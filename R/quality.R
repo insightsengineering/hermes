@@ -100,9 +100,9 @@ add_quality_flags <- function(object,
     }
   }
 
-  rowData(object)$LowExpressionFlag <- h_low_expression_flag(object, control)
-  colData(object)$TechnicalFailureFlag <- h_tech_failure_flag(object, control)
-  colData(object)$LowDepthFlag <- h_low_depth_flag(object, control)
+  rowData(object)$LowExpressionFlag <- h_low_expression_flag(object, control) # nolint
+  colData(object)$TechnicalFailureFlag <- h_tech_failure_flag(object, control) # nolint
+  colData(object)$LowDepthFlag <- h_low_depth_flag(object, control) # nolint
 
   metadata(object)$control_quality_flags <- control
 
