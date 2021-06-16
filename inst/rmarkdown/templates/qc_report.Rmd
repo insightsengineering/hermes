@@ -70,7 +70,7 @@ editor_options:
 # -----------------------------------------------------------------------------
 # Developer
 
-# The name and version of this report template (printed in last section)
+# The name and version of this report template
 templateName <- params$template_name
 templateVersion <- "1.0.0"
 # Set TRUE to enable rmarkdown cache
@@ -87,40 +87,47 @@ knitr::opts_chunk$set(eval = TRUE, echo = TRUE, message = TRUE, warning = TRUE, 
 library(hermes)
 ```
 
-# Load Data, Filter Genes/Samples and Normalize
 
 ```{r}
 # Load Data and get object HermesData 
 # Section 1 - Pre Gene Filtering
 obj_name <- load(params$input_data_object)
 se <- get(obj_name)
-result <- HermesData(se)
+object <- HermesData(se)
 
 # Section 2 - Post Gene Filtering & Normalization
 # Normalization only
 control <- control_quality(params$min_cpm, params$min_cpm_prop, params$min_corr, params$min_depth)
-object <- HermesData(se) %>%
-  add_quality_flags(control)
-# QC and Normalization
-result_fil <- HermesData(se) %>%
-  add_quality_flags(control) %>%
-  filter(h_low_expression_flag==0, h_low_depth_flag==0, h_tech_failure_flag==0) %>%
+object_normalized <- HermesData(se) %>%
   normalize()
+# Gene Filtering only
+object_filtered <- HermesData(se) %>%
+  add_quality_flags(control) %>%
+  filter() 
+# Normalized and Gene filtered
+object_normalized_filtered <- HermesData(se) %>%
+  add_quality_flags(control) %>%
+  filter() %>%
+  normalize()
+# QC reference default values: Reference object for standard quality control setting
+control_default <- control_quality()
+object_default_qc_flags <- HermesData(se) %>%
+  add_quality_flags(control_default)
 ```
 
 # Dataset Summary
 
-The data set was composed of `r ncol(result)` samples and `r nrow(result)` genes. 
+The data set was composed of <b> `r ncol(object)` </b> samples and <b> `r nrow(object)`</b> genes. 
 
 ## Technical Metrics {.tabset}
 
 ### Histogram of Library Sizes 
 
-First, we check how the distribution of library sizes looks like across all samples. The median library size is <b>`r sprintf("%0.3G", median(colSums(counts(result))))`</b>. 
+First, we check how the distribution of library sizes looks like across all samples. The median library size is <b>`r sprintf("%0.3G", median(colSums(counts(object))))`</b>. 
 According to [Standards, Guidelines and Best Practices for RNA-Seq (The ENCODE Consortium)](https://www.encodeproject.org/documents/cede0cbe-d324-4ce7-ace4-f0c3eddf5972/@@download/attachment/ENCODE%20Best%20Practices%20for%20RNA_v2.pdf "ENCODE Project Homepage"), the sequencing depth/library size is usually determined by the goals of the experiment and the nature of the RNA sample. The minimum library size required is around 20-30 million aligned reads. 
 
 ```{r genes_hist_libdepth,results='asis'}
-draw_libsize_hist(result)
+draw_libsize_hist(object)
 ```
 
 ### Q-Q Plot of Library Sizes
@@ -128,7 +135,7 @@ draw_libsize_hist(result)
 The distribution of library sizes is then compared to the normal distribution. The linearity of the points will suggest if the distribution of library sizes is normally distributed.
 
 ```{r genes_qqplot_libdepth, results = 'asis'}
-draw_libsize_qq(result)
+draw_libsize_qq(object)
 ```
 
 ### Density Plot of (Log) Counts Distributions
@@ -136,61 +143,139 @@ draw_libsize_qq(result)
 In this plot, each line represents density of expression of all the genes within one sample. Lines that deviate from the majority may suggest inconsistent read depth or technical failure of the samples. The peaks in log2 (count) distribution indicate the log2(count) value at which the majority of genes are expressed. 
 
 ```{r genes_density_libdepth, results = "asis"}
-draw_libsize_densities(result)
+draw_libsize_densities(object)
 ```
-## {-}
+
+{-}
 
 
-# Gene filtering {.tabset}
+## Gene filtering {.tabset}
 
 This step is necessary to flag out genes with low expression. Genes with very low counts across all libraries provide little evidence for differential expression and they interfere with some of the statistical analyses conducted later in the pipeline. Therefore, these genes should be filtered out prior to the analysis. 
 
 There are many ways to filter out genes with lower counts. When there are n biological replicates in each group, we usually filter on a minimum counts per million threshold present in at least n samples. In this dataset, we choose to retain genes if they are expressed at a counts-per-million (CPM) above <b> `r params$min_cpm` </b> in at least in <b> `r (params$min_cpm_prop)*100`% </b> of the samples. These thresholds can be modified.
 
-## Stacked Barplot of Low Expression Genes by Chromosome
+### Stacked Barplot of Low Expression Genes by Chromosome
 
 This barplot shows the chromosomes with their proportions of low expression genes.
 
 ```{r}
-draw_genes_barplot(result)
+draw_genes_barplot(object)
 ```
 
-## Genes with extremely high counts
-```{r}
-result_tg <- top_genes(result, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
-```
-
-This bar plot shows the shows the expression counts (y axis) for each of the <b> `r nrow(result_tg)` </b> top genes (x-axis) with.
+### Genes with extremely high counts
 
 ```{r}
-autoplot(result_tg, y_lab = "Maximum Count", title = "Top genes")
+object_tg <- top_genes(object, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
 ```
 
-## Genes with high variability
-
-This bar plot shows the shows the expression standard deviation (y axis) for each of the <b> `r nrow(result_tg)` </b> top genes (x-axis) with.
+This bar plot shows the shows the expression counts (y axis) for each of the <b> `r nrow(object_tg)` </b> top genes (x-axis) with.
 
 ```{r}
-result_sds <- top_genes(result, summary_fun = rowSds, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
-autoplot(result_sds, y_lab = "Standard Deviation across samples", title = "Top variability genes")
+autoplot(object_tg, y_lab = "Maximum Count", title = "Top genes")
 ```
+
+### Genes with high variability
+
+This bar plot shows the shows the expression standard deviation (y axis) for each of the <b> `r nrow(object_tg)` </b> top genes (x-axis) with.
+
+```{r}
+object_sds <- top_genes(object, summary_fun = rowSds, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
+autoplot(object_sds, y_lab = "Standard Deviation across samples", title = "Top variability genes")
+```
+
 {-}
 
-# Sample filtering {.tabset}
-
-```{r}
-control_default <- control_quality()
-object_default_qc_flags <- HermesData(se) %>%
-  add_quality_flags(control_default)
-```
+## Sample filtering {.tabset}
 
 This step is necessary to filter out samples with low depth or technical failure. There are three approaches:   
 
-## Technical failure
+### Technical failure
 
 Human usually has similar RNAseq profile; therefore, correlation of RNAseq among patients should be high. If a patient's absolute correlation score is lower than a threshold (default = `r control_default$min_corr`, <b>`r params$min_corr` </b> used in this report), it is likely that the sample preparation went wrong.
 
-### Comparison of default flags with resulting flags
+### Low depth samples 
+
+Identified by lower quartile minus 1.5*IQR (default) or user-defined threshold: <b> 
+`r ifelse(is.null(params$min_depth), "default", params$min_depth)` </b> 
+
+### Boxplot of Non-zero Genes
+
+In this plot, each data point represents the number of non-zero expressed genes in a sample. Samples with a lower number non-zero count genes may be also of interest. 
+
+```{r}
+draw_nonzero_boxplot(object) 
+```
+
+### Principal Components Analysis
+
+Perform principal components analysis of the gene count vectors across all samples. PCA should be performed after filtering out low quality genes and samples and normalization. In addition, genes with constant counts across all samples are excluded from the analysis internally. Centering and scaling is applied internally. In this analysis the `r params$assay_name` assay was used.
+
+```{r}
+object_pca <- calc_pca(object, assay_name = params$assay_name)
+autoplot(object_pca, label = TRUE)
+```
+
+### Correlation between Samples of HermesData
+
+Correlation matrix between the sample vectors of counts from a specified assay, containing quality flags (`TechnicalFailureFlag`, `LowDepthFlag`) describing the original input samples.
+
+```{r}
+object_cor <- hermes::correlate(object, method = params$cor_method) 
+autoplot(object_cor)
+```
+
+{-}
+
+
+# Gene filtering and Normalization effects
+
+Total number of genes before filtering: <b>`r nrow(object)` </b> <br />
+Total number of genes after filtering: <b> `r nrow(object_filtered)`</b> <br />
+Rate of passing: <b> `r round((100/nrow(object))*nrow(object_filtered),1)` </b> <br>
+
+## Technical Metrics After Gene Filtering {.tabset}
+
+### Histogram of Library Sizes 
+
+```{r , results='asis'}
+draw_libsize_hist(object_filtered)
+```
+
+### Q-Q Plot of Library Sizes 
+
+```{r , results = 'asis'}
+draw_libsize_qq(object_filtered)
+```
+
+### Density Plot of (Log) Counts Distributions 
+
+```{r , results = "asis"}
+draw_libsize_densities(object_filtered)
+```
+
+{-}
+
+## Principal Components Analysis Comparisons {.tabset}
+
+### PCA after Normalization
+```{r}
+object_pca_normalized <- calc_pca(object_normalized, assay_name = params$assay_name)
+autoplot(object_pca_normalized, label = TRUE)
+```
+
+### PCA after Gene filtering and Normalization 
+
+```{r}
+object_pca_filtered <- calc_pca(object_normalized_filtered, assay_name = params$assay_name)
+autoplot(object_pca_filtered, label = TRUE)
+```
+
+{-}
+
+## QC results on genes
+
+### Comparison of default technical failure with customized setting
 
 Next we list the samples where the default technical failure flags are different from the resulting ones, using
 the custom correlation score threshold:
@@ -203,12 +288,7 @@ df_comp_tech_failure <- data.frame(
 DT::datatable(subset(df_comp_tech_failure, default != result))
 ```
 
-## Low depth samples 
-
-Identified by lower quartile minus 1.5*IQR (default) or user-defined threshold: <b> 
-`r ifelse(is.null(params$min_depth), "still default", params$min_depth)` </b> 
-
-### Comparison of default flags with resulting flags
+### Comparison of default low depth flags with customized setting
 
 Next we list the samples where the default low depth flags are different from the resulting ones, using
 the custom depth threshold:
@@ -218,86 +298,27 @@ df_comp_low_depth <- data.frame(
   default = get_low_depth(object_default_qc_flags),
   result = get_low_depth(object)
 )
-subset(df_comp_low_depth, default != result)
+DT::datatable(subset(df_comp_low_depth, default != result))
 ```
 
-
-## Boxplot of Non-zero Genes
-
-In this plot, each data point represents the number of non-zero expressed genes in a sample. Samples with a lower number non-zero count genes may be also of interest. 
+### Comparison of default low depth flags with customized setting
 
 ```{r}
-draw_nonzero_boxplot(result) 
+df_comp_low_expression <- data.frame(
+  default = get_low_expression(object_default_qc_flags),
+  result = get_low_expression(object)
+)
+DT::datatable(subset(df_comp_low_expression, default != result))
 ```
 
-## Principal Components Analysis
 
-Perform principal components analysis of the gene count vectors across all samples. PCA should be performed after filtering out low quality genes and samples and normalization. In addition, genes with constant counts across all samples are excluded from the analysis internally. Centering and scaling is applied internally. In this analysis the `r params$assay_name` assay was used.
+## QC results on samples 
 
 ```{r}
-result_pca <- calc_pca(result, assay_name = params$assay_name)
-autoplot(result_pca, label = TRUE)
+df_comp_normalization <- data.frame(
+  default = get_low_expression(object_normalized),
+  result = get_low_expression(object)
+)
+DT::datatable(subset(df_comp_normalization, default != result))
 ```
 
-## Correlation between Samples of HermesData
-
-Correlation matrix between the sample vectors of counts from a specified assay, containing quality flags (`TechnicalFailureFlag`, `LowDepthFlag`) describing the original input samples.
-
-```{r}
-# added hermes:: because couldn't find function when executing 
-result_cor <- hermes::calc_cor(result, method = params$cor_method) 
-autoplot(result_cor)
-```
-{-}
-
-
-# Gene filtering and Normalization effects
-
-Total number of genes before filtering: `r nrow(result)` <br />
-Total number of genes after filtering:  `r nrow(result_fil)` <br />
-Rate of passing: `r round((100/nrow(result))*nrow(result_fil),1)` <br>
-
-## Technical Metrics After Normalization and Gene Filtering {.tabset}
-
-### Histogram of Library Sizes 
-
-```{r , results='asis'}
-draw_libsize_hist(result_fil)
-```
-
-### Q-Q Plot of Library Sizes 
-
-```{r , results = 'asis'}
-draw_libsize_qq(result_fil)
-```
-
-### Density Plot of (Log) Counts Distributions 
-
-```{r , results = "asis"}
-draw_libsize_densities(result_fil)
-```
-
-{-}
-
-## Principal Components Analysis Comparison{.tabset}
-
-### PCA after Normalization
-```{r}
-result_pca_norm <- calc_pca(result_norm, assay_name = params$assay_name)
-autoplot(result_pca_norm, label = TRUE)
-```
-
-### PCA after QC and Normalization 
-
-```{r}
-result_pca_fil <- calc_pca(result_fil, assay_name = params$assay_name)
-autoplot(result_pca_fil, label = TRUE)
-```
-
-{-}
-
-### Count distribution post normalization
-
-### QC results on genes
-
-### QC results on samples 
