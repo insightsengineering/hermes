@@ -103,8 +103,8 @@ draw_libsize_densities <- function(object,
     title <- "Count Distribution"
     xlab <- "Counts"
   }
-  df.long <- gather(df, key = "Sample", value = "Counts")
-  ggplot(df.long, aes(.data$Counts, group = .data$Sample)) +
+  df_long <- gather(df, key = "Sample", value = "Counts")
+  ggplot(df_long, aes(.data$Counts, group = .data$Sample)) +
     geom_density() +
     expand_limits(x = -2.5) +
     ggtitle(title) +
