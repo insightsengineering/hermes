@@ -200,7 +200,7 @@ df_comp_tech_failure <- data.frame(
   default = get_tech_failure(object_default_qc_flags),
   result = get_tech_failure(object)
 )
-subset(df_comp_tech_failure, default != result)
+DT::datatable(subset(df_comp_tech_failure, default != result))
 ```
 
 ## Low depth samples 
