@@ -12,7 +12,7 @@ set_tech_failure(object, sample_ids)
 \item{sample_ids}{(\code{character}) \cr sample IDs to be flagged as technical failures.}
 }
 \value{
-\verb{[AnyHermesData]} object with modified technical failure flags.
+\code{\link{AnyHermesData}} object with modified technical failure flags.
 }
 \description{
 Setter function which allows the user to define a sample manually as a technical failure.

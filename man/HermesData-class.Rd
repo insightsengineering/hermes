@@ -18,18 +18,18 @@ HermesData(object)
 HermesDataFromMatrix(counts, ...)
 }
 \arguments{
-\item{object}{(\code{SummarizedExperiment})\cr input to create \verb{[HermesData]} from.
+\item{object}{(\code{SummarizedExperiment})\cr input to create \code{\link{HermesData}} from.
 If this is a \code{RangedSummarizedExperiment}, then the result will be
-\verb{[RangedHermesData]}.}
+\code{\link{RangedHermesData}}.}
 
-\item{counts}{(\code{matrix})\cr counts to create the \verb{[HermesData]} object from.}
+\item{counts}{(\code{matrix})\cr counts to create the \code{\link{HermesData}} object from.}
 
 \item{...}{additional arguments, e.g. \code{rowData}, \code{colData}, etc. passed to
 \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment()}} internally. Note that if \code{rowRanges}
-is passed instead of \code{rowData}, then the result will be a \verb{[RangedHermesData]} object.}
+is passed instead of \code{rowData}, then the result will be a \code{\link{RangedHermesData}} object.}
 }
 \description{
-The \verb{[HermesData]} class is an extension of \verb{[SummarizedExperiment::SummarizedExperiment]}
+The \code{\link{HermesData}} class is an extension of \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 with additional validation criteria.
 }
 \details{
@@ -58,15 +58,15 @@ The additional criteria are:
 \item The object must have row and column names.
 }
 
-Analogously, \verb{[RangedHermesData]} is an extension of
-\verb{[SummarizedExperiment::RangedSummarizedExperiment]} and has the same
+Analogously, \code{\link{RangedHermesData}} is an extension of
+\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::RangedSummarizedExperiment}} and has the same
 additional validation requirements. Methods can be defined for both classes at the
-same time with the \verb{[AnyHermesData]} signature.
+same time with the \code{\link{AnyHermesData}} signature.
 
-A \verb{[Biobase::ExpressionSet]} object can be imported by using the
+A \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}} object can be imported by using the
 \code{\link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()}} function to
-first convert it to a \verb{[SummarizedExperiment::SummarizedExperiment]} object before
-converting it again into a \verb{[HermesData]} object.
+first convert it to a \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object before
+converting it again into a \code{\link{HermesData}} object.
 }
 \note{
 Note that we use \code{\link[S4Vectors:S4Vectors-internals]{S4Vectors::setValidity2()}} to define the validity

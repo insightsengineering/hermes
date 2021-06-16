@@ -7,10 +7,10 @@
 \item{x}{(\code{AnyHermesData})\cr object to subset from.}
 }
 \value{
-The subsetted \verb{[AnyHermesData]} object.
+The subsetted \code{\link{AnyHermesData}} object.
 }
 \description{
-This method subsets \verb{[AnyHermesData]} objects, based on expressions involving the
+This method subsets \code{\link{AnyHermesData}} objects, based on expressions involving the
 \code{rowData} columns and the \code{colData} columns.
 }
 \note{

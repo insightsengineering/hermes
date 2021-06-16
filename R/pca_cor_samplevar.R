@@ -107,7 +107,7 @@ h_pca_df_r2_matrix <- function(pca, df) {
 #' @aliases pca_cor_samplevar
 #'
 #' @param object (`HermesDataPca`)\cr input. It can be generated using [calc_pca()] function
-#'   on `[AnyHermesData]`.
+#'   on [`AnyHermesData`].
 #' @param data (`AnyHermesData`)\cr input that was used originally for the PCA.
 #'
 #' @return A [HermesDataPcaCor] object with R2 values for all sample variables.

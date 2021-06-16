@@ -41,7 +41,7 @@ then the sample is flagged as "technical failure".
 }
 \details{
 While \code{object} already has the variables above (as this is enforced by the validation method
-for \verb{[AnyHermesData]}), they are usually still \code{NA} after the initial creation.
+for \code{\link{AnyHermesData}}), they are usually still \code{NA} after the initial creation.
 }
 \section{Functions}{
 \itemize{

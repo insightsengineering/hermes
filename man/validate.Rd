@@ -42,7 +42,7 @@ case validation passes.
 }
 \description{
 These functions are used internally only and therefore not exported. They work on
-\verb{[SummarizedExperiment::SummarizedExperiment]} objects, and \verb{[AnyHermesData]} objects are
+\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} objects, and \code{\link{AnyHermesData}} objects are
 defined by successfully passing these validation checks.
 }
 \section{Functions}{

@@ -22,11 +22,11 @@
 \item{...}{not used.}
 }
 \value{
-The \verb{[AnyHermesData]} object with additional assays containing the normalized counts.
+The \code{\link{AnyHermesData}} object with additional assays containing the normalized counts.
 The \code{control} is saved in the \code{metadata} of the object for future reference.
 }
 \description{
-This method is normalizing the input \verb{[AnyHermesData]} according to one or more
+This method is normalizing the input \code{\link{AnyHermesData}} according to one or more
 specified normalization methods. The results are saved as additional assays
 in the object.
 }

@@ -15,10 +15,10 @@ This is an artificial dataset designed to resemble real data.
 summarized_experiment
 }
 \description{
-This example \verb{[SummarizedExperiment::SummarizedExperiment]} can be used to create a
-\verb{[HermesData]} object. It already contains the required columns in \code{rowData} and \code{colData}.
+This example \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} can be used to create a
+\code{\link{HermesData}} object. It already contains the required columns in \code{rowData} and \code{colData}.
 }
 \seealso{
-expression_set which contains similar data as \verb{[Biobase::ExpressionSet]}.
+expression_set which contains similar data as \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}}.
 }
 \keyword{datasets}

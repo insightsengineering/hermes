@@ -4,7 +4,7 @@ NULL
 #' Correlation between Sample Counts of `AnyHermesData`
 #'
 #' This calculates the correlation matrix between the sample vectors of counts from
-#' a specified assay, as a `[HermesDataCor]` object which is an extension of a `[matrix]` with
+#' a specified assay, as a [`HermesDataCor`] object which is an extension of a [`matrix`] with
 #' additional quality flags in the slot `flag_data`: This contains the
 #' `TechnicalFailureFlag` and `LowDepthFlag` columns describing the original input samples.
 #'
@@ -15,7 +15,7 @@ NULL
 #' @param assay_name (`string`)\cr the assay name where the counts are located in.
 #' @param method (`string`)\cr the correlation method, see [stats::cor()] for details.
 #'
-#' @return A `[HermesDataCor]` object.
+#' @return A [`HermesDataCor`] object.
 #'
 #' @importFrom stats cor
 #'
@@ -53,7 +53,7 @@ setMethod(
 )
 
 #' @describeIn calc_cor This plot method uses the [ComplexHeatmap::Heatmap()] function
-#'   to plot the correlations between samples saved in a `[HermesDataCor]` object.
+#'   to plot the correlations between samples saved in a [`HermesDataCor`] object.
 #'
 #' @param flag_colors (named `character`)\cr a vector that specifies the colors for `TRUE` and `FALSE`
 #'   flag values.
