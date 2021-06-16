@@ -47,7 +47,7 @@ setMethod(
 #' @aliases HermesDataCor
 #' @exportClass HermesDataCor
 #'
-.HermesDataCor <- setClass(
+.HermesDataCor <- setClass(  #nolint
   Class = "HermesDataCor",
   contains = "matrix",
   slots = c(flag_data = "DataFrame")

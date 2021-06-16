@@ -80,7 +80,7 @@ top_genes <- function(object,
 #' @rdname top_genes
 #' @aliases HermesDataTopGenes
 #' @exportClass HermesDataTopGenes
-.HermesDataTopGenes <- setClass(
+.HermesDataTopGenes <- setClass(  #nolint
   Class = "HermesDataTopGenes",
   contains = "data.frame",
   slots = c(

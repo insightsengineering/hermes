@@ -66,7 +66,7 @@ setOldClass("prcomp")
 #' @rdname calc_pca
 #' @aliases HermesDataPca
 #' @exportClass HermesDataPca
-.HermesDataPca <- setClass(
+.HermesDataPca <- setClass(  #nolint
   Class = "HermesDataPca",
   contains = "prcomp"
 )

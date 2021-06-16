@@ -51,13 +51,13 @@ NULL
 #' @exportClass HermesData RangedHermesData AnyHermesData
 #' @importFrom S4Vectors setValidity2
 #'
-.HermesData <- setClass(
+.HermesData <- setClass(  #nolint
   "HermesData",
   contains = "SummarizedExperiment"
 )
 
 #' @rdname HermesData-class
-.RangedHermesData <- setClass(
+.RangedHermesData <- setClass(  #nolint
   "RangedHermesData",
   contains = "RangedSummarizedExperiment"
 )
@@ -96,7 +96,7 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
 #' ranged_hermes_data <- HermesData(ranged_summarized_experiment)
 #' ranged_hermes_data
 #'
-HermesData <- function(object) {
+HermesData <- function(object) {  #nolint
   assert_that(
     is_class(object, "SummarizedExperiment"),
     not_empty(assays(object)),
@@ -132,7 +132,7 @@ HermesData <- function(object) {
 #'   colData = colData(summarized_experiment)
 #' )
 #'
-HermesDataFromMatrix <- function(counts, ...) {
+HermesDataFromMatrix <- function(counts, ...) {  #nolint
   assert_that(is.matrix(counts))
 
   # Note: `object` will either be of class `SummarizedExperiment` or

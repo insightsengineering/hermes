@@ -144,7 +144,7 @@ setMethod(
 #' @rdname pca_cor_samplevar
 #' @aliases HermesDataPcaCor
 #' @exportClass HermesDataPcaCor
-.HermesDataPcaCor <- setClass(
+.HermesDataPcaCor <- setClass(  #nolint
   Class = "HermesDataPcaCor",
   contains = "matrix"
 )
