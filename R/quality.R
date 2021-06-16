@@ -1,8 +1,8 @@
 #' Control for Specified Quality Flags
-#' 
+#'
 #' Control function which specifies the quality flag settings.
 #' One or more settings can be customized. Not specified settings are left at defaults.
-#' 
+#'
 #' @param min_cpm (non-negative `number`)\cr minimum CPM for each gene within
 #'   the sample.
 #' @param min_cpm_prop (`proportion`)\cr minimum percentage of samples with
@@ -14,22 +14,22 @@
 #'   quartile minus 1.5 times the inter-quartile range of the library size
 #'   (depth) of all samples. (So anything below the usual lower boxplot whisker
 #'   would be too low.)
-#'   
+#'
 #' @return List with the above criteria to flag observations.
-#' 
+#'
 #' @note To be used with the [add_quality_flags()] function.
 #'
 #' @importFrom tern is_proportion
 #' @importFrom tern is_nonnegative_count
 #' @export
-#' 
+#'
 #' @examples
 #' # Default settings.
 #' control_quality()
-#' 
+#'
 #' # One or more settings can be customized.
 #' control_quality(min_cpm = 5, min_cpm_prop = 0.001)
-#'               
+#'
 control_quality <- function(min_cpm = 1,
                             min_cpm_prop = 0.25,
                             min_corr = 0.5,
@@ -39,7 +39,7 @@ control_quality <- function(min_cpm = 1,
     tern::is_proportion(min_cpm_prop),
     tern::is_proportion(min_corr),
     is.null(min_depth) || tern::is_nonnegative_count(min_depth)
-  )  
+  )
   list(
     min_cpm = min_cpm,
     min_cpm_prop = min_cpm_prop,
@@ -49,31 +49,31 @@ control_quality <- function(min_cpm = 1,
 }
 
 #' Add Quality Flags
-#' 
+#'
 #' This function adds quality flag information to a [AnyHermesData] object:
-#' - `LowExpressionFlag`: for each gene, counts how many samples don't pass a minimum 
+#' - `LowExpressionFlag`: for each gene, counts how many samples don't pass a minimum
 #'   expression CPM threshold. If too many, then it flags this gene as "low expression" gene.
 #' - `TechnicalFailureFlag`: first calculates the Pearson correlation matrix of the sample wise
-#'   CPM values, resulting in a matrix measuring the correlation between samples. 
-#'   Then compares the average correlation per sample with a threshold - if it is too low, 
+#'   CPM values, resulting in a matrix measuring the correlation between samples.
+#'   Then compares the average correlation per sample with a threshold - if it is too low,
 #'   then the sample is flagged as "technical failure".
-#' - `LowDepthFlag`: computes the library size (total number of counts) per sample 
+#' - `LowDepthFlag`: computes the library size (total number of counts) per sample
 #'   (removing any NAs). If this number is too low, the sample is flagged as "low depth".
-#' 
+#'
 #' While `object` already has the variables above (as this is enforced by the validation method
 #' for [AnyHermesData]), they are usually still `NA` after the initial creation.
-#' 
+#'
 #' @param object (`AnyHermesData`) \cr input.
-#' @param control (`list`) \cr list of settings used to perform the quality control procedure, 
+#' @param control (`list`) \cr list of settings used to perform the quality control procedure,
 #'   produced by [control_quality()].
 #' @param overwrite (`flag`)\cr whether previous results need to be overwritten.
-#'   
+#'
 #' @return The input object with added quality flags.
-#' 
+#'
 #' @seealso [control_quality()] for the detailed settings specifications.
-#' 
+#'
 #' @export
-#' 
+#'
 #' @examples
 #' # Adding default quality flags to HermesData object.
 #' object <- HermesData(summarized_experiment)
@@ -82,18 +82,18 @@ control_quality <- function(min_cpm = 1,
 #' head(rowData(result)$LowExpressionFlag)
 #' head(colData(result)$TechnicalFailureFlag)
 #' head(colData(result)$LowDepthFlag)
-#' 
+#'
 #' # It is possible to overwrite flags if needed, which will trigger a message.
 #' result2 <- add_quality_flags(result, control_quality(min_cpm = 1000), overwrite = TRUE)
-#'               
-add_quality_flags <- function(object, 
+#'
+add_quality_flags <- function(object,
                               control = control_quality(),
                               overwrite = FALSE) {
   assert_that(
     is_hermes_data(object),
     is.flag(overwrite)
   )
-  already_added <- ("control_quality_flags" %in% names(metadata(object))) 
+  already_added <- ("control_quality_flags" %in% names(metadata(object)))
   if (already_added) {
     if (overwrite) {
       message("previously have added quality flags, but overwriting now")
@@ -101,35 +101,35 @@ add_quality_flags <- function(object,
       stop("previously have added quality flags, please double check or ask for overwrite")
     }
   }
-  
+
   rowData(object)$LowExpressionFlag <- h_low_expression_flag(object, control)
   colData(object)$TechnicalFailureFlag <- h_tech_failure_flag(object, control)
   colData(object)$LowDepthFlag <- h_low_depth_flag(object, control)
-  
+
   metadata(object)$control_quality_flags <- control
-  
+
   object
 }
 
-#' @describeIn add_quality_flags creates the low expression flag for genes 
+#' @describeIn add_quality_flags creates the low expression flag for genes
 #'   given control settings.
-#' 
+#'
 #' @importFrom edgeR cpm
 #' @export
-#' 
+#'
 #' @examples
 #' # Separate calculation of low expression flag.
 #' low_expr_flag <- h_low_expression_flag(object)
 #' head(low_expr_flag)
 #' length(low_expr_flag) == nrow(object)
-#' 
+#'
 #' low_expr_flag2 <- h_low_expression_flag(
-#'   object, 
+#'   object,
 #'   control_quality(min_cpm = 500, min_cpm_prop = 0.9)
 #' )
 #' head(low_expr_flag2)
-#' 
-h_low_expression_flag <- function(object, 
+#'
+h_low_expression_flag <- function(object,
                                   control = control_quality()) {
   assert_that(
     is_hermes_data(object),
@@ -141,20 +141,20 @@ h_low_expression_flag <- function(object,
   n_samples_below_min_cpm > threshold_n_samples
 }
 
-#' @describeIn add_quality_flags creates the low depth (library size) flag for samples 
+#' @describeIn add_quality_flags creates the low depth (library size) flag for samples
 #'   given control settings.
-#' 
+#'
 #' @importFrom stats quantile
 #' @export
-#' 
+#'
 #' @examples
 #' low_depth_flag <- h_low_depth_flag(object)
 #' head(low_depth_flag)
 #' length(low_depth_flag) == ncol(object)
-#' 
+#'
 #' low_depth_flag2 <- h_low_depth_flag(object, control_quality(min_depth = 5))
 #' head(low_depth_flag2)
-#' 
+#'
 h_low_depth_flag <- function(object,
                              control = control_quality()) {
   assert_that(
@@ -169,9 +169,9 @@ h_low_depth_flag <- function(object,
   lib_sizes < control$min_depth
 }
 
-#' @describeIn add_quality_flags creates the technical failure flag for samples 
+#' @describeIn add_quality_flags creates the technical failure flag for samples
 #'   given control settings.
-#'   
+#'
 #' @importFrom edgeR cpm
 #' @export
 #'
@@ -180,10 +180,10 @@ h_low_depth_flag <- function(object,
 #' tech_failure_flag <- h_tech_failure_flag(object)
 #' head(tech_failure_flag)
 #' length(tech_failure_flag) == ncol(object)
-#' 
+#'
 #' tech_failure_flag2 <- h_tech_failure_flag(object, control_quality(min_corr = 0.35))
 #' head(tech_failure_flag2)
-#' 
+#'
 h_tech_failure_flag <- function(object,
                                 control = control_quality()) {
   assert_that(
@@ -196,25 +196,25 @@ h_tech_failure_flag <- function(object,
 }
 
 #' Get Quality Flags
-#' 
+#'
 #' Separate getter functions which allow easy access to the quality control flags.
-#' 
+#'
 #' @param object (`AnyHermesData`)\cr input.
-#' 
-#' @return Named logical vector containing the failure flags for all samples or genes, 
+#'
+#' @return Named logical vector containing the failure flags for all samples or genes,
 #'   respectively.
-#' 
+#'
 #' @importFrom stats setNames
 #' @name get_quality_flags
-#' 
-#' @examples 
+#'
+#' @examples
 #' object <- HermesData(summarized_experiment)
-#' 
+#'
 NULL
 
 #' @describeIn get_quality_flags get the technical failure flags for all samples.
 #' @export
-#' @examples 
+#' @examples
 #' head(get_tech_failure(object))
 #'
 get_tech_failure <- function(object) {
@@ -226,7 +226,7 @@ get_tech_failure <- function(object) {
 
 #' @describeIn get_quality_flags get the low depth failure flags for all samples.
 #' @export
-#' @examples 
+#' @examples
 #' head(get_low_depth(object))
 #'
 get_low_depth <- function(object) {
@@ -238,7 +238,7 @@ get_low_depth <- function(object) {
 
 #' @describeIn get_quality_flags get the low expression failure flags for all genes.
 #' @export
-#' @examples 
+#' @examples
 #' head(get_low_expression(object))
 #'
 get_low_expression <- function(object) {
@@ -249,25 +249,25 @@ get_low_expression <- function(object) {
 }
 
 #' Set Technical Failure Flags
-#' 
-#' Setter function which allows the user to define a sample manually as a technical failure. 
-#' 
+#'
+#' Setter function which allows the user to define a sample manually as a technical failure.
+#'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param sample_ids (`character`) \cr sample IDs to be flagged as technical failures.
-#'   
+#'
 #' @return HermesData object with modified technical failure flags.
 #' @seealso [add_quality_flags()] which automatically sets all (gene and sample) quality flags,
 #'   including these technical failure flags.
-#'   
+#'
 #' @export
-#' 
+#'
 #' @examples
 #' # Manually flag technical failures in a HermesData object.
 #' object <- HermesData(summarized_experiment)
 #' get_tech_failure(object)["06520101B0017R"]
 #' result <- set_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
 #' get_tech_failure(result)["06520101B0017R"]
-#' 
+#'
 set_tech_failure <- function(object,
                              sample_ids) {
   assert_that(

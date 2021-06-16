@@ -6,7 +6,7 @@
 #' @param bins (`count`)\cr number of evenly distributed groups desired.
 #' @param fill (`string`)\cr color of the bars filling.
 #' @return The `ggplot` object with the histogram.
-#' 
+#'
 #' @importFrom rlang .data
 #' @export
 #' @examples
@@ -14,7 +14,7 @@
 #' draw_libsize_hist(result)
 #' draw_libsize_hist(result, bins = 10L, fill = "blue")
 #'
-draw_libsize_hist <- function(object, 
+draw_libsize_hist <- function(object,
                               bins = 30L,
                               fill = "darkgrey") {
   assert_that(
@@ -26,9 +26,9 @@ draw_libsize_hist <- function(object,
   ggplot(df, aes(x = .data$libsize)) +
     geom_histogram(bins = bins, fill = fill) +
     stat_bin(
-      bins = bins, 
-      geom = "text", 
-      aes(label = ifelse(.data$..count.. > 0, .data$..count.., "")), 
+      bins = bins,
+      geom = "text",
+      aes(label = ifelse(.data$..count.. > 0, .data$..count.., "")),
       vjust = -0.25
     ) +
     ggtitle("Histogram of Library Sizes") +
@@ -44,7 +44,7 @@ draw_libsize_hist <- function(object,
 #' @param color (`string`)\cr color of Q-Q line.
 #' @param linetype (`string`)\cr linetype of  Q-Q line.
 #' @return The `ggplot` object with the Q-Q Plot.
-#' 
+#'
 #' @export
 #' @examples
 #' result <- HermesData(summarized_experiment)
@@ -52,7 +52,7 @@ draw_libsize_hist <- function(object,
 #' draw_libsize_qq(result, color = "blue", linetype = "solid")
 #' # We can also add sample names as labels.
 #' draw_libsize_qq(result) + geom_text(label = colnames(result), stat = "qq")
-#' 
+#'
 draw_libsize_qq <- function(object,
                             color = "grey",
                             linetype = "dashed") {
@@ -76,12 +76,12 @@ draw_libsize_qq <- function(object,
 #' Density Plot of (Log) Counts Distributions
 #'
 #' This creates a density plot of the (log) counts distributions of the [AnyHermesData] object where each line
-#' on the plot corresponds to a sample. 
+#' on the plot corresponds to a sample.
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param log (`flag`)\cr should the counts be log transformed (log2).
 #' @return The `ggplot` object with the density plot.
-#' 
+#'
 #' @importFrom tidyr gather
 #' @importFrom rlang .data
 #' @export
@@ -116,8 +116,8 @@ draw_libsize_densities <- function(object,
 }
 
 #' Boxplot of Non-Zero Genes
-#' 
-#' This draws a boxplot, with overlaid data points, of the number of 
+#'
+#' This draws a boxplot, with overlaid data points, of the number of
 #' non-zero expressed genes per sample.
 #'
 #' @param object (`AnyHermesData`)\cr input.
@@ -125,22 +125,22 @@ draw_libsize_densities <- function(object,
 #' @param alpha (`proportion`)\cr specifies transparency of points.
 #'
 #' @return The `ggplot` object with the boxplot.
-#' 
+#'
 #' @importFrom tern is_proportion
 #' @export
-#' 
+#'
 #' @examples
 #' # Default boxplot.
 #' result <- HermesData(summarized_experiment)
 #' draw_nonzero_boxplot(result)
-#' 
+#'
 #' # Reusing the same position for labeling.
 #' library(ggrepel)
 #' pos <- position_jitter(0.5)
 #' draw_nonzero_boxplot(result, position = pos) +
 #'   geom_text_repel(aes(label = result$SampleID), position = pos)
 #'
-draw_nonzero_boxplot <- function(object, 
+draw_nonzero_boxplot <- function(object,
                                  position = position_jitter(0.2),
                                  alpha = 0.25) {
   assert_that(
@@ -148,10 +148,10 @@ draw_nonzero_boxplot <- function(object,
     is_class(position, "Position"),
     tern::is_proportion(alpha, include_boundaries = TRUE)
   )
-  
+
   no_na_count <- colSums(counts(object) != 0)
   df <- data.frame(no_na = no_na_count, x = "Sample")
-  
+
   ggplot(df, aes(y = .data$no_na, x = .data$x)) +
     geom_boxplot(outlier.shape = NA) +
     stat_boxplot(geom = "errorbar") +
@@ -170,25 +170,25 @@ draw_nonzero_boxplot <- function(object,
 #' This creates a barplot of chromosomes for the [AnyHermesData] object with the proportions of low expression genes.
 #'
 #' @param object (`AnyHermesData`)\cr input.
-#' @param chromosomes (`character`)\cr names of the chromosomes which should be displayed. 
+#' @param chromosomes (`character`)\cr names of the chromosomes which should be displayed.
 #' @param include_others (`flag`)\cr option to show the chromosomes not in `chromosomes` as "Others".
 #' @return The `ggplot` object with the histogram.
-#' 
+#'
 #' @importFrom rlang .data
 #' @export
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#' 
+#'
 #' # Display chromosomes 1-22, X, Y, and MT. Other chromosomes are displayed in "Others".
 #' draw_genes_barplot(object)
 #'
 #' # Display chromosomes 1 and 2. Other chromosomes are displayed in "Others".
 #' draw_genes_barplot(object, chromosomes = c("1", "2"))
-#' 
+#'
 #' # Display chromosomes 1 and 2 only.
 #' draw_genes_barplot(object, chromosomes = c("1", "2"), include_others = FALSE)
-#' 
-draw_genes_barplot <- function(object, 
+#'
+draw_genes_barplot <- function(object,
                                chromosomes = c(1:22, "X", "Y", "MT"),
                                include_others = TRUE) {
   assert_that(
@@ -198,26 +198,26 @@ draw_genes_barplot <- function(object,
     !any(duplicated(chromosomes)),
     !("Others" %in% chromosomes)
   )
-  
+
   df <- data.frame(
-    Chromosome = rowData(object)$Chromosome, 
-    LowExpressionFlag = rowData(object)$LowExpressionFlag, 
+    Chromosome = rowData(object)$Chromosome,
+    LowExpressionFlag = rowData(object)$LowExpressionFlag,
     stringsAsFactors = FALSE
   )
-  
+
   df$chr <- factor(
-    ifelse(df$Chromosome %in% chromosomes, df$Chromosome, "Others"), 
+    ifelse(df$Chromosome %in% chromosomes, df$Chromosome, "Others"),
     levels = c(chromosomes, "Others")
   )
-  
+
   if(!include_others) df <- df[df$chr != "Others", ]
-  
-  ggplot(data = df, aes(x = .data$chr)) + 
+
+  ggplot(data = df, aes(x = .data$chr)) +
     geom_bar(aes(fill = .data$LowExpressionFlag)) +
     ggtitle("Stacked Barplot of Filtered Genes by Chromosome") +
     xlab("Chromosome") +
     ylab("Number of Genes")
-}  
+}
 
 # autoplot(AnyHermesData) ----
 
@@ -226,10 +226,10 @@ draw_genes_barplot <- function(object,
 #' This generates all standard plots - histogram and q-q plot of library sizes, density plot of the (log) counts
 #' distributions, boxplot of the number of number of non-zero expressed genes per sample, and a stacked barplot of low
 #' expression genes by chromosome at default setting.
-#' 
+#'
 #' @rdname plot_all
 #' @aliases plot_all
-#' 
+#'
 #' @param object (`AnyHermesData`)\cr input.
 #'
 #' @return A list with the `ggplot` objects from [draw_libsize_hist()], [draw_libsize_qq()], [draw_libsize_densities],
@@ -239,7 +239,7 @@ draw_genes_barplot <- function(object,
 #' @examples
 #' result <- HermesData(summarized_experiment)
 #' autoplot(result)
-#' 
+#'
 setMethod(
   f = "autoplot",
   signature = c(object = "AnyHermesData"),
@@ -248,10 +248,10 @@ setMethod(
       is_hermes_data(object)
     )
     result <- list(
-      libsize_hist = draw_libsize_hist(object), 
-      libsize_qq = draw_libsize_qq(object), 
-      libsize_densities = draw_libsize_densities(object), 
-      nonzero_boxplot = draw_nonzero_boxplot(object), 
+      libsize_hist = draw_libsize_hist(object),
+      libsize_qq = draw_libsize_qq(object),
+      libsize_densities = draw_libsize_densities(object),
+      nonzero_boxplot = draw_nonzero_boxplot(object),
       genes_barplot = draw_genes_barplot(object)
     )
     sapply(result, grid::grid.draw)

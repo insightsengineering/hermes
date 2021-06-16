@@ -7,23 +7,23 @@
 #' @param object (`AnyHermesData`)\cr input.
 #' @param design (`matrix`)\cr design matrix.
 #' @return A data frame with columns `log2_fc` (estimated log2 fold change),
-#'   `stat` (moderated t-statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg 
+#'   `stat` (moderated t-statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg
 #'   adjusted p-value).
-#' 
+#'
 #' @importFrom limma voom lmFit eBayes topTable
 #' @export
-#' 
-#' @references 
+#'
+#' @references
 #' \insertRef{limma_package}{hermes}
-#' 
+#'
 #' \insertRef{voom_method}{hermes}
-#' 
-#' @examples 
+#'
+#' @examples
 #' object <- HermesData(summarized_experiment)
 #' design <- model.matrix(~ SEX, colData(object))
 #' result <- h_diff_expr_voom(object, design)
 #' head(result)
-#' 
+#'
 h_diff_expr_voom <- function(object, design) {
   assert_that(
     is_hermes_data(object),
@@ -34,12 +34,12 @@ h_diff_expr_voom <- function(object, design) {
   lm_fit <- limma::lmFit(voom_counts, design)
   eb_stats <- limma::eBayes(lm_fit)
   top_tab <- limma::topTable(
-    eb_stats, 
-    coef = 2L, 
+    eb_stats,
+    coef = 2L,
     number = Inf,  # Retain all genes.
     adjust.method = "BH",
     sort.by = "p"  # Sort by p-value.
-  ) 
+  )
   with(
     top_tab,
     data.frame(
@@ -61,19 +61,19 @@ h_diff_expr_voom <- function(object, design) {
 #' @param design (`matrix`)\cr design matrix.
 #' @return A data frame with columns `log2_fc` (estimated log2 fold change),
 #'   `stat` (Wald statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg adjusted p-value).
-#' 
+#'
 #' @importFrom DESeq2 DESeqDataSet DESeq results
 #' @export
-#' 
-#' @references 
+#'
+#' @references
 #' \insertRef{DESeq2_package}{hermes}
-#' 
+#'
 #' @examples
 #' object <- HermesData(summarized_experiment)
 #' design <- model.matrix(~ SEX, colData(object))
 #' result <- h_diff_expr_deseq2(object, design)
 #' head(result)
-#' 
+#'
 h_diff_expr_deseq2 <- function(object, design) {
   assert_that(
     is_hermes_data(object),

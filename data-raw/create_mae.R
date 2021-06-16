@@ -33,7 +33,7 @@ se1map <- data.frame(
 
 se2map <- data.frame(
   primary = c("Jack", "Jill", "Barbara", "Bob", "John", "Jane", "Claire", "Mike", "Kate"),
-  colname = c("06520103C0017R", "06520001B0023R", "06520022C0017R", "06520062C0017R", "06520046C0018R", 
+  colname = c("06520103C0017R", "06520001B0023R", "06520022C0017R", "06520062C0017R", "06520046C0018R",
               "06520101B0017R", "06520047C0017R", "06520024B0014R", "06520080B0023R"),
   stringsAsFactors = FALSE
 )
@@ -48,7 +48,7 @@ maplist <- list(se1 = se1map, se2 = se2map, se3 = se3map)
 sampMap <- listToMap(maplist)
 
 # Create an example phenotype data.
-colDat <- data.frame(sex = c("M", "F", "F", "M", "M", "F", "F", "M", "F"), 
+colDat <- data.frame(sex = c("M", "F", "F", "M", "M", "F", "F", "M", "F"),
                      age = 35:43,
                      row.names = c("Jack", "Jill", "Barbara", "Bob", "John", "Jane", "Claire", "Mike", "Kate"))
 

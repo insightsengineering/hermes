@@ -1,22 +1,22 @@
-#' Derivation of Top Genes 
-#' 
+#' Derivation of Top Genes
+#'
 #' This creates a [HermesDataTopGenes] object, which extends `data.frame`. It
-#' contains two columns: 
+#' contains two columns:
 #' - `expression`: containing the statistic values calculated by `summary_fun` across columns.
-#' - `name`: the gene names. 
-#' 
+#' - `name`: the gene names.
+#'
 #' The data frame is sorted in descending order of `expression` and only the top
 #' entries according to the selection criteria are included.
 #'
 #' Note that exactly one of the arguments `n_top` and `min_threshold` must be
 #' provided.
-#' 
+#'
 #' @param object (`AnyHermedData`)\cr input.
 #' @param assay_name (`string`)\cr name of the assay to use for the sorting of genes.
-#' @param summary_fun (`function`)\cr summary statistics function to apply to the assay resulting in 
+#' @param summary_fun (`function`)\cr summary statistics function to apply to the assay resulting in
 #'   a numeric vector with one value per gene.
 #' @param n_top (`count` or `NULL`)\cr selection criteria based on number of entries.
-#' @param min_threshold (`number` or `NULL` )\cr selection criteria based on a minimum 
+#' @param min_threshold (`number` or `NULL` )\cr selection criteria based on a minimum
 #'   summary statistics threshold.
 #'
 #' @return A [HermesDataTopGenes] object.
@@ -27,7 +27,7 @@
 #' top_genes(object)
 #' top_genes(object, n_top = NULL, min_threshold = 50000)
 #' result <- top_genes(object, summary_fun = rowMax)
-#' 
+#'
 top_genes <- function(object,
                       assay_name = "counts",
                       summary_fun = rowMeans,
@@ -39,15 +39,15 @@ top_genes <- function(object,
     is.string(assay_name),
     one_provided(n_top, min_threshold)
   )
-  
+
   x <- assay(object, assay_name)
   stat_values <- summary_fun(x)
   assert_that(
-    is.numeric(stat_values), 
+    is.numeric(stat_values),
     identical(length(stat_values), nrow(object)),
     is.vector(stat_values)
   )
-  
+
   df <- data.frame(expression = stat_values)
   df <- df[order(df$expression, decreasing = TRUE), , drop = FALSE]
   row_names <- rownames(object)
@@ -55,7 +55,7 @@ top_genes <- function(object,
     row_names,
     levels = row_names
   )
-  
+
   keep_row <- if (!is.null(min_threshold)) {
     assert_that(
       is.number(min_threshold),
@@ -68,7 +68,7 @@ top_genes <- function(object,
     seq_len(n_top)
   }
   df <- df[keep_row, ]
-  
+
   .HermesDataTopGenes(
     df,
     summary_fun_name = deparse(substitute(summary_fun)),
@@ -91,7 +91,7 @@ top_genes <- function(object,
 
 # autoplot-HermesDataTopGenes ----
 
-#' @describeIn top_genes Creates a bar plot from a [HermesDataTopGenes] object, 
+#' @describeIn top_genes Creates a bar plot from a [HermesDataTopGenes] object,
 #'   where the y axis shows the expression statistics for each of the top genes
 #'   on the x-axis.
 #'
@@ -114,9 +114,9 @@ setMethod(
       is.string(y_lab),
       is.string(title)
     )
-    
+
     df <- data.frame(object)
-    
+
     ggplot(df) +
       geom_col(aes(y = .data$expression, x = .data$name)) +
       scale_x_discrete(name = x_lab) +

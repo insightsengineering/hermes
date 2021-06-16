@@ -1,20 +1,20 @@
 #' Control Settings for Counts Normalization
-#' 
+#'
 #' @param log (`flag`)\cr whether `log2` values are returned, otherwise original scale is used.
 #' @param lib_sizes (`numeric`)\cr library sizes, the default is the vector with the sum of the
 #'   counts for each of the samples.
-#' @param prior_count (`count`)\cr average count to be added to each observation to avoid 
+#' @param prior_count (`count`)\cr average count to be added to each observation to avoid
 #'   taking log of zero, used only when `log = TRUE`.
-#'   
+#'
 #' @return List with the above settings used to perform the normalization procedure.
-#' 
+#'
 #' @note To be used with the `normalize()` function.
-#'   
+#'
 #' @export
 #' @examples
 #' control_normalize()
 #' control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
-#'               
+#'
 control_normalize <- function(log = TRUE,
                               lib_sizes = NULL,
                               prior_count = 1) {
@@ -35,7 +35,7 @@ control_normalize <- function(log = TRUE,
 #' @param object (`HermesData`) \cr input.
 #' @param control (`list`) \cr list of settings used to perform the normalization procedure.
 #' @return A numeric matrix with normalized counts using the CPM method.
-#' 
+#'
 #' @export
 #' @importFrom edgeR cpm
 #' @examples
@@ -43,8 +43,8 @@ control_normalize <- function(log = TRUE,
 #' cont <- control_normalize()
 #' counts_cpm <- h_cpm(h, cont)
 #' str(counts_cpm)
-#' 
-h_cpm <- function(object, 
+#'
+h_cpm <- function(object,
                   control = control_normalize()) {
   assert_that(
     is_hermes_data(object),
@@ -59,22 +59,22 @@ h_cpm <- function(object,
 }
 
 #' Reads per Kilobase per Million (RPKM) Normalization
-#' 
-#' @param object (`AnyHermesData`)\cr input object. 
-#' @param control (`list`)\cr list of settings used to perform the normalization procedure. 
+#'
+#' @param object (`AnyHermesData`)\cr input object.
+#' @param control (`list`)\cr list of settings used to perform the normalization procedure.
 #' @return A numeric matrix with normalized counts using the RPKM method.
-#' 
+#'
 #' @note To be used with the `normalize()` function.
-#' 
+#'
 #' @export
 #' @importFrom edgeR rpkm
-#' @examples 
+#' @examples
 #' h <- HermesData(summarized_experiment)
 #' cont <- control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
 #' counts_rpkm <- h_rpkm(h, cont)
 #' str(counts_rpkm)
-#' 
-h_rpkm <- function(object, 
+#'
+h_rpkm <- function(object,
                    control) {
   assert_that(
     is_hermes_data(object),
@@ -91,19 +91,19 @@ h_rpkm <- function(object,
 }
 
 #' Transcripts per Million (TPM) Normalization
-#' 
+#'
 #' @param object (`HermesData`)\cr input.
 #' @param control (`list`)\cr list of settings used to perform the normalization procedure.
 #' @return A numeric matrix with normalized counts using the TPM method.
-#'   
+#'
 #' @export
 #' @examples
 #' h <- HermesData(summarized_experiment)
 #' cont <- control_normalize()
 #' counts_tpm <- h_tpm(h, cont)
 #' str(counts_tpm)
-#' 
-h_tpm <- function(object, 
+#'
+h_tpm <- function(object,
                   control = control_normalize()) {
   rpkm <- h_rpkm(object, control_normalize(log = FALSE))
   rpkm_sums <- colSums(rpkm, na.rm = TRUE)
@@ -116,12 +116,12 @@ h_tpm <- function(object,
 }
 
 #' VOOM Normalization
-#' 
+#'
 #' @param object (`HermesData`)\cr input.
 #' @param control (`list`)\cr list of settings used to perform the normalization procedure.
-#'   
+#'
 #' @return A numeric matrix with normalized counts using the VOOM method.
-#'   
+#'
 #' @export
 #' @importFrom limma voom
 #' @examples
@@ -129,8 +129,8 @@ h_tpm <- function(object,
 #' cont <- control_normalize()
 #' counts_voom <- h_voom(h, cont)
 #' str(counts_voom)
-#'               
-h_voom <- function(object, 
+#'
+h_voom <- function(object,
                    control = control_normalize()) {
   assert_that(
     is_hermes_data(object),
@@ -151,8 +151,8 @@ h_voom <- function(object,
 #'
 #' This method is normalizing the input [HermesData] according to one or more
 #' specified normalization methods. The results are saved as assitional assays
-#' in the object. 
-#' 
+#' in the object.
+#'
 #' Possible normalization methods are:
 #' - `cpm`: Counts per Million (CPM). Separately by sample, the original counts of the genes
 #'   are divided by the library size of this sample, and multiplied by one million. This is the
@@ -162,44 +162,44 @@ h_voom <- function(object,
 #'   sample (in millions). This allows for within-sample comparisons, as it takes
 #'   into account the gene lengths - longer genes will always have more counts than shorter genes.
 #' - `tpm`: Transcripts per Million (TPM). This addresses the problem of RPKM being inconsistent
-#'   across samples (which can be seen that the sum of all RPKM values will vary from sample to 
-#'   sample). Therefore here we divide the RPKM by the sum of all RPKM values for each sample, 
+#'   across samples (which can be seen that the sum of all RPKM values will vary from sample to
+#'   sample). Therefore here we divide the RPKM by the sum of all RPKM values for each sample,
 #'   and multiply by one million.
 #' - `voom`: VOOM normalization. This is essentially just a slight variation of CPM where
 #'   a `prior_count` of 0.5 is combined with `lib_sizes` increased by 1 for each sample. It is used
 #'   as a starting point for the corresponding differential expression analysis.
-#' 
+#'
 #' @rdname normalize
 #' @aliases normalize
-#' 
+#'
 #' @param object (`AnyHermesData`)\cr object to normalize.
-#' @param methods (`character`)\cr which normalization methods to use, see details. 
+#' @param methods (`character`)\cr which normalization methods to use, see details.
 #' @param control (named `list`)\cr settings produced by [control_normalize()].
 #' @param ... not used.
 #'
 #' @return The [AnyHermesData] object with additional assays containing the normalized counts.
 #'   The `control` is saved in the `metadata` of the object for future reference.
-#'  
+#'
 #' @importFrom BiocGenerics normalize
 #' @export
-#' @examples 
+#' @examples
 #' a <- HermesData(summarized_experiment)
-#' 
+#'
 #' # By default, log values are used with a prior count of 1 added to original counts.
 #' result <- normalize(a)
 #' assayNames(result)
 #' tpm <- assay(result, "tpm")
 #' tpm[1:3, 1:3]
-#' 
+#'
 #' # We can also work on original scale.
 #' result_orig <- normalize(a, control = control_normalize(log = FALSE))
 #' tpm_orig <- assay(result_orig, "tpm")
 #' tpm_orig[1:3, 1:3]
-#' 
+#'
 setMethod(
   f = "normalize",
   signature = "AnyHermesData",
-  definition = function(object, 
+  definition = function(object,
                         methods = c("cpm", "rpkm", "tpm", "voom"),
                         control = control_normalize(),
                         ...) {
@@ -209,7 +209,7 @@ setMethod(
     for (method in methods) {
       fun_name <- paste0("h_", method)
       assay(object, method) <- do.call(
-        fun_name, 
+        fun_name,
         list(object = object, control = control),
         envir = as.environment("package:hermes")
       )
