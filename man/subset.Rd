@@ -21,5 +21,4 @@ Note that this just inherits
 a <- HermesData(summarized_experiment)
 a
 subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
-
 }

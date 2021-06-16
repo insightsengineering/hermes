@@ -49,5 +49,4 @@ autoplot(result)
 autoplot(result, x = 2, y = 3)
 autoplot(result, variance_percentage = FALSE)
 autoplot(result, label = TRUE)
-
 }

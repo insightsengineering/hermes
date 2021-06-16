@@ -179,9 +179,9 @@ test_that("show for summary works as expected for HermesData with quality flags"
 
 test_that("show for summary also works without quality flags", {
   se <- get_se()
-  rowData(se)$LowExpressionFlag <- NA
-  colData(se)$LowDepthFlag <- NA
-  colData(se)$TechnicalFailureFlag <- NA
+  rowData(se)$LowExpressionFlag <- NA # nolint
+  colData(se)$LowDepthFlag <- NA # nolint
+  colData(se)$TechnicalFailureFlag <- NA # nolint
   object <- summary(HermesData(se))
   result <- capture_output(show(object))
   expect_match(

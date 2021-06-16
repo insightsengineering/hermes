@@ -23,7 +23,6 @@ object <- HermesData(summarized_experiment)
 get_tech_failure(object)["06520101B0017R"]
 result <- set_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
 get_tech_failure(result)["06520101B0017R"]
-
 }
 \seealso{
 \code{\link[=add_quality_flags]{add_quality_flags()}} which automatically sets all (gene and sample) quality flags,

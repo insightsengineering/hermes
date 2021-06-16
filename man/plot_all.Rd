@@ -22,5 +22,4 @@ expression genes by chromosome at default setting.
 \examples{
 result <- HermesData(summarized_experiment)
 autoplot(result)
-
 }

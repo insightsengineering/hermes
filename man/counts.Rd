@@ -31,8 +31,6 @@ a <- HermesData(summarized_experiment)
 result <- counts(a)
 class(result)
 head(result)
-
 counts(a) <- counts(a) + 100L
 head(counts(a))
-
 }

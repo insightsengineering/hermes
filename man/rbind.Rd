@@ -28,5 +28,4 @@ class(result)
 
 result2 <- rbind(summarized_experiment, b)
 class(result2)
-
 }

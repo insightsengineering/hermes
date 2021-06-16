@@ -28,5 +28,4 @@ a <- HermesData(summarized_experiment)
 dim(a)
 result <- filter(a)
 dim(result)
-
 }

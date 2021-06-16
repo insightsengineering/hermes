@@ -43,5 +43,4 @@ control_quality()
 
 # One or more settings can be customized.
 control_quality(min_cpm = 5, min_cpm_prop = 0.001)
-              
 }

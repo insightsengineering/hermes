@@ -22,5 +22,4 @@ on the plot corresponds to a sample.
 result <- HermesData(summarized_experiment)
 draw_libsize_densities(result)
 draw_libsize_densities(result, FALSE)
-
 }

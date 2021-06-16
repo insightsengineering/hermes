@@ -20,5 +20,4 @@ a <- HermesData(summarized_experiment)
 metadata(a)
 metadata(a) <- list(new = "my metadata")
 metadata(a)
-
 }

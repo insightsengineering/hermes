@@ -62,5 +62,4 @@ tpm[1:3, 1:3]
 result_orig <- normalize(a, control = control_normalize(log = FALSE))
 tpm_orig <- assay(result_orig, "tpm")
 tpm_orig[1:3, 1:3]
-
 }

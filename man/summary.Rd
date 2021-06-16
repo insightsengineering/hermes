@@ -38,8 +38,6 @@ object_summary <- summary(object)
 str(object_summary)
 slotNames(object_summary)
 object_summary@lib_sizes
-
 # Just calling the summary method like this will use the `show()` method.
 summary(object)
-
 }

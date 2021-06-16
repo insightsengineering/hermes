@@ -49,10 +49,8 @@ object <- HermesData(summarized_experiment) \%>\%
   normalize()
 object_pca <- calc_pca(object)
 result <- correlate(object_pca, object)
-
 autoplot(result)
 
 # We can also choose to not reorder the columns.
 autoplot(result, cluster_columns = FALSE)
-
 }

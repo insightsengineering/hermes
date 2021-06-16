@@ -78,20 +78,17 @@ the function.
 # Convert to SummarizedExperiment using the default naive range mapper.
 se <- makeSummarizedExperimentFromExpressionSet(expression_set)
 # Then convert to HermesData.
-
 # Create objects starting from a SummarizedExperiment.
 hermes_data <- HermesData(summarized_experiment)
 hermes_data
 ranged_summarized_experiment <- as(summarized_experiment, "RangedSummarizedExperiment")
 ranged_hermes_data <- HermesData(ranged_summarized_experiment)
 ranged_hermes_data
-
 # Create objects from a matrix and additional arguments.
 counts_matrix <- assay(summarized_experiment)
 HermesDataFromMatrix(
-  counts = counts_matrix, 
+  counts = counts_matrix,
   rowData = rowData(summarized_experiment),
   colData = colData(summarized_experiment)
 )
-
 }

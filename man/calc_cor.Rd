@@ -53,8 +53,6 @@ to plot the correlations between samples saved in a \link{HermesDataCor} object.
 object <- HermesData(summarized_experiment)
 correlate(object)
 result <- correlate(object, method = "pearson")
-              
 autoplot(result)
 autoplot(result, show_column_names = FALSE, show_row_names = FALSE)
-
 }
