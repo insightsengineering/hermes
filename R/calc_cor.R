@@ -30,7 +30,8 @@ setMethod(
   signature = "AnyHermesData",
   definition = function(object,
                         assay_name = "counts",
-                        method = "pearson") {
+                        method = "pearson",
+                        ...) {
     assert_that(is.string(assay_name))
     chosen_assay <- assay(object, assay_name)
     sample_cor_matrix <- stats::cor(chosen_assay, method = method)

@@ -10,7 +10,7 @@
 \alias{autoplot,HermesDataCor-method}
 \title{Correlation between Sample Counts of \code{AnyHermesData}}
 \usage{
-\S4method{correlate}{AnyHermesData}(object, assay_name = "counts", method = "pearson")
+\S4method{correlate}{AnyHermesData}(object, assay_name = "counts", method = "pearson", ...)
 
 \S4method{autoplot}{HermesDataCor}(
   object,
@@ -26,13 +26,13 @@
 
 \item{method}{(\code{string})\cr the correlation method, see \code{\link[stats:cor]{stats::cor()}} for details.}
 
+\item{...}{other arguments to be passed to \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}}.}
+
 \item{flag_colors}{(named \code{character})\cr a vector that specifies the colors for \code{TRUE} and \code{FALSE}
 flag values.}
 
 \item{cor_colors}{(\code{function})\cr color scale function for the correlation values in the heatmap,
 produced by \code{\link[circlize:colorRamp2]{circlize::colorRamp2()}}.}
-
-\item{...}{other arguments to be passed to \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}}.}
 }
 \value{
 A \code{\link{HermesDataCor}} object.
