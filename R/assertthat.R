@@ -115,3 +115,30 @@ on_failure(one_provided) <- function(call, env) {
     "must be specified, the other needs to be set to NULL"
   )
 }
+
+# is_constant ----
+
+#' @describeIn assertions checks for a column being constant.
+#' @param x An object to check.
+#' @export
+#'
+#' @examples
+#' is_constant(c(1, 2))
+#' is_constant(c(NA, 1))
+#' is_constant(c("a", "a"))
+#' 
+is_constant <- function(x) {
+  assert_that(is.vector(x))
+  x <- x[!is.na(x)]
+  if (is.numeric(x)) {
+    isConstant(x)
+  } else if (is.factor(x)) {
+    isConstant(as.integer(x))
+  } else if (is.character(x)) {
+    identical(length(unique(x)), 1L)
+  } else if (is.logical(x)) {
+    all(x) || all(!x)
+  } else {
+    stop("not supported type")
+  }
+}

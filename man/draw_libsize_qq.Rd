@@ -7,7 +7,7 @@
 draw_libsize_qq(object, color = "grey", linetype = "dashed")
 }
 \arguments{
-\item{object}{(\code{HermesData})\cr input.}
+\item{object}{(\code{AnyHermesData})\cr input.}
 
 \item{color}{(\code{string})\cr color of Q-Q line.}
 
@@ -17,11 +17,13 @@ draw_libsize_qq(object, color = "grey", linetype = "dashed")
 The \code{ggplot} object with the Q-Q Plot.
 }
 \description{
-This creates a Q-Q plot of the library sizes of the \link{HermesData} object.
+This creates a Q-Q plot of the library sizes of the \link{AnyHermesData} object.
 }
 \examples{
 result <- HermesData(summarized_experiment)
 draw_libsize_qq(result)
 draw_libsize_qq(result, color = "blue", linetype = "solid")
+# We can also add sample names as labels.
+draw_libsize_qq(result) + geom_text(label = colnames(result), stat = "qq")
 
 }

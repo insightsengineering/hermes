@@ -7,6 +7,7 @@
 \alias{is_counts_vector}
 \alias{is_list_with}
 \alias{one_provided}
+\alias{is_constant}
 \title{Additional Assertions for \code{assert_that}}
 \usage{
 is_class(object, class2)
@@ -18,13 +19,15 @@ is_counts_vector(x)
 is_list_with(x, elements)
 
 one_provided(one, two)
+
+is_constant(x)
 }
 \arguments{
 \item{object}{any object.}
 
 \item{class2}{(\code{character} or class definition)\cr the class to which \code{object} could belong.}
 
-\item{x}{vector to check.}
+\item{x}{An object to check.}
 
 \item{elements}{(\code{character})\cr names of elements which should be in the list \code{x}.}
 
@@ -47,6 +50,8 @@ We provide additional assertion functions which can be used together with
 \item \code{is_list_with}: checks for a list containing elements.
 
 \item \code{one_provided}: checks that exactly one of two inputs is not \code{NULL}.
+
+\item \code{is_constant}: checks for a column being constant.
 }}
 
 \examples{
@@ -67,5 +72,9 @@ a <- 10
 b <- 10
 one_provided(a, b)
 one_provided(a, NULL)
+
+is_constant(c(1, 2))
+is_constant(c(NA, 1))
+is_constant(c("a", "a"))
 
 }
