@@ -62,7 +62,6 @@ reference:
       - correlate
       - pca_cor_samplevar
       - calc_cor
-      - diff_expression
   - title: Functions
     contents:
       - add_quality_flags
@@ -70,6 +69,7 @@ reference:
       - top_genes
       - get_quality_flags
       - set_tech_failure
+      - diff_expression
   - title: Graphs
     contents:
       - draw_libsize_hist
