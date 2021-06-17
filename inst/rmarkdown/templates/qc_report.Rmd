@@ -1,76 +1,85 @@
 ---
+title: "`r params$title`"
+author: "`r params$author`"
+date: "`r format(Sys.time(), "%d %B %Y")`"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+  html_document:
+    self_contained: yes
+    code_folding: hide
+    mathjax: default
+    number_sections: yes
+    theme: yeti
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
 params:
   title:
-    label: "Title of the report"
-    value: "RNASeq QC Report (produced by hermes)"
+    label: Title of the report
+    value: RNASeq QC Report (produced by hermes)
     input: text
-  author: 
-    label: "Author(s) of the report"
-    value: ["Firstname Lastname (Department)", "Firstname Lastname (Department)"]
+  author:
+    label: Author(s) of the report
+    value:
+    - Firstname Lastname (Department)
+    - Firstname Lastname (Department)
     input: text
   input_data_file:
-    label: "[REQUIRED] Path to binary file with input `SummarizedExperiment` produced with `save(...)`"
-    value: "/home/rstudio/NEST/hermes/data/summarized_experiment.rda"
+    label: '[REQUIRED] Path to binary file with input `SummarizedExperiment` produced
+      with `save(...)`'
+    value: /home/rstudio/NEST/hermes/data/summarized_experiment.rda
     input: file
   output_data_file:
-    label: "[REQUIRED] Path to binary file where filtered and normalized `HermesData` object should be saved"
-    value: "~/output.rda"
+    label: '[REQUIRED] Path to binary file where filtered and normalized `HermesData`
+      object should be saved'
+    value: ~/output.rda
     input: file
   min_cpm:
-    label: "Minimum CPM for each gene within the sample"
+    label: Minimum CPM for each gene within the sample
     value: 1
     input: numeric
   min_cpm_prop:
-    label: "Minimum proportion of samples with acceptable CPM of certain gene"
+    label: Minimum proportion of samples with acceptable CPM of certain gene
     value: 0.25
     input: numeric
   min_corr:
-    label: "Minimum Pearson correlation coefficient of CPM between samples"
+    label: Minimum Pearson correlation coefficient of CPM between samples
     value: 0.5
     input: numeric
   min_depth:
-    label: "Minimum library depth for low depth flagging. If `NULL`, this will be calculated as the first quartile minus 1.5 times the inter-quartile range of the library size (depth) of all samples."
-    value: NULL
+    label: Minimum library depth for low depth flagging. If `NULL`, this will be calculated
+      as the first quartile minus 1.5 times the inter-quartile range of the library
+      size (depth) of all samples.
+    value: null
     input: numeric
-  top_gene_n_top: 
-    label: "Number of reported top genes (please provide either this or `top_gene_min_threshold`)"
+  top_gene_n_top:
+    label: Number of reported top genes (please provide either this or `top_gene_min_threshold`)
     value: 10
     input: numeric
   top_gene_min_threshold:
-    label: "Minimum expression level threshold for reported top genes"
-    value: NULL
+    label: Minimum expression level threshold for reported top genes
+    value: null
     input: numeric
   pca_assay_name:
-    label: "Assay with normalized counts to use (`cpm`, `tpm`, `rpkm`, or `voom`)"
-    value: "tpm"
+    label: Assay with normalized counts to use (`cpm`, `tpm`, `rpkm`, or `voom`)
+    value: tpm
     input: text
   pca_batch_var:
-    label: "Batch variable name used for coloring samples in the PCA analysis"
-    value: "SEX"
+    label: Batch variable name used for coloring samples in the PCA analysis
+    value: SEX
     input: text
   cor_method:
-    label: "Method for correlation sample count vectors (`pearson`, `kendall`, or `spearman`)"
-    value: "pearson"
+    label: Method for correlation sample count vectors (`pearson`, `kendall`, or `spearman`)
+    value: pearson
     input: text
-  show_output: 
-    label: "Include all outputs (plots, tables). Omitting them can be useful for debugging."
-    value: true
+  show_output:
+    label: Include all outputs (plots, tables). Omitting them can be useful for debugging.
+    value: yes
     input: checkbox
-title: "`r params$title`"
-author: '`r params$author`'
-date: '`r format(Sys.time(), "%d %B %Y")`'
-output:
-  html_document:
-    self_contained: true
-    code_folding: hide
-    mathjax: default
-    number_sections: true
-    theme: yeti
-    toc: true
-    toc_depth: 2
-    toc_float:
-      collapsed: false
-      smooth_scroll: false
 editor_options:
   chunk_output_type: console
 ---
@@ -257,13 +266,13 @@ draw_nonzero_boxplot(object_original)
 
 In this section we look at the results after filtering and normalizing the RNAseq counts.
 
-1. Top level gene numbers
+1. Top level <b> gene </b> numbers
 
 Total number of genes before filtering: <b>`r nrow(object_original)` </b> <br />
 Total number of genes after filtering: <b> `r nrow(object_filtered_normalized)`</b> <br />
 Rate of passing: <b> `r round((100/nrow(object_original))*nrow(object_filtered_normalized),1)`% </b> <br>
 
-1. Top level sample numbers
+2. Top level <b> sample </b> numbers
 
 Total number of samples before filtering: <b>`r ncol(object_original)` </b> <br />
 Total number of samples after filtering: <b> `r ncol(object_filtered_normalized)`</b> <br />
