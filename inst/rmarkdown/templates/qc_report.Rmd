@@ -1,51 +1,51 @@
 ---
 params:
   title:
-    label: "Title of the report [Customize title name as desired]"
-    value: "RNASeq QC Report"
+    label: "Title of the report"
+    value: "RNASeq QC Report (produced by hermes)"
     input: text
   author: 
-    label: "Author(s) of the report: <NAME> (Team/Department i.e. PDD DSX)"
-    value: "Firstname Lastname (PDD - Data Science Acceleration (DSX))"
+    label: "Author(s) of the report"
+    value: "Firstname Lastname (Department)"
     input: text
   input_data_object:
-    label: "[REQUIRED] data object input."
+    label: "[REQUIRED] Path to binary file with the summarized experiment produced with `save(...)`"
     value: "/home/rstudio/NEST/hermes/data/summarized_experiment.rda"
     input: file
   Hermes_QC_output_dir:
-    label: "[REQUIRED] Path to Hermes QC output directory (this is the only requried parameter of the report)"
-    value: "/home/"  # "~/XX/XXX"
+    label: "[REQUIRED] Path to Hermes QC output directory (this is the only required parameter of the report)"
+    value: "/home/"
     input: file
   min_cpm:
-    label: "min_cpm (non-negative `number`) minimum CPM for each gene within the sample."
-    value: 1 # default 1
+    label: "Minimum CPM for each gene within the sample"
+    value: 1
     input: numeric
   min_cpm_prop:
-    label: "min_cpm_prop (`proportion`) minimum percentage of samples with acceptable CPM of certain gene for low expression flagging."
+    label: "Minimum proportion of samples with acceptable CPM of certain gene"
     value: 0.25
     input: numeric
   min_corr:
-    label: "min_corr (`proportion`) minimum Pearson correlation coefficient of CPM between samples for technical failure flagging."
+    label: "Minimum Pearson correlation coefficient of CPM between samples"
     value: 0.5
     input: numeric
   min_depth:
-    label: "min_depth (non-negative `count` or `NULL`) minimum library depth for low depth flagging. If `NULL`, this will be calculated as the first quartile minus 1.5 times the inter-quartile range of the library size (depth) of all samples. (So anything below the usual lower boxplot whisker would be too low.)"
+    label: "Minimum library depth for low depth flagging. If `NULL`, this will be calculated as the first quartile minus 1.5 times the inter-quartile range of the library size (depth) of all samples."
     value: NULL
     input: numeric
   top_gene_n_top: 
-    label: "Filter for top expressed genes"
-    value: 10 # default 10L by specifing NULL, alternatively 5 [if top_gene_n_top not NULL, top_gene_min_threshold must be NULL]
+    label: "Number of reported top genes (please provide either this or `top_gene_min_threshold`)"
+    value: 10
     input: numeric
   top_gene_min_threshold:
-    label: "Filter for minimum expression level threshold"
-    value: NULL # default specifing NULL, alternatively 50000 [if top_gene_min_threshold not NULL, top_gene_n_top must be NULL]
+    label: "Minimum expression level threshold for reported top genes"
+    value: NULL
     input: numeric
-  assay_name:
-    label: "Indicating the name of the assay of interest, with possible options: counts, cpm, tpm, rpkm, voom."
+  pca_assay_name:
+    label: "Assay to use for PCA (`counts`, `cpm`, `tpm`, `rpkm`, or `voom`)"
     value: "counts"
     input: text
   cor_method:
-    label: "Specifies the correlation method, see [stats::cor()] for details."
+    label: "Method for correlation sample count vectors (`pearson`, `kendall`, or `spearman`)"
     value: "pearson"
     input: text
 title: "`r params$title`"
@@ -66,24 +66,30 @@ output:
 editor_options:
   chunk_output_type: console
 ---
+
 ```{r setup, message = FALSE}
-# -----------------------------------------------------------------------------
-# Developer
+# No further user input required below this point.
+# Developers might change code below if needed.
 
-# The name and version of this report template
-templateName <- params$template_name
-templateVersion <- "1.0.0"
-# Set TRUE to enable rmarkdown cache
-knitr::opts_chunk$set(cache = FALSE, cache.lazy = FALSE)
-# Set FALSE to skip all output (plots, tables), useful for debugging 
-showOutput <- TRUE
+# The name and version of this report template.
+template_name <- "qc_report"
+template_version <- "1.0.0"
 
-# -----------------------------------------------------------------------------
+# Set `FALSE` to skip all outputs (plots, tables), which can be useful for debugging. 
+show_output <- TRUE
 
-# Knitr options (important to set error=FALSE, otherwise the evaluation does not stop after an error!)
-knitr::opts_chunk$set(eval = TRUE, echo = TRUE, message = TRUE, warning = TRUE, error = FALSE)
+# Knitr options.
+knitr::opts_chunk$set(
+  cache = FALSE, # Set `TRUE` to enable rmarkdown cache.
+  cache.lazy = FALSE,
+  eval = TRUE, 
+  echo = TRUE, 
+  message = TRUE,
+  warning = TRUE, 
+  error = FALSE # Important to have `FALSE` here in order to stop after an error.
+)
 
-# Libraries
+# Load all required packages.
 library(hermes)
 ```
 
@@ -126,7 +132,7 @@ The data set was composed of <b> `r ncol(object)` </b> samples and <b> `r nrow(o
 First, we check how the distribution of library sizes looks like across all samples. The median library size is <b>`r sprintf("%0.3G", median(colSums(counts(object))))`</b>. 
 According to [Standards, Guidelines and Best Practices for RNA-Seq (The ENCODE Consortium)](https://www.encodeproject.org/documents/cede0cbe-d324-4ce7-ace4-f0c3eddf5972/@@download/attachment/ENCODE%20Best%20Practices%20for%20RNA_v2.pdf "ENCODE Project Homepage"), the sequencing depth/library size is usually determined by the goals of the experiment and the nature of the RNA sample. The minimum library size required is around 20-30 million aligned reads. 
 
-```{r genes_hist_libdepth,results='asis'}
+```{r genes_hist_libdepth, results = "asis", include = show_output}
 draw_libsize_hist(object)
 ```
 
@@ -134,7 +140,7 @@ draw_libsize_hist(object)
 
 The distribution of library sizes is then compared to the normal distribution. The linearity of the points will suggest if the distribution of library sizes is normally distributed.
 
-```{r genes_qqplot_libdepth, results = 'asis'}
+```{r genes_qqplot_libdepth, results = "asis", include = show_output}
 draw_libsize_qq(object)
 ```
 
@@ -142,7 +148,7 @@ draw_libsize_qq(object)
 
 In this plot, each line represents density of expression of all the genes within one sample. Lines that deviate from the majority may suggest inconsistent read depth or technical failure of the samples. The peaks in log2 (count) distribution indicate the log2(count) value at which the majority of genes are expressed. 
 
-```{r genes_density_libdepth, results = "asis"}
+```{r genes_density_libdepth, results = "asis", include = show_output}
 draw_libsize_densities(object)
 ```
 
@@ -159,29 +165,45 @@ There are many ways to filter out genes with lower counts. When there are n biol
 
 This barplot shows the chromosomes with their proportions of low expression genes.
 
-```{r}
+```{r, include = show_output}
 draw_genes_barplot(object)
 ```
 
 ### Genes with extremely high counts
 
 ```{r}
-object_tg <- top_genes(object, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
+object_tg <- top_genes(
+  object, 
+  n_top = params$top_gene_n_top, 
+  min_threshold = params$top_gene_min_threshold
+)
 ```
 
 This bar plot shows the shows the expression counts (y axis) for each of the <b> `r nrow(object_tg)` </b> top genes (x-axis) with.
 
-```{r}
+```{r, include = show_output}
 autoplot(object_tg, y_lab = "Maximum Count", title = "Top genes")
 ```
 
 ### Genes with high variability
 
+```{r}
+object_sds <- top_genes(
+  object, 
+  summary_fun = rowSds, 
+  n_top = params$top_gene_n_top, 
+  min_threshold = params$top_gene_min_threshold
+)
+```
+
 This bar plot shows the shows the expression standard deviation (y axis) for each of the <b> `r nrow(object_tg)` </b> top genes (x-axis) with.
 
-```{r}
-object_sds <- top_genes(object, summary_fun = rowSds, n_top = params$top_gene_n_top, min_threshold = params$top_gene_min_threshold)
-autoplot(object_sds, y_lab = "Standard Deviation across samples", title = "Top variability genes")
+```{r, include = show_output}
+autoplot(
+  object_sds, 
+  y_lab = "Standard Deviation across samples", 
+  title = "Top variability genes"
+)
 ```
 
 {-}
@@ -203,16 +225,19 @@ Identified by lower quartile minus 1.5*IQR (default) or user-defined threshold: 
 
 In this plot, each data point represents the number of non-zero expressed genes in a sample. Samples with a lower number non-zero count genes may be also of interest. 
 
-```{r}
+```{r, include = show_output}
 draw_nonzero_boxplot(object) 
 ```
 
 ### Principal Components Analysis
 
-Perform principal components analysis of the gene count vectors across all samples. PCA should be performed after filtering out low quality genes and samples and normalization. In addition, genes with constant counts across all samples are excluded from the analysis internally. Centering and scaling is applied internally. In this analysis the `r params$assay_name` assay was used.
+Perform principal components analysis of the gene count vectors across all samples. PCA should be performed after filtering out low quality genes and samples and normalization. In addition, genes with constant counts across all samples are excluded from the analysis internally. Centering and scaling is applied internally. In this analysis the `r params$pca_assay_name` assay was used.
 
 ```{r}
-object_pca <- calc_pca(object, assay_name = params$assay_name)
+object_pca <- calc_pca(object, assay_name = params$pca_assay_name)
+```
+
+```{r, include = show_output}
 autoplot(object_pca, label = TRUE)
 ```
 
@@ -222,6 +247,9 @@ Correlation matrix between the sample vectors of counts from a specified assay, 
 
 ```{r}
 object_cor <- hermes::correlate(object, method = params$cor_method) 
+```
+
+```{r, include = show_output}
 autoplot(object_cor)
 ```
 
@@ -238,19 +266,19 @@ Rate of passing: <b> `r round((100/nrow(object))*nrow(object_filtered),1)` </b> 
 
 ### Histogram of Library Sizes 
 
-```{r , results='asis'}
+```{r , results = "asis", include = show_output}
 draw_libsize_hist(object_filtered)
 ```
 
 ### Q-Q Plot of Library Sizes 
 
-```{r , results = 'asis'}
+```{r , results = "asis", include = show_output}
 draw_libsize_qq(object_filtered)
 ```
 
 ### Density Plot of (Log) Counts Distributions 
 
-```{r , results = "asis"}
+```{r , results = "asis", include = show_output}
 draw_libsize_densities(object_filtered)
 ```
 
@@ -259,66 +287,79 @@ draw_libsize_densities(object_filtered)
 ## Principal Components Analysis Comparisons {.tabset}
 
 ### PCA after Normalization
+
 ```{r}
-object_pca_normalized <- calc_pca(object_normalized, assay_name = params$assay_name)
+object_pca_normalized <- calc_pca(
+  object_normalized, 
+  assay_name = params$pca_assay_name
+)
+```
+
+```{r, include = show_output}
 autoplot(object_pca_normalized, label = TRUE)
 ```
 
 ### PCA after Gene filtering and Normalization 
 
 ```{r}
-object_pca_filtered <- calc_pca(object_normalized_filtered, assay_name = params$assay_name)
+object_pca_filtered <- calc_pca(
+  object_normalized_filtered, 
+  assay_name = params$pca_assay_name
+)
+```
+
+```{r, include = show_output}
 autoplot(object_pca_filtered, label = TRUE)
 ```
 
 {-}
 
-## QC results on genes
+## QC results on samples
 
-### Comparison of default technical failure with customized setting
+### Comparison of default technical failure flags with customized setting
 
-Next we list the samples where the default technical failure flags are different from the resulting ones, using
-the custom correlation score threshold:
+We list the samples where the default technical failure flags are
+different from the resulting ones, using the custom correlation score threshold:
 
 ```{r}
 df_comp_tech_failure <- data.frame(
   default = get_tech_failure(object_default_qc_flags),
   result = get_tech_failure(object)
 )
+```
+
+```{r, include = show_output}
 DT::datatable(subset(df_comp_tech_failure, default != result))
 ```
 
 ### Comparison of default low depth flags with customized setting
 
-Next we list the samples where the default low depth flags are different from the resulting ones, using
-the custom depth threshold:
+Next we list the samples where the default low depth flags are different from the resulting ones, using the custom depth threshold:
 
 ```{r}
 df_comp_low_depth <- data.frame(
   default = get_low_depth(object_default_qc_flags),
   result = get_low_depth(object)
 )
+```
+
+```{r, include = show_output}
 DT::datatable(subset(df_comp_low_depth, default != result))
 ```
 
-### Comparison of default low depth flags with customized setting
+## QC results on genes 
+
+We list the genes where the default low expression flags are
+different from the resulting ones, using the custom CPM and proportion thresholds:
 
 ```{r}
 df_comp_low_expression <- data.frame(
   default = get_low_expression(object_default_qc_flags),
   result = get_low_expression(object)
 )
-DT::datatable(subset(df_comp_low_expression, default != result))
 ```
 
-
-## QC results on samples 
-
-```{r}
-df_comp_normalization <- data.frame(
-  default = get_low_expression(object_normalized),
-  result = get_low_expression(object)
-)
-DT::datatable(subset(df_comp_normalization, default != result))
+```{r, include = show_output}
+DT::datatable(subset(df_comp_low_expression, default != result))
 ```
 
