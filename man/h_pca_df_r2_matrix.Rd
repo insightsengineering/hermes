@@ -26,5 +26,4 @@ object <- HermesData(summarized_experiment) \%>\%
   normalize()
 pca <- calc_pca(object)$x
 r2_all <- h_pca_df_r2_matrix(pca, as.data.frame(colData(object)))
-
 }

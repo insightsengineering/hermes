@@ -73,7 +73,5 @@ object <- HermesData(summarized_experiment)
 top_genes(object)
 top_genes(object, n_top = NULL, min_threshold = 50000)
 result <- top_genes(object, summary_fun = rowMax)
-
 autoplot(result, y_lab = "Maximum Count", title = "My top genes")
-
 }

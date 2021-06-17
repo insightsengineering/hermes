@@ -3,7 +3,7 @@
 \name{normalize,AnyHermesData-method}
 \alias{normalize,AnyHermesData-method}
 \alias{normalize}
-\title{Normalization of HermesData}
+\title{Normalization of \code{AnyHermesData} Objects}
 \usage{
 \S4method{normalize}{AnyHermesData}(
   object,
@@ -22,12 +22,12 @@
 \item{...}{not used.}
 }
 \value{
-The \link{AnyHermesData} object with additional assays containing the normalized counts.
+The \code{\link{AnyHermesData}} object with additional assays containing the normalized counts.
 The \code{control} is saved in the \code{metadata} of the object for future reference.
 }
 \description{
-This method is normalizing the input \link{HermesData} according to one or more
-specified normalization methods. The results are saved as assitional assays
+This method is normalizing the input \code{\link{AnyHermesData}} according to one or more
+specified normalization methods. The results are saved as additional assays
 in the object.
 }
 \details{
@@ -62,5 +62,4 @@ tpm[1:3, 1:3]
 result_orig <- normalize(a, control = control_normalize(log = FALSE))
 tpm_orig <- assay(result_orig, "tpm")
 tpm_orig[1:3, 1:3]
-
 }

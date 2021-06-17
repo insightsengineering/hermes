@@ -21,10 +21,9 @@ This helper functions performs the differential expression analysis with
 }
 \examples{
 object <- HermesData(summarized_experiment)
-design <- model.matrix(~ SEX, colData(object))
+design <- model.matrix(~SEX, colData(object))
 result <- h_diff_expr_deseq2(object, design)
 head(result)
-
 }
 \references{
 \insertRef{DESeq2_package}{hermes}

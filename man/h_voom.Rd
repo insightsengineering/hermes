@@ -22,5 +22,4 @@ h <- HermesData(summarized_experiment)
 cont <- control_normalize()
 counts_voom <- h_voom(h, cont)
 str(counts_voom)
-              
 }

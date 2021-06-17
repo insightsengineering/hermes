@@ -41,7 +41,7 @@ then the sample is flagged as "technical failure".
 }
 \details{
 While \code{object} already has the variables above (as this is enforced by the validation method
-for \link{AnyHermesData}), they are usually still \code{NA} after the initial creation.
+for \code{\link{AnyHermesData}}), they are usually still \code{NA} after the initial creation.
 }
 \section{Functions}{
 \itemize{
@@ -56,7 +56,7 @@ given control settings.
 }}
 
 \examples{
-# Adding default quality flags to HermesData object.
+# Adding default quality flags to `AnyHermesData` object.
 object <- HermesData(summarized_experiment)
 result <- add_quality_flags(object)
 which(get_tech_failure(result) != get_tech_failure(object))
@@ -66,25 +66,22 @@ head(colData(result)$LowDepthFlag)
 
 # It is possible to overwrite flags if needed, which will trigger a message.
 result2 <- add_quality_flags(result, control_quality(min_cpm = 1000), overwrite = TRUE)
-              
 # Separate calculation of low expression flag.
 low_expr_flag <- h_low_expression_flag(object)
 head(low_expr_flag)
 length(low_expr_flag) == nrow(object)
 
 low_expr_flag2 <- h_low_expression_flag(
-  object, 
+  object,
   control_quality(min_cpm = 500, min_cpm_prop = 0.9)
 )
 head(low_expr_flag2)
-
 low_depth_flag <- h_low_depth_flag(object)
 head(low_depth_flag)
 length(low_depth_flag) == ncol(object)
 
 low_depth_flag2 <- h_low_depth_flag(object, control_quality(min_depth = 5))
 head(low_depth_flag2)
-
 object <- HermesData(summarized_experiment)
 tech_failure_flag <- h_tech_failure_flag(object)
 head(tech_failure_flag)
@@ -92,7 +89,6 @@ length(tech_failure_flag) == ncol(object)
 
 tech_failure_flag2 <- h_tech_failure_flag(object, control_quality(min_corr = 0.35))
 head(tech_failure_flag2)
-
 }
 \seealso{
 \code{\link[=control_quality]{control_quality()}} for the detailed settings specifications.

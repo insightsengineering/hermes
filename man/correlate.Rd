@@ -6,6 +6,14 @@
 \usage{
 correlate(object, ...)
 }
+\arguments{
+\item{object}{input of which the class will be used to decide the method.}
+
+\item{...}{additional arguments.}
+}
+\value{
+Corresponding object that contains the correlation results.
+}
 \description{
 Generic Function for Correlation Calculations
 }

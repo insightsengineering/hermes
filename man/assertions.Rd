@@ -57,24 +57,18 @@ We provide additional assertion functions which can be used together with
 \examples{
 a <- 5
 is_class(a, "character")
-
 is_hermes_data(HermesData(summarized_experiment))
 is_hermes_data(42)
-
 a <- 5
 is_class(a, "character")
-
 b <- list(a = 5, b = 3)
 is_list_with(b, c("a", "c"))
 is_list_with(b, c("a", "b"))
-
 a <- 10
 b <- 10
 one_provided(a, b)
 one_provided(a, NULL)
-
 is_constant(c(1, 2))
 is_constant(c(NA, 1))
 is_constant(c("a", "a"))
-
 }

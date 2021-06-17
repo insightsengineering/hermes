@@ -30,5 +30,4 @@ library(ggrepel)
 pos <- position_jitter(0.5)
 draw_nonzero_boxplot(result, position = pos) +
   geom_text_repel(aes(label = result$SampleID), position = pos)
-
 }

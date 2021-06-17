@@ -23,5 +23,4 @@ This creates a histogram of the library sizes of the \link{AnyHermesData} object
 result <- HermesData(summarized_experiment)
 draw_libsize_hist(result)
 draw_libsize_hist(result, bins = 10L, fill = "blue")
-
 }

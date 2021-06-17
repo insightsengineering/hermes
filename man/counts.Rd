@@ -19,7 +19,7 @@
 The counts assay.
 }
 \description{
-These methods access and set the counts assay in a \link{HermesData} object.
+These methods access and set the counts assay in a \code{\link{AnyHermesData}} object.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -31,8 +31,6 @@ a <- HermesData(summarized_experiment)
 result <- counts(a)
 class(result)
 head(result)
-
 counts(a) <- counts(a) + 100L
 head(counts(a))
-
 }

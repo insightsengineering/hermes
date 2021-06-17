@@ -12,7 +12,7 @@ test_that("calc_cor function works as expected with custom settings", {
   result1 <- expect_silent(correlate(object, method = "spearman"))
   expect_s4_class(result1, "HermesDataCor")
   expect_named(result1@flag_data, c("TechnicalFailureFlag", "LowDepthFlag"))
-  
+
   result2 <- correlate(object)
   expect_false(identical(result1, result2))
 })

@@ -34,5 +34,4 @@ draw_genes_barplot(object, chromosomes = c("1", "2"))
 
 # Display chromosomes 1 and 2 only.
 draw_genes_barplot(object, chromosomes = c("1", "2"), include_others = FALSE)
-
 }
