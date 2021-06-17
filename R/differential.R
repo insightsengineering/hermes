@@ -11,6 +11,7 @@
 #'   adjusted p-value).
 #' 
 #' @importFrom limma voom lmFit eBayes topTable
+#' @importFrom Rdpack reprompt
 #' @export
 #' 
 #' @references 
@@ -63,6 +64,7 @@ h_diff_expr_voom <- function(object, design) {
 #'   `stat` (Wald statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg adjusted p-value).
 #' 
 #' @importFrom DESeq2 DESeqDataSet DESeq results
+#' @importFrom Rdpack reprompt
 #' @export
 #' 
 #' @references 
@@ -97,3 +99,114 @@ h_diff_expr_deseq2 <- function(object, design) {
     )
   )
 }
+
+# diff_expression-AnyHermesData ----
+
+#' Differential Expression Analysis
+#'
+#' This method performs differential analysis using a method of preference.
+#'
+#' Possible differential expression analysis methods are: 
+#' - `limma_voom`: performs the differential expression analysis with the `voom` method from the `limma` package 
+#'  (via [limma::voom()], [limma::lmFit()] and [limma::eBayes()]) for given counts in a [AnyHermesData] object and 
+#'  a corresponding `design` matrix. 
+#' - `deseq2`: performs the differential expression analysis with [DESeq2::DESeq()] for a given [AnyHermesData] input 
+#'  and `design` matrix.
+#'
+#' @rdname differential
+#' @aliases differential
+#'
+#' @param object (`HermesData`)\cr input. Note that this function only accepts un-normalized counts assay for analysis.
+#' @param group (`vector`)\cr A character vector indicating a factor variable with 2 levels in [`AnyHermesData`].
+#' @param method (`vector`)\cr A character vector indicating desired method for differential expression analysis, see
+#'   details.
+#'
+#' @return A [HermesDataDiffExp] object with `log2_fc` (estimate of the log2 fold change between the 2 levels of the
+#'   provided factor), `stat` (the test statistic - which depends on the method used), `p_val` (the raw p-value), and
+#'   `adj_p_val` (the adjusted p-value) values from differential expression analysis for each feature / gene in the
+#'   [`HermesData`] object.
+#'
+#' @importFrom stats model.matrix
+#' @export
+#' @references 
+#' \insertRef{limma_package}{hermes}
+#' 
+#' \insertRef{voom_method}{hermes}
+#' 
+#' \insertRef{DESeq2_package}{hermes}
+#' 
+#' @examples
+#' object <- HermesData(summarized_experiment) %>%
+#'   add_quality_flags() %>%
+#'   filter() %>%
+#' colData(object)$SEX <- factor(colData(object)$SEX)
+#' res1 <- diff_expression(object, "SEX", method = "limma_voom")
+#' head(res1)
+#' res2 <- diff_expression(object, "SEX", method = "deseq2")
+#' head(res2)
+#' 
+setMethod(
+  f = "diff_expression",
+  signature = c("AnyHermesData"),
+  definition = function(object,
+                        group,
+                        method = c("limma_voom", "deseq2")) {
+    assert_that(
+      is_hermes_data(object),
+      is.string(group),
+      tern::is_df_with_nlevels_factor(
+        df = as.data.frame(colData(object)), 
+        variable = group, 
+        n_levels = 2L
+      )
+    )
+    method <- match.arg(method, c("limma_voom", "deseq2"))
+    
+    if (anyNA(get_tech_failure(object))) {
+      warning("NAs in technical failure flags, please make sure to use `add_quality_flags()` beforehand")
+    }
+    if (anyNA(get_low_depth(object))) {
+      warning("NAs in low depth flags, please make sure to use `add_quality_flags()` beforehand")
+    }
+    if (anyNA(get_low_expression(object))) {
+      warning("NAs in low expression flags, please make sure to use `add_quality_flags()` beforehand")
+    }
+    form <- as.formula(paste("~", group))
+    design <- stats::model.matrix(form, data = colData(object))  
+    result <- switch(
+      method,
+      "limma_voom" = h_diff_expr_voom(object, design),
+      "deseq2" = h_diff_expr_deseq2(object, design)
+    )
+    .HermesDataDiffExpr(result)
+  }
+)
+
+# HermesDataDiffExpr ----
+
+#' @rdname differential
+#' @aliases HermesDataDiffExpr
+#' @exportClass HermesDataDiffExpr
+#' @note Also validate that the [`HermesDataDiffExpr`] object contains columnns: `log2_fc`, `stat`, `p_val`, and
+#'  `adj_p_val` (the adjusted p-value).
+#'   
+.HermesDataDiffExpr <- setClass(
+  Class = "HermesDataDiffExpr",
+  contains = "data.frame"
+)
+S4Vectors::setValidity2(
+  Class = "HermesDataDiffExpr",
+  method = function(object) {
+    msg <- validate_cols(
+      required = .diff_expr_cols,
+      actual = colnames(object)
+    )
+    if (is.null(msg)) TRUE else msg
+  }
+)
+.diff_expr_cols <- c(
+  "log2_fc",
+  "stat",
+  "p_val",
+  "adj_p_val"
+)

@@ -13,6 +13,8 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 RdMacros: Rdpack
+URL: https://github.roche.com/NEST/hermes/
+BugReports: https://github.roche.com/NEST/hermes/issues
 Depends: 
     ggfortify,
     R (>= 3.6),
@@ -32,11 +34,14 @@ Imports:
     stats,
     S4Vectors,
     tern,
-    testthat (>= 2.0),
     tidyr,
     utils.nest
 Suggests:
-    ggrepel
+    ggrepel,
+    knitr,
+    test.nest (>= 0.2.8),
+    testthat (>= 2.0),
+    rmarkdown
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'

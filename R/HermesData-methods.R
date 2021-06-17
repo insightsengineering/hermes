@@ -353,3 +353,11 @@ setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 # autoplot ----
 
 setGeneric("autoplot")
+
+# diff_expression ----
+#' @name diff_expression
+#' @title Generic Function for Differential Expression Analysis
+#' @seealso [differential] which is the method defined for this generic function. And [h_diff_expr_voom] and 
+#' [h_diff_expr_deseq2] which are the helper functions included for this generic functions. 
+setGeneric("diff_expression", function(object, group, method) standardGeneric("diff_expression"))
+
