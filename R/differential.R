@@ -178,7 +178,7 @@ setOldClass("data.frame")
 #' @rdname diff_expression
 #' @aliases HermesDataDiffExpr
 #' @exportClass HermesDataDiffExpr
-.HermesDataDiffExpr <- setClass(
+.HermesDataDiffExpr <- setClass( # nolint
   Class = "HermesDataDiffExpr",
   contains = "data.frame"
 )
