@@ -12,7 +12,7 @@ diff_expression(object, group, method = c("voom", "deseq2"))
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr input. Note that this function only uses the
-un-normalized counts for analysis, so this does not need to be normalized.}
+original counts for analysis, so this does not need to be normalized.}
 
 \item{group}{(\code{string})\cr name of factor variable with 2 levels in \code{colData(object)}.
 These 2 levels will be compared in the differential expression analysis.}

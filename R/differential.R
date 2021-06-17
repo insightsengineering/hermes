@@ -106,7 +106,7 @@ h_diff_expr_deseq2 <- function(object, design) {
 #' - `deseq2`: uses [DESeq2::DESeq()], see [h_diff_expr_deseq2()] for details.
 #'
 #' @param object (`AnyHermesData`)\cr input. Note that this function only uses the
-#'   un-normalized counts for analysis, so this does not need to be normalized.
+#'   original counts for analysis, so this does not need to be normalized.
 #' @param group (`string`)\cr name of factor variable with 2 levels in `colData(object)`.
 #'   These 2 levels will be compared in the differential expression analysis.
 #' @param method (`string`)\cr method for differential expression analysis, see details below.
