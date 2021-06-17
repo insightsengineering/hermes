@@ -119,7 +119,7 @@ h_diff_expr_deseq2 <- function(object, design) {
 #'   - `p_val` (the raw p-value),
 #'   - `adj_p_val` (the adjusted p-value) values from differential expression analysis for each feature / gene .
 #'
-#' @importFrom stats model.matrix
+#' @importFrom stats as.formula model.matrix
 #' @export
 #'
 #' @examples
@@ -154,7 +154,7 @@ diff_expression <- function(object,
   if (anyNA(get_low_expression(object))) {
     warning("NAs in low expression flags, please make sure to use `add_quality_flags()` beforehand")
   }
-  form <- as.formula(paste("~", group))
+  form <- stats::as.formula(paste("~", group))
   design <- stats::model.matrix(form, data = colData(object))
   result <- switch(
     method,
