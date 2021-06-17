@@ -58,3 +58,15 @@ test_that("top_genes function works as expected with correct selection criteria"
   expect_true(min(result2$expression) > 200)
   expect_false(identical(result1, result2))
 })
+
+test_that("top genes gives the names of the genes in the correct order", {
+  object <- HermesData(summarized_experiment)
+  result <- expect_silent(top_genes(object, n_top = 5L))
+  orig_names <- rownames(object)[1:5]
+  ordered_names <- as.character(result$name)
+  expect_false(identical(orig_names, ordered_names))
+  total_cnts <- rowSums(counts(object))
+  top_5_indices <- order(total_cnts, decreasing = TRUE)[1:5]
+  expected_names <- rownames(object)[top_5_indices]
+  expect_identical(ordered_names, expected_names)
+})
