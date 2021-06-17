@@ -95,3 +95,101 @@ h_diff_expr_deseq2 <- function(object, design) {
     )
   )
 }
+
+#' Differential Expression Analysis
+#'
+#' This function performs differential expression analysis
+#' using a method of preference.
+#'
+#' Possible method choices are:
+#' - `voom`: uses [limma::voom()], see [h_diff_expr_voom()] for details.
+#' - `deseq2`: uses [DESeq2::DESeq()], see [h_diff_expr_deseq2()] for details.
+#'
+#' @param object (`AnyHermesData`)\cr input. Note that this function only uses the
+#'   original counts for analysis, so this does not need to be normalized.
+#' @param group (`string`)\cr name of factor variable with 2 levels in `colData(object)`.
+#'   These 2 levels will be compared in the differential expression analysis.
+#' @param method (`string`)\cr method for differential expression analysis, see details below.
+#'
+#' @return A [`HermesDataDiffExpr`] object which is a data frame with the following columns for each gene
+#'   in the [`HermesData`] object:
+#'   - `log2_fc` (estimate of the log2 fold change between the 2 levels of the
+#'   provided factor)
+#'   - `stat` (the test statistic, which one depends on the method used)
+#'   - `p_val` (the raw p-value),
+#'   - `adj_p_val` (the adjusted p-value) values from differential expression analysis for each feature / gene .
+#'
+#' @importFrom stats as.formula model.matrix
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment) %>%
+#'   add_quality_flags() %>%
+#'   filter()
+#' colData(object)$SEX <- factor(colData(object)$SEX) # nolint
+#' res1 <- diff_expression(object, group = "SEX", method = "voom")
+#' head(res1)
+#' res2 <- diff_expression(object, group = "SEX", method = "deseq2")
+#' head(res2)
+diff_expression <- function(object,
+                            group,
+                            method = c("voom", "deseq2")) {
+  assert_that(
+    is_hermes_data(object),
+    is.string(group),
+    tern::is_df_with_nlevels_factor(
+      df = as.data.frame(colData(object)),
+      variable = group,
+      n_levels = 2L
+    )
+  )
+  method <- match.arg(method, c("voom", "deseq2"))
+
+  if (anyNA(get_tech_failure(object))) {
+    warning("NAs in technical failure flags, please make sure to use `add_quality_flags()` beforehand")
+  }
+  if (anyNA(get_low_depth(object))) {
+    warning("NAs in low depth flags, please make sure to use `add_quality_flags()` beforehand")
+  }
+  if (anyNA(get_low_expression(object))) {
+    warning("NAs in low expression flags, please make sure to use `add_quality_flags()` beforehand")
+  }
+  form <- stats::as.formula(paste("~", group))
+  design <- stats::model.matrix(form, data = colData(object))
+  result <- switch(
+    method,
+    "voom" = h_diff_expr_voom(object, design),
+    "deseq2" = h_diff_expr_deseq2(object, design)
+  )
+  .HermesDataDiffExpr(result)
+}
+
+# HermesDataDiffExpr ----
+
+.diff_expr_cols <- c(
+  "log2_fc",
+  "stat",
+  "p_val",
+  "adj_p_val"
+)
+
+setOldClass("data.frame")
+
+#' @rdname diff_expression
+#' @aliases HermesDataDiffExpr
+#' @exportClass HermesDataDiffExpr
+.HermesDataDiffExpr <- setClass( # nolint
+  Class = "HermesDataDiffExpr",
+  contains = "data.frame"
+)
+
+S4Vectors::setValidity2(
+  Class = "HermesDataDiffExpr",
+  method = function(object) {
+    msg <- validate_cols(
+      required = .diff_expr_cols,
+      actual = colnames(object)
+    )
+    if (is.null(msg)) TRUE else msg
+  }
+)

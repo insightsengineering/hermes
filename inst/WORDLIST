@@ -6,7 +6,9 @@ getter
 Hochberg
 Kilobase
 kilobases
+limma
 quartile
 RPKM
 TPM
+voom
 VOOM
