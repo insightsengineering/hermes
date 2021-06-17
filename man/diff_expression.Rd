@@ -45,7 +45,7 @@ Possible method choices are:
 object <- HermesData(summarized_experiment) \%>\%
   add_quality_flags() \%>\%
   filter()
-colData(object)$SEX <- factor(colData(object)$SEX)
+colData(object)$SEX <- factor(colData(object)$SEX) # nolint
 res1 <- diff_expression(object, group = "SEX", method = "voom")
 head(res1)
 res2 <- diff_expression(object, group = "SEX", method = "deseq2")
