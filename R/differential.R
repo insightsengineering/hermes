@@ -11,7 +11,6 @@
 #'   adjusted p-value).
 #' 
 #' @importFrom limma voom lmFit eBayes topTable
-#' @importFrom Rdpack reprompt
 #' @export
 #' 
 #' @references 
@@ -64,7 +63,6 @@ h_diff_expr_voom <- function(object, design) {
 #'   `stat` (Wald statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg adjusted p-value).
 #' 
 #' @importFrom DESeq2 DESeqDataSet DESeq results
-#' @importFrom Rdpack reprompt
 #' @export
 #' 
 #' @references 
@@ -128,6 +126,7 @@ h_diff_expr_deseq2 <- function(object, design) {
 #'
 #' @importFrom stats model.matrix
 #' @export
+#' 
 #' @references 
 #' \insertRef{limma_package}{hermes}
 #' 
