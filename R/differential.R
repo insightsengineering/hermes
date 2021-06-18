@@ -193,3 +193,63 @@ S4Vectors::setValidity2(
     if (is.null(msg)) TRUE else msg
   }
 )
+
+# autoplot(HermesDataDiffExpr) ----
+
+#' @describeIn diff_expression generates a volcano plot for a [`HermesDataDiffExpr`] object.
+#'
+#' @param adj_p_val_thresh (`proportion`)\cr threshold on the adjusted p-values (y-axis) to
+#'   flag significance.
+#' @param log2_fc_thresh (`number`)\cr threshold on the absolute log2 fold-change (x-axis)
+#'   to flag up- or down-regulation of transcription.
+#'
+#' @importFrom tern is_proportion
+#' @importFrom ggrepel geom_text_repel
+#' @export
+#'
+#' @examples
+#' autoplot(res1)
+setMethod(
+  f = "autoplot",
+  signature = signature(object = "HermesDataDiffExpr"),
+  definition = function(object,
+                        adj_p_val_thresh = 0.05,
+                        log2_fc_thresh = 2.5) {
+    assert_that(
+      tern::is_proportion(adj_p_val_thresh, include_boundaries = TRUE),
+      is.number(log2_fc_thresh),
+      log2_fc_thresh > 0
+    )
+
+    df <- as.data.frame(object)
+    df$low_p_val <- df$adj_p_val < adj_p_val_thresh
+    df$high_log2_fc <- abs(df$log2_fc) >= log2_fc_thresh
+    df$flag_gene <- df$low_p_val & df$high_log2_fc
+    df$diff_expr <- ifelse(
+      !df$flag_gene,
+      "NO",
+      ifelse(
+        df$log2_fc < 0,
+        "DOWN",
+        "UP"
+      )
+    )
+    df$label <- ifelse(df$flag_gene, rownames(df), NA)
+
+    ggplot(
+      data = df,
+      aes(
+        x = .data$log2_fc,
+        y = - log10(.data$adj_p_val),
+        color = .data$diff_expr,
+        label = .data$label
+      )
+    ) +
+      geom_point() +
+      ggrepel::geom_text_repel(na.rm = TRUE) +
+      xlab("log2 fold change") +
+      ylab("-log10 adjusted p-value") +
+      geom_vline(xintercept = c(- 1, 1) * log2_fc_thresh, col = "black") +
+      geom_hline(yintercept = - log10(adj_p_val_thresh), col = "black")
+  }
+)
