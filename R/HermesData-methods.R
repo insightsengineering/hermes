@@ -253,6 +253,8 @@ setMethod(
 
 # summary ----
 
+setGeneric("summary")
+
 #' @rdname summary
 #' @aliases summary HermesDataSummary
 #' @exportClass HermesDataSummary
