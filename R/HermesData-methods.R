@@ -152,7 +152,7 @@ NULL
 
 # filter ----
 
-setGeneric("filter")
+setGeneric("filter", function(x, what, ...) standardGeneric())
 
 #' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
@@ -165,6 +165,7 @@ setGeneric("filter")
 #' @aliases filter
 #'
 #' @param x (`AnyHermesData`)\cr object to filter.
+#' @param what (`vector`) \cr specify `genes` and / or `samples` to apply filter
 #'
 #' @return The filtered [`AnyHermesData`] object.
 #' @note The internal implementation cannot use the [subset()] method since that
@@ -175,55 +176,38 @@ setGeneric("filter")
 #' @examples
 #' a <- HermesData(summarized_experiment)
 #' dim(a)
+#' # Filter genes and samples on default QC flags
 #' result <- filter(a)
 #' dim(result)
+#' # Filter only genes without low expression
+#' result <- filter(a, what = c("genes"))
 setMethod(
   f = "filter",
   signature = signature(x = "AnyHermesData"),
-  definition = function(x) {
+  definition = function(x, what = c("genes", "samples")) {
     low_exp <- get_low_expression(x)
     low_depth <- get_low_depth(x)
     tech_fail <- get_tech_failure(x)
+    what <- match.arg(what, c("genes", "samples"), several.ok = TRUE)
     assert_that(
       noNA(low_exp),
       noNA(low_depth),
       noNA(tech_fail),
       msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
     )
-    rows <- !low_exp
-    cols <- !low_depth & !tech_fail
+    rows <- if ("genes" %in% what) {
+      !low_exp
+    } else {
+      seq_along(low_exp)
+    }
+    cols <- if ("samples" %in% what) {
+      !low_depth & !tech_fail
+    } else {
+      (seq_along(low_depth))
+    }
     x[rows, cols]
   }
 )
-
-test <- function(z, which = c("genes", "samples")) {
-  which <- match.arg(which)
-  if (which %in% c("genes")) {
-    low_exp <- get_low_expression(x)
-    assert_that(
-      noNA(low_exp),
-      msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
-    )
-    rows <- !low_exp
-    x[rows,]
-  }
-  if (which %in% c("samples")) {
-    low_depth <- get_low_depth(x)
-    tech_fail <- get_tech_failure(x)
-    assert_that(
-      noNA(low_depth),
-      noNA(tech_fail),
-      msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
-    )
-    cols <- !low_depth & !tech_fail
-    x[,cols]
-  }
-}
-t1 <- test(x, which = "genes")
-t2 <- test(x, which = "samples")
-t3 <- test(x, which = c("genes", "samples"))
-t4 <- test(x, which = "test")
-
 
 # summary ----
 
