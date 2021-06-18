@@ -2,37 +2,15 @@
 % Please edit documentation in R/HermesData-methods.R
 \name{filter}
 \alias{filter}
-\alias{filter,AnyHermesData-method}
-\title{Filter \code{AnyHermesData} on Subset Passing Default QC Flags}
+\title{Filter \code{HeremsData} object using QC flags.}
 \usage{
 filter(x, ...)
-
-\S4method{filter}{AnyHermesData}(x, what = c("genes", "samples"))
 }
 \arguments{
-\item{x}{(\code{AnyHermesData})\cr object to filter.}
+\item{...}{additional arguments.}
 
-\item{what}{(\code{vector}) \cr specify \code{genes} and / or \code{samples} to apply filter}
-}
-\value{
-The filtered \code{\link{AnyHermesData}} object.
+\item{object}{input of which the class will be used to decide the method.}
 }
 \description{
-This filters a \code{\link{AnyHermesData}} object using the default QC flags. That is,
-only genes without low expression (\code{LowExpressionFlag}) and samples
-without low depth (\code{LowDepthFlag}) or technical failure (\code{TechnicalFailureFlag})
-remain in the returned filtered object.
-}
-\note{
-The internal implementation cannot use the \code{\link[=subset]{subset()}} method since that
-requires non-standard evaluation of arguments.
-}
-\examples{
-a <- HermesData(summarized_experiment)
-dim(a)
-# Filter genes and samples on default QC flags
-result <- filter(a)
-dim(result)
-# Filter only genes without low expression
-result <- filter(a, what = "genes")
+Filter \code{HeremsData} object using QC flags.
 }

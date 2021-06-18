@@ -152,6 +152,13 @@ NULL
 
 # filter ----
 
+#' @name filter
+#' @title Filter `HeremsData` object using QC flags.
+#' @param object input of which the class will be used to decide the method.
+#' @param ... additional arguments.
+#' @export
+setGeneric("filter", function(x, ...) standardGeneric("filter"))
+
 #' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
 #' This filters a [`AnyHermesData`] object using the default QC flags. That is,
@@ -160,16 +167,12 @@ NULL
 #' remain in the returned filtered object.
 #'
 #' @param x (`AnyHermesData`)\cr object to filter.
+#' @param what (`vector`)\cr specify whether to apply the filter on `genes` and / or `samples`
 #'
 #' @return The filtered [`AnyHermesData`] object.
 #' @note The internal implementation cannot use the [subset()] method since that
 #'   requires non-standard evaluation of arguments.
 #'
-#' @export
-setGeneric("filter", function(x, ...) standardGeneric("filter"))
-
-#' @rdname filter
-#' @param what (`vector`) \cr specify `genes` and / or `samples` to apply filter
 #' @export
 #' @examples
 #' a <- HermesData(summarized_experiment)
@@ -179,6 +182,9 @@ setGeneric("filter", function(x, ...) standardGeneric("filter"))
 #' dim(result)
 #' # Filter only genes without low expression
 #' result <- filter(a, what = "genes")
+#' # Filter only samples with low depth and technical failure
+#' result <- filter(a, what = "samples")
+#'
 setMethod(
   f = "filter",
   signature = signature(x = "AnyHermesData"),
