@@ -169,10 +169,6 @@ NULL
 #'   requires non-standard evaluation of arguments.
 #'
 #' @export
-setGeneric("filter")
-
-#' @rdname filter
-#' @export
 #' @examples
 #' a <- HermesData(summarized_experiment)
 #' dim(a)
@@ -275,8 +271,6 @@ setMethod(
     assay_names = "character"
   )
 )
-
-setGeneric("summary")
 
 #' Summary Method for `AnyHermesData` Objects
 #'
