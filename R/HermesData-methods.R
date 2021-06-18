@@ -196,26 +196,32 @@ setMethod(
   }
 )
 
-# summary ----
-
-#' Helper Functions for Summary and Show Methods
+#' Extra Variable Names Accessor Methods
 #'
-#' Helper functions, `extraColDataNames()` and `extraRowDataNames()`, used by `summary()`
-#' and `show()`.
+#' The methods access the names of the variables in `colData()` and `rowData()` of
+#' the object which are not required by design. So these can be additional sample or
+#' patient characteristics, or gene characteristics.
 #'
-#' @rdname helperfunctions
+#' @name extra_data_names
 #'
-#' @param object (`AnyHermesData`)\cr input.
-#' @param ... additional parameters for `colData()` and `rowData()`.
+#' @param x (`AnyHermesData`)\cr object.
+#' @param ... not used.
 #'
-#' @returns A character vector.
+#' @return The character vector with the additional variable names in either
+#'   `colData()` or `rowData()`.
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#' extraColDataNames(object)
-#' extraRowDataNames(object)
+NULL
+
+# extraColDataNames ----
+
 setGeneric("extraColDataNames", function(x, ...) standardGeneric("extraColDataNames"))
 
+#' @describeIn extra_data_names provides names of extra `colData()` variables.
+#' @export
+#' @examples
+#' extraColDataNames(object)
 setMethod(
   f = "extraColDataNames",
   signature = c(x = "AnyHermesData"),
@@ -226,9 +232,14 @@ setMethod(
   }
 )
 
-#' @rdname helperfunctions
+# extraRowDataNames ----
+
 setGeneric("extraRowDataNames", function(x, ...) standardGeneric("extraRowDataNames"))
 
+#' @describeIn extra_data_names provides names of extra `rowData()` variables.
+#' @export
+#' @examples
+#' extraRowDataNames(object)
 setMethod(
   f = "extraRowDataNames",
   signature = c(x = "AnyHermesData"),
@@ -239,6 +250,7 @@ setMethod(
   }
 )
 
+# summary ----
 
 #' @rdname summary
 #' @aliases summary HermesDataSummary
@@ -283,29 +295,24 @@ setMethod(
   f = "summary",
   signature = c("AnyHermesData"),
   definition = function(object) {
-    rd <- rowData(object)
-    cd <- colData(object)
-    additional_gene_info <- setdiff(
-      extraRowDataNames(object),
-      union(.row_data_non_empty_cols, .row_data_additional_cols)
-    )
-    genes_fail <- rownames(object)[which(rd$LowExpressionFlag)]
-    additional_sample_info <- setdiff(
-      extraColDataNames(object),
-      union(.col_data_non_empty_cols, .col_data_additional_cols)
-    )
-    samples_fail <- colnames(object)[which(cd$TechnicalFailureFlag | cd$LowDepthFlag)]
+    low_expression <- get_low_expression(object)
+    genes_fail <- rownames(object)[low_expression]
+
+    tech_failure <- get_tech_failure(object)
+    low_depth <- get_low_depth(object)
+    samples_fail <- colnames(object)[tech_failure | low_depth]
+
     no_qc_flags_filled <- is.null(metadata(object)$control_quality) &&
-      all_na(rd$LowExpressionFlag) &&
-      all_na(cd$TechnicalFailureFlag) &&
-      all_na(cd$LowDepthFlag)
+      all_na(low_expression) &&
+      all_na(tech_failure) &&
+      all_na(low_depth)
 
     .HermesDataSummary(
       class_name = S4Vectors::classNameForDisplay(object),
       n_genes = nrow(object),
       n_samples = ncol(object),
-      additional_gene_info = additional_gene_info,
-      additional_sample_info = additional_sample_info,
+      additional_gene_info = extraRowDataNames(object),
+      additional_sample_info = extraColDataNames(object),
       no_qc_flags_filled = no_qc_flags_filled,
       genes_fail = genes_fail,
       samples_fail = samples_fail,
@@ -378,90 +385,65 @@ setMethod(
 
 # show ----
 
-#' Show Method for `HermesData` and `RangedHermesData` Objects
+.show.AnyHermesData <- function(object) { # nolint
+  cat_nl(
+    "class:",
+    S4Vectors::classNameForDisplay(object)
+  )
+  S4Vectors::coolcat(
+    "assays(%d): %s\n",
+    assayNames(object)
+  )
+  S4Vectors::coolcat(
+    "genes(%d): %s\n",
+    rownames(object)
+  )
+  S4Vectors::coolcat(
+    "additional gene information(%d): %s\n",
+    extraRowDataNames(object)
+  )
+  coolcat(
+    "samples(%d): %s\n",
+    colnames(object)
+  )
+  S4Vectors::coolcat(
+    "additional sample information(%d): %s\n",
+    extraColDataNames(object)
+  )
+}
+
+#' Show Method for `AnyHermesData` Objects
 #'
-#' @describeIn show A show method that displays additional information of `HermesData` objects.
+#' A show method that displays high-level information of [`AnyHermesData`] objects.
 #'
-#' @param object (`HermesData`) or (`RangedHermesData`) \cr input.
+#' @rdname show
+#' @aliases show
+#'
+#' @param object (`AnyHermesData`)\cr input.
+#'
+#' @note The same method is used for both [`HermesData`] and [`RangedHermesData`]
+#'   objects. We need to define this separately to have this method used instead of
+#'   the one inherited from [`SummarizedExperiment::SummarizedExperiment`].
 #'
 #' @importFrom utils.nest cat_nl
-#' @importFrom S4Vectors coolcat
+#' @importFrom S4Vectors classNameForDisplay coolcat
 #' @export
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
-#' show(object)
+#' object
 setMethod(
   f = "show",
   signature = "HermesData",
-  definition = function(object) {
-    cat_nl(
-      "class:",
-      S4Vectors::classNameForDisplay(object)
-    )
-    S4Vectors::coolcat(
-      "assays(%d): %s\n",
-      assayNames(object)
-    )
-    S4Vectors::coolcat(
-      "genes(%d): %s\n",
-      rownames(object)
-    )
-    S4Vectors::coolcat(
-      "additional gene information(%d): %s\n",
-      extraRowDataNames(object)
-    )
-    coolcat(
-      "samples(%d): %s\n",
-      colnames(object)
-    )
-    S4Vectors::coolcat(
-      "additional sample information(%d): %s\n",
-      extraColDataNames(object)
-    )
-  }
+  definition = .show.AnyHermesData
 )
 
-#' @describeIn show A show method that displays additional information of `RangedHermesData` objects.
-#' @importFrom utils.nest cat_nl
-#' @importFrom S4Vectors coolcat
-#' @export
-#'
-#' @examples
-#' object <- HermesData(as(summarized_experiment, "RangedSummarizedExperiment"))
-#' show(object)
+#' @rdname show
 setMethod(
   f = "show",
   signature = "RangedHermesData",
-  definition = function(object) {
-    cat_nl(
-      "class:",
-      S4Vectors::classNameForDisplay(object)
-    )
-    S4Vectors::coolcat(
-      "assays(%d): %s\n",
-      assayNames(object)
-    )
-    S4Vectors::coolcat(
-      "genes(%d): %s\n",
-      rownames(object)
-    )
-    S4Vectors::coolcat(
-      "additional gene information(%d): %s\n",
-      extraRowDataNames(object)
-    )
-    coolcat(
-      "samples(%d): %s\n",
-      colnames(object)
-    )
-    S4Vectors::coolcat(
-      "additional sample information(%d): %s\n",
-      extraColDataNames(object)
-    )
-  }
+  definition = .show.AnyHermesData
 )
-
-
 
 # correlate ----
 

@@ -2,29 +2,26 @@
 % Please edit documentation in R/HermesData-methods.R
 \name{show,HermesData-method}
 \alias{show,HermesData-method}
+\alias{show}
 \alias{show,RangedHermesData-method}
-\title{Show Method for \code{HermesData} and \code{RangedHermesData} Objects}
+\title{Show Method for \code{AnyHermesData} Objects}
 \usage{
 \S4method{show}{HermesData}(object)
 
 \S4method{show}{RangedHermesData}(object)
 }
 \arguments{
-\item{object}{(\code{HermesData}) or (\code{RangedHermesData}) \cr input.}
+\item{object}{(\code{AnyHermesData})\cr input.}
 }
 \description{
-Show Method for \code{HermesData} and \code{RangedHermesData} Objects
+A show method that displays high-level information of \code{\link{AnyHermesData}} objects.
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{HermesData}: A show method that displays additional information of \code{HermesData} objects.
-
-\item \code{RangedHermesData}: A show method that displays additional information of \code{RangedHermesData} objects.
-}}
-
+\note{
+The same method is used for both \code{\link{HermesData}} and \code{\link{RangedHermesData}}
+objects. We need to define this separately to have this method used instead of
+the one inherited from \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}.
+}
 \examples{
 object <- HermesData(summarized_experiment)
-show(object)
-object <- HermesData(as(summarized_experiment, "RangedSummarizedExperiment"))
-show(object)
+object
 }
