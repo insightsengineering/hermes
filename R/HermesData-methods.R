@@ -198,6 +198,51 @@ setMethod(
 
 # summary ----
 
+#' Helper Functions for Summary and Show Methods
+#'
+#' Helper functions, `extraColDataNames()` and `extraRowDataNames()`, used by `summary()`
+#' and `show()`.
+#'
+#' @rdname helperfunctions
+#'
+#' @param object (`AnyHermesData`)\cr input.
+#' @param ... additional parameters for `colData()` and `rowData()`.
+#'
+#' @returns A character vector.
+#'
+#' @importFrom S4Vectors classNameForDisplay
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' extraColDataNames(object)
+#' extraRowDataNames(object)
+setGeneric("extraColDataNames", function(x, ...) standardGeneric("extraColDataNames"))
+
+setMethod(
+  f = "extraColDataNames",
+  signature = c(x = "AnyHermesData"),
+  definition = function(x, ...) {
+    cd_names <- colnames(colData(x))
+    cd_req_names <- union(.col_data_non_empty_cols, .col_data_additional_cols)
+    setdiff(cd_names, cd_req_names)
+  }
+)
+
+#' @rdname helperfunctions
+setGeneric("extraRowDataNames", function(x, ...) standardGeneric("extraRowDataNames"))
+
+setMethod(
+  f = "extraRowDataNames",
+  signature = c(x = "AnyHermesData"),
+  definition = function(x, ...) {
+    rd_names <- colnames(rowData(x))
+    rd_req_names <- union(.row_data_non_empty_cols, .row_data_additional_cols)
+    setdiff(rd_names, rd_req_names)
+  }
+)
+
+
 #' @rdname summary
 #' @aliases summary HermesDataSummary
 #' @exportClass HermesDataSummary
