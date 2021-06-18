@@ -152,8 +152,6 @@ NULL
 
 # filter ----
 
-setGeneric("filter", function(x, what, ...) standardGeneric())
-
 #' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
 #' This filters a [`AnyHermesData`] object using the default QC flags. That is,
@@ -161,18 +159,18 @@ setGeneric("filter", function(x, what, ...) standardGeneric())
 #' without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
 #' remain in the returned filtered object.
 #'
-#' @rdname filter
-#' @aliases filter
-#'
 #' @param x (`AnyHermesData`)\cr object to filter.
-#' @param what (`vector`) \cr specify `genes` and / or `samples` to apply filter
 #'
 #' @return The filtered [`AnyHermesData`] object.
 #' @note The internal implementation cannot use the [subset()] method since that
 #'   requires non-standard evaluation of arguments.
 #'
 #' @export
-#'
+setGeneric("filter", function(x, ...) standardGeneric("filter"))
+
+#' @rdname filter
+#' @param what (`vector`) \cr specify `genes` and / or `samples` to apply filter
+#' @export
 #' @examples
 #' a <- HermesData(summarized_experiment)
 #' dim(a)
@@ -180,7 +178,7 @@ setGeneric("filter", function(x, what, ...) standardGeneric())
 #' result <- filter(a)
 #' dim(result)
 #' # Filter only genes without low expression
-#' result <- filter(a, what = c("genes"))
+#' result <- filter(a, what = "genes")
 setMethod(
   f = "filter",
   signature = signature(x = "AnyHermesData"),
@@ -203,7 +201,7 @@ setMethod(
     cols <- if ("samples" %in% what) {
       !low_depth & !tech_fail
     } else {
-      (seq_along(low_depth))
+      seq_along(low_depth)
     }
     x[rows, cols]
   }
