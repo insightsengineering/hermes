@@ -196,6 +196,35 @@ setMethod(
   }
 )
 
+test <- function(z, which = c("genes", "samples")) {
+  which <- match.arg(which)
+  if (which %in% c("genes")) {
+    low_exp <- get_low_expression(x)
+    assert_that(
+      noNA(low_exp),
+      msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
+    )
+    rows <- !low_exp
+    x[rows,]
+  }
+  if (which %in% c("samples")) {
+    low_depth <- get_low_depth(x)
+    tech_fail <- get_tech_failure(x)
+    assert_that(
+      noNA(low_depth),
+      noNA(tech_fail),
+      msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
+    )
+    cols <- !low_depth & !tech_fail
+    x[,cols]
+  }
+}
+t1 <- test(x, which = "genes")
+t2 <- test(x, which = "samples")
+t3 <- test(x, which = c("genes", "samples"))
+t4 <- test(x, which = "test")
+
+
 # summary ----
 
 #' @rdname summary
