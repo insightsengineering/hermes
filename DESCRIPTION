@@ -26,6 +26,7 @@ Imports:
     edgeR,
     ggplot2,
     ggplot2.utils,
+    ggrepel,
     limma,
     magrittr,
     methods,
@@ -37,7 +38,6 @@ Imports:
     tidyr,
     utils.nest
 Suggests:
-    ggrepel,
     knitr,
     test.nest (>= 0.2.8),
     testthat (>= 2.0),

@@ -207,7 +207,67 @@ setMethod(
   }
 )
 
+#' Extra Variable Names Accessor Methods
+#'
+#' The methods access the names of the variables in `colData()` and `rowData()` of
+#' the object which are not required by design. So these can be additional sample or
+#' patient characteristics, or gene characteristics.
+#'
+#' @name extra_data_names
+#'
+#' @param x (`AnyHermesData`)\cr object.
+#' @param ... not used.
+#'
+#' @return The character vector with the additional variable names in either
+#'   `colData()` or `rowData()`.
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment)
+NULL
+
+# extraColDataNames ----
+
+#' @rdname extra_data_names
+#' @export
+setGeneric("extraColDataNames", function(x, ...) standardGeneric("extraColDataNames"))
+
+#' @rdname extra_data_names
+#' @export
+#' @examples
+#' extraColDataNames(object)
+setMethod(
+  f = "extraColDataNames",
+  signature = c(x = "AnyHermesData"),
+  definition = function(x, ...) {
+    cd_names <- colnames(colData(x))
+    cd_req_names <- union(.col_data_non_empty_cols, .col_data_additional_cols)
+    setdiff(cd_names, cd_req_names)
+  }
+)
+
+# extraRowDataNames ----
+
+#' @rdname extra_data_names
+#' @export
+setGeneric("extraRowDataNames", function(x, ...) standardGeneric("extraRowDataNames"))
+
+#' @rdname extra_data_names
+#' @export
+#' @examples
+#' extraRowDataNames(object)
+setMethod(
+  f = "extraRowDataNames",
+  signature = c(x = "AnyHermesData"),
+  definition = function(x, ...) {
+    rd_names <- colnames(rowData(x))
+    rd_req_names <- union(.row_data_non_empty_cols, .row_data_additional_cols)
+    setdiff(rd_names, rd_req_names)
+  }
+)
+
 # summary ----
+
+setGeneric("summary")
 
 #' @rdname summary
 #' @aliases summary HermesDataSummary
@@ -218,8 +278,8 @@ setMethod(
     class_name = "character",
     n_genes = "integer",
     n_samples = "integer",
-    additional_feature_cols = "character",
-    additional_sample_cols = "character",
+    additional_gene_info = "character",
+    additional_sample_info = "character",
     no_qc_flags_filled = "logical",
     genes_fail = "character",
     samples_fail = "character",
@@ -227,8 +287,6 @@ setMethod(
     assay_names = "character"
   )
 )
-
-setGeneric("summary")
 
 #' Summary Method for `AnyHermesData` Objects
 #'
@@ -252,29 +310,24 @@ setMethod(
   f = "summary",
   signature = c("AnyHermesData"),
   definition = function(object) {
-    rd <- rowData(object)
-    cd <- colData(object)
-    additional_feature_cols <- setdiff(
-      names(rd),
-      union(.row_data_non_empty_cols, .row_data_additional_cols)
-    )
-    genes_fail <- rownames(object)[which(rd$LowExpressionFlag)]
-    additional_sample_cols <- setdiff(
-      names(cd),
-      union(.col_data_non_empty_cols, .col_data_additional_cols)
-    )
-    samples_fail <- colnames(object)[which(cd$TechnicalFailureFlag | cd$LowDepthFlag)]
+    low_expression <- get_low_expression(object)
+    genes_fail <- rownames(object)[low_expression]
+
+    tech_failure <- get_tech_failure(object)
+    low_depth <- get_low_depth(object)
+    samples_fail <- colnames(object)[tech_failure | low_depth]
+
     no_qc_flags_filled <- is.null(metadata(object)$control_quality) &&
-      all_na(rd$LowExpressionFlag) &&
-      all_na(cd$TechnicalFailureFlag) &&
-      all_na(cd$LowDepthFlag)
+      all_na(low_expression) &&
+      all_na(tech_failure) &&
+      all_na(low_depth)
 
     .HermesDataSummary(
       class_name = S4Vectors::classNameForDisplay(object),
       n_genes = nrow(object),
       n_samples = ncol(object),
-      additional_feature_cols = additional_feature_cols,
-      additional_sample_cols = additional_sample_cols,
+      additional_gene_info = extraRowDataNames(object),
+      additional_sample_info = extraColDataNames(object),
       no_qc_flags_filled = no_qc_flags_filled,
       genes_fail = genes_fail,
       samples_fail = samples_fail,
@@ -316,16 +369,16 @@ setMethod(
       "- Included assays (%d): %s\n",
       object@assay_names
     )
-    if (length(object@additional_feature_cols)) {
+    if (length(object@additional_gene_info)) {
       S4Vectors::coolcat(
-        "- Additional feature columns (%d): %s\n",
-        object@additional_feature_cols
+        "- Additional gene information (%d): %s\n",
+        object@additional_gene_info
       )
     }
-    if (length(object@additional_sample_cols)) {
+    if (length(object@additional_sample_info)) {
       S4Vectors::coolcat(
-        "- Additional sample columns (%d): %s\n",
-        object@additional_sample_cols
+        "- Additional sample information (%d): %s\n",
+        object@additional_sample_info
       )
     }
     if (object@no_qc_flags_filled) {
@@ -345,6 +398,68 @@ setMethod(
   }
 )
 
+# show ----
+
+.show.AnyHermesData <- function(object) { # nolint
+  cat_nl(
+    "class:",
+    S4Vectors::classNameForDisplay(object)
+  )
+  S4Vectors::coolcat(
+    "assays(%d): %s\n",
+    assayNames(object)
+  )
+  S4Vectors::coolcat(
+    "genes(%d): %s\n",
+    rownames(object)
+  )
+  S4Vectors::coolcat(
+    "additional gene information(%d): %s\n",
+    extraRowDataNames(object)
+  )
+  coolcat(
+    "samples(%d): %s\n",
+    colnames(object)
+  )
+  S4Vectors::coolcat(
+    "additional sample information(%d): %s\n",
+    extraColDataNames(object)
+  )
+}
+
+#' Show Method for `AnyHermesData` Objects
+#'
+#' A show method that displays high-level information of [`AnyHermesData`] objects.
+#'
+#' @rdname show
+#' @aliases show
+#'
+#' @param object (`AnyHermesData`)\cr input.
+#'
+#' @note The same method is used for both [`HermesData`] and [`RangedHermesData`]
+#'   objects. We need to define this separately to have this method used instead of
+#'   the one inherited from [`SummarizedExperiment::SummarizedExperiment`].
+#'
+#' @importFrom utils.nest cat_nl
+#' @importFrom S4Vectors classNameForDisplay coolcat
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' object
+setMethod(
+  f = "show",
+  signature = "HermesData",
+  definition = .show.AnyHermesData
+)
+
+#' @rdname show
+setMethod(
+  f = "show",
+  signature = "RangedHermesData",
+  definition = .show.AnyHermesData
+)
+
 # correlate ----
 
 #' @name correlate
@@ -353,6 +468,7 @@ setMethod(
 #' @param ... additional arguments.
 #' @return Corresponding object that contains the correlation results.
 #' @seealso [pca_cor_samplevar] and [calc_cor] which are the methods included for this generic function.
+#' @export
 setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 
 # autoplot ----

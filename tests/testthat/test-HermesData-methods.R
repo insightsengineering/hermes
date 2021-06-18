@@ -157,8 +157,8 @@ test_that("summary works as expected for HermesData", {
   cd <- as.data.frame(colData(object))
   rd <- as.data.frame(rowData(object))
   result <- expect_silent(summary(object))
-  expect_is(result, "HermesDataSummary")
-  expect_identical(result@class_name, class(object)[[1]])
+  expect_s4_class(result, "HermesDataSummary")
+  expect_identical(result@class_name, "HermesData")
   expect_identical(result@assay_names, assayNames(object))
   expect_identical(result@n_genes, nrow(object))
   expect_identical(result@n_samples, ncol(object))
@@ -171,8 +171,8 @@ test_that("summary works as expected for RangedHermesData", {
   cd <- as.data.frame(colData(object))
   rd <- as.data.frame(rowData(object))
   result <- expect_silent(summary(object))
-  expect_is(result, "HermesDataSummary")
-  expect_identical(result@class_name, class(object)[[1]])
+  expect_s4_class(result, "HermesDataSummary")
+  expect_identical(result@class_name, "RangedHermesData")
   expect_identical(result@assay_names, assayNames(object))
   expect_identical(result@n_genes, nrow(object))
   expect_identical(result@n_samples, ncol(object))
@@ -207,4 +207,26 @@ test_that("show for summary also works without quality flags", {
     result,
     "- QC flags still need to be added"
   )
+})
+
+# show ----
+
+test_that("show works as expected for HermesData", {
+  object <- HermesData(summarized_experiment)
+  result <- capture_output(show(object))
+  expect_match(result, "class: HermesData", fixed = TRUE)
+  expect_match(result, "assays(1): counts", fixed = TRUE)
+  expect_match(result, "genes(5085):", fixed = TRUE)
+  expect_match(result, "samples(20):", fixed = TRUE)
+  expect_match(result, "additional gene information(2):", fixed = TRUE)
+  expect_match(result, "additional sample information(84):", fixed = TRUE)
+})
+
+test_that("show works as expected for RangedHermesData", {
+  object <- HermesData(get_rse())
+  result <- capture_output(show(object))
+  expect_match(result, "class: RangedHermesData", fixed = TRUE)
+  expect_match(result, "genes(2):", fixed = TRUE)
+  expect_match(result, "additional gene information(1):", fixed = TRUE)
+  expect_match(result, "additional sample information(0):", fixed = TRUE)
 })
