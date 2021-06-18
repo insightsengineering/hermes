@@ -48,8 +48,9 @@ top_genes <- function(object,
   )
 
   df <- data.frame(expression = stat_values)
-  df <- df[order(df$expression, decreasing = TRUE), , drop = FALSE]
-  row_names <- rownames(object)
+  row_order <- order(df$expression, decreasing = TRUE)
+  df <- df[row_order, , drop = FALSE]
+  row_names <- rownames(object)[row_order]
   df$name <- factor(
     row_names,
     levels = row_names

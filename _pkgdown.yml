@@ -19,6 +19,7 @@ reference:
       - HermesDataTopGenes
       - HermesDataSummary
       - HermesDataPcaCor
+      - HermesDataDiffExpr
   - title: Constructors
     contents:
       - HermesData
@@ -40,6 +41,7 @@ reference:
       - h_low_depth_flag
       - h_tech_failure_flag
       - h_diff_expr_voom
+      - h_diff_expr_deseq2
       - h_pca_var_rsquared
       - h_pca_df_r2_matrix
   - title: Example Data
@@ -67,6 +69,7 @@ reference:
       - top_genes
       - get_quality_flags
       - set_tech_failure
+      - diff_expression
   - title: Graphs
     contents:
       - draw_libsize_hist
