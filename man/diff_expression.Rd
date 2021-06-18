@@ -6,9 +6,12 @@
 \alias{HermesDataDiffExpr-class}
 \alias{.HermesDataDiffExpr}
 \alias{HermesDataDiffExpr}
+\alias{autoplot,HermesDataDiffExpr-method}
 \title{Differential Expression Analysis}
 \usage{
 diff_expression(object, group, method = c("voom", "deseq2"))
+
+\S4method{autoplot}{HermesDataDiffExpr}(object, adj_p_val_thresh = 0.05, log2_fc_thresh = 2.5)
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr input. Note that this function only uses the
@@ -18,6 +21,12 @@ original counts for analysis, so this does not need to be normalized.}
 These 2 levels will be compared in the differential expression analysis.}
 
 \item{method}{(\code{string})\cr method for differential expression analysis, see details below.}
+
+\item{adj_p_val_thresh}{(\code{proportion})\cr threshold on the adjusted p-values (y-axis) to
+flag significance.}
+
+\item{log2_fc_thresh}{(\code{number})\cr threshold on the absolute log2 fold-change (x-axis)
+to flag up- or down-regulation of transcription.}
 }
 \value{
 A \code{\link{HermesDataDiffExpr}} object which is a data frame with the following columns for each gene
@@ -41,6 +50,11 @@ Possible method choices are:
 \item \code{deseq2}: uses \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}, see \code{\link[=h_diff_expr_deseq2]{h_diff_expr_deseq2()}} for details.
 }
 }
+\section{Functions}{
+\itemize{
+\item \code{autoplot,HermesDataDiffExpr-method}: generates a volcano plot for a \code{\link{HermesDataDiffExpr}} object.
+}}
+
 \examples{
 object <- HermesData(summarized_experiment) \%>\%
   add_quality_flags() \%>\%
@@ -50,4 +64,6 @@ res1 <- diff_expression(object, group = "SEX", method = "voom")
 head(res1)
 res2 <- diff_expression(object, group = "SEX", method = "deseq2")
 head(res2)
+autoplot(res1)
+autoplot(res2)
 }
