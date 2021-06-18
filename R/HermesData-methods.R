@@ -210,9 +210,6 @@ setMethod(
 #'
 #' @returns A character vector.
 #'
-#' @importFrom S4Vectors classNameForDisplay
-#' @export
-#'
 #' @examples
 #' object <- HermesData(summarized_experiment)
 #' extraColDataNames(object)
@@ -252,8 +249,8 @@ setMethod(
     class_name = "character",
     n_genes = "integer",
     n_samples = "integer",
-    additional_feature_cols = "character",
-    additional_sample_cols = "character",
+    additional_gene_info = "character",
+    additional_sample_info = "character",
     no_qc_flags_filled = "logical",
     genes_fail = "character",
     samples_fail = "character",
@@ -288,13 +285,13 @@ setMethod(
   definition = function(object) {
     rd <- rowData(object)
     cd <- colData(object)
-    additional_feature_cols <- setdiff(
-      names(rd),
+    additional_gene_info <- setdiff(
+      extraRowDataNames(object),
       union(.row_data_non_empty_cols, .row_data_additional_cols)
     )
     genes_fail <- rownames(object)[which(rd$LowExpressionFlag)]
-    additional_sample_cols <- setdiff(
-      names(cd),
+    additional_sample_info <- setdiff(
+      extraColDataNames(object),
       union(.col_data_non_empty_cols, .col_data_additional_cols)
     )
     samples_fail <- colnames(object)[which(cd$TechnicalFailureFlag | cd$LowDepthFlag)]
@@ -307,8 +304,8 @@ setMethod(
       class_name = S4Vectors::classNameForDisplay(object),
       n_genes = nrow(object),
       n_samples = ncol(object),
-      additional_feature_cols = additional_feature_cols,
-      additional_sample_cols = additional_sample_cols,
+      additional_gene_info = additional_gene_info,
+      additional_sample_info = additional_sample_info,
       no_qc_flags_filled = no_qc_flags_filled,
       genes_fail = genes_fail,
       samples_fail = samples_fail,
@@ -350,16 +347,16 @@ setMethod(
       "- Included assays (%d): %s\n",
       object@assay_names
     )
-    if (length(object@additional_feature_cols)) {
+    if (length(object@additional_gene_info)) {
       S4Vectors::coolcat(
-        "- Additional feature columns (%d): %s\n",
-        object@additional_feature_cols
+        "- Additional gene information (%d): %s\n",
+        object@additional_gene_info
       )
     }
-    if (length(object@additional_sample_cols)) {
+    if (length(object@additional_sample_info)) {
       S4Vectors::coolcat(
-        "- Additional sample columns (%d): %s\n",
-        object@additional_sample_cols
+        "- Additional sample information (%d): %s\n",
+        object@additional_sample_info
       )
     }
     if (object@no_qc_flags_filled) {
@@ -378,6 +375,93 @@ setMethod(
     }
   }
 )
+
+# show ----
+
+#' Show Method for `HermesData` and `RangedHermesData` Objects
+#'
+#' @describeIn show A show method that displays additional information of `HermesData` objects.
+#'
+#' @param object (`HermesData`) or (`RangedHermesData`) \cr input.
+#'
+#' @importFrom utils.nest cat_nl
+#' @importFrom S4Vectors coolcat
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' show(object)
+setMethod(
+  f = "show",
+  signature = "HermesData",
+  definition = function(object) {
+    cat_nl(
+      "class:",
+      S4Vectors::classNameForDisplay(object)
+    )
+    S4Vectors::coolcat(
+      "assays(%d): %s\n",
+      assayNames(object)
+    )
+    S4Vectors::coolcat(
+      "genes(%d): %s\n",
+      rownames(object)
+    )
+    S4Vectors::coolcat(
+      "additional gene information(%d): %s\n",
+      extraRowDataNames(object)
+    )
+    coolcat(
+      "samples(%d): %s\n",
+      colnames(object)
+    )
+    S4Vectors::coolcat(
+      "additional sample information(%d): %s\n",
+      extraColDataNames(object)
+    )
+  }
+)
+
+#' @describeIn show A show method that displays additional information of `RangedHermesData` objects.
+#' @importFrom utils.nest cat_nl
+#' @importFrom S4Vectors coolcat
+#' @export
+#'
+#' @examples
+#' object <- HermesData(as(summarized_experiment, "RangedSummarizedExperiment"))
+#' show(object)
+setMethod(
+  f = "show",
+  signature = "RangedHermesData",
+  definition = function(object) {
+    cat_nl(
+      "class:",
+      S4Vectors::classNameForDisplay(object)
+    )
+    S4Vectors::coolcat(
+      "assays(%d): %s\n",
+      assayNames(object)
+    )
+    S4Vectors::coolcat(
+      "genes(%d): %s\n",
+      rownames(object)
+    )
+    S4Vectors::coolcat(
+      "additional gene information(%d): %s\n",
+      extraRowDataNames(object)
+    )
+    coolcat(
+      "samples(%d): %s\n",
+      colnames(object)
+    )
+    S4Vectors::coolcat(
+      "additional sample information(%d): %s\n",
+      extraColDataNames(object)
+    )
+  }
+)
+
+
 
 # correlate ----
 
