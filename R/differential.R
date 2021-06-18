@@ -209,7 +209,6 @@ S4Vectors::setValidity2(
 #'
 #' @examples
 #' autoplot(res1)
-#' autoplot(res2)
 setMethod(
   f = "autoplot",
   signature = signature(object = "HermesDataDiffExpr"),
@@ -240,17 +239,17 @@ setMethod(
     ggplot(
       data = df,
       aes(
-        x = log2_fc,
-        y = - log10(adj_p_val),
-        color = diff_expr,
-        label = label
+        x = .data$log2_fc,
+        y = - log10(.data$adj_p_val),
+        color = .data$diff_expr,
+        label = .data$label
       )
     ) +
       geom_point() +
       ggrepel::geom_text_repel(na.rm = TRUE) +
       xlab("log2 fold change") +
       ylab("-log10 adjusted p-value") +
-      geom_vline(xintercept = c(- 1, 1) * log2_fc_thresh, col="black") +
-      geom_hline(yintercept = - log10(adj_p_val_thresh), col="black")
+      geom_vline(xintercept = c(- 1, 1) * log2_fc_thresh, col = "black") +
+      geom_hline(yintercept = - log10(adj_p_val_thresh), col = "black")
   }
 )

@@ -65,5 +65,4 @@ head(res1)
 res2 <- diff_expression(object, group = "SEX", method = "deseq2")
 head(res2)
 autoplot(res1)
-autoplot(res2)
 }
