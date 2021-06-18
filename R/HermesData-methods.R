@@ -152,8 +152,6 @@ NULL
 
 # filter ----
 
-setGeneric("filter")
-
 #' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
 #' This filters a [`AnyHermesData`] object using the default QC flags. That is,
@@ -171,7 +169,10 @@ setGeneric("filter")
 #'   requires non-standard evaluation of arguments.
 #'
 #' @export
-#'
+setGeneric("filter")
+
+#' @rdname filter
+#' @export
 #' @examples
 #' a <- HermesData(summarized_experiment)
 #' dim(a)
@@ -216,9 +217,11 @@ NULL
 
 # extraColDataNames ----
 
+#' @rdname extra_data_names
+#' @export
 setGeneric("extraColDataNames", function(x, ...) standardGeneric("extraColDataNames"))
 
-#' @describeIn extra_data_names provides names of extra `colData()` variables.
+#' @rdname extra_data_names
 #' @export
 #' @examples
 #' extraColDataNames(object)
@@ -234,9 +237,11 @@ setMethod(
 
 # extraRowDataNames ----
 
+#' @rdname extra_data_names
+#' @export
 setGeneric("extraRowDataNames", function(x, ...) standardGeneric("extraRowDataNames"))
 
-#' @describeIn extra_data_names provides names of extra `rowData()` variables.
+#' @rdname extra_data_names
 #' @export
 #' @examples
 #' extraRowDataNames(object)
@@ -453,6 +458,7 @@ setMethod(
 #' @param ... additional arguments.
 #' @return Corresponding object that contains the correlation results.
 #' @seealso [pca_cor_samplevar] and [calc_cor] which are the methods included for this generic function.
+#' @export
 setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 
 # autoplot ----

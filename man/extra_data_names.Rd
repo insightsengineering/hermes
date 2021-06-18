@@ -2,11 +2,17 @@
 % Please edit documentation in R/HermesData-methods.R
 \name{extra_data_names}
 \alias{extra_data_names}
+\alias{extraColDataNames}
 \alias{extraColDataNames,AnyHermesData-method}
+\alias{extraRowDataNames}
 \alias{extraRowDataNames,AnyHermesData-method}
 \title{Extra Variable Names Accessor Methods}
 \usage{
+extraColDataNames(x, ...)
+
 \S4method{extraColDataNames}{AnyHermesData}(x, ...)
+
+extraRowDataNames(x, ...)
 
 \S4method{extraRowDataNames}{AnyHermesData}(x, ...)
 }
@@ -24,13 +30,6 @@ The methods access the names of the variables in \code{colData()} and \code{rowD
 the object which are not required by design. So these can be additional sample or
 patient characteristics, or gene characteristics.
 }
-\section{Functions}{
-\itemize{
-\item \code{extraColDataNames,AnyHermesData-method}: provides names of extra \code{colData()} variables.
-
-\item \code{extraRowDataNames,AnyHermesData-method}: provides names of extra \code{rowData()} variables.
-}}
-
 \examples{
 object <- HermesData(summarized_experiment)
 extraColDataNames(object)
