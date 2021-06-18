@@ -189,3 +189,27 @@ test_that("show for summary also works without quality flags", {
     "- QC flags still need to be added"
   )
 })
+
+# show ----
+
+test_that("show works as expected for HermesData", {
+  object <- HermesData(summarized_experiment)
+  expect_output(show(object))
+  expect_output(show(object), "class")
+  expect_output(show(object), "assays")
+  expect_output(show(object), "genes")
+  expect_output(show(object), "additional gene information")
+  expect_output(show(object), "samples")
+  expect_output(show(object), "additional sample information")
+})
+
+test_that("show works as expected for RangedHermesData", {
+  object <- HermesData(as(summarized_experiment, "RangedSummarizedExperiment"))
+  expect_output(show(object))
+  expect_output(show(object), "class")
+  expect_output(show(object), "assays")
+  expect_output(show(object), "genes")
+  expect_output(show(object), "additional gene information")
+  expect_output(show(object), "samples")
+  expect_output(show(object), "additional sample information")
+})
