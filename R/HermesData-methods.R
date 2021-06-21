@@ -152,6 +152,13 @@ NULL
 
 # filter ----
 
+#' @name filter
+#' @title Filter `HeremsData` object using QC flags.
+#' @param object input of which the class will be used to decide the method.
+#' @param ... additional arguments.
+#' @export
+setGeneric("filter", function(x, ...) standardGeneric("filter"))
+
 #' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
 #' This filters a [`AnyHermesData`] object using the default QC flags. That is,
@@ -159,10 +166,8 @@ NULL
 #' without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
 #' remain in the returned filtered object.
 #'
-#' @rdname filter
-#' @aliases filter
-#'
 #' @param x (`AnyHermesData`)\cr object to filter.
+#' @param what (`vector`)\cr specify whether to apply the filter on `genes` and / or `samples`
 #'
 #' @return The filtered [`AnyHermesData`] object.
 #' @note The internal implementation cannot use the [subset()] method since that
@@ -172,23 +177,38 @@ NULL
 #' @examples
 #' a <- HermesData(summarized_experiment)
 #' dim(a)
+#' # Filter genes and samples on default QC flags
 #' result <- filter(a)
 #' dim(result)
+#' # Filter only genes without low expression
+#' result <- filter(a, what = "genes")
+#' # Filter only samples with low depth and technical failure
+#' result <- filter(a, what = "samples")
+#'
 setMethod(
   f = "filter",
   signature = signature(x = "AnyHermesData"),
-  definition = function(x) {
+  definition = function(x, what = c("genes", "samples")) {
     low_exp <- get_low_expression(x)
     low_depth <- get_low_depth(x)
     tech_fail <- get_tech_failure(x)
+    what <- match.arg(what, c("genes", "samples"), several.ok = TRUE)
     assert_that(
       noNA(low_exp),
       noNA(low_depth),
       noNA(tech_fail),
       msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
     )
-    rows <- !low_exp
-    cols <- !low_depth & !tech_fail
+    rows <- if ("genes" %in% what) {
+      !low_exp
+    } else {
+      seq_along(low_exp)
+    }
+    cols <- if ("samples" %in% what) {
+      !low_depth & !tech_fail
+    } else {
+      seq_along(low_depth)
+    }
     x[rows, cols]
   }
 )

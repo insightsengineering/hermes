@@ -102,7 +102,7 @@ test_that("subset function works as expected for HermesData objects", {
 
 # filter ----
 
-test_that("filter works as expected for HermesData", {
+test_that("filter works as expected with default settings for HermesData", {
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
@@ -111,7 +111,26 @@ test_that("filter works as expected for HermesData", {
   expect_identical(dim(result), c(1L, 0L))
 })
 
-test_that("filter works as expected for RangedHermesData", {
+test_that("filter works as expected with default settings for RangedHermesData", {
+  object <- get_rse()
+  h1 <- HermesData(object)
+  result <- expect_silent(filter(h1))
+  expect_is(result, "RangedHermesData")
+  # Only one gene, but no samples fulfill filter criteria:
+  expect_identical(dim(result), c(1L, 0L))
+})
+
+test_that("filter works as expected on one dimension for HermesData", {
+  object <- HermesData(summarized_experiment)
+  result1 <- expect_silent(filter(object, what = "genes"))
+  result2 <- expect_silent(filter(object, what = "samples"))
+  expect_is(result1, "HermesData")
+  expect_is(result2, "HermesData")
+  expect_identical(ncol(result1), ncol(object))
+  expect_identical(nrow(result2), nrow(object))
+})
+
+test_that("filter works as expected with default settings for RangedHermesData", {
   object <- get_rse()
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
