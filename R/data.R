@@ -1,8 +1,7 @@
 #' Example `ExpressionSet` Data
 #'
 #' This example data can be used to try out conversion of a [`Biobase::ExpressionSet`]
-#' object into a [`HermesData`] object. Note that this data does not yet have the
-#' required columns in the `featureData` and `phenoData`.
+#' object into a [`HermesData`] object.
 #'
 #' @format A [`Biobase::ExpressionSet`] object with 20 samples covering 5085
 #'   features (Entrez gene IDs).
