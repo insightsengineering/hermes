@@ -1,0 +1,304 @@
+---
+title: "Introduction to `hermes`"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to hermes}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize, analyze RNAseq counts data. It is a successor of the `rnaseqTools` R package. The core functionality is built on the BioConductor ecosystem, especially `SummarizedExperiment`.
+New users should first begin by reading the "Introduction to `hermes`" vignette to become familiar with the `hermes` concepts.
+
+```{r, eval=FALSE}
+vignette(topic = "introduction", package = "hermes")
+```
+
+In this vignette you are going to learn how to:
+
+* import RNAseq count data into the `hermes` ready format
+* annotate gene information automatically from the central database (IGIS)
+* add quality control (QC) flags to genes and samples
+* filter the data set
+* normalize the counts
+* quickly produce descriptive plots
+* perform principal components analysis
+* produce a templated QC report
+* perform differential expression analysis
+
+using `hermes`.
+
+The packages used in this vignette are:
+```{r, message=FALSE}
+library(hermes)
+library(SummarizedExperiment)
+```
+
+The datasets used in this vignette are:
+```{r, message=FALSE}
+?expression_set
+?summarized_experiment
+```
+
+## Importing Data
+
+The data for `hermes` needs to be imported into the `HermesData` or `RangedHermesData` format.
+
+### Importing a `SummarizedExperiment`
+
+The simplest import route is from a `SummarizedExperiment` (SE) object. This is because a `HermesData` object
+is just a special SE, with few additional requirements and slots. 
+
+In a nutshell, the object needs to have a `counts` assay, have certain
+gene and sample variables, and have row and column names. The row names, i.e. the gene names, must
+start with a common prefix `GeneID` or `ENSG` to enable easy annotations.
+See `?HermesData` for the detailed requirements. 
+
+When the SE follows the conventions, we can just call the `HermesData` constructor on it:
+
+```{r}
+object <- HermesData(summarized_experiment)
+```
+
+And we have a `HermesData` object.
+
+```{r}
+object
+```
+
+### Importing an `ExpressionSet`
+
+If we start from an `ExpressionSet`, we can first convert this to a `RangedSummarizedExperiment` and then import to `RangedHermesData`:
+
+```{r}
+se <- makeSummarizedExperimentFromExpressionSet(expression_set)
+object2 <- HermesData(se)
+object2
+```
+
+### Importing a Matrix
+
+In general we can also import a matrix of counts. We just have to pass the required 
+gene and sample information as data frames to the constructor.
+
+```{r}
+counts_matrix <- assay(summarized_experiment)
+object3 <- HermesDataFromMatrix(
+  counts = counts_matrix,
+  rowData = rowData(summarized_experiment),
+  colData = colData(summarized_experiment)
+)
+object3
+identical(object, object3)
+```
+
+Note that we can easily access the counts assay (matrix) in the final object with `counts()`:
+
+```{r}
+cnts <- counts(object)
+cnts[1:3, 1:3]
+```
+
+## Annotations
+
+Will be added shortly (stay tuned).
+
+## Quality Control Flags
+
+`hermes` provides automatic gene and sample flagging, as well as manual sample flagging functionality.
+
+### Automatic Gene and Sample Flagging
+
+For genes, it is counted how many samples don't pass a minimum expression CPM threshold. If too many, then this gene is flagged as a "low expression" gene.
+
+For samples, two flags are provided. The "technical failure" flag is based on the average Pearson correlation with other samples. The "low depth" flag is based on the library size, i.e. the total sum of counts for a sample across all genes.
+
+Thresholds for the above flags can be initialized with `control_quality()`, and the flags are added with `add_quality_flags()`.
+
+```{r}
+my_controls <- control_quality(min_cpm = 10, min_cpm_prop = 0.4, min_corr = 0.4, min_depth = 1e4)
+object_flagged <- add_quality_flags(object, control = my_controls)
+```
+
+### Manual Sample Flagging
+
+Sometimes it is necessary to manually flag certain samples as technical failures, e.g. after looking
+at one of the analyses discussed below. This is possible, too.
+
+```{r}
+object_flagged <- set_tech_failure(object_flagged, sample_ids = "06520011B0023R")
+```
+
+### Accessing Flags
+
+All flags have access functions.
+
+```{r}
+head(get_tech_failure(object_flagged))
+head(get_low_depth(object_flagged))
+head(get_low_expression(object_flagged))
+```
+
+## Filtering Data
+
+We can either filter based on the default QC flags, or based on custom variables from the gene or sample information.
+
+### Based on Default QC Flags
+
+This is simple with the `filter()` function. It is also possible to selectively only filter the genes or the samples using the `what` argument.
+
+```{r}
+object_flagged_filtered <- filter(object_flagged)
+```
+
+### Based on Custom Variables
+
+This can be done with the `subset()` function. Genes can be filtered with the `subset` argument via expressions using the gene information variables, and samples can be filtered with the `select` argument using the sample information variables. In order to see which ones are available these can be queries first.
+
+```{r}
+names(rowData(object_flagged))
+names(colData(object_flagged))
+head(rowData(object_flagged)$Chromosome)
+head(object_flagged$ARMCD)
+object_flagged_subsetted <- subset(object_flagged, subset = Chromosome == "5", select = ARMCD == "COH1")
+```
+
+## Normalizing Counts
+
+Normalizing counts within samples (CPM), genes (RPKM) or across both (TPM) can be
+achieved with the `normalize()` function.
+
+```{r}
+object_normalized <- normalize(object_flagged_filtered)
+```
+
+The corresponding assays are saved in the object and can be accessed with `assay()`.
+
+```{r}
+assay(object_normalized, "tpm")[1:3, 1:3]
+```
+
+The used control settings can be accessed afterwards from the metadata of the object:
+
+```{r}
+metadata(object_normalized)
+```
+
+Note that also the filtering settings are saved in here. For custom normalization options,
+use `control_normalize()`. For example, to not use log scale but the original scale of the counts:
+
+```{r}
+my_norm_settings <- control_normalize(log = FALSE)
+object_normalized_original <- normalize(object_flagged_filtered, control = my_norm_settings)
+assay(object_normalized_original, "tpm")[1:3, 1:3]
+```
+
+## Descriptive Summaries and Plots
+
+### Simple Plots
+
+A series of simple descriptive plots can be obtained by just calling `autoplot()` on an object.
+
+```{r}
+autoplot(object)
+```
+
+### Top Genes
+
+Top genes can be calculated and visualized in a barplot.
+
+```{r}
+most_expr_genes <- top_genes(object_normalized, assay_name = "tpm")
+autoplot(most_expr_genes)
+```
+
+By passing another summary function, also the variability can be ranked for example.
+
+```{r}
+most_var_genes <- top_genes(object_normalized, summary_fun = rowSds)
+autoplot(most_var_genes)
+```
+
+### Correlation between Samples
+
+A sample correlation matrix between samples can be obtained with the `correlate()` function. This can be visualized in a heatmap using `autoplot()` again. See `?calc_cor` for detailed options.
+
+```{r}
+cor_mat <- correlate(object)
+autoplot(cor_mat)
+```
+
+## Principal Components Analysis (PCA)
+
+### PCA of Samples
+
+PCA can be performed with `calc_pca()`. The result can be summarized or plotted.
+
+```{r}
+pca_res <- calc_pca(object_normalized, assay_name = "tpm")
+summary(pca_res)$importance
+autoplot(pca_res)
+```
+
+Note that various options are available for the plot, for example we can look at different principal components, and color the samples by sample variables. See `?ggfortify::autoplot.prcomp` for details.
+
+```{r}
+autoplot(
+  pca_res,
+  x = 2, y = 3,
+  data = as.data.frame(colData(object_normalized)), colour = "SEX"
+)
+```
+
+### Correlation with Sample Variables
+
+Afterwards it is easy to correlate the obtained principal components with the sample variables. We obtain a matrix of R-squared (R2) values for all combinations, which can again be visualized as a heatmap.
+See `?pca_cor_samplevar` for details.
+
+```{r}
+pca_cor <- correlate(pca_res, object_normalized)
+autoplot(pca_cor)
+```
+
+## Quality Control Report Template
+
+In order to quickly obtain a quality control report for a new RNAseq data set, you can proceed as follows.
+1. Save your input `SummarizedExperiment` using R's `save()` function in a binary data file (e.g. ending with `.rda` suffix).
+1. Load the `hermes` package in RStudio and click on: `File` > `New File` > `R Markdown` > `From Template` and select the QC report template from `hermes`.
+1. Fill in the few parameters in the yaml header, including the required file paths for the input file from above, and where the resulting `HermesData` object should be saved.
+1. Knit the document.
+
+The report contains above descriptive plots and PCA analyses and can be a useful starting point for your analysis.
+
+## Differential Expression Analysis
+
+In addition to the above QC analyses, simple differential expression analysis is supported by `hermes`.
+In addition to the filtered object (normalization of counts is not required) the variable name of the factor to contrast the samples needs to be provided to `diff_expression()`.
+
+```{r}
+colData(object)$SEX <- factor(colData(object)$SEX) # nolint
+diff_res <- diff_expression(object, group = "SEX", method = "voom")
+head(diff_res)
+```
+
+Afterwards a standard volcano plot can be produced.
+
+```{r}
+autoplot(diff_res, log2_fc_thresh = 8)
+```
+
+## Summary
+
+The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize and analyze RNAseq counts data. In particular, the robust object-oriented framework allows for easy extensions in the future to address user feature requests. These and other feedback are very welcome - thank you very much in advance for your thoughts on `hermes`!

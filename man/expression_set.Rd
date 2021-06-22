@@ -16,8 +16,7 @@ expression_set
 }
 \description{
 This example data can be used to try out conversion of a \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}}
-object into a \code{\link{HermesData}} object. Note that this data does not yet have the
-required columns in the \code{featureData} and \code{phenoData}.
+object into a \code{\link{HermesData}} object.
 }
 \seealso{
 summarized_experiment which contains similar data as
