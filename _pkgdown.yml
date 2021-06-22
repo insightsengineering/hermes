@@ -51,13 +51,18 @@ reference:
       - multi_assay_experiment
   - title: Methods
     contents:
+      - annotation
       - cbind
       - correlate
       - counts
       - filter
+      - genes
       - metadata
       - normalize
+      - prefix
+      - query
       - rbind
+      - samples
       - show
       - subset
       - summary
@@ -69,6 +74,7 @@ reference:
       - get_quality_flags
       - set_tech_failure
       - top_genes
+      - connect_igis
   - title: Graphs
     contents:
       - draw_libsize_hist

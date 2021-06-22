@@ -65,6 +65,38 @@ test_that("metadata setter works as expected", {
   expect_identical(metadata(h1), value)
 })
 
+# annotation ----
+
+test_that("annotation accessor works as expected", {
+  object <- get_se()
+  h1 <- .HermesData(object)
+  result <- expect_silent(annotation(h1))
+  expect_s4_class(result, "DataFrame")
+  expect_named(result, .row_data_annotation_cols)
+  expect_identical(rownames(result), rownames(h1))
+})
+
+test_that("annotation setter works as expected", {
+  object <- get_se()
+  h1 <- .HermesData(object)
+  value <- S4Vectors::DataFrame(
+    StartBP = c(0, 10),
+    EndBP = c(11, 12),
+    WidthBP = c(11, 1),
+    HGNCGeneName = c(1, 1),
+    CanonicalTranscript = c(1, 1),
+    HGNC = c(1, 1),
+    GeneID = c(1, 1),
+    Chromosome = c(1, 1),
+    ProteinTranscript = c(1, 1),
+    row.names = c("GeneID:a", "GeneID:b")
+  )
+  expect_silent(annotation(h1) <- value)
+  # Internally we expect a reordering of the columns to take place.
+  expect_false(identical(names(annotation(h1)), names(value)))
+  expect_setequal(names(annotation(h1)), names(value))
+})
+
 # counts ----
 
 test_that("counts accessor works as expected", {
@@ -81,6 +113,33 @@ test_that("counts setter works as expected", {
   value <- matrix(0L, nrow = nrow(h1), ncol = ncol(h1))
   expect_silent(counts(h1) <- value)
   expect_equivalent(counts(h1), value)
+})
+
+# prefix ----
+
+test_that("prefix accessor works as expected", {
+  object <- get_se()
+  h1 <- HermesData(object)
+  result <- expect_silent(prefix(h1))
+  expect_identical(result, "GeneID")
+})
+
+# genes ----
+
+test_that("genes accessor works as expected", {
+  object <- get_se()
+  h1 <- HermesData(object)
+  result <- expect_silent(genes(h1))
+  expect_identical(result, c("GeneID:a", "GeneID:b"))
+})
+
+# samples ----
+
+test_that("samples accessor works as expected", {
+  object <- get_se()
+  h1 <- HermesData(object)
+  result <- expect_silent(samples(h1))
+  expect_identical(result, c("X", "Y"))
 })
 
 # subset ----

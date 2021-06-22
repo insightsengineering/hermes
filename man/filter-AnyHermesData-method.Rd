@@ -4,10 +4,10 @@
 \alias{filter,AnyHermesData-method}
 \title{Filter \code{AnyHermesData} on Subset Passing Default QC Flags}
 \usage{
-\S4method{filter}{AnyHermesData}(x, what = c("genes", "samples"))
+\S4method{filter}{AnyHermesData}(object, what = c("genes", "samples"))
 }
 \arguments{
-\item{x}{(\code{AnyHermesData})\cr object to filter.}
+\item{object}{(\code{AnyHermesData})\cr object to filter.}
 
 \item{what}{(\code{vector})\cr specify whether to apply the filter on \code{genes} and / or \code{samples}}
 }

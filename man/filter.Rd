@@ -4,12 +4,12 @@
 \alias{filter}
 \title{Filter \code{HeremsData} object using QC flags.}
 \usage{
-filter(x, ...)
+filter(object, ...)
 }
 \arguments{
-\item{...}{additional arguments.}
-
 \item{object}{input of which the class will be used to decide the method.}
+
+\item{...}{additional arguments.}
 }
 \description{
 Filter \code{HeremsData} object using QC flags.

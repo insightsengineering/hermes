@@ -81,6 +81,66 @@ NULL
 #' metadata(a)
 NULL
 
+# annotation ----
+
+# Column names in rowData(object) that identify the annotation contents.
+.row_data_annotation_cols <- c(
+  "HGNC",
+  "HGNCGeneName",
+  "GeneID",
+  "Chromosome",
+  "StartBP",
+  "EndBP",
+  "WidthBP",
+  "CanonicalTranscript",
+  "ProteinTranscript"
+)
+
+#' Annotation Accessor and Setter
+#'
+#' These methods access and set the gene annotations stored in a [`AnyHermesData`] object.
+#'
+#' @rdname annotation
+#' @aliases annotation
+#'
+#' @param object (`AnyHermesData`)\cr object to access the counts from.
+#' @param ... not used.
+#'
+#' @return The [`S4Vectors::DataFrame`] with the gene annotations.
+#'
+#' @importFrom BiocGenerics annotation
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' head(annotation(object))
+setMethod(
+  f = "annotation",
+  signature = c(object = "AnyHermesData"),
+  definition = function(object, ...) {
+    rowData(object)[, .row_data_annotation_cols]
+  }
+)
+
+#' @param value (`matrix`)\cr what should the counts assay be replaced with.
+#'
+#' @importFrom BiocGenerics `annotation<-`
+#' @rdname annotation
+#' @export
+setReplaceMethod(
+  f = "annotation",
+  signature = c(object = "AnyHermesData", value = "DataFrame"),
+  definition = function(object, value) {
+    assert_that(
+      identical(rownames(object), rownames(value)),
+      setequal(.row_data_annotation_cols, colnames(value))
+    )
+    rowData(object)[, .row_data_annotation_cols] <- value[, .row_data_annotation_cols]
+    validObject(object)
+    object
+  }
+)
+
 # counts ----
 
 #' Counts Accessor and Setter
@@ -129,6 +189,79 @@ setReplaceMethod(
   }
 )
 
+# prefix ----
+
+#' Prefix Accessor
+#'
+#' Generic function to access the prefix from an object.
+#'
+#' @param object (`AnyHermesData`)\cr input.
+#' @param ... additional arguments.
+#'
+#' @return The `prefix` slot contents.
+#' @export
+#'
+#' @examples
+#' a <- HermesData(summarized_experiment)
+#' prefix(a)
+setGeneric("prefix", def = function(object, ...) {
+  object@prefix
+})
+
+# genes ----
+
+#' Gene IDs Accessor
+#'
+#' Access the gene IDs, i.e. row names, of a [`AnyHermesData`] object with a
+#' nicely named accessor method.
+#'
+#' @param object (`AnyHermesData`)\cr input.
+#'
+#' @return The character vector with the gene IDs.
+#'
+#' @export
+setGeneric("genes", def = function(object) standardGeneric("genes"))
+
+#' @rdname genes
+#' @export
+#' @examples
+#' a <- HermesData(summarized_experiment)
+#' genes(a)
+setMethod(
+  f = "genes",
+  signature = c(object = "AnyHermesData"),
+  definition = function(object) {
+    rownames(object)
+  }
+)
+
+# samples ----
+
+#' Sample IDs Accessor
+#'
+#' Access the sample IDs, i.e. col names, of a [`AnyHermesData`] object with a
+#' nicely named accessor method.
+#'
+#' @param object (`AnyHermesData`)\cr input.
+#'
+#' @return The character vector with the sample IDs.
+#'
+#' @rdname samples
+#' @aliases samples
+#'
+#' @importFrom Biobase samples
+#' @export
+#' @examples
+#' a <- HermesData(summarized_experiment)
+#' samples(a)
+setMethod(
+  f = "samples",
+  signature = c(object = "AnyHermesData"),
+  definition = function(object) {
+    colnames(object)
+  }
+)
+
 # subset ----
 
 #' Subsetting `AnyHermesData` Objects
@@ -157,7 +290,7 @@ NULL
 #' @param object input of which the class will be used to decide the method.
 #' @param ... additional arguments.
 #' @export
-setGeneric("filter", function(x, ...) standardGeneric("filter"))
+setGeneric("filter", function(object, ...) standardGeneric("filter"))
 
 #' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
@@ -166,7 +299,7 @@ setGeneric("filter", function(x, ...) standardGeneric("filter"))
 #' without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
 #' remain in the returned filtered object.
 #'
-#' @param x (`AnyHermesData`)\cr object to filter.
+#' @param object (`AnyHermesData`)\cr object to filter.
 #' @param what (`vector`)\cr specify whether to apply the filter on `genes` and / or `samples`
 #'
 #' @return The filtered [`AnyHermesData`] object.
@@ -187,11 +320,11 @@ setGeneric("filter", function(x, ...) standardGeneric("filter"))
 #'
 setMethod(
   f = "filter",
-  signature = signature(x = "AnyHermesData"),
-  definition = function(x, what = c("genes", "samples")) {
-    low_exp <- get_low_expression(x)
-    low_depth <- get_low_depth(x)
-    tech_fail <- get_tech_failure(x)
+  signature = signature(object = "AnyHermesData"),
+  definition = function(object, what = c("genes", "samples")) {
+    low_exp <- get_low_expression(object)
+    low_depth <- get_low_depth(object)
+    tech_fail <- get_tech_failure(object)
     what <- match.arg(what, c("genes", "samples"), several.ok = TRUE)
     assert_that(
       noNA(low_exp),
@@ -209,7 +342,7 @@ setMethod(
     } else {
       seq_along(low_depth)
     }
-    x[rows, cols]
+    object[rows, cols]
   }
 )
 

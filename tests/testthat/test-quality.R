@@ -193,7 +193,7 @@ test_that("get_low_depth fails as expected with invalid input", {
 test_that("get_low_expression function works as expected", {
   object <- HermesData(get_se())
   result <- expect_silent(get_low_expression(object))
-  expected <- c(a = TRUE, b = FALSE)
+  expected <- c("GeneID:a" = TRUE, "GeneID:b" = FALSE)
   expect_identical(result, expected)
 })
 

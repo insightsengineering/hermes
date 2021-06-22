@@ -1,0 +1,29 @@
+# nolint start
+testing_depth <- function() { # nolintr # nousage
+
+  TESTING_DEPTH <- getOption("TESTING_DEPTH")
+
+  if (is.null(TESTING_DEPTH))
+    TESTING_DEPTH <- Sys.getenv("TESTING_DEPTH")
+
+  TESTING_DEPTH <- if (!is.null(TESTING_DEPTH) && grepl("^[[:digit:]]+$", TESTING_DEPTH)) {
+    as.numeric(TESTING_DEPTH)
+  } else if (is.numeric(TESTING_DEPTH) && length(TESTING_DEPTH) == 1) {
+    TESTING_DEPTH
+  } else {
+    1
+  }
+  TESTING_DEPTH
+}
+# nolint end
+
+# 1: Commit TEST Suite
+# 2: Nightly Integration TEST Suite
+# 3: Extended Testing
+skip_if_too_deep <- function(depth) { # nolintr # nousage
+  test_to_depth <- testing_depth()
+
+  if (depth > test_to_depth)  {
+    testthat::skip(paste("testing depth", depth, "is below current testing specification", test_to_depth))
+  }
+}

@@ -6,7 +6,7 @@ get_se <- function() {
       data = 1:4,
       nrow = 2,
       ncol = 2,
-      dimnames = list(c("a", "b"), c("X", "Y"))
+      dimnames = list(c("GeneID:a", "GeneID:b"), c("X", "Y"))
     )),
     rowData = data.frame(
       HGNC = c(1, 1),
@@ -40,7 +40,7 @@ get_rse <- function() {
       data = 1:4,
       nrow = 2,
       ncol = 2,
-      dimnames = list(c("a", "b"), c("X", "Y"))
+      dimnames = list(c("ENSGa", "ENSGb"), c("X", "Y"))
     )),
     rowRanges = GRanges(
       c("chr1", "chr2"),

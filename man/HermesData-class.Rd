@@ -68,6 +68,12 @@ A \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}} object can b
 first convert it to a \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object before
 converting it again into a \code{\link{HermesData}} object.
 }
+\section{Slots}{
+
+\describe{
+\item{\code{prefix}}{common prefix of the gene IDs (row names).}
+}}
+
 \note{
 Note that we use \code{\link[S4Vectors:S4Vectors-internals]{S4Vectors::setValidity2()}} to define the validity
 method, which allows us to turn off the validity checks in internal

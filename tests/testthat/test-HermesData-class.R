@@ -57,6 +57,26 @@ test_that("HermesData constructor fails with readable error message when there a
   expect_error(HermesData(input), "assays(object) has an empty dimension", fixed = TRUE)
 })
 
+test_that("HermesData determines prefix correctly", {
+  result <- expect_silent(HermesData(get_se()))
+  expect_identical(result@prefix, "GeneID")
+  result <- expect_silent(HermesData(get_rse()))
+  expect_identical(result@prefix, "ENSG")
+})
+
+test_that("HermesData creates missing columns with NAs correctly", {
+  object <- get_se()
+  colData(object) <- colData(object)[, "SampleID", drop = FALSE]
+  rowData(object) <- rowData(object)[, c("HGNC", "GeneID", "Chromosome", "StartBP", "EndBP", "WidthBP")]
+  expect_false(any(.col_data_additional_cols %in% names(colData(object))))
+  expect_false(any(.row_data_additional_cols %in% names(rowData(object))))
+  result <- expect_silent(HermesData(object))
+  expect_true(all(.col_data_additional_cols %in% names(colData(result))))
+  expect_true(all(.row_data_additional_cols %in% names(rowData(result))))
+  expect_true(all(is.na(colData(result)[, .col_data_additional_cols])))
+  expect_true(all(is.na(rowData(result)[, .row_data_additional_cols])))
+})
+
 test_that("RangedHermesData objects can be created with constructor HermesData", {
   result <- expect_silent(HermesData(get_rse()))
   expect_is(result, "RangedHermesData")

@@ -21,12 +21,14 @@ Depends:
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
+    Biobase,
     BiocGenerics,
     DESeq2,
     edgeR,
     ggplot2,
     ggplot2.utils (>= 0.1.2),
     ggrepel,
+    igis,
     limma,
     magrittr,
     methods,
@@ -48,6 +50,7 @@ Collate:
     'HermesData-methods.R'
     'assertthat.R'
     'calc_cor.R'
+    'connections.R'
     'data.R'
     'differential.R'
     'graphs.R'

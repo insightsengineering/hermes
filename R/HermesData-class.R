@@ -37,28 +37,32 @@ NULL
 #' first convert it to a [`SummarizedExperiment::SummarizedExperiment`] object before
 #' converting it again into a [`HermesData`] object.
 #'
-#' @examples
-#' # Convert to `SummarizedExperiment` using the default naive range mapper.
-#' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
-#' # Then convert to `HermesData`.
 #' @note Note that we use [S4Vectors::setValidity2()] to define the validity
 #'   method, which allows us to turn off the validity checks in internal
 #'   functions where intermediate objects may not be valid within the scope of
 #'   the function.
 #'
+#' @slot prefix common prefix of the gene IDs (row names).
+#'
 #' @aliases HermesData RangedHermesData AnyHermesData
 #' @exportClass HermesData RangedHermesData AnyHermesData
 #' @importFrom S4Vectors setValidity2
 #'
+#' @examples
+#' # Convert to `SummarizedExperiment` using the default naive range mapper.
+#' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
+#' # Then convert to `HermesData`.
 .HermesData <- setClass( # nolint
   "HermesData",
-  contains = "SummarizedExperiment"
+  contains = "SummarizedExperiment",
+  slots = c(prefix = "character")
 )
 
 #' @rdname HermesData-class
 .RangedHermesData <- setClass( # nolint
   "RangedHermesData",
-  contains = "RangedSummarizedExperiment"
+  contains = "RangedSummarizedExperiment",
+  slots = c(prefix = "character")
 )
 
 #' @rdname HermesData-class
@@ -108,10 +112,22 @@ HermesData <- function(object) { # nolint
   missing_col <- setdiff(.col_data_additional_cols, names(colData(object)))
   colData(object)[, missing_col] <- NA
 
-  if (is(object, "RangedSummarizedExperiment")) {
-    .RangedHermesData(object)
+  gene_ids <- rownames(object)
+  prefix <- if (all(grepl("^ENSG", gene_ids))) {
+    "ENSG"
+  } else if (all(grepl("^GeneID", gene_ids))) {
+    "GeneID"
   } else {
-    .HermesData(object)
+    stop(paste(
+      "hermes requires either common prefix 'ENSG' (EnsemblID)",
+      "or 'GeneID' (EntrezID) for the row names (gene IDs)"
+    ))
+  }
+
+  if (is(object, "RangedSummarizedExperiment")) {
+    .RangedHermesData(object, prefix = prefix)
+  } else {
+    .HermesData(object, prefix = prefix)
   }
 }
 
