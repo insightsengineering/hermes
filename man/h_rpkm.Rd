@@ -4,7 +4,7 @@
 \alias{h_rpkm}
 \title{Reads per Kilobase per Million (RPKM) Normalization}
 \usage{
-h_rpkm(object, control)
+h_rpkm(object, control = control_normalize())
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr input object.}

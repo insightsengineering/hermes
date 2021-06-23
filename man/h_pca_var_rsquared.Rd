@@ -18,6 +18,10 @@ A vector with R2 values for each principal component.
 This helper function calculates R2 values between one sample variable from \link{AnyHermesData}
 and all Principal Components (PCs) separately (one linear model is fit for each PC).
 }
+\details{
+Note that in case there are estimation problems for any of the PCs, then \code{NA} will
+be returned for those.
+}
 \examples{
 object <- HermesData(summarized_experiment) \%>\%
   add_quality_flags() \%>\%

@@ -37,7 +37,7 @@ validate_counts <- function(object) {
   if (any(is.na(counts))) {
     msg <- c(msg, "missing values in 'counts'")
   }
-  if (any(counts < 0)) {
+  if (any(counts < 0, na.rm = TRUE)) {
     msg <- c(msg, "negative values in 'counts'")
   }
 

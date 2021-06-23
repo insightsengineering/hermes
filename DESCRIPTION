@@ -13,6 +13,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 RdMacros: Rdpack
+VignetteBuilder: knitr 
 URL: https://github.roche.com/NEST/hermes/
 BugReports: https://github.roche.com/NEST/hermes/issues
 Depends: 
@@ -38,6 +39,7 @@ Imports:
     S4Vectors,
     tern,
     tidyr,
+    utils,
     utils.nest (>= 0.2.9)
 Suggests:
     knitr,

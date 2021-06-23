@@ -137,6 +137,20 @@ test_that("h_voom fails as expected with invalid settings", {
   expect_error(h_voom(object2, cont2))
 })
 
+test_that("h_voom works when there are no samples", {
+  object <- HermesData(get_se())[, - c(1, 2)]
+  assert_that(identical(ncol(object), 0L))
+  result <- expect_silent(h_voom(object))
+  expect_identical(result, counts(object))
+})
+
+test_that("h_voom works when there are no genes", {
+  object <- HermesData(get_se())[- c(1, 2), ]
+  assert_that(identical(nrow(object), 0L))
+  result <- expect_silent(h_voom(object))
+  expect_identical(result, counts(object))
+})
+
 # normalize ----
 
 test_that("normalize works as expected for HermesData", {

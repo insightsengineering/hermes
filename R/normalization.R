@@ -72,7 +72,7 @@ h_cpm <- function(object,
 #' counts_rpkm <- h_rpkm(h, cont)
 #' str(counts_rpkm)
 h_rpkm <- function(object,
-                   control) {
+                   control = control_normalize()) {
   assert_that(
     is_hermes_data(object),
     is_list_with(control, c("lib_sizes", "log", "prior_count")),
@@ -120,6 +120,7 @@ h_tpm <- function(object,
 #'
 #' @export
 #' @importFrom limma voom
+#' @importFrom S4Vectors isEmpty
 #' @examples
 #' h <- HermesData(summarized_experiment)
 #' cont <- control_normalize()
@@ -131,8 +132,12 @@ h_voom <- function(object,
     is_hermes_data(object),
     is_list_with(control, c("lib_sizes", "log"))
   )
+  cnts <- counts(object)
+  if (S4Vectors::isEmpty(cnts)) {
+    return(cnts)
+  }
   norm_log2 <- limma::voom(
-    counts = counts(object),
+    counts = cnts,
     lib.size = control$lib_sizes
   )$E
   if (control$log) {

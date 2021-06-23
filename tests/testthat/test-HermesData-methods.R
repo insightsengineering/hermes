@@ -166,8 +166,8 @@ test_that("filter works as expected with default settings for HermesData", {
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
   expect_is(result, "HermesData")
-  # Only one gene, but no samples fulfill filter criteria:
-  expect_identical(dim(result), c(1L, 0L))
+  # Only one gene and one sample fulfill filter criteria:
+  expect_identical(dim(result), c(1L, 1L))
 })
 
 test_that("filter works as expected with default settings for RangedHermesData", {
@@ -175,8 +175,8 @@ test_that("filter works as expected with default settings for RangedHermesData",
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
   expect_is(result, "RangedHermesData")
-  # Only one gene, but no samples fulfill filter criteria:
-  expect_identical(dim(result), c(1L, 0L))
+  # Only one gene and one sample fulfill filter criteria:
+  expect_identical(dim(result), c(1L, 1L))
 })
 
 test_that("filter works as expected on one dimension for HermesData", {
@@ -194,8 +194,8 @@ test_that("filter works as expected with default settings for RangedHermesData",
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
   expect_is(result, "RangedHermesData")
-  # Only one gene, but no samples fulfill filter criteria:
-  expect_identical(dim(result), c(1L, 0L))
+  # Only one gene and one sample fulfill filter criteria:
+  expect_identical(dim(result), c(1L, 1L))
 })
 
 test_that("filter shows readable error message when there are NA in flag variables", {
@@ -206,6 +206,26 @@ test_that("filter shows readable error message when there are NA in flag variabl
     filter(h1),
     "still NA in quality flags, please first run add_quality_flags() to fill them",
     fixed = TRUE
+  )
+})
+
+test_that("filter gives a warning if all samples are filtered out", {
+  object <- get_se()
+  object$LowDepthFlag <- TRUE # nolint
+  h <- HermesData(object)
+  expect_warning(
+    filter(h),
+    "filtering out all samples"
+  )
+})
+
+test_that("filter gives a warning if all genes are filtered out", {
+  object <- get_se()
+  rowData(object)$LowExpressionFlag <- TRUE # nolint
+  h <- HermesData(object)
+  expect_warning(
+    filter(h),
+    "filtering out all genes"
   )
 })
 

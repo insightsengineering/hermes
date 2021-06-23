@@ -285,13 +285,6 @@ NULL
 
 # filter ----
 
-#' @name filter
-#' @title Filter `HeremsData` object using QC flags.
-#' @param object input of which the class will be used to decide the method.
-#' @param ... additional arguments.
-#' @export
-setGeneric("filter", function(object, ...) standardGeneric("filter"))
-
 #' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
 #' This filters a [`AnyHermesData`] object using the default QC flags. That is,
@@ -300,9 +293,16 @@ setGeneric("filter", function(object, ...) standardGeneric("filter"))
 #' remain in the returned filtered object.
 #'
 #' @param object (`AnyHermesData`)\cr object to filter.
+#' @param ... additional arguments.
+#' @return The filtered [`AnyHermesData`] object.
+#'
+#' @export
+setGeneric("filter", function(object, ...) standardGeneric("filter"))
+
+#' @rdname filter
+#'
 #' @param what (`vector`)\cr specify whether to apply the filter on `genes` and / or `samples`
 #'
-#' @return The filtered [`AnyHermesData`] object.
 #' @note The internal implementation cannot use the [subset()] method since that
 #'   requires non-standard evaluation of arguments.
 #'
@@ -310,14 +310,13 @@ setGeneric("filter", function(object, ...) standardGeneric("filter"))
 #' @examples
 #' a <- HermesData(summarized_experiment)
 #' dim(a)
-#' # Filter genes and samples on default QC flags
+#' # Filter genes and samples on default QC flags.
 #' result <- filter(a)
 #' dim(result)
-#' # Filter only genes without low expression
+#' # Filter only genes without low expression.
 #' result <- filter(a, what = "genes")
-#' # Filter only samples with low depth and technical failure
+#' # Filter only samples with low depth and technical failure.
 #' result <- filter(a, what = "samples")
-#'
 setMethod(
   f = "filter",
   signature = signature(object = "AnyHermesData"),
@@ -335,12 +334,18 @@ setMethod(
     rows <- if ("genes" %in% what) {
       !low_exp
     } else {
-      seq_along(low_exp)
+      rep_len(TRUE, length(low_exp))
     }
     cols <- if ("samples" %in% what) {
       !low_depth & !tech_fail
     } else {
-      seq_along(low_depth)
+      rep_len(TRUE, length(low_depth))
+    }
+    if (!any(rows)) {
+      warning("filtering out all genes")
+    }
+    if (!any(cols)) {
+      warning("filtering out all samples")
     }
     object[rows, cols]
   }

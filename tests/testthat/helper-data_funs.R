@@ -22,7 +22,7 @@ get_se <- function() {
     ),
     colData = data.frame(
       SampleID = c(1, 2),
-      LowDepthFlag = c(TRUE, FALSE),
+      LowDepthFlag = c(FALSE, FALSE),
       TechnicalFailureFlag = c(FALSE, TRUE)
     ),
     metadata = list(
@@ -60,7 +60,7 @@ get_rse <- function() {
     ),
     colData = data.frame(
       SampleID = c(1, 2),
-      LowDepthFlag = c(TRUE, FALSE),
+      LowDepthFlag = c(FALSE, FALSE),
       TechnicalFailureFlag = c(FALSE, TRUE)
     ),
     metadata = list(

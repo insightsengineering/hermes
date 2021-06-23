@@ -1,29 +1,31 @@
-# h_pca_df_r2_matrix ----
+# h_pca_var_rsquared ----
 
-test_that("h_pca_var_rsquared works as expected for HermesData", {
+test_that("h_pca_var_rsquared works as expected", {
   object <- HermesData(summarized_experiment)
   pca <- expect_silent(calc_pca(object)$x)
   x <- expect_silent(colData(object)$LowDepthFlag)
   r2 <- expect_silent(h_pca_var_rsquared(pca, x))
   expect_is(r2, "numeric")
+  expect_true(noNA(r2))
   expect_identical(ncol(pca), length(r2))
 })
 
-test_that("h_pca_var_rsquared works as expected for RangedHermesData", {
-  object <- HermesData(get_rse())
-  pca <- expect_silent(calc_pca(object)$x)
-  x <- expect_silent(colData(object)$LowDepthFlag)
-  r2 <- expect_silent(h_pca_var_rsquared(pca, x))
-  expect_is(r2, "numeric")
-  expect_identical(ncol(pca), length(r2))
-})
-
-test_that("h_pca_var_rsquared fails as expected with invalid settings", {
+test_that("h_pca_var_rsquared fails as expected with invalid inputs", {
   se <- get_se()
   object <- HermesData(se)
   x <- expect_silent(colData(se)$LowDepthFlag)
   expect_error(h_pca_var_rsquared(se, x))
   expect_error(h_pca_var_rsquared(object, x))
+})
+
+test_that("h_pca_var_rsquared returns NAs when something is not estimable", {
+  pca <- rbind(X = -1, Y = 1)
+  x <- c(TRUE, FALSE)
+  r2x <- expect_silent(h_pca_var_rsquared(pca, x))
+  expect_identical(r2x, NA_real_)
+  y <- c(FALSE, FALSE)
+  r2y <- expect_silent(h_pca_var_rsquared(pca, y))
+  expect_identical(r2y, NA_real_)
 })
 
 # h_pca_df_r2_matrix ----

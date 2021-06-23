@@ -127,8 +127,8 @@ test_that("h_low_depth_flag fails as expected with invalid settings", {
   expect_error(h_low_depth_flag(object2, cont2))
 })
 
-
 # h_tech_failure_flag ----
+
 test_that("h_tech_failure_flag function works as expected with default settings", {
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(h_tech_failure_flag(object))
@@ -177,7 +177,7 @@ test_that("get_tech_failure fails as expected with invalid input", {
 test_that("get_low_depth function works as expected", {
   object <- HermesData(get_se())
   result <- expect_silent(get_low_depth(object))
-  expected <- c(X = TRUE, Y = FALSE)
+  expected <- c(X = FALSE, Y = FALSE)
   expect_identical(result, expected)
 })
 
