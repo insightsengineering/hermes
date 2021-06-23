@@ -20,7 +20,7 @@ top_genes(
 \S4method{autoplot}{HermesDataTopGenes}(
   object,
   x_lab = "HGNC gene names",
-  y_lab = "Averaged Counts",
+  y_lab = paste0(object@summary_fun_name, "(", object@assay_name, ")"),
   title = "Top most expressed genes"
 )
 }
@@ -73,5 +73,6 @@ object <- HermesData(summarized_experiment)
 top_genes(object)
 top_genes(object, n_top = NULL, min_threshold = 50000)
 result <- top_genes(object, summary_fun = rowMax)
-autoplot(result, y_lab = "Maximum Count", title = "My top genes")
+autoplot(result, title = "My top genes")
+autoplot(result, y_lab = "Counts", title = "My top genes")
 }

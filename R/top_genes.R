@@ -100,13 +100,14 @@ top_genes <- function(object,
 #' @param title (`string`)\cr plot title.
 #'
 #' @examples
-#' autoplot(result, y_lab = "Maximum Count", title = "My top genes")
+#' autoplot(result, title = "My top genes")
+#' autoplot(result, y_lab = "Counts", title = "My top genes")
 setMethod(
   f = "autoplot",
   signature = c(object = "HermesDataTopGenes"),
   definition = function(object,
                         x_lab = "HGNC gene names",
-                        y_lab = "Averaged Counts",
+                        y_lab = paste0(object@summary_fun_name, "(", object@assay_name, ")"),
                         title = "Top most expressed genes") {
     assert_that(
       is.string(x_lab),
