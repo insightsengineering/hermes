@@ -75,6 +75,7 @@ reference:
       - set_tech_failure
       - top_genes
       - connect_igis
+      - df_char_to_factor
   - title: Graphs
     contents:
       - draw_libsize_hist

@@ -75,10 +75,16 @@ converting it again into a \code{\link{HermesData}} object.
 }}
 
 \note{
-Note that we use \code{\link[S4Vectors:S4Vectors-internals]{S4Vectors::setValidity2()}} to define the validity
+\itemize{
+\item Note that we use \code{\link[S4Vectors:S4Vectors-internals]{S4Vectors::setValidity2()}} to define the validity
 method, which allows us to turn off the validity checks in internal
 functions where intermediate objects may not be valid within the scope of
 the function.
+\item It can be helpful to convert character variables to factors in \code{colData()}
+(before or after the \code{HermesData} creation). We provide the utility function
+\code{\link[=df_char_to_factor]{df_char_to_factor()}} to simplify this task, but leave it to the user to allow
+for full control of the details.
+}
 }
 \examples{
 # Convert to `SummarizedExperiment` using the default naive range mapper.

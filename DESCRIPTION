@@ -62,4 +62,4 @@ Collate:
     'pca_cor_samplevar.R'
     'quality.R'
     'top_genes.R'
-    'utils-pipe.R'
+    'utils.R'

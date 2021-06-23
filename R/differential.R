@@ -119,6 +119,10 @@ h_diff_expr_deseq2 <- function(object, design) {
 #'   - `p_val` (the raw p-value),
 #'   - `adj_p_val` (the adjusted p-value) values from differential expression analysis for each feature / gene .
 #'
+#' @note We provide the [df_char_to_factor()] utility function that makes it easy to convert the
+#'   `colData()` character variables to factors, so that they can be subsequently used as `group`
+#'   inputs. See the example.
+#'
 #' @importFrom stats as.formula model.matrix
 #' @export
 #'
@@ -126,7 +130,8 @@ h_diff_expr_deseq2 <- function(object, design) {
 #' object <- HermesData(summarized_experiment) %>%
 #'   add_quality_flags() %>%
 #'   filter()
-#' colData(object)$SEX <- factor(colData(object)$SEX) # nolint
+#' # Convert character to factor variables in `colData`, including the below used `group` variable.
+#' colData(object) <- df_char_to_factor(colData(object))
 #' res1 <- diff_expression(object, group = "SEX", method = "voom")
 #' head(res1)
 #' res2 <- diff_expression(object, group = "SEX", method = "deseq2")

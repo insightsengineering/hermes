@@ -55,11 +55,17 @@ Possible method choices are:
 \item \code{autoplot,HermesDataDiffExpr-method}: generates a volcano plot for a \code{\link{HermesDataDiffExpr}} object.
 }}
 
+\note{
+We provide the \code{\link[=df_char_to_factor]{df_char_to_factor()}} utility function that makes it easy to convert the
+\code{colData()} character variables to factors, so that they can be subsequently used as \code{group}
+inputs. See the example.
+}
 \examples{
 object <- HermesData(summarized_experiment) \%>\%
   add_quality_flags() \%>\%
   filter()
-colData(object)$SEX <- factor(colData(object)$SEX) # nolint
+# Convert character to factor variables in `colData`, including the below used `group` variable.
+colData(object) <- df_char_to_factor(colData(object))
 res1 <- diff_expression(object, group = "SEX", method = "voom")
 head(res1)
 res2 <- diff_expression(object, group = "SEX", method = "deseq2")

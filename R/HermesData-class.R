@@ -37,10 +37,15 @@ NULL
 #' first convert it to a [`SummarizedExperiment::SummarizedExperiment`] object before
 #' converting it again into a [`HermesData`] object.
 #'
-#' @note Note that we use [S4Vectors::setValidity2()] to define the validity
+#' @note
+#'   - Note that we use [S4Vectors::setValidity2()] to define the validity
 #'   method, which allows us to turn off the validity checks in internal
 #'   functions where intermediate objects may not be valid within the scope of
 #'   the function.
+#'   - It can be helpful to convert character variables to factors in `colData()`
+#'   (before or after the `HermesData` creation). We provide the utility function
+#'   [df_char_to_factor()] to simplify this task, but leave it to the user to allow
+#'   for full control of the details.
 #'
 #' @slot prefix common prefix of the gene IDs (row names).
 #'

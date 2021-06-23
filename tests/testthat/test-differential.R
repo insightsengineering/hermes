@@ -42,7 +42,7 @@ test_that("h_diff_expr_deseq2 fails if design matrix is not correct", {
 
 test_that("diff_expression works as expected with the DESeq2 method", {
   object <- HermesData(summarized_experiment)
-  colData(object)$SEX <- factor(colData(object)$SEX) # nolint
+  colData(object) <- df_char_to_factor(colData(object))
   result <- expect_silent(diff_expression(object, "SEX", "deseq2"))
   expect_s4_class(result, "HermesDataDiffExpr")
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
@@ -52,7 +52,7 @@ test_that("diff_expression works as expected with the DESeq2 method", {
 
 test_that("diff_expression works as expected with the voom method", {
   object <- HermesData(summarized_experiment)
-  colData(object)$SEX <- factor(colData(object)$SEX) # nolint
+  colData(object) <- df_char_to_factor(colData(object))
   result <- expect_silent(diff_expression(object, "SEX", "voom"))
   expect_s4_class(result, "HermesDataDiffExpr")
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
