@@ -8,6 +8,7 @@
 #' @import ggplot2
 #' @import ggplot2.utils
 #' @import methods
-#' @importFrom Rdpack reprompt
 #' @import SummarizedExperiment
+#' @importFrom lifecycle deprecate_soft
+#' @importFrom Rdpack reprompt
 NULL

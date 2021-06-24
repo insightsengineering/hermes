@@ -31,16 +31,18 @@ produced by \code{\link[circlize:colorRamp2]{circlize::colorRamp2()}}.}
 \item{...}{other arguments to be passed to \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}}.}
 }
 \value{
-A \link{HermesDataPcaCor} object with R2 values for all sample variables.
+A \code{\link{HermesDataPcaCor}} object with R2 values for all sample variables.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 This method analyses the correlations (in R2 values) between all sample variables
 in \link{AnyHermesData} object and the principal components of the samples.
 }
 \section{Functions}{
 \itemize{
 \item \code{autoplot,HermesDataPcaCor-method}: This plot method uses the \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}} function
-to visualize a \link{HermesDataPcaCor} object.
+to visualize a \code{\link{HermesDataPcaCor}} object.
 }}
 
 \examples{

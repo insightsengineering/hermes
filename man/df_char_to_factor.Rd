@@ -9,7 +9,8 @@ df_char_to_factor(data, omit_columns = NULL, na_level = "<Missing>")
 \arguments{
 \item{data}{(\code{DataFrame})\cr input \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}}.}
 
-\item{omit_columns}{(\code{character} or \code{NULL})\cr which columns should be omitted from the conversion.}
+\item{omit_columns}{(\code{character} or \code{NULL})\cr which columns should be omitted from
+the conversion.}
 
 \item{na_level}{(\code{string})\cr missing level to be used.}
 }
@@ -17,13 +18,15 @@ df_char_to_factor(data, omit_columns = NULL, na_level = "<Missing>")
 The modified data.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 This utility function converts all character variables in a \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}}
 to factor variables with explicit missing level.
 }
 \details{
-This is using \code{\link[tern:df_explicit_na]{tern::df_explicit_na()}} which only works for classic \code{\link{data.frame}} objects. We
-avoid a conversion of the whole \code{data} to \code{\link{data.frame}} since that could be problematic
-when not supported classes are used in other non-character columns.
+This is using \code{\link[tern:df_explicit_na]{tern::df_explicit_na()}} which only works for classic \code{\link{data.frame}}
+objects. We avoid a conversion of the whole \code{data} to \code{\link{data.frame}} since that could be
+problematic when not supported classes are used in other non-character columns.
 }
 \examples{
 dat <- colData(summarized_experiment)

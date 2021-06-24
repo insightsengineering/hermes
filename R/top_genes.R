@@ -1,14 +1,16 @@
 #' Derivation of Top Genes
 #'
-#' This creates a [HermesDataTopGenes] object, which extends `data.frame`. It
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This creates a [`HermesDataTopGenes`] object, which extends [`data.frame`]. It
 #' contains two columns:
 #' - `expression`: containing the statistic values calculated by `summary_fun` across columns.
 #' - `name`: the gene names.
 #'
-#' The data frame is sorted in descending order of `expression` and only the top
+#' @details
+#' - The data frame is sorted in descending order of `expression` and only the top
 #' entries according to the selection criteria are included.
-#'
-#' Note that exactly one of the arguments `n_top` and `min_threshold` must be
+#' - Note that exactly one of the arguments `n_top` and `min_threshold` must be
 #' provided.
 #'
 #' @param object (`AnyHermedData`)\cr input.

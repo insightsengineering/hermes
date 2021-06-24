@@ -15,7 +15,9 @@ h_voom(object, control = control_normalize())
 A numeric matrix with normalized counts using the VOOM method.
 }
 \description{
-VOOM Normalization
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+This helper function calculates the VOOM normalized counts.
 }
 \examples{
 h <- HermesData(summarized_experiment)

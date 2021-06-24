@@ -1,8 +1,11 @@
 #' Principal Components Analysis Calculation
 #'
+#' @description `r lifecycle::badge("experimental")`
+#'
 #' Perform principal components analysis of the gene count vectors across all
 #' samples.
 #'
+#' @details
 #' - PCA should be performed after filtering out low quality genes and samples and
 #'   normalization.
 #' - In addition, genes with constant counts across all samples are excluded from

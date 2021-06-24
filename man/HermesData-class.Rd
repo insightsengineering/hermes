@@ -29,6 +29,8 @@ If this is a \code{RangedSummarizedExperiment}, then the result will be
 is passed instead of \code{rowData}, then the result will be a \code{\link{RangedHermesData}} object.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 The \code{\link{HermesData}} class is an extension of \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 with additional validation criteria.
 }
@@ -55,7 +57,8 @@ The additional criteria are:
 \item \code{LowDepthFlag}
 \item \code{TechnicalFailureFlag}
 }
-\item The object must have row and column names.
+\item The object must have row and column names. The row names are the gene names
+and the column names are the sample names.
 }
 
 Analogously, \code{\link{RangedHermesData}} is an extension of

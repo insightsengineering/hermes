@@ -18,6 +18,8 @@ query(genes, connection)
 A \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene annotations.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 This generic function is the interface for querying gene annotations from
 a data base connection. Currently only the IGIS version is implemented.
 }

@@ -2,6 +2,8 @@
 
 #' Pipe operator
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
 #'
 #' @name %>%
@@ -14,15 +16,18 @@ NULL
 
 #' Conversion of Character to Factor Variables in a `DataFrame`
 #'
+#' @description `r lifecycle::badge("experimental")`
+#'
 #' This utility function converts all character variables in a [`S4Vectors::DataFrame`]
 #' to factor variables with explicit missing level.
 #'
-#' This is using [tern::df_explicit_na()] which only works for classic [`data.frame`] objects. We
-#' avoid a conversion of the whole `data` to [`data.frame`] since that could be problematic
-#' when not supported classes are used in other non-character columns.
+#' @details This is using [tern::df_explicit_na()] which only works for classic [`data.frame`]
+#' objects. We avoid a conversion of the whole `data` to [`data.frame`] since that could be
+#' problematic when not supported classes are used in other non-character columns.
 #'
 #' @param data (`DataFrame`)\cr input [`S4Vectors::DataFrame`].
-#' @param omit_columns (`character` or `NULL`)\cr which columns should be omitted from the conversion.
+#' @param omit_columns (`character` or `NULL`)\cr which columns should be omitted from
+#'   the conversion.
 #' @param na_level (`string`)\cr missing level to be used.
 #'
 #' @return The modified data.

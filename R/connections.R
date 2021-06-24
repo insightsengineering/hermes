@@ -1,5 +1,7 @@
 #' Connection to IGIS
 #'
+#' @description `r lifecycle::badge("experimental")`
+#'
 #' Based on the prefix of the gene IDs, either creates a connection object of class
 #' [`igis::Igis`] for version 4.0 (`ENSG`) or 3.0 (`GeneID`) (for human species genes).
 #'
@@ -27,6 +29,8 @@ connect_igis <- function(prefix = c("ENSG", "GeneID")) {
 # query ----
 
 #' Query Gene Annotations from a Connection
+#'
+#' @description `r lifecycle::badge("experimental")`
 #'
 #' This generic function is the interface for querying gene annotations from
 #' a data base connection. Currently only the IGIS version is implemented.

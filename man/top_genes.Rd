@@ -47,7 +47,9 @@ summary statistics threshold.}
 A \link{HermesDataTopGenes} object.
 }
 \description{
-This creates a \link{HermesDataTopGenes} object, which extends \code{data.frame}. It
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+This creates a \code{\link{HermesDataTopGenes}} object, which extends \code{\link{data.frame}}. It
 contains two columns:
 \itemize{
 \item \code{expression}: containing the statistic values calculated by \code{summary_fun} across columns.
@@ -55,11 +57,12 @@ contains two columns:
 }
 }
 \details{
-The data frame is sorted in descending order of \code{expression} and only the top
+\itemize{
+\item The data frame is sorted in descending order of \code{expression} and only the top
 entries according to the selection criteria are included.
-
-Note that exactly one of the arguments \code{n_top} and \code{min_threshold} must be
+\item Note that exactly one of the arguments \code{n_top} and \code{min_threshold} must be
 provided.
+}
 }
 \section{Functions}{
 \itemize{

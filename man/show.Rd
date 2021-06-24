@@ -14,6 +14,8 @@
 \item{object}{(\code{AnyHermesData})\cr input.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 A show method that displays high-level information of \code{\link{AnyHermesData}} objects.
 }
 \note{

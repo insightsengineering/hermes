@@ -19,7 +19,9 @@ taking log of zero, used only when \code{log = TRUE}.}
 List with the above settings used to perform the normalization procedure.
 }
 \description{
-Control Settings for Counts Normalization
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+This control function allows for easy customization of the normalization settings.
 }
 \note{
 To be used with the \code{normalize()} function.

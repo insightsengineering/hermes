@@ -14,12 +14,14 @@ filter(object, ...)
 
 \item{...}{additional arguments.}
 
-\item{what}{(\code{vector})\cr specify whether to apply the filter on \code{genes} and / or \code{samples}}
+\item{what}{(\code{character})\cr specify whether to apply the filter on \code{genes} and / or \code{samples}.}
 }
 \value{
 The filtered \code{\link{AnyHermesData}} object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 This filters a \code{\link{AnyHermesData}} object using the default QC flags. That is,
 only genes without low expression (\code{LowExpressionFlag}) and samples
 without low depth (\code{LowDepthFlag}) or technical failure (\code{TechnicalFailureFlag})

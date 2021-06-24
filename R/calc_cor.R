@@ -3,6 +3,8 @@ NULL
 
 #' Correlation between Sample Counts of `AnyHermesData`
 #'
+#' @description `r lifecycle::badge("experimental")`
+#'
 #' This calculates the correlation matrix between the sample vectors of counts from
 #' a specified assay, as a [`HermesDataCor`] object which is an extension of a [`matrix`] with
 #' additional quality flags in the slot `flag_data`: This contains the

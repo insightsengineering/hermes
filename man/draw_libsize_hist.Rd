@@ -17,6 +17,8 @@ draw_libsize_hist(object, bins = 30L, fill = "darkgrey")
 The \code{ggplot} object with the histogram.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 This creates a histogram of the library sizes of the \link{AnyHermesData} object.
 }
 \examples{

@@ -1,5 +1,7 @@
 #' Control for Specified Quality Flags
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' Control function which specifies the quality flag settings.
 #' One or more settings can be customized. Not specified settings are left at defaults.
 #'
@@ -49,6 +51,8 @@ control_quality <- function(min_cpm = 1,
 
 #' Add Quality Flags
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' This function adds quality flag information to a [AnyHermesData] object:
 #' - `LowExpressionFlag`: for each gene, counts how many samples don't pass a minimum
 #'   expression CPM threshold. If too many, then it flags this gene as "low expression" gene.
@@ -57,10 +61,10 @@ control_quality <- function(min_cpm = 1,
 #'   Then compares the average correlation per sample with a threshold - if it is too low,
 #'   then the sample is flagged as "technical failure".
 #' - `LowDepthFlag`: computes the library size (total number of counts) per sample
-#'   (removing any NAs). If this number is too low, the sample is flagged as "low depth".
+#'   (removing any `NA`s). If this number is too low, the sample is flagged as "low depth".
 #'
-#' While `object` already has the variables above (as this is enforced by the validation method
-#' for [`AnyHermesData`]), they are usually still `NA` after the initial creation.
+#' @details While `object` already has the variables above (as this is enforced by the validation
+#' method for [`AnyHermesData`]), they are usually still `NA` after the initial creation.
 #'
 #' @param object (`AnyHermesData`) \cr input.
 #' @param control (`list`) \cr list of settings used to perform the quality control procedure,
@@ -240,6 +244,8 @@ get_low_expression <- function(object) {
 }
 
 #' Set Technical Failure Flags
+#'
+#' @description `r lifecycle::badge("experimental")`
 #'
 #' Setter function which allows the user to define a sample manually as a technical failure.
 #'

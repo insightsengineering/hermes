@@ -1,5 +1,9 @@
 #' Control Settings for Counts Normalization
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
+#' This control function allows for easy customization of the normalization settings.
+#'
 #' @param log (`flag`)\cr whether `log2` values are returned, otherwise original scale is used.
 #' @param lib_sizes (`numeric`)\cr library sizes, the default is the vector with the sum of the
 #'   counts for each of the samples.
@@ -31,6 +35,10 @@ control_normalize <- function(log = TRUE,
 
 #' Counts per Million (CPM) Normalization
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
+#' This helper function calculates the CPM normalized counts.
+#'
 #' @param object (`HermesData`) \cr input.
 #' @param control (`list`) \cr list of settings used to perform the normalization procedure.
 #' @return A numeric matrix with normalized counts using the CPM method.
@@ -57,6 +65,10 @@ h_cpm <- function(object,
 }
 
 #' Reads per Kilobase per Million (RPKM) Normalization
+#'
+#' @description `r lifecycle::badge("stable")`
+#'
+#' This helper function calculates the RPKM normalized counts.
 #'
 #' @param object (`AnyHermesData`)\cr input object.
 #' @param control (`list`)\cr list of settings used to perform the normalization procedure.
@@ -89,6 +101,10 @@ h_rpkm <- function(object,
 
 #' Transcripts per Million (TPM) Normalization
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
+#' This helper function calculates the TPM normalized counts.
+#'
 #' @param object (`HermesData`)\cr input.
 #' @param control (`list`)\cr list of settings used to perform the normalization procedure.
 #' @return A numeric matrix with normalized counts using the TPM method.
@@ -112,6 +128,10 @@ h_tpm <- function(object,
 }
 
 #' VOOM Normalization
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function calculates the VOOM normalized counts.
 #'
 #' @param object (`HermesData`)\cr input.
 #' @param control (`list`)\cr list of settings used to perform the normalization procedure.
@@ -148,6 +168,8 @@ h_voom <- function(object,
 }
 
 #' Normalization of `AnyHermesData` Objects
+#'
+#' @description `r lifecycle::badge("stable")`
 #'
 #' This method is normalizing the input [`AnyHermesData`] according to one or more
 #' specified normalization methods. The results are saved as additional assays

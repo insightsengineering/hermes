@@ -5,10 +5,12 @@ NULL
 
 #' `HermesData` and `RangedHermesData`
 #'
+#' @description `r lifecycle::badge("experimental")`
+#'
 #' The [`HermesData`] class is an extension of [`SummarizedExperiment::SummarizedExperiment`]
 #' with additional validation criteria.
 #'
-#' The additional criteria are:
+#' @details The additional criteria are:
 #' - The first assay must be `counts` containing non-missing, integer, non-negative values.
 #' - The following columns must be in `rowData`:
 #'   - `HGNC`
@@ -25,7 +27,8 @@ NULL
 #'   - `SampleID`
 #'   - `LowDepthFlag`
 #'   - `TechnicalFailureFlag`
-#' - The object must have row and column names.
+#' - The object must have row and column names. The row names are the gene names
+#'   and the column names are the sample names.
 #'
 #' Analogously, [`RangedHermesData`] is an extension of
 #' [`SummarizedExperiment::RangedSummarizedExperiment`] and has the same

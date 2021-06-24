@@ -16,6 +16,8 @@ This is an artificial dataset designed to resemble real data.
 multi_assay_experiment
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 This example \code{\link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment}} can be used as test data.
 }
 \keyword{datasets}

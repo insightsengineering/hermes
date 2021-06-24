@@ -15,7 +15,9 @@ h_cpm(object, control = control_normalize())
 A numeric matrix with normalized counts using the CPM method.
 }
 \description{
-Counts per Million (CPM) Normalization
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+This helper function calculates the CPM normalized counts.
 }
 \examples{
 h <- HermesData(summarized_experiment)

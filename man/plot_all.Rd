@@ -16,6 +16,8 @@ A list with the \code{ggplot} objects from \code{\link[=draw_libsize_hist]{draw_
 functions with default settings.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 This generates all standard plots - histogram and q-q plot of library sizes, density plot of the (log) counts
 distributions, boxplot of the number of number of non-zero expressed genes per sample, and a stacked barplot of low
 expression genes by chromosome at default setting.

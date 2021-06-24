@@ -19,6 +19,8 @@
 The counts assay.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 These methods access and set the counts assay in a \code{\link{AnyHermesData}} object.
 }
 \section{Methods (by class)}{

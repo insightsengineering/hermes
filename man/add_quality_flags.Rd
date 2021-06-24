@@ -27,6 +27,8 @@ produced by \code{\link[=control_quality]{control_quality()}}.}
 The input object with added quality flags.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 This function adds quality flag information to a \link{AnyHermesData} object:
 \itemize{
 \item \code{LowExpressionFlag}: for each gene, counts how many samples don't pass a minimum
@@ -36,12 +38,12 @@ CPM values, resulting in a matrix measuring the correlation between samples.
 Then compares the average correlation per sample with a threshold - if it is too low,
 then the sample is flagged as "technical failure".
 \item \code{LowDepthFlag}: computes the library size (total number of counts) per sample
-(removing any NAs). If this number is too low, the sample is flagged as "low depth".
+(removing any \code{NA}s). If this number is too low, the sample is flagged as "low depth".
 }
 }
 \details{
-While \code{object} already has the variables above (as this is enforced by the validation method
-for \code{\link{AnyHermesData}}), they are usually still \code{NA} after the initial creation.
+While \code{object} already has the variables above (as this is enforced by the validation
+method for \code{\link{AnyHermesData}}), they are usually still \code{NA} after the initial creation.
 }
 \section{Functions}{
 \itemize{

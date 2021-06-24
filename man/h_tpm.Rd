@@ -15,7 +15,9 @@ h_tpm(object, control = control_normalize())
 A numeric matrix with normalized counts using the TPM method.
 }
 \description{
-Transcripts per Million (TPM) Normalization
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+This helper function calculates the TPM normalized counts.
 }
 \examples{
 h <- HermesData(summarized_experiment)

@@ -15,6 +15,8 @@ This is an artificial dataset designed to resemble real data.
 expression_set
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 This example data can be used to try out conversion of a \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}}
 object into a \code{\link{HermesData}} object.
 }

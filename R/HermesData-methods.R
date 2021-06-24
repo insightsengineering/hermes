@@ -2,6 +2,8 @@
 
 #' Row Binding of `AnyHermesData` Objects
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' This method combines [`AnyHermesData`] objects with the same samples but different
 #' features of interest (rows in assays).
 #'
@@ -31,6 +33,8 @@ NULL
 
 #' Column Binding of `AnyHermesData` Objects
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' This method combines [`AnyHermesData`] objects with the same ranges but different
 #' samples (columns in assays).
 #'
@@ -59,6 +63,8 @@ NULL
 # metadata ----
 
 #' Metadata Accessor and Setter
+#'
+#' @description `r lifecycle::badge("stable")`
 #'
 #' These methods access or set the metadata in a [`AnyHermesData`] object.
 #'
@@ -97,6 +103,8 @@ NULL
 )
 
 #' Annotation Accessor and Setter
+#'
+#' @description `r lifecycle::badge("stable")`
 #'
 #' These methods access and set the gene annotations stored in a [`AnyHermesData`] object.
 #'
@@ -144,6 +152,8 @@ setReplaceMethod(
 # counts ----
 
 #' Counts Accessor and Setter
+#'
+#' @description `r lifecycle::badge("stable")`
 #'
 #' These methods access and set the counts assay in a [`AnyHermesData`] object.
 #'
@@ -193,6 +203,8 @@ setReplaceMethod(
 
 #' Prefix Accessor
 #'
+#' @description `r lifecycle::badge("experimental")`
+#'
 #' Generic function to access the prefix from an object.
 #'
 #' @param object (`AnyHermesData`)\cr input.
@@ -211,6 +223,8 @@ setGeneric("prefix", def = function(object, ...) {
 # genes ----
 
 #' Gene IDs Accessor
+#'
+#' @description `r lifecycle::badge("stable")`
 #'
 #' Access the gene IDs, i.e. row names, of a [`AnyHermesData`] object with a
 #' nicely named accessor method.
@@ -239,6 +253,8 @@ setMethod(
 
 #' Sample IDs Accessor
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' Access the sample IDs, i.e. col names, of a [`AnyHermesData`] object with a
 #' nicely named accessor method.
 #'
@@ -266,6 +282,8 @@ setMethod(
 
 #' Subsetting `AnyHermesData` Objects
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' This method subsets [`AnyHermesData`] objects, based on expressions involving the
 #' `rowData` columns and the `colData` columns.
 #'
@@ -287,6 +305,8 @@ NULL
 
 #' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' This filters a [`AnyHermesData`] object using the default QC flags. That is,
 #' only genes without low expression (`LowExpressionFlag`) and samples
 #' without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
@@ -301,7 +321,7 @@ setGeneric("filter", function(object, ...) standardGeneric("filter"))
 
 #' @rdname filter
 #'
-#' @param what (`vector`)\cr specify whether to apply the filter on `genes` and / or `samples`
+#' @param what (`character`)\cr specify whether to apply the filter on `genes` and / or `samples`.
 #'
 #' @note The internal implementation cannot use the [subset()] method since that
 #'   requires non-standard evaluation of arguments.
@@ -352,6 +372,8 @@ setMethod(
 )
 
 #' Extra Variable Names Accessor Methods
+#'
+#' @description `r lifecycle::badge("experimental")`
 #'
 #' The methods access the names of the variables in `colData()` and `rowData()` of
 #' the object which are not required by design. So these can be additional sample or
@@ -411,10 +433,17 @@ setMethod(
 
 # summary ----
 
+#' Summary Method for `AnyHermesData` Objects
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Provides a concise summary of the content of [`AnyHermesData`] objects.
+#'
+#' @export
 setGeneric("summary")
 
 #' @rdname summary
-#' @aliases summary HermesDataSummary
+#' @aliases HermesDataSummary
 #' @exportClass HermesDataSummary
 .HermesDataSummary <- setClass( # nolint
   Class = "HermesDataSummary",
@@ -432,8 +461,6 @@ setGeneric("summary")
   )
 )
 
-#' Summary Method for `AnyHermesData` Objects
-#'
 #' @describeIn summary A summary method for [`AnyHermesData`] object that
 #'   creates a [`HermesDataSummary`] object.
 #'
@@ -573,6 +600,8 @@ setMethod(
 
 #' Show Method for `AnyHermesData` Objects
 #'
+#' @description `r lifecycle::badge("experimental")`
+#'
 #' A show method that displays high-level information of [`AnyHermesData`] objects.
 #'
 #' @rdname show
@@ -606,11 +635,17 @@ setMethod(
 
 # correlate ----
 
-#' @name correlate
-#' @title Generic Function for Correlation Calculations
+#' Generic Function for Correlation Calculations
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' New generic function to calculate correlations for one or two objects.
+#'
 #' @param object input of which the class will be used to decide the method.
 #' @param ... additional arguments.
+#'
 #' @return Corresponding object that contains the correlation results.
+#'
 #' @seealso [pca_cor_samplevar] and [calc_cor] which are the methods included for this generic function.
 #' @export
 setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
