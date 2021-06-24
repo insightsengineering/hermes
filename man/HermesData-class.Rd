@@ -42,7 +42,6 @@ The additional criteria are:
 \itemize{
 \item \code{HGNC}
 \item \code{HGNCGeneName}
-\item \code{GeneID}
 \item \code{Chromosome}
 \item \code{StartBP}
 \item \code{EndBP}
@@ -53,7 +52,6 @@ The additional criteria are:
 }
 \item The following columns must be in \code{colData}:
 \itemize{
-\item \code{SampleID}
 \item \code{LowDepthFlag}
 \item \code{TechnicalFailureFlag}
 }

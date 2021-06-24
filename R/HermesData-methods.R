@@ -93,7 +93,6 @@ NULL
 .row_data_annotation_cols <- c(
   "HGNC",
   "HGNCGeneName",
-  "GeneID",
   "Chromosome",
   "StartBP",
   "EndBP",
@@ -406,7 +405,7 @@ setMethod(
   signature = c(x = "AnyHermesData"),
   definition = function(x, ...) {
     cd_names <- colnames(colData(x))
-    cd_req_names <- union(.col_data_non_empty_cols, .col_data_additional_cols)
+    cd_req_names <- .col_data_cols
     setdiff(cd_names, cd_req_names)
   }
 )
@@ -426,7 +425,7 @@ setMethod(
   signature = c(x = "AnyHermesData"),
   definition = function(x, ...) {
     rd_names <- colnames(rowData(x))
-    rd_req_names <- union(.row_data_non_empty_cols, .row_data_additional_cols)
+    rd_req_names <- .row_data_cols
     setdiff(rd_names, rd_req_names)
   }
 )

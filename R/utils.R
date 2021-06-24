@@ -56,3 +56,13 @@ df_char_to_factor <- function(data,
   )
   data
 }
+
+#' Checks Whether All Missing
+#'
+#' Internal function to check whether a whole vector is `NA`.
+#'
+#' @param x (`vector`)\cr vector to check.
+#' @return Corresponding flag.
+all_na <- function(x) {
+  all(is.na(x))
+}

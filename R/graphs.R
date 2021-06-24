@@ -143,7 +143,7 @@ draw_libsize_densities <- function(object,
 #' library(ggrepel)
 #' pos <- position_jitter(0.5)
 #' draw_nonzero_boxplot(result, position = pos) +
-#'   geom_text_repel(aes(label = result$SampleID), position = pos)
+#'   geom_text_repel(aes(label = samples(result)), position = pos)
 draw_nonzero_boxplot <- function(object,
                                  position = position_jitter(0.2),
                                  alpha = 0.25) {

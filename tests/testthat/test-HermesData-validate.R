@@ -47,23 +47,6 @@ test_that("validate_cols returns messages as expected when columns are not found
   )
 })
 
-# validate_non_empty ----
-
-test_that("validate_non_empty returns NULL when each column in data frame is not empty", {
-  expect_null(validate_non_empty(data.frame(a = c(NA, NA, 3), b = c(NA, "bla", NA))))
-})
-
-test_that("validate_non_empty returns messages as expected when some columns are empty", {
-  expect_identical(
-    validate_non_empty(data.frame(a = c(NA, NA, 3), b = c(NA, NA, NA))),
-    "columns b only contain NAs"
-  )
-  expect_identical(
-    validate_non_empty(data.frame(a = c(NA, NA, NA), b = c(NA, NA, NA))),
-    "columns a, b only contain NAs"
-  )
-})
-
 # validate_row_data ----
 
 test_that("validate_row_data returns NULL for a valid object", {
@@ -71,7 +54,6 @@ test_that("validate_row_data returns NULL for a valid object", {
     list(counts = matrix(1L, 1, 1)),
     rowData = data.frame(
       HGNC = 1,
-      GeneID = 1,
       Chromosome = 1,
       StartBP = 1,
       EndBP = 1,
@@ -98,7 +80,6 @@ test_that("validate_row_data returns messages as expected for invalid object", {
     list(counts = matrix(1L, 1, 1)),
     rowData = data.frame(
       HGNC = 1,
-      GeneID = 1,
       Chromosome = 1,
       StartBP = 1,
       EndBP = 1,
@@ -111,26 +92,6 @@ test_that("validate_row_data returns messages as expected for invalid object", {
     validate_row_data(object),
     "required columns ProteinTranscript, LowExpressionFlag not present"
   )
-
-  object <- SummarizedExperiment(
-    list(counts = matrix(1L, 1, 1)),
-    rowData = data.frame(
-      HGNC = NA,
-      GeneID = NA,
-      Chromosome = 1,
-      StartBP = 1,
-      EndBP = 1,
-      WidthBP = 1,
-      HGNCGeneName = 1,
-      CanonicalTranscript = 1,
-      ProteinTranscript = 1,
-      LowExpressionFlag = NA
-    )
-  )
-  expect_identical(
-    validate_row_data(object),
-    "columns HGNC, GeneID only contain NAs"
-  )
 })
 
 # validate_col_data ----
@@ -139,7 +100,6 @@ test_that("validate_col_data returns NULL for a valid object", {
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     colData = data.frame(
-      SampleID = 1,
       LowDepthFlag = 1,
       TechnicalFailureFlag = 1
     )
@@ -164,20 +124,7 @@ test_that("validate_col_data returns messages as expected for invalid object", {
   )
   expect_identical(
     validate_col_data(object),
-    "required columns SampleID, LowDepthFlag not present"
-  )
-
-  object <- SummarizedExperiment(
-    list(counts = matrix(1L, 1, 1)),
-    colData = data.frame(
-      SampleID = NA,
-      LowDepthFlag = 1,
-      TechnicalFailureFlag = NA
-    )
-  )
-  expect_identical(
-    validate_col_data(object),
-    "columns SampleID only contain NAs"
+    "required columns LowDepthFlag not present"
   )
 })
 

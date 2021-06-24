@@ -15,7 +15,6 @@ NULL
 #' - The following columns must be in `rowData`:
 #'   - `HGNC`
 #'   - `HGNCGeneName`
-#'   - `GeneID`
 #'   - `Chromosome`
 #'   - `StartBP`
 #'   - `EndBP`
@@ -24,7 +23,6 @@ NULL
 #'   - `ProteinTranscript`
 #'   - `LowExpressionFlag`
 #' - The following columns must be in `colData`:
-#'   - `SampleID`
 #'   - `LowDepthFlag`
 #'   - `TechnicalFailureFlag`
 #' - The object must have row and column names. The row names are the gene names
@@ -109,15 +107,13 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
 HermesData <- function(object) { # nolint
   assert_that(
     is_class(object, "SummarizedExperiment"),
-    not_empty(assays(object)),
-    not_empty(rowData(object)),
-    not_empty(colData(object))
+    not_empty(assays(object))
   )
 
-  missing_row <- setdiff(.row_data_additional_cols, names(rowData(object)))
+  missing_row <- setdiff(.row_data_cols, names(rowData(object)))
   rowData(object)[, missing_row] <- NA
 
-  missing_col <- setdiff(.col_data_additional_cols, names(colData(object)))
+  missing_col <- setdiff(.col_data_cols, names(colData(object)))
   colData(object)[, missing_col] <- NA
 
   gene_ids <- rownames(object)

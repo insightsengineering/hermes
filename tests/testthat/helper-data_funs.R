@@ -10,7 +10,6 @@ get_se <- function() {
     )),
     rowData = data.frame(
       HGNC = c(1, 1),
-      GeneID = c(1, 1),
       Chromosome = c(1, 1),
       StartBP = c(1, 1),
       EndBP = c(1, 1),
@@ -21,7 +20,6 @@ get_se <- function() {
       LowExpressionFlag = c(TRUE, FALSE)
     ),
     colData = data.frame(
-      SampleID = c(1, 2),
       LowDepthFlag = c(FALSE, FALSE),
       TechnicalFailureFlag = c(FALSE, TRUE)
     ),
@@ -48,7 +46,6 @@ get_rse <- function() {
       strand = c("+", "-"),
       feature_id = c(1L, 2L),
       HGNC = c(1, 1),
-      GeneID = c(1, 1),
       Chromosome = c(1, 1),
       StartBP = c(1, 1),
       EndBP = c(1, 1),
@@ -59,7 +56,6 @@ get_rse <- function() {
       LowExpressionFlag = c(TRUE, FALSE)
     ),
     colData = data.frame(
-      SampleID = c(1, 2),
       LowDepthFlag = c(FALSE, FALSE),
       TechnicalFailureFlag = c(FALSE, TRUE)
     ),

@@ -10,10 +10,21 @@
 NULL
 
 # Constants which are used in multiple places.
-.row_data_non_empty_cols <- c("HGNC", "GeneID", "Chromosome", "StartBP", "EndBP", "WidthBP")
-.row_data_additional_cols <- c("HGNCGeneName", "CanonicalTranscript", "ProteinTranscript", "LowExpressionFlag")
-.col_data_non_empty_cols <- c("SampleID")
-.col_data_additional_cols <- c("LowDepthFlag", "TechnicalFailureFlag")
+.row_data_cols <- c(
+  "HGNC",
+  "HGNCGeneName",
+  "Chromosome",
+  "StartBP",
+  "EndBP",
+  "WidthBP",
+  "CanonicalTranscript",
+  "ProteinTranscript",
+  "LowExpressionFlag"
+)
+.col_data_cols <- c(
+  "LowDepthFlag",
+  "TechnicalFailureFlag"
+)
 
 #' @describeIn validate validates that the first assay is `counts` containing
 #'   non-missing, integer, non-negative values.
@@ -58,71 +69,23 @@ validate_cols <- function(required, actual) {
   }
 }
 
-#' @describeIn validate checks whether the whole vector is `NA`.
-#' @param x (`vector`)\cr vector to check.
-#'
-all_na <- function(x) all(is.na(x))
-
-#' @describeIn validate validates that the data frame is not containing only
-#'   `NA`, per column.
-#' @param df (`data.frame`)\cr data frame to validate.
-#'
-validate_non_empty <- function(df) {
-  is_all_na <- vapply(df, all_na, TRUE)
-  if (any(is_all_na)) {
-    cols_all_na <- names(df)[is_all_na]
-    paste("columns", paste(cols_all_na, collapse = ", "), "only contain NAs")
-  } else {
-    NULL
-  }
-}
-
 #' @describeIn validate validates that the object contains `rowData` with
 #'   required columns.
-#'
 validate_row_data <- function(object) {
-  msg <- NULL
-
-  non_empty_cols <- .row_data_non_empty_cols
-  additional_cols <- .row_data_additional_cols
-  required_cols <- c(non_empty_cols, additional_cols)
-  row_data <- rowData(object)
-
-  colnams <- colnames(row_data)
-  msg <- c(msg, validate_cols(required_cols, colnams))
-
-  if (all(non_empty_cols %in% colnams)) {
-    df <- row_data[non_empty_cols]
-    msg <- c(msg, validate_non_empty(df))
-  }
-
-  msg
+  required_cols <- .row_data_cols
+  actual_cols <- colnames(rowData(object))
+  validate_cols(required_cols, actual_cols)
 }
 
 #' @describeIn validate validates that the object contains `colData` with
 #'   required columns.
-#'
 validate_col_data <- function(object) {
-  msg <- NULL
-
-  non_empty_cols <- .col_data_non_empty_cols
-  additional_cols <- .col_data_additional_cols
-  required_cols <- c(non_empty_cols, additional_cols)
-  col_data <- colData(object)
-
-  colnams <- colnames(col_data)
-  msg <- c(msg, validate_cols(required_cols, colnams))
-
-  if (all(non_empty_cols %in% colnams)) {
-    df <- col_data[non_empty_cols]
-    msg <- c(msg, validate_non_empty(df))
-  }
-
-  msg
+  required_cols <- .col_data_cols
+  actual_cols <- colnames(colData(object))
+  validate_cols(required_cols, actual_cols)
 }
 
 #' @describeIn validate validates that the object contains row and column names.
-#'
 validate_names <- function(object) {
   msg <- NULL
 

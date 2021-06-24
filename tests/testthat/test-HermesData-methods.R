@@ -86,7 +86,6 @@ test_that("annotation setter works as expected", {
     HGNCGeneName = c(1, 1),
     CanonicalTranscript = c(1, 1),
     HGNC = c(1, 1),
-    GeneID = c(1, 1),
     Chromosome = c(1, 1),
     ProteinTranscript = c(1, 1),
     row.names = c("GeneID:a", "GeneID:b")
@@ -297,8 +296,8 @@ test_that("show works as expected for HermesData", {
   expect_match(result, "assays(1): counts", fixed = TRUE)
   expect_match(result, "genes(5085):", fixed = TRUE)
   expect_match(result, "samples(20):", fixed = TRUE)
-  expect_match(result, "additional gene information(2):", fixed = TRUE)
-  expect_match(result, "additional sample information(84):", fixed = TRUE)
+  expect_match(result, "additional gene information(3):", fixed = TRUE)
+  expect_match(result, "additional sample information(85):", fixed = TRUE)
 })
 
 test_that("show works as expected for RangedHermesData", {

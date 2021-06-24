@@ -40,12 +40,17 @@ connect_igis <- function(prefix = c("ENSG", "GeneID")) {
 #'
 #' @return A [`S4Vectors::DataFrame`] with the gene annotations.
 #' @export
-setGeneric("query", def = function(genes, connection) standardGeneric("query"))
+setGeneric(
+  "query",
+  def = function(genes, connection) standardGeneric("query"),
+  valueClass = "DataFrame"
+)
 
 # query-Igis ----
 
 #' @rdname query
 #' @importFrom igis transcriptsByGeneId
+#' @importFrom S4Vectors DataFrame
 #' @export
 #' @examples
 #' \dontrun{
@@ -64,22 +69,21 @@ setMethod(
       igis = connection
     )
     df <- cbind(
-      setNames(
-        mcols(transcripts),
-        c(
-          "HGNC",
-          "GeneID",
-          "CanonicalTranscript",
-          "HGNCGeneName",
-          "ProteinTranscript"
+      with(
+        as.list(mcols(transcripts)),
+        S4Vectors::DataFrame(
+          HGNC = Symbol, # nolint
+          CanonicalTranscript = Transcript, # nolint
+          HGNCGeneName = GeneName, # nolint
+          ProteinTranscript = Protein, # nolint
+          row.names = genes
         )
       ),
-      Chromosome = as.vector(seqnames(transcripts)),
-      StartBP = start(transcripts),
-      EndBP = end(transcripts),
-      WidthBP = width(transcripts)
+      Chromosome = as.vector(seqnames(transcripts)), # nolint
+      StartBP = start(transcripts), # nolint
+      EndBP = end(transcripts), # nolint
+      WidthBP = width(transcripts) # nolint
     )
-    rownames(df) <- genes
     df[, .row_data_annotation_cols]
   }
 )

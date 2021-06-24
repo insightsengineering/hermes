@@ -64,17 +64,27 @@ test_that("HermesData determines prefix correctly", {
   expect_identical(result@prefix, "ENSG")
 })
 
+test_that("HermesData accepts SummarizedExperiment object with rowData or colData", {
+  object <- get_se()
+  colData(object) <- NULL
+  rowData(object) <- NULL
+  result <- expect_silent(HermesData(object))
+  expect_true(all(.col_data_cols %in% names(colData(result))))
+  expect_true(all(.row_data_cols %in% names(rowData(result))))
+  expect_true(all(is.na(colData(result))))
+  expect_true(all(is.na(rowData(result))))
+})
+
 test_that("HermesData creates missing columns with NAs correctly", {
   object <- get_se()
-  colData(object) <- colData(object)[, "SampleID", drop = FALSE]
-  rowData(object) <- rowData(object)[, c("HGNC", "GeneID", "Chromosome", "StartBP", "EndBP", "WidthBP")]
-  expect_false(any(.col_data_additional_cols %in% names(colData(object))))
-  expect_false(any(.row_data_additional_cols %in% names(rowData(object))))
+  colData(object) <- colData(object)[, "LowDepthFlag", drop = FALSE]
+  rowData(object) <- rowData(object)[, c("HGNC", "EndBP", "WidthBP")]
+  expect_false(all(.col_data_cols %in% names(colData(object))))
+  expect_false(all(.row_data_cols %in% names(rowData(object))))
   result <- expect_silent(HermesData(object))
-  expect_true(all(.col_data_additional_cols %in% names(colData(result))))
-  expect_true(all(.row_data_additional_cols %in% names(rowData(result))))
-  expect_true(all(is.na(colData(result)[, .col_data_additional_cols])))
-  expect_true(all(is.na(rowData(result)[, .row_data_additional_cols])))
+  expect_true(all(.col_data_cols %in% names(colData(result))))
+  expect_true(all(.row_data_cols %in% names(rowData(result))))
+  expect_true(all_na(result$StartBP))
 })
 
 test_that("RangedHermesData objects can be created with constructor HermesData", {
@@ -91,6 +101,12 @@ test_that("HermesData objects can be created with constructor HermesDataFromMatr
     rowData = rowData(summarized_experiment),
     colData = colData(summarized_experiment)
   ))
+  expect_is(result, "HermesData")
+})
+
+test_that("HermesDataFromMatrix also works when just passing the count matrix", {
+  counts <- assay(summarized_experiment)
+  result <- expect_silent(HermesDataFromMatrix(counts))
   expect_is(result, "HermesData")
 })
 
