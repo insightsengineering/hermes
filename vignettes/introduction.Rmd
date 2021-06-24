@@ -3,7 +3,7 @@ title: "Introduction to `hermes`"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to hermes}
+  %\VignetteIndexEntry{Introduction to `hermes`}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -13,13 +13,21 @@ editor_options:
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.height = 5,
+  fig.width = 7
 )
 ```
 
+## Acknowledgments
+
+`hermes` is a successor of the [`rnaseqTools`](https://pages.github.roche.com/Rpackages/rnaseqTools/) R package, and therefore many code pieces and ideas have been borrowed from it. We therefore would like to thank the `rnaseqTools` authors for their work. In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of `hermes`. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from [`biokitr`](https://pages.github.roche.com/BEDA/biokitr/) and discussed with its maintainer Daniel Marbach.
+Finally, as with any NEST product, `hermes` is only possible because of the whole NEST project team's work, and we are grateful for the larger team's support.
+Thanks a lot to everyone involved!
+
 ## Introduction
 
-The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize, analyze RNAseq counts data. It is a successor of the `rnaseqTools` R package. The core functionality is built on the BioConductor ecosystem, especially `SummarizedExperiment`.
+The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize, analyze RNAseq counts data. The core functionality is built on the BioConductor ecosystem, especially `SummarizedExperiment`.
 New users should first begin by reading the "Introduction to `hermes`" vignette to become familiar with the `hermes` concepts.
 
 ```{r, eval=FALSE}
@@ -28,17 +36,15 @@ vignette(topic = "introduction", package = "hermes")
 
 In this vignette you are going to learn how to:
 
-* import RNAseq count data into the `hermes` ready format
-* annotate gene information automatically from the central database (IGIS)
-* add quality control (QC) flags to genes and samples
-* filter the data set
-* normalize the counts
-* quickly produce descriptive plots
-* perform principal components analysis
-* produce a templated QC report
-* perform differential expression analysis
-
-using `hermes`.
+* Import RNAseq count data into the `hermes` ready format.
+* Annotate gene information automatically from the central database (IGIS).
+* Add quality control (QC) flags to genes and samples.
+* Filter the data set.
+* Normalize the counts.
+* Quickly produce descriptive plots.
+* Perform principal components analysis.
+* Produce a templated QC report.
+* Perform differential expression analysis.
 
 The packages used in this vignette are:
 ```{r, message=FALSE}
@@ -47,7 +53,7 @@ library(SummarizedExperiment)
 ```
 
 The datasets used in this vignette are:
-```{r, message=FALSE}
+```{r, message=FALSE, warning=FALSE}
 ?expression_set
 ?summarized_experiment
 ```
@@ -77,6 +83,14 @@ And we have a `HermesData` object.
 ```{r}
 object
 ```
+
+For a bit more details we can also call `summary()` on the object.
+
+```{r}
+summary(object)
+```
+
+Note that here the "additional" columns refer to everything not mandatorily included in a `HermesData` object.
 
 ### Importing an `ExpressionSet`
 
@@ -113,7 +127,34 @@ cnts[1:3, 1:3]
 
 ## Annotations
 
-Will be added shortly (stay tuned).
+`hermes` provides a modular approach for querying gene annotations, in order to 
+allow for future extensions in this or other downstream packages.
+
+Note that in the next release we plan to separate the internal IGIS part from the 
+general annotation framework and open source (`biomaRt` based) part to allow open 
+sourcing of the largest `hermes` parts.
+
+### Connection to Database
+
+The first step is to connect to a database. Currently, the only option is IGIS.
+The corresponding function takes the common gene ID prefix as argument to internally
+determine which version to use.
+
+```{r}
+connection <- connect_igis(prefix(object))
+```
+
+Here we are using the `prefix()` method to access the prefix saved in the `HermesData` object.
+
+### Querying and Saving Annotations
+
+Then the second step is to query the gene annotations and save them in the object.
+
+```{r, warning=FALSE}
+annotation(object) <- query(genes(object), connection)
+```
+
+Here we are using the `genes()` method to access the gene IDs (row names) of the `HermesData` object. Note that actual usage might give warnings from the `igis` package here, which we will work on fixing soon (outside of NEST).
 
 ## Quality Control Flags
 
@@ -161,6 +202,7 @@ This is simple with the `filter()` function. It is also possible to selectively 
 
 ```{r}
 object_flagged_filtered <- filter(object_flagged)
+object_flagged_genes_filtered <- filter(object_flagged, what = "genes")
 ```
 
 ### Based on Custom Variables
@@ -172,7 +214,11 @@ names(rowData(object_flagged))
 names(colData(object_flagged))
 head(rowData(object_flagged)$Chromosome)
 head(object_flagged$ARMCD)
-object_flagged_subsetted <- subset(object_flagged, subset = Chromosome == "5", select = ARMCD == "COH1")
+object_flagged_subsetted <- subset(
+  object_flagged, 
+  subset = Chromosome == "5", 
+  select = ARMCD == "COH1"
+)
 ```
 
 ## Normalizing Counts
@@ -200,8 +246,10 @@ Note that also the filtering settings are saved in here. For custom normalizatio
 use `control_normalize()`. For example, to not use log scale but the original scale of the counts:
 
 ```{r}
-my_norm_settings <- control_normalize(log = FALSE)
-object_normalized_original <- normalize(object_flagged_filtered, control = my_norm_settings)
+object_normalized_original <- normalize(
+  object_flagged_filtered, 
+  control = control_normalize(log = FALSE)
+)
 assay(object_normalized_original, "tpm")[1:3, 1:3]
 ```
 
@@ -213,6 +261,13 @@ A series of simple descriptive plots can be obtained by just calling `autoplot()
 
 ```{r}
 autoplot(object)
+```
+
+Note that individual plots from these can be produced with the series of `draw_*()` functions, see `?plot_all` for the detailed list. Then, these can be customized further. 
+For example, we can change the number and color of the bins in the library size histogram:
+
+```{r}
+draw_libsize_hist(object, bins = 10L, fill = "blue")
 ```
 
 ### Top Genes
@@ -267,7 +322,7 @@ autoplot(
 Afterwards it is easy to correlate the obtained principal components with the sample variables. We obtain a matrix of R-squared (R2) values for all combinations, which can again be visualized as a heatmap.
 See `?pca_cor_samplevar` for details.
 
-```{r}
+```{r, fig.height=8}
 pca_cor <- correlate(pca_res, object_normalized)
 autoplot(pca_cor)
 ```
@@ -275,6 +330,7 @@ autoplot(pca_cor)
 ## Quality Control Report Template
 
 In order to quickly obtain a quality control report for a new RNAseq data set, you can proceed as follows.
+
 1. Save your input `SummarizedExperiment` using R's `save()` function in a binary data file (e.g. ending with `.rda` suffix).
 1. Load the `hermes` package in RStudio and click on: `File` > `New File` > `R Markdown` > `From Template` and select the QC report template from `hermes`.
 1. Fill in the few parameters in the yaml header, including the required file paths for the input file from above, and where the resulting `HermesData` object should be saved.
@@ -288,10 +344,12 @@ In addition to the above QC analyses, simple differential expression analysis is
 In addition to the filtered object (normalization of counts is not required) the variable name of the factor to contrast the samples needs to be provided to `diff_expression()`.
 
 ```{r}
-colData(object)$SEX <- factor(colData(object)$SEX) # nolint
+colData(object) <- df_char_to_factor(colData(object))
 diff_res <- diff_expression(object, group = "SEX", method = "voom")
 head(diff_res)
 ```
+
+Note that we use here the utility function `df_char_to_factor()` which converts by default all character variables to factor variables. This is one possible way here to ensure that the utilized group variable is a factor.
 
 Afterwards a standard volcano plot can be produced.
 
