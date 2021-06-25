@@ -255,3 +255,116 @@ head(annotation(object))
 ```
 
 
+### Annotation feature: getting gene type
+
+Gene type can be found using `igis::variationConsequence()`, in the `biotype` slot. 
+
+#### Single gene lookup
+
+For a single gene this works well:
+
+```{r}
+connection <- connect_igis("ENSG")
+gene <- "ENSG00000163734"
+
+transcripts <- igis::transcriptsByGeneId(
+  geneIds = gene,
+  canonical = TRUE,
+  igis = connection
+)
+class(transcripts)
+transcripts
+
+cons <- igis::variationConsequence(
+  igis = connection,
+  allele = 'T',
+  location = transcripts,
+  species = 'human'
+)
+
+cons$biotype
+```
+
+#### Multiple genes lookup
+
+So probably we can do the same principle as what was done for `igis::transcriptsByGeneId()` in that instead of providing one specific gene, we provide a list of all genes. Note that below we also have the other prefix (`GeneID` which means Entrez or IGIS version 3).
+
+```{r}
+object <- HermesData(summarized_experiment)
+prefix(object)
+connection <- connect_igis(prefix(object))
+
+all_transcripts <- igis::transcriptsByGeneId(
+  geneIds = genes(object),
+  canonical = TRUE,
+  igis = connection
+)
+
+all_transcripts
+```
+
+So let's try this:
+
+```{r, eval = FALSE}
+all_cons <- igis::variationConsequence(
+  igis = connection,
+  allele = 'T',
+  location = all_transcripts,
+  species = 'human'
+)
+```
+
+This gives
+
+````
+Error in getListElement(x, i, ...) : 
+  GRanges objects don't support [[, as.list(), lapply(), or unlist() at the moment
+````
+
+So seems to me that there is a bug in `igis` here. 
+I looked this up on Google and found other people reporting this, and being referred to R 4.0.3 with later BioConductor release. I tested this in my local RStudio with R 4.0.3 and indeed this runs there fine:
+
+```{r, eval = FALSE}
+library(igis)
+connection <- Igis(species = "human", version = "4.0")
+genes <- c("ENSG00000163734", "ENSG00000163735")
+transcripts <- igis::transcriptsByGeneId(
+  geneIds = genes,
+  canonical = TRUE,
+  igis = connection
+)
+cons <- variationConsequence(
+  igis = connection,
+  allele = "T",
+  location = transcripts,
+  species = "human"
+)
+cons$biotype
+```
+
+As the NEST team overall will switch to R 4.0.x in the next cycle, it seems
+better to postpone this feature implementation to the next cycle.
+
+#### Alternative considered
+
+As an alternative we could have worked around this for now, e.g. via querying each range separately:
+
+```{r, eval = FALSE}
+  
+  for (i in 1:length(genes(object))) {
+          
+          gene_type <- igis::variationConsequence(
+                    allele = 'T',
+                    location = transcripts[i,],
+                    igis = connection,
+                    species = 'human'
+                )
+          
+          df <- cbind(transcripts[i,], gene_type$biotype)
+  }
+
+```
+
+However this will be pretty slow, so does not seem like a good option.
+Also, the feature request is not urgent at all, so it's fine to have this in
+an upcoming release.
