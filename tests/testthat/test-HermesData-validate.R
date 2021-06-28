@@ -166,4 +166,20 @@ test_that("validate_names returns messages as expected for invalid object", {
     validate_names(object),
     "'object' must have colnames"
   )
+
+  object <- SummarizedExperiment(
+    list(counts = matrix(1L, 2, 2, dimnames = list(c("a", "a"), c("x", "y"))))
+  )
+  expect_identical(
+    validate_names(object),
+    "'object' must have unique rownames"
+  )
+
+  object <- SummarizedExperiment(
+    list(counts = matrix(1L, 2, 2, dimnames = list(c("a", "b"), c("x", "x"))))
+  )
+  expect_identical(
+    validate_names(object),
+    "'object' must have unique colnames"
+  )
 })

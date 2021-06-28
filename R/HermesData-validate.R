@@ -95,6 +95,11 @@ validate_names <- function(object) {
   if (is.null(colnames(object))) {
     msg <- c(msg, "'object' must have colnames")
   }
-
+  if (any(duplicated(rownames(object)))) {
+    msg <- c(msg, "'object' must have unique rownames")
+  }
+  if (any(duplicated(colnames(object)))) {
+    msg <- c(msg, "'object' must have unique colnames")
+  }
   msg
 }

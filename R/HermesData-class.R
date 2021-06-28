@@ -25,7 +25,7 @@ NULL
 #' - The following columns must be in `colData`:
 #'   - `LowDepthFlag`
 #'   - `TechnicalFailureFlag`
-#' - The object must have row and column names. The row names are the gene names
+#' - The object must have unique row and column names. The row names are the gene names
 #'   and the column names are the sample names.
 #'
 #' Analogously, [`RangedHermesData`] is an extension of

@@ -55,7 +55,7 @@ The additional criteria are:
 \item \code{LowDepthFlag}
 \item \code{TechnicalFailureFlag}
 }
-\item The object must have row and column names. The row names are the gene names
+\item The object must have unique row and column names. The row names are the gene names
 and the column names are the sample names.
 }
 

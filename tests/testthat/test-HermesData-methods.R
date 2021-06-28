@@ -14,11 +14,17 @@ test_that("rbind function works as expected for HermesData objects", {
 
 test_that("rbind function works as expected when binding SummarizedExperiment with HermesData", {
   object <- get_se()
-  h1 <- .HermesData(object)
-  result1 <- expect_silent(rbind(object, h1))
+  se <- object[1]
+  h1 <- .HermesData(object[2])
+  result1 <- expect_silent(rbind(se, h1))
   expect_is(result1, "SummarizedExperiment")
-  result2 <- expect_silent(rbind(h1, object))
+  result2 <- expect_silent(rbind(h1, se))
   expect_is(result2, "SummarizedExperiment")
+})
+
+test_that("rbind function fails as expected when rbind results in duplicated rownames", {
+  object <- .HermesData(summarized_experiment)
+  expect_error(rbind(object, object))
 })
 
 # cbind ----
@@ -37,11 +43,17 @@ test_that("cbind function works as expected for HermesData objects", {
 
 test_that("cbind function works as expected when binding SummarizedExperiment with HermesData", {
   object <- get_se()
-  h1 <- .HermesData(object)
-  result1 <- expect_silent(cbind(object, h1))
+  se <- object[, 1]
+  h1 <- .HermesData(object[, 2])
+  result1 <- expect_silent(cbind(se, h1))
   expect_is(result1, "SummarizedExperiment")
-  result2 <- expect_silent(cbind(h1, object))
+  result2 <- expect_silent(cbind(h1, se))
   expect_is(result2, "SummarizedExperiment")
+})
+
+test_that("rbind function fails as expected when rbind results in duplicated colnames", {
+  object <- .HermesData(summarized_experiment)
+  expect_error(cbind(object, object))
 })
 
 # metadata ----

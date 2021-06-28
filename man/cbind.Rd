@@ -24,10 +24,11 @@ object, then the result will be a
 class).
 }
 \examples{
-a <- b <- HermesData(summarized_experiment)
+a <- HermesData(summarized_experiment[, 1:10])
+b <- HermesData(summarized_experiment[, 11:20])
 result <- cbind(a, b)
 class(result)
 
-result2 <- cbind(summarized_experiment, b)
+result2 <- cbind(summarized_experiment[, 1:10], b)
 class(result2)
 }

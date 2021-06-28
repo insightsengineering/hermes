@@ -21,7 +21,8 @@
 #' @return The combined [`AnyHermesData`] object.
 #'
 #' @examples
-#' a <- b <- HermesData(summarized_experiment)
+#' a <- HermesData(summarized_experiment[1:2542])
+#' b <- HermesData(summarized_experiment[2543: 5085])
 #' result <- rbind(a, b)
 #' class(result)
 #'
@@ -52,11 +53,12 @@ NULL
 #' @return The combined [`AnyHermesData`] object.
 #'
 #' @examples
-#' a <- b <- HermesData(summarized_experiment)
+#' a <- HermesData(summarized_experiment[, 1:10])
+#' b <- HermesData(summarized_experiment[, 11:20])
 #' result <- cbind(a, b)
 #' class(result)
 #'
-#' result2 <- cbind(summarized_experiment, b)
+#' result2 <- cbind(summarized_experiment[, 1:10], b)
 #' class(result2)
 NULL
 

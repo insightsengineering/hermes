@@ -68,7 +68,7 @@ The simplest import route is from a `SummarizedExperiment` (SE) object. This is 
 is just a special SE, with few additional requirements and slots. 
 
 In a nutshell, the object needs to have a `counts` assay, have certain
-gene and sample variables, and have row and column names. The row names, i.e. the gene names, must
+gene and sample variables, and have unique row and column names. The row names, i.e. the gene names, must
 start with a common prefix `GeneID` or `ENSG` to enable easy annotations.
 See `?HermesData` for the detailed requirements. 
 

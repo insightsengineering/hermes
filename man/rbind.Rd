@@ -24,7 +24,8 @@ object, then the result will be a
 class).
 }
 \examples{
-a <- b <- HermesData(summarized_experiment)
+a <- HermesData(summarized_experiment[1:2542])
+b <- HermesData(summarized_experiment[2543: 5085])
 result <- rbind(a, b)
 class(result)
 
