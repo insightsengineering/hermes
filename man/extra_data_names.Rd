@@ -26,7 +26,7 @@ The character vector with the additional variable names in either
 \code{colData()} or \code{rowData()}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 The methods access the names of the variables in \code{colData()} and \code{rowData()} of
 the object which are not required by design. So these can be additional sample or

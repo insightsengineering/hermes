@@ -15,7 +15,7 @@ h_pca_var_rsquared(pca, x)
 A vector with R2 values for each principal component.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
 This helper function calculates R2 values between one sample variable from \code{\link{AnyHermesData}}
 and all Principal Components (PCs) separately (one linear model is fit for each PC).

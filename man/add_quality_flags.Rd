@@ -27,7 +27,7 @@ produced by \code{\link[=control_quality]{control_quality()}}.}
 The input object with added quality flags.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
 This function adds quality flag information to a \link{AnyHermesData} object:
 \itemize{

@@ -4,19 +4,22 @@
 \alias{h_diff_expr_deseq2}
 \title{DESeq2 Differential Expression Analysis}
 \usage{
-h_diff_expr_deseq2(object, design)
+h_diff_expr_deseq2(object, design, ...)
 }
 \arguments{
 \item{object}{(\code{HermesData})\cr input.}
 
 \item{design}{(\code{matrix})\cr design matrix.}
+
+\item{...}{additional arguments internally passed to \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}} (\code{fitType}, \code{sfType},
+\code{minReplicatesForReplace}, \code{useT}, \code{minmu}).}
 }
 \value{
 A data frame with columns \code{log2_fc} (estimated log2 fold change),
 \code{stat} (Wald statistic), \code{p_val} (raw p-value), \code{adj_p_pval} (Benjamini-Hochberg adjusted p-value).
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 This helper functions performs the differential expression analysis with
 \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}} for a given \link{AnyHermesData} input and \code{design} matrix.
@@ -26,6 +29,8 @@ object <- HermesData(summarized_experiment)
 design <- model.matrix(~SEX, colData(object))
 result <- h_diff_expr_deseq2(object, design)
 head(result)
+result2 <- h_diff_expr_deseq2(object, design, fitType = "local")
+head(result2)
 }
 \references{
 \insertRef{DESeq2_package}{hermes}

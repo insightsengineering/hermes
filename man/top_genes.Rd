@@ -47,7 +47,7 @@ summary statistics threshold.}
 A \link{HermesDataTopGenes} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 This creates a \code{\link{HermesDataTopGenes}} object, which extends \code{\link{data.frame}}. It
 contains two columns:

@@ -8,9 +8,10 @@
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param design (`matrix`)\cr design matrix.
+#' @param ... additional arguments internally passed to [limma::eBayes()] (`robust`, `trend`, `proportion`,
+#'   `winsor.tail.p`, `stdev.coef.lim`).
 #' @return A data frame with columns `log2_fc` (estimated log2 fold change),
-#'   `stat` (moderated t-statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg
-#'   adjusted p-value).
+#'   `stat` (moderated t-statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg adjusted p-value).
 #'
 #' @importFrom limma voom lmFit eBayes topTable
 #' @export
@@ -25,7 +26,9 @@
 #' design <- model.matrix(~SEX, colData(object))
 #' result <- h_diff_expr_voom(object, design)
 #' head(result)
-h_diff_expr_voom <- function(object, design) {
+#' result2 <- h_diff_expr_voom(object, design, trend = TRUE, robust = TRUE)
+#' head(result2)
+h_diff_expr_voom <- function(object, design, ...) {
   assert_that(
     is_hermes_data(object),
     is.matrix(design),
@@ -33,12 +36,11 @@ h_diff_expr_voom <- function(object, design) {
   )
   voom_counts <- limma::voom(counts(object))
   lm_fit <- limma::lmFit(voom_counts, design)
-  eb_stats <- limma::eBayes(lm_fit)
+  eb_stats <- limma::eBayes(lm_fit, ...)
   top_tab <- limma::topTable(
     eb_stats,
     coef = 2L,
     number = Inf, # Retain all genes.
-    adjust.method = "BH",
     sort.by = "p" # Sort by p-value.
   )
   with(
@@ -62,6 +64,8 @@ h_diff_expr_voom <- function(object, design) {
 #'
 #' @param object (`HermesData`)\cr input.
 #' @param design (`matrix`)\cr design matrix.
+#' @param ... additional arguments internally passed to [DESeq2::DESeq()] (`fitType`, `sfType`,
+#'   `minReplicatesForReplace`, `useT`, `minmu`).
 #' @return A data frame with columns `log2_fc` (estimated log2 fold change),
 #'   `stat` (Wald statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg adjusted p-value).
 #'
@@ -76,14 +80,24 @@ h_diff_expr_voom <- function(object, design) {
 #' design <- model.matrix(~SEX, colData(object))
 #' result <- h_diff_expr_deseq2(object, design)
 #' head(result)
-h_diff_expr_deseq2 <- function(object, design) {
+#' result2 <- h_diff_expr_deseq2(object, design, fitType = "local")
+#' head(result2)
+h_diff_expr_deseq2 <- function(object, design, ...) {
   assert_that(
     is_hermes_data(object),
     is.matrix(design),
     identical(dim(design), c(ncol(object), 2L))
   )
   deseq_data <- DESeq2::DESeqDataSet(se = object, design = design)
-  deseq_data_processed <- DESeq2::DESeq(deseq_data, quiet = TRUE)
+  deseq_data_processed <- DESeq2::DESeq(
+    deseq_data,
+    quiet = TRUE,
+    test = "Wald",
+    betaPrior = FALSE,
+    parallel = FALSE,
+    modelMatrixType = "standard",
+    ...
+  )
   deseq_data_res <- DESeq2::results(deseq_data_processed)
   deseq_data_res_df <- as.data.frame(deseq_data_res)
   adj_pval_order <- order(deseq_data_res_df$padj)
@@ -116,6 +130,7 @@ h_diff_expr_deseq2 <- function(object, design) {
 #' @param group (`string`)\cr name of factor variable with 2 levels in `colData(object)`.
 #'   These 2 levels will be compared in the differential expression analysis.
 #' @param method (`string`)\cr method for differential expression analysis, see details below.
+#' @param ... additional arguments passed to the helper function associated with the selected method.
 #'
 #' @return A [`HermesDataDiffExpr`] object which is a data frame with the following columns for each gene
 #'   in the [`HermesData`] object:
@@ -125,9 +140,13 @@ h_diff_expr_deseq2 <- function(object, design) {
 #'   - `p_val` (the raw p-value),
 #'   - `adj_p_val` (the adjusted p-value) values from differential expression analysis for each feature / gene .
 #'
-#' @note We provide the [df_char_to_factor()] utility function that makes it easy to convert the
-#'   `colData()` character variables to factors, so that they can be subsequently used as `group`
-#'   inputs. See the example.
+#' @note
+#'   - We provide the [df_char_to_factor()] utility function that makes it easy to convert the
+#'     `colData()` character variables to factors, so that they can be subsequently used as `group`
+#'     inputs. See the example.
+#'   - In order to avoid a warning when using `deseq2`, it can be necessary to specify
+#'     `fitType = "local"` as additional argument. This could e.g. be the case when only few samples
+#'     are present in which case the default parametric dispersions estimation will not work.
 #'
 #' @importFrom stats as.formula model.matrix
 #' @export
@@ -136,15 +155,23 @@ h_diff_expr_deseq2 <- function(object, design) {
 #' object <- HermesData(summarized_experiment) %>%
 #'   add_quality_flags() %>%
 #'   filter()
+#'
 #' # Convert character to factor variables in `colData`, including the below used `group` variable.
 #' colData(object) <- df_char_to_factor(colData(object))
 #' res1 <- diff_expression(object, group = "SEX", method = "voom")
 #' head(res1)
 #' res2 <- diff_expression(object, group = "SEX", method = "deseq2")
 #' head(res2)
+#'
+#' # Passing method arguments to the internally used helper functions.
+#' res3 <- diff_expression(object, group = "SEX", method = "voom", robust = TRUE, trend = TRUE)
+#' head(res3)
+#' res4 <- diff_expression(object, group = "SEX", method = "deseq2", fitType = "local")
+#' head(res4)
 diff_expression <- function(object,
                             group,
-                            method = c("voom", "deseq2")) {
+                            method = c("voom", "deseq2"),
+                            ...) {
   assert_that(
     is_hermes_data(object),
     is.string(group),
@@ -169,8 +196,8 @@ diff_expression <- function(object,
   design <- stats::model.matrix(form, data = colData(object))
   result <- switch(
     method,
-    "voom" = h_diff_expr_voom(object, design),
-    "deseq2" = h_diff_expr_deseq2(object, design)
+    "voom" = h_diff_expr_voom(object, design, ...),
+    "deseq2" = h_diff_expr_deseq2(object, design, ...)
   )
   .HermesDataDiffExpr(result)
 }
@@ -219,7 +246,10 @@ S4Vectors::setValidity2(
 #' @export
 #'
 #' @examples
+#'
+#' # Creating the corresponding volcano plots.
 #' autoplot(res1)
+#' autoplot(res3)
 setMethod(
   f = "autoplot",
   signature = signature(object = "HermesDataDiffExpr"),

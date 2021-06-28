@@ -19,7 +19,7 @@ taking log of zero, used only when \code{log = TRUE}.}
 List with the above settings used to perform the normalization procedure.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
 This control function allows for easy customization of the normalization settings.
 }

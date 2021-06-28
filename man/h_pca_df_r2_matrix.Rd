@@ -16,7 +16,7 @@ A matrix with R2 values for all combinations of sample variables and principle
 components.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
 This function processes sample variables from \code{\link{AnyHermesData}} and the
 corresponding principal components matrix, and then generates the matrix of R2 values.

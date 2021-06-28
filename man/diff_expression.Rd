@@ -9,7 +9,7 @@
 \alias{autoplot,HermesDataDiffExpr-method}
 \title{Differential Expression Analysis}
 \usage{
-diff_expression(object, group, method = c("voom", "deseq2"))
+diff_expression(object, group, method = c("voom", "deseq2"), ...)
 
 \S4method{autoplot}{HermesDataDiffExpr}(object, adj_p_val_thresh = 0.05, log2_fc_thresh = 2.5)
 }
@@ -21,6 +21,8 @@ original counts for analysis, so this does not need to be normalized.}
 These 2 levels will be compared in the differential expression analysis.}
 
 \item{method}{(\code{string})\cr method for differential expression analysis, see details below.}
+
+\item{...}{additional arguments passed to the helper function associated with the selected method.}
 
 \item{adj_p_val_thresh}{(\code{proportion})\cr threshold on the adjusted p-values (y-axis) to
 flag significance.}
@@ -40,7 +42,7 @@ provided factor)
 }
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 This function performs differential expression analysis
 using a method of preference.
@@ -58,19 +60,34 @@ Possible method choices are:
 }}
 
 \note{
-We provide the \code{\link[=df_char_to_factor]{df_char_to_factor()}} utility function that makes it easy to convert the
+\itemize{
+\item We provide the \code{\link[=df_char_to_factor]{df_char_to_factor()}} utility function that makes it easy to convert the
 \code{colData()} character variables to factors, so that they can be subsequently used as \code{group}
 inputs. See the example.
+\item In order to avoid a warning when using \code{deseq2}, it can be necessary to specify
+\code{fitType = "local"} as additional argument. This could e.g. be the case when only few samples
+are present in which case the default parametric dispersions estimation will not work.
+}
 }
 \examples{
 object <- HermesData(summarized_experiment) \%>\%
   add_quality_flags() \%>\%
   filter()
+
 # Convert character to factor variables in `colData`, including the below used `group` variable.
 colData(object) <- df_char_to_factor(colData(object))
 res1 <- diff_expression(object, group = "SEX", method = "voom")
 head(res1)
 res2 <- diff_expression(object, group = "SEX", method = "deseq2")
 head(res2)
+
+# Passing method arguments to the internally used helper functions.
+res3 <- diff_expression(object, group = "SEX", method = "voom", robust = TRUE, trend = TRUE)
+head(res3)
+res4 <- diff_expression(object, group = "SEX", method = "deseq2", fitType = "local")
+head(res4)
+
+# Creating the corresponding volcano plots.
 autoplot(res1)
+autoplot(res3)
 }

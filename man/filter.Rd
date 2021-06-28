@@ -20,7 +20,7 @@ filter(object, ...)
 The filtered \code{\link{AnyHermesData}} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
 This filters a \code{\link{AnyHermesData}} object using the default QC flags. That is,
 only genes without low expression (\code{LowExpressionFlag}) and samples

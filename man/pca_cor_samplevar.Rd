@@ -34,7 +34,7 @@ produced by \code{\link[circlize:colorRamp2]{circlize::colorRamp2()}}.}
 A \code{\link{HermesDataPcaCor}} object with R2 values for all sample variables.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
 This method analyses the correlations (in R2 values) between all sample variables
 in \link{AnyHermesData} object and the principal components of the samples.

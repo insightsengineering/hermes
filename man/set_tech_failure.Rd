@@ -15,7 +15,7 @@ set_tech_failure(object, sample_ids)
 \code{\link{AnyHermesData}} object with modified technical failure flags.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Setter function which allows the user to define a sample manually as a technical failure.
 }

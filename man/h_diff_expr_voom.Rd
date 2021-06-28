@@ -4,20 +4,22 @@
 \alias{h_diff_expr_voom}
 \title{\code{limma}/\code{voom} Differential Expression Analysis}
 \usage{
-h_diff_expr_voom(object, design)
+h_diff_expr_voom(object, design, ...)
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr input.}
 
 \item{design}{(\code{matrix})\cr design matrix.}
+
+\item{...}{additional arguments internally passed to \code{\link[limma:ebayes]{limma::eBayes()}} (\code{robust}, \code{trend}, \code{proportion},
+\code{winsor.tail.p}, \code{stdev.coef.lim}).}
 }
 \value{
 A data frame with columns \code{log2_fc} (estimated log2 fold change),
-\code{stat} (moderated t-statistic), \code{p_val} (raw p-value), \code{adj_p_pval} (Benjamini-Hochberg
-adjusted p-value).
+\code{stat} (moderated t-statistic), \code{p_val} (raw p-value), \code{adj_p_pval} (Benjamini-Hochberg adjusted p-value).
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 This helper functions performs the differential expression analysis with the \code{voom}
 method from the \code{limma} package (via \code{\link[limma:voom]{limma::voom()}}, \code{\link[limma:lmFit]{limma::lmFit()}} and \code{\link[limma:ebayes]{limma::eBayes()}})
@@ -28,6 +30,8 @@ object <- HermesData(summarized_experiment)
 design <- model.matrix(~SEX, colData(object))
 result <- h_diff_expr_voom(object, design)
 head(result)
+result2 <- h_diff_expr_voom(object, design, trend = TRUE, robust = TRUE)
+head(result2)
 }
 \references{
 \insertRef{limma_package}{hermes}

@@ -29,7 +29,7 @@ If this is a \code{RangedSummarizedExperiment}, then the result will be
 is passed instead of \code{rowData}, then the result will be a \code{\link{RangedHermesData}} object.}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 The \code{\link{HermesData}} class is an extension of \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 with additional validation criteria.

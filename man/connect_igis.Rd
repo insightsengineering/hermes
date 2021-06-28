@@ -13,7 +13,7 @@ connect_igis(prefix = c("ENSG", "GeneID"))
 \code{\link[igis:Igis]{igis::Igis}} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Based on the prefix of the gene IDs, either creates a connection object of class
 \code{\link[igis:Igis]{igis::Igis}} for version 4.0 (\code{ENSG}) or 3.0 (\code{GeneID}) (for human species genes).
