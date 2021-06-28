@@ -1,0 +1,348 @@
+---
+title: "Design: Annotation of genes via `biomaRt`"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+  
+## Objective
+
+Background: we want to open source `hermes` soon and then IGIS is not available, therefore users need an open source path to the annotations. This would be `biomaRt`.
+Note: For ease of typing we use `biomart` in the code, i.e. with small `r`.
+
+## Information about `biomaRt`
+
+* https://www.bioconductor.org/packages/devel/bioc/vignettes/biomaRt/inst/doc/accessing_ensembl.html
+* `vignette("biomaRt", "biomaRt")`
+  - `getBM()` is the main function. 
+  - `attributes` is what we want to receive - all the annotation columns.
+  - `filters` is describing which input we give - in our case the `ID` variable.
+  - `values` vector - the gene IDs.
+  - `mart` - the connection.
+
+## Connection function
+
+It seems like the same data base is used for both prefixes. Still we need to save the used prefix
+such that later in the query we know it. For this we make a new class that has additional prefix slot again.
+
+```{r}
+library(biomaRt)
+library(hermes)
+
+.ConnectionBiomart <- setClass( # nolint
+  "ConnectionBiomart",
+  contains = "Mart",
+  slots = c(prefix = "character")  
+)
+```
+
+Now the connection function is easy.
+
+```{r}
+connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
+  prefix <- match.arg(prefix)
+  .ConnectionBiomart(
+    biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl"),
+    prefix = prefix
+  )
+}
+```
+
+(Note: For now everything is only on human genes, therefore we hard code the dataset used above.
+In the future this will become more flexible so that we can cover other species.)
+
+Let's first setup a `HermesData` object which includes annotations already, 
+so we have something to compare against.
+
+```{r}
+object <- HermesData(summarized_experiment)
+```
+
+Let's try it.
+
+```{r}
+connection <- connect_biomart(prefix(object))
+connection
+class(connection)
+isS4(connection)
+connection@prefix
+```
+
+Good. So we get back an S4 object of class `ConnectionBiomart`.
+
+## Discovering how to do this
+
+Let's first prototype a few snippets.
+
+### Available data
+
+Let's see which data we can query:
+
+```{r}
+fs <- listFilters(as(connection, "Mart"))
+names(rowData(object)) # We look for these guys (except LowExpressionFlag).
+```
+
+It's nice that in RStudio Viewer we can easily search in this data set (so in `View(fs)`).
+
+Note that unfortunately the `biomaRt::martCheck()` function is checking the class of the object with 
+`class()` instead of `is()` and therefore we need to explicitly coerce our object to the `Mart` class
+for using it.
+
+### Gene stuff
+
+Now let's say for the first genes in `object` we want to query:
+
+```{r}
+gene_ids <- c(
+  "11185",
+  "10677"
+)
+```
+
+Note that we can't have the prefix.
+Let's try the query:
+  
+```{r}
+genestuff <- getBM(
+  attributes = c(
+    "entrezgene_id",
+    "hgnc_symbol",
+    "chromosome_name",
+    "start_position",
+    "end_position",
+    "entrezgene_description"
+  ),
+  filters = "entrezgene_id",
+  values = gene_ids,
+  mart = as(connection, "Mart")
+)
+```
+
+Note that currently (with R version 3.6.3) we get warnings about use of deprecated `dplyr` functions.
+It seems like this is fixed upstream: https://github.com/Bioconductor/BiocFileCache/issues/23
+so we will get the fix in the new R/BioConductor version in the next release cycle.
+
+Let's see the results:
+
+```{r}
+genestuff
+```
+
+Note that we need to be careful here: the order in the results is not the same as in the inputs! Therefore
+we also query the gene ID again so we can sort later correctly.
+
+We can compare that with what we had in object (from IGIS):
+```{r}
+rowData(object)[1:2, ]
+```
+
+Details:
+* Width we can calculate from start and end position ourselves.
+* Unfortunately there is a limit on how many external attributes can be queries at once.
+
+### Protein stuff
+
+Let's try 
+again to query the protein stuff:
+
+```{r}
+proteinstuff <- getBM(
+  attributes = c(
+    "entrezgene_id",
+    "refseq_mrna",
+    "refseq_peptide",
+    "transcript_is_canonical"
+  ),
+  filters = c("entrezgene_id", "transcript_is_canonical"),
+  values = list(gene_ids, TRUE),
+  mart = as(connection, "Mart")
+)
+
+proteinstuff
+```
+
+Details:
+* The protein transcript column can be obtained by taking those `refseq_peptide` rows where `transcript_is_canonical` is 1. 
+* Similarly the canonical transcript column can be obtained from `refseq_mrna`.
+* We do this directly in the query by specifying in filters and values.
+
+## Query method
+
+We need to break this in a couple of pieces.
+
+### Stripping the prefix from the gene IDs
+
+```{r}
+h_strip_prefix <- function(gene_ids, prefix) {
+  gsub(
+    pattern = paste0("^", prefix, "[[:punct:]]?([[:digit:]]+)$"),
+    replacement = "\\1",
+    x = gene_ids
+  )
+}
+
+h_strip_prefix(c("GeneID:11185", "GeneID:10677"), prefix = "GeneID")
+```
+
+### biomaRt query helper
+
+```{r}
+h_get_annotation_biomart <- function(gene_ids, 
+                                     id_type, 
+                                     mart) {
+  df_gene <- biomaRt::getBM(
+    attributes = c(
+      id_type,
+      "hgnc_symbol",
+      "entrezgene_description",
+      "chromosome_name",
+      "start_position",
+      "end_position"
+    ),
+    filters = id_type,
+    values = gene_ids,
+    mart = mart
+  )
+  df_protein <- biomaRt::getBM(
+    attributes = c(
+      id_type,
+      "refseq_mrna",
+      "refseq_peptide"
+    ),
+    filters = c(id_type, "transcript_is_canonical"),
+    values = list(gene_ids, TRUE),
+    mart = mart
+  )
+  df <- merge(df_gene, df_protein, by = id_type, all = TRUE)
+  df <- df[match(gene_ids, df[[id_type]]), ]
+  rownames(df) <- gene_ids
+  df[, - which(colnames(df) == id_type)]
+}
+```
+
+Try this.
+
+```{r}
+h_get_annotation_biomart(c("11185", "10677"), "entrezgene_id", as(connection, "Mart"))
+```
+
+### Define as a function (for easier testing)
+
+```{r}
+.query_biomart <- function(genes, connection) {
+  pre <- prefix(connection)
+  gene_ids <- if (pre == "GeneID") {
+    h_strip_prefix(genes, prefix = pre)
+  } else {
+    genes
+  }
+  id_attribute <- switch(
+    pre,
+    GeneID = "entrezgene_id", 
+    ENSG = "ensembl_gene_id"
+  )
+  mart <- as(connection, "Mart")
+  df <- h_get_annotation_biomart(gene_ids, id_type = id_attribute, mart = mart)
+  with(
+    df,
+    DataFrame(
+      HGNC = hgnc_symbol,
+      HGNCGeneName = entrezgene_description,
+      Chromosome = as.character(chromosome_name),
+      StartBP = start_position,
+      EndBP = end_position,
+      WidthBP = end_position - start_position + 1L,
+      CanonicalTranscript = refseq_mrna,
+      ProteinTranscript = refseq_peptide,
+      row.names = genes
+    )
+  )
+}
+```
+
+Let's try it out.
+
+```{r}
+new_genes <- c("GeneID:283887", "GeneID:101929152", "GeneID:100129543", "GeneID:283981", "GeneID:27244")
+res_biomart <- .query_biomart(
+  new_genes, 
+  connection
+)
+```
+
+Compare this with the IGIS results.
+
+```{r}
+res_biomart
+rowData(object)[new_genes, ]
+```
+
+Hm, this shows that for quite a few genes we don't get any results.
+
+Let's see if we query instead with the Ensembl ID:
+
+```{r}
+h_get_annotation_biomart("101929152", id_type = "entrezgene_id", mart = as(connection, "Mart"))
+h_get_annotation_biomart("ENSG00000225764", id_type = "ensembl_gene_id", mart = as(connection, "Mart"))
+```
+
+This looks better. Hm. So let's try to convert the IDs first.
+
+```{r}
+bm_conversion <- getBM(
+  filters = "entrezgene_id", 
+  attributes = c("ensembl_gene_id", "entrezgene_id"), 
+  values = h_strip_prefix(new_genes, "GeneID"), 
+  mart = as(connection, "Mart")
+)
+bm_conversion
+```
+
+So this shows that 2 genes were not found given their Entrez ID. Generally, conversion between the 
+two ID systems should be avoided (see e.g. discussion here: https://support.bioconductor.org/p/111608/ and https://support.bioconductor.org/p/115813/).
+
+Now for the IDs that have been found:
+
+```{r}
+connection@prefix <- "ENSG"
+res_ensembl_biomart <- .query_biomart(
+  bm_conversion$ensembl_gene_id, 
+  connection
+)
+res_ensembl_biomart
+```
+
+Everything works ok.
+So it seems that this method of querying annotations only works well for Ensembl IDs. 
+We could therefore restrict this for now to the "ENSG" prefix. Basically in a first release version
+we would just support annotations for "ENSG" IDs. Which is ok since that seems to be more
+standard than the older Entrez Gene IDs.
+
+In addition, in production we need to: 
+- make the annotation replacement method more flexible.
+For example, there should be a warning to the user that certain genes could not be annotated
+so they still have `NA`. 
+- make the normalization method that requires gene width fail if a gene has `NA` width.
+- make the filtering method have a new argument that specifies whether to filter out genes that don't have any annotation. So that once the object is filtered it could safely go into the normalization method.
+
+Given this, it seems still ok to have the user query Entrez Gene IDs. They will just get less annotated
+genes back like that. And we need to highlight the limitations in the documentation / vignette.
+
+### Define the method
+
+That is then easy, e.g.
+
+```{r}
+setMethod(
+  f = "query",
+  signature = c(genes = "character", connection = "Mart"),
+  definition = .query_biomart
+)
+```
+
