@@ -20,6 +20,7 @@ reference:
       - HermesDataSummary
       - HermesDataPcaCor
       - HermesDataDiffExpr
+      - ConnectionBiomart
   - title: Constructors
     contents:
       - HermesData
@@ -43,6 +44,9 @@ reference:
       - h_diff_expr_deseq2
       - h_pca_var_rsquared
       - h_pca_df_r2_matrix
+      - h_get_annotation_biomart
+      - h_strip_prefix
+      - h_has_req_annotations
   - title: Example Data
     contents:
       - expression_set
@@ -73,7 +77,7 @@ reference:
       - get_quality_flags
       - set_tech_failure
       - top_genes
-      - connect_igis
+      - connect_biomart
       - df_char_to_factor
   - title: Graphs
     contents:
@@ -94,3 +98,6 @@ reference:
       - is_hermes_data
       - is_list_with
       - is_constant
+  - title: Constants
+    contents:
+      - .row_data_annotation_cols

@@ -82,6 +82,17 @@ test_that("h_rpkm function fails as expected with invalid settings", {
   expect_error(h_rpkm(object2, cont2))
 })
 
+test_that("h_rpkm function fails when at least one gene has missing `WidthBP`", {
+  object <- HermesData(summarized_experiment)
+  cont <- control_normalize()
+  rowData(object)$WidthBP[1] <- NA # nolint
+  expect_error(
+    h_rpkm(object, cont),
+    "rowData(object)$WidthBP contains 1 missing values",
+    fixed = TRUE
+  )
+})
+
 # h_tpm ----
 
 test_that("h_tpm function works as expected with default settings", {

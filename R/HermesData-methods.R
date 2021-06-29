@@ -91,18 +91,6 @@ NULL
 
 # annotation ----
 
-# Column names in rowData(object) that identify the annotation contents.
-.row_data_annotation_cols <- c(
-  "HGNC",
-  "HGNCGeneName",
-  "Chromosome",
-  "StartBP",
-  "EndBP",
-  "WidthBP",
-  "CanonicalTranscript",
-  "ProteinTranscript"
-)
-
 #' Annotation Accessor and Setter
 #'
 #' @description `r lifecycle::badge("stable")`
@@ -115,7 +103,15 @@ NULL
 #' @param object (`AnyHermesData`)\cr object to access the counts from.
 #' @param ... not used.
 #'
-#' @return The [`S4Vectors::DataFrame`] with the gene annotations.
+#' @return The [`S4Vectors::DataFrame`] with the gene annotations:
+#'   - `HGNC`
+#'   - `HGNCGeneName`
+#'   - `Chromosome`
+#'   - `StartBP`
+#'   - `EndBP`
+#'   - `WidthBP`
+#'   - `CanonicalTranscript`
+#'   - `ProteinTranscript`
 #'
 #' @importFrom BiocGenerics annotation
 #' @export
@@ -131,7 +127,26 @@ setMethod(
   }
 )
 
+#' @rdname annotation
+#' @note - The returned column names are available in the exported
+#'   character vector `.row_data_annotation_cols`.
+#' @export
+.row_data_annotation_cols <- c(
+  "HGNC",
+  "HGNCGeneName",
+  "Chromosome",
+  "StartBP",
+  "EndBP",
+  "WidthBP",
+  "CanonicalTranscript",
+  "ProteinTranscript"
+)
+
 #' @param value (`matrix`)\cr what should the counts assay be replaced with.
+#'
+#' @note - When trying to replace the annotation with completely missing values for any genes,
+#'   a warning will be given and the corresponding gene IDs will be saved in the
+#'   attribute `annotation.missing.genes`.
 #'
 #' @importFrom BiocGenerics `annotation<-`
 #' @rdname annotation
@@ -144,6 +159,14 @@ setReplaceMethod(
       identical(rownames(object), rownames(value)),
       setequal(.row_data_annotation_cols, colnames(value))
     )
+    row_is_all_na <- apply(X = value, MARGIN = 1L, FUN = all_na)
+    if (any(row_is_all_na)) {
+      warning(paste(
+        "annotations completely missing for", sum(row_is_all_na), "genes,",
+        "see attribute `annotation.missing.genes` for the corresponding gene IDs"
+      ))
+      attr(object, "annotation.missing.genes") <- names(which(row_is_all_na))
+    }
     rowData(object)[, .row_data_annotation_cols] <- value[, .row_data_annotation_cols]
     validObject(object)
     object
@@ -308,10 +331,7 @@ NULL
 #'
 #' @description `r lifecycle::badge("stable")`
 #'
-#' This filters a [`AnyHermesData`] object using the default QC flags. That is,
-#' only genes without low expression (`LowExpressionFlag`) and samples
-#' without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
-#' remain in the returned filtered object.
+#' This filters a [`AnyHermesData`] object using the default QC flags and required annotations.
 #'
 #' @param object (`AnyHermesData`)\cr object to filter.
 #' @param ... additional arguments.
@@ -320,9 +340,50 @@ NULL
 #' @export
 setGeneric("filter", function(object, ...) standardGeneric("filter"))
 
+#' Predicate for Required Annotations
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function determines for each gene in the object whether all required
+#' annotation columns are filled.
+#'
+#' @param object (`AnyHermesData`)\cr input object.
+#' @param annotation_required (`character`)\cr names of required [`annotation`] columns for genes.
+#'
+#' @return Named logical vector with one value for each gene in `object`, which is `TRUE` if all
+#'   required annotation columns are filled, and otherwise `FALSE`.
+#'
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment)
+#' result <- h_has_req_annotations(object, "WidthBP")
+#' all(result)
+#' rowData(object)$WidthBP[1] <- NA # nolint
+#' which(!h_has_req_annotations(object, "WidthBP"))
+h_has_req_annotations <- function(object,
+                                  annotation_required) {
+  assert_that(
+    is_hermes_data(object),
+    all(annotation_required %in% .row_data_annotation_cols)
+  )
+  annotation_req_cols <- annotation(object)[, annotation_required, drop = FALSE]
+  apply(X = annotation_req_cols, MARGIN = 1L, FUN = noNA)
+}
+
 #' @rdname filter
 #'
+#' @details
+#' - Only genes without low expression (`LowExpressionFlag`) and samples
+#'   without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
+#'   remain in the returned filtered object.
+#' - Also required gene annotation columns can be specified, so that genes which are not complete
+#'   for these columns are filtered out. By default this is the `WidthBP` column, which is needed
+#'   for default normalization of the object.
+#'
 #' @param what (`character`)\cr specify whether to apply the filter on `genes` and / or `samples`.
+#' @param annotation_required (`character`)\cr names of required [`annotation`] columns for genes. Only
+#'   used when `genes` are filtered.
 #'
 #' @note The internal implementation cannot use the [subset()] method since that
 #'   requires non-standard evaluation of arguments.
@@ -341,7 +402,9 @@ setGeneric("filter", function(object, ...) standardGeneric("filter"))
 setMethod(
   f = "filter",
   signature = signature(object = "AnyHermesData"),
-  definition = function(object, what = c("genes", "samples")) {
+  definition = function(object,
+                        what = c("genes", "samples"),
+                        annotation_required = "WidthBP") {
     low_exp <- get_low_expression(object)
     low_depth <- get_low_depth(object)
     tech_fail <- get_tech_failure(object)
@@ -353,7 +416,7 @@ setMethod(
       msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
     )
     rows <- if ("genes" %in% what) {
-      !low_exp
+      !low_exp & h_has_req_annotations(object, annotation_required)
     } else {
       rep_len(TRUE, length(low_exp))
     }
@@ -466,6 +529,7 @@ setGeneric("summary")
 #'   creates a [`HermesDataSummary`] object.
 #'
 #' @param object (`AnyHermesData`)\cr input.
+#' @param ... not used.
 #'
 #' @importFrom S4Vectors classNameForDisplay
 #' @export

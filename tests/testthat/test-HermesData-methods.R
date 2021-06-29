@@ -108,6 +108,28 @@ test_that("annotation setter works as expected", {
   expect_setequal(names(annotation(h1)), names(value))
 })
 
+test_that("annotation setter gives a warning, saves gene IDs in attribute if gene info is missing", {
+  object <- get_se()
+  h1 <- .HermesData(object)
+  # Value where information for one gene is completely missing, only partially missing for the other.
+  value <- S4Vectors::DataFrame(
+    StartBP = c(NA, 10),
+    EndBP = c(NA, NA),
+    WidthBP = c(NA, 1),
+    HGNCGeneName = c(NA, NA),
+    CanonicalTranscript = c(NA, 1),
+    HGNC = c(NA, 1),
+    Chromosome = c(NA, 1),
+    ProteinTranscript = c(NA, 1),
+    row.names = c("GeneID:a", "GeneID:b")
+  )
+  expect_warning(
+    annotation(h1) <- value,
+    "completely missing for 1 genes"
+  )
+  expect_identical(attr(h1, "annotation.missing.genes"), "GeneID:a")
+})
+
 # counts ----
 
 test_that("counts accessor works as expected", {
@@ -169,6 +191,26 @@ test_that("subset function works as expected for HermesData objects", {
   expect_true(all(!result$TechnicalFailureFlag))
 })
 
+# h_has_req_annotations ----
+
+test_that("h_has_req_annotations works as expected", {
+  object <- get_se()
+
+  h1 <- HermesData(object)
+  result1 <- h_has_req_annotations(h1, .row_data_annotation_cols)
+  expected1 <- c("GeneID:a" = TRUE, "GeneID:b" = TRUE)
+  expect_identical(result1, expected1)
+
+  h2 <- h1
+  rowData(h2)$WidthBP[1] <- NA # nolint
+  result2 <- h_has_req_annotations(h2, .row_data_annotation_cols)
+  expected2 <- c("GeneID:a" = FALSE, "GeneID:b" = TRUE)
+  expect_identical(result2, expected2)
+
+  result3 <- h_has_req_annotations(h2, "StartBP")
+  expected3 <- c("GeneID:a" = TRUE, "GeneID:b" = TRUE)
+  expect_identical(result3, expected3)
+})
 
 # filter ----
 
@@ -238,6 +280,16 @@ test_that("filter gives a warning if all genes are filtered out", {
     filter(h),
     "filtering out all genes"
   )
+})
+
+test_that("filter by default correctly filters out genes which don't have required `WidthBP`", {
+  object <- get_se()
+  rowData(object)$LowExpressionFlag <- FALSE # nolint
+  rowData(object)$WidthBP[1] <- NA # nolint
+  h <- HermesData(object)
+  result <- filter(h)
+  expect_identical(genes(result), "GeneID:b")
+  expect_true(noNA(annotation(result)$WidthBP))
 })
 
 # summary ----

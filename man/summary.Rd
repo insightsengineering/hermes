@@ -19,6 +19,8 @@ summary(object, ...)
 \arguments{
 \item{object}{(\code{HermesDataSummary}) \cr result from the summary method applied to
 \code{\link{AnyHermesData}} object.}
+
+\item{...}{not used.}
 }
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}

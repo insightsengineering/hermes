@@ -4,7 +4,7 @@
 
 ### New Features
 * Import RNAseq count data into the `hermes` ready format.
-* Annotate gene information from the central internal database (IGIS).
+* Annotate gene information from the Ensembl database via `biomaRt`.
 * Add quality control (QC) flags to genes and samples.
 * Filter and subset the data set.
 * Normalize the counts.

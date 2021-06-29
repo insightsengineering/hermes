@@ -22,14 +22,16 @@ Depends:
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
+    biomaRt,
     Biobase,
     BiocGenerics,
+    circlize,
+    ComplexHeatmap,
     DESeq2,
     edgeR,
     ggplot2,
     ggplot2.utils (>= 0.1.2),
     ggrepel,
-    igis,
     lifecycle,
     limma,
     magrittr,
@@ -43,6 +45,7 @@ Imports:
     utils,
     utils.nest (>= 0.2.9)
 Suggests:
+    DT,
     knitr,
     test.nest (>= 0.2.9),
     testthat (>= 2.0),

@@ -37,7 +37,7 @@ vignette(topic = "introduction", package = "hermes")
 In this vignette you are going to learn how to:
 
 * Import RNAseq count data into the `hermes` ready format.
-* Annotate gene information automatically from the central database (IGIS).
+* Annotate gene information automatically from a central database (e.g. Biomart).
 * Add quality control (QC) flags to genes and samples.
 * Filter the data set.
 * Normalize the counts.
@@ -130,18 +130,24 @@ cnts[1:3, 1:3]
 `hermes` provides a modular approach for querying gene annotations, in order to 
 allow for future extensions in this or other downstream packages.
 
-Note that in the next release we plan to separate the internal IGIS part from the 
-general annotation framework and open source (`biomaRt` based) part to allow open 
-sourcing of the largest `hermes` parts.
-
 ### Connection to Database
 
-The first step is to connect to a database. Currently, the only option is IGIS.
-The corresponding function takes the common gene ID prefix as argument to internally
-determine which version to use.
+The first step is to connect to a database. In `hermes` the only option is currently Biomart.
+However due to the generic function design, it is simple to extend `hermes` with other data base
+connections.
+
+In order to save time during vignette build, we zoom in here on a subset of the original `object` 
+containing only the first 10 genes.
 
 ```{r}
-connection <- connect_igis(prefix(object))
+small_object <- object[1:10, ]
+```
+
+The corresponding function takes the common gene ID prefix as argument to determine the
+format of the gene IDs and the filter variable to use in the query later on.
+
+```{r}
+connection <- connect_biomart(prefix(small_object))
 ```
 
 Here we are using the `prefix()` method to access the prefix saved in the `HermesData` object.
@@ -151,10 +157,10 @@ Here we are using the `prefix()` method to access the prefix saved in the `Herme
 Then the second step is to query the gene annotations and save them in the object.
 
 ```{r, warning=FALSE}
-annotation(object) <- query(genes(object), connection)
+annotation(small_object) <- query(genes(small_object), connection)
 ```
 
-Here we are using the `genes()` method to access the gene IDs (row names) of the `HermesData` object. Note that actual usage might give warnings from the `igis` package here, which we will work on fixing soon (outside of NEST).
+Here we are using the `genes()` method to access the gene IDs (row names) of the `HermesData` object. Note that not all genes might be found in the data base and the corresponding rows would then be `NA` in the annotations.
 
 ## Quality Control Flags
 

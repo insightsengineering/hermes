@@ -7,7 +7,7 @@
 \usage{
 filter(object, ...)
 
-\S4method{filter}{AnyHermesData}(object, what = c("genes", "samples"))
+\S4method{filter}{AnyHermesData}(object, what = c("genes", "samples"), annotation_required = "WidthBP")
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr object to filter.}
@@ -15,6 +15,9 @@ filter(object, ...)
 \item{...}{additional arguments.}
 
 \item{what}{(\code{character})\cr specify whether to apply the filter on \code{genes} and / or \code{samples}.}
+
+\item{annotation_required}{(\code{character})\cr names of required \code{\link{annotation}} columns for genes. Only
+used when \code{genes} are filtered.}
 }
 \value{
 The filtered \code{\link{AnyHermesData}} object.
@@ -22,10 +25,17 @@ The filtered \code{\link{AnyHermesData}} object.
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
-This filters a \code{\link{AnyHermesData}} object using the default QC flags. That is,
-only genes without low expression (\code{LowExpressionFlag}) and samples
+This filters a \code{\link{AnyHermesData}} object using the default QC flags and required annotations.
+}
+\details{
+\itemize{
+\item Only genes without low expression (\code{LowExpressionFlag}) and samples
 without low depth (\code{LowDepthFlag}) or technical failure (\code{TechnicalFailureFlag})
 remain in the returned filtered object.
+\item Also required gene annotation columns can be specified, so that genes which are not complete
+for these columns are filtered out. By default this is the \code{WidthBP} column, which is needed
+for default normalization of the object.
+}
 }
 \note{
 The internal implementation cannot use the \code{\link[=subset]{subset()}} method since that

@@ -2,32 +2,48 @@
 % Please edit documentation in R/connections.R
 \name{query}
 \alias{query}
-\alias{query,character,Igis-method}
+\alias{query,character,ConnectionBiomart-method}
 \title{Query Gene Annotations from a Connection}
 \usage{
 query(genes, connection)
 
-\S4method{query}{character,Igis}(genes, connection)
+\S4method{query}{character,ConnectionBiomart}(genes, connection)
 }
 \arguments{
 \item{genes}{(\code{character})\cr gene IDs.}
 
-\item{connection}{(\code{Igis} or other connection class)\cr data base connection object.}
+\item{connection}{(connection class)\cr data base connection object.}
 }
 \value{
-A \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene annotations.
+A \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene annotations. It is required that:
+\itemize{
+\item The \code{rownames} are identical to the input \code{genes}.
+\item The \code{colnames} are equal to the annotation columns, see \code{\link{annotation}}.
+\item Therefore, missing information needs to be properly included with \code{NA} entries.
+}
 }
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 This generic function is the interface for querying gene annotations from
-a data base connection. Currently only the IGIS version is implemented.
+a data base connection.
+}
+\details{
+\itemize{
+\item A method is provided for the \code{\link{ConnectionBiomart}} class. However, the framework
+is extensible: It is simple to add new connections and corresponding query methods
+for other data bases, e.g. company internal data bases. Please make sure to
+follow the required format of the returned value.
+\item The Biomart queries might not return information for all the genes. This can be
+due to different versions being used in the gene IDs and the queries Ensembl data base.
+}
 }
 \examples{
 \dontrun{
 object <- HermesData(summarized_experiment)
-connection <- connect_igis(prefix(object))
+connection <- connect_biomart(prefix(object))
 result <- query(genes(object), connection)
 head(result)
+head(annotation(object))
 }
 }
