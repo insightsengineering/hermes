@@ -287,9 +287,10 @@ setMethod(
       )
     ) +
       geom_point() +
-      ggrepel::geom_text_repel(na.rm = TRUE) +
+      ggrepel::geom_text_repel(na.rm = TRUE, show.legend = FALSE) +
       xlab("log2 fold change") +
       ylab("-log10 adjusted p-value") +
+      labs(color = "Difference") +
       geom_vline(xintercept = c(- 1, 1) * log2_fc_thresh, col = "black") +
       geom_hline(yintercept = - log10(adj_p_val_thresh), col = "black")
   }
