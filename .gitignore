@@ -23,7 +23,6 @@
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
-vignettes/*.png
 vignettes/*.R
 design/*.html
 

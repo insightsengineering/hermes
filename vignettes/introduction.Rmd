@@ -21,8 +21,10 @@ knitr::opts_chunk$set(
 
 ## Acknowledgments
 
-`hermes` is a successor of the [`rnaseqTools`](https://pages.github.roche.com/Rpackages/rnaseqTools/) R package, and therefore many code pieces and ideas have been borrowed from it. We therefore would like to thank the `rnaseqTools` authors for their work. In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of `hermes`. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from [`biokitr`](https://pages.github.roche.com/BEDA/biokitr/) and discussed with its maintainer Daniel Marbach.
+`hermes` is a successor of the Roche internal `rnaseqTools` R package, and therefore many code ideas have been borrowed from it. We therefore would like to thank the `rnaseqTools` authors for their work. In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of `hermes`. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal `biokitr` R package and discussed with its maintainer Daniel Marbach.
+
 Finally, as with any NEST product, `hermes` is only possible because of the whole NEST project team's work, and we are grateful for the larger team's support.
+
 Thanks a lot to everyone involved!
 
 ## Introduction
@@ -156,7 +158,7 @@ Here we are using the `prefix()` method to access the prefix saved in the `Herme
 
 Then the second step is to query the gene annotations and save them in the object.
 
-```{r, warning=FALSE}
+```{r, eval=FALSE}
 annotation(small_object) <- query(genes(small_object), connection)
 ```
 
@@ -339,10 +341,11 @@ In order to quickly obtain a quality control report for a new RNAseq data set, y
 
 1. Save your input `SummarizedExperiment` using R's `save()` function in a binary data file (e.g. ending with `.rda` suffix).
 1. Load the `hermes` package in RStudio and click on: `File` > `New File` > `R Markdown` > `From Template` and select the QC report template from `hermes`.
+![Rmd_template_selection](rmd_template_selection.png){width=4in}
 1. Fill in the few parameters in the yaml header, including the required file paths for the input file from above, and where the resulting `HermesData` object should be saved.
 1. Knit the document.
 
-The report contains above descriptive plots and PCA analyses and can be a useful starting point for your analysis.
+The report contains the above mentioned descriptive plots and PCA analyses and can be a useful starting point for your analysis.
 
 ## Differential Expression Analysis
 
