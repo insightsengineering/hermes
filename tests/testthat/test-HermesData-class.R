@@ -2,7 +2,7 @@
 
 test_that("HermesData objects can be created with default constructor .HermesData", {
   object <- get_se()
-  result <- expect_silent(.HermesData(object))
+  result <- expect_silent(.HermesData(object, prefix = "GeneID"))
   expect_is(result, "HermesData")
   expect_true(validObject(result))
 })
@@ -14,11 +14,16 @@ test_that("HermesData validation fails as expected", {
   expect_error(.HermesData(object), "required columns .+ not present")
 })
 
+test_that("HermesData prefix slot can not be assigned numeric", {
+  object <- HermesData(summarized_experiment)
+  expect_error(object@prefix <- 124)
+})
+
 # .RangedHermesData ----
 
 test_that("RangedHermesData objects can be created with default constructor .RangedHermesData", {
   object <- get_rse()
-  result <- expect_silent(.RangedHermesData(object))
+  result <- expect_silent(.RangedHermesData(object, prefix = "ENSG"))
   expect_is(result, "RangedHermesData")
   expect_true(validObject(result))
 })

@@ -7,6 +7,7 @@
 \alias{validate_row_data}
 \alias{validate_col_data}
 \alias{validate_names}
+\alias{validate_prefix}
 \title{Internal Helper Functions for Validation of \code{AnyHermesData} Objects}
 \usage{
 validate_counts(object)
@@ -18,6 +19,8 @@ validate_row_data(object)
 validate_col_data(object)
 
 validate_names(object)
+
+validate_prefix(object)
 }
 \arguments{
 \item{object}{(\code{SummarizedExperiment})\cr object to validate.}
@@ -50,5 +53,8 @@ required columns.
 required columns.
 
 \item \code{validate_names}: validates that the object contains row and column names.
+
+\item \code{validate_prefix}: validates that the object prefix is a string
+without whitespace, special characters or digits.
 }}
 

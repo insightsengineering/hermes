@@ -86,6 +86,7 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
   msg <- c(msg, validate_row_data(object))
   msg <- c(msg, validate_col_data(object))
   msg <- c(msg, validate_names(object))
+  msg <- c(msg, validate_prefix(object))
 
   if (is.null(msg)) TRUE else msg
 })

@@ -183,3 +183,29 @@ test_that("validate_names returns messages as expected for invalid object", {
     "'object' must have unique colnames"
   )
 })
+
+# validate_prefix  ----
+
+test_that("validate_prefix returns NULL for a valid object", {
+  object <- HermesData(summarized_experiment)
+  expect_null(validate_prefix(object))
+})
+
+test_that("validate_prefix returns messages as expected for wrong prefix with whitespace", {
+  object <- HermesData(summarized_experiment)
+  object@prefix <- "Gene ID"
+  result <- validate_prefix(object)
+  expected <- c(
+    "'prefix' can only consist of alphabetic characters",
+    "'prefix' does not match at least one gene ID"
+  )
+  expect_identical(result, expected)
+})
+
+test_that("validate_prefix returns correct message when prefix has two elements", {
+  object <- HermesData(summarized_experiment)
+  object@prefix <- c("GeneID", "ENSGID")
+  result <- expect_silent(validate_prefix(object))
+  expected <- "'prefix' must be string"
+  expect_identical(result, expected)
+})

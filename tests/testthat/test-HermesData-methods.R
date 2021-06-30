@@ -2,9 +2,9 @@
 
 test_that("rbind function works as expected for HermesData objects", {
   object <- get_se()
-  h1 <- .HermesData(object[1])
-  h2 <- .HermesData(object[2])
-  h3 <- .HermesData(object)
+  h1 <- HermesData(object[1])
+  h2 <- HermesData(object[2])
+  h3 <- HermesData(object)
   result <- expect_silent(rbind(h1, h2))
   expect_is(result, "HermesData")
   expect_equal(dim(result), dim(h3))
@@ -15,7 +15,7 @@ test_that("rbind function works as expected for HermesData objects", {
 test_that("rbind function works as expected when binding SummarizedExperiment with HermesData", {
   object <- get_se()
   se <- object[1]
-  h1 <- .HermesData(object[2])
+  h1 <- HermesData(object[2])
   result1 <- expect_silent(rbind(se, h1))
   expect_is(result1, "SummarizedExperiment")
   result2 <- expect_silent(rbind(h1, se))
@@ -23,7 +23,7 @@ test_that("rbind function works as expected when binding SummarizedExperiment wi
 })
 
 test_that("rbind function fails as expected when rbind results in duplicated rownames", {
-  object <- .HermesData(summarized_experiment)
+  object <- HermesData(summarized_experiment)
   expect_error(rbind(object, object))
 })
 
@@ -31,9 +31,9 @@ test_that("rbind function fails as expected when rbind results in duplicated row
 
 test_that("cbind function works as expected for HermesData objects", {
   object <- get_se()
-  h1 <- .HermesData(object[, 1])
-  h2 <- .HermesData(object[, 2])
-  h3 <- .HermesData(object)
+  h1 <- HermesData(object[, 1])
+  h2 <- HermesData(object[, 2])
+  h3 <- HermesData(object)
   result <- expect_silent(cbind(h1, h2))
   expect_is(result, "HermesData")
   expect_equal(dim(result), dim(h3))
@@ -44,7 +44,7 @@ test_that("cbind function works as expected for HermesData objects", {
 test_that("cbind function works as expected when binding SummarizedExperiment with HermesData", {
   object <- get_se()
   se <- object[, 1]
-  h1 <- .HermesData(object[, 2])
+  h1 <- HermesData(object[, 2])
   result1 <- expect_silent(cbind(se, h1))
   expect_is(result1, "SummarizedExperiment")
   result2 <- expect_silent(cbind(h1, se))
@@ -52,7 +52,7 @@ test_that("cbind function works as expected when binding SummarizedExperiment wi
 })
 
 test_that("rbind function fails as expected when rbind results in duplicated colnames", {
-  object <- .HermesData(summarized_experiment)
+  object <- HermesData(summarized_experiment)
   expect_error(cbind(object, object))
 })
 
@@ -60,7 +60,7 @@ test_that("rbind function fails as expected when rbind results in duplicated col
 
 test_that("metadata accessor works as expected", {
   object <- get_se()
-  h1 <- .HermesData(object)
+  h1 <- HermesData(object)
   result <- expect_silent(metadata(h1))
   expected <- list(
     filename = "bla.txt",
@@ -71,7 +71,7 @@ test_that("metadata accessor works as expected", {
 
 test_that("metadata setter works as expected", {
   object <- get_se()
-  h1 <- .HermesData(object)
+  h1 <- HermesData(object)
   value <- list(a = "foo")
   expect_silent(metadata(h1) <- value)
   expect_identical(metadata(h1), value)
@@ -81,7 +81,7 @@ test_that("metadata setter works as expected", {
 
 test_that("annotation accessor works as expected", {
   object <- get_se()
-  h1 <- .HermesData(object)
+  h1 <- HermesData(object)
   result <- expect_silent(annotation(h1))
   expect_s4_class(result, "DataFrame")
   expect_named(result, .row_data_annotation_cols)
@@ -90,7 +90,7 @@ test_that("annotation accessor works as expected", {
 
 test_that("annotation setter works as expected", {
   object <- get_se()
-  h1 <- .HermesData(object)
+  h1 <- HermesData(object)
   value <- S4Vectors::DataFrame(
     StartBP = c(0, 10),
     EndBP = c(11, 12),
@@ -134,7 +134,7 @@ test_that("annotation setter gives a warning, saves gene IDs in attribute if gen
 
 test_that("counts accessor works as expected", {
   object <- get_se()
-  h1 <- .HermesData(object)
+  h1 <- HermesData(object)
   result <- expect_silent(counts(h1))
   expect_is(result, "matrix")
   expect_identical(dim(result), dim(h1))
@@ -142,7 +142,7 @@ test_that("counts accessor works as expected", {
 
 test_that("counts setter works as expected", {
   object <- get_se()
-  h1 <- .HermesData(object)
+  h1 <- HermesData(object)
   value <- matrix(0L, nrow = nrow(h1), ncol = ncol(h1))
   expect_silent(counts(h1) <- value)
   expect_equivalent(counts(h1), value)
@@ -178,7 +178,7 @@ test_that("samples accessor works as expected", {
 # subset ----
 
 test_that("subset function works as expected for HermesData objects", {
-  h <- .HermesData(get_se())
+  h <- HermesData(get_se())
   result <- expect_silent(subset(
     h,
     subset = LowExpressionFlag,

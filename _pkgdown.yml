@@ -33,6 +33,7 @@ reference:
       - validate_row_data
       - validate_col_data
       - validate_names
+      - validate_prefix
       - h_rpkm
       - h_cpm
       - h_tpm

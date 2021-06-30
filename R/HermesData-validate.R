@@ -101,5 +101,26 @@ validate_names <- function(object) {
   if (any(duplicated(colnames(object)))) {
     msg <- c(msg, "'object' must have unique colnames")
   }
+
+  msg
+}
+
+#' @describeIn validate validates that the object prefix is a string
+#' without whitespace, special characters or digits.
+validate_prefix <- function(object) {
+  prefix <- object@prefix
+  msg <- NULL
+
+  if (!is.string(prefix)) {
+    msg <- c(msg, "'prefix' must be string")
+  } else {
+    if (grepl("[^[:alpha:]]", prefix)) {
+      msg <- c(msg, "'prefix' can only consist of alphabetic characters")
+    }
+    gene_ids <- rownames(object)
+    if (!all(grepl(paste0("^", prefix), gene_ids))) {
+      msg <- c(msg, "'prefix' does not match at least one gene ID")
+    }
+  }
   msg
 }
