@@ -1,11 +1,8 @@
 ---
 title: "`r params$title`"
 author: "`r params$author`"
-date: "`r format(Sys.time(), "%d %B %Y")`"
+date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
   html_document:
     self_contained: yes
     code_folding: hide
@@ -28,11 +25,10 @@ params:
     - Firstname Lastname (Department)
     - Firstname Lastname (Department)
     input: text
-  input_data_file:
-    label: '[REQUIRED] Path to binary file with input `SummarizedExperiment` produced
-      with `save(...)`'
-    value: /home/rstudio/NEST/hermes/data/summarized_experiment.rda
-    input: file
+  input_summarized_experiment:
+    label: '[REQUIRED] Name of the `SummarizedExperiment` object to use as input'
+    value: summarized_experiment
+    input: text
   output_data_file:
     label: '[REQUIRED] Path to binary file where filtered and normalized `HermesData`
       object should be saved'
@@ -112,7 +108,7 @@ library(hermes)
 ```{r}
 # Load Data and get object HermesData 
 obj_name <- load(params$input_data_file)
-se <- get(obj_name)
+se <- get(params$input_summarized_experiment)
 stopifnot(is(se, "SummarizedExperiment"))
 
 # Section 1 - Pre Filtering, with added QC flags
@@ -151,7 +147,7 @@ sessionInfo()
 
 # Dataset Summary
 
-The dataset used is "`r obj_name`" saved in file `r params$input_data_object`.
+The dataset used is "`r params$input_summarized_experiment`".
 The data set was composed of <b>`r ncol(object_original)`</b> samples and <b>`r nrow(object_original)`</b> genes. 
 
 ## Technical Metrics {.tabset}
@@ -192,7 +188,8 @@ There are many ways to filter out genes with lower counts. When there are n biol
 This barplot shows the chromosomes with their proportions of low expression genes.
 
 ```{r, include = params$show_output}
-draw_genes_barplot(object_original)
+draw_genes_barplot(object_original) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 ```
 
 ### Genes with extremely high counts
@@ -251,7 +248,11 @@ object_cor <- hermes::correlate(object_original, method = params$cor_method)
 ```
 
 ```{r, include = params$show_output}
-autoplot(object_cor)
+autoplot(
+  object_cor,
+  row_names_gp = grid::gpar(fontsize = 8), 
+  column_names_gp = grid::gpar(fontsize = 8)
+)
 ```
 
 ### Boxplot of non-zero genes per sample
@@ -320,6 +321,7 @@ object_pca <- calc_pca(object_filtered_normalized, assay_name = "counts")
 autoplot(
   object_pca, 
   label = TRUE,
+  label.repel = TRUE,
   data = as.data.frame(colData(object_filtered_normalized)),
   colour = params$pca_batch_var
 )
@@ -338,6 +340,7 @@ object_norm_pca <- calc_pca(
 autoplot(
   object_norm_pca, 
   label = TRUE,
+  label.repel = TRUE,
   data = as.data.frame(colData(object_filtered_normalized)),
   colour = params$pca_batch_var
 )
