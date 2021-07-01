@@ -2,7 +2,7 @@
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Creates a connection object of class [`ConnectionBiomart`] which contains
+#' `connect_biomart()` creates a connection object of class [`ConnectionBiomart`] which contains
 #' the `biomaRt` object of class [`biomaRt::Mart`][biomaRt::Mart-class] and the prefix of the object
 #' which is used downstream for the query.
 #'
@@ -44,8 +44,9 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
 #' Helper function to query annotations from `biomaRt`, for cleaned up gene IDs of
 #' a specific ID variable and given [`biomaRt::Mart`][biomaRt::Mart-class].
 #'
-#' @param gene_ids (`character`)\cr gene IDs.
-#' @param id_var (`string`)\cr gene ID variable, e.g. `entrezgene_id`.
+#' @param gene_ids (`character`)\cr gene IDs, e.g. `10329`.
+#' @param id_var (`string`)\cr corresponding gene ID variable name in Biomart,
+#'   e.g. `entrezgene_id`.
 #' @param mart (`Mart`)\cr given [`biomaRt::Mart`][biomaRt::Mart-class] object.
 #'
 #' @return A data frame with columns:
@@ -110,7 +111,7 @@ h_get_annotation_biomart <- function(gene_ids,
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This generic function is the interface for querying gene annotations from
+#' The generic function `query()` is the interface for querying gene annotations from
 #' a data base connection.
 #'
 #' @details
@@ -119,15 +120,16 @@ h_get_annotation_biomart <- function(gene_ids,
 #'   for other data bases, e.g. company internal data bases. Please make sure to
 #'   follow the required format of the returned value.
 #' - The Biomart queries might not return information for all the genes. This can be
-#'   due to different versions being used in the gene IDs and the queries Ensembl data base.
+#'   due to different versions being used in the gene IDs and the queried Ensembl data base.
 #'
 #' @param genes (`character`)\cr gene IDs.
 #' @param connection (connection class)\cr data base connection object.
 #'
 #' @return A [`S4Vectors::DataFrame`] with the gene annotations. It is required that:
 #'   - The `rownames` are identical to the input `genes`.
-#'   - The `colnames` are equal to the annotation columns, see [`annotation`].
-#'   - Therefore, missing information needs to be properly included with `NA` entries.
+#'   - The `colnames` are equal to the annotation columns [`.row_data_annotation_cols`].
+#'   - Therefore, missing information needs to be properly included in the `DataFrame`
+#'     with `NA` entries.
 #'
 #' @export
 setGeneric(

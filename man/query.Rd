@@ -18,14 +18,15 @@ query(genes, connection)
 A \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene annotations. It is required that:
 \itemize{
 \item The \code{rownames} are identical to the input \code{genes}.
-\item The \code{colnames} are equal to the annotation columns, see \code{\link{annotation}}.
-\item Therefore, missing information needs to be properly included with \code{NA} entries.
+\item The \code{colnames} are equal to the annotation columns \code{\link{.row_data_annotation_cols}}.
+\item Therefore, missing information needs to be properly included in the \code{DataFrame}
+with \code{NA} entries.
 }
 }
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
-This generic function is the interface for querying gene annotations from
+The generic function \code{query()} is the interface for querying gene annotations from
 a data base connection.
 }
 \details{
@@ -35,7 +36,7 @@ is extensible: It is simple to add new connections and corresponding query metho
 for other data bases, e.g. company internal data bases. Please make sure to
 follow the required format of the returned value.
 \item The Biomart queries might not return information for all the genes. This can be
-due to different versions being used in the gene IDs and the queries Ensembl data base.
+due to different versions being used in the gene IDs and the queried Ensembl data base.
 }
 }
 \examples{

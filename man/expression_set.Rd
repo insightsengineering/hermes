@@ -21,7 +21,11 @@ This example data can be used to try out conversion of a \code{\link[Biobase:cla
 object into a \code{\link{HermesData}} object.
 }
 \seealso{
-summarized_experiment which contains similar data as
+\itemize{
+\item \code{\link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()}} to convert into a
 \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}.
+\item \code{\link{summarized_experiment}} which contains similar data already as a
+\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}.
+}
 }
 \keyword{datasets}

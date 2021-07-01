@@ -27,9 +27,15 @@ for given counts in a \link{AnyHermesData} object and a corresponding \code{desi
 }
 \examples{
 object <- HermesData(summarized_experiment)
+
+# Create the design matrix corresponding to the factor of interest.
 design <- model.matrix(~SEX, colData(object))
+
+# Then perform the differential expression analysis.
 result <- h_diff_expr_voom(object, design)
 head(result)
+
+# Sometimes we might want to specify method details.
 result2 <- h_diff_expr_voom(object, design, trend = TRUE, robust = TRUE)
 head(result2)
 }

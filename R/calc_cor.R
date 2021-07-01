@@ -5,16 +5,19 @@ NULL
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This calculates the correlation matrix between the sample vectors of counts from
-#' a specified assay, as a [`HermesDataCor`] object which is an extension of a [`matrix`] with
-#' additional quality flags in the slot `flag_data`: This contains the
-#' `TechnicalFailureFlag` and `LowDepthFlag` columns describing the original input samples.
+#' The `correlate()` method can calculate the correlation matrix between the sample vectors of
+#' counts from a specified assay. This produces a [`HermesDataCor`] object, which is an extension
+#' of a [`matrix`] with additional quality flags in the slot `flag_data`
+#' (containing the `TechnicalFailureFlag` and `LowDepthFlag` columns describing the original
+#' input samples).
+#'
+#' An `autoplot()` method then afterwards can produce the corresponding heatmap.
 #'
 #' @rdname calc_cor
 #' @aliases calc_cor
 #'
 #' @param object (`AnyHermesData`)\cr object to calculate the correlation.
-#' @param assay_name (`string`)\cr the assay name where the counts are located in.
+#' @param assay_name (`string`)\cr the name of the assay to use.
 #' @param method (`string`)\cr the correlation method, see [stats::cor()] for details.
 #'
 #' @return A [`HermesDataCor`] object.
@@ -25,8 +28,12 @@ NULL
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
+#'
+#' # Calculate the sample correlation matrix.
 #' correlate(object)
-#' result <- correlate(object, method = "pearson")
+#'
+#' # We can specify another correlation coefficient to be calculated.
+#' result <- correlate(object, method = "spearman")
 setMethod(
   f = "correlate",
   signature = "AnyHermesData",
@@ -55,7 +62,7 @@ setMethod(
   slots = c(flag_data = "DataFrame")
 )
 
-#' @describeIn calc_cor This plot method uses the [ComplexHeatmap::Heatmap()] function
+#' @describeIn calc_cor This `autoplot()` method uses the [ComplexHeatmap::Heatmap()] function
 #'   to plot the correlations between samples saved in a [`HermesDataCor`] object.
 #'
 #' @param flag_colors (named `character`)\cr a vector that specifies the colors for `TRUE` and `FALSE`
@@ -69,8 +76,19 @@ setMethod(
 #' @export
 #'
 #' @examples
+#'
+#' # Plot the correlation matrix.
 #' autoplot(result)
+#'
+#' # We can customize the heatmap.
 #' autoplot(result, show_column_names = FALSE, show_row_names = FALSE)
+#'
+#' # Including changing the axis label text size.
+#' autoplot(
+#'   result,
+#'   row_names_gp = grid::gpar(fontsize = 8),
+#'   column_names_gp = grid::gpar(fontsize = 8)
+#' )
 setMethod(
   f = "autoplot",
   signature = c(object = "HermesDataCor"),

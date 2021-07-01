@@ -34,18 +34,20 @@ to flag up- or down-regulation of transcription.}
 A \code{\link{HermesDataDiffExpr}} object which is a data frame with the following columns for each gene
 in the \code{\link{HermesData}} object:
 \itemize{
-\item \code{log2_fc} (estimate of the log2 fold change between the 2 levels of the
+\item \code{log2_fc} (the estimate of the log2 fold change between the 2 levels of the
 provided factor)
 \item \code{stat} (the test statistic, which one depends on the method used)
-\item \code{p_val} (the raw p-value),
-\item \code{adj_p_val} (the adjusted p-value) values from differential expression analysis for each feature / gene .
+\item \code{p_val} (the raw p-value)
+\item \code{adj_p_val} (the multiplicity adjusted p-value value)
 }
 }
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
-This function performs differential expression analysis
+The \code{diff_expression()} function performs differential expression analysis
 using a method of preference.
+
+A corresponding \code{autoplot()} method is visualizing the results as a volcano plot.
 }
 \details{
 Possible method choices are:
@@ -81,13 +83,13 @@ head(res1)
 res2 <- diff_expression(object, group = "SEX", method = "deseq2")
 head(res2)
 
-# Passing method arguments to the internally used helper functions.
+# Pass method arguments to the internally used helper functions.
 res3 <- diff_expression(object, group = "SEX", method = "voom", robust = TRUE, trend = TRUE)
 head(res3)
 res4 <- diff_expression(object, group = "SEX", method = "deseq2", fitType = "local")
 head(res4)
 
-# Creating the corresponding volcano plots.
+# Create the corresponding volcano plots.
 autoplot(res1)
 autoplot(res3)
 }

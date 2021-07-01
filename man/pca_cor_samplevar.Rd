@@ -36,8 +36,10 @@ A \code{\link{HermesDataPcaCor}} object with R2 values for all sample variables.
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
-This method analyses the correlations (in R2 values) between all sample variables
-in \link{AnyHermesData} object and the principal components of the samples.
+This \code{correlate()} method analyses the correlations (in R2 values) between all sample variables
+in a \code{\link{AnyHermesData}} object and the principal components of the samples.
+
+A corresponding \code{autoplot()} method then can visualize the results in a heatmap.
 }
 \section{Functions}{
 \itemize{
@@ -50,10 +52,17 @@ object <- HermesData(summarized_experiment) \%>\%
   add_quality_flags() \%>\%
   filter() \%>\%
   normalize()
+
+# Perform PCA and then correlate the prinicipal components with the sample variables.
 object_pca <- calc_pca(object)
 result <- correlate(object_pca, object)
+
+# Visualize the correlations in a heatmap.
 autoplot(result)
 
 # We can also choose to not reorder the columns.
 autoplot(result, cluster_columns = FALSE)
+}
+\seealso{
+\code{\link[=h_pca_df_r2_matrix]{h_pca_df_r2_matrix()}} which is used internally for the details.
 }

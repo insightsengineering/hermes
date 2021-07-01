@@ -5,9 +5,12 @@
 \alias{multi_assay_experiment}
 \title{Example \code{MultiAssayExperiment} Data}
 \format{
-A \code{\link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment}} object with 3 separate SE objects. The first SE object
-contains 5 samples and covers 1000 features (Entrez gene IDs). The second SE object contains 9 samples with
-2500 features. The third SE object contains 6 samples with 1300 features.
+A \code{\link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment}} object with 3 separate SE objects.
+\itemize{
+\item The first SE object contains 5 samples and covers 1000 features (Entrez gene IDs).
+\item The second SE object contains 9 samples with 2500 features.
+\item The third SE object contains 6 samples with 1300 features.
+}
 }
 \source{
 This is an artificial dataset designed to resemble real data.

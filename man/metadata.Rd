@@ -5,6 +5,8 @@
 \title{Metadata Accessor and Setter}
 \arguments{
 \item{x}{(\code{AnyHermesData})\cr object to access the metadata from.}
+
+\item{value}{(\code{list})\cr the list to replace the current metadata with.}
 }
 \value{
 The metadata which is a list.

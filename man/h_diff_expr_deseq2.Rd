@@ -26,9 +26,15 @@ This helper functions performs the differential expression analysis with
 }
 \examples{
 object <- HermesData(summarized_experiment)
+
+# Create the design matrix corresponding to the factor of interest.
 design <- model.matrix(~SEX, colData(object))
+
+# Then perform the `DESeq2` differential expression analysis.
 result <- h_diff_expr_deseq2(object, design)
 head(result)
+
+# Change of the `fitType` can be required in some cases.
 result2 <- h_diff_expr_deseq2(object, design, fitType = "local")
 head(result2)
 }

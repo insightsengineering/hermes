@@ -29,8 +29,8 @@ top_genes(
 
 \item{assay_name}{(\code{string})\cr name of the assay to use for the sorting of genes.}
 
-\item{summary_fun}{(\code{function})\cr summary statistics function to apply to the assay resulting in
-a numeric vector with one value per gene.}
+\item{summary_fun}{(\code{function})\cr summary statistics function to apply across the samples in
+the assay resulting in a numeric vector with one value per gene.}
 
 \item{n_top}{(\code{count} or \code{NULL})\cr selection criteria based on number of entries.}
 
@@ -49,12 +49,14 @@ A \link{HermesDataTopGenes} object.
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
-This creates a \code{\link{HermesDataTopGenes}} object, which extends \code{\link{data.frame}}. It
+\code{top_genes()} creates a \code{\link{HermesDataTopGenes}} object, which extends \code{\link{data.frame}}. It
 contains two columns:
 \itemize{
 \item \code{expression}: containing the statistic values calculated by \code{summary_fun} across columns.
 \item \code{name}: the gene names.
 }
+
+The corresponding \code{autoplot()} method then visualizes the result as a barplot.
 }
 \details{
 \itemize{
@@ -73,9 +75,18 @@ on the x-axis.
 
 \examples{
 object <- HermesData(summarized_experiment)
+
+# Default uses average of raw counts across samples to rank genes.
 top_genes(object)
+
+# Instead of showing top 10 genes, can also set a minimum threshold on average counts.
 top_genes(object, n_top = NULL, min_threshold = 50000)
+
+# We can also use the maximum of raw counts across samples, by specifying a different
+# summary statistics function.
 result <- top_genes(object, summary_fun = rowMax)
+
+# Finally we can produce barplots based on the results.
 autoplot(result, title = "My top genes")
 autoplot(result, y_lab = "Counts", title = "My top genes")
 }

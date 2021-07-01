@@ -5,6 +5,12 @@
 \title{Subsetting \code{AnyHermesData} Objects}
 \arguments{
 \item{x}{(\code{AnyHermesData})\cr object to subset from.}
+
+\item{subset}{(\code{expression})\cr logical expression based on the \code{rowData} columns to
+select genes.}
+
+\item{select}{(\code{expression})\cr logical expression based on the \code{colData} columns to
+select samples.}
 }
 \value{
 The subsetted \code{\link{AnyHermesData}} object.
@@ -22,5 +28,13 @@ Note that this just inherits
 \examples{
 a <- HermesData(summarized_experiment)
 a
+
+# Subset both genes and samples.
 subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
+
+# Subset only genes.
+subset(a, subset = Chromosome == "2")
+
+# Subset only samples.
+subset(a, select = AGE > 18)
 }

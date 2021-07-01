@@ -5,14 +5,14 @@
 #' This control function allows for easy customization of the normalization settings.
 #'
 #' @param log (`flag`)\cr whether `log2` values are returned, otherwise original scale is used.
-#' @param lib_sizes (`numeric`)\cr library sizes, the default is the vector with the sum of the
-#'   counts for each of the samples.
-#' @param prior_count (`count`)\cr average count to be added to each observation to avoid
-#'   taking log of zero, used only when `log = TRUE`.
+#' @param lib_sizes (`NULL` or `counts`)\cr library sizes, if `NULL` the vector with the sum of the
+#'   counts for each of the samples will be used.
+#' @param prior_count (non-negative `number`)\cr average count to be added to each observation to
+#'   avoid taking log of zero, used only when `log = TRUE`.
 #'
 #' @return List with the above settings used to perform the normalization procedure.
 #'
-#' @note To be used with the `normalize()` function.
+#' @note To be used with the [normalize()] function.
 #'
 #' @export
 #' @examples
@@ -33,149 +33,17 @@ control_normalize <- function(log = TRUE,
   )
 }
 
-#' Counts per Million (CPM) Normalization
-#'
-#' @description `r lifecycle::badge("stable")`
-#'
-#' This helper function calculates the CPM normalized counts.
-#'
-#' @param object (`HermesData`) \cr input.
-#' @param control (`list`) \cr list of settings used to perform the normalization procedure.
-#' @return A numeric matrix with normalized counts using the CPM method.
-#'
-#' @export
-#' @importFrom edgeR cpm
-#' @examples
-#' h <- HermesData(summarized_experiment)
-#' cont <- control_normalize()
-#' counts_cpm <- h_cpm(h, cont)
-#' str(counts_cpm)
-h_cpm <- function(object,
-                  control = control_normalize()) {
-  assert_that(
-    is_hermes_data(object),
-    is_list_with(control, c("lib_sizes", "log", "prior_count"))
-  )
-  edgeR::cpm(
-    y = counts(object),
-    lib.size = control$lib_sizes,
-    log = control$log,
-    prior.count = control$prior_count
-  )
-}
-
-#' Reads per Kilobase per Million (RPKM) Normalization
-#'
-#' @description `r lifecycle::badge("stable")`
-#'
-#' This helper function calculates the RPKM normalized counts.
-#'
-#' @param object (`AnyHermesData`)\cr input object.
-#' @param control (`list`)\cr list of settings used to perform the normalization procedure.
-#' @return A numeric matrix with normalized counts using the RPKM method.
-#'
-#' @note To be used with the `normalize()` function.
-#'
-#' @export
-#' @importFrom edgeR rpkm
-#' @examples
-#' h <- HermesData(summarized_experiment)
-#' cont <- control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
-#' counts_rpkm <- h_rpkm(h, cont)
-#' str(counts_rpkm)
-h_rpkm <- function(object,
-                   control = control_normalize()) {
-  assert_that(
-    is_hermes_data(object),
-    is_list_with(control, c("lib_sizes", "log", "prior_count")),
-    noNA(rowData(object)$WidthBP)
-  )
-  edgeR::rpkm(
-    y = counts(object),
-    gene.length = rowData(object)$WidthBP,
-    lib.size = control$lib_sizes,
-    log = control$log,
-    prior.count = control$prior_count
-  )
-}
-
-#' Transcripts per Million (TPM) Normalization
-#'
-#' @description `r lifecycle::badge("stable")`
-#'
-#' This helper function calculates the TPM normalized counts.
-#'
-#' @param object (`HermesData`)\cr input.
-#' @param control (`list`)\cr list of settings used to perform the normalization procedure.
-#' @return A numeric matrix with normalized counts using the TPM method.
-#'
-#' @export
-#' @examples
-#' h <- HermesData(summarized_experiment)
-#' cont <- control_normalize()
-#' counts_tpm <- h_tpm(h, cont)
-#' str(counts_tpm)
-h_tpm <- function(object,
-                  control = control_normalize()) {
-  rpkm <- h_rpkm(object, control_normalize(log = FALSE))
-  rpkm_sums <- colSums(rpkm, na.rm = TRUE)
-  tpm <- sweep(rpkm, MARGIN = 2, STATS = rpkm_sums, FUN = "/") * 1e6
-  if (control$log) {
-    log2(tpm + control$prior_count)
-  } else {
-    tpm
-  }
-}
-
-#' VOOM Normalization
-#'
-#' @description `r lifecycle::badge("experimental")`
-#'
-#' This helper function calculates the VOOM normalized counts.
-#'
-#' @param object (`HermesData`)\cr input.
-#' @param control (`list`)\cr list of settings used to perform the normalization procedure.
-#'
-#' @return A numeric matrix with normalized counts using the VOOM method.
-#'
-#' @export
-#' @importFrom limma voom
-#' @importFrom S4Vectors isEmpty
-#' @examples
-#' h <- HermesData(summarized_experiment)
-#' cont <- control_normalize()
-#' counts_voom <- h_voom(h, cont)
-#' str(counts_voom)
-h_voom <- function(object,
-                   control = control_normalize()) {
-  assert_that(
-    is_hermes_data(object),
-    is_list_with(control, c("lib_sizes", "log"))
-  )
-  cnts <- counts(object)
-  if (S4Vectors::isEmpty(cnts)) {
-    return(cnts)
-  }
-  norm_log2 <- limma::voom(
-    counts = cnts,
-    lib.size = control$lib_sizes
-  )$E
-  if (control$log) {
-    norm_log2
-  } else {
-    2^norm_log2
-  }
-}
+# normalize ----
 
 #' Normalization of `AnyHermesData` Objects
 #'
 #' @description `r lifecycle::badge("stable")`
 #'
-#' This method is normalizing the input [`AnyHermesData`] according to one or more
+#' The `normalize()` method is normalizing the input [`AnyHermesData`] according to one or more
 #' specified normalization methods. The results are saved as additional assays
 #' in the object.
 #'
-#' Possible normalization methods are:
+#' Possible normalization methods (which are implemented with separate helper functions):
 #' - `cpm`: Counts per Million (CPM). Separately by sample, the original counts of the genes
 #'   are divided by the library size of this sample, and multiplied by one million. This is the
 #'   appropriate normalization for between-sample comparisons.
@@ -188,8 +56,9 @@ h_voom <- function(object,
 #'   sample). Therefore here we divide the RPKM by the sum of all RPKM values for each sample,
 #'   and multiply by one million.
 #' - `voom`: VOOM normalization. This is essentially just a slight variation of CPM where
-#'   a `prior_count` of 0.5 is combined with `lib_sizes` increased by 1 for each sample. It is used
-#'   as a starting point for the corresponding differential expression analysis.
+#'   a `prior_count` of 0.5 is combined with `lib_sizes` increased by 1 for each sample. Note that
+#'   this is not required for the corresponding differential expression analysis, but just provided
+#'   as a complementary experimental normalization approach here.
 #'
 #' @rdname normalize
 #' @aliases normalize
@@ -201,6 +70,8 @@ h_voom <- function(object,
 #'
 #' @return The [`AnyHermesData`] object with additional assays containing the normalized counts.
 #'   The `control` is saved in the `metadata` of the object for future reference.
+#'
+#' @seealso [control_normalize()] to define the normalization method settings.
 #'
 #' @importFrom BiocGenerics normalize
 #' @export
@@ -239,3 +110,102 @@ setMethod(
     object
   }
 )
+
+#' @describeIn normalize calculates the Counts per Million (CPM) normalized counts.
+#'
+#' @export
+#' @importFrom edgeR cpm
+#' @examples
+#'
+#' # Separate calculation of the CPM normalized counts.
+#' counts_cpm <- h_cpm(a)
+#' str(counts_cpm)
+h_cpm <- function(object,
+                  control = control_normalize()) {
+  assert_that(
+    is_hermes_data(object),
+    is_list_with(control, c("lib_sizes", "log", "prior_count"))
+  )
+  edgeR::cpm(
+    y = counts(object),
+    lib.size = control$lib_sizes,
+    log = control$log,
+    prior.count = control$prior_count
+  )
+}
+
+#' @describeIn normalize calculates the Reads per Kilobase per Million (RPKM) normalized counts.
+#'
+#' @export
+#' @importFrom edgeR rpkm
+#' @examples
+#'
+#' # Separate calculation of the RPKM normalized counts.
+#' counts_rpkm <- h_rpkm(a)
+#' str(counts_rpkm)
+h_rpkm <- function(object,
+                   control = control_normalize()) {
+  assert_that(
+    is_hermes_data(object),
+    is_list_with(control, c("lib_sizes", "log", "prior_count")),
+    noNA(rowData(object)$WidthBP)
+  )
+  edgeR::rpkm(
+    y = counts(object),
+    gene.length = rowData(object)$WidthBP,
+    lib.size = control$lib_sizes,
+    log = control$log,
+    prior.count = control$prior_count
+  )
+}
+
+#' @describeIn normalize calculates the Transcripts per Million (TPM) normalized counts.
+#'
+#' @export
+#' @examples
+#'
+#' # Separate calculation of the TPM normalized counts.
+#' counts_tpm <- h_tpm(a)
+#' str(counts_tpm)
+h_tpm <- function(object,
+                  control = control_normalize()) {
+  rpkm <- h_rpkm(object, control_normalize(log = FALSE))
+  rpkm_sums <- colSums(rpkm, na.rm = TRUE)
+  tpm <- sweep(rpkm, MARGIN = 2, STATS = rpkm_sums, FUN = "/") * 1e6
+  if (control$log) {
+    log2(tpm + control$prior_count)
+  } else {
+    tpm
+  }
+}
+
+#' @describeIn normalize calculates the VOOM normalized counts. `r lifecycle::badge("experimental")`
+#'
+#' @export
+#' @importFrom limma voom
+#' @importFrom S4Vectors isEmpty
+#' @examples
+#'
+#' # Separate calculation of the VOOM normalized counts.
+#' counts_voom <- h_voom(a)
+#' str(counts_voom)
+h_voom <- function(object,
+                   control = control_normalize()) {
+  assert_that(
+    is_hermes_data(object),
+    is_list_with(control, c("lib_sizes", "log"))
+  )
+  cnts <- counts(object)
+  if (S4Vectors::isEmpty(cnts)) {
+    return(cnts)
+  }
+  norm_log2 <- limma::voom(
+    counts = cnts,
+    lib.size = control$lib_sizes
+  )$E
+  if (control$log) {
+    norm_log2
+  } else {
+    2^norm_log2
+  }
+}

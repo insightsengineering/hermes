@@ -29,7 +29,11 @@ This creates a barplot of chromosomes for the \link{AnyHermesData} object with t
 object <- HermesData(summarized_experiment)
 
 # Display chromosomes 1-22, X, Y, and MT. Other chromosomes are displayed in "Others".
-draw_genes_barplot(object)
+# To increase readability, we can have flip the coordinate axes.
+draw_genes_barplot(object) + coord_flip()
+
+# Alternatively we can also rotate the x-axis tick labels.
+draw_genes_barplot(object) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
 # Display chromosomes 1 and 2. Other chromosomes are displayed in "Others".
 draw_genes_barplot(object, chromosomes = c("1", "2"))

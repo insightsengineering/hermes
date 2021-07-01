@@ -110,7 +110,7 @@ test_that("annotation setter works as expected", {
 
 test_that("annotation setter gives a warning, saves gene IDs in attribute if gene info is missing", {
   object <- get_se()
-  h1 <- .HermesData(object)
+  h1 <- HermesData(object)
   # Value where information for one gene is completely missing, only partially missing for the other.
   value <- S4Vectors::DataFrame(
     StartBP = c(NA, 10),

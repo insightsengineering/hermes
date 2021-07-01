@@ -22,7 +22,7 @@
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr object to calculate the correlation.}
 
-\item{assay_name}{(\code{string})\cr the assay name where the counts are located in.}
+\item{assay_name}{(\code{string})\cr the name of the assay to use.}
 
 \item{method}{(\code{string})\cr the correlation method, see \code{\link[stats:cor]{stats::cor()}} for details.}
 
@@ -40,21 +40,39 @@ A \code{\link{HermesDataCor}} object.
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
-This calculates the correlation matrix between the sample vectors of counts from
-a specified assay, as a \code{\link{HermesDataCor}} object which is an extension of a \code{\link{matrix}} with
-additional quality flags in the slot \code{flag_data}: This contains the
-\code{TechnicalFailureFlag} and \code{LowDepthFlag} columns describing the original input samples.
+The \code{correlate()} method can calculate the correlation matrix between the sample vectors of
+counts from a specified assay. This produces a \code{\link{HermesDataCor}} object, which is an extension
+of a \code{\link{matrix}} with additional quality flags in the slot \code{flag_data}
+(containing the \code{TechnicalFailureFlag} and \code{LowDepthFlag} columns describing the original
+input samples).
+
+An \code{autoplot()} method then afterwards can produce the corresponding heatmap.
 }
 \section{Functions}{
 \itemize{
-\item \code{autoplot,HermesDataCor-method}: This plot method uses the \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}} function
+\item \code{autoplot,HermesDataCor-method}: This \code{autoplot()} method uses the \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}} function
 to plot the correlations between samples saved in a \code{\link{HermesDataCor}} object.
 }}
 
 \examples{
 object <- HermesData(summarized_experiment)
+
+# Calculate the sample correlation matrix.
 correlate(object)
-result <- correlate(object, method = "pearson")
+
+# We can specify another correlation coefficient to be calculated.
+result <- correlate(object, method = "spearman")
+
+# Plot the correlation matrix.
 autoplot(result)
+
+# We can customize the heatmap.
 autoplot(result, show_column_names = FALSE, show_row_names = FALSE)
+
+# Including changing the axis label text size.
+autoplot(
+  result,
+  row_names_gp = grid::gpar(fontsize = 8),
+  column_names_gp = grid::gpar(fontsize = 8)
+)
 }

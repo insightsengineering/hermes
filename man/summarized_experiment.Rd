@@ -21,6 +21,6 @@ This example \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{
 \code{\link{HermesData}} object. It already contains the required columns in \code{rowData} and \code{colData}.
 }
 \seealso{
-expression_set which contains similar data as \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}}.
+\code{\link{expression_set}} which contains similar data as a \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}}.
 }
 \keyword{datasets}

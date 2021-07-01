@@ -55,9 +55,11 @@ NULL
 #' @importFrom S4Vectors setValidity2
 #'
 #' @examples
-#' # Convert to `SummarizedExperiment` using the default naive range mapper.
-#' se <- makeSummarizedExperimentFromExpressionSet(expression_set)
-#' # Then convert to `HermesData`.
+#' # Convert an `ExpressionSet` to a `RangedSummarizedExperiment`.
+#' ranged_summarized_experiment <- makeSummarizedExperimentFromExpressionSet(expression_set)
+#'
+#' # Then convert to `RangedHermesData`.
+#' HermesData(ranged_summarized_experiment)
 .HermesData <- setClass( # nolint
   "HermesData",
   contains = "SummarizedExperiment",
@@ -94,17 +96,15 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
 # HermesData-constructors ----
 
 #' @rdname HermesData-class
-#' @param object (`SummarizedExperiment`)\cr input to create [`HermesData`] from.
+#' @param object (`SummarizedExperiment`)\cr input to create the [`HermesData`] object from.
 #'   If this is a `RangedSummarizedExperiment`, then the result will be
 #'   [`RangedHermesData`].
 #' @export
 #' @examples
-#' # Create objects starting from a `SummarizedExperiment.`
+#'
+#' # Create objects starting from a `SummarizedExperiment`.
 #' hermes_data <- HermesData(summarized_experiment)
 #' hermes_data
-#' ranged_summarized_experiment <- as(summarized_experiment, "RangedSummarizedExperiment")
-#' ranged_hermes_data <- HermesData(ranged_summarized_experiment)
-#' ranged_hermes_data
 HermesData <- function(object) { # nolint
   assert_that(
     is_class(object, "SummarizedExperiment"),
@@ -143,13 +143,10 @@ HermesData <- function(object) { # nolint
 #'   is passed instead of `rowData`, then the result will be a [`RangedHermesData`] object.
 #' @export
 #' @examples
-#' # Create objects from a matrix and additional arguments.
+#'
+#' # Create objects from a matrix. Note that additional arguments are not required but possible.
 #' counts_matrix <- assay(summarized_experiment)
-#' HermesDataFromMatrix(
-#'   counts = counts_matrix,
-#'   rowData = rowData(summarized_experiment),
-#'   colData = colData(summarized_experiment)
-#' )
+#' counts_hermes_data <- HermesDataFromMatrix(counts_matrix)
 HermesDataFromMatrix <- function(counts, ...) { # nolint
   assert_that(is.matrix(counts))
 

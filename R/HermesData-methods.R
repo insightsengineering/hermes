@@ -7,12 +7,15 @@
 #' This method combines [`AnyHermesData`] objects with the same samples but different
 #' features of interest (rows in assays).
 #'
-#' @note Note that this just inherits
-#'   [SummarizedExperiment::rbind,SummarizedExperiment-method()]. When binding a
-#'   [`AnyHermesData`] object with a [`SummarizedExperiment::SummarizedExperiment`]
-#'   object, then the result will be a
-#'   [`SummarizedExperiment::SummarizedExperiment`] object (the more general
-#'   class).
+#' @note
+#'   - Note that this just inherits
+#'     [SummarizedExperiment::rbind,SummarizedExperiment-method()]. When binding a
+#'     [`AnyHermesData`] object with a [`SummarizedExperiment::SummarizedExperiment`]
+#'     object, then the result will be a
+#'     [`SummarizedExperiment::SummarizedExperiment`] object (the more general
+#'     class).
+#'   - Note that we need to have unique gene IDs (row names) and the same prefix
+#'     across the combined object.
 #'
 #' @name rbind
 #'
@@ -20,14 +23,13 @@
 #'
 #' @return The combined [`AnyHermesData`] object.
 #'
+#' @seealso [`cbind`] to column bind objects.
+#'
 #' @examples
-#' a <- HermesData(summarized_experiment[1:2542])
-#' b <- HermesData(summarized_experiment[2543: 5085])
+#' a <- HermesData(summarized_experiment[1:2542, ])
+#' b <- HermesData(summarized_experiment[2543:5085, ])
 #' result <- rbind(a, b)
 #' class(result)
-#'
-#' result2 <- rbind(summarized_experiment, b)
-#' class(result2)
 NULL
 
 # cbind ----
@@ -39,12 +41,14 @@ NULL
 #' This method combines [`AnyHermesData`] objects with the same ranges but different
 #' samples (columns in assays).
 #'
-#' @note Note that this just inherits
-#'   [SummarizedExperiment::cbind,SummarizedExperiment-method()]. When binding a
-#'   [`AnyHermesData`] object with a [`SummarizedExperiment::SummarizedExperiment`]
-#'   object, then the result will be a
-#'   [`SummarizedExperiment::SummarizedExperiment`] object (the more general
-#'   class).
+#' @note
+#'   - Note that this just inherits
+#'     [SummarizedExperiment::cbind,SummarizedExperiment-method()]. When binding a
+#'     [`AnyHermesData`] object with a [`SummarizedExperiment::SummarizedExperiment`]
+#'     object, then the result will be a
+#'     [`SummarizedExperiment::SummarizedExperiment`] object (the more general
+#'     class).
+#'   - Note that the combined object needs to have unique sample IDs (column names).
 #'
 #' @name cbind
 #'
@@ -52,14 +56,13 @@ NULL
 #'
 #' @return The combined [`AnyHermesData`] object.
 #'
+#' @seealso [`rbind`] to row bind objects.
+#'
 #' @examples
 #' a <- HermesData(summarized_experiment[, 1:10])
 #' b <- HermesData(summarized_experiment[, 11:20])
 #' result <- cbind(a, b)
 #' class(result)
-#'
-#' result2 <- cbind(summarized_experiment[, 1:10], b)
-#' class(result2)
 NULL
 
 # metadata ----
@@ -75,6 +78,7 @@ NULL
 #' @name metadata
 #'
 #' @param x (`AnyHermesData`)\cr object to access the metadata from.
+#' @param value (`list`)\cr the list to replace the current metadata with.
 #'
 #' @return The metadata which is a list.
 #' @importFrom S4Vectors `metadata<-`
@@ -100,7 +104,7 @@ NULL
 #' @rdname annotation
 #' @aliases annotation
 #'
-#' @param object (`AnyHermesData`)\cr object to access the counts from.
+#' @param object (`AnyHermesData`)\cr object to access the annotations from.
 #' @param ... not used.
 #'
 #' @return The [`S4Vectors::DataFrame`] with the gene annotations:
@@ -128,7 +132,7 @@ setMethod(
 )
 
 #' @rdname annotation
-#' @note - The returned column names are available in the exported
+#' @format The annotation column names are available in the exported
 #'   character vector `.row_data_annotation_cols`.
 #' @export
 .row_data_annotation_cols <- c(
@@ -142,9 +146,9 @@ setMethod(
   "ProteinTranscript"
 )
 
-#' @param value (`matrix`)\cr what should the counts assay be replaced with.
+#' @param value (`DataFrame`)\cr what should the annotations be replaced with.
 #'
-#' @note - When trying to replace the annotation with completely missing values for any genes,
+#' @note When trying to replace the annotation with completely missing values for any genes,
 #'   a warning will be given and the corresponding gene IDs will be saved in the
 #'   attribute `annotation.missing.genes`.
 #'
@@ -257,6 +261,8 @@ setGeneric("prefix", def = function(object, ...) {
 #'
 #' @return The character vector with the gene IDs.
 #'
+#' @seealso [samples()] to access the sample IDs.
+#'
 #' @export
 setGeneric("genes", def = function(object) standardGeneric("genes"))
 
@@ -289,6 +295,8 @@ setMethod(
 #' @rdname samples
 #' @aliases samples
 #'
+#' @seealso [genes()] to access the gene IDs.
+#'
 #' @importFrom Biobase samples
 #' @export
 #' @examples
@@ -317,12 +325,25 @@ setMethod(
 #' @name subset
 #'
 #' @param x (`AnyHermesData`)\cr object to subset from.
+#' @param subset (`expression`)\cr logical expression based on the `rowData` columns to
+#'   select genes.
+#' @param select (`expression`)\cr logical expression based on the `colData` columns to
+#'   select samples.
+#'
 #' @return The subsetted [`AnyHermesData`] object.
 #'
 #' @examples
 #' a <- HermesData(summarized_experiment)
 #' a
+#'
+#' # Subset both genes and samples.
 #' subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
+#'
+#' # Subset only genes.
+#' subset(a, subset = Chromosome == "2")
+#'
+#' # Subset only samples.
+#'subset(a, select = AGE > 18)
 NULL
 
 # filter ----
@@ -353,6 +374,7 @@ setGeneric("filter", function(object, ...) standardGeneric("filter"))
 #' @return Named logical vector with one value for each gene in `object`, which is `TRUE` if all
 #'   required annotation columns are filled, and otherwise `FALSE`.
 #'
+#' @seealso [filter()] where this is used internally.
 #' @export
 #'
 #' @examples
@@ -392,13 +414,19 @@ h_has_req_annotations <- function(object,
 #' @examples
 #' a <- HermesData(summarized_experiment)
 #' dim(a)
+#'
 #' # Filter genes and samples on default QC flags.
 #' result <- filter(a)
 #' dim(result)
+#'
 #' # Filter only genes without low expression.
 #' result <- filter(a, what = "genes")
+#'
 #' # Filter only samples with low depth and technical failure.
 #' result <- filter(a, what = "samples")
+#'
+#' # Filter only genes, and require certain annotations to be present.
+#' result <- filter(a, what = "genes", annotation_required = c("StartBP", "EndBP", "WidthBP"))
 setMethod(
   f = "filter",
   signature = signature(object = "AnyHermesData"),
@@ -584,6 +612,7 @@ setMethod(
 #' @export
 #'
 #' @examples
+#'
 #' # Just calling the summary method like this will use the `show()` method.
 #' summary(object)
 setMethod(

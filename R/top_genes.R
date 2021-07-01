@@ -2,10 +2,12 @@
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This creates a [`HermesDataTopGenes`] object, which extends [`data.frame`]. It
+#' `top_genes()` creates a [`HermesDataTopGenes`] object, which extends [`data.frame`]. It
 #' contains two columns:
 #' - `expression`: containing the statistic values calculated by `summary_fun` across columns.
 #' - `name`: the gene names.
+#'
+#' The corresponding `autoplot()` method then visualizes the result as a barplot.
 #'
 #' @details
 #' - The data frame is sorted in descending order of `expression` and only the top
@@ -15,8 +17,8 @@
 #'
 #' @param object (`AnyHermedData`)\cr input.
 #' @param assay_name (`string`)\cr name of the assay to use for the sorting of genes.
-#' @param summary_fun (`function`)\cr summary statistics function to apply to the assay resulting in
-#'   a numeric vector with one value per gene.
+#' @param summary_fun (`function`)\cr summary statistics function to apply across the samples in
+#'   the assay resulting in a numeric vector with one value per gene.
 #' @param n_top (`count` or `NULL`)\cr selection criteria based on number of entries.
 #' @param min_threshold (`number` or `NULL` )\cr selection criteria based on a minimum
 #'   summary statistics threshold.
@@ -26,8 +28,15 @@
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
+#'
+#' # Default uses average of raw counts across samples to rank genes.
 #' top_genes(object)
+#'
+#' # Instead of showing top 10 genes, can also set a minimum threshold on average counts.
 #' top_genes(object, n_top = NULL, min_threshold = 50000)
+#'
+#' # We can also use the maximum of raw counts across samples, by specifying a different
+#' # summary statistics function.
 #' result <- top_genes(object, summary_fun = rowMax)
 top_genes <- function(object,
                       assay_name = "counts",
@@ -102,6 +111,8 @@ top_genes <- function(object,
 #' @param title (`string`)\cr plot title.
 #'
 #' @examples
+#'
+#' # Finally we can produce barplots based on the results.
 #' autoplot(result, title = "My top genes")
 #' autoplot(result, y_lab = "Counts", title = "My top genes")
 setMethod(

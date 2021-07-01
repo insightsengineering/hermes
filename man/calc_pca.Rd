@@ -13,9 +13,7 @@ calc_pca(object, assay_name = "counts")
 \arguments{
 \item{object}{(\code{AnyHermesData}) \cr input.}
 
-\item{assay_name}{(\code{string}) \cr Indicating the name of the assay
-of interest, with possible options: \code{counts}, \code{cpm}, \code{tpm}, \code{rpkm}, \code{voom}.
-Default assay is \code{counts}.}
+\item{assay_name}{(\code{string}) \cr name of the assay to use.}
 }
 \value{
 A \link{HermesDataPca} object which is an extension of the \link[stats:prcomp]{stats::prcomp} class.
@@ -23,19 +21,20 @@ A \link{HermesDataPca} object which is an extension of the \link[stats:prcomp]{s
 \description{
 \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
-Perform principal components analysis of the gene count vectors across all
-samples.
+The \code{calc_pca()} function performs principal components analysis of the gene count
+vectors across all samples.
+
+A corresponding \code{autoplot()} method then can visualize the results.
 }
 \details{
 \itemize{
-\item PCA should be performed after filtering out low quality genes and samples and
-normalization.
+\item PCA should be performed after filtering out low quality genes and samples, as well as
+normalization of counts.
 \item In addition, genes with constant counts across all samples are excluded from
-the analysis internally.
-\item Centering and scaling is applied internally.
+the analysis internally in \code{calc_pca()}. Centering and scaling is also applied internally.
 \item Plots can be obtained with the \code{\link[ggplot2:autoplot]{ggplot2::autoplot()}} function
 with the corresponding method from the \code{ggfortify} package to plot the
-results of a principal components analysis saved in a \link{HermesDataPca}
+results of a principal components analysis saved in a \code{\link{HermesDataPca}}
 object. See \code{\link[ggfortify:autoplot.pca_common]{ggfortify::autoplot.prcomp()}} for details.
 }
 }
@@ -44,11 +43,18 @@ object <- HermesData(summarized_experiment) \%>\%
   add_quality_flags() \%>\%
   filter() \%>\%
   normalize()
+
+# Perform PCA.
 result <- calc_pca(object, assay_name = "tpm")
 summary(result)
 
+# Plot the results.
 autoplot(result)
 autoplot(result, x = 2, y = 3)
 autoplot(result, variance_percentage = FALSE)
-autoplot(result, label = TRUE)
+autoplot(result, label = TRUE, label.repel = TRUE)
+}
+\seealso{
+Afterwards correlations between principal components
+and sample variables can be calculated, see \code{\link{pca_cor_samplevar}}.
 }

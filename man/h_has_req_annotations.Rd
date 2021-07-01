@@ -28,3 +28,6 @@ all(result)
 rowData(object)$WidthBP[1] <- NA # nolint
 which(!h_has_req_annotations(object, "WidthBP"))
 }
+\seealso{
+\code{\link[=filter]{filter()}} where this is used internally.
+}

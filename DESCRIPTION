@@ -46,6 +46,7 @@ Imports:
     utils.nest (>= 0.2.9)
 Suggests:
     DT,
+    grid,
     knitr,
     test.nest (>= 0.2.9),
     testthat (>= 2.0),

@@ -25,3 +25,6 @@ nicely named accessor method.
 a <- HermesData(summarized_experiment)
 genes(a)
 }
+\seealso{
+\code{\link[=samples]{samples()}} to access the sample IDs.
+}

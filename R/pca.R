@@ -2,26 +2,28 @@
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Perform principal components analysis of the gene count vectors across all
-#' samples.
+#' The `calc_pca()` function performs principal components analysis of the gene count
+#' vectors across all samples.
+#'
+#' A corresponding `autoplot()` method then can visualize the results.
 #'
 #' @details
-#' - PCA should be performed after filtering out low quality genes and samples and
-#'   normalization.
+#' - PCA should be performed after filtering out low quality genes and samples, as well as
+#'   normalization of counts.
 #' - In addition, genes with constant counts across all samples are excluded from
-#'   the analysis internally.
-#' - Centering and scaling is applied internally.
+#'   the analysis internally in `calc_pca()`. Centering and scaling is also applied internally.
 #' - Plots can be obtained with the [ggplot2::autoplot()] function
 #'   with the corresponding method from the `ggfortify` package to plot the
-#'   results of a principal components analysis saved in a [HermesDataPca]
+#'   results of a principal components analysis saved in a [`HermesDataPca`]
 #'   object. See [ggfortify::autoplot.prcomp()] for details.
 #'
 #' @param object (`AnyHermesData`) \cr input.
-#' @param assay_name (`string`) \cr Indicating the name of the assay
-#'   of interest, with possible options: `counts`, `cpm`, `tpm`, `rpkm`, `voom`.
-#'   Default assay is `counts`.
+#' @param assay_name (`string`) \cr name of the assay to use.
 #'
 #' @return A [HermesDataPca] object which is an extension of the [stats::prcomp] class.
+#'
+#' @seealso Afterwards correlations between principal components
+#'   and sample variables can be calculated, see [`pca_cor_samplevar`].
 #'
 #' @importFrom S4Vectors isConstant
 #' @importFrom stats prcomp
@@ -32,13 +34,16 @@
 #'   add_quality_flags() %>%
 #'   filter() %>%
 #'   normalize()
+#'
+#' # Perform PCA.
 #' result <- calc_pca(object, assay_name = "tpm")
 #' summary(result)
 #'
+#' # Plot the results.
 #' autoplot(result)
 #' autoplot(result, x = 2, y = 3)
 #' autoplot(result, variance_percentage = FALSE)
-#' autoplot(result, label = TRUE)
+#' autoplot(result, label = TRUE, label.repel = TRUE)
 calc_pca <- function(object,
                      assay_name = "counts") {
   assert_that(

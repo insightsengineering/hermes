@@ -75,7 +75,6 @@ reference:
       - add_quality_flags
       - calc_pca
       - diff_expression
-      - get_quality_flags
       - set_tech_failure
       - top_genes
       - connect_biomart

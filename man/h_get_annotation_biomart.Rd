@@ -7,9 +7,10 @@
 h_get_annotation_biomart(gene_ids, id_var, mart)
 }
 \arguments{
-\item{gene_ids}{(\code{character})\cr gene IDs.}
+\item{gene_ids}{(\code{character})\cr gene IDs, e.g. \code{10329}.}
 
-\item{id_var}{(\code{string})\cr gene ID variable, e.g. \code{entrezgene_id}.}
+\item{id_var}{(\code{string})\cr corresponding gene ID variable name in Biomart,
+e.g. \code{entrezgene_id}.}
 
 \item{mart}{(\code{Mart})\cr given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}} object.}
 }

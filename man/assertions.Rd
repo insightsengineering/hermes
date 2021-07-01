@@ -10,9 +10,9 @@
 \alias{is_constant}
 \title{Additional Assertions for \code{assert_that}}
 \usage{
-is_class(object, class2)
+is_class(x, class2)
 
-is_hermes_data(object)
+is_hermes_data(x)
 
 is_counts_vector(x)
 
@@ -23,11 +23,9 @@ one_provided(one, two)
 is_constant(x)
 }
 \arguments{
-\item{object}{any object.}
+\item{x}{an object to check.}
 
-\item{class2}{(\code{character} or class definition)\cr the class to which \code{object} could belong.}
-
-\item{x}{An object to check.}
+\item{class2}{(\code{character} or class definition)\cr the class to which \code{x} could belong.}
 
 \item{elements}{(\code{character})\cr names of elements which should be in the list \code{x}.}
 
@@ -45,31 +43,43 @@ We provide additional assertion functions which can be used together with
 \itemize{
 \item \code{is_class}: checks the class.
 
-\item \code{is_hermes_data}: checks the class.
+\item \code{is_hermes_data}: checks whether \code{x} is an \code{\link{AnyHermesData}} object.
 
 \item \code{is_counts_vector}: checks for a vector of counts (positive integers).
 
 \item \code{is_list_with}: checks for a list containing elements.
 
-\item \code{one_provided}: checks that exactly one of two inputs is not \code{NULL}.
+\item \code{one_provided}: checks that exactly one of the two inputs \code{one}, \code{two} is not \code{NULL}.
 
-\item \code{is_constant}: checks for a column being constant.
+\item \code{is_constant}: checks whether the vector \code{x} is constant (only supports \code{numeric}, \code{factor},
+\code{character}, \code{logical}). \code{NA}s are removed first.
 }}
 
 \examples{
+# Assert a general class.
 a <- 5
 is_class(a, "character")
+
+# Assert a `AnyHermesData` object.
 is_hermes_data(HermesData(summarized_experiment))
 is_hermes_data(42)
-a <- 5
-is_class(a, "character")
+
+# Assert a counts vector.
+a <- 5L
+is_counts_vector(a)
+
+# Assert a list containing certain elements.
 b <- list(a = 5, b = 3)
 is_list_with(b, c("a", "c"))
 is_list_with(b, c("a", "b"))
+
+# Assert that exactly one of two arguments is provided.
 a <- 10
 b <- 10
 one_provided(a, b)
 one_provided(a, NULL)
+
+# Assert a constant vector.
 is_constant(c(1, 2))
 is_constant(c(NA, 1))
 is_constant(c("a", "a"))

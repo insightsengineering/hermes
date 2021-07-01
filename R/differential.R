@@ -23,9 +23,15 @@
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
+#'
+#' # Create the design matrix corresponding to the factor of interest.
 #' design <- model.matrix(~SEX, colData(object))
+#'
+#' # Then perform the differential expression analysis.
 #' result <- h_diff_expr_voom(object, design)
 #' head(result)
+#'
+#' # Sometimes we might want to specify method details.
 #' result2 <- h_diff_expr_voom(object, design, trend = TRUE, robust = TRUE)
 #' head(result2)
 h_diff_expr_voom <- function(object, design, ...) {
@@ -77,9 +83,15 @@ h_diff_expr_voom <- function(object, design, ...) {
 #'
 #' @examples
 #' object <- HermesData(summarized_experiment)
+#'
+#' # Create the design matrix corresponding to the factor of interest.
 #' design <- model.matrix(~SEX, colData(object))
+#'
+#' # Then perform the `DESeq2` differential expression analysis.
 #' result <- h_diff_expr_deseq2(object, design)
 #' head(result)
+#'
+#' # Change of the `fitType` can be required in some cases.
 #' result2 <- h_diff_expr_deseq2(object, design, fitType = "local")
 #' head(result2)
 h_diff_expr_deseq2 <- function(object, design, ...) {
@@ -118,8 +130,10 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This function performs differential expression analysis
+#' The `diff_expression()` function performs differential expression analysis
 #' using a method of preference.
+#'
+#' A corresponding `autoplot()` method is visualizing the results as a volcano plot.
 #'
 #' @details Possible method choices are:
 #' - `voom`: uses [limma::voom()], see [h_diff_expr_voom()] for details.
@@ -134,11 +148,11 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
 #'
 #' @return A [`HermesDataDiffExpr`] object which is a data frame with the following columns for each gene
 #'   in the [`HermesData`] object:
-#'   - `log2_fc` (estimate of the log2 fold change between the 2 levels of the
-#'   provided factor)
+#'   - `log2_fc` (the estimate of the log2 fold change between the 2 levels of the
+#'      provided factor)
 #'   - `stat` (the test statistic, which one depends on the method used)
-#'   - `p_val` (the raw p-value),
-#'   - `adj_p_val` (the adjusted p-value) values from differential expression analysis for each feature / gene .
+#'   - `p_val` (the raw p-value)
+#'   - `adj_p_val` (the multiplicity adjusted p-value value)
 #'
 #' @note
 #'   - We provide the [df_char_to_factor()] utility function that makes it easy to convert the
@@ -163,7 +177,7 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
 #' res2 <- diff_expression(object, group = "SEX", method = "deseq2")
 #' head(res2)
 #'
-#' # Passing method arguments to the internally used helper functions.
+#' # Pass method arguments to the internally used helper functions.
 #' res3 <- diff_expression(object, group = "SEX", method = "voom", robust = TRUE, trend = TRUE)
 #' head(res3)
 #' res4 <- diff_expression(object, group = "SEX", method = "deseq2", fitType = "local")
@@ -247,7 +261,7 @@ S4Vectors::setValidity2(
 #'
 #' @examples
 #'
-#' # Creating the corresponding volcano plots.
+#' # Create the corresponding volcano plots.
 #' autoplot(res1)
 #' autoplot(res3)
 setMethod(

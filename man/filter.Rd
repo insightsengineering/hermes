@@ -44,11 +44,17 @@ requires non-standard evaluation of arguments.
 \examples{
 a <- HermesData(summarized_experiment)
 dim(a)
+
 # Filter genes and samples on default QC flags.
 result <- filter(a)
 dim(result)
+
 # Filter only genes without low expression.
 result <- filter(a, what = "genes")
+
 # Filter only samples with low depth and technical failure.
 result <- filter(a, what = "samples")
+
+# Filter only genes, and require certain annotations to be present.
+result <- filter(a, what = "genes", annotation_required = c("StartBP", "EndBP", "WidthBP"))
 }

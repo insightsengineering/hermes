@@ -106,7 +106,7 @@ validate_names <- function(object) {
 }
 
 #' @describeIn validate validates that the object prefix is a string
-#' without whitespace, special characters or digits.
+#'   and only contains alphabetic characters.
 validate_prefix <- function(object) {
   prefix <- object@prefix
   msg <- NULL

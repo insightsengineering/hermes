@@ -9,11 +9,11 @@ control_normalize(log = TRUE, lib_sizes = NULL, prior_count = 1)
 \arguments{
 \item{log}{(\code{flag})\cr whether \code{log2} values are returned, otherwise original scale is used.}
 
-\item{lib_sizes}{(\code{numeric})\cr library sizes, the default is the vector with the sum of the
-counts for each of the samples.}
+\item{lib_sizes}{(\code{NULL} or \code{counts})\cr library sizes, if \code{NULL} the vector with the sum of the
+counts for each of the samples will be used.}
 
-\item{prior_count}{(\code{count})\cr average count to be added to each observation to avoid
-taking log of zero, used only when \code{log = TRUE}.}
+\item{prior_count}{(non-negative \code{number})\cr average count to be added to each observation to
+avoid taking log of zero, used only when \code{log = TRUE}.}
 }
 \value{
 List with the above settings used to perform the normalization procedure.
@@ -24,7 +24,7 @@ List with the above settings used to perform the normalization procedure.
 This control function allows for easy customization of the normalization settings.
 }
 \note{
-To be used with the \code{normalize()} function.
+To be used with the \code{\link[=normalize]{normalize()}} function.
 }
 \examples{
 control_normalize()

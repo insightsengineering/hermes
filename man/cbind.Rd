@@ -16,19 +16,22 @@ This method combines \code{\link{AnyHermesData}} objects with the same ranges bu
 samples (columns in assays).
 }
 \note{
-Note that this just inherits
+\itemize{
+\item Note that this just inherits
 \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::cbind,SummarizedExperiment-method()}}. When binding a
 \code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 object, then the result will be a
 \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object (the more general
 class).
+\item Note that the combined object needs to have unique sample IDs (column names).
+}
 }
 \examples{
 a <- HermesData(summarized_experiment[, 1:10])
 b <- HermesData(summarized_experiment[, 11:20])
 result <- cbind(a, b)
 class(result)
-
-result2 <- cbind(summarized_experiment[, 1:10], b)
-class(result2)
+}
+\seealso{
+\code{\link{rbind}} to row bind objects.
 }

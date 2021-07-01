@@ -53,8 +53,10 @@ draw_libsize_hist <- function(object,
 #' result <- HermesData(summarized_experiment)
 #' draw_libsize_qq(result)
 #' draw_libsize_qq(result, color = "blue", linetype = "solid")
+#'
 #' # We can also add sample names as labels.
-#' draw_libsize_qq(result) + geom_text(label = colnames(result), stat = "qq")
+#' library(ggrepel)
+#' draw_libsize_qq(result) + geom_text_repel(label = colnames(result), stat = "qq")
 draw_libsize_qq <- function(object,
                             color = "grey",
                             linetype = "dashed") {
@@ -92,7 +94,7 @@ draw_libsize_qq <- function(object,
 #' @examples
 #' result <- HermesData(summarized_experiment)
 #' draw_libsize_densities(result)
-#' draw_libsize_densities(result, FALSE)
+#' draw_libsize_densities(result, log = FALSE)
 draw_libsize_densities <- function(object,
                                    log = TRUE) {
   assert_that(
@@ -186,7 +188,11 @@ draw_nonzero_boxplot <- function(object,
 #' object <- HermesData(summarized_experiment)
 #'
 #' # Display chromosomes 1-22, X, Y, and MT. Other chromosomes are displayed in "Others".
-#' draw_genes_barplot(object)
+#' # To increase readability, we can have flip the coordinate axes.
+#' draw_genes_barplot(object) + coord_flip()
+#'
+#' # Alternatively we can also rotate the x-axis tick labels.
+#' draw_genes_barplot(object) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 #'
 #' # Display chromosomes 1 and 2. Other chromosomes are displayed in "Others".
 #' draw_genes_barplot(object, chromosomes = c("1", "2"))

@@ -18,7 +18,7 @@ HermesData(object)
 HermesDataFromMatrix(counts, ...)
 }
 \arguments{
-\item{object}{(\code{SummarizedExperiment})\cr input to create \code{\link{HermesData}} from.
+\item{object}{(\code{SummarizedExperiment})\cr input to create the \code{\link{HermesData}} object from.
 If this is a \code{RangedSummarizedExperiment}, then the result will be
 \code{\link{RangedHermesData}}.}
 
@@ -88,20 +88,17 @@ for full control of the details.
 }
 }
 \examples{
-# Convert to `SummarizedExperiment` using the default naive range mapper.
-se <- makeSummarizedExperimentFromExpressionSet(expression_set)
-# Then convert to `HermesData`.
-# Create objects starting from a `SummarizedExperiment.`
+# Convert an `ExpressionSet` to a `RangedSummarizedExperiment`.
+ranged_summarized_experiment <- makeSummarizedExperimentFromExpressionSet(expression_set)
+
+# Then convert to `RangedHermesData`.
+HermesData(ranged_summarized_experiment)
+
+# Create objects starting from a `SummarizedExperiment`.
 hermes_data <- HermesData(summarized_experiment)
 hermes_data
-ranged_summarized_experiment <- as(summarized_experiment, "RangedSummarizedExperiment")
-ranged_hermes_data <- HermesData(ranged_summarized_experiment)
-ranged_hermes_data
-# Create objects from a matrix and additional arguments.
+
+# Create objects from a matrix. Note that additional arguments are not required but possible.
 counts_matrix <- assay(summarized_experiment)
-HermesDataFromMatrix(
-  counts = counts_matrix,
-  rowData = rowData(summarized_experiment),
-  colData = colData(summarized_experiment)
-)
+counts_hermes_data <- HermesDataFromMatrix(counts_matrix)
 }

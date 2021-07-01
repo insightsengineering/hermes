@@ -55,6 +55,6 @@ required columns.
 \item \code{validate_names}: validates that the object contains row and column names.
 
 \item \code{validate_prefix}: validates that the object prefix is a string
-without whitespace, special characters or digits.
+and only contains alphabetic characters.
 }}
 

@@ -8,7 +8,8 @@
 \alias{annotation<-,AnyHermesData,DataFrame-method}
 \title{Annotation Accessor and Setter}
 \format{
-An object of class \code{character} of length 8.
+The annotation column names are available in the exported
+character vector \code{.row_data_annotation_cols}.
 }
 \usage{
 \S4method{annotation}{AnyHermesData}(object, ...)
@@ -18,11 +19,11 @@ An object of class \code{character} of length 8.
 \S4method{annotation}{AnyHermesData,DataFrame}(object) <- value
 }
 \arguments{
-\item{object}{(\code{AnyHermesData})\cr object to access the counts from.}
+\item{object}{(\code{AnyHermesData})\cr object to access the annotations from.}
 
 \item{...}{not used.}
 
-\item{value}{(\code{matrix})\cr what should the counts assay be replaced with.}
+\item{value}{(\code{DataFrame})\cr what should the annotations be replaced with.}
 }
 \value{
 The \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene annotations:
@@ -43,16 +44,9 @@ The \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene 
 These methods access and set the gene annotations stored in a \code{\link{AnyHermesData}} object.
 }
 \note{
-\itemize{
-\item The returned column names are available in the exported
-character vector \code{.row_data_annotation_cols}.
-}
-
-\itemize{
-\item When trying to replace the annotation with completely missing values for any genes,
+When trying to replace the annotation with completely missing values for any genes,
 a warning will be given and the corresponding gene IDs will be saved in the
 attribute \code{annotation.missing.genes}.
-}
 }
 \examples{
 object <- HermesData(summarized_experiment)

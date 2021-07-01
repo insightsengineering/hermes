@@ -5,6 +5,8 @@
 #' We provide additional assertion functions which can be used together with
 #' [assertthat::assert_that()].
 #'
+#' @param x an object to check.
+#'
 #' @name assertions
 #' @import assertthat
 NULL
@@ -12,47 +14,49 @@ NULL
 # is_class ----
 
 #' @describeIn assertions checks the class.
-#' @param object any object.
-#' @param class2 (`character` or class definition)\cr the class to which `object` could belong.
+#' @param class2 (`character` or class definition)\cr the class to which `x` could belong.
 #' @export
 #' @examples
+#' # Assert a general class.
 #' a <- 5
 #' is_class(a, "character")
-is_class <- function(object, class2) {
-  is(object, class2)
+is_class <- function(x, class2) {
+  is(x, class2)
 }
 
 on_failure(is_class) <- function(call, env) {
-  obj_name <- deparse(call$object)
+  obj_name <- deparse(call$x)
   class <- eval(call$class2, env)
   paste(obj_name, "is not of class", class)
 }
 
 # is_hermes_data ----
 
-#' @describeIn assertions checks the class.
-#' @param object any object.
+#' @describeIn assertions checks whether `x` is an [`AnyHermesData`] object.
 #' @export
 #' @examples
+#'
+#' # Assert a `AnyHermesData` object.
 #' is_hermes_data(HermesData(summarized_experiment))
 #' is_hermes_data(42)
-is_hermes_data <- function(object) {
-  is_class(object, "AnyHermesData")
+is_hermes_data <- function(x) {
+  is_class(x, "AnyHermesData")
 }
 
 on_failure(is_hermes_data) <- function(call, env) {
-  obj_name <- deparse(call$object)
+  obj_name <- deparse(call$x)
   paste(obj_name, "is not a HermesData or RangedHermesData object")
 }
 
 # is_counts_vector ----
 
 #' @describeIn assertions checks for a vector of counts (positive integers).
-#' @param x vector to check.
 #' @export
 #' @examples
-#' a <- 5
-#' is_class(a, "character")
+#'
+#' # Assert a counts vector.
+#' a <- 5L
+#' is_counts_vector(a)
 is_counts_vector <- function(x) {
   is.integer(x) && all(x > 0) && noNA(x) && not_empty(x)
 }
@@ -69,6 +73,8 @@ on_failure(is_counts_vector) <- function(call, env) {
 #' @importFrom utils.nest is_character_vector is_fully_named_list
 #' @export
 #' @examples
+#'
+#' # Assert a list containing certain elements.
 #' b <- list(a = 5, b = 3)
 #' is_list_with(b, c("a", "c"))
 #' is_list_with(b, c("a", "b"))
@@ -89,12 +95,14 @@ on_failure(is_list_with) <- function(call, env) {
 
 # one_provided ----
 
-#' @describeIn assertions checks that exactly one of two inputs is not `NULL`.
+#' @describeIn assertions checks that exactly one of the two inputs `one`, `two` is not `NULL`.
 #' @param one first input.
 #' @param two second input.
 #' @export
 #'
 #' @examples
+#'
+#' # Assert that exactly one of two arguments is provided.
 #' a <- 10
 #' b <- 10
 #' one_provided(a, b)
@@ -115,11 +123,13 @@ on_failure(one_provided) <- function(call, env) {
 
 # is_constant ----
 
-#' @describeIn assertions checks for a column being constant.
-#' @param x An object to check.
+#' @describeIn assertions checks whether the vector `x` is constant (only supports `numeric`, `factor`,
+#'   `character`, `logical`). `NA`s are removed first.
 #' @export
 #'
 #' @examples
+#'
+#' # Assert a constant vector.
 #' is_constant(c(1, 2))
 #' is_constant(c(NA, 1))
 #' is_constant(c("a", "a"))

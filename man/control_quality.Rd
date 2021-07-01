@@ -12,10 +12,10 @@ control_quality(
 )
 }
 \arguments{
-\item{min_cpm}{(non-negative \code{number})\cr minimum CPM for each gene within
-the sample.}
+\item{min_cpm}{(non-negative \code{number})\cr minimum Counts per Million (CPM) for
+each gene within the sample.}
 
-\item{min_cpm_prop}{(\code{proportion})\cr minimum percentage of samples with
+\item{min_cpm_prop}{(\code{proportion})\cr minimum proportion of samples with
 acceptable CPM of certain gene for low expression flagging.}
 
 \item{min_corr}{(\code{proportion})\cr minimum Pearson correlation coefficient of

@@ -29,7 +29,13 @@ object <- HermesData(summarized_experiment) \%>\%
   add_quality_flags() \%>\%
   filter() \%>\%
   normalize()
+
+# Obtain the principal components.
 pca <- calc_pca(object)$x
+
+# Obtain the sample variable.
 x <- colData(object)$LowDepthFlag
+
+# Correlate them.
 r2 <- h_pca_var_rsquared(pca, x)
 }
