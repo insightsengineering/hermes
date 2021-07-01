@@ -2,14 +2,14 @@
 % Please edit documentation in R/connections.R
 \name{h_get_annotation_biomart}
 \alias{h_get_annotation_biomart}
-\title{Get Annotations from Biomart}
+\title{Get Annotations from BioMart}
 \usage{
 h_get_annotation_biomart(gene_ids, id_var, mart)
 }
 \arguments{
 \item{gene_ids}{(\code{character})\cr gene IDs, e.g. \code{10329}.}
 
-\item{id_var}{(\code{string})\cr corresponding gene ID variable name in Biomart,
+\item{id_var}{(\code{string})\cr corresponding gene ID variable name in BioMart,
 e.g. \code{entrezgene_id}.}
 
 \item{mart}{(\code{Mart})\cr given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}} object.}

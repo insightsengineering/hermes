@@ -6,7 +6,7 @@
 \alias{ConnectionBiomart-class}
 \alias{.ConnectionBiomart}
 \alias{ConnectionBiomart}
-\title{Connection to Biomart}
+\title{Connection to BioMart}
 \usage{
 connect_biomart(prefix = c("ENSG", "GeneID"))
 }
@@ -24,7 +24,7 @@ the \code{biomaRt} object of class \code{\link[biomaRt:Mart-class]{biomaRt::Mart
 which is used downstream for the query.
 }
 \details{
-This connects to the Ensembl data base of Biomart for human genes.
+This connects to the Ensembl data base of BioMart for human genes.
 }
 \examples{
 \dontrun{

@@ -1,4 +1,4 @@
-#' Connection to Biomart
+#' Connection to BioMart
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -6,7 +6,7 @@
 #' the `biomaRt` object of class [`biomaRt::Mart`][biomaRt::Mart-class] and the prefix of the object
 #' which is used downstream for the query.
 #'
-#' @details This connects to the Ensembl data base of Biomart for human genes.
+#' @details This connects to the Ensembl data base of BioMart for human genes.
 #'
 #' @param prefix (`string`)\cr gene ID prefix.
 #'
@@ -37,7 +37,7 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
   slots = c(prefix = "character")
 )
 
-#' Get Annotations from Biomart
+#' Get Annotations from BioMart
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -45,7 +45,7 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
 #' a specific ID variable and given [`biomaRt::Mart`][biomaRt::Mart-class].
 #'
 #' @param gene_ids (`character`)\cr gene IDs, e.g. `10329`.
-#' @param id_var (`string`)\cr corresponding gene ID variable name in Biomart,
+#' @param id_var (`string`)\cr corresponding gene ID variable name in BioMart,
 #'   e.g. `entrezgene_id`.
 #' @param mart (`Mart`)\cr given [`biomaRt::Mart`][biomaRt::Mart-class] object.
 #'
@@ -119,7 +119,7 @@ h_get_annotation_biomart <- function(gene_ids,
 #'   is extensible: It is simple to add new connections and corresponding query methods
 #'   for other data bases, e.g. company internal data bases. Please make sure to
 #'   follow the required format of the returned value.
-#' - The Biomart queries might not return information for all the genes. This can be
+#' - The BioMart queries might not return information for all the genes. This can be
 #'   due to different versions being used in the gene IDs and the queried Ensembl data base.
 #'
 #' @param genes (`character`)\cr gene IDs.
@@ -160,7 +160,7 @@ setGeneric(
 #' @export
 #'
 #' @note This is currently used to strip away the `GeneID` prefix from Entrez gene IDs
-#'   so that they can be queried from Biomart.
+#'   so that they can be queried from BioMart
 #'
 #' @examples
 #' h_strip_prefix(c("GeneID:11185", "GeneID:10677"), prefix = "GeneID")

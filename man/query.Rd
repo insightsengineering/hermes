@@ -35,7 +35,7 @@ a data base connection.
 is extensible: It is simple to add new connections and corresponding query methods
 for other data bases, e.g. company internal data bases. Please make sure to
 follow the required format of the returned value.
-\item The Biomart queries might not return information for all the genes. This can be
+\item The BioMart queries might not return information for all the genes. This can be
 due to different versions being used in the gene IDs and the queried Ensembl data base.
 }
 }

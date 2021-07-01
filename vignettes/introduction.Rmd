@@ -21,9 +21,10 @@ knitr::opts_chunk$set(
 
 ## Acknowledgments
 
-`hermes` is a successor of the Roche internal `rnaseqTools` R package, and therefore many code ideas have been borrowed from it. We therefore would like to thank the `rnaseqTools` authors for their work. In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of `hermes`. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal `biokitr` R package and discussed with its maintainer Daniel Marbach.
+`hermes` is a successor of the Roche internal `rnaseqTools` R package, and therefore many code ideas have been borrowed from it. Therefore we would like to thank the `rnaseqTools` authors for their work. 
+In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of `hermes`. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal `biokitr` R package and discussed them with its maintainer Daniel Marbach.
 
-Finally, as with any NEST product, `hermes` is only possible because of the whole NEST project team's work, and we are grateful for the larger team's support.
+Finally, as with any NEST product, `hermes` is only possible because of the whole NEST project team's work, and we are grateful for the entire team's support.
 
 Thanks a lot to everyone involved!
 
@@ -39,7 +40,7 @@ vignette(topic = "introduction", package = "hermes")
 In this vignette you are going to learn how to:
 
 * Import RNAseq count data into the `hermes` ready format.
-* Annotate gene information automatically from a central database (e.g. Biomart).
+* Annotate gene information automatically from a central database (e.g. BioMart).
 * Add quality control (QC) flags to genes and samples.
 * Filter the data set.
 * Normalize the counts.
@@ -66,7 +67,7 @@ The data for `hermes` needs to be imported into the `HermesData` or `RangedHerme
 
 ### Importing a `SummarizedExperiment`
 
-The simplest import route is from a `SummarizedExperiment` (SE) object. This is because a `HermesData` object
+The simplest way to import data is from a `SummarizedExperiment` (SE) object. This is because a `HermesData` object
 is just a special SE, with few additional requirements and slots. 
 
 In a nutshell, the object needs to have a `counts` assay, have certain
@@ -92,11 +93,11 @@ For a bit more details we can also call `summary()` on the object.
 summary(object)
 ```
 
-Note that here the "additional" columns refer to everything not mandatorily included in a `HermesData` object.
+Note that here the "additional" columns refer to everything that is not mandatory to be included in a `HermesData` object.
 
 ### Importing an `ExpressionSet`
 
-If we start from an `ExpressionSet`, we can first convert this to a `RangedSummarizedExperiment` and then import to `RangedHermesData`:
+If we start from an `ExpressionSet`, we can first convert it to a `RangedSummarizedExperiment` and then import it to `RangedHermesData`:
 
 ```{r}
 se <- makeSummarizedExperimentFromExpressionSet(expression_set)
@@ -134,7 +135,8 @@ allow for future extensions in this or other downstream packages.
 
 ### Connection to Database
 
-The first step is to connect to a database. In `hermes` the only option is currently Biomart.
+The first step is to connect to a database. In `hermes` the only option is currently databases that utilize the 
+BioMart software suite.
 However due to the generic function design, it is simple to extend `hermes` with other data base
 connections.
 
@@ -162,7 +164,8 @@ Then the second step is to query the gene annotations and save them in the objec
 annotation(small_object) <- query(genes(small_object), connection)
 ```
 
-Here we are using the `genes()` method to access the gene IDs (row names) of the `HermesData` object. Note that not all genes might be found in the data base and the corresponding rows would then be `NA` in the annotations.
+Here we are using the `genes()` method to access the gene IDs (row names) of the `HermesData` object. 
+Note that not all genes might be found in the data base and the corresponding rows would then be `NA` in the annotations.
 
 ## Quality Control Flags
 
@@ -170,9 +173,11 @@ Here we are using the `genes()` method to access the gene IDs (row names) of the
 
 ### Automatic Gene and Sample Flagging
 
-For genes, it is counted how many samples don't pass a minimum expression CPM threshold. If too many, then this gene is flagged as a "low expression" gene.
+For genes, it is counted how many samples don't pass a minimum expression CPM (counts per million reads mapped) threshold. 
+If too many, then this gene is flagged as a "low expression" gene.
 
-For samples, two flags are provided. The "technical failure" flag is based on the average Pearson correlation with other samples. The "low depth" flag is based on the library size, i.e. the total sum of counts for a sample across all genes.
+For samples, two flags are provided. The "technical failure" flag is based on the average Pearson correlation with other 
+samples. The "low depth" flag is based on the library size, i.e. the total sum of counts for a sample across all genes.
 
 Thresholds for the above flags can be initialized with `control_quality()`, and the flags are added with `add_quality_flags()`.
 
@@ -271,7 +276,8 @@ A series of simple descriptive plots can be obtained by just calling `autoplot()
 autoplot(object)
 ```
 
-Note that individual plots from these can be produced with the series of `draw_*()` functions, see `?plot_all` for the detailed list. Then, these can be customized further. 
+Note that individual plots from these can be produced with the series of `draw_*()` functions, see `?plot_all` for the 
+detailed list. Then, these can be customized further. 
 For example, we can change the number and color of the bins in the library size histogram:
 
 ```{r}
@@ -327,7 +333,8 @@ autoplot(
 
 ### Correlation with Sample Variables
 
-Afterwards it is easy to correlate the obtained principal components with the sample variables. We obtain a matrix of R-squared (R2) values for all combinations, which can again be visualized as a heatmap.
+Subsequently it is easy to correlate the obtained principal components with the sample variables. We obtain a matrix of 
+R-squared (R2) values for all combinations, which can again be visualized as a heatmap.
 See `?pca_cor_samplevar` for details.
 
 ```{r, fig.height=8}
