@@ -12,3 +12,4 @@ TODO\.md
 ^Jenkinsfile$
 ^\.lintr$
 ^data-raw$
+^staged_dependencies.yaml$
