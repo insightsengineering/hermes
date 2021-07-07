@@ -211,6 +211,11 @@ setMethod(
 
 #' @describeIn counts
 #'
+#' @param withDimnames (`flag`)\cr setting `withDimnames =FALSE` in the setter
+#'   (`counts<-`) is required when the `dimnames` on the supplied counts assay
+#'   are not identical to the `dimnames` on the `AnyHermesData` object;
+#'   it does not influence actual assignment of `dimnames` to the assay
+#'   (they're always stored as-is).
 #' @importFrom BiocGenerics `counts<-`
 #' @export
 #'
@@ -220,8 +225,8 @@ setMethod(
 setReplaceMethod(
   f = "counts",
   signature = signature(object = "AnyHermesData", value = "matrix"),
-  definition = function(object, value) {
-    assay(object) <- value
+  definition = function(object, value, withDimnames = TRUE) {
+    assay(object, withDimnames = withDimnames) <- value
     validObject(object)
     object
   }

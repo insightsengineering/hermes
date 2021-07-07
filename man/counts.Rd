@@ -8,12 +8,18 @@
 \usage{
 \S4method{counts}{AnyHermesData}(object)
 
-\S4method{counts}{AnyHermesData,matrix}(object) <- value
+\S4method{counts}{AnyHermesData,matrix}(object, withDimnames = TRUE) <- value
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr object to access the counts from.}
 
 \item{value}{(\code{matrix})\cr what should the counts assay be replaced with.}
+
+\item{withDimnames}{(\code{flag})\cr setting \code{withDimnames =FALSE} in the setter
+(\verb{counts<-}) is required when the \code{dimnames} on the supplied counts assay
+are not identical to the \code{dimnames} on the \code{AnyHermesData} object;
+it does not influence actual assignment of \code{dimnames} to the assay
+(they're always stored as-is).}
 }
 \value{
 The counts assay.

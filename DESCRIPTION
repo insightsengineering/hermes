@@ -36,6 +36,7 @@ Imports:
     limma,
     magrittr,
     methods,
+    MultiAssayExperiment,
     Rdpack,
     rlang,
     stats,
@@ -50,7 +51,8 @@ Suggests:
     knitr,
     test.nest (>= 0.2.9),
     testthat (>= 2.0),
-    rmarkdown
+    rmarkdown,
+    statmod
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'

@@ -151,6 +151,7 @@ The corresponding function takes the common gene ID prefix as argument to determ
 format of the gene IDs and the filter variable to use in the query later on.
 
 ```{r}
+httr::set_config(httr::config(ssl_verifypeer = 0L))
 connection <- connect_biomart(prefix(small_object))
 ```
 
