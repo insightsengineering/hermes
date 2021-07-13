@@ -39,4 +39,5 @@
 #'   - The second SE object contains 9 samples with 2500 features.
 #'   - The third SE object contains 6 samples with 1300 features.
 #' @source This is an artificial dataset designed to resemble real data.
+#' @import MultiAssayExperiment
 "multi_assay_experiment"

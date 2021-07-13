@@ -140,11 +140,11 @@ test_that("counts accessor works as expected", {
   expect_identical(dim(result), dim(h1))
 })
 
-test_that("counts setter works as expected", {
+test_that("counts setter works as expected with `withDimnames = FALSE`", {
   object <- get_se()
   h1 <- HermesData(object)
   value <- matrix(0L, nrow = nrow(h1), ncol = ncol(h1))
-  expect_silent(counts(h1) <- value)
+  expect_silent(counts(h1, withDimnames = FALSE) <- value)
   expect_equivalent(counts(h1), value)
 })
 
