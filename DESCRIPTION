@@ -48,11 +48,12 @@ Imports:
 Suggests:
     DT,
     grid,
+    httr,
     knitr,
-    test.nest (>= 0.2.9),
-    testthat (>= 2.0),
     rmarkdown,
-    statmod
+    statmod,
+    test.nest (>= 0.2.9),
+    testthat (>= 2.0)
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
