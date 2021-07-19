@@ -107,7 +107,6 @@ library(hermes)
 
 ```{r}
 # Load Data and get object HermesData 
-obj_name <- load(params$input_data_file)
 se <- get(params$input_summarized_experiment)
 stopifnot(is(se, "SummarizedExperiment"))
 
