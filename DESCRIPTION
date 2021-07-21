@@ -26,6 +26,7 @@ Imports:
     Biobase,
     BiocGenerics,
     circlize,
+    checkmate,
     ComplexHeatmap,
     DESeq2,
     edgeR,
@@ -63,6 +64,7 @@ Collate:
     'connections.R'
     'data.R'
     'differential.R'
+    'draw_scatterplot.R'
     'graphs.R'
     'normalization.R'
     'package.R'
