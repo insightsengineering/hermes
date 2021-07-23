@@ -86,6 +86,7 @@ reference:
       - draw_libsize_densities
       - draw_nonzero_boxplot
       - draw_genes_barplot
+      - draw_scatterplot
       - plot_all
   - title: Control Functions
     contents:

@@ -26,6 +26,7 @@ Imports:
     Biobase,
     BiocGenerics,
     circlize,
+    checkmate,
     ComplexHeatmap,
     DESeq2,
     edgeR,
@@ -48,11 +49,12 @@ Imports:
 Suggests:
     DT,
     grid,
+    httr,
     knitr,
-    test.nest (>= 0.2.9),
-    testthat (>= 2.0),
     rmarkdown,
-    statmod
+    statmod,
+    test.nest (>= 0.2.9),
+    testthat (>= 2.0)
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
@@ -62,6 +64,7 @@ Collate:
     'connections.R'
     'data.R'
     'differential.R'
+    'draw_scatterplot.R'
     'graphs.R'
     'normalization.R'
     'package.R'
