@@ -64,6 +64,7 @@ Collate:
     'connections.R'
     'data.R'
     'differential.R'
+    'draw_boxplot.R'
     'draw_scatterplot.R'
     'graphs.R'
     'normalization.R'
