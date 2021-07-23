@@ -1,13 +1,15 @@
 
 ---
+current_repo:
+  repo: insightsengineering/hermes
+  host: https://github.com
+
 upstream_repos:
-- repo: insightsengineering/test.nest
+- repo: insightsengineering/tern
+  host: https://github.com
+- repo: insightsengineering/ggplot2.utils
   host: https://github.com
 
 downstream_repos:
-- repo: insightsengineering/random.cdisc.data
-  host: https://github.com
-
-current_repo:
-  repo: insightsengineering/hermes
+- repo: insightsengineering/teal.modules.hermes
   host: https://github.com
