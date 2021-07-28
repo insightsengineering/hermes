@@ -87,6 +87,7 @@ reference:
       - draw_nonzero_boxplot
       - draw_genes_barplot
       - draw_scatterplot
+      - draw_barplot
       - draw_boxplot
       - plot_all
   - title: Control Functions
