@@ -29,8 +29,7 @@ input sample variables.}
 \item{facet_var}{(\code{string} or \code{NULL})\cr optional faceting variable, taken
 from input sample variables.}
 
-\item{jitter}{(\code{logical})\cr TRUE or FALSE indicating whether to use jitter
-or not. Set to FALSE by default.}
+\item{jitter}{(\code{flag})\cr whether to add jittered original data points or not.}
 }
 \value{
 The \code{ggplot} boxplot.
@@ -62,7 +61,8 @@ draw_boxplot(
   x_var = "SEX",
   y_var = genes(object2)[20],
   facet_var = "RACE",
-  color_var = "AGE18"
+  color_var = "AGE18",
+  jitter = TRUE
 )
 
 draw_boxplot(

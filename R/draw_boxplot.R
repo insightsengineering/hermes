@@ -13,8 +13,7 @@
 #'   input sample variables.
 #' @param facet_var (`string` or `NULL`)\cr optional faceting variable, taken
 #'   from input sample variables.
-#' @param jitter (`logical`)\cr TRUE or FALSE indicating whether to use jitter
-#'   or not. Set to FALSE by default.
+#' @param jitter (`flag`)\cr whether to add jittered original data points or not.
 #'
 #' @return The `ggplot` boxplot.
 #'
@@ -42,7 +41,8 @@
 #'   x_var = "SEX",
 #'   y_var = genes(object2)[20],
 #'   facet_var = "RACE",
-#'   color_var = "AGE18"
+#'   color_var = "AGE18",
+#'   jitter = TRUE
 #' )
 #'
 #' draw_boxplot(
@@ -65,7 +65,7 @@ draw_boxplot <- function(object,
   assert_string(y_var)
   assert_string(color_var, null.ok = TRUE)
   assert_string(facet_var, null.ok = TRUE)
-
+  assert_flag(jitter)
 
   assay_matrix <- assay(object, assay_name)
   col_data <- colData(object)
@@ -84,21 +84,24 @@ draw_boxplot <- function(object,
     df$color <- col_data[[color_var]]
   }
   p <- ggplot(df, aes(x = .data$x, y = .data$y)) +
-    geom_boxplot() +
+    geom_boxplot(outlier.shape = ifelse(jitter, NA, 19)) +
     stat_boxplot(geom = "errorbar") +
     labs(x = x_var, y = y_var)
+  geom_point_args <- list()
   if (!is.null(color_var)) {
+    geom_point_args <- c(geom_point_args, list(
+      aes(color = .data$color)
+    ))
     p <- p +
-      geom_point(aes(color = .data$color)) +
       labs(color = color_var)
-  } else if (!jitter) {
-    p <- p +
-      geom_point()
-  } else if (jitter) {
-    p <- p +
-      geom_point(position = position_jitter(width = 0.2),
-                 alpha = 1 / 4)
   }
+  if (jitter) {
+    geom_point_args <- c(geom_point_args, list(
+      position = position_jitter(width = 0.2),
+      alpha = 1 / 4
+    ))
+  }
+  p <- p + do.call(geom_point, geom_point_args)
   if (!is.null(facet_var)) {
     p <- p +
       facet_wrap(~ facet)
