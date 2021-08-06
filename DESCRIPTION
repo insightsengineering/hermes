@@ -54,7 +54,8 @@ Suggests:
     rmarkdown,
     statmod,
     test.nest (>= 0.2.9),
-    testthat (>= 2.0)
+    testthat (>= 2.0),
+    withr
 Collate: 
     'HermesData-validate.R'
     'HermesData-class.R'
@@ -64,6 +65,8 @@ Collate:
     'connections.R'
     'data.R'
     'differential.R'
+    'draw_barplot.R'
+    'draw_boxplot.R'
     'draw_scatterplot.R'
     'graphs.R'
     'normalization.R'

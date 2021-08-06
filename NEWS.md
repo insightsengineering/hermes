@@ -2,6 +2,10 @@
 
 ### New Features
 * Scatterplot of the gene expression values of two genes via `draw_scatterplot`.
+* Boxplot of the gene expression values of a gene for a sample variable via `draw_boxplot`.
+
+### Bug Fixes
+* `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.
 
 # hermes 0.1.0
 * First release of the `hermes` package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze RNAseq counts data for differential expression. 

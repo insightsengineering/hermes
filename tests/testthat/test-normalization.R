@@ -187,10 +187,10 @@ test_that("normalize fails as expected with wrong method choice", {
   expect_error(normalize(h1, method = c("cpm", "bla")))
 })
 
-test_that("normalize works when global environment overwrites helper function", {
+test_that("normalize works when there is a function with the same name", {
   object <- get_rse()
   h1 <- HermesData(object)
-  h_cpm <<- function(object, control) {
+  h_cpm <- function(object, control) {
     stop("wrong helper function was used")
   }
   expect_silent(normalize(h1, method = "cpm"))
