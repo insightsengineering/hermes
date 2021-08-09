@@ -1,15 +1,20 @@
-
----
 current_repo:
   repo: insightsengineering/hermes
   host: https://github.com
-
 upstream_repos:
-- repo: insightsengineering/tern
-  host: https://github.com
-- repo: insightsengineering/ggplot2.utils
-  host: https://github.com
-
+  insightsengineering/tern:
+    repo: insightsengineering/tern
+    host: https://github.com
+  insightsengineering/ggplot2.utils:
+    repo: insightsengineering/ggplot2.utils
+    host: https://github.com
+  insightsengineering/utils.nest:
+    repo: insightsengineering/utils.nest
+    host: https://github.com
+  insightsengineering/test.nest:
+    repo: insightsengineering/test.nest
+    host: https://github.com
 downstream_repos:
-- repo: insightsengineering/teal.modules.hermes
-  host: https://github.com
+  insightsengineering/teal.modules.hermes:
+    repo: insightsengineering/teal.modules.hermes
+    host: https://github.com
