@@ -21,8 +21,6 @@
 #'
 #' @note To be used with the [add_quality_flags()] function.
 #'
-#' @importFrom tern is_proportion
-#' @importFrom tern is_nonnegative_count
 #' @export
 #'
 #' @examples
@@ -85,7 +83,6 @@ control_quality <- function(min_cpm = 1,
 #'   - [control_quality()] for the detailed settings specifications;
 #'   - [set_tech_failure()] to manually flag samples as technical failures.
 #'
-#' @importFrom stats setNames
 #' @export
 #'
 #' @examples
@@ -127,7 +124,6 @@ add_quality_flags <- function(object,
 #' @describeIn quality_flags creates the low expression flag for genes
 #'   given control settings.
 #'
-#' @importFrom edgeR cpm
 #' @export
 #'
 #' @examples
@@ -154,7 +150,6 @@ h_low_expression_flag <- function(object,
 #' @describeIn quality_flags creates the low depth (library size) flag for samples
 #'   given control settings.
 #'
-#' @importFrom stats quantile
 #' @export
 #'
 #' @examples
@@ -171,7 +166,7 @@ h_low_depth_flag <- function(object,
   )
   lib_sizes <- colSums(counts(object))
   if (is.null(control$min_depth)) {
-    lower_upper_quartiles <- quantile(lib_sizes, probs = c(0.25, 0.75))
+    lower_upper_quartiles <- stats::quantile(lib_sizes, probs = c(0.25, 0.75))
     control$min_depth <- lower_upper_quartiles[1] - 1.5 * diff(lower_upper_quartiles)
   }
   lib_sizes < control$min_depth
@@ -180,7 +175,6 @@ h_low_depth_flag <- function(object,
 #' @describeIn quality_flags creates the technical failure flag for samples
 #'   given control settings.
 #'
-#' @importFrom edgeR cpm
 #' @export
 #'
 #' @examples

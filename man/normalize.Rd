@@ -38,7 +38,7 @@ The \code{\link{AnyHermesData}} object with additional assays containing the nor
 The \code{control} is saved in the \code{metadata} of the object for future reference.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The \code{normalize()} method is normalizing the input \code{\link{AnyHermesData}} according to one or more
 specified normalization methods. The results are saved as additional assays
@@ -71,7 +71,7 @@ as a complementary experimental normalization approach here.
 
 \item \code{h_tpm}: calculates the Transcripts per Million (TPM) normalized counts.
 
-\item \code{h_voom}: calculates the VOOM normalized counts. \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\item \code{h_voom}: calculates the VOOM normalized counts. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }}
 
 \examples{

@@ -13,7 +13,6 @@
 #' @return A data frame with columns `log2_fc` (estimated log2 fold change),
 #'   `stat` (moderated t-statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg adjusted p-value).
 #'
-#' @importFrom limma voom lmFit eBayes topTable
 #' @export
 #'
 #' @references
@@ -75,7 +74,6 @@ h_diff_expr_voom <- function(object, design, ...) {
 #' @return A data frame with columns `log2_fc` (estimated log2 fold change),
 #'   `stat` (Wald statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg adjusted p-value).
 #'
-#' @importFrom DESeq2 DESeqDataSet DESeq results
 #' @export
 #'
 #' @references
@@ -162,7 +160,6 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
 #'     `fitType = "local"` as additional argument. This could e.g. be the case when only few samples
 #'     are present in which case the default parametric dispersions estimation will not work.
 #'
-#' @importFrom stats as.formula model.matrix
 #' @export
 #'
 #' @examples
@@ -255,8 +252,6 @@ S4Vectors::setValidity2(
 #' @param log2_fc_thresh (`number`)\cr threshold on the absolute log2 fold-change (x-axis)
 #'   to flag up- or down-regulation of transcription.
 #'
-#' @importFrom tern is_proportion
-#' @importFrom ggrepel geom_text_repel
 #' @export
 #'
 #' @examples
