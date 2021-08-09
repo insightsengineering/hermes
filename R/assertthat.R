@@ -70,7 +70,7 @@ on_failure(is_counts_vector) <- function(call, env) {
 
 #' @describeIn assertions checks for a list containing elements.
 #' @param elements (`character`)\cr names of elements which should be in the list `x`.
-#' @importFrom utils.nest is_character_vector is_fully_named_list
+#'
 #' @export
 #' @examples
 #'
