@@ -53,9 +53,9 @@ se3map <- data.frame(
 
 # Create an example phenotype data.
 colDat <- data.frame(
-  sex = c("M", "F", "F", "M", "M", "F", "F", "M", "F"),
-  age = 35:43,
-  row.names = pat_names[1:9]
+  sex = sample(c("M", "F"), size = 18, replace = TRUE),
+  age = seq(from = 35, length = 18),
+  row.names = pat_names[1:18]
 )
 
 # Remove SEX and AGE variables from experiment colData.
