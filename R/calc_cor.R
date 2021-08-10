@@ -101,8 +101,9 @@ setMethod(
       TechnicalFailureFlag = factor(df$TechnicalFailureFlag),
       col = list(TechnicalFailureFlag = flag_colors)
     )
+    mat <- as(object, "matrix")
     ComplexHeatmap::Heatmap(
-      matrix = object,
+      matrix = mat,
       col = cor_colors,
       name = "Correlation",
       left_annotation = left_annotation,
