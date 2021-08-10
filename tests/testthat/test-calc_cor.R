@@ -24,3 +24,13 @@ test_that("calc_cor fails as expected with invalid settings", {
   expect_error(correlate(object, method = "foo"))
   expect_error(correlate(object, assay_name = 1))
 })
+
+# autoplot-HermesDataCor ----
+
+test_that("autoplot method does not give warnings on HermesDataCor objects", {
+  hd <- HermesData(summarized_experiment)
+  object <- correlate(hd)
+  expect_s4_class(object, "HermesDataCor")
+  result <- expect_silent(autoplot(object))
+  expect_s4_class(result, "Heatmap")
+})

@@ -225,8 +225,9 @@ setMethod(
                           c("blue", "green", "purple", "yellow", "orange", "red", "brown")
                         ),
                         ...) {
+    mat <- as(object, "matrix")
     ComplexHeatmap::Heatmap(
-      matrix = t(object),
+      matrix = t(mat),
       col = cor_colors,
       name = "R2",
       ...
