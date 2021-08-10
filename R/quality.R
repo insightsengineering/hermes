@@ -252,7 +252,7 @@ set_tech_failure <- function(object,
                              sample_ids) {
   assert_that(
     is_hermes_data(object),
-    is_character_vector(sample_ids),
+    utils.nest::is_character_vector(sample_ids),
     all(sample_ids %in% colnames(object))
   )
   matches <- match(sample_ids, colnames(object))

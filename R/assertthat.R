@@ -137,9 +137,9 @@ is_constant <- function(x) {
   assert_that(is.vector(x))
   x <- x[!is.na(x)]
   if (is.numeric(x)) {
-    isConstant(x)
+    S4Vectors::isConstant(x)
   } else if (is.factor(x)) {
-    isConstant(as.integer(x))
+    S4Vectors::isConstant(as.integer(x))
   } else if (is.character(x)) {
     identical(length(unique(x)), 1L)
   } else if (is.logical(x)) {
