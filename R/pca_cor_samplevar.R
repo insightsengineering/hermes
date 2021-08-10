@@ -17,9 +17,6 @@ NULL
 #'
 #' @return A vector with R2 values for each principal component.
 #'
-#' @importFrom stats model.matrix
-#' @importFrom limma lmFit
-#' @importFrom utils capture.output
 #' @export
 #'
 #' @examples
@@ -205,8 +202,6 @@ setMethod(
 #'   produced by [circlize::colorRamp2()].
 #' @param ... other arguments to be passed to [ComplexHeatmap::Heatmap()].
 #'
-#' @importFrom ComplexHeatmap Heatmap
-#' @importFrom circlize colorRamp2
 #' @export
 #'
 #' @examples

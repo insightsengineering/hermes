@@ -16,7 +16,7 @@ genes(object)
 The character vector with the gene IDs.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Access the gene IDs, i.e. row names, of a \code{\link{AnyHermesData}} object with a
 nicely named accessor method.

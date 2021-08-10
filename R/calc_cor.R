@@ -22,8 +22,6 @@ NULL
 #'
 #' @return A [`HermesDataCor`] object.
 #'
-#' @importFrom stats cor
-#'
 #' @export
 #'
 #' @examples
@@ -71,8 +69,6 @@ setMethod(
 #'   produced by [circlize::colorRamp2()].
 #' @param ... other arguments to be passed to [ComplexHeatmap::Heatmap()].
 #'
-#' @importFrom ComplexHeatmap rowAnnotation HeatmapAnnotation Heatmap
-#' @importFrom circlize colorRamp2
 #' @export
 #'
 #' @examples

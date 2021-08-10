@@ -32,7 +32,6 @@ NULL
 #'
 #' @return The modified data.
 #'
-#' @importFrom tern df_explicit_na
 #' @export
 #'
 #' @examples

@@ -17,7 +17,6 @@
 #'
 #' @return The `ggplot` barplot.
 #'
-#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
