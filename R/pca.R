@@ -25,8 +25,6 @@
 #' @seealso Afterwards correlations between principal components
 #'   and sample variables can be calculated, see [`pca_cor_samplevar`].
 #'
-#' @importFrom S4Vectors isConstant
-#' @importFrom stats prcomp
 #' @export
 #'
 #' @examples

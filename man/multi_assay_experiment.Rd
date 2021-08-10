@@ -5,11 +5,12 @@
 \alias{multi_assay_experiment}
 \title{Example \code{MultiAssayExperiment} Data}
 \format{
-A \code{\link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment}} object with 3 separate SE objects.
+A \code{\link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment}} object with 3 separate \code{\link{HermesData}}
+objects.
 \itemize{
-\item The first SE object contains 5 samples and covers 1000 features (Entrez gene IDs).
-\item The second SE object contains 9 samples with 2500 features.
-\item The third SE object contains 6 samples with 1300 features.
+\item The first object contains 5 samples and covers 1000 features (Entrez gene IDs).
+\item The second object contains 9 samples with 2500 features.
+\item The third object contains 6 samples with 1300 features.
 }
 }
 \source{
@@ -19,7 +20,7 @@ This is an artificial dataset designed to resemble real data.
 multi_assay_experiment
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This example \code{\link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment}} can be used as test data.
 }

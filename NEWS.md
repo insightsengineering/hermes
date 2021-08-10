@@ -3,6 +3,7 @@
 ### New Features
 * Scatterplot of the gene expression values of two genes via `draw_scatterplot`.
 * Boxplot of the gene expression values of a gene for a sample variable via `draw_boxplot`.
+* The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.

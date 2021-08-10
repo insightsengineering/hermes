@@ -17,7 +17,6 @@
 #'
 #' @return The `ggplot` boxplot.
 #'
-#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
