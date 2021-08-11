@@ -53,7 +53,7 @@ ggplot(df) +
 
 
 #Putting the final function together.
-library(ggplot2.utils)
+library(EnvStats)
 
 draw_nonzero_boxplot <- function(object, 
                                  jitter = 0.2,
