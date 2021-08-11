@@ -5,9 +5,6 @@ upstream_repos:
   insightsengineering/tern:
     repo: insightsengineering/tern
     host: https://github.com
-  insightsengineering/ggplot2.utils:
-    repo: insightsengineering/ggplot2.utils
-    host: https://github.com
   insightsengineering/utils.nest:
     repo: insightsengineering/utils.nest
     host: https://github.com
