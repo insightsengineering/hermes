@@ -211,13 +211,20 @@ setMethod(
 #'
 #' # We can also choose to not reorder the columns.
 #' autoplot(result, cluster_columns = FALSE)
+#'
+#' # We can also choose break-points for color customization.
+#' autoplot(result,
+#'          cor_colors = circlize::colorRamp2(
+#'          c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1),
+#'          c("blue", "green", "purple", "yellow", "orange", "red", "brown")
+#'          ))
 setMethod(
   f = "autoplot",
   signature = c(object = "HermesDataPcaCor"),
   definition = function(object,
                         cor_colors = circlize::colorRamp2(
-                          c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1),
-                          c("blue", "green", "purple", "yellow", "orange", "red", "brown")
+                          c(-1, 0, 1),
+                          c("blue", "white", "red")
                         ),
                         ...) {
     mat <- as(object, "matrix")
