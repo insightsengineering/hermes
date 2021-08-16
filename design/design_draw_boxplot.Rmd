@@ -1,0 +1,86 @@
+---
+title: "Box plot to accommodate by multiple genes"
+author: "Namrata Bhatia"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective: Implementation idea on adding the ability to specify multiple genes next to each other to the draw_boxplot()
+
+## Original draw_boxplot()
+```{r}
+object <- HermesData(summarized_experiment)
+
+assay_name = "counts"
+x_var = "SEX"
+y_var = genes(object)[19]
+facet_var = "RACE"
+color_var = "AGE18"
+
+assay_matrix <- assay(object, assay_name)
+col_data <- colData(object)
+df <- data.frame(
+  x = col_data[, x_var],
+  y = assay_matrix[y_var, ]
+) 
+df$color <- col_data[[color_var]]
+df$facet <- col_data[[facet_var]]
+
+
+ggplot(df, aes(x = .data$x, y = .data$y)) +
+  geom_boxplot() +
+  stat_boxplot(geom = "errorbar") +
+  labs(x = x_var, y = y_var) +
+  geom_point(aes(color = .data$color)) +
+      labs(color = color_var) +
+  facet_wrap(~facet)
+```
+
+
+## Update to add a way to specify multiple genes
+```{r}
+y_vars = genes(object)[1:2]
+facet_vars = genes(object)[1:2]
+
+for (thisyvar in y_vars) {
+  df <- data.frame(
+    x = col_data[, x_var],
+    y = assay_matrix[thisyvar, ]
+  )
+  df$color <- col_data[[color_var]]
+  df$facet <- col_data[[facet_var]]
+  
+  print(ggplot(df, aes(x = .data$x, y = .data$y)) +
+  geom_boxplot() +
+  stat_boxplot(geom = "errorbar") +
+  labs(x = x_var, y = thisyvar) +
+  geom_point(aes(color = .data$color)) +
+      labs(color = color_var) +
+  facet_wrap(~facet)
+  )
+}
+
+# Test that this approach works when only one gene is specified
+for (thisyvar in y_var) {
+  df <- data.frame(
+    x = col_data[, x_var],
+    y = assay_matrix[thisyvar, ]
+  )
+  df$color <- col_data[[color_var]]
+  df$facet <- col_data[[facet_var]]
+  
+  print(ggplot(df, aes(x = .data$x, y = .data$y)) +
+  geom_boxplot() +
+  stat_boxplot(geom = "errorbar") +
+  labs(x = x_var, y = thisyvar) +
+  geom_point(aes(color = .data$color)) +
+      labs(color = color_var) +
+  facet_wrap(~facet)
+  )
+}
+```
