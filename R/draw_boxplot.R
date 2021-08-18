@@ -51,6 +51,15 @@
 #'   y_var = genes(object)[2],
 #'   jitter = TRUE
 #' )
+#'
+#' draw_boxplot(
+#'   object,
+#'   assay_name = "counts",
+#'   x_var = "SEX",
+#'   y_var = genes(object)[1:2],
+#'   facet_var = "RACE",
+#'   jitter = FALSE
+#' )
 draw_boxplot <- function(object,
                          assay_name,
                          x_var,
@@ -61,7 +70,7 @@ draw_boxplot <- function(object,
   assert_class(object, "AnyHermesData")
   assert_string(assay_name)
   assert_string(x_var)
-  assert_string(y_var)
+  assert_character(y_var)
   assert_string(color_var, null.ok = TRUE)
   assert_string(facet_var, null.ok = TRUE)
   assert_flag(jitter)
@@ -70,10 +79,13 @@ draw_boxplot <- function(object,
   col_data <- colData(object)
   assert_names(names(col_data), must.include = x_var)
   assert_names(rownames(assay_matrix), must.include = y_var)
+
   df <- data.frame(
     x = col_data[, x_var],
-    y = assay_matrix[y_var, ]
+    y = as.numeric(t(assay_matrix[y_var, , drop = FALSE])),
+    fill = factor(rep(y_var, each = ncol(assay_matrix)))
   )
+
   if (!is.null(facet_var)) {
     assert_names(names(col_data), must.include = facet_var)
     df$facet <- col_data[[facet_var]]
@@ -82,28 +94,38 @@ draw_boxplot <- function(object,
     assert_names(names(col_data), must.include = color_var)
     df$color <- col_data[[color_var]]
   }
-  p <- ggplot(df, aes(x = .data$x, y = .data$y)) +
+
+  p <- ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill)) +
     geom_boxplot(outlier.shape = ifelse(jitter, NA, 19)) +
     stat_boxplot(geom = "errorbar") +
-    labs(x = x_var, y = y_var)
+    geom_point(
+      position = position_jitterdodge(jitter.width = 0),
+      aes(group = .data$fill)
+    ) +
+    labs(x = x_var, y = assay_name)
+
   geom_point_args <- list()
+
   if (!is.null(color_var)) {
     geom_point_args <- c(geom_point_args, list(
       aes(color = .data$color)
     ))
     p <- p +
+      do.call(geom_point, geom_point_args) +
       labs(color = color_var)
   }
+
   if (jitter) {
     geom_point_args <- c(geom_point_args, list(
-      position = position_jitter(width = 0.2),
-      alpha = 1 / 4
+      position = position_jitterdodge(jitter.width = NULL)
     ))
   }
-  p <- p + do.call(geom_point, geom_point_args)
+  p <- p +
+    do.call(geom_point, geom_point_args)
+
   if (!is.null(facet_var)) {
     p <- p +
-      facet_wrap(~ facet)
+      facet_wrap(~facet)
   }
   p
 }

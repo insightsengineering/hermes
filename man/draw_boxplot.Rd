@@ -72,4 +72,13 @@ draw_boxplot(
   y_var = genes(object)[2],
   jitter = TRUE
 )
+
+draw_boxplot(
+  object,
+  assay_name = "counts",
+  x_var = "SEX",
+  y_var = genes(object)[1:2],
+  facet_var = "RACE",
+  jitter = FALSE
+)
 }

@@ -107,13 +107,14 @@ object <- HermesData(summarized_experiment)
 
 assay_name <- "counts"
 x_var <- "SEX"
-y_vars <- genes(object)[19]
+y_var <- genes(object)[19]
+y_vars <- genes(object)[1:2]
 facet_var <- "RACE"
 color_var <- "AGE18"
 
 assay_matrix <- assay(object, assay_name)
 col_data <- colData(object)
-df <- data.frame(
+df2 <- data.frame(
   x = col_data[, x_var],
   color = col_data[, color_var],
   facet = col_data[, facet_var],
@@ -127,7 +128,7 @@ Note that in the `data.frame()` call above, the three `colData` variables are re
 Given the long format it is almost as simple as before to plot the boxplots, as we just add the additional aesthetic.
 
 ```{r}
-ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill)) +
+ggplot(df2, aes(x = .data$x, y = .data$y, fill = .data$fill)) +
   geom_boxplot() +
   stat_boxplot(geom = "errorbar") +
   geom_point(
