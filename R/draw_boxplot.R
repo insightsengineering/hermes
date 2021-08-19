@@ -7,8 +7,9 @@
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param assay_name (`string`)\cr selects assay from input for the y-axis.
-#' @param x_var (`string`)\cr sample variable for the x-axis.
 #' @param genes (`character`)\cr gene ID(s) for which to produce boxplots.
+#' @param x_var (`string` or `NULL`)\cr optional stratifying variable for the x-axis,
+#'   taken from input sample variables.
 #' @param color_var (`string` or `NULL`)\cr optional color variable, taken from
 #'   input sample variables.
 #' @param facet_var (`string` or `NULL`)\cr optional faceting variable, taken
@@ -24,10 +25,7 @@
 #' draw_boxplot(
 #'   object,
 #'   assay_name = "counts",
-#'   x_var = "SEX",
-#'   genes = genes(object)[2],
-#'   facet_var = NULL,
-#'   color_var = "RACE"
+#'   genes = genes(object)[2]
 #' )
 #'
 #' object2 <- object %>%
@@ -61,26 +59,32 @@
 #' )
 draw_boxplot <- function(object,
                          assay_name,
-                         x_var,
                          genes,
+                         x_var = NULL,
                          color_var = NULL,
                          facet_var = NULL,
                          jitter = FALSE) {
   assert_class(object, "AnyHermesData")
   assert_string(assay_name)
-  assert_string(x_var)
   assert_character(genes, any.missing = FALSE, unique = TRUE)
+  assert_string(x_var, null.ok = TRUE)
   assert_string(color_var, null.ok = TRUE)
   assert_string(facet_var, null.ok = TRUE)
   assert_flag(jitter)
 
   assay_matrix <- assay(object, assay_name)
   col_data <- colData(object)
-  assert_names(names(col_data), must.include = x_var)
   assert_names(rownames(assay_matrix), must.include = genes)
 
+  x <- if (!is.null(x_var)) {
+    assert_names(names(col_data), must.include = x_var)
+    col_data[, x_var]
+  } else {
+    factor(0)
+  }
+
   df <- data.frame(
-    x = col_data[, x_var],
+    x = x,
     y = as.numeric(t(assay_matrix[genes, , drop = FALSE])),
     fill = factor(rep(genes, each = ncol(assay_matrix)))
   )
@@ -107,6 +111,10 @@ draw_boxplot <- function(object,
       position = position_jitterdodge(jitter.width = jitter_width),
     ) +
     labs(x = x_var, y = assay_name, fill = "Gene")
+  if (is.null(x_var)) {
+    p <- p +
+      scale_x_discrete(breaks = NULL)
+  }
   if (!is.null(color_var)) {
     p <- p +
       labs(color = color_var)

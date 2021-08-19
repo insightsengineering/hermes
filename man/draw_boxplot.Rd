@@ -7,8 +7,8 @@
 draw_boxplot(
   object,
   assay_name,
-  x_var,
   genes,
+  x_var = NULL,
   color_var = NULL,
   facet_var = NULL,
   jitter = FALSE
@@ -19,9 +19,10 @@ draw_boxplot(
 
 \item{assay_name}{(\code{string})\cr selects assay from input for the y-axis.}
 
-\item{x_var}{(\code{string})\cr sample variable for the x-axis.}
-
 \item{genes}{(\code{character})\cr gene ID(s) for which to produce boxplots.}
+
+\item{x_var}{(\code{string} or \code{NULL})\cr optional stratifying variable for the x-axis,
+taken from input sample variables.}
 
 \item{color_var}{(\code{string} or \code{NULL})\cr optional color variable, taken from
 input sample variables.}
@@ -45,10 +46,7 @@ object <- HermesData(summarized_experiment)
 draw_boxplot(
   object,
   assay_name = "counts",
-  x_var = "SEX",
-  genes = genes(object)[2],
-  facet_var = NULL,
-  color_var = "RACE"
+  genes = genes(object)[2]
 )
 
 object2 <- object \%>\%
