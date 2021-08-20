@@ -39,7 +39,7 @@ The \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene 
 }
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 These methods access and set the gene annotations stored in a \code{\link{AnyHermesData}} object.
 }

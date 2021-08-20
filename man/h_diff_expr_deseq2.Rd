@@ -19,7 +19,7 @@ A data frame with columns \code{log2_fc} (estimated log2 fold change),
 \code{stat} (Wald statistic), \code{p_val} (raw p-value), \code{adj_p_pval} (Benjamini-Hochberg adjusted p-value).
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This helper functions performs the differential expression analysis with
 \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}} for a given \link{AnyHermesData} input and \code{design} matrix.

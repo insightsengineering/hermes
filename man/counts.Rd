@@ -25,7 +25,7 @@ it does not influence actual assignment of \code{dimnames} to the assay
 The counts assay.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 These methods access and set the counts assay in a \code{\link{AnyHermesData}} object.
 }

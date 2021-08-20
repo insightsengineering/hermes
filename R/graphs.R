@@ -9,7 +9,6 @@
 #' @param fill (`string`)\cr color of the bars filling.
 #' @return The `ggplot` object with the histogram.
 #'
-#' @importFrom rlang .data
 #' @export
 #' @examples
 #' result <- HermesData(summarized_experiment)
@@ -88,8 +87,6 @@ draw_libsize_qq <- function(object,
 #' @param log (`flag`)\cr should the counts be log transformed (log2).
 #' @return The `ggplot` object with the density plot.
 #'
-#' @importFrom tidyr gather
-#' @importFrom rlang .data
 #' @export
 #' @examples
 #' result <- HermesData(summarized_experiment)
@@ -111,7 +108,7 @@ draw_libsize_densities <- function(object,
     title <- "Count Distribution"
     xlab <- "Counts"
   }
-  df_long <- gather(df, key = "Sample", value = "Counts")
+  df_long <- tidyr::gather(df, key = "Sample", value = "Counts")
   ggplot(df_long, aes(.data$Counts, group = .data$Sample)) +
     geom_density() +
     expand_limits(x = -2.5) +
@@ -133,7 +130,6 @@ draw_libsize_densities <- function(object,
 #'
 #' @return The `ggplot` object with the boxplot.
 #'
-#' @importFrom tern is_proportion
 #' @export
 #'
 #' @examples
@@ -165,7 +161,7 @@ draw_nonzero_boxplot <- function(object,
       position = position,
       alpha = alpha
     ) +
-    stat_n_text(text_box = TRUE) +
+    EnvStats::stat_n_text(text.box = TRUE) +
     ggtitle("Distribution of non-zero expressed genes") +
     xlab("Library") +
     ylab("Number of non-zero genes")
@@ -182,7 +178,6 @@ draw_nonzero_boxplot <- function(object,
 #' @param include_others (`flag`)\cr option to show the chromosomes not in `chromosomes` as "Others".
 #' @return The `ggplot` object with the histogram.
 #'
-#' @importFrom rlang .data
 #' @export
 #' @examples
 #' object <- HermesData(summarized_experiment)

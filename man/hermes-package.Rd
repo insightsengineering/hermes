@@ -11,8 +11,8 @@
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.roche.com/NEST/hermes/}
-  \item Report bugs at \url{https://github.roche.com/NEST/hermes/issues}
+  \item \url{https://github.com/insightsengineering/hermes/}
+  \item Report bugs at \url{https://github.com/insightsengineering/hermes/issues}
 }
 
 }

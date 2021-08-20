@@ -99,12 +99,13 @@ setMethod(
     assert_that(all(methods %in% method_choices))
     methods <- match.arg(methods, choices = method_choices, several.ok = TRUE)
     for (method in methods) {
-      fun_name <- paste0("h_", method)
-      assay(object, method) <- do.call(
+      fun_name <- paste0("hermes::h_", method)
+      method_result <- eval(utils.nest::call_with_colon(
         fun_name,
-        list(object = object, control = control),
-        envir = as.environment("package:hermes")
-      )
+        object = object,
+        control = control
+      ))
+      assay(object, method) <- method_result
     }
     metadata(object) <- c(metadata(object), list(control_normalize = control))
     object
@@ -114,7 +115,6 @@ setMethod(
 #' @describeIn normalize calculates the Counts per Million (CPM) normalized counts.
 #'
 #' @export
-#' @importFrom edgeR cpm
 #' @examples
 #'
 #' # Separate calculation of the CPM normalized counts.
@@ -137,7 +137,6 @@ h_cpm <- function(object,
 #' @describeIn normalize calculates the Reads per Kilobase per Million (RPKM) normalized counts.
 #'
 #' @export
-#' @importFrom edgeR rpkm
 #' @examples
 #'
 #' # Separate calculation of the RPKM normalized counts.
@@ -182,8 +181,6 @@ h_tpm <- function(object,
 #' @describeIn normalize calculates the VOOM normalized counts. `r lifecycle::badge("experimental")`
 #'
 #' @export
-#' @importFrom limma voom
-#' @importFrom S4Vectors isEmpty
 #' @examples
 #'
 #' # Separate calculation of the VOOM normalized counts.

@@ -2,6 +2,11 @@
 
 ### New Features
 * Scatterplot of the gene expression values of two genes via `draw_scatterplot`.
+* Boxplot of the gene expression values via `draw_boxplot`. Faceting, stratifying, and coloring by sample variables, as well as comparison of multiple genes is supported.
+* The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
+
+### Bug Fixes
+* `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.
 
 # hermes 0.1.0
 * First release of the `hermes` package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze RNAseq counts data for differential expression. 

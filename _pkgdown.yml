@@ -7,7 +7,7 @@ template:
 navbar:
   right:
     - icon: fa-github
-      href: https://github.roche.com/NEST/hermes
+      href: https://github.com/insightsengineering/hermes
 
 reference:
   - title: Classes
@@ -87,6 +87,8 @@ reference:
       - draw_nonzero_boxplot
       - draw_genes_barplot
       - draw_scatterplot
+      - draw_barplot
+      - draw_boxplot
       - plot_all
   - title: Control Functions
     contents:

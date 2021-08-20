@@ -231,10 +231,10 @@ test_that("normalize fails as expected with wrong method choice", {
 
 test_that("normalize works when global environment overwrites helper function", {
   test.nest::skip_if_too_deep(0)
-
+  
   object <- get_rse()
   h1 <- HermesData(object)
-  h_cpm <<- function(object, control) {
+  h_cpm <- function(object, control) {
     stop("wrong helper function was used")
   }
   expect_silent(normalize(h1, method = "cpm"))

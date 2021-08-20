@@ -12,7 +12,6 @@
 #'
 #' @return [`ConnectionBiomart`] object.
 #'
-#' @importFrom biomaRt useMart
 #' @export
 #'
 #' @examples
@@ -59,8 +58,6 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
 #'   - `refseq_mrna`
 #'   - `refseq_peptide`
 #'
-#' @importFrom utils.nest is_character_vector
-#' @importFrom biomaRt getBM
 #' @export
 #'
 #' @examples
@@ -175,7 +172,7 @@ h_strip_prefix <- function(gene_ids, prefix) {
 # query-ConnectionBiomart ----
 
 #' @rdname query
-#' @importFrom S4Vectors DataFrame
+#'
 #' @export
 #' @examples
 #' \dontrun{

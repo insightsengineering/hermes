@@ -84,3 +84,15 @@ test_that("correlate method fails as expected with invalid settings", {
   expect_error(correlate(pca, colData(object)))
   expect_error(correlate(pca$x, object))
 })
+
+# autoplot-HermesDataPcaCor ----
+
+test_that("autoplot method does not give warnings on HermesDataPcaCor objects", {
+  hd <- HermesData(summarized_experiment)
+  object <- hd %>%
+    calc_pca() %>%
+    correlate(hd)
+  expect_s4_class(object, "HermesDataPcaCor")
+  result <- expect_silent(autoplot(object))
+  expect_s4_class(result, "Heatmap")
+})
