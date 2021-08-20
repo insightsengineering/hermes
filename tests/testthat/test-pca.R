@@ -1,6 +1,8 @@
 # calc_pca ----
 
 test_that("calc_pca function works as expected for HermesData with default counts assay", {
+  test.nest::skip_if_too_deep(0)
+
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(normalize(object))
   pca <- expect_silent(calc_pca(result))
@@ -9,6 +11,8 @@ test_that("calc_pca function works as expected for HermesData with default count
 })
 
 test_that("calc_pca function works as expected for HermesData with another assay", {
+  test.nest::skip_if_too_deep(0)
+
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(normalize(object))
   pca <- expect_silent(calc_pca(result, assay_name = "cpm"))
@@ -17,6 +21,8 @@ test_that("calc_pca function works as expected for HermesData with another assay
 })
 
 test_that("calc_pca function works as expected for RangedHermesData", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(get_rse())
   expect_is(object, "RangedHermesData")
   result <- expect_silent(normalize(object))
@@ -26,6 +32,8 @@ test_that("calc_pca function works as expected for RangedHermesData", {
 })
 
 test_that("calc_pca function fails as expected with wrong assay choice", {
+  test.nest::skip_if_too_deep(0)
+
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(normalize(object))
   expect_error(calc_pca(result, assay_name = "abc"))

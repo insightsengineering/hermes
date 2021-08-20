@@ -1,6 +1,8 @@
 # h_pca_var_rsquared ----
 
 test_that("h_pca_var_rsquared works as expected", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(summarized_experiment)
   pca <- expect_silent(calc_pca(object)$x)
   x <- expect_silent(colData(object)$LowDepthFlag)
@@ -11,6 +13,8 @@ test_that("h_pca_var_rsquared works as expected", {
 })
 
 test_that("h_pca_var_rsquared fails as expected with invalid inputs", {
+  test.nest::skip_if_too_deep(0)
+
   se <- get_se()
   object <- HermesData(se)
   x <- expect_silent(colData(se)$LowDepthFlag)
@@ -19,6 +23,8 @@ test_that("h_pca_var_rsquared fails as expected with invalid inputs", {
 })
 
 test_that("h_pca_var_rsquared returns NAs when something is not estimable", {
+  test.nest::skip_if_too_deep(0)
+
   pca <- rbind(X = -1, Y = 1)
   x <- c(TRUE, FALSE)
   r2x <- expect_silent(h_pca_var_rsquared(pca, x))
@@ -31,6 +37,8 @@ test_that("h_pca_var_rsquared returns NAs when something is not estimable", {
 # h_pca_df_r2_matrix ----
 
 test_that("h_pca_df_r2_matrix works as expected", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(summarized_experiment)
   pca <- expect_silent(calc_pca(object)$x)
   df <- expect_silent(as.data.frame(colData(object)))
@@ -42,6 +50,8 @@ test_that("h_pca_df_r2_matrix works as expected", {
 })
 
 test_that("h_pca_df_r2_matrix fails as expected with invalid settings", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(summarized_experiment)
   pca <- expect_silent(calc_pca(object)$x)
   df <- expect_silent(as.data.frame(colData(object)))
@@ -52,6 +62,8 @@ test_that("h_pca_df_r2_matrix fails as expected with invalid settings", {
 # correlate-HermesDataPca ----
 
 test_that("correlate method on HermesDataPca works as expected", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(summarized_experiment)
   df <- expect_silent(as.data.frame(colData(object)))
   pca <- expect_silent(calc_pca(object))
@@ -64,6 +76,8 @@ test_that("correlate method on HermesDataPca works as expected", {
 })
 
 test_that("correlate method fails as expected with invalid settings", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(summarized_experiment)
   pca <- expect_silent(calc_pca(object))
   result <- expect_silent(correlate(pca, object))

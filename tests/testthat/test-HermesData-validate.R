@@ -1,6 +1,8 @@
 # validate_counts ----
 
 test_that("validate_counts returns NULL for a valid object", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(counts = matrix(1:4, 2, 2))
   )
@@ -8,6 +10,8 @@ test_that("validate_counts returns NULL for a valid object", {
 })
 
 test_that("validate_counts returns messages as expected for invalid objects", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(a = matrix(rnorm(4), 2, 2))
   )
@@ -33,10 +37,14 @@ test_that("validate_counts returns messages as expected for invalid objects", {
 # validate_cols ----
 
 test_that("validate_cols returns NULL when columns are found", {
+  test.nest::skip_if_too_deep(0)
+
   expect_null(validate_cols(c("a", "b"), c("c", "b", "a", "d")))
 })
 
 test_that("validate_cols returns messages as expected when columns are not found", {
+  test.nest::skip_if_too_deep(0)
+
   expect_identical(
     validate_cols(c("a", "b"), c("c", "d", "b")),
     "required columns a not present"
@@ -50,6 +58,8 @@ test_that("validate_cols returns messages as expected when columns are not found
 # validate_row_data ----
 
 test_that("validate_row_data returns NULL for a valid object", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     rowData = data.frame(
@@ -68,6 +78,8 @@ test_that("validate_row_data returns NULL for a valid object", {
 })
 
 test_that("validate_row_data returns messages as expected for invalid object", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1))
   )
@@ -97,6 +109,8 @@ test_that("validate_row_data returns messages as expected for invalid object", {
 # validate_col_data ----
 
 test_that("validate_col_data returns NULL for a valid object", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     colData = data.frame(
@@ -108,6 +122,8 @@ test_that("validate_col_data returns NULL for a valid object", {
 })
 
 test_that("validate_col_data returns messages as expected for invalid object", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1))
   )
@@ -131,6 +147,8 @@ test_that("validate_col_data returns messages as expected for invalid object", {
 # validate_names ----
 
 test_that("validate_names returns NULL for a valid object", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(counts = matrix(
       data = 1:4,
@@ -143,6 +161,8 @@ test_that("validate_names returns NULL for a valid object", {
 })
 
 test_that("validate_names returns messages as expected for invalid object", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1))
   )
@@ -187,11 +207,15 @@ test_that("validate_names returns messages as expected for invalid object", {
 # validate_prefix  ----
 
 test_that("validate_prefix returns NULL for a valid object", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(summarized_experiment)
   expect_null(validate_prefix(object))
 })
 
 test_that("validate_prefix returns messages as expected for wrong prefix with whitespace", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(summarized_experiment)
   object@prefix <- "Gene ID"
   result <- validate_prefix(object)
@@ -203,6 +227,8 @@ test_that("validate_prefix returns messages as expected for wrong prefix with wh
 })
 
 test_that("validate_prefix returns correct message when prefix has two elements", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(summarized_experiment)
   object@prefix <- c("GeneID", "ENSGID")
   result <- expect_silent(validate_prefix(object))

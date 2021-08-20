@@ -40,6 +40,8 @@ test_that("h_get_annotation_biomart works as expected", {
 # h_strip_prefix ----
 
 test_that("h_strip_prefix works as expected", {
+  test.nest::skip_if_too_deep(0)
+
   expect_identical(
     h_strip_prefix(c("GeneID:11185", "GeneID:10677"), prefix = "GeneID"),
     c("11185", "10677")

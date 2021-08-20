@@ -1,6 +1,8 @@
 # .HermesData ----
 
 test_that("HermesData objects can be created with default constructor .HermesData", {
+  test.nest::skip_if_too_deep(0)
+
   object <- get_se()
   result <- expect_silent(.HermesData(object, prefix = "GeneID"))
   expect_is(result, "HermesData")
@@ -8,6 +10,8 @@ test_that("HermesData objects can be created with default constructor .HermesDat
 })
 
 test_that("HermesData validation fails as expected", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1))
   )
@@ -15,6 +19,8 @@ test_that("HermesData validation fails as expected", {
 })
 
 test_that("HermesData prefix slot can not be assigned numeric", {
+  test.nest::skip_if_too_deep(0)
+
   object <- HermesData(summarized_experiment)
   expect_error(object@prefix <- 124)
 })
@@ -22,6 +28,8 @@ test_that("HermesData prefix slot can not be assigned numeric", {
 # .RangedHermesData ----
 
 test_that("RangedHermesData objects can be created with default constructor .RangedHermesData", {
+  test.nest::skip_if_too_deep(0)
+
   object <- get_rse()
   result <- expect_silent(.RangedHermesData(object, prefix = "ENSG"))
   expect_is(result, "RangedHermesData")
@@ -29,6 +37,8 @@ test_that("RangedHermesData objects can be created with default constructor .Ran
 })
 
 test_that("RangedHermesData validation fails as expected", {
+  test.nest::skip_if_too_deep(0)
+
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     rowRanges = GRanges(
@@ -44,6 +54,8 @@ test_that("RangedHermesData validation fails as expected", {
 # makeSummarizedExperimentFromExpressionSet ----
 
 test_that("SummarizedExperiment can be created from ExpressionSet", {
+  test.nest::skip_if_too_deep(0)
+
   object <- expression_set
   result <- expect_silent(makeSummarizedExperimentFromExpressionSet(object))
   expect_is(result, "SummarizedExperiment")
@@ -53,16 +65,22 @@ test_that("SummarizedExperiment can be created from ExpressionSet", {
 # HermesData ----
 
 test_that("HermesData objects can be created with constructor HermesData", {
+  test.nest::skip_if_too_deep(0)
+
   result <- expect_silent(HermesData(summarized_experiment))
   expect_is(result, "HermesData")
 })
 
 test_that("HermesData constructor fails with readable error message when there are no assays", {
+  test.nest::skip_if_too_deep(0)
+
   input <- SummarizedExperiment()
   expect_error(HermesData(input), "assays(object) has an empty dimension", fixed = TRUE)
 })
 
 test_that("HermesData determines prefix correctly", {
+  test.nest::skip_if_too_deep(0)
+
   result <- expect_silent(HermesData(get_se()))
   expect_identical(result@prefix, "GeneID")
   result <- expect_silent(HermesData(get_rse()))
@@ -70,6 +88,8 @@ test_that("HermesData determines prefix correctly", {
 })
 
 test_that("HermesData accepts SummarizedExperiment object with rowData or colData", {
+  test.nest::skip_if_too_deep(0)
+
   object <- get_se()
   colData(object) <- NULL
   rowData(object) <- NULL
@@ -81,6 +101,8 @@ test_that("HermesData accepts SummarizedExperiment object with rowData or colDat
 })
 
 test_that("HermesData creates missing columns with NAs correctly", {
+  test.nest::skip_if_too_deep(0)
+
   object <- get_se()
   colData(object) <- colData(object)[, "LowDepthFlag", drop = FALSE]
   rowData(object) <- rowData(object)[, c("HGNC", "EndBP", "WidthBP")]
@@ -93,6 +115,8 @@ test_that("HermesData creates missing columns with NAs correctly", {
 })
 
 test_that("RangedHermesData objects can be created with constructor HermesData", {
+  test.nest::skip_if_too_deep(0)
+
   result <- expect_silent(HermesData(get_rse()))
   expect_is(result, "RangedHermesData")
 })
@@ -100,6 +124,8 @@ test_that("RangedHermesData objects can be created with constructor HermesData",
 # HermesDataFromMatrix ----
 
 test_that("HermesData objects can be created with constructor HermesDataFromMatrix", {
+  test.nest::skip_if_too_deep(0)
+
   counts <- assay(summarized_experiment)
   result <- expect_silent(HermesDataFromMatrix(
     counts = counts,
@@ -110,12 +136,16 @@ test_that("HermesData objects can be created with constructor HermesDataFromMatr
 })
 
 test_that("HermesDataFromMatrix also works when just passing the count matrix", {
+  test.nest::skip_if_too_deep(0)
+
   counts <- assay(summarized_experiment)
   result <- expect_silent(HermesDataFromMatrix(counts))
   expect_is(result, "HermesData")
 })
 
 test_that("RangedHermesData objects can be created with constructor HermesDataFromMatrix", {
+  test.nest::skip_if_too_deep(0)
+
   rse <- get_rse()
   counts <- assay(rse)
   result <- expect_silent(HermesDataFromMatrix(
