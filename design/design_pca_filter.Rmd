@@ -1,0 +1,73 @@
+---
+title: "PCA filter"
+author: "Stefanie Bienert"
+date: "8/22/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+object <- HermesData(summarized_experiment)
+object2 <- hermes::top_genes(
+  object,
+  assay_name = "counts",
+  summary_fun = rowVars,
+  n_top = 500,
+)
+
+# object4 <- BiocGenerics::subset(object, subset = object2$name == rowData(object)$GeneID)  
+
+object4 <- subset(object, as.character(object2$name) == rowData(object)$GeneID)
+
+object4 <- subset(object, grep(rowData(object)$GeneID, as.character(object2$name), value = TRUE))
+
+```
+
+```{r}
+object <- HermesData(object2) %>%
+   add_quality_flags() %>%
+   filter() %>%
+   normalize()
+result <- calc_pca(object, assay_name = "tpm")
+autoplot(result)
+```
+
+
+
+
+
+
+# PCA function
+```{r}
+calc_pca <- function(object,
+                     assay_name = "counts", filter) {
+  assert_that(
+    is_hermes_data(object),
+    is.string(assay_name)
+  )
+  
+  x_samples <- assay(object, assay_name)
+  # x_sampes_filtered <- top_genes(
+  #   object = object,
+  #   assay_name = assay_name,
+  #   summary_fun = rowVars,
+  #   n_top = 500,
+  # )
+  x_genes <- t(x_sampes)
+  gene_is_constant <- apply(x_genes, MARGIN = 2L, FUN = S4Vectors::isConstant)
+  x_genes_remaining <- x_genes[, !gene_is_constant]
+  
+  pca <- stats::prcomp(
+    x = x_genes_remaining,
+    center = TRUE,
+    scale = TRUE,
+    tol = sqrt(.Machine$double.eps)
+  )
+  
+  .HermesDataPca(pca)
+}
+```
+
