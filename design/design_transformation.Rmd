@@ -1,0 +1,28 @@
+---
+title: "Design: Transformation of Counts"
+author: "Haocheng Li"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+This vignette explores the design of the transformation workflow and functions in hermes.
+
+## Problems to solve
+
+-  `normalize()` function works for the normalization of the data our `HermesData` class. However, the raw counts data after regular normalization procedure (e.g. CPM, TPM, ...) may not be proper for certain analyses (e.g. differential expression analysis, clustering analysis, and discriminant analysis) due to Heteroscedasticity problems (i.e. different variance levels across genes).  
+-  To address this issue, one approach is to transform the normalized count data for all genes into approximately homoskedastic values (having constant variance). 
+-  We will a `transform()` function which is NOT differential expression analysis, since tthe differential expression analysis will be implemented in other `HermesData` functions. The `transform()` function generates transformed values only for visualization or other analyses such as clustering or discriminant analysis.  
+-  We will introduce two transformations to the count data. The linear transformation approach is implemented by a `variance stabilizing transformation` (VST), see [article](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-10-r106) for background. The transformation to the log2 scale values is implemented by a 'regularized log' transformation (rlog), see [article](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8).
+
+## Plan
+
+- Both transformation methods are available in `DESeq2` package. Our `transform()` function uses the methods from `DESeq2` package. 
+- The `transform()` method includes an argument to select the methods `VST` or `rlog`.
+- results should be returned as an assay in `HermesData` object.
+
+ 
