@@ -30,22 +30,31 @@ object3 <- object[rowData(object)$GeneID %in% as.character(object2$name)]
 # Idea 2 - Use Filter function
 Implement filtering top variant genes and implement in filter function
 - Pros: Valuable if filtering by top variant genes would be of interest beyond PCA plotting functionality
-- Cons:
+- Cons: Not sure if it fits with gene filtering based on low expression, low depth, tech failure. As far as I understand from the notes, the use cases is really in relation to the PCA analysis and does not go beyond that application
 ```{r}
 setMethod(
   f = "filter_var",
   signature = signature(object = "AnyHermesData"),
   definition = function(object,
                         what = c("genes", "samples"),
-                        annotation_required = "WidthBP") {
+                        annotation_required = "WidthBP",
+                        assay_name = "counts",
+                        top_n = 500) {
     low_exp <- get_low_expression(object)
     low_depth <- get_low_depth(object)
     tech_fail <- get_tech_failure(object)
+    filter_genes <- top_genes(
+      object,
+      assay_name = "counts",
+      summary_fun = rowVars,
+      n_top = 500,
+    )
     what <- match.arg(what, c("genes", "samples"), several.ok = TRUE)
     assert_that(
       noNA(low_exp),
       noNA(low_depth),
       noNA(tech_fail),
+      # noNA(filter_genes), # may want to add assertion here, plus adapt message to reflect top genes
       msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
     )
     rows <- if ("genes" %in% what) {
@@ -58,6 +67,7 @@ setMethod(
     } else {
       rep_len(TRUE, length(low_depth))
     }
+    rows <- rows[rows %in% as.character(filter_genes$name)]
     if (!any(rows)) {
       warning("filtering out all genes")
     }
@@ -76,7 +86,7 @@ Implement functionality from idea 1 into calc_pca by implementing a new argument
 
 In production will need to add if statement, for when or when not n_top is selected
 - Pros: full usage of testing capabilities in Hermes, can be used outside of tmh
-- Cons: 
+- Cons: can only be utilized in calc_pca function
 ```{r}
 calc_pca_filtered <- function(object,
                      assay_name = "counts",
