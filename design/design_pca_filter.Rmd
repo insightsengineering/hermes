@@ -31,6 +31,7 @@ object3 <- object[rowData(object)$GeneID %in% as.character(object2$name)]
 Implement filtering top variant genes and implement in filter function
 - Pros: Valuable if filtering by top variant genes would be of interest beyond PCA plotting functionality
 - Cons: Not sure if it fits with gene filtering based on low expression, low depth, tech failure. As far as I understand from the notes, the use cases is really in relation to the PCA analysis and does not go beyond that application
+- Challenge: filter_genes does not return named logical vector, therefore we would need to create a function or transform into a logical vector first before it can be incorporated into filter function
 ```{r}
 setMethod(
   f = "filter_var",
@@ -43,12 +44,12 @@ setMethod(
     low_exp <- get_low_expression(object)
     low_depth <- get_low_depth(object)
     tech_fail <- get_tech_failure(object)
-    filter_genes <- top_genes(
-      object,
-      assay_name = "counts",
-      summary_fun = rowVars,
-      n_top = 500,
-    )
+    # filter_genes <- top_genes(
+    #   object,
+    #   assay_name = "counts",
+    #   summary_fun = rowVars,
+    #   n_top = 500,
+    # )
     what <- match.arg(what, c("genes", "samples"), several.ok = TRUE)
     assert_that(
       noNA(low_exp),
@@ -67,10 +68,10 @@ setMethod(
     } else {
       rep_len(TRUE, length(low_depth))
     }
-    rows <- rows[rows %in% as.character(filter_genes$name)]
-    if (!any(rows)) {
-      warning("filtering out all genes")
-    }
+    # rows <- rows[rows %in% as.character(filter_genes$name)]
+    # if (!any(rows)) {
+    #   warning("filtering out all genes")
+    # }
     if (!any(cols)) {
       warning("filtering out all samples")
     }
@@ -122,7 +123,7 @@ calc_pca_filtered <- function(object,
 }
 ```
 
-# Test it out
+# Test calc_pca_filtered out
 ```{r}
 object <- HermesData(summarized_experiment)
 result <- calc_pca_filtered(object, assay_name = "counts", 700)
