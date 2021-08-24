@@ -10,8 +10,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # How can this work
-Take the summarized experiment and calculate the Variance across each gene using the `rowVars` function. Then subset the data to only use the top 500 genes with max variance.
 
+## Idea 1 - "Manual implementation"
+Take the summarized experiment and calculate the Variance across each gene using the `rowVars` function. Then subset the data to only use the top 500 genes with max variance.
+ - Pros: Quick and simple to implement in tmh
+ - Cons: Limited testing options in tmh and no availability to hermes user
 ```{r}
 object <- HermesData(summarized_experiment)
 object2 <- hermes::top_genes(
@@ -24,31 +27,82 @@ object3 <- object[rowData(object)$GeneID %in% as.character(object2$name)]
 
 ```
 
-# PCA function
+# Idea 2 - Use Filter function
+Implement filtering top variant genes and implement in filter function
+- Pros: Valuable if filtering by top variant genes would be of interest beyond PCA plotting functionality
+- Cons:
+```{r}
+setMethod(
+  f = "filter_var",
+  signature = signature(object = "AnyHermesData"),
+  definition = function(object,
+                        what = c("genes", "samples"),
+                        annotation_required = "WidthBP") {
+    low_exp <- get_low_expression(object)
+    low_depth <- get_low_depth(object)
+    tech_fail <- get_tech_failure(object)
+    what <- match.arg(what, c("genes", "samples"), several.ok = TRUE)
+    assert_that(
+      noNA(low_exp),
+      noNA(low_depth),
+      noNA(tech_fail),
+      msg = "still NA in quality flags, please first run add_quality_flags() to fill them"
+    )
+    rows <- if ("genes" %in% what) {
+      !low_exp & h_has_req_annotations(object, annotation_required)
+    } else {
+      rep_len(TRUE, length(low_exp))
+    }
+    cols <- if ("samples" %in% what) {
+      !low_depth & !tech_fail
+    } else {
+      rep_len(TRUE, length(low_depth))
+    }
+    if (!any(rows)) {
+      warning("filtering out all genes")
+    }
+    if (!any(cols)) {
+      warning("filtering out all samples")
+    }
+    object[rows, cols]
+  }
+)
+```
+
+
+
+# Idea 3 - PCA filter function
+Implement functionality from idea 1 into calc_pca by implementing a new argument. 
+
+In production will need to add if statement, for when or when not n_top is selected
+- Pros: full usage of testing capabilities in Hermes, can be used outside of tmh
+- Cons: 
 ```{r}
 calc_pca_filtered <- function(object,
                      assay_name = "counts",
-                     varfilter) {
+                     n_top = 500) {
   assert_that(
     is_hermes_data(object),
     is.string(assay_name)
   )
   
-  x_samples <- assay(object, assay_name)
   
   x_samples_filter <- top_genes(
     object = object,
     assay_name = assay_name,
     summary_fun = rowVars,
-    n_top = varfilter,
+    n_top = n_top
   )
-  x_samples_filtered <- x_samples[rownames(x_samples) %in% as.character(x_samples_filter$name)]
-  x_genes <- t(x_samples_filtered)
+  
+  x_samples_filtered <- object[rowData(object)$GeneID %in% as.character(x_samples_filter$name)]
+  x_samples <- assay(x_samples_filtered, assay_name) 
+  
+  x_genes <- t(x_samples)
   gene_is_constant <- apply(x_genes, MARGIN = 2L, FUN = S4Vectors::isConstant)
   x_genes_remaining <- x_genes[, !gene_is_constant]
   
   pca <- stats::prcomp(
-    x = x_genes_remaining, #x_samples_filtered
+    x = x_genes_remaining, 
     center = TRUE,
     scale = TRUE,
     tol = sqrt(.Machine$double.eps)
@@ -61,7 +115,7 @@ calc_pca_filtered <- function(object,
 # Test it out
 ```{r}
 object <- HermesData(summarized_experiment)
-result <- calc_pca_filtered(object, assay_name = "counts", 500)
+result <- calc_pca_filtered(object, assay_name = "counts", 700)
 summary(result)
 ```
 
