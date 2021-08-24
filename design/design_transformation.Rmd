@@ -29,6 +29,31 @@ This vignette explores the design of the transformation workflow and functions i
 
 ## Control function
 
+Here we add parameters that are used for the 2 new methods.
+
+```{r}
+control_normalize <- function(log = TRUE,
+                              lib_sizes = NULL,
+                              prior_count = 1,
+                              fit_type = "parametric") {
+  assert_that(
+    is.flag(log),
+    is.null(lib_sizes) || is_counts_vector(lib_sizes),
+    is.number(prior_count) && prior_count >= 0,
+    is.string(fit_type)
+  )
+  list(
+    log = log,
+    lib_sizes = lib_sizes,
+    prior_count = prior_count,
+    fit_type = fit_type
+  )
+}
+```
+
+
+## Method
+
 - Add `vst` and `rlog` into the `normalize()` function. 
 
 ```{r}
@@ -56,18 +81,28 @@ This vignette explores the design of the transformation workflow and functions i
 ## Helper functions
 
 ```{r}
-h_vst <- function(object, ...) {
+h_vst <- function(object, 
+                  control = control_normalize()) {
   assert_that(
-    is_hermes_data(object)
+    is_hermes_data(object),
+    is_list_with(control, "fit_type")
   )
-  DESeq2::varianceStabilizingTransformation(counts(object))
+  DESeq2::varianceStabilizingTransformation(
+    counts(object), 
+    fitType = control$fit_type
+  )
 } 
  
-h_rlog <- function(object, ...) {
+h_rlog <- function(object, 
+                   control = control_normalize()) {
   assert_that(
-    is_hermes_data(object)
+    is_hermes_data(object),
+    is_list_with(control, "fit_type")
   )
-  DESeq2::rlog(counts(object))
+  DESeq2::rlog(
+    counts(object),
+    fitType = control$fit_type
+  )
 } 
 ```
 
@@ -84,3 +119,16 @@ assay(aa, "rlog")
 ```
 
 The results look good but a little bit slow.
+
+See also the help page for `rlog`:
+> If rlog is run on data with number of samples in [30-49] it will print a message that it may take a few minutes, if the number of samples is 50 or larger, it will print a message that it may take a "long time", and in both cases, it will mention that the vst is a much faster transformation.
+
+Therefore this `rlog` should not be in the default for `normalize()`, only `vst`.
+
+In addition, there are quite a few `-Inf` values for `rlog`. But it seems they are only shown in printing, but are not there:
+
+```{r}
+any(!is.finite(assay(aa, "rlog")))
+```
+
+does not show any infinite values. So seems ok.
