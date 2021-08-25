@@ -26,7 +26,7 @@ test_that("GeneSpec returns_vector method works as expected", {
 })
 
 test_that("GeneSpec get_label method works as expected", {
-  spec <- expect_silent(GeneSpec$new("GeneID:1820"), fun = colMeans)
+  spec <- expect_silent(GeneSpec$new("GeneID:1820", fun = colMeans))
   expect_identical(spec$get_label(), "GeneID:1820")
 
   spec2 <- expect_silent(GeneSpec$new(c("a", "b"), fun = colMeans))
