@@ -1,7 +1,7 @@
 # hermes 0.1.0.9000
 
 ### New Features
-* Scatterplot of the gene expression values of two genes via `draw_scatterplot`.
+* Scatterplot of the two genes or gene signatures via `draw_scatterplot`.
 * Boxplot of the gene expression values via `draw_boxplot`. Faceting, stratifying, and coloring by sample variables, as well as comparison of multiple genes is supported.
 * The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
 

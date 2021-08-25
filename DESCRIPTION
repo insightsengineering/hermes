@@ -39,6 +39,7 @@ Imports:
     magrittr,
     methods,
     MultiAssayExperiment,
+    R6,
     Rdpack,
     rlang,
     stats,
@@ -58,6 +59,7 @@ Suggests:
     testthat (>= 2.0),
     withr
 Collate: 
+    'GeneSpec-class.R'
     'HermesData-validate.R'
     'HermesData-class.R'
     'HermesData-methods.R'
