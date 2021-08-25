@@ -92,10 +92,10 @@ setMethod(
   f = "normalize",
   signature = "AnyHermesData",
   definition = function(object,
-                        methods = c("cpm", "rpkm", "tpm", "voom"),
+                        methods = c("cpm", "rpkm", "tpm", "voom", "vst"),
                         control = control_normalize(),
                         ...) {
-    method_choices <- c("cpm", "rpkm", "tpm", "voom")
+    method_choices <- c("cpm", "rpkm", "tpm", "voom", "vst", "rlog")
     assert_that(all(methods %in% method_choices))
     methods <- match.arg(methods, choices = method_choices, several.ok = TRUE)
     for (method in methods) {
@@ -205,4 +205,43 @@ h_voom <- function(object,
   } else {
     2^norm_log2
   }
+}
+
+#' @describeIn variance stabilizing transformation (VST) called from DESeq2 package
+#'
+#' @export
+#' @examples
+#'
+#' counts_vst <- h_vst(a)
+#' str(counts_vst)
+h_vst <- function(object,
+                  control = control_normalize()) {
+  assert_that(
+    is_hermes_data(object),
+    is_list_with(control, "fit_type")
+  )
+  DESeq2::varianceStabilizingTransformation(
+    counts(object),
+    fitType = control$fit_type
+  )
+}
+
+
+#' @describeIn regularized log transformation (rlog) called from DESeq2 package
+#'
+#' @export
+#' @examples
+#'
+#' counts_rlog <- h_rlog(a)
+#' str(counts_rlog)
+h_rlog <- function(object,
+                   control = control_normalize()) {
+  assert_that(
+    is_hermes_data(object),
+    is_list_with(control, "fit_type")
+  )
+  DESeq2::rlog(
+    counts(object),
+    fitType = control$fit_type
+  )
 }
