@@ -91,7 +91,7 @@ GeneSpec <- R6::R6Class(
   )
 )
 
-#' GeneSpec Constructor
+#' `GeneSpec` Constructor
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'

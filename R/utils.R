@@ -80,13 +80,15 @@ all_na <- function(x) {
 #'
 #' @return String with the short list.
 #'
+#' @export
+#'
 #' @examples
 #' h_short_list(letters)
 #' h_short_list(letters[1:3])
 #' h_short_list(LETTERS[1:5], sep= ";", thresh = 5L)
 h_short_list <- function(x, sep = ", ", thresh = 3L) {
   assert_character(x)
-  assert_string(sep)
+  assert_string(sep, min.chars = 1L)
   assert_int(thresh, lower = 3L)
 
   n <- length(x)
@@ -106,6 +108,8 @@ h_short_list <- function(x, sep = ", ", thresh = 3L) {
 #'
 #' @return String with parentheses, except when `x` is a blank string
 #'   in which case it is returned unaltered.
+#'
+#' @export
 #'
 #' @examples
 #' h_parens("bla")
