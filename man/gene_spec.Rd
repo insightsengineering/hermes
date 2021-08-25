@@ -2,9 +2,9 @@
 % Please edit documentation in R/GeneSpec-class.R
 \name{gene_spec}
 \alias{gene_spec}
-\title{GeneSpec Constructor}
+\title{\code{GeneSpec} Constructor}
 \usage{
-gene_spec(genes, fun = NULL, fun_name = deparse(substitute(fun)))
+gene_spec(genes = NULL, fun = NULL, fun_name = deparse(substitute(fun)))
 }
 \arguments{
 \item{genes}{(\code{character} or \code{NULL})\cr the gene IDs.}

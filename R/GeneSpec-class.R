@@ -38,9 +38,9 @@ GeneSpec <- R6::R6Class(
     #'   `extract` method.
     #' @param fun_name (`string`)\cr name of the summary function.
     #' @return A new [`GeneSpec`] object.
-    initialize = function(genes,
-                          fun,
-                          fun_name) {
+    initialize = function(genes = NULL,
+                          fun = NULL,
+                          fun_name = deparse(substitute(fun))) {
       assert_character(genes, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
       assert_function(fun, null.ok = TRUE)
       assert_string(fun_name, min.chars = 1L)
@@ -106,7 +106,7 @@ GeneSpec <- R6::R6Class(
 #' @return A new [`GeneSpec`] object.
 #'
 #' @export
-gene_spec <- function(genes,
+gene_spec <- function(genes = NULL,
                       fun = NULL,
                       fun_name = deparse(substitute(fun))) {
   GeneSpec$new(

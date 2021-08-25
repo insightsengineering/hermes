@@ -48,7 +48,7 @@ x_spec$extract(mat)
 \subsection{Method \code{new()}}{
 Creates a new \code{\link{GeneSpec}} object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$new(genes, fun, fun_name)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$new(genes = NULL, fun = NULL, fun_name = deparse(substitute(fun)))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
