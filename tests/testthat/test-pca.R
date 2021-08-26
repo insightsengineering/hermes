@@ -36,5 +36,5 @@ test_that("calc_pca function works as expected for HermesData with default count
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(normalize(object))
   pca <- expect_silent(calc_pca(result, n_top = 500))
-  expect_identical(nrow(pca), 500)
+  expect_identical(nrow(pca$rotation), 500)
 })
