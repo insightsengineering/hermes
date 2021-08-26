@@ -1,16 +1,12 @@
 # control_normalize ----
 
 test_that("control_normalize function works as expected with default settings", {
-  test.nest::skip_if_too_deep(0)
-
   result <- control_normalize()
   expect_is(result, "list")
   expect_named(result, c("log", "lib_sizes", "prior_count"))
 })
 
 test_that("control_normalize function works as expected with custom settings", {
-  test.nest::skip_if_too_deep(0)
-
   result <- expect_silent(control_normalize(log = TRUE, lib_sizes = 60000000L, prior_count = 3))
   expect_is(result, "list")
   expect_identical(result$log, TRUE)
@@ -19,8 +15,6 @@ test_that("control_normalize function works as expected with custom settings", {
 })
 
 test_that("control_normalize fails as expected with invalid settings", {
-  test.nest::skip_if_too_deep(0)
-
   expect_error(control_normalize(log = "TRUE"))
   expect_error(control_normalize(lib_sizes = 1))
   expect_error(control_normalize(lib_sizes = -1L))
@@ -31,8 +25,6 @@ test_that("control_normalize fails as expected with invalid settings", {
 # h_cpm ----
 
 test_that("h_cpm function works as expected with default settings", {
-  test.nest::skip_if_too_deep(0)
-
   object <- expect_silent(HermesData(summarized_experiment))
   cont <- control_normalize()
   result <- expect_silent(h_cpm(object, cont))
@@ -41,8 +33,6 @@ test_that("h_cpm function works as expected with default settings", {
 })
 
 test_that("t_cpm function works as expected with custom settings", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(get_se())
   cont <- expect_silent(control_normalize(log = TRUE, lib_sizes = 60000000L, prior_count = 3))
   result <- expect_silent(h_cpm(object, cont))
@@ -51,8 +41,6 @@ test_that("t_cpm function works as expected with custom settings", {
 })
 
 test_that("h_cpm function fails as expected with invalid settings", {
-  test.nest::skip_if_too_deep(0)
-
   object1 <- get_se()
   object2 <- matrix(1:4, 2, 2)
   object3 <- expect_silent(HermesData(get_se()))
@@ -67,8 +55,6 @@ test_that("h_cpm function fails as expected with invalid settings", {
 # h_rpkm ----
 
 test_that("h_rpkm function works as expected with default settings", {
-  test.nest::skip_if_too_deep(0)
-
   object <- expect_silent(HermesData(summarized_experiment))
   cont <- control_normalize()
   result <- h_rpkm(object, cont)
@@ -77,8 +63,6 @@ test_that("h_rpkm function works as expected with default settings", {
 })
 
 test_that("h_rpkm function works as expected with custom settings", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(get_se())
   cont <- expect_silent(control_normalize(log = TRUE, lib_sizes = 180000000L, prior_count = 5))
   result <- h_rpkm(object, cont)
@@ -87,8 +71,6 @@ test_that("h_rpkm function works as expected with custom settings", {
 })
 
 test_that("h_rpkm function fails as expected with invalid settings", {
-  test.nest::skip_if_too_deep(0)
-
   object1 <- get_se()
   object2 <- matrix(1:4, 2, 2)
   object3 <- HermesData(get_se())
@@ -101,8 +83,6 @@ test_that("h_rpkm function fails as expected with invalid settings", {
 })
 
 test_that("h_rpkm function fails when at least one gene has missing `WidthBP`", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(summarized_experiment)
   cont <- control_normalize()
   rowData(object)$WidthBP[1] <- NA # nolint
@@ -116,8 +96,6 @@ test_that("h_rpkm function fails when at least one gene has missing `WidthBP`", 
 # h_tpm ----
 
 test_that("h_tpm function works as expected with default settings", {
-  test.nest::skip_if_too_deep(0)
-
   object <- expect_silent(HermesData(summarized_experiment))
   cont <- control_normalize()
   result <- h_tpm(object, cont)
@@ -125,8 +103,6 @@ test_that("h_tpm function works as expected with default settings", {
 })
 
 test_that("h_tpm function works as expected with custom settings", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(get_se())
   cont <- expect_silent(control_normalize(log = TRUE, lib_sizes = 140000000L, prior_count = 7))
   result <- h_tpm(object, cont)
@@ -134,8 +110,6 @@ test_that("h_tpm function works as expected with custom settings", {
 })
 
 test_that("h_tpm function fails as expected with invalid settings", {
-  test.nest::skip_if_too_deep(0)
-
   object1 <- get_se()
   object2 <- matrix(1:4, 2, 2)
   object3 <- HermesData(get_se())
@@ -150,16 +124,12 @@ test_that("h_tpm function fails as expected with invalid settings", {
 # h_voom ----
 
 test_that("h_voom function works as expected with default settings", {
-  test.nest::skip_if_too_deep(0)
-
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(h_voom(object))
   expect_is(result, "matrix")
 })
 
 test_that("h_voom function works as expected with custom settings", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(summarized_experiment)
   cont <- control_normalize(log = TRUE, lib_sizes = 1000000L, prior_count = 10)
   result <- expect_silent(h_voom(object, cont))
@@ -167,8 +137,6 @@ test_that("h_voom function works as expected with custom settings", {
 })
 
 test_that("h_voom fails as expected with invalid settings", {
-  test.nest::skip_if_too_deep(0)
-
   object1 <- get_se()
   object2 <- matrix(1:4, 2, 2)
   object3 <- HermesData(get_se())
@@ -181,8 +149,6 @@ test_that("h_voom fails as expected with invalid settings", {
 })
 
 test_that("h_voom works when there are no samples", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(get_se())[, - c(1, 2)]
   assert_that(identical(ncol(object), 0L))
   result <- expect_silent(h_voom(object))
@@ -190,8 +156,6 @@ test_that("h_voom works when there are no samples", {
 })
 
 test_that("h_voom works when there are no genes", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(get_se())[- c(1, 2), ]
   assert_that(identical(nrow(object), 0L))
   result <- expect_silent(h_voom(object))
@@ -201,8 +165,6 @@ test_that("h_voom works when there are no genes", {
 # normalize ----
 
 test_that("normalize works as expected for HermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(normalize(h1))
@@ -211,8 +173,6 @@ test_that("normalize works as expected for HermesData", {
 })
 
 test_that("normalize works as expected for RangedHermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_rse()
   h1 <- HermesData(object)
   result <- expect_silent(normalize(h1))
@@ -221,8 +181,6 @@ test_that("normalize works as expected for RangedHermesData", {
 })
 
 test_that("normalize fails as expected with wrong method choice", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_rse()
   h1 <- HermesData(object)
   expect_error(normalize(h1, method = "bla"))
@@ -230,8 +188,6 @@ test_that("normalize fails as expected with wrong method choice", {
 })
 
 test_that("normalize works when global environment overwrites helper function", {
-  test.nest::skip_if_too_deep(0)
-  
   object <- get_rse()
   h1 <- HermesData(object)
   h_cpm <- function(object, control) {

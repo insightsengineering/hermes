@@ -1,8 +1,6 @@
 # rbind ----
 
 test_that("rbind function works as expected for HermesData objects", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object[1])
   h2 <- HermesData(object[2])
@@ -15,8 +13,6 @@ test_that("rbind function works as expected for HermesData objects", {
 })
 
 test_that("rbind function works as expected when binding SummarizedExperiment with HermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   se <- object[1]
   h1 <- HermesData(object[2])
@@ -27,8 +23,6 @@ test_that("rbind function works as expected when binding SummarizedExperiment wi
 })
 
 test_that("rbind function fails as expected when rbind results in duplicated rownames", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(summarized_experiment)
   expect_error(rbind(object, object))
 })
@@ -36,8 +30,6 @@ test_that("rbind function fails as expected when rbind results in duplicated row
 # cbind ----
 
 test_that("cbind function works as expected for HermesData objects", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object[, 1])
   h2 <- HermesData(object[, 2])
@@ -50,8 +42,6 @@ test_that("cbind function works as expected for HermesData objects", {
 })
 
 test_that("cbind function works as expected when binding SummarizedExperiment with HermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   se <- object[, 1]
   h1 <- HermesData(object[, 2])
@@ -62,8 +52,6 @@ test_that("cbind function works as expected when binding SummarizedExperiment wi
 })
 
 test_that("rbind function fails as expected when rbind results in duplicated colnames", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(summarized_experiment)
   expect_error(cbind(object, object))
 })
@@ -71,8 +59,6 @@ test_that("rbind function fails as expected when rbind results in duplicated col
 # metadata ----
 
 test_that("metadata accessor works as expected", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(metadata(h1))
@@ -84,8 +70,6 @@ test_that("metadata accessor works as expected", {
 })
 
 test_that("metadata setter works as expected", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   value <- list(a = "foo")
@@ -96,8 +80,6 @@ test_that("metadata setter works as expected", {
 # annotation ----
 
 test_that("annotation accessor works as expected", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(annotation(h1))
@@ -107,8 +89,6 @@ test_that("annotation accessor works as expected", {
 })
 
 test_that("annotation setter works as expected", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   value <- S4Vectors::DataFrame(
@@ -129,8 +109,6 @@ test_that("annotation setter works as expected", {
 })
 
 test_that("annotation setter gives a warning, saves gene IDs in attribute if gene info is missing", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   # Value where information for one gene is completely missing, only partially missing for the other.
@@ -155,8 +133,6 @@ test_that("annotation setter gives a warning, saves gene IDs in attribute if gen
 # counts ----
 
 test_that("counts accessor works as expected", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(counts(h1))
@@ -165,8 +141,6 @@ test_that("counts accessor works as expected", {
 })
 
 test_that("counts setter works as expected with `withDimnames = FALSE`", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   value <- matrix(0L, nrow = nrow(h1), ncol = ncol(h1))
@@ -177,8 +151,6 @@ test_that("counts setter works as expected with `withDimnames = FALSE`", {
 # prefix ----
 
 test_that("prefix accessor works as expected", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(prefix(h1))
@@ -188,8 +160,6 @@ test_that("prefix accessor works as expected", {
 # genes ----
 
 test_that("genes accessor works as expected", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(genes(h1))
@@ -199,8 +169,6 @@ test_that("genes accessor works as expected", {
 # samples ----
 
 test_that("samples accessor works as expected", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(samples(h1))
@@ -210,8 +178,6 @@ test_that("samples accessor works as expected", {
 # subset ----
 
 test_that("subset function works as expected for HermesData objects", {
-  test.nest::skip_if_too_deep(0)
-
   h <- HermesData(get_se())
   result <- expect_silent(subset(
     h,
@@ -228,8 +194,6 @@ test_that("subset function works as expected for HermesData objects", {
 # h_has_req_annotations ----
 
 test_that("h_has_req_annotations works as expected", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
 
   h1 <- HermesData(object)
@@ -251,8 +215,6 @@ test_that("h_has_req_annotations works as expected", {
 # filter ----
 
 test_that("filter works as expected with default settings for HermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
@@ -262,8 +224,6 @@ test_that("filter works as expected with default settings for HermesData", {
 })
 
 test_that("filter works as expected with default settings for RangedHermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_rse()
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
@@ -273,8 +233,6 @@ test_that("filter works as expected with default settings for RangedHermesData",
 })
 
 test_that("filter works as expected on one dimension for HermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(summarized_experiment)
   result1 <- expect_silent(filter(object, what = "genes"))
   result2 <- expect_silent(filter(object, what = "samples"))
@@ -285,8 +243,6 @@ test_that("filter works as expected on one dimension for HermesData", {
 })
 
 test_that("filter works as expected with default settings for RangedHermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_rse()
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
@@ -296,8 +252,6 @@ test_that("filter works as expected with default settings for RangedHermesData",
 })
 
 test_that("filter shows readable error message when there are NA in flag variables", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   object$LowDepthFlag[1] <- NA
   h1 <- HermesData(object)
@@ -309,8 +263,6 @@ test_that("filter shows readable error message when there are NA in flag variabl
 })
 
 test_that("filter gives a warning if all samples are filtered out", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   object$LowDepthFlag <- TRUE # nolint
   h <- HermesData(object)
@@ -321,8 +273,6 @@ test_that("filter gives a warning if all samples are filtered out", {
 })
 
 test_that("filter gives a warning if all genes are filtered out", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   rowData(object)$LowExpressionFlag <- TRUE # nolint
   h <- HermesData(object)
@@ -333,8 +283,6 @@ test_that("filter gives a warning if all genes are filtered out", {
 })
 
 test_that("filter by default correctly filters out genes which don't have required `WidthBP`", {
-  test.nest::skip_if_too_deep(0)
-
   object <- get_se()
   rowData(object)$LowExpressionFlag <- FALSE # nolint
   rowData(object)$WidthBP[1] <- NA # nolint
@@ -347,8 +295,6 @@ test_that("filter by default correctly filters out genes which don't have requir
 # summary ----
 
 test_that("summary works as expected for HermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(summarized_experiment)
   cd <- as.data.frame(colData(object))
   rd <- as.data.frame(rowData(object))
@@ -363,8 +309,6 @@ test_that("summary works as expected for HermesData", {
 })
 
 test_that("summary works as expected for RangedHermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(get_rse())
   cd <- as.data.frame(colData(object))
   rd <- as.data.frame(rowData(object))
@@ -381,8 +325,6 @@ test_that("summary works as expected for RangedHermesData", {
 # show-summary ----
 
 test_that("show for summary works as expected for HermesData with quality flags", {
-  test.nest::skip_if_too_deep(0)
-
   object <- summary(HermesData(summarized_experiment))
   result <- capture_output(show(object))
   expect_match(
@@ -397,8 +339,6 @@ test_that("show for summary works as expected for HermesData with quality flags"
 })
 
 test_that("show for summary also works without quality flags", {
-  test.nest::skip_if_too_deep(0)
-
   se <- get_se()
   rowData(se)$LowExpressionFlag <- NA # nolint
   colData(se)$LowDepthFlag <- NA # nolint
@@ -414,8 +354,6 @@ test_that("show for summary also works without quality flags", {
 # show ----
 
 test_that("show works as expected for HermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(summarized_experiment)
   result <- capture_output(show(object))
   expect_match(result, "class: HermesData", fixed = TRUE)
@@ -427,8 +365,6 @@ test_that("show works as expected for HermesData", {
 })
 
 test_that("show works as expected for RangedHermesData", {
-  test.nest::skip_if_too_deep(0)
-
   object <- HermesData(get_rse())
   result <- capture_output(show(object))
   expect_match(result, "class: RangedHermesData", fixed = TRUE)

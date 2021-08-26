@@ -1,8 +1,6 @@
 # df_char_to_factor ----
 
 test_that("df_char_to_factor works as expected with default settings", {
-  test.nest::skip_if_too_deep(0)
-
   dat <- S4Vectors::DataFrame(
     a = c(NA, "B"),
     b = array(1:4, c(2, 1, 2)),
@@ -22,8 +20,6 @@ test_that("df_char_to_factor works as expected with default settings", {
 })
 
 test_that("df_char_to_factor works as expected with custom settings", {
-  test.nest::skip_if_too_deep(0)
-
   dat <- S4Vectors::DataFrame(
     a = c(NA, "B"),
     b = array(1:4, c(2, 1, 2)),
