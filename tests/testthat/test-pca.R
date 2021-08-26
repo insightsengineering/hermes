@@ -31,3 +31,10 @@ test_that("calc_pca function fails as expected with wrong assay choice", {
   expect_error(calc_pca(result, assay_name = "abc"))
   expect_error(calc_pca(result, assay_name = c("counts", "zyz")))
 })
+
+test_that("calc_pca function works as expected for HermesData with default counts assay", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  result <- expect_silent(normalize(object))
+  pca <- expect_silent(calc_pca(result, n_top = 500))
+  expect_identical(nrow(pca), 500)
+})

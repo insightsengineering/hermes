@@ -19,6 +19,7 @@
 #'
 #' @param object (`AnyHermesData`) \cr input.
 #' @param assay_name (`string`) \cr name of the assay to use.
+#' @param n_top (`count` or `NULL`)\cr filter criteria based on number of genes with maximum variance.
 #'
 #' @return A [HermesDataPca] object which is an extension of the [stats::prcomp] class.
 #'
@@ -43,13 +44,26 @@
 #' autoplot(result, variance_percentage = FALSE)
 #' autoplot(result, label = TRUE, label.repel = TRUE)
 calc_pca <- function(object,
-                     assay_name = "counts") {
+                     assay_name = "counts",
+                     n_top = NULL) {
   assert_that(
     is_hermes_data(object),
     is.string(assay_name)
   )
 
-  x_samples <- assay(object, assay_name)
+  if (is.null(n_top)) {
+    x_samples_filtered <- object
+  } else {
+    x_samples_filter <- top_genes(
+      object = object,
+      assay_name = assay_name,
+      summary_fun = rowVars,
+      n_top = n_top
+    )
+    x_samples_filtered <- object[rowData(object)$GeneID %in% as.character(x_samples_filter$name)]
+  }
+
+  x_samples <- assay(x_samples_filtered, assay_name)
   x_genes <- t(x_samples)
   gene_is_constant <- apply(x_genes, MARGIN = 2L, FUN = S4Vectors::isConstant)
   x_genes_remaining <- x_genes[, !gene_is_constant]
