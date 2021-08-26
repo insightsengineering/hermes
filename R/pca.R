@@ -34,9 +34,11 @@
 #'   filter() %>%
 #'   normalize()
 #'
-#' # Perform PCA.
 #' result <- calc_pca(object, assay_name = "tpm")
 #' summary(result)
+#'
+#' result1 <- calc_pca(object, assay_name = "tpm", n_top = 500)
+#' summary(result1)
 #'
 #' # Plot the results.
 #' autoplot(result)
@@ -48,11 +50,12 @@ calc_pca <- function(object,
                      n_top = NULL) {
   assert_that(
     is_hermes_data(object),
-    is.string(assay_name)
+    is.string(assay_name),
+    is.numeric(n_top) || is.null(n_top)
   )
 
-  if (is.null(n_top)) {
-    x_samples_filtered <- object
+  x_samples_filtered <- if (is.null(n_top)) {
+    object
   } else {
     x_samples_filter <- top_genes(
       object = object,
@@ -60,7 +63,7 @@ calc_pca <- function(object,
       summary_fun = rowVars,
       n_top = n_top
     )
-    x_samples_filtered <- object[rowData(object)$GeneID %in% as.character(x_samples_filter$name)]
+    subset(object, subset = rowData(object)$GeneID %in% as.character(x_samples_filter$name))
   }
 
   x_samples <- assay(x_samples_filtered, assay_name)

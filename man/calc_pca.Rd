@@ -46,9 +46,11 @@ object <- HermesData(summarized_experiment) \%>\%
   filter() \%>\%
   normalize()
 
-# Perform PCA.
 result <- calc_pca(object, assay_name = "tpm")
 summary(result)
+
+result1 <- calc_pca(object, assay_name = "tpm", n_top = 500)
+summary(result1)
 
 # Plot the results.
 autoplot(result)

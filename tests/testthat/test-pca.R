@@ -32,9 +32,14 @@ test_that("calc_pca function fails as expected with wrong assay choice", {
   expect_error(calc_pca(result, assay_name = c("counts", "zyz")))
 })
 
-test_that("calc_pca function works as expected for HermesData with default counts assay", {
+test_that("calc_pca function works as expected with n_top option", {
   object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(normalize(object))
-  pca <- expect_silent(calc_pca(result, n_top = 500))
-  expect_identical(nrow(pca$rotation), 500)
+  pca <- expect_silent(calc_pca(object, n_top = 500))
+  expect_identical(nrow(pca$rotation), 500L)
+})
+
+test_that("calc_pca function fails as expected with extremly high n_top filter criteria", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  pca <- expect_silent(calc_pca(object, n_top = 10000))
+  expect_disjunct(nrow(pca$rotation), 10000)
 })
