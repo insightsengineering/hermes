@@ -67,8 +67,9 @@ and multiply by one million.
 a \code{prior_count} of 0.5 is combined with \code{lib_sizes} increased by 1 for each sample. Note that
 this is not required for the corresponding differential expression analysis, but just provided
 as a complementary experimental normalization approach here.
-\item \code{vst}:x
-\item \code{rlog}: x
+\item \code{vst}: Variance stabilizing transformation (VST). This is to transform the normalized
+count data for all genes into approximately homoskedastic values (having constant variance).
+\item \code{rlog}: The transformation to the log2 scale values with approximately homoskedastic values.
 }
 }
 \section{Functions}{
