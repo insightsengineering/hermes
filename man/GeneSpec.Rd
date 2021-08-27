@@ -6,8 +6,8 @@
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-A \code{GeneSpec} consists of the gene names, the summary function and the name
-of the summary function.
+A \code{GeneSpec} consists of the gene IDs (possibly named with labels),
+the summary function and the name of the summary function.
 }
 \examples{
 # Minimal specification if only one gene is used.
@@ -17,11 +17,13 @@ x_spec <- gene_spec("GeneID:1820")
 x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"), fun = colMeans)
 x_spec$returns_vector()
 x_spec$get_genes()
+x_spec$get_gene_labels()
 x_spec$get_label()
 
-# Using multiple genes without a signature.
-x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"))
+# Using multiple genes with partial labels, without a signature.
+x_spec <- gene_spec(c(A = "GeneID:1820", "GeneID:52"))
 x_spec$returns_vector()
+x_spec$get_gene_labels()
 
 # Use the gene specification to extract genes from a matrix.
 mat <- matrix(
@@ -36,6 +38,7 @@ x_spec$extract(mat)
 \itemize{
 \item \href{#method-new}{\code{GeneSpec$new()}}
 \item \href{#method-get_genes}{\code{GeneSpec$get_genes()}}
+\item \href{#method-get_gene_labels}{\code{GeneSpec$get_gene_labels()}}
 \item \href{#method-returns_vector}{\code{GeneSpec$returns_vector()}}
 \item \href{#method-get_label}{\code{GeneSpec$get_label()}}
 \item \href{#method-extract}{\code{GeneSpec$extract()}}
@@ -54,7 +57,8 @@ Creates a new \code{\link{GeneSpec}} object.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{genes}}{(\code{character} or \code{NULL})\cr the gene IDs.}
+\item{\code{genes}}{(named \code{character} or \code{NULL})\cr the gene IDs, where the names
+are used as labels if available.}
 
 \item{\code{fun}}{(\code{function} or \code{NULL})\cr summary function. If \code{NULL} is
 used then multiple genes are not summarized but returned as a matrix from the
@@ -75,6 +79,16 @@ A new \code{\link{GeneSpec}} object.
 Returns the genes.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{GeneSpec$get_genes()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_gene_labels"></a>}}
+\if{latex}{\out{\hypertarget{method-get_gene_labels}{}}}
+\subsection{Method \code{get_gene_labels()}}{
+Returns the gene labels (substituted by gene IDs if not available).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$get_gene_labels()}\if{html}{\out{</div>}}
 }
 
 }

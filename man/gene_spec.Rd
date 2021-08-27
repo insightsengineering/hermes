@@ -7,7 +7,8 @@
 gene_spec(genes = NULL, fun = NULL, fun_name = deparse(substitute(fun)))
 }
 \arguments{
-\item{genes}{(\code{character} or \code{NULL})\cr the gene IDs.}
+\item{genes}{(named \code{character} or \code{NULL})\cr the gene IDs, where the names
+are used as labels if available.}
 
 \item{fun}{(\code{function} or \code{NULL})\cr summary function. If \code{NULL} is
 used then multiple genes are not summarized but returned as a matrix from the

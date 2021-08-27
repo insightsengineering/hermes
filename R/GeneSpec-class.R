@@ -2,8 +2,8 @@
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' A `GeneSpec` consists of the gene names, the summary function and the name
-#' of the summary function.
+#' A `GeneSpec` consists of the gene IDs (possibly named with labels),
+#' the summary function and the name of the summary function.
 #'
 #' @export
 #'
@@ -15,11 +15,13 @@
 #' x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"), fun = colMeans)
 #' x_spec$returns_vector()
 #' x_spec$get_genes()
+#' x_spec$get_gene_labels()
 #' x_spec$get_label()
 #'
-#' # Using multiple genes without a signature.
-#' x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"))
+#' # Using multiple genes with partial labels, without a signature.
+#' x_spec <- gene_spec(c(A = "GeneID:1820", "GeneID:52"))
 #' x_spec$returns_vector()
+#' x_spec$get_gene_labels()
 #'
 #' # Use the gene specification to extract genes from a matrix.
 #' mat <- matrix(
@@ -32,7 +34,8 @@ GeneSpec <- R6::R6Class(
   "GeneSpec",
   public = list(
     #' @description Creates a new [`GeneSpec`] object.
-    #' @param genes (`character` or `NULL`)\cr the gene IDs.
+    #' @param genes (named `character` or `NULL`)\cr the gene IDs, where the names
+    #'   are used as labels if available.
     #' @param fun (`function` or `NULL`)\cr summary function. If `NULL` is
     #'   used then multiple genes are not summarized but returned as a matrix from the
     #'   `extract` method.
@@ -45,6 +48,13 @@ GeneSpec <- R6::R6Class(
       assert_function(fun, null.ok = TRUE)
       assert_string(fun_name, min.chars = 1L)
 
+      private$gene_labels <- if (is.null(names(genes))) {
+        genes
+      } else {
+        nms <- names(genes)
+        ifelse(nms == "", genes, nms)
+      }
+      assert_character(private$gene_labels, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
       private$genes <- genes
       private$fun <- fun
       private$fun_name <- fun_name
@@ -52,6 +62,10 @@ GeneSpec <- R6::R6Class(
     #' @description Returns the genes.
     get_genes = function() {
       private$genes
+    },
+    #' @description Returns the gene labels (substituted by gene IDs if not available).
+    get_gene_labels = function() {
+      private$gene_labels
     },
     #' @description Predicate whether the extract returns a vector or not.
     returns_vector = function() {
@@ -61,9 +75,9 @@ GeneSpec <- R6::R6Class(
     get_label = function() {
       assert_true(self$returns_vector()) # only makes sense if vector valued
       if (length(private$genes) > 1) {
-        paste0(private$fun_name, h_parens(h_short_list(private$genes)))
+        paste0(private$fun_name, h_parens(h_short_list(private$gene_labels)))
       } else {
-        private$genes
+        private$gene_labels
       }
     },
     #' @description Extract the gene values from an assay as specified.
@@ -86,6 +100,7 @@ GeneSpec <- R6::R6Class(
   ),
   private = list(
     genes = NULL,
+    gene_labels = NULL,
     fun = NULL,
     fun_name = NULL
   )
@@ -97,7 +112,8 @@ GeneSpec <- R6::R6Class(
 #'
 #' Creates a new [`GeneSpec`] object.
 #'
-#' @param genes (`character` or `NULL`)\cr the gene IDs.
+#' @param genes (named `character` or `NULL`)\cr the gene IDs, where the names
+#'   are used as labels if available.
 #' @param fun (`function` or `NULL`)\cr summary function. If `NULL` is
 #'   used then multiple genes are not summarized but returned as a matrix from the
 #'   `extract` method.

@@ -48,7 +48,7 @@ draw_scatterplot(
   object,
   assay_name = "counts",
   facet_var = NULL,
-  x_spec = gene_spec(g[1]),
+  x_spec = gene_spec(c(A = g[1])),
   y_spec = gene_spec(g[2]),
   color = "RACE"
 )
