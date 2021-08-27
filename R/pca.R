@@ -57,7 +57,7 @@ calc_pca <- function(object,
   x_samples_filtered <- if (is.null(n_top)) {
     object
   } else {
-    x_samples_filter <- top_genes(
+    top_var <- top_genes(
       object = object,
       assay_name = assay_name,
       summary_fun = rowVars,
