@@ -28,9 +28,11 @@ test_that("GeneSpec returns_vector method works as expected", {
 test_that("GeneSpec get_gene_labels method works as expected", {
   spec <- expect_silent(GeneSpec$new(c(a = "123", "435", c = "4353"), fun = colMeans))
   expect_identical(spec$get_gene_labels(), c("a", "435", "c"))
+  expect_identical(spec$get_gene_labels("123"), "a")
 
   spec2 <- expect_silent(GeneSpec$new(c("a", "b")))
   expect_identical(spec2$get_gene_labels(), c("a", "b"))
+  expect_error(spec2$get_gene_labels("c"))
 
   spec3 <- expect_silent(GeneSpec$new(fun = colMeans))
   expect_identical(spec3$get_gene_labels(), NULL)
@@ -45,6 +47,9 @@ test_that("GeneSpec get_label method works as expected", {
 
   spec3 <- expect_silent(GeneSpec$new(letters, fun = colMeans, fun_name = "avg"))
   expect_identical(spec3$get_label(), "avg(a, b, ..., z)")
+
+  spec4 <- expect_silent(GeneSpec$new(letters))
+  expect_identical(spec4$get_label(letters[1:3]), "(a, b, c)")
 })
 
 test_that("GeneSpec extract method works as expected", {

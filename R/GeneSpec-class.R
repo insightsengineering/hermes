@@ -64,18 +64,27 @@ GeneSpec <- R6::R6Class(
       private$genes
     },
     #' @description Returns the gene labels (substituted by gene IDs if not available).
-    get_gene_labels = function() {
-      private$gene_labels
+    #' @param genes (`character`)\cr for which subset of genes the labels should be returned.
+    get_gene_labels = function(genes = self$get_genes()) {
+      index <- match(genes, private$genes)
+      assert_integer(index, any.missing = FALSE)
+      private$gene_labels[index]
     },
     #' @description Predicate whether the extract returns a vector or not.
     returns_vector = function() {
       identical(length(private$genes), 1L) || is.function(private$fun)
     },
     #' @description Returns a string which can be used e.g. for plot labels.
-    get_label = function() {
-      assert_true(self$returns_vector()) # only makes sense if vector valued
+    #' @param genes (`character`)\cr for which subset of genes the labels should be returned.
+    get_label = function(genes = self$get_genes()) {
+      gene_labels <- self$get_gene_labels(genes)
       if (length(private$genes) > 1) {
-        paste0(private$fun_name, h_parens(h_short_list(private$gene_labels)))
+        gene_list <- h_parens(h_short_list(gene_labels))
+        if (self$returns_vector()) {
+          paste0(private$fun_name, gene_list)
+        } else {
+          gene_list
+        }
       } else {
         private$gene_labels
       }

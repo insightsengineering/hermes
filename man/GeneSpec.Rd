@@ -88,9 +88,16 @@ Returns the genes.
 \subsection{Method \code{get_gene_labels()}}{
 Returns the gene labels (substituted by gene IDs if not available).
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$get_gene_labels()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$get_gene_labels(genes = self$get_genes())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{genes}}{(\code{character})\cr for which subset of genes the labels should be returned.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-returns_vector"></a>}}
@@ -108,9 +115,16 @@ Predicate whether the extract returns a vector or not.
 \subsection{Method \code{get_label()}}{
 Returns a string which can be used e.g. for plot labels.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$get_label()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$get_label(genes = self$get_genes())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{genes}}{(\code{character})\cr for which subset of genes the labels should be returned.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-extract"></a>}}
