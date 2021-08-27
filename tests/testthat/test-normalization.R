@@ -195,3 +195,59 @@ test_that("normalize works when there is a function with the same name", {
   }
   expect_silent(normalize(h1, method = "cpm"))
 })
+
+# h_vst ----
+
+test_that("h_vst function works as expected with default settings", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  result <- expect_silent(h_vst(object))
+  expect_is(result, "matrix")
+})
+
+test_that("h_vst function works as expected with custom settings", {
+  object <- HermesData(summarized_experiment)
+  cont <- control_normalize(fit_type = "mean")
+  result <- expect_silent(h_vst(object, cont))
+  expect_is(result, "matrix")
+})
+
+test_that("h_vst fails as expected with invalid settings", {
+  object1 <- summarized_experiment
+  object2 <- matrix(1:4, 2, 2)
+  object3 <- HermesData(summarized_experiment)
+  cont1 <- control_normalize()
+  cont2 <- list(1, 2, 3)
+  expect_error(h_vst(object1, cont1))
+  expect_error(h_vst(object3, cont2))
+  expect_error(h_vst(object2, cont1))
+  expect_error(h_vst(object2, cont2))
+})
+
+
+# h_rlog ----
+
+
+test_that("h_rlog function works as expected with default settings", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  result <- expect_silent(h_rlog(object))
+  expect_is(result, "matrix")
+})
+
+test_that("h_rlog function works as expected with custom settings", {
+  object <- HermesData(summarized_experiment)
+  cont <- control_normalize(fit_type = "mean")
+  result <- expect_silent(h_rlog(object, cont))
+  expect_is(result, "matrix")
+})
+
+test_that("h_rlog fails as expected with invalid settings", {
+  object1 <- summarized_experiment
+  object2 <- matrix(1:4, 2, 2)
+  object3 <- HermesData(summarized_experiment)
+  cont1 <- control_normalize()
+  cont2 <- list(1, 2, 3)
+  expect_error(h_rlog(object1, cont1))
+  expect_error(h_rlog(object3, cont2))
+  expect_error(h_rlog(object2, cont1))
+  expect_error(h_rlog(object2, cont2))
+})

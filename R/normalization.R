@@ -64,8 +64,9 @@ control_normalize <- function(log = TRUE,
 #'   a `prior_count` of 0.5 is combined with `lib_sizes` increased by 1 for each sample. Note that
 #'   this is not required for the corresponding differential expression analysis, but just provided
 #'   as a complementary experimental normalization approach here.
-#' - `vst`:x
-#' - `rlog`: x
+#' - `vst`: Variance stabilizing transformation (VST). This is to transform the normalized
+#'    count data for all genes into approximately homoskedastic values (having constant variance).
+#' - `rlog`: The transformation to the log2 scale values with approximately homoskedastic values.
 #'
 #' @rdname normalize
 #' @aliases normalize
@@ -214,8 +215,7 @@ h_voom <- function(object,
   }
 }
 
-#'
-#' @describeIn variance stabilizing transformation (VST) called from DESeq2 package.
+#' @describeIn normalize variance stabilizing transformation (VST) called from DESeq2 package.
 #'
 #' @export
 #' @examples
@@ -235,7 +235,7 @@ h_vst <- function(object,
   )
 }
 
-#' @describeIn regularized log transformation (rlog) called from DESeq2 package.
+#' @describeIn normalize regularized log transformation (rlog) called from DESeq2 package.
 #'
 #' @export
 #' @examples

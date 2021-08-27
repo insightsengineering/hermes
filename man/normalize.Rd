@@ -7,6 +7,8 @@
 \alias{h_rpkm}
 \alias{h_tpm}
 \alias{h_voom}
+\alias{h_vst}
+\alias{h_rlog}
 \title{Normalization of \code{AnyHermesData} Objects}
 \usage{
 \S4method{normalize}{AnyHermesData}(
@@ -23,6 +25,10 @@ h_rpkm(object, control = control_normalize())
 h_tpm(object, control = control_normalize())
 
 h_voom(object, control = control_normalize())
+
+h_vst(object, control = control_normalize())
+
+h_rlog(object, control = control_normalize())
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr object to normalize.}
@@ -74,6 +80,10 @@ as a complementary experimental normalization approach here.
 \item \code{h_tpm}: calculates the Transcripts per Million (TPM) normalized counts.
 
 \item \code{h_voom}: calculates the VOOM normalized counts. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+\item \code{h_vst}: variance stabilizing transformation (VST) called from DESeq2 package.
+
+\item \code{h_rlog}: regularized log transformation (rlog) called from DESeq2 package.
 }}
 
 \examples{
@@ -105,6 +115,14 @@ str(counts_tpm)
 # Separate calculation of the VOOM normalized counts.
 counts_voom <- h_voom(a)
 str(counts_voom)
+
+# Separate calculation of the vst transformation.
+counts_vst <- h_vst(a)
+str(counts_vst)
+
+# Separate calculation of the rlog transformation.
+counts_rlog <- h_rlog(a)
+str(counts_rlog)
 }
 \seealso{
 \code{\link[=control_normalize]{control_normalize()}} to define the normalization method settings.
