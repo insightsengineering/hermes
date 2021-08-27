@@ -63,7 +63,7 @@ calc_pca <- function(object,
       summary_fun = rowVars,
       n_top = n_top
     )
-    subset(object, subset = rowData(object)$GeneID %in% as.character(x_samples_filter$name))
+    subset(object, subset = GeneID %in% as.character(top_var$name))
   }
 
   x_samples <- assay(x_samples_filtered, assay_name)
