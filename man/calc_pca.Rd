@@ -8,12 +8,14 @@
 \alias{HermesDataPca}
 \title{Principal Components Analysis Calculation}
 \usage{
-calc_pca(object, assay_name = "counts")
+calc_pca(object, assay_name = "counts", n_top = NULL)
 }
 \arguments{
 \item{object}{(\code{AnyHermesData}) \cr input.}
 
 \item{assay_name}{(\code{string}) \cr name of the assay to use.}
+
+\item{n_top}{(\code{count} or \code{NULL})\cr filter criteria based on number of genes with maximum variance.}
 }
 \value{
 A \link{HermesDataPca} object which is an extension of the \link[stats:prcomp]{stats::prcomp} class.
@@ -44,9 +46,11 @@ object <- hermes_data \%>\%
   filter() \%>\%
   normalize()
 
-# Perform PCA.
 result <- calc_pca(object, assay_name = "tpm")
 summary(result)
+
+result1 <- calc_pca(object, assay_name = "tpm", n_top = 500)
+summary(result1)
 
 # Plot the results.
 autoplot(result)
