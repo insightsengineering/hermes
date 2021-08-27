@@ -11,7 +11,7 @@
 \usage{
 \S4method{normalize}{AnyHermesData}(
   object,
-  methods = c("cpm", "rpkm", "tpm", "voom"),
+  methods = c("cpm", "rpkm", "tpm", "voom", "vst"),
   control = control_normalize(),
   ...
 )
@@ -61,6 +61,8 @@ and multiply by one million.
 a \code{prior_count} of 0.5 is combined with \code{lib_sizes} increased by 1 for each sample. Note that
 this is not required for the corresponding differential expression analysis, but just provided
 as a complementary experimental normalization approach here.
+\item \code{vst}:x
+\item \code{rlog}: x
 }
 }
 \section{Functions}{

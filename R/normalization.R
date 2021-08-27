@@ -9,6 +9,8 @@
 #'   counts for each of the samples will be used.
 #' @param prior_count (non-negative `number`)\cr average count to be added to each observation to
 #'   avoid taking log of zero, used only when `log = TRUE`.
+#' @param fit_type ("parametric", "local", "mean", "glmGamPoi")\cr method to estimate dispersion parameters
+#' in Negative Binomial distributed data, used only when `normalize()` methods include `vst` and/or `rlog`.
 #'
 #' @return List with the above settings used to perform the normalization procedure.
 #'
@@ -20,16 +22,19 @@
 #' control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
 control_normalize <- function(log = TRUE,
                               lib_sizes = NULL,
-                              prior_count = 1) {
+                              prior_count = 1,
+                              fit_type = "parametric") {
   assert_that(
     is.flag(log),
     is.null(lib_sizes) || is_counts_vector(lib_sizes),
-    is.number(prior_count) && prior_count >= 0
+    is.number(prior_count) && prior_count >= 0,
+    is.string(fit_type)
   )
   list(
     log = log,
     lib_sizes = lib_sizes,
-    prior_count = prior_count
+    prior_count = prior_count,
+    fit_type = fit_type
   )
 }
 
@@ -59,6 +64,8 @@ control_normalize <- function(log = TRUE,
 #'   a `prior_count` of 0.5 is combined with `lib_sizes` increased by 1 for each sample. Note that
 #'   this is not required for the corresponding differential expression analysis, but just provided
 #'   as a complementary experimental normalization approach here.
+#' - `vst`:x
+#' - `rlog`: x
 #'
 #' @rdname normalize
 #' @aliases normalize
@@ -207,11 +214,13 @@ h_voom <- function(object,
   }
 }
 
-#' @describeIn variance stabilizing transformation (VST) called from DESeq2 package
+#'
+#' @describeIn variance stabilizing transformation (VST) called from DESeq2 package.
 #'
 #' @export
 #' @examples
 #'
+#' # Separate calculation of the vst transformation.
 #' counts_vst <- h_vst(a)
 #' str(counts_vst)
 h_vst <- function(object,
@@ -226,12 +235,12 @@ h_vst <- function(object,
   )
 }
 
-
-#' @describeIn regularized log transformation (rlog) called from DESeq2 package
+#' @describeIn regularized log transformation (rlog) called from DESeq2 package.
 #'
 #' @export
 #' @examples
 #'
+#' # Separate calculation of the rlog transformation.
 #' counts_rlog <- h_rlog(a)
 #' str(counts_rlog)
 h_rlog <- function(object,
