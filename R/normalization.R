@@ -9,6 +9,8 @@
 #'   counts for each of the samples will be used.
 #' @param prior_count (non-negative `number`)\cr average count to be added to each observation to
 #'   avoid taking log of zero, used only when `log = TRUE`.
+#' @param fit_type ("parametric", "local", "mean", "glmGamPoi")\cr method to estimate dispersion parameters
+#' in Negative Binomial distributed data, used only when `normalize()` methods include `vst` and/or `rlog`.
 #'
 #' @return List with the above settings used to perform the normalization procedure.
 #'
@@ -20,16 +22,19 @@
 #' control_normalize(log = FALSE, lib_sizes = rep(1e6L, 20))
 control_normalize <- function(log = TRUE,
                               lib_sizes = NULL,
-                              prior_count = 1) {
+                              prior_count = 1,
+                              fit_type = "parametric") {
   assert_that(
     is.flag(log),
     is.null(lib_sizes) || is_counts_vector(lib_sizes),
-    is.number(prior_count) && prior_count >= 0
+    is.number(prior_count) && prior_count >= 0,
+    is.string(fit_type)
   )
   list(
     log = log,
     lib_sizes = lib_sizes,
-    prior_count = prior_count
+    prior_count = prior_count,
+    fit_type = fit_type
   )
 }
 
@@ -59,6 +64,9 @@ control_normalize <- function(log = TRUE,
 #'   a `prior_count` of 0.5 is combined with `lib_sizes` increased by 1 for each sample. Note that
 #'   this is not required for the corresponding differential expression analysis, but just provided
 #'   as a complementary experimental normalization approach here.
+#' - `vst`: Variance stabilizing transformation (VST). This is to transform the normalized
+#'    count data for all genes into approximately homoskedastic values (having constant variance).
+#' - `rlog`: The transformation to the log2 scale values with approximately homoskedastic values.
 #'
 #' @rdname normalize
 #' @aliases normalize
@@ -92,10 +100,10 @@ setMethod(
   f = "normalize",
   signature = "AnyHermesData",
   definition = function(object,
-                        methods = c("cpm", "rpkm", "tpm", "voom"),
+                        methods = c("cpm", "rpkm", "tpm", "voom", "vst"),
                         control = control_normalize(),
                         ...) {
-    method_choices <- c("cpm", "rpkm", "tpm", "voom")
+    method_choices <- c("cpm", "rpkm", "tpm", "voom", "vst", "rlog")
     assert_that(all(methods %in% method_choices))
     methods <- match.arg(methods, choices = method_choices, several.ok = TRUE)
     for (method in methods) {
@@ -205,4 +213,44 @@ h_voom <- function(object,
   } else {
     2^norm_log2
   }
+}
+
+#' @describeIn normalize variance stabilizing transformation (VST) called from DESeq2 package.
+#'
+#' @export
+#' @examples
+#'
+#' # Separate calculation of the vst transformation.
+#' counts_vst <- h_vst(a)
+#' str(counts_vst)
+h_vst <- function(object,
+                  control = control_normalize()) {
+  assert_that(
+    is_hermes_data(object),
+    is_list_with(control, "fit_type")
+  )
+  DESeq2::varianceStabilizingTransformation(
+    counts(object),
+    fitType = control$fit_type
+  )
+}
+
+#' @describeIn normalize regularized log transformation (rlog) called from DESeq2 package.
+#'
+#' @export
+#' @examples
+#'
+#' # Separate calculation of the rlog transformation.
+#' counts_rlog <- h_rlog(a)
+#' str(counts_rlog)
+h_rlog <- function(object,
+                   control = control_normalize()) {
+  assert_that(
+    is_hermes_data(object),
+    is_list_with(control, "fit_type")
+  )
+  DESeq2::rlog(
+    counts(object),
+    fitType = control$fit_type
+  )
 }

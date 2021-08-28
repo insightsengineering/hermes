@@ -238,16 +238,25 @@ object_flagged_subsetted <- subset(
 ## Normalizing Counts
 
 Normalizing counts within samples (CPM), genes (RPKM) or across both (TPM) can be
-achieved with the `normalize()` function.
+achieved with the `normalize()` function. The `normalize()` function can also transform the counts by the variance stabilizing transformation (VST) and the regularized log transformation (rlog). 
 
 ```{r}
 object_normalized <- normalize(object_flagged_filtered)
 ```
 
+```{r}
+object_rlog_normalized <- normalize(object_flagged_filtered, "rlog")
+```
+
+
 The corresponding assays are saved in the object and can be accessed with `assay()`.
 
 ```{r}
 assay(object_normalized, "tpm")[1:3, 1:3]
+```
+
+```{r}
+assay(object_rlog_normalized, "rlog")[1:3, 1:3]
 ```
 
 The used control settings can be accessed afterwards from the metadata of the object:
@@ -261,7 +270,7 @@ use `control_normalize()`. For example, to not use log scale but the original sc
 
 ```{r}
 object_normalized_original <- normalize(
-  object_flagged_filtered, 
+  object_flagged_filtered,
   control = control_normalize(log = FALSE)
 )
 assay(object_normalized_original, "tpm")[1:3, 1:3]
