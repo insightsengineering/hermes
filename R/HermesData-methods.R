@@ -564,7 +564,6 @@ setGeneric("summary")
 #' @param object (`AnyHermesData`)\cr input.
 #' @param ... not used.
 #'
-#' @importFrom S4Vectors classNameForDisplay
 #' @export
 #'
 #' @examples
@@ -612,8 +611,6 @@ setMethod(
 #' @param object (`HermesDataSummary`) \cr result from the summary method applied to
 #'   [`AnyHermesData`] object.
 #'
-#' @importFrom utils.nest cat_nl
-#' @importFrom S4Vectors coolcat
 #' @export
 #'
 #' @examples
@@ -624,12 +621,12 @@ setMethod(
   f = "show",
   signature = c("HermesDataSummary"),
   definition = function(object) {
-    cat_nl(
+    utils.nest::cat_nl(
       object@class_name, "object with",
       object@n_samples, "samples of", object@n_genes, "genes."
     )
     sum_depth <- summary(object@lib_sizes)
-    cat_nl(
+    utils.nest::cat_nl(
       "- Library sizes across samples: ",
       "mean ", sum_depth["Mean"], ", median ", sum_depth["Median"], ", range ",
       sum_depth["Min."], " to ", sum_depth["Max."],
@@ -652,7 +649,7 @@ setMethod(
       )
     }
     if (object@no_qc_flags_filled) {
-      cat_nl(
+      utils.nest::cat_nl(
         "- QC flags still need to be added"
       )
     } else {
@@ -671,7 +668,7 @@ setMethod(
 # show ----
 
 .show.AnyHermesData <- function(object) { # nolint
-  cat_nl(
+  utils.nest::cat_nl(
     "class:",
     S4Vectors::classNameForDisplay(object)
   )
@@ -687,7 +684,7 @@ setMethod(
     "additional gene information(%d): %s\n",
     extraRowDataNames(object)
   )
-  coolcat(
+  S4Vectors::coolcat(
     "samples(%d): %s\n",
     colnames(object)
   )
@@ -712,8 +709,6 @@ setMethod(
 #'   objects. We need to define this separately to have this method used instead of
 #'   the one inherited from [`SummarizedExperiment::SummarizedExperiment`].
 #'
-#' @importFrom utils.nest cat_nl
-#' @importFrom S4Vectors classNameForDisplay coolcat
 #' @export
 #'
 #' @examples

@@ -39,6 +39,7 @@ test_that("h_diff_expr_voom fails if design matrix is not correct", {
 # h_diff_expr_deseq2 ----
 
 test_that("h_diff_expr_deseq2 works as expected", {
+  test.nest::skip_if_too_deep(3)
   object <- HermesData(summarized_experiment)
   design <- model.matrix(~SEX, colData(object))
   result <- h_diff_expr_deseq2(object, design)
@@ -49,6 +50,7 @@ test_that("h_diff_expr_deseq2 works as expected", {
 })
 
 test_that("h_diff_expr_deseq2 can pass arguments to DESeq2::DESeq", {
+  test.nest::skip_if_too_deep(5)
   object <- HermesData(summarized_experiment)
   design <- model.matrix(~SEX, colData(object))
   result <- expect_silent(h_diff_expr_deseq2(
@@ -77,6 +79,7 @@ test_that("h_diff_expr_deseq2 fails if design matrix is not correct", {
 # diff_expression ----
 
 test_that("diff_expression works as expected with the DESeq2 method", {
+  test.nest::skip_if_too_deep(3)
   object <- HermesData(summarized_experiment)
   colData(object) <- df_char_to_factor(colData(object))
   result <- expect_silent(diff_expression(object, group = "SEX", method = "deseq2"))
@@ -97,6 +100,7 @@ test_that("diff_expression works as expected with the voom method", {
 })
 
 test_that("diff_expression allows passing of method arguments to helper functions", {
+  test.nest::skip_if_too_deep(3)
   object <- HermesData(summarized_experiment)
   colData(object) <- df_char_to_factor(colData(object))
   expect_silent(diff_expression(object, group = "SEX", method = "voom", robust = TRUE))

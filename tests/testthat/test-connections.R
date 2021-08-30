@@ -1,7 +1,7 @@
 # connect_biomart ----
 
 test_that("connect_biomart works as expected", {
-  skip_if_too_deep(2)
+  test.nest::skip_if_too_deep(5)
 
   result <- connect_biomart("ENSG")
   expect_s4_class(result, "ConnectionBiomart")
@@ -15,7 +15,7 @@ test_that("connect_biomart works as expected", {
 # h_get_annotation_biomart ----
 
 test_that("h_get_annotation_biomart works as expected", {
-  skip_if_too_deep(2)
+  test.nest::skip_if_too_deep(3)
 
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   result <- h_get_annotation_biomart(
@@ -57,7 +57,7 @@ test_that("h_strip_prefix works as expected", {
 # query-ConnectionBiomart ----
 
 test_that("query to Biomart works as expected", {
-  skip_if_too_deep(2)
+  test.nest::skip_if_too_deep(3)
 
   object <- HermesData(summarized_experiment)[1:10, ]
   connection <- connect_biomart(prefix(object))

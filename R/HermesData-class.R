@@ -52,7 +52,6 @@ NULL
 #'
 #' @aliases HermesData RangedHermesData AnyHermesData
 #' @exportClass HermesData RangedHermesData AnyHermesData
-#' @importFrom S4Vectors setValidity2
 #'
 #' @examples
 #' # Convert an `ExpressionSet` to a `RangedSummarizedExperiment`.

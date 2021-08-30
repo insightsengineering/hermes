@@ -70,7 +70,7 @@ on_failure(is_counts_vector) <- function(call, env) {
 
 #' @describeIn assertions checks for a list containing elements.
 #' @param elements (`character`)\cr names of elements which should be in the list `x`.
-#' @importFrom utils.nest is_character_vector is_fully_named_list
+#'
 #' @export
 #' @examples
 #'
@@ -137,9 +137,9 @@ is_constant <- function(x) {
   assert_that(is.vector(x))
   x <- x[!is.na(x)]
   if (is.numeric(x)) {
-    isConstant(x)
+    S4Vectors::isConstant(x)
   } else if (is.factor(x)) {
-    isConstant(as.integer(x))
+    S4Vectors::isConstant(as.integer(x))
   } else if (is.character(x)) {
     identical(length(unique(x)), 1L)
   } else if (is.logical(x)) {

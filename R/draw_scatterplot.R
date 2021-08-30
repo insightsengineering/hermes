@@ -18,7 +18,6 @@
 #'
 #' @return The `ggplot` scatterplot.
 #'
-#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
