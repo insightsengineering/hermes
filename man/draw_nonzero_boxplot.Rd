@@ -17,7 +17,7 @@ draw_nonzero_boxplot(object, position = position_jitter(0.2), alpha = 0.25)
 The \code{ggplot} object with the boxplot.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This draws a boxplot, with overlaid data points, of the number of
 non-zero expressed genes per sample.
