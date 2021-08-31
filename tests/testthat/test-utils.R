@@ -37,3 +37,56 @@ test_that("df_char_to_factor works as expected with custom settings", {
   )
   expect_identical(result, expected)
 })
+
+# h_short_list ----
+
+test_that("h_short_list works as expected with default arguments", {
+  expect_identical(
+    h_short_list(letters),
+    "a, b, ..., z"
+  )
+  expect_identical(
+    h_short_list(letters[1:3]),
+    "a, b, c"
+  )
+  expect_identical(
+    h_short_list(letters[1:2]),
+    "a, b"
+  )
+  expect_identical(
+    h_short_list(letters[1]),
+    "a"
+  )
+})
+
+test_that("h_short_list works as expected with custom arguments", {
+  expect_identical(
+    h_short_list(letters, sep = "; "),
+    "a; b; ...; z"
+  )
+  expect_identical(
+    h_short_list(letters[1:4], thresh = 4L),
+    "a, b, c, d"
+  )
+  expect_identical(
+    h_short_list(letters[1:5], thresh = 5L, sep = "-"),
+    "a-b-c-d-e"
+  )
+  expect_error(h_short_list(letters[1:3], thresh = 2L))
+  expect_error(h_short_list(letters[1:3], sep = ""))
+})
+
+# h_parens ----
+
+test_that("h_parens works as expected", {
+  expect_identical(
+    h_parens("bla"),
+    "(bla)"
+  )
+  expect_identical(
+    h_parens(""),
+    ""
+  )
+  expect_error(h_parens(123))
+  expect_error(h_parens(NULL))
+})
