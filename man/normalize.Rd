@@ -7,11 +7,13 @@
 \alias{h_rpkm}
 \alias{h_tpm}
 \alias{h_voom}
+\alias{h_vst}
+\alias{h_rlog}
 \title{Normalization of \code{AnyHermesData} Objects}
 \usage{
 \S4method{normalize}{AnyHermesData}(
   object,
-  methods = c("cpm", "rpkm", "tpm", "voom"),
+  methods = c("cpm", "rpkm", "tpm", "voom", "vst"),
   control = control_normalize(),
   ...
 )
@@ -23,6 +25,10 @@ h_rpkm(object, control = control_normalize())
 h_tpm(object, control = control_normalize())
 
 h_voom(object, control = control_normalize())
+
+h_vst(object, control = control_normalize())
+
+h_rlog(object, control = control_normalize())
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr object to normalize.}
@@ -38,7 +44,7 @@ The \code{\link{AnyHermesData}} object with additional assays containing the nor
 The \code{control} is saved in the \code{metadata} of the object for future reference.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The \code{normalize()} method is normalizing the input \code{\link{AnyHermesData}} according to one or more
 specified normalization methods. The results are saved as additional assays
@@ -61,6 +67,9 @@ and multiply by one million.
 a \code{prior_count} of 0.5 is combined with \code{lib_sizes} increased by 1 for each sample. Note that
 this is not required for the corresponding differential expression analysis, but just provided
 as a complementary experimental normalization approach here.
+\item \code{vst}: Variance stabilizing transformation (VST). This is to transform the normalized
+count data for all genes into approximately homoskedastic values (having constant variance).
+\item \code{rlog}: The transformation to the log2 scale values with approximately homoskedastic values.
 }
 }
 \section{Functions}{
@@ -71,7 +80,11 @@ as a complementary experimental normalization approach here.
 
 \item \code{h_tpm}: calculates the Transcripts per Million (TPM) normalized counts.
 
-\item \code{h_voom}: calculates the VOOM normalized counts. \ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\item \code{h_voom}: calculates the VOOM normalized counts. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+\item \code{h_vst}: variance stabilizing transformation (VST) called from DESeq2 package.
+
+\item \code{h_rlog}: regularized log transformation (rlog) called from DESeq2 package.
 }}
 
 \examples{
@@ -103,6 +116,14 @@ str(counts_tpm)
 # Separate calculation of the VOOM normalized counts.
 counts_voom <- h_voom(a)
 str(counts_voom)
+
+# Separate calculation of the vst transformation.
+counts_vst <- h_vst(a)
+str(counts_vst)
+
+# Separate calculation of the rlog transformation.
+counts_rlog <- h_rlog(a)
+str(counts_rlog)
 }
 \seealso{
 \code{\link[=control_normalize]{control_normalize()}} to define the normalization method settings.

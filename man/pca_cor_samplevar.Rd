@@ -14,8 +14,7 @@
 
 \S4method{autoplot}{HermesDataPcaCor}(
   object,
-  cor_colors = circlize::colorRamp2(c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1), c("blue",
-    "green", "purple", "yellow", "orange", "red", "brown")),
+  cor_colors = circlize::colorRamp2(c(-1, 0, 1), c("blue", "white", "red")),
   ...
 )
 }
@@ -34,7 +33,7 @@ produced by \code{\link[circlize:colorRamp2]{circlize::colorRamp2()}}.}
 A \code{\link{HermesDataPcaCor}} object with R2 values for all sample variables.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This \code{correlate()} method analyses the correlations (in R2 values) between all sample variables
 in a \code{\link{AnyHermesData}} object and the principal components of the samples.
@@ -62,6 +61,13 @@ autoplot(result)
 
 # We can also choose to not reorder the columns.
 autoplot(result, cluster_columns = FALSE)
+
+# We can also choose break-points for color customization.
+autoplot(result,
+         cor_colors = circlize::colorRamp2(
+         c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1),
+         c("blue", "green", "purple", "yellow", "orange", "red", "brown")
+         ))
 }
 \seealso{
 \code{\link[=h_pca_df_r2_matrix]{h_pca_df_r2_matrix()}} which is used internally for the details.

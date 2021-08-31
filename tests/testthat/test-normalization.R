@@ -3,15 +3,19 @@
 test_that("control_normalize function works as expected with default settings", {
   result <- control_normalize()
   expect_is(result, "list")
-  expect_named(result, c("log", "lib_sizes", "prior_count"))
+  expect_named(result, c("log", "lib_sizes", "prior_count", 'fit_type'))
 })
 
 test_that("control_normalize function works as expected with custom settings", {
-  result <- expect_silent(control_normalize(log = TRUE, lib_sizes = 60000000L, prior_count = 3))
+  result <- expect_silent(control_normalize(log = TRUE,
+                                            lib_sizes = 60000000L,
+                                            prior_count = 3,
+                                            fit_type = "mean"))
   expect_is(result, "list")
   expect_identical(result$log, TRUE)
   expect_identical(result$lib_sizes, 60000000L)
   expect_identical(result$prior_count, 3)
+  expect_identical(result$fit_type, "mean")
 })
 
 test_that("control_normalize fails as expected with invalid settings", {
@@ -167,7 +171,7 @@ test_that("h_voom works when there are no genes", {
 test_that("normalize works as expected for HermesData", {
   object <- get_se()
   h1 <- HermesData(object)
-  result <- expect_silent(normalize(h1))
+  result <- expect_silent(normalize(h1, c("cpm", "rpkm", "tpm", "voom")))
   expect_is(result, "HermesData")
   expect_named(assays(result), c("counts", "cpm", "rpkm", "tpm", "voom"))
 })
@@ -175,7 +179,7 @@ test_that("normalize works as expected for HermesData", {
 test_that("normalize works as expected for RangedHermesData", {
   object <- get_rse()
   h1 <- HermesData(object)
-  result <- expect_silent(normalize(h1))
+  result <- expect_silent(normalize(h1, c("cpm", "rpkm", "tpm", "voom")))
   expect_is(result, "RangedHermesData")
   expect_named(assays(result), c("counts", "cpm", "rpkm", "tpm", "voom"))
 })
@@ -187,11 +191,89 @@ test_that("normalize fails as expected with wrong method choice", {
   expect_error(normalize(h1, method = c("cpm", "bla")))
 })
 
-test_that("normalize works when there is a function with the same name", {
+test_that("normalize works when global environment overwrites helper function", {
   object <- get_rse()
   h1 <- HermesData(object)
   h_cpm <- function(object, control) {
     stop("wrong helper function was used")
   }
   expect_silent(normalize(h1, method = "cpm"))
+})
+
+# h_vst ----
+
+test_that("h_vst function works as expected with default settings", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  result <- expect_silent(h_vst(object))
+  expect_is(result, "matrix")
+})
+
+test_that("h_vst function works as expected with custom settings", {
+  object <- HermesData(summarized_experiment)
+  cont <- control_normalize(fit_type = "mean")
+  result <- expect_silent(h_vst(object, cont))
+  expect_is(result, "matrix")
+})
+
+test_that("h_vst fails as expected with invalid settings", {
+  object1 <- get_se()
+  object2 <- matrix(1:4, 2, 2)
+  object3 <- HermesData(get_se())
+  cont1 <- control_normalize()
+  cont2 <- list(1, 2, 3)
+  expect_error(h_vst(object1, cont1))
+  expect_error(h_vst(object3, cont2))
+  expect_error(h_vst(object2, cont1))
+  expect_error(h_vst(object2, cont2))
+})
+
+test_that("h_vst fails when there are no samples", {
+  object <- HermesData(get_se())[, - c(1, 2)]
+  assert_that(identical(ncol(object), 0L))
+  expect_error(h_vst(object))
+})
+
+test_that("h_vst fails when there are no genes", {
+  object <- HermesData(get_se())[- c(1, 2), ]
+  assert_that(identical(nrow(object), 0L))
+  expect_error(h_vst(object))
+})
+
+# h_rlog ----
+
+test_that("h_rlog function works as expected with default settings", {
+  object <- expect_silent(HermesData(summarized_experiment))
+  result <- expect_silent(h_rlog(object))
+  expect_is(result, "matrix")
+})
+
+test_that("h_rlog function works as expected with custom settings", {
+  object <- HermesData(summarized_experiment)
+  cont <- control_normalize(fit_type = "mean")
+  result <- expect_silent(h_rlog(object, cont))
+  expect_is(result, "matrix")
+})
+
+test_that("h_rlog fails as expected with invalid settings", {
+  object1 <- get_se()
+  object2 <- matrix(1:4, 2, 2)
+  object3 <- HermesData(get_se())
+  cont1 <- control_normalize()
+  cont2 <- list(1, 2, 3)
+  expect_error(h_rlog(object1, cont1))
+  expect_error(h_rlog(object3, cont2))
+  expect_error(h_rlog(object2, cont1))
+  expect_error(h_rlog(object2, cont2))
+})
+
+test_that("h_rlog fails when there are no samples", {
+  object <- HermesData(get_se())[, - c(1, 2)]
+  assert_that(identical(ncol(object), 0L))
+  expect_error(h_rlog(object))
+})
+
+test_that("h_rlog fails when there are no genes", {
+  object <- HermesData(get_se())[- c(1, 2), ]
+  assert_that(identical(nrow(object), 0L))
+  expect_error(h_rlog(object))
 })

@@ -2,13 +2,14 @@
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#'   This produces a boxplot of the gene expression values of a gene for a
-#'   sample variable.
+#' This produces a boxplot of the gene expression values of a gene for a
+#' sample variable.
 #'
 #' @param object (`AnyHermesData`)\cr input.
-#' @param assay_name (`string`)\cr selects assay from input.
-#' @param x_var (`string`)\cr sample variable for the x-axis.
-#' @param y_var (`string`)\cr gene ID for the y-axis.
+#' @param assay_name (`string`)\cr selects assay from input for the y-axis.
+#' @param genes (`character`)\cr gene ID(s) for which to produce boxplots.
+#' @param x_var (`string` or `NULL`)\cr optional stratifying variable for the x-axis,
+#'   taken from input sample variables.
 #' @param color_var (`string` or `NULL`)\cr optional color variable, taken from
 #'   input sample variables.
 #' @param facet_var (`string` or `NULL`)\cr optional faceting variable, taken
@@ -17,7 +18,6 @@
 #'
 #' @return The `ggplot` boxplot.
 #'
-#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
@@ -25,10 +25,7 @@
 #' draw_boxplot(
 #'   object,
 #'   assay_name = "counts",
-#'   x_var = "SEX",
-#'   y_var = genes(object)[2],
-#'   facet_var = NULL,
-#'   color_var = "RACE"
+#'   genes = genes(object)[2]
 #' )
 #'
 #' object2 <- object %>%
@@ -39,7 +36,7 @@
 #'   object2,
 #'   assay_name = "tpm",
 #'   x_var = "SEX",
-#'   y_var = genes(object2)[20],
+#'   genes = genes(object2)[20],
 #'   facet_var = "RACE",
 #'   color_var = "AGE18",
 #'   jitter = TRUE
@@ -49,32 +46,49 @@
 #'   object,
 #'   assay_name = "counts",
 #'   x_var = "SEX",
-#'   y_var = genes(object)[2],
+#'   genes = genes(object)[2],
 #'   jitter = TRUE
+#' )
+#'
+#' draw_boxplot(
+#'   object,
+#'   assay_name = "counts",
+#'   x_var = "SEX",
+#'   genes = genes(object)[1:2],
+#'   facet_var = "RACE"
 #' )
 draw_boxplot <- function(object,
                          assay_name,
-                         x_var,
-                         y_var,
+                         genes,
+                         x_var = NULL,
                          color_var = NULL,
                          facet_var = NULL,
                          jitter = FALSE) {
   assert_class(object, "AnyHermesData")
   assert_string(assay_name)
-  assert_string(x_var)
-  assert_string(y_var)
+  assert_character(genes, any.missing = FALSE, unique = TRUE)
+  assert_string(x_var, null.ok = TRUE)
   assert_string(color_var, null.ok = TRUE)
   assert_string(facet_var, null.ok = TRUE)
   assert_flag(jitter)
 
   assay_matrix <- assay(object, assay_name)
   col_data <- colData(object)
-  assert_names(names(col_data), must.include = x_var)
-  assert_names(rownames(assay_matrix), must.include = y_var)
+  assert_names(rownames(assay_matrix), must.include = genes)
+
+  x <- if (!is.null(x_var)) {
+    assert_names(names(col_data), must.include = x_var)
+    col_data[, x_var]
+  } else {
+    factor(0)
+  }
+
   df <- data.frame(
-    x = col_data[, x_var],
-    y = assay_matrix[y_var, ]
+    x = x,
+    y = as.numeric(t(assay_matrix[genes, , drop = FALSE])),
+    fill = factor(rep(genes, each = ncol(assay_matrix)))
   )
+
   if (!is.null(facet_var)) {
     assert_names(names(col_data), must.include = facet_var)
     df$facet <- col_data[[facet_var]]
@@ -83,28 +97,31 @@ draw_boxplot <- function(object,
     assert_names(names(col_data), must.include = color_var)
     df$color <- col_data[[color_var]]
   }
-  p <- ggplot(df, aes(x = .data$x, y = .data$y)) +
+  jitter_width <- if (jitter) NULL else 0
+  point_aes <- if (!is.null(color_var)) {
+    aes(group = .data$fill, color = .data$color)
+  } else {
+    aes(group = .data$fill)
+  }
+  p <- ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill)) +
     geom_boxplot(outlier.shape = ifelse(jitter, NA, 19)) +
     stat_boxplot(geom = "errorbar") +
-    labs(x = x_var, y = y_var)
-  geom_point_args <- list()
+    geom_point(
+      mapping = point_aes,
+      position = position_jitterdodge(jitter.width = jitter_width),
+    ) +
+    labs(x = x_var, y = assay_name, fill = "Gene")
+  if (is.null(x_var)) {
+    p <- p +
+      scale_x_discrete(breaks = NULL)
+  }
   if (!is.null(color_var)) {
-    geom_point_args <- c(geom_point_args, list(
-      aes(color = .data$color)
-    ))
     p <- p +
       labs(color = color_var)
   }
-  if (jitter) {
-    geom_point_args <- c(geom_point_args, list(
-      position = position_jitter(width = 0.2),
-      alpha = 1 / 4
-    ))
-  }
-  p <- p + do.call(geom_point, geom_point_args)
   if (!is.null(facet_var)) {
     p <- p +
-      facet_wrap(~ facet)
+      facet_wrap(~facet)
   }
   p
 }

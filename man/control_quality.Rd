@@ -31,7 +31,7 @@ would be too low.)}
 List with the above criteria to flag observations.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Control function which specifies the quality flag settings.
 One or more settings can be customized. Not specified settings are left at defaults.

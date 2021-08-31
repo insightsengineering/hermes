@@ -7,7 +7,7 @@ template:
 navbar:
   right:
     - icon: fa-github
-      href: https://github.roche.com/NEST/hermes
+      href: https://github.com/insightsengineering/hermes
 
 reference:
   - title: Classes
@@ -21,10 +21,12 @@ reference:
       - HermesDataPcaCor
       - HermesDataDiffExpr
       - ConnectionBiomart
+      - GeneSpec
   - title: Constructors
     contents:
       - HermesData
       - HermesDataFromMatrix
+      - gene_spec
   - title: Internal Helper Functions
     contents:
       - all_na
@@ -48,6 +50,8 @@ reference:
       - h_get_annotation_biomart
       - h_strip_prefix
       - h_has_req_annotations
+      - h_short_list
+      - h_parens
   - title: Example Data
     contents:
       - expression_set

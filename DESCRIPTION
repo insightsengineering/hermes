@@ -14,8 +14,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 RdMacros: Rdpack, lifecycle
 VignetteBuilder: knitr 
-URL: https://github.roche.com/NEST/hermes/
-BugReports: https://github.roche.com/NEST/hermes/issues
+URL: https://github.com/insightsengineering/hermes/
+BugReports: https://github.com/insightsengineering/hermes/issues
+biocViews:
 Depends: 
     ggfortify,
     R (>= 3.6),
@@ -30,14 +31,15 @@ Imports:
     ComplexHeatmap,
     DESeq2,
     edgeR,
+    EnvStats,
     ggplot2,
-    ggplot2.utils (>= 0.1.2),
     ggrepel,
     lifecycle,
     limma,
     magrittr,
     methods,
     MultiAssayExperiment,
+    R6,
     Rdpack,
     rlang,
     stats,
@@ -57,6 +59,7 @@ Suggests:
     testthat (>= 2.0),
     withr
 Collate: 
+    'GeneSpec-class.R'
     'HermesData-validate.R'
     'HermesData-class.R'
     'HermesData-methods.R'
