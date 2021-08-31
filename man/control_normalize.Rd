@@ -4,7 +4,12 @@
 \alias{control_normalize}
 \title{Control Settings for Counts Normalization}
 \usage{
-control_normalize(log = TRUE, lib_sizes = NULL, prior_count = 1)
+control_normalize(
+  log = TRUE,
+  lib_sizes = NULL,
+  prior_count = 1,
+  fit_type = "parametric"
+)
 }
 \arguments{
 \item{log}{(\code{flag})\cr whether \code{log2} values are returned, otherwise original scale is used.}
@@ -14,6 +19,9 @@ counts for each of the samples will be used.}
 
 \item{prior_count}{(non-negative \code{number})\cr average count to be added to each observation to
 avoid taking log of zero, used only when \code{log = TRUE}.}
+
+\item{fit_type}{("parametric", "local", "mean", "glmGamPoi")\cr method to estimate dispersion parameters
+in Negative Binomial distributed data, used only when \code{normalize()} methods include \code{vst} and/or \code{rlog}.}
 }
 \value{
 List with the above settings used to perform the normalization procedure.
