@@ -7,8 +7,8 @@
 draw_scatterplot(
   object,
   assay_name,
-  x_var,
-  y_var,
+  x_spec,
+  y_spec,
   color_var = NULL,
   facet_var = NULL,
   smooth_method = c("lm", "loess", "none")
@@ -19,9 +19,9 @@ draw_scatterplot(
 
 \item{assay_name}{(\code{string})\cr selects assay from input.}
 
-\item{x_var}{(\code{string})\cr gene ID for the x-axis.}
+\item{x_spec}{(\code{GeneSpec})\cr gene specification for the x-axis.}
 
-\item{y_var}{(\code{string})\cr gene ID for the y-axis.}
+\item{y_spec}{(\code{GeneSpec})\cr gene specification for the y-axis.}
 
 \item{color_var}{(\code{string} or \code{NULL})\cr optional color variable, taken
 from input sample variables.}
@@ -38,17 +38,18 @@ The \code{ggplot} scatterplot.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This produces a scatterplot of the gene expression values
-of two genes.
+This produces a scatterplot of two genes or gene signatures.
 }
 \examples{
 object <- HermesData(summarized_experiment)
+g <- genes(object)
+
 draw_scatterplot(
   object,
   assay_name = "counts",
   facet_var = NULL,
-  x_var = genes(object)[1],
-  y_var = genes(object)[2],
+  x_spec = gene_spec(c(A = g[1])),
+  y_spec = gene_spec(g[2]),
   color = "RACE"
 )
 
@@ -56,12 +57,14 @@ object2 <- object \%>\%
   add_quality_flags() \%>\%
   filter() \%>\%
   normalize()
+g2 <- genes(object2)
+
 draw_scatterplot(
   object2,
   assay_name = "tpm",
   facet_var = "SEX",
-  x_var = genes(object2)[10],
-  y_var = genes(object2)[20],
+  x_spec = gene_spec(g2[1:10], colMeans, "Mean"),
+  y_spec = gene_spec(g2[11:20], colMedians, "Median"),
   smooth_method = "loess"
 )
 }

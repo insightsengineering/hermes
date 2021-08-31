@@ -65,3 +65,59 @@ df_char_to_factor <- function(data,
 all_na <- function(x) {
   all(is.na(x))
 }
+
+#' Make a Short List of a Character Vector
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function makes a short list string, e.g. "a, b, ..., z"
+#' out of a character vector, e.g. `letters`.
+#'
+#' @param x (`character`)\cr input which should be listed.
+#' @param sep (`string`)\cr separator to use.
+#' @param thresh (`count`)\cr threshold to use, if the length of `x` is larger
+#'   then the list will be shortened using the `...` ellipsis.
+#'
+#' @return String with the short list.
+#'
+#' @export
+#'
+#' @examples
+#' h_short_list(letters)
+#' h_short_list(letters[1:3])
+#' h_short_list(LETTERS[1:5], sep= ";", thresh = 5L)
+h_short_list <- function(x, sep = ", ", thresh = 3L) {
+  assert_character(x)
+  assert_string(sep, min.chars = 1L)
+  assert_int(thresh, lower = 3L)
+
+  n <- length(x)
+  if (n > thresh) {
+    x <- c(x[1:2], "...", x[n])
+  }
+  paste(x, collapse = sep)
+}
+
+#' Parenthesize a String
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function adds parentheses around a string.
+#'
+#' @param x (`string`)\cr input which should be parenthesized.
+#'
+#' @return String with parentheses, except when `x` is a blank string
+#'   in which case it is returned unaltered.
+#'
+#' @export
+#'
+#' @examples
+#' h_parens("bla")
+#' h_parens("")
+h_parens <- function(x) {
+  assert_string(x)
+  if (identical(x, ""))
+    ""
+  else
+    paste0("(", x, ")")
+}
