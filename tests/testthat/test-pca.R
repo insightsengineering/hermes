@@ -16,14 +16,21 @@ test_that("calc_pca function works as expected for HermesData with another assay
   expect_named(pca, c("sdev", "rotation", "center", "scale", "x"))
 })
 
-test_that("calc_pca function works as expected for RangedHermesData", {
+test_that("calc_pca function works as expected for RangedHermesData with only two samples using cpm/rpkm/tpm/voom normalization", {
    object <- HermesData(get_rse())
    expect_is(object, "RangedHermesData")
-   result <- expect_silent(normalize(object, c("cpm", "rpkm", "tpm")))
+   result <- expect_silent(normalize(object, c("cpm", "rpkm", "tpm", "voom")))
    pca <- expect_silent(calc_pca(result))
    expect_is(pca, "HermesDataPca")
    expect_named(pca, c("sdev", "rotation", "center", "scale", "x"))
  })
+
+test_that("calc_pca function fails as expected for RangedHermesData with only two samples using vst/rlog transformation", {
+  object <- HermesData(get_rse())
+  expect_is(object, "RangedHermesData")
+  result <- expect_error(normalize(object, c("vst", "rlog")))
+  expect_error(calc_pca(result))
+})
 
 test_that("calc_pca function fails as expected with wrong assay choice", {
   object <- expect_silent(HermesData(summarized_experiment))
