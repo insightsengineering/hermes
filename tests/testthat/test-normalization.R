@@ -7,10 +7,7 @@ test_that("control_normalize function works as expected with default settings", 
 })
 
 test_that("control_normalize function works as expected with custom settings", {
-  result <- expect_silent(control_normalize(log = TRUE,
-                                            lib_sizes = 60000000L,
-                                            prior_count = 3,
-                                            fit_type = "mean"))
+  result <- expect_silent(control_normalize(log = TRUE, lib_sizes = 60000000L, prior_count = 3, fit_type = "mean"))
   expect_is(result, "list")
   expect_identical(result$log, TRUE)
   expect_identical(result$lib_sizes, 60000000L)
