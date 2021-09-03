@@ -238,7 +238,7 @@ object_flagged_subsetted <- subset(
 ## Normalizing Counts
 
 Normalizing counts within samples (CPM), genes (RPKM) or across both (TPM) can be
-achieved with the `normalize()` function. The `normalize()` function can also transform the counts by the variance stabilizing transformation (VST) and the regularized log transformation (rlog). 
+achieved with the `normalize()` function. The `normalize()` function can also transform the counts by the variance stabilizing transformation (`vst`) and the regularized log transformation (`rlog`) as proposed in the `DESeq2` package. 
 
 ```{r}
 object_normalized <- normalize(object_flagged_filtered)
