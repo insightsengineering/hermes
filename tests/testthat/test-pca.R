@@ -16,7 +16,7 @@ test_that("calc_pca function works as expected for HermesData with another assay
   expect_named(pca, c("sdev", "rotation", "center", "scale", "x"))
 })
 
-test_that("calc_pca function works as expected for RangedHermesData with only two samples using cpm/rpkm/tpm/voom normalization", {
+test_that("calc_pca function works for RangedHermesData with only 2 samples and cpm/rpkm/tpm/voom normalization", {
    object <- HermesData(get_rse())
    expect_is(object, "RangedHermesData")
    result <- expect_silent(normalize(object, c("cpm", "rpkm", "tpm", "voom")))
@@ -25,7 +25,9 @@ test_that("calc_pca function works as expected for RangedHermesData with only tw
    expect_named(pca, c("sdev", "rotation", "center", "scale", "x"))
  })
 
-test_that("calc_pca function fails as expected for RangedHermesData with only two samples using vst/rlog transformation", {
+test_that("calc_pca function fails for RangedHermesData with only 2 samples and vst/rlog transformation", {
+  test.nest::skip_if_too_deep(3)
+
   object <- HermesData(get_rse())
   expect_is(object, "RangedHermesData")
   result <- expect_error(normalize(object, c("vst", "rlog")))
