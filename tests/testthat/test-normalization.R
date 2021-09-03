@@ -3,14 +3,11 @@
 test_that("control_normalize function works as expected with default settings", {
   result <- control_normalize()
   expect_is(result, "list")
-  expect_named(result, c("log", "lib_sizes", "prior_count", 'fit_type'))
+  expect_named(result, c("log", "lib_sizes", "prior_count", "fit_type"))
 })
 
 test_that("control_normalize function works as expected with custom settings", {
-  result <- expect_silent(control_normalize(log = TRUE,
-                                            lib_sizes = 60000000L,
-                                            prior_count = 3,
-                                            fit_type = "mean"))
+  result <- expect_silent(control_normalize(log = TRUE, lib_sizes = 60000000L, prior_count = 3, fit_type = "mean"))
   expect_is(result, "list")
   expect_identical(result$log, TRUE)
   expect_identical(result$lib_sizes, 60000000L)
@@ -153,14 +150,14 @@ test_that("h_voom fails as expected with invalid settings", {
 })
 
 test_that("h_voom works when there are no samples", {
-  object <- HermesData(get_se())[, - c(1, 2)]
+  object <- HermesData(get_se())[, -c(1, 2)]
   assert_that(identical(ncol(object), 0L))
   result <- expect_silent(h_voom(object))
   expect_identical(result, counts(object))
 })
 
 test_that("h_voom works when there are no genes", {
-  object <- HermesData(get_se())[- c(1, 2), ]
+  object <- HermesData(get_se())[-c(1, 2), ]
   assert_that(identical(nrow(object), 0L))
   result <- expect_silent(h_voom(object))
   expect_identical(result, counts(object))
@@ -228,13 +225,13 @@ test_that("h_vst fails as expected with invalid settings", {
 })
 
 test_that("h_vst fails when there are no samples", {
-  object <- HermesData(get_se())[, - c(1, 2)]
+  object <- HermesData(get_se())[, -c(1, 2)]
   assert_that(identical(ncol(object), 0L))
   expect_error(h_vst(object))
 })
 
 test_that("h_vst fails when there are no genes", {
-  object <- HermesData(get_se())[- c(1, 2), ]
+  object <- HermesData(get_se())[-c(1, 2), ]
   assert_that(identical(nrow(object), 0L))
   expect_error(h_vst(object))
 })
@@ -267,13 +264,13 @@ test_that("h_rlog fails as expected with invalid settings", {
 })
 
 test_that("h_rlog fails when there are no samples", {
-  object <- HermesData(get_se())[, - c(1, 2)]
+  object <- HermesData(get_se())[, -c(1, 2)]
   assert_that(identical(ncol(object), 0L))
   expect_error(h_rlog(object))
 })
 
 test_that("h_rlog fails when there are no genes", {
-  object <- HermesData(get_se())[- c(1, 2), ]
+  object <- HermesData(get_se())[-c(1, 2), ]
   assert_that(identical(nrow(object), 0L))
   expect_error(h_rlog(object))
 })

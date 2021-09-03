@@ -67,7 +67,7 @@ and multiply by one million.
 a \code{prior_count} of 0.5 is combined with \code{lib_sizes} increased by 1 for each sample. Note that
 this is not required for the corresponding differential expression analysis, but just provided
 as a complementary experimental normalization approach here.
-\item \code{vst}: Variance stabilizing transformation (VST). This is to transform the normalized
+\item \code{vst}: Variance stabilizing transformation. This is to transform the normalized
 count data for all genes into approximately homoskedastic values (having constant variance).
 \item \code{rlog}: The transformation to the log2 scale values with approximately homoskedastic values.
 }
@@ -82,9 +82,9 @@ count data for all genes into approximately homoskedastic values (having constan
 
 \item \code{h_voom}: calculates the VOOM normalized counts. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\item \code{h_vst}: variance stabilizing transformation (VST) called from DESeq2 package.
+\item \code{h_vst}: variance stabilizing transformation (\code{vst}) from \code{DESeq2} package.
 
-\item \code{h_rlog}: regularized log transformation (rlog) called from DESeq2 package.
+\item \code{h_rlog}: regularized log transformation (\code{rlog}) from \code{DESeq2} package.
 }}
 
 \examples{

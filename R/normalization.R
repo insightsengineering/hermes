@@ -9,8 +9,9 @@
 #'   counts for each of the samples will be used.
 #' @param prior_count (non-negative `number`)\cr average count to be added to each observation to
 #'   avoid taking log of zero, used only when `log = TRUE`.
-#' @param fit_type ("parametric", "local", "mean", "glmGamPoi")\cr method to estimate dispersion parameters
-#' in Negative Binomial distributed data, used only when `normalize()` methods include `vst` and/or `rlog`.
+#' @param fit_type (`string`)\cr method to estimate dispersion parameters
+#'   in Negative Binomial model, used only when [normalize()] methods include `vst` and/or `rlog`.
+#'   See [`estimateDispersions`][DESeq2::estimateDispersions,DESeqDataSet-method()] for details.
 #'
 #' @return List with the above settings used to perform the normalization procedure.
 #'
@@ -64,7 +65,7 @@ control_normalize <- function(log = TRUE,
 #'   a `prior_count` of 0.5 is combined with `lib_sizes` increased by 1 for each sample. Note that
 #'   this is not required for the corresponding differential expression analysis, but just provided
 #'   as a complementary experimental normalization approach here.
-#' - `vst`: Variance stabilizing transformation (VST). This is to transform the normalized
+#' - `vst`: Variance stabilizing transformation. This is to transform the normalized
 #'    count data for all genes into approximately homoskedastic values (having constant variance).
 #' - `rlog`: The transformation to the log2 scale values with approximately homoskedastic values.
 #'
@@ -215,7 +216,7 @@ h_voom <- function(object,
   }
 }
 
-#' @describeIn normalize variance stabilizing transformation (VST) called from DESeq2 package.
+#' @describeIn normalize variance stabilizing transformation (`vst`) from `DESeq2` package.
 #'
 #' @export
 #' @examples
@@ -235,7 +236,7 @@ h_vst <- function(object,
   )
 }
 
-#' @describeIn normalize regularized log transformation (rlog) called from DESeq2 package.
+#' @describeIn normalize regularized log transformation (`rlog`) from `DESeq2` package.
 #'
 #' @export
 #' @examples

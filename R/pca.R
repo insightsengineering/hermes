@@ -60,10 +60,11 @@ calc_pca <- function(object,
     top_var <- top_genes(
       object = object,
       assay_name = assay_name,
-      summary_fun = rowVars,
+      summary_fun = matrixStats::rowVars,
       n_top = n_top
     )
-    subset(object, subset = GeneID %in% as.character(top_var$name))
+    is_top_gene <- rownames(object) %in% as.character(top_var$name)
+    object[is_top_gene, ]
   }
 
   x_samples <- assay(x_samples_filtered, assay_name)
