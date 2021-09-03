@@ -37,6 +37,7 @@ Imports:
     lifecycle,
     limma,
     magrittr,
+    matrixStats,
     methods,
     MultiAssayExperiment,
     R6,
