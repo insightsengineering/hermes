@@ -121,3 +121,130 @@ h_parens <- function(x) {
   else
     paste0("(", x, ")")
 }
+
+
+
+
+
+
+
+
+
+
+#' Generate gene signature using PC1
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function returns the PC1 from an assay stored in an
+#' object of class [`Hermes::HermesData`]
+#'
+#'
+#' @param x object (`HermedData`)
+#' @param x_assay (`string`) name of the assay to use
+#' @param center (`logical`) should the variables be zero centered
+#' @param scale (`logical`) should the variables be scaled to have unit variance
+#'
+#' @return A named [`vector`] containing the value of PC1
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment) |>
+#'   add_quality_flags() |>
+#'   filter() |>
+#'   normalize()
+#'
+#' colPrinComp1(object,"counts")
+colPrinComp1 <- function(x,
+                         x_assay = "counts",
+                         center = TRUE,
+                         scale = TRUE){
+
+  assert_that(
+    is_hermes_data(x),
+    x_assay %in% assayNames(x),
+    is.logical(center),
+    is.logical(scale)
+  )
+
+  # identify 0 variance genes
+  cst_dim = apply(
+    assay(x,x_assay),
+    1,
+    \(x) sd(x) != 0
+  )
+
+  # identify genes without missing values (prcomp does not tolerate NAs)
+  complete_dim = apply(
+    assay(x,x_assay),
+    1,
+    \(x) !any(is.na(x))
+  )
+
+  selected_dim = cst_dim & complete_dim
+
+  selected_data = assay(x,x_assay)[selected_dim,]
+
+  prcomp(t(selected_data), center = center, scale = scale)$x[,1]
+
+}
+
+
+
+
+
+
+
+#' Generate gene signature using mean Z-score
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function returns the mean Z-score from an assay stored in an
+#' object of class [`Hermes::HermesData`]
+#'
+#'
+#' @param x object (`HermedData`)
+#' @param x_assay (`string`) name of the assay to use
+#'
+#' @return A named [`vector`] containing the mean Z-score
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment) |>
+#'   add_quality_flags() |>
+#'   filter()
+#'
+#' colMeanZscores(object,"counts")
+colMeanZscores <- function(x,
+                         x_assay = "counts"){
+
+  assert_that(
+    is_hermes_data(x),
+    x_assay %in% assayNames(x)
+  )
+
+  zmat = apply(
+    assay(x,x_assay),
+    1,
+    \(x) if(sd(x)>0) scale(x) else rep(NA,length(x))
+  )
+
+  zmean <- apply(
+    zmat,
+    1,
+    mean,
+    na.rm = TRUE
+  )
+
+  names(zmean) <- colnames(x)
+
+  zmean
+
+}
+
+
+
+
+
+
+
+
