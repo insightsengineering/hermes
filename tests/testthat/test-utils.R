@@ -93,7 +93,7 @@ test_that("h_parens works as expected", {
 
 # colPinComp1 ----
 
-test_that("colPrinComp1 function works as expected for for standard matrix input", {
+test_that("colPrinComp1 function works as expected for standard matrix input", {
   object <- expect_silent(HermesData(summarized_experiment))
   result <- expect_silent(assay(object,"counts"))
   pca <- expect_silent(colPrinComp1(result))
@@ -124,6 +124,3 @@ test_that("colMeanZScores function returns an error when data are not numeric", 
   result <- expect_silent(matrix(as.character(1:20),4,5))
   expect_error(colMeanZScores(result))
 })
-
-
-

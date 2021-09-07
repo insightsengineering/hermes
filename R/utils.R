@@ -127,14 +127,14 @@ h_parens <- function(x) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function returns the PC1 from an assay stored as a `matrix`
+#' This helper function returns the PC1 from an assay stored as a `matrix`.
 #'
 #'
-#' @param x (`matrix`) containing numeric data
-#' @param center (`logical`) should the variables be zero centered
-#' @param scale (`logical`) should the variables be scaled to have unit variance
+#' @param x (`matrix`) containing numeric data.
+#' @param center (`logical`) should the variables be zero centered.
+#' @param scale (`logical`) should the variables be scaled to have unit variance.
 #'
-#' @return A named [`vector`] containing the value of PC1
+#' @return A named [`vector`] containing the value of PC1.
 #' @export
 #'
 #' @examples
@@ -156,23 +156,23 @@ colPrinComp1 <- function(x,
     is.logical(scale)
   )
 
-  # identify 0 variance genes
-  cst_dim = apply(
+  # Identify 0 variance genes.
+  cst_dim <- apply(
     x,
     1,
     \(y) sd(y) != 0
   )
 
-  # identify genes without missing values (prcomp does not tolerate NAs)
-  complete_dim = apply(
+  # Identify genes without missing values (prcomp does not tolerate NAs).
+  complete_dim <- apply(
     x,
     1,
     \(y) !any(is.na(y))
   )
 
-  selected_dim = cst_dim & complete_dim
+  selected_dim <- cst_dim & complete_dim
 
-  selected_data = x[selected_dim,]
+  selected_data <- x[selected_dim,]
 
   prcomp(t(selected_data), center = center, scale = scale)$x[,1]
 
@@ -182,12 +182,12 @@ colPrinComp1 <- function(x,
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function returns the Z-score from an assay stored as a `matrix`
+#' This helper function returns the Z-score from an assay stored as a `matrix`.
 #'
 #'
-#' @param x (`matrix`) containing numeric data
+#' @param x (`matrix`) containing numeric data.
 #'
-#' @return A named [`vector`] containing the mean Z-score
+#' @return A named [`vector`] containing the mean Z-score.
 #' @export
 #'
 #' @examples
@@ -205,7 +205,7 @@ colMeanZscores <- function(x) {
     is.numeric(x)
   )
 
-  zmat = apply(
+  zmat <- apply(
     x,
     1,
     \(y) if(sd(y)>0) scale(y) else rep(NA,length(y))
