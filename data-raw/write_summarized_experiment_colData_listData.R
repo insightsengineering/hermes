@@ -1879,4 +1879,4 @@ listData = list(
     )
 )
 
-saveRDS(listData, "data-raw\\summarized_experiment_colData_listData.rda")
+saveRDS(listData, file.path("data-raw", "summarized_experiment_colData_listData.rda")

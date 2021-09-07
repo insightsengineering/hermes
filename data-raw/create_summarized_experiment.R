@@ -1,6 +1,6 @@
-se_elementMetadata_listData_path <- "data-raw\\summarized_experiment_elementMetadata_listData.rda"
-se_colData_listData_path <- "data-raw\\summarized_experiment_colData_listData.rda"
-se_counts_path <- "data-raw\\summarized_experiment_counts.csv"
+se_elementMetadata_listData_path <- file.path("data-raw", "summarized_experiment_elementMetadata_listData.rda")
+se_colData_listData_path <- file.path("data-raw", "summarized_experiment_colData_listData.rda")
+se_counts_path <- file.path("data-raw", "summarized_experiment_counts.csv")
 
 se_elementMetadata_listData <- readRDS(se_elementMetadata_listData_path)
 se_colData_listData <- readRDS(se_colData_listData_path)
