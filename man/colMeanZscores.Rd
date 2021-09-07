@@ -10,7 +10,7 @@ colMeanZscores(x)
 \item{x}{(\code{matrix})\cr containing numeric data.}
 }
 \value{
-(\code{vector})\cr containing the mean Z-score.
+A numeric containing the mean Z-score.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

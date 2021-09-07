@@ -14,7 +14,7 @@ colPrinComp1(x, center = TRUE, scale = TRUE)
 \item{scale}{(\code{logical})\cr whether the variables should be scaled to have unit variance.}
 }
 \value{
-(\code{vector})\cr containing the value of PC1.
+A numeric vector containing the value of PC1.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
