@@ -4,12 +4,10 @@
 \alias{colPrinComp1}
 \title{Generate gene signature using PC1}
 \usage{
-colPrinComp1(x, x_assay = "counts", center = TRUE, scale = TRUE)
+colPrinComp1(x, center = TRUE, scale = TRUE)
 }
 \arguments{
-\item{x}{object (\code{HermedData})}
-
-\item{x_assay}{(\code{string}) name of the assay to use}
+\item{x}{(\code{matrix}) containing numeric data}
 
 \item{center}{(\code{logical}) should the variables be zero centered}
 
@@ -21,14 +19,14 @@ A named \code{\link{vector}} containing the value of PC1
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper function returns the PC1 from an assay stored in an
-object of class \code{\link[Hermes:HermesData]{Hermes::HermesData}}
+This helper function returns the PC1 from an assay stored as a \code{matrix}
 }
 \examples{
 object <- HermesData(summarized_experiment) |>
   add_quality_flags() |>
   filter() |>
-  normalize()
+  normalize() |>
+  assay("counts")
 
-colPrinComp1(object,"counts")
+colPrinComp1(object)
 }

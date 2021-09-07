@@ -4,12 +4,10 @@
 \alias{colMeanZscores}
 \title{Generate gene signature using mean Z-score}
 \usage{
-colMeanZscores(x, x_assay = "counts")
+colMeanZscores(x)
 }
 \arguments{
-\item{x}{object (\code{HermedData})}
-
-\item{x_assay}{(\code{string}) name of the assay to use}
+\item{x}{(\code{matrix}) containing numeric data}
 }
 \value{
 A named \code{\link{vector}} containing the mean Z-score
@@ -17,13 +15,14 @@ A named \code{\link{vector}} containing the mean Z-score
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper function returns the mean Z-score from an assay stored in an
-object of class \code{\link[Hermes:HermesData]{Hermes::HermesData}}
+This helper function returns the Z-score from an assay stored as a \code{matrix}
 }
 \examples{
 object <- HermesData(summarized_experiment) |>
   add_quality_flags() |>
-  filter()
+  filter() |>
+  normalize() |>
+  assay("counts")
 
-colMeanZscores(object,"counts")
+colMeanZscores(object)
 }

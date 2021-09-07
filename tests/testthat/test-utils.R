@@ -93,9 +93,9 @@ test_that("h_parens works as expected", {
 
 # colPinComp1 ----
 
-test_that("colPinComp1 function works as expected for HermesData with default counts assay", {
+test_that("colPrinComp1 function works as expected for for standard matrix input", {
   object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(normalize(object))
+  result <- expect_silent(assay(object,"counts"))
   pca <- expect_silent(colPrinComp1(result))
   expect_vector(pca)
   expect_is(pca, "numeric")
@@ -103,17 +103,16 @@ test_that("colPinComp1 function works as expected for HermesData with default co
   expect_lt(mean(pca), 1e-10)
 })
 
-test_that("colPinComp1 function returns an error when the assay name does not exist", {
-  object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(normalize(object))
-  expect_error(colPrinComp1(result,"a_fake_column"))
+test_that("colPrinComp1 function returns an error when data are not numeric", {
+  result <- expect_silent(matrix(as.character(1:20),4,5))
+  expect_error(colPrinComp1(result))
 })
 
 # colMeanZScores ----
 
-test_that("colMeanZScores function works as expected for HermesData with default counts assay", {
+test_that("colMeanZScores function works as expected for standard matrix input", {
   object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(normalize(object))
+  result <- expect_silent(assay(object,"counts"))
   score <- expect_silent(colMeanZscores(result))
   expect_vector(score)
   expect_is(score, "numeric")
@@ -121,10 +120,9 @@ test_that("colMeanZScores function works as expected for HermesData with default
   expect_lt(mean(score), 1e-10)
 })
 
-test_that("colMeanZScores function returns an error when the assay name does not exist", {
-  object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(normalize(object))
-  expect_error(colMeanZscores(result,"a_fake_column"))
+test_that("colMeanZScores function returns an error when data are not numeric", {
+  result <- expect_silent(matrix(as.character(1:20),4,5))
+  expect_error(colMeanZScores(result))
 })
 
 

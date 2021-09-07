@@ -123,24 +123,14 @@ h_parens <- function(x) {
 }
 
 
-
-
-
-
-
-
-
-
 #' Generate gene signature using PC1
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function returns the PC1 from an assay stored in an
-#' object of class [`Hermes::HermesData`]
+#' This helper function returns the PC1 from an assay stored as a `matrix`
 #'
 #'
-#' @param x object (`HermedData`)
-#' @param x_assay (`string`) name of the assay to use
+#' @param x (`matrix`) containing numeric data
 #' @param center (`logical`) should the variables be zero centered
 #' @param scale (`logical`) should the variables be scaled to have unit variance
 #'
@@ -151,38 +141,38 @@ h_parens <- function(x) {
 #' object <- HermesData(summarized_experiment) |>
 #'   add_quality_flags() |>
 #'   filter() |>
-#'   normalize()
+#'   normalize() |>
+#'   assay("counts")
 #'
-#' colPrinComp1(object,"counts")
+#' colPrinComp1(object)
 colPrinComp1 <- function(x,
-                         x_assay = "counts",
                          center = TRUE,
                          scale = TRUE) {
 
   assert_that(
-    is_hermes_data(x),
-    x_assay %in% assayNames(x),
+    is.matrix(x),
+    is.numeric(x),
     is.logical(center),
     is.logical(scale)
   )
 
   # identify 0 variance genes
   cst_dim = apply(
-    assay(x,x_assay),
+    x,
     1,
-    \(x) sd(x) != 0
+    \(y) sd(y) != 0
   )
 
   # identify genes without missing values (prcomp does not tolerate NAs)
   complete_dim = apply(
-    assay(x,x_assay),
+    x,
     1,
-    \(x) !any(is.na(x))
+    \(y) !any(is.na(y))
   )
 
   selected_dim = cst_dim & complete_dim
 
-  selected_data = assay(x,x_assay)[selected_dim,]
+  selected_data = x[selected_dim,]
 
   prcomp(t(selected_data), center = center, scale = scale)$x[,1]
 
@@ -192,12 +182,10 @@ colPrinComp1 <- function(x,
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function returns the mean Z-score from an assay stored in an
-#' object of class [`Hermes::HermesData`]
+#' This helper function returns the Z-score from an assay stored as a `matrix`
 #'
 #'
-#' @param x object (`HermedData`)
-#' @param x_assay (`string`) name of the assay to use
+#' @param x (`matrix`) containing numeric data
 #'
 #' @return A named [`vector`] containing the mean Z-score
 #' @export
@@ -205,21 +193,22 @@ colPrinComp1 <- function(x,
 #' @examples
 #' object <- HermesData(summarized_experiment) |>
 #'   add_quality_flags() |>
-#'   filter()
+#'   filter() |>
+#'   normalize() |>
+#'   assay("counts")
 #'
-#' colMeanZscores(object,"counts")
-colMeanZscores <- function(x,
-                           x_assay = "counts") {
+#' colMeanZscores(object)
+colMeanZscores <- function(x) {
 
   assert_that(
-    is_hermes_data(x),
-    x_assay %in% assayNames(x)
+    is.matrix(x),
+    is.numeric(x)
   )
 
   zmat = apply(
-    assay(x,x_assay),
+    x,
     1,
-    \(x) if(sd(x)>0) scale(x) else rep(NA,length(x))
+    \(y) if(sd(y)>0) scale(y) else rep(NA,length(y))
   )
 
   zmean <- apply(
@@ -234,11 +223,3 @@ colMeanZscores <- function(x,
   zmean
 
 }
-
-
-
-
-
-
-
-
