@@ -1879,8 +1879,4 @@ listData = list(
     )
 )
 
-listData_df <- as.data.frame(listData)
-
-write
-
 saveRDS(listData, "data-raw\\summarized_experiment_colData_listData.rda")
