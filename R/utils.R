@@ -169,13 +169,9 @@ colPrinComp1 <- function(x,
     1,
     \(y) !any(is.na(y))
   )
-
   selected_dim <- cst_dim & complete_dim
-
   selected_data <- x[selected_dim, ]
-
   prcomp(t(selected_data), center = center, scale = scale)$x[, 1]
-
 }
 
 #' Generate gene signature using mean Z-score
