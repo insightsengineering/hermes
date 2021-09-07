@@ -2,15 +2,17 @@
 % Please edit documentation in R/utils.R
 \name{colMeanZscores}
 \alias{colMeanZscores}
-\title{Generate gene signature using mean Z-score}
+\title{Mean Z-score Gene Signature}
 \usage{
 colMeanZscores(x)
 }
 \arguments{
-\item{x}{(\code{matrix})\cr containing numeric data.}
+\item{x}{(\code{matrix})\cr containing numeric data with genes in rows and samples
+in columns, no missing values are allowed.}
 }
 \value{
-A numeric containing the mean Z-score.
+A numeric vector containing the mean Z-score values for each
+column in \code{x}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

@@ -2,24 +2,27 @@
 % Please edit documentation in R/utils.R
 \name{colPrinComp1}
 \alias{colPrinComp1}
-\title{Generate gene signature using PC1}
+\title{First Principal Component (PC1) Gene Signature}
 \usage{
 colPrinComp1(x, center = TRUE, scale = TRUE)
 }
 \arguments{
-\item{x}{(\code{matrix})\cr containing numeric data.}
+\item{x}{(\code{matrix})\cr containing numeric data with genes in rows and samples
+in columns, no missing values are allowed.}
 
-\item{center}{(\code{logical})\cr whether the variables should be zero centered.}
+\item{center}{(\code{flag})\cr whether the variables should be zero centered.}
 
-\item{scale}{(\code{logical})\cr whether the variables should be scaled to have unit variance.}
+\item{scale}{(\code{flag})\cr whether the variables should be scaled to have unit variance.}
 }
 \value{
-A numeric vector containing the value of PC1.
+A numeric vector containing the principal component values for each
+column in \code{x}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper function returns the PC1 from an assay stored as a \code{matrix}.
+This helper function returns the first principal component from an assay
+stored as a \code{matrix}.
 }
 \examples{
 object <- HermesData(summarized_experiment) |>

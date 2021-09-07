@@ -122,18 +122,20 @@ h_parens <- function(x) {
     paste0("(", x, ")")
 }
 
-
-#' Generate gene signature using PC1
+#' First Principal Component (PC1) Gene Signature
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function returns the PC1 from an assay stored as a `matrix`.
+#' This helper function returns the first principal component from an assay
+#' stored as a `matrix`.
 #'
-#' @param x (`matrix`)\cr containing numeric data.
-#' @param center (`logical`)\cr whether the variables should be zero centered.
-#' @param scale (`logical`)\cr whether the variables should be scaled to have unit variance.
+#' @param x (`matrix`)\cr containing numeric data with genes in rows and samples
+#'   in columns, no missing values are allowed.
+#' @param center (`flag`)\cr whether the variables should be zero centered.
+#' @param scale (`flag`)\cr whether the variables should be scaled to have unit variance.
 #'
-#' @return A numeric vector containing the value of PC1.
+#' @return A numeric vector containing the principal component values for each
+#'   column in `x`.
 #' @export
 #'
 #' @examples
@@ -147,34 +149,27 @@ h_parens <- function(x) {
 colPrinComp1 <- function(x,
                          center = TRUE,
                          scale = TRUE) {
+  assert_matrix(x, any.missing = FALSE, mode = "numeric")
+  assert_flag(center)
+  assert_flag(scale)
 
-  assert_that(
-    is.matrix(x),
-    is.numeric(x),
-    is.logical(center),
-    is.logical(scale)
-  )
+  gene_is_constant <- apply(x, MARGIN = 1L, FUN = S4Vectors::isConstant)
+  selected_data <- x[!gene_is_constant, ]
 
-  # Identify 0 variance genes.
-  cst_dim <- apply(x, MARGIN = 1L, FUN = S4Vectors::isConstant)
-
-  # Identify genes without missing values (prcomp does not tolerate NAs).
-  complete_dim <- apply(x, MARGIN = 1L, FUN = function(y) !any(is.na(y)))
-  selected_dim <- !cst_dim & complete_dim
-  selected_data <- x[selected_dim, ]
-  prcomp(t(selected_data), center = center, scale = scale)$x[, 1]
+  pca_result <- prcomp(t(selected_data), center = center, scale = scale)
+  pca_result$x[, 1L]
 }
 
-#' Generate gene signature using mean Z-score
+#' Mean Z-score Gene Signature
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
 #' This helper function returns the Z-score from an assay stored as a `matrix`.
 #'
+#' @inheritParams colPrinComp1
 #'
-#' @param x (`matrix`)\cr containing numeric data.
-#'
-#' @return A numeric containing the mean Z-score.
+#' @return A numeric vector containing the mean Z-score values for each
+#'   column in `x`.
 #' @export
 #'
 #' @examples
@@ -186,15 +181,17 @@ colPrinComp1 <- function(x,
 #'
 #' colMeanZscores(object)
 colMeanZscores <- function(x) {
+  assert_matrix(x, any.missing = FALSE, mode = "numeric")
 
-  assert_that(
-    is.matrix(x),
-    is.numeric(x)
+  gene_is_constant <- apply(x, MARGIN = 1L, FUN = S4Vectors::isConstant)
+  z_vals <- x
+  z_vals[gene_is_constant, ] <- NA
+  z_vals[!gene_is_constant, ] <- apply(
+    z_vals[!gene_is_constant, , drop = FALSE],
+    MARGIN = 1L,
+    FUN = scale,  # Note: scale() with centering and scaling is the z-score.
+    center = TRUE,
+    scale = TRUE
   )
-
-  zmat <- apply(x, MARGIN = 1L, FUN = function(y) if(sd(y)>0) scale(y) else rep(NA, length(y)))
-  zmean <- apply(zmat, MARGIN = 1L, FUN = mean, na.rm = TRUE)
-  names(zmean) <- colnames(x)
-  zmean
-
+  colMeans(z_vals, na.rm = TRUE)
 }

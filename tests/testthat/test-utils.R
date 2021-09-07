@@ -91,33 +91,33 @@ test_that("h_parens works as expected", {
   expect_error(h_parens(NULL))
 })
 
-# colPinComp1 ----
+# colPrinComp1 ----
 
 test_that("colPrinComp1 function works as expected for standard matrix input", {
-  object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(assay(object, "counts"))
-  pca <- expect_silent(colPrinComp1(result))
-  expect_vector(pca)
-  expect_is(pca, "numeric")
-  expect_equal(length(pca), ncol(object))
-  expect_lt(mean(pca), 1e-10)
+  set.seed(123)
+  cnts <- matrix(data = rpois(30, 5), nrow = 3, ncol = 10)
+  cnts[2L, ] <- 5  # Constant gene.
+  result <- expect_silent(colPrinComp1(cnts))
+  expect_numeric(result)
+  expect_length(result, 10L)
+  expect_lt(mean(result), 1e-10)
 })
 
 test_that("colPrinComp1 function returns an error when data are not numeric", {
-  result <- expect_silent(matrix(as.character(1:20), 4, 5))
-  expect_error(colPrinComp1(result))
+  cnts <- expect_silent(matrix(as.character(1:20), 4, 5))
+  expect_error(colPrinComp1(cnts))
 })
 
 # colMeanZScores ----
 
 test_that("colMeanZScores function works as expected for standard matrix input", {
-  object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(assay(object, "counts"))
-  score <- expect_silent(colMeanZscores(result))
-  expect_vector(score)
-  expect_is(score, "numeric")
-  expect_equal(length(score), ncol(object))
-  expect_lt(mean(score), 1e-10)
+  set.seed(123)
+  cnts <- matrix(data = rpois(30, 5), nrow = 3, ncol = 10)
+  cnts[2L, ] <- 5  # Constant gene.
+  result <- expect_silent(colMeanZscores(cnts))
+  expect_numeric(result)
+  expect_length(result, 10L)
+  expect_lt(mean(result), 1e-10)
 })
 
 test_that("colMeanZScores function returns an error when data are not numeric", {
