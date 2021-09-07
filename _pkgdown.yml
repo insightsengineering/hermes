@@ -52,6 +52,8 @@ reference:
       - h_has_req_annotations
       - h_short_list
       - h_parens
+      - colPrinComp1
+      - colMeanZscores
   - title: Example Data
     contents:
       - expression_set
