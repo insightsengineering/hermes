@@ -13,6 +13,7 @@
 #'
 #' # Using multiple genes with a signature.
 #' x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"), fun = colMeans)
+#' x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"), fun = colPrinComp1)
 #' x_spec$returns_vector()
 #' x_spec$get_genes()
 #' x_spec$get_gene_labels()
