@@ -129,7 +129,6 @@ h_parens <- function(x) {
 #'
 #' This helper function returns the PC1 from an assay stored as a `matrix`.
 #'
-#'
 #' @param x (`matrix`)\cr containing numeric data.
 #' @param center (`logical`)\cr whether the variables should be zero centered.
 #' @param scale (`logical`)\cr whether the variables should be scaled to have unit variance.
