@@ -157,7 +157,7 @@ h_parens <- function(x) {
 colPrinComp1 <- function(x,
                          x_assay = "counts",
                          center = TRUE,
-                         scale = TRUE){
+                         scale = TRUE) {
 
   assert_that(
     is_hermes_data(x),
@@ -215,7 +215,7 @@ colPrinComp1 <- function(x,
 #'
 #' colMeanZscores(object,"counts")
 colMeanZscores <- function(x,
-                         x_assay = "counts"){
+                           x_assay = "counts") {
 
   assert_that(
     is_hermes_data(x),
