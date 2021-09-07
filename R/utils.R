@@ -172,9 +172,9 @@ colPrinComp1 <- function(x,
 
   selected_dim <- cst_dim & complete_dim
 
-  selected_data <- x[selected_dim,]
+  selected_data <- x[selected_dim, ]
 
-  prcomp(t(selected_data), center = center, scale = scale)$x[,1]
+  prcomp(t(selected_data), center = center, scale = scale)$x[, 1]
 
 }
 
@@ -208,7 +208,7 @@ colMeanZscores <- function(x) {
   zmat <- apply(
     x,
     1,
-    \(y) if(sd(y)>0) scale(y) else rep(NA,length(y))
+    \(y) if(sd(y)>0) scale(y) else rep(NA, length(y))
   )
 
   zmean <- apply(
