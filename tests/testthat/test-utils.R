@@ -95,7 +95,7 @@ test_that("h_parens works as expected", {
 
 test_that("colPrinComp1 function works as expected for standard matrix input", {
   object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(assay(object,"counts"))
+  result <- expect_silent(assay(object, "counts"))
   pca <- expect_silent(colPrinComp1(result))
   expect_vector(pca)
   expect_is(pca, "numeric")
@@ -104,7 +104,7 @@ test_that("colPrinComp1 function works as expected for standard matrix input", {
 })
 
 test_that("colPrinComp1 function returns an error when data are not numeric", {
-  result <- expect_silent(matrix(as.character(1:20),4,5))
+  result <- expect_silent(matrix(as.character(1:20), 4, 5))
   expect_error(colPrinComp1(result))
 })
 
@@ -112,7 +112,7 @@ test_that("colPrinComp1 function returns an error when data are not numeric", {
 
 test_that("colMeanZScores function works as expected for standard matrix input", {
   object <- expect_silent(HermesData(summarized_experiment))
-  result <- expect_silent(assay(object,"counts"))
+  result <- expect_silent(assay(object, "counts"))
   score <- expect_silent(colMeanZscores(result))
   expect_vector(score)
   expect_is(score, "numeric")
@@ -121,6 +121,6 @@ test_that("colMeanZScores function works as expected for standard matrix input",
 })
 
 test_that("colMeanZScores function returns an error when data are not numeric", {
-  result <- expect_silent(matrix(as.character(1:20),4,5))
+  result <- expect_silent(matrix(as.character(1:20), 4, 5))
   expect_error(colMeanZScores(result))
 })

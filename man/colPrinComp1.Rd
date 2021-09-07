@@ -7,19 +7,19 @@
 colPrinComp1(x, center = TRUE, scale = TRUE)
 }
 \arguments{
-\item{x}{(\code{matrix}) containing numeric data}
+\item{x}{(\code{matrix})\cr containing numeric data.}
 
-\item{center}{(\code{logical}) should the variables be zero centered}
+\item{center}{(\code{logical})\cr whether the variables should be zero centered.}
 
-\item{scale}{(\code{logical}) should the variables be scaled to have unit variance}
+\item{scale}{(\code{logical})\cr whether the variables should be scaled to have unit variance.}
 }
 \value{
-A named \code{\link{vector}} containing the value of PC1
+(\code{vector})\cr containing the value of PC1.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper function returns the PC1 from an assay stored as a \code{matrix}
+This helper function returns the PC1 from an assay stored as a \code{matrix}.
 }
 \examples{
 object <- HermesData(summarized_experiment) |>

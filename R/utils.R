@@ -130,11 +130,11 @@ h_parens <- function(x) {
 #' This helper function returns the PC1 from an assay stored as a `matrix`.
 #'
 #'
-#' @param x (`matrix`) containing numeric data.
-#' @param center (`logical`) should the variables be zero centered.
-#' @param scale (`logical`) should the variables be scaled to have unit variance.
+#' @param x (`matrix`)\cr containing numeric data.
+#' @param center (`logical`)\cr whether the variables should be zero centered.
+#' @param scale (`logical`)\cr whether the variables should be scaled to have unit variance.
 #'
-#' @return A named [`vector`] containing the value of PC1.
+#' @return (`vector`)\cr containing the value of PC1.
 #' @export
 #'
 #' @examples
@@ -185,9 +185,9 @@ colPrinComp1 <- function(x,
 #' This helper function returns the Z-score from an assay stored as a `matrix`.
 #'
 #'
-#' @param x (`matrix`) containing numeric data.
+#' @param x (`matrix`)\cr containing numeric data.
 #'
-#' @return A named [`vector`] containing the mean Z-score.
+#' @return (`vector`)\cr containing the mean Z-score.
 #' @export
 #'
 #' @examples
