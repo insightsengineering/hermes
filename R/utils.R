@@ -188,12 +188,6 @@ colPrinComp1 <- function(x,
 
 }
 
-
-
-
-
-
-
 #' Generate gene signature using mean Z-score
 #'
 #' @description `r lifecycle::badge("experimental")`
