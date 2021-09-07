@@ -134,7 +134,7 @@ h_parens <- function(x) {
 #' @param center (`logical`)\cr whether the variables should be zero centered.
 #' @param scale (`logical`)\cr whether the variables should be scaled to have unit variance.
 #'
-#' @return (`vector`)\cr containing the value of PC1.
+#' @return A numeric vector containing the value of PC1.
 #' @export
 #'
 #' @examples
