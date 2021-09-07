@@ -121,3 +121,77 @@ h_parens <- function(x) {
   else
     paste0("(", x, ")")
 }
+
+#' First Principal Component (PC1) Gene Signature
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function returns the first principal component from an assay
+#' stored as a `matrix`.
+#'
+#' @param x (`matrix`)\cr containing numeric data with genes in rows and samples
+#'   in columns, no missing values are allowed.
+#' @param center (`flag`)\cr whether the variables should be zero centered.
+#' @param scale (`flag`)\cr whether the variables should be scaled to have unit variance.
+#'
+#' @return A numeric vector containing the principal component values for each
+#'   column in `x`.
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment) |>
+#'   add_quality_flags() |>
+#'   filter() |>
+#'   normalize() |>
+#'   assay("counts")
+#'
+#' colPrinComp1(object)
+colPrinComp1 <- function(x,
+                         center = TRUE,
+                         scale = TRUE) {
+  assert_matrix(x, any.missing = FALSE, mode = "numeric")
+  assert_flag(center)
+  assert_flag(scale)
+
+  gene_is_constant <- apply(x, MARGIN = 1L, FUN = S4Vectors::isConstant)
+  selected_data <- x[!gene_is_constant, ]
+
+  pca_result <- prcomp(t(selected_data), center = center, scale = scale)
+  pca_result$x[, 1L]
+}
+
+#' Mean Z-score Gene Signature
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function returns the Z-score from an assay stored as a `matrix`.
+#'
+#' @inheritParams colPrinComp1
+#'
+#' @return A numeric vector containing the mean Z-score values for each
+#'   column in `x`.
+#' @export
+#'
+#' @examples
+#' object <- HermesData(summarized_experiment) |>
+#'   add_quality_flags() |>
+#'   filter() |>
+#'   normalize() |>
+#'   assay("counts")
+#'
+#' colMeanZscores(object)
+colMeanZscores <- function(x) {
+  assert_matrix(x, any.missing = FALSE, mode = "numeric")
+
+  gene_is_constant <- apply(x, MARGIN = 1L, FUN = S4Vectors::isConstant)
+  z_vals <- x
+  z_vals[gene_is_constant, ] <- NA
+  z_vals[!gene_is_constant, ] <- apply(
+    z_vals[!gene_is_constant, , drop = FALSE],
+    MARGIN = 1L,
+    FUN = scale,  # Note: scale() with centering and scaling is the z-score.
+    center = TRUE,
+    scale = TRUE
+  )
+  colMeans(z_vals, na.rm = TRUE)
+}
