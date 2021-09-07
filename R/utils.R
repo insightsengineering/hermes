@@ -159,7 +159,7 @@ colPrinComp1 <- function(x,
   cst_dim <- apply(x, MARGIN = 1L, FUN = S4Vectors::isConstant)
 
   # Identify genes without missing values (prcomp does not tolerate NAs).
-  complete_dim <- apply(x, MARGIN = 1L, FUN = \(y) !any(is.na(y)))
+  complete_dim <- apply(x, MARGIN = 1L, FUN = function(y) !any(is.na(y)))
   selected_dim <- !cst_dim & complete_dim
   selected_data <- x[selected_dim, ]
   prcomp(t(selected_data), center = center, scale = scale)$x[, 1]
@@ -192,7 +192,7 @@ colMeanZscores <- function(x) {
     is.numeric(x)
   )
 
-  zmat <- apply(x, MARGIN = 1L, FUN = \(y) if(sd(y)>0) scale(y) else rep(NA, length(y)))
+  zmat <- apply(x, MARGIN = 1L, FUN = function(y) if(sd(y)>0) scale(y) else rep(NA, length(y)))
   zmean <- apply(zmat, MARGIN = 1L, FUN = mean, na.rm = TRUE)
   names(zmean) <- colnames(x)
   zmean
