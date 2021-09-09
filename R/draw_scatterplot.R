@@ -21,7 +21,7 @@
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' draw_scatterplot(
 #'   object,
 #'   assay_name = "counts",

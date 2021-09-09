@@ -23,6 +23,6 @@ distributions, boxplot of the number of number of non-zero expressed genes per s
 expression genes by chromosome at default setting.
 }
 \examples{
-result <- HermesData(summarized_experiment)
+result <- hermes_data
 autoplot(result)
 }

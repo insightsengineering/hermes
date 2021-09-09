@@ -28,7 +28,7 @@ function before putting into the drawing function.
 Let's explore the annotation needed for the heatmap.
 
 ```{r}
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 anno <- data.frame(colData(object)[c("TechnicalFailureFlag", "LowDepthFlag")])
 head(anno)
 anno.char <- as.data.frame(lapply(anno, function(x) ifelse(is.na(x), "NA", as.character(x))))

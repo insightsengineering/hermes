@@ -27,8 +27,8 @@ class).
 }
 }
 \examples{
-a <- HermesData(summarized_experiment[, 1:10])
-b <- HermesData(summarized_experiment[, 11:20])
+a <- hermes_data[, 1:10]
+b <- hermes_data[, 11:20]
 result <- cbind(a, b)
 class(result)
 }

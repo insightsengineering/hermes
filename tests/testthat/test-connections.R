@@ -59,7 +59,7 @@ test_that("h_strip_prefix works as expected", {
 test_that("query to Biomart works as expected", {
   test.nest::skip_if_too_deep(3)
 
-  object <- HermesData(summarized_experiment)[1:10, ]
+  object <- hermes_data[1:10, ]
   connection <- connect_biomart(prefix(object))
   result <- query(genes(object), connection)
   expect_s4_class(result, "DataFrame")
@@ -67,14 +67,10 @@ test_that("query to Biomart works as expected", {
   expect_identical(genes(object), rownames(result))
   result_subset <- result[3:4, ]
   expected_subset <- S4Vectors::DataFrame(
-    HGNC = c(NA, "MIR3183"),
-    HGNCGeneName = c(NA, "microRNA 3183"),
-    Chromosome = c(NA, "17"),
-    StartBP = c(NA, 1022476L),
-    EndBP = c(NA, 1022559L),
-    WidthBP = c(NA, 84L),
-    CanonicalTranscript = c(NA_character_, NA_character_),
-    ProteinTranscript = c(NA_character_, NA_character_),
+    symbol = c(NA, "MIR3183"),
+    desc = c(NA, "microRNA 3183"),
+    chromosome = c(NA, "17"),
+    size = c(NA, 84L),
     row.names = c("GeneID:101928428", "GeneID:100422835")
   )
   expect_identical(result_subset, expected_subset)

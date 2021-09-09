@@ -19,7 +19,7 @@ In order to plot the sample against theoretical queantiles of library size in a 
 
 ```{r}
 #Creating the HermesData object from the example SummarizedExperiment object.
-result <- .HermesData(summarized_experiment)
+result <- hermes_data
 
 #Accessing the counts data.
 counts(result)

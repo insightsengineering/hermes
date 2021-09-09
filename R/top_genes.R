@@ -27,7 +27,7 @@
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #'
 #' # Default uses average of raw counts across samples to rank genes.
 #' top_genes(object)

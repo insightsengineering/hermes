@@ -22,7 +22,7 @@ The \code{ggplot} object with the histogram.
 This creates a histogram of the library sizes of the \link{AnyHermesData} object.
 }
 \examples{
-result <- HermesData(summarized_experiment)
+result <- hermes_data
 draw_libsize_hist(result)
 draw_libsize_hist(result, bins = 10L, fill = "blue")
 }

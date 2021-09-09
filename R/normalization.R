@@ -76,7 +76,7 @@ control_normalize <- function(log = TRUE,
 #' @importFrom BiocGenerics normalize
 #' @export
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #'
 #' # By default, log values are used with a prior count of 1 added to original counts.
 #' result <- normalize(a)
@@ -147,11 +147,11 @@ h_rpkm <- function(object,
   assert_that(
     is_hermes_data(object),
     is_list_with(control, c("lib_sizes", "log", "prior_count")),
-    noNA(rowData(object)$WidthBP)
+    noNA(rowData(object)$size)
   )
   edgeR::rpkm(
     y = counts(object),
-    gene.length = rowData(object)$WidthBP,
+    gene.length = rowData(object)$size,
     lib.size = control$lib_sizes,
     log = control$log,
     prior.count = control$prior_count

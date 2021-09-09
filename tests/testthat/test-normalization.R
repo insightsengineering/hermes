@@ -25,7 +25,7 @@ test_that("control_normalize fails as expected with invalid settings", {
 # h_cpm ----
 
 test_that("h_cpm function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   cont <- control_normalize()
   result <- expect_silent(h_cpm(object, cont))
   expect_is(result, "matrix")
@@ -55,7 +55,7 @@ test_that("h_cpm function fails as expected with invalid settings", {
 # h_rpkm ----
 
 test_that("h_rpkm function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   cont <- control_normalize()
   result <- h_rpkm(object, cont)
   expect_is(result, "matrix")
@@ -82,13 +82,13 @@ test_that("h_rpkm function fails as expected with invalid settings", {
   expect_error(h_rpkm(object2, cont2))
 })
 
-test_that("h_rpkm function fails when at least one gene has missing `WidthBP`", {
-  object <- HermesData(summarized_experiment)
+test_that("h_rpkm function fails when at least one gene has missing `size`", {
+  object <- hermes_data
   cont <- control_normalize()
-  rowData(object)$WidthBP[1] <- NA # nolint
+  rowData(object)$size[1] <- NA # nolint
   expect_error(
     h_rpkm(object, cont),
-    "rowData(object)$WidthBP contains 1 missing values",
+    "rowData(object)$size contains 1 missing values",
     fixed = TRUE
   )
 })
@@ -96,7 +96,7 @@ test_that("h_rpkm function fails when at least one gene has missing `WidthBP`", 
 # h_tpm ----
 
 test_that("h_tpm function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   cont <- control_normalize()
   result <- h_tpm(object, cont)
   expect_is(result, "matrix")
@@ -124,13 +124,13 @@ test_that("h_tpm function fails as expected with invalid settings", {
 # h_voom ----
 
 test_that("h_voom function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   result <- expect_silent(h_voom(object))
   expect_is(result, "matrix")
 })
 
 test_that("h_voom function works as expected with custom settings", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   cont <- control_normalize(log = TRUE, lib_sizes = 1000000L, prior_count = 10)
   result <- expect_silent(h_voom(object, cont))
   expect_is(result, "matrix")

@@ -41,7 +41,7 @@ due to different versions being used in the gene IDs and the queried Ensembl dat
 }
 \examples{
 \dontrun{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 connection <- connect_biomart(prefix(object))
 result <- query(genes(object), connection)
 head(result)

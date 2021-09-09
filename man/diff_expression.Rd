@@ -72,7 +72,7 @@ are present in which case the default parametric dispersions estimation will not
 }
 }
 \examples{
-object <- HermesData(summarized_experiment) \%>\%
+object <- hermes_data \%>\%
   add_quality_flags() \%>\%
   filter()
 

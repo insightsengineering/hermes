@@ -28,8 +28,8 @@ across the combined object.
 }
 }
 \examples{
-a <- HermesData(summarized_experiment[1:2542, ])
-b <- HermesData(summarized_experiment[2543:5085, ])
+a <- hermes_data[1:2542, ]
+b <- hermes_data[2543:5085, ]
 result <- rbind(a, b)
 class(result)
 }

@@ -1,9 +1,9 @@
 # h_pca_var_rsquared ----
 
 test_that("h_pca_var_rsquared works as expected", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   pca <- expect_silent(calc_pca(object)$x)
-  x <- expect_silent(colData(object)$LowDepthFlag)
+  x <- expect_silent(colData(object)$low_depth_flag)
   r2 <- expect_silent(h_pca_var_rsquared(pca, x))
   expect_is(r2, "numeric")
   expect_true(noNA(r2))
@@ -13,7 +13,7 @@ test_that("h_pca_var_rsquared works as expected", {
 test_that("h_pca_var_rsquared fails as expected with invalid inputs", {
   se <- get_se()
   object <- HermesData(se)
-  x <- expect_silent(colData(se)$LowDepthFlag)
+  x <- expect_silent(colData(se)$low_depth_flag)
   expect_error(h_pca_var_rsquared(se, x))
   expect_error(h_pca_var_rsquared(object, x))
 })
@@ -31,7 +31,7 @@ test_that("h_pca_var_rsquared returns NAs when something is not estimable", {
 # h_pca_df_r2_matrix ----
 
 test_that("h_pca_df_r2_matrix works as expected", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   pca <- expect_silent(calc_pca(object)$x)
   df <- expect_silent(as.data.frame(colData(object)))
   result <- expect_silent(h_pca_df_r2_matrix(pca, df))
@@ -42,7 +42,7 @@ test_that("h_pca_df_r2_matrix works as expected", {
 })
 
 test_that("h_pca_df_r2_matrix fails as expected with invalid settings", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   pca <- expect_silent(calc_pca(object)$x)
   df <- expect_silent(as.data.frame(colData(object)))
   expect_error(h_pca_df_r2_matrix(pca, object))
@@ -52,7 +52,7 @@ test_that("h_pca_df_r2_matrix fails as expected with invalid settings", {
 # correlate-HermesDataPca ----
 
 test_that("correlate method on HermesDataPca works as expected", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   df <- expect_silent(as.data.frame(colData(object)))
   pca <- expect_silent(calc_pca(object))
   result <- expect_silent(correlate(pca, object))
@@ -64,7 +64,7 @@ test_that("correlate method on HermesDataPca works as expected", {
 })
 
 test_that("correlate method fails as expected with invalid settings", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   pca <- expect_silent(calc_pca(object))
   result <- expect_silent(correlate(pca, object))
   expect_error(correlate(pca, colData(object)))
@@ -74,7 +74,7 @@ test_that("correlate method fails as expected with invalid settings", {
 # autoplot-HermesDataPcaCor ----
 
 test_that("autoplot method does not give warnings on HermesDataPcaCor objects", {
-  hd <- HermesData(summarized_experiment)
+  hd <- hermes_data
   object <- hd %>%
     calc_pca() %>%
     correlate(hd)

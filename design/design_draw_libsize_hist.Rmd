@@ -20,7 +20,7 @@ In order to plot the library depth, we need to access the counts data in the `He
 
 ```{r}
 #Creating the HermesData object from the example SummarizedExperiment object.
-result <- .HermesData(summarized_experiment)
+result <- hermes_data
 
 #Accessing the counts data.
 counts(result)

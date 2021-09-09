@@ -11,7 +11,7 @@
 #'
 #' @export
 #' @examples
-#' result <- HermesData(summarized_experiment)
+#' result <- hermes_data
 #' draw_libsize_hist(result)
 #' draw_libsize_hist(result, bins = 10L, fill = "blue")
 draw_libsize_hist <- function(object,
@@ -49,7 +49,7 @@ draw_libsize_hist <- function(object,
 #'
 #' @export
 #' @examples
-#' result <- HermesData(summarized_experiment)
+#' result <- hermes_data
 #' draw_libsize_qq(result)
 #' draw_libsize_qq(result, color = "blue", linetype = "solid")
 #'
@@ -89,7 +89,7 @@ draw_libsize_qq <- function(object,
 #'
 #' @export
 #' @examples
-#' result <- HermesData(summarized_experiment)
+#' result <- hermes_data
 #' draw_libsize_densities(result)
 #' draw_libsize_densities(result, log = FALSE)
 draw_libsize_densities <- function(object,
@@ -134,7 +134,7 @@ draw_libsize_densities <- function(object,
 #'
 #' @examples
 #' # Default boxplot.
-#' result <- HermesData(summarized_experiment)
+#' result <- hermes_data
 #' draw_nonzero_boxplot(result)
 #'
 #' # Reusing the same position for labeling.
@@ -180,7 +180,7 @@ draw_nonzero_boxplot <- function(object,
 #'
 #' @export
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #'
 #' # Display chromosomes 1-22, X, Y, and MT. Other chromosomes are displayed in "Others".
 #' # To increase readability, we can have flip the coordinate axes.
@@ -199,27 +199,27 @@ draw_genes_barplot <- function(object,
                                include_others = TRUE) {
   assert_that(
     is_hermes_data(object),
-    noNA(rowData(object)$LowExpressionFlag),
+    noNA(rowData(object)$low_expression_flag),
     is.flag(include_others),
     !any(duplicated(chromosomes)),
     !("Others" %in% chromosomes)
   )
 
   df <- data.frame(
-    Chromosome = rowData(object)$Chromosome,
-    LowExpressionFlag = rowData(object)$LowExpressionFlag,
+    chromosome = rowData(object)$chromosome,
+    low_expression_flag = rowData(object)$low_expression_flag,
     stringsAsFactors = FALSE
   )
 
   df$chr <- factor(
-    ifelse(df$Chromosome %in% chromosomes, df$Chromosome, "Others"),
+    ifelse(df$chromosome %in% chromosomes, df$chromosome, "Others"),
     levels = c(chromosomes, "Others")
   )
 
   if (!include_others) df <- df[df$chr != "Others", ]
 
   ggplot(data = df, aes(x = .data$chr)) +
-    geom_bar(aes(fill = .data$LowExpressionFlag)) +
+    geom_bar(aes(fill = .data$low_expression_flag)) +
     ggtitle("Stacked Barplot of Filtered Genes by Chromosome") +
     xlab("Chromosome") +
     ylab("Number of Genes")
@@ -246,7 +246,7 @@ draw_genes_barplot <- function(object,
 #' @export
 #'
 #' @examples
-#' result <- HermesData(summarized_experiment)
+#' result <- hermes_data
 #' autoplot(result)
 setMethod(
   f = "autoplot",

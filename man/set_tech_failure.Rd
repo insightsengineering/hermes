@@ -21,7 +21,7 @@ Setter function which allows the user to define a sample manually as a technical
 }
 \examples{
 # Manually flag technical failures in a `AnyHermesData` object.
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 get_tech_failure(object)["06520101B0017R"]
 result <- set_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
 get_tech_failure(result)["06520101B0017R"]

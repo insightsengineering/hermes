@@ -24,7 +24,7 @@ non-zero expressed genes per sample.
 }
 \examples{
 # Default boxplot.
-result <- HermesData(summarized_experiment)
+result <- hermes_data
 draw_nonzero_boxplot(result)
 
 # Reusing the same position for labeling.

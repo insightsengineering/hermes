@@ -53,15 +53,11 @@ test_that("validate_row_data returns NULL for a valid object", {
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     rowData = data.frame(
-      HGNC = 1,
-      Chromosome = 1,
-      StartBP = 1,
-      EndBP = 1,
-      WidthBP = 1,
-      HGNCGeneName = 1,
-      CanonicalTranscript = 1,
-      ProteinTranscript = 1,
-      LowExpressionFlag = 1
+      symbol = 1,
+      chromosome = 1,
+      size = 1,
+      desc = 1,
+      low_expression_flag = 1
     )
   )
   expect_null(validate_row_data(object))
@@ -79,18 +75,15 @@ test_that("validate_row_data returns messages as expected for invalid object", {
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     rowData = data.frame(
-      HGNC = 1,
-      Chromosome = 1,
-      StartBP = 1,
-      EndBP = 1,
-      WidthBP = 1,
-      HGNCGeneName = 1,
-      CanonicalTranscript = 1
+      symbol = 1,
+      chromosome = 1,
+      size = 1,
+      desc = 1
     )
   )
   expect_identical(
     validate_row_data(object),
-    "required columns ProteinTranscript, LowExpressionFlag not present"
+    "required columns low_expression_flag not present"
   )
 })
 
@@ -100,8 +93,8 @@ test_that("validate_col_data returns NULL for a valid object", {
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     colData = data.frame(
-      LowDepthFlag = 1,
-      TechnicalFailureFlag = 1
+      low_depth_flag = 1,
+      tech_failure_flag = 1
     )
   )
   expect_null(validate_col_data(object))
@@ -119,12 +112,12 @@ test_that("validate_col_data returns messages as expected for invalid object", {
   object <- SummarizedExperiment(
     list(counts = matrix(1L, 1, 1)),
     colData = data.frame(
-      TechnicalFailureFlag = 1
+      tech_failure_flag = 1
     )
   )
   expect_identical(
     validate_col_data(object),
-    "required columns LowDepthFlag not present"
+    "required columns low_depth_flag not present"
   )
 })
 
@@ -187,12 +180,12 @@ test_that("validate_names returns messages as expected for invalid object", {
 # validate_prefix  ----
 
 test_that("validate_prefix returns NULL for a valid object", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   expect_null(validate_prefix(object))
 })
 
 test_that("validate_prefix returns messages as expected for wrong prefix with whitespace", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   object@prefix <- "Gene ID"
   result <- validate_prefix(object)
   expected <- c(
@@ -203,7 +196,7 @@ test_that("validate_prefix returns messages as expected for wrong prefix with wh
 })
 
 test_that("validate_prefix returns correct message when prefix has two elements", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   object@prefix <- c("GeneID", "ENSGID")
   result <- expect_silent(validate_prefix(object))
   expected <- "'prefix' must be string"

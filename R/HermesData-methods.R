@@ -26,8 +26,8 @@
 #' @seealso [`cbind`] to column bind objects.
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment[1:2542, ])
-#' b <- HermesData(summarized_experiment[2543:5085, ])
+#' a <- hermes_data[1:2542, ]
+#' b <- hermes_data[2543:5085, ]
 #' result <- rbind(a, b)
 #' class(result)
 NULL
@@ -59,8 +59,8 @@ NULL
 #' @seealso [`rbind`] to row bind objects.
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment[, 1:10])
-#' b <- HermesData(summarized_experiment[, 11:20])
+#' a <- hermes_data[, 1:10]
+#' b <- hermes_data[, 11:20]
 #' result <- cbind(a, b)
 #' class(result)
 NULL
@@ -87,7 +87,7 @@ NULL
 #' @export `metadata<-`
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' metadata(a)
 #' metadata(a) <- list(new = "my metadata")
 #' metadata(a)
@@ -108,20 +108,16 @@ NULL
 #' @param ... not used.
 #'
 #' @return The [`S4Vectors::DataFrame`] with the gene annotations:
-#'   - `HGNC`
-#'   - `HGNCGeneName`
-#'   - `Chromosome`
-#'   - `StartBP`
-#'   - `EndBP`
-#'   - `WidthBP`
-#'   - `CanonicalTranscript`
-#'   - `ProteinTranscript`
+#'   - `symbol`
+#'   - `desc`
+#'   - `chromosome`
+#'   - `size`
 #'
 #' @importFrom BiocGenerics annotation
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' head(annotation(object))
 setMethod(
   f = "annotation",
@@ -136,14 +132,10 @@ setMethod(
 #'   character vector `.row_data_annotation_cols`.
 #' @export
 .row_data_annotation_cols <- c(
-  "HGNC",
-  "HGNCGeneName",
-  "Chromosome",
-  "StartBP",
-  "EndBP",
-  "WidthBP",
-  "CanonicalTranscript",
-  "ProteinTranscript"
+  "symbol",
+  "desc",
+  "chromosome",
+  "size"
 )
 
 #' @param value (`DataFrame`)\cr what should the annotations be replaced with.
@@ -197,7 +189,7 @@ setReplaceMethod(
 #' @export
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' result <- counts(a)
 #' class(result)
 #' head(result)
@@ -247,7 +239,7 @@ setReplaceMethod(
 #' @export
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' prefix(a)
 setGeneric("prefix", def = function(object, ...) {
   object@prefix
@@ -274,7 +266,7 @@ setGeneric("genes", def = function(object) standardGeneric("genes"))
 #' @rdname genes
 #' @export
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' genes(a)
 setMethod(
   f = "genes",
@@ -305,7 +297,7 @@ setMethod(
 #' @importFrom Biobase samples
 #' @export
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' samples(a)
 setMethod(
   f = "samples",
@@ -338,14 +330,14 @@ setMethod(
 #' @return The subsetted [`AnyHermesData`] object.
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' a
 #'
 #' # Subset both genes and samples.
-#' subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
+#' subset(a, subset = low_expression_flag, select = DISCSTUD == "N")
 #'
 #' # Subset only genes.
-#' subset(a, subset = Chromosome == "2")
+#' subset(a, subset = chromosome == "2")
 #'
 #' # Subset only samples.
 #'subset(a, select = AGE > 18)
@@ -383,11 +375,11 @@ setGeneric("filter", function(object, ...) standardGeneric("filter"))
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
-#' result <- h_has_req_annotations(object, "WidthBP")
+#' object <- hermes_data
+#' result <- h_has_req_annotations(object, "size")
 #' all(result)
-#' rowData(object)$WidthBP[1] <- NA # nolint
-#' which(!h_has_req_annotations(object, "WidthBP"))
+#' rowData(object)$size[1] <- NA # nolint
+#' which(!h_has_req_annotations(object, "size"))
 h_has_req_annotations <- function(object,
                                   annotation_required) {
   assert_that(
@@ -401,11 +393,11 @@ h_has_req_annotations <- function(object,
 #' @rdname filter
 #'
 #' @details
-#' - Only genes without low expression (`LowExpressionFlag`) and samples
-#'   without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
+#' - Only genes without low expression (`low_expression_flag`) and samples
+#'   without low depth (`low_depth_flag`) or technical failure (`tech_failure_flag`)
 #'   remain in the returned filtered object.
 #' - Also required gene annotation columns can be specified, so that genes which are not complete
-#'   for these columns are filtered out. By default this is the `WidthBP` column, which is needed
+#'   for these columns are filtered out. By default this is the `size` column, which is needed
 #'   for default normalization of the object.
 #'
 #' @param what (`character`)\cr specify whether to apply the filter on `genes` and / or `samples`.
@@ -417,7 +409,7 @@ h_has_req_annotations <- function(object,
 #'
 #' @export
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' dim(a)
 #'
 #' # Filter genes and samples on default QC flags.
@@ -431,13 +423,13 @@ h_has_req_annotations <- function(object,
 #' result <- filter(a, what = "samples")
 #'
 #' # Filter only genes, and require certain annotations to be present.
-#' result <- filter(a, what = "genes", annotation_required = c("StartBP", "EndBP", "WidthBP"))
+#' result <- filter(a, what = "genes", annotation_required = c("size"))
 setMethod(
   f = "filter",
   signature = signature(object = "AnyHermesData"),
   definition = function(object,
                         what = c("genes", "samples"),
-                        annotation_required = "WidthBP") {
+                        annotation_required = "size") {
     low_exp <- get_low_expression(object)
     low_depth <- get_low_depth(object)
     tech_fail <- get_tech_failure(object)
@@ -485,7 +477,7 @@ setMethod(
 #'   `colData()` or `rowData()`.
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 NULL
 
 # extraColDataNames ----
@@ -567,7 +559,7 @@ setGeneric("summary")
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' object_summary <- summary(object)
 #'
 #' # We can access parts of this S4 object with the slot operator.
@@ -712,7 +704,7 @@ setMethod(
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' object
 setMethod(
   f = "show",

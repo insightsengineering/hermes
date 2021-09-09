@@ -9,19 +9,15 @@ get_se <- function() {
       dimnames = list(c("GeneID:a", "GeneID:b"), c("X", "Y"))
     )),
     rowData = data.frame(
-      HGNC = c(1, 1),
-      Chromosome = c(1, 1),
-      StartBP = c(1, 1),
-      EndBP = c(1, 1),
-      WidthBP = c(1, 1),
-      HGNCGeneName = c(1, 1),
-      CanonicalTranscript = c(1, 1),
-      ProteinTranscript = c(1, 1),
-      LowExpressionFlag = c(TRUE, FALSE)
+      symbol = c(1, 1),
+      chromosome = c(1, 1),
+      size = c(1, 1),
+      desc = c(1, 1),
+      low_expression_flag = c(TRUE, FALSE)
     ),
     colData = data.frame(
-      LowDepthFlag = c(FALSE, FALSE),
-      TechnicalFailureFlag = c(FALSE, TRUE)
+      low_depth_flag = c(FALSE, FALSE),
+      tech_failure_flag = c(FALSE, TRUE)
     ),
     metadata = list(
       filename = "bla.txt",
@@ -45,19 +41,15 @@ get_rse <- function() {
       IRanges(c(124L, 134214L), width = 100),
       strand = c("+", "-"),
       feature_id = c(1L, 2L),
-      HGNC = c(1, 1),
-      Chromosome = c(1, 1),
-      StartBP = c(1, 1),
-      EndBP = c(1, 1),
-      WidthBP = c(1, 1),
-      HGNCGeneName = c(1, 1),
-      CanonicalTranscript = c(1, 1),
-      ProteinTranscript = c(1, 1),
-      LowExpressionFlag = c(TRUE, FALSE)
+      symbol = c(1, 1),
+      chromosome = c(1, 1),
+      size = c(1, 1),
+      desc = c(1, 1),
+      low_expression_flag = c(TRUE, FALSE)
     ),
     colData = data.frame(
-      LowDepthFlag = c(FALSE, FALSE),
-      TechnicalFailureFlag = c(FALSE, TRUE)
+      low_depth_flag = c(FALSE, FALSE),
+      tech_failure_flag = c(FALSE, TRUE)
     ),
     metadata = list(
       filename = "bla.txt",

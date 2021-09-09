@@ -75,10 +75,10 @@ gene and sample variables, and have unique row and column names. The row names, 
 start with a common prefix `GeneID` or `ENSG` to enable easy annotations.
 See `?HermesData` for the detailed requirements. 
 
-When the SE follows the conventions, we can just call the `HermesData` constructor on it:
+We can load the prepared `hermes_data` object, which is constructed out of the SE using the `HermesData()` constructor:
 
 ```{r}
-object <- HermesData(summarized_experiment)
+object <- hermes_data # HermesData(summarized_experiment)
 ```
 
 And we have a `HermesData` object.

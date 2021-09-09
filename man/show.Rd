@@ -24,6 +24,6 @@ objects. We need to define this separately to have this method used instead of
 the one inherited from \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}.
 }
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 object
 }

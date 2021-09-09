@@ -13,18 +13,14 @@ NULL
 #' @details The additional criteria are:
 #' - The first assay must be `counts` containing non-missing, integer, non-negative values.
 #' - The following columns must be in `rowData`:
-#'   - `HGNC`
-#'   - `HGNCGeneName`
-#'   - `Chromosome`
-#'   - `StartBP`
-#'   - `EndBP`
-#'   - `WidthBP`
-#'   - `CanonicalTranscript`
-#'   - `ProteinTranscript`
-#'   - `LowExpressionFlag`
+#'   - `symbol`
+#'   - `desc`
+#'   - `chromosome`
+#'   - `size`
+#'   - `low_expression_flag`
 #' - The following columns must be in `colData`:
-#'   - `LowDepthFlag`
-#'   - `TechnicalFailureFlag`
+#'   - `low_depth_flag`
+#'   - `tech_failure_flag`
 #' - The object must have unique row and column names. The row names are the gene names
 #'   and the column names are the sample names.
 #'

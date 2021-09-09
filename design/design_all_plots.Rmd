@@ -41,6 +41,6 @@ setMethod(
 )
 
 # Test 
-result <- HermesData(summarized_experiment)
+result <- hermes_data
 autoplot(result)
 ```

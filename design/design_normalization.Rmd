@@ -56,7 +56,7 @@ is_hermes_data <- function(object) {
   is_class(object, "AnyHermesData")
 }
 
-h <- HermesData(summarized_experiment)
+h <- hermes_data
 is_hermes_data(h)
 ```
 

@@ -75,7 +75,7 @@ as a complementary experimental normalization approach here.
 }}
 
 \examples{
-a <- HermesData(summarized_experiment)
+a <- hermes_data
 
 # By default, log values are used with a prior count of 1 added to original counts.
 result <- normalize(a)

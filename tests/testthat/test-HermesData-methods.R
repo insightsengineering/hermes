@@ -23,7 +23,7 @@ test_that("rbind function works as expected when binding SummarizedExperiment wi
 })
 
 test_that("rbind function fails as expected when rbind results in duplicated rownames", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   expect_error(rbind(object, object))
 })
 
@@ -52,7 +52,7 @@ test_that("cbind function works as expected when binding SummarizedExperiment wi
 })
 
 test_that("rbind function fails as expected when rbind results in duplicated colnames", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   expect_error(cbind(object, object))
 })
 
@@ -92,14 +92,10 @@ test_that("annotation setter works as expected", {
   object <- get_se()
   h1 <- HermesData(object)
   value <- S4Vectors::DataFrame(
-    StartBP = c(0, 10),
-    EndBP = c(11, 12),
-    WidthBP = c(11, 1),
-    HGNCGeneName = c(1, 1),
-    CanonicalTranscript = c(1, 1),
-    HGNC = c(1, 1),
-    Chromosome = c(1, 1),
-    ProteinTranscript = c(1, 1),
+    symbol = c(1, 1),
+    desc = c(1, 1),
+    size = c(11, 1),
+    chromosome = c(1, 1),
     row.names = c("GeneID:a", "GeneID:b")
   )
   expect_silent(annotation(h1) <- value)
@@ -113,14 +109,10 @@ test_that("annotation setter gives a warning, saves gene IDs in attribute if gen
   h1 <- HermesData(object)
   # Value where information for one gene is completely missing, only partially missing for the other.
   value <- S4Vectors::DataFrame(
-    StartBP = c(NA, 10),
-    EndBP = c(NA, NA),
-    WidthBP = c(NA, 1),
-    HGNCGeneName = c(NA, NA),
-    CanonicalTranscript = c(NA, 1),
-    HGNC = c(NA, 1),
-    Chromosome = c(NA, 1),
-    ProteinTranscript = c(NA, 1),
+    symbol = c(NA, 1),
+    desc = c(NA, NA),
+    size = c(NA, 1),
+    chromosome = c(NA, 1),
     row.names = c("GeneID:a", "GeneID:b")
   )
   expect_warning(
@@ -181,14 +173,14 @@ test_that("subset function works as expected for HermesData objects", {
   h <- HermesData(get_se())
   result <- expect_silent(subset(
     h,
-    subset = LowExpressionFlag,
-    select = !TechnicalFailureFlag
+    subset = low_expression_flag,
+    select = !tech_failure_flag
   ))
   expect_is(result, "HermesData")
-  expect_identical(nrow(result), sum(rowData(h)$LowExpressionFlag))
-  expect_identical(ncol(result), sum(!h$TechnicalFailureFlag))
-  expect_true(all(rowData(result)$LowExpressionFlag))
-  expect_true(all(!result$TechnicalFailureFlag))
+  expect_identical(nrow(result), sum(rowData(h)$low_expression_flag))
+  expect_identical(ncol(result), sum(!h$tech_failure_flag))
+  expect_true(all(rowData(result)$low_expression_flag))
+  expect_true(all(!result$tech_failure_flag))
 })
 
 # h_has_req_annotations ----
@@ -202,14 +194,10 @@ test_that("h_has_req_annotations works as expected", {
   expect_identical(result1, expected1)
 
   h2 <- h1
-  rowData(h2)$WidthBP[1] <- NA # nolint
+  rowData(h2)$size[1] <- NA # nolint
   result2 <- h_has_req_annotations(h2, .row_data_annotation_cols)
   expected2 <- c("GeneID:a" = FALSE, "GeneID:b" = TRUE)
   expect_identical(result2, expected2)
-
-  result3 <- h_has_req_annotations(h2, "StartBP")
-  expected3 <- c("GeneID:a" = TRUE, "GeneID:b" = TRUE)
-  expect_identical(result3, expected3)
 })
 
 # filter ----
@@ -233,7 +221,7 @@ test_that("filter works as expected with default settings for RangedHermesData",
 })
 
 test_that("filter works as expected on one dimension for HermesData", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   result1 <- expect_silent(filter(object, what = "genes"))
   result2 <- expect_silent(filter(object, what = "samples"))
   expect_is(result1, "HermesData")
@@ -253,7 +241,7 @@ test_that("filter works as expected with default settings for RangedHermesData",
 
 test_that("filter shows readable error message when there are NA in flag variables", {
   object <- get_se()
-  object$LowDepthFlag[1] <- NA
+  object$low_depth_flag[1] <- NA
   h1 <- HermesData(object)
   expect_error(
     filter(h1),
@@ -264,7 +252,7 @@ test_that("filter shows readable error message when there are NA in flag variabl
 
 test_that("filter gives a warning if all samples are filtered out", {
   object <- get_se()
-  object$LowDepthFlag <- TRUE # nolint
+  object$low_depth_flag <- TRUE # nolint
   h <- HermesData(object)
   expect_warning(
     filter(h),
@@ -274,7 +262,7 @@ test_that("filter gives a warning if all samples are filtered out", {
 
 test_that("filter gives a warning if all genes are filtered out", {
   object <- get_se()
-  rowData(object)$LowExpressionFlag <- TRUE # nolint
+  rowData(object)$low_expression_flag <- TRUE # nolint
   h <- HermesData(object)
   expect_warning(
     filter(h),
@@ -282,20 +270,20 @@ test_that("filter gives a warning if all genes are filtered out", {
   )
 })
 
-test_that("filter by default correctly filters out genes which don't have required `WidthBP`", {
+test_that("filter by default correctly filters out genes which don't have required `size`", {
   object <- get_se()
-  rowData(object)$LowExpressionFlag <- FALSE # nolint
-  rowData(object)$WidthBP[1] <- NA # nolint
+  rowData(object)$low_expression_flag <- FALSE # nolint
+  rowData(object)$size[1] <- NA # nolint
   h <- HermesData(object)
   result <- filter(h)
   expect_identical(genes(result), "GeneID:b")
-  expect_true(noNA(annotation(result)$WidthBP))
+  expect_true(noNA(annotation(result)$size))
 })
 
 # summary ----
 
 test_that("summary works as expected for HermesData", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   cd <- as.data.frame(colData(object))
   rd <- as.data.frame(rowData(object))
   result <- expect_silent(summary(object))
@@ -304,8 +292,8 @@ test_that("summary works as expected for HermesData", {
   expect_identical(result@assay_names, assayNames(object))
   expect_identical(result@n_genes, nrow(object))
   expect_identical(result@n_samples, ncol(object))
-  expect_identical(length(result@genes_fail), sum(rd$LowExpressionFlag))
-  expect_identical(length(result@samples_fail), sum(cd$TechnicalFailureFlag, cd$LowDepthFlag))
+  expect_identical(length(result@genes_fail), sum(rd$low_expression_flag))
+  expect_identical(length(result@samples_fail), sum(cd$tech_failure_flag, cd$low_depth_flag))
 })
 
 test_that("summary works as expected for RangedHermesData", {
@@ -318,14 +306,14 @@ test_that("summary works as expected for RangedHermesData", {
   expect_identical(result@assay_names, assayNames(object))
   expect_identical(result@n_genes, nrow(object))
   expect_identical(result@n_samples, ncol(object))
-  expect_identical(length(result@genes_fail), sum(rd$LowExpressionFlag))
-  expect_identical(length(result@samples_fail), sum(cd$TechnicalFailureFlag, cd$LowDepthFlag))
+  expect_identical(length(result@genes_fail), sum(rd$low_expression_flag))
+  expect_identical(length(result@samples_fail), sum(cd$tech_failure_flag, cd$low_depth_flag))
 })
 
 # show-summary ----
 
 test_that("show for summary works as expected for HermesData with quality flags", {
-  object <- summary(HermesData(summarized_experiment))
+  object <- summary(hermes_data)
   result <- capture_output(show(object))
   expect_match(
     result,
@@ -340,9 +328,9 @@ test_that("show for summary works as expected for HermesData with quality flags"
 
 test_that("show for summary also works without quality flags", {
   se <- get_se()
-  rowData(se)$LowExpressionFlag <- NA # nolint
-  colData(se)$LowDepthFlag <- NA # nolint
-  colData(se)$TechnicalFailureFlag <- NA # nolint
+  rowData(se)$low_expression_flag <- NA # nolint
+  colData(se)$low_depth_flag <- NA # nolint
+  colData(se)$tech_failure_flag <- NA # nolint
   object <- summary(HermesData(se))
   result <- capture_output(show(object))
   expect_match(
@@ -354,7 +342,7 @@ test_that("show for summary also works without quality flags", {
 # show ----
 
 test_that("show works as expected for HermesData", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   result <- capture_output(show(object))
   expect_match(result, "class: HermesData", fixed = TRUE)
   expect_match(result, "assays(1): counts", fixed = TRUE)

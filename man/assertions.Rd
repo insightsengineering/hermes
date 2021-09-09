@@ -61,7 +61,7 @@ a <- 5
 is_class(a, "character")
 
 # Assert a `AnyHermesData` object.
-is_hermes_data(HermesData(summarized_experiment))
+is_hermes_data(hermes_data)
 is_hermes_data(42)
 
 # Assert a counts vector.

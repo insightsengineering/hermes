@@ -28,14 +28,10 @@ character vector \code{.row_data_annotation_cols}.
 \value{
 The \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene annotations:
 \itemize{
-\item \code{HGNC}
-\item \code{HGNCGeneName}
-\item \code{Chromosome}
-\item \code{StartBP}
-\item \code{EndBP}
-\item \code{WidthBP}
-\item \code{CanonicalTranscript}
-\item \code{ProteinTranscript}
+\item \code{symbol}
+\item \code{desc}
+\item \code{chromosome}
+\item \code{size}
 }
 }
 \description{
@@ -49,7 +45,7 @@ a warning will be given and the corresponding gene IDs will be saved in the
 attribute \code{annotation.missing.genes}.
 }
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 head(annotation(object))
 }
 \keyword{datasets}

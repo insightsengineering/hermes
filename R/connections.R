@@ -176,7 +176,7 @@ h_strip_prefix <- function(gene_ids, prefix) {
 #' @export
 #' @examples
 #' \dontrun{
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' connection <- connect_biomart(prefix(object))
 #' result <- query(genes(object), connection)
 #' head(result)
@@ -202,14 +202,10 @@ setMethod(
     with(
       df,
       S4Vectors::DataFrame(
-        HGNC = hgnc_symbol,
-        HGNCGeneName = entrezgene_description,
-        Chromosome = as.character(chromosome_name),
-        StartBP = start_position,
-        EndBP = end_position,
-        WidthBP = end_position - start_position + 1L,
-        CanonicalTranscript = refseq_mrna,
-        ProteinTranscript = refseq_peptide,
+        symbol = hgnc_symbol,
+        desc = entrezgene_description,
+        chromosome = as.character(chromosome_name),
+        size = end_position - start_position + 1L,
         row.names = genes
       )[, .row_data_annotation_cols] # Ensure correct column order.
     )

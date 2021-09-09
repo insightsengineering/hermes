@@ -42,7 +42,7 @@ This produces a scatterplot of the gene expression values
 of two genes.
 }
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 draw_scatterplot(
   object,
   assay_name = "counts",

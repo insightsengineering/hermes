@@ -26,7 +26,7 @@ The \code{ggplot} object with the histogram.
 This creates a barplot of chromosomes for the \link{AnyHermesData} object with the proportions of low expression genes.
 }
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 
 # Display chromosomes 1-22, X, Y, and MT. Other chromosomes are displayed in "Others".
 # To increase readability, we can have flip the coordinate axes.

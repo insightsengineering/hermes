@@ -75,7 +75,7 @@ h_low_expression_flag <- function(object, control) {
   n_samples_below_min_cpm > threshold_n_samples
 }
 
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 res <- h_low_expression_flag(object, cont)
 head(res)
 ```

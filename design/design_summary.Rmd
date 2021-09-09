@@ -23,7 +23,7 @@ The user would like to get some high level summary statistics for a given Hermes
 By default we get the following summary:
 
 ```{r}
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 summary(object)
 ```
 

@@ -7,7 +7,7 @@
 \usage{
 filter(object, ...)
 
-\S4method{filter}{AnyHermesData}(object, what = c("genes", "samples"), annotation_required = "WidthBP")
+\S4method{filter}{AnyHermesData}(object, what = c("genes", "samples"), annotation_required = "size")
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr object to filter.}
@@ -29,11 +29,11 @@ This filters a \code{\link{AnyHermesData}} object using the default QC flags and
 }
 \details{
 \itemize{
-\item Only genes without low expression (\code{LowExpressionFlag}) and samples
-without low depth (\code{LowDepthFlag}) or technical failure (\code{TechnicalFailureFlag})
+\item Only genes without low expression (\code{low_expression_flag}) and samples
+without low depth (\code{low_depth_flag}) or technical failure (\code{tech_failure_flag})
 remain in the returned filtered object.
 \item Also required gene annotation columns can be specified, so that genes which are not complete
-for these columns are filtered out. By default this is the \code{WidthBP} column, which is needed
+for these columns are filtered out. By default this is the \code{size} column, which is needed
 for default normalization of the object.
 }
 }
@@ -42,7 +42,7 @@ The internal implementation cannot use the \code{\link[=subset]{subset()}} metho
 requires non-standard evaluation of arguments.
 }
 \examples{
-a <- HermesData(summarized_experiment)
+a <- hermes_data
 dim(a)
 
 # Filter genes and samples on default QC flags.
@@ -56,5 +56,5 @@ result <- filter(a, what = "genes")
 result <- filter(a, what = "samples")
 
 # Filter only genes, and require certain annotations to be present.
-result <- filter(a, what = "genes", annotation_required = c("StartBP", "EndBP", "WidthBP"))
+result <- filter(a, what = "genes", annotation_required = c("size"))
 }

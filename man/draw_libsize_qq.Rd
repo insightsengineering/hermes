@@ -22,7 +22,7 @@ The \code{ggplot} object with the Q-Q Plot.
 This creates a Q-Q plot of the library sizes of the \link{AnyHermesData} object.
 }
 \examples{
-result <- HermesData(summarized_experiment)
+result <- hermes_data
 draw_libsize_qq(result)
 draw_libsize_qq(result, color = "blue", linetype = "solid")
 
