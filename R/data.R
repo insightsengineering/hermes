@@ -28,6 +28,20 @@
 #' @seealso [`expression_set`] which contains similar data as a [`Biobase::ExpressionSet`].
 "summarized_experiment"
 
+#' Example `HermesData` Data
+#'
+#' @description `r lifecycle::badge("stable")`
+#'
+#' This example [`hermes::HermesData`] is created from the underlying [`SummarizedExperiment::SummarizedExperiment`]
+#' object by renaming descriptors to align with standard specification. It already
+#' contains the required columns in `rowData` and `colData`.
+#'
+#' @format A [hermes::HermesData] object with 20 samples covering
+#'   5085 features (Entrez gene IDs).
+#' @source This is an artificial dataset designed to resemble real data.
+#' @seealso [`expression_set`] which contains similar data as a [`Biobase::ExpressionSet`].
+"hermes_data"
+
 #' Example `MultiAssayExperiment` Data
 #'
 #' @description `r lifecycle::badge("experimental")`

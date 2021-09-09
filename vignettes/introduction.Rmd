@@ -75,10 +75,10 @@ gene and sample variables, and have unique row and column names. The row names, 
 start with a common prefix `GeneID` or `ENSG` to enable easy annotations.
 See `?HermesData` for the detailed requirements. 
 
-We can load the prepared `hermes_data` object, which is constructed out of the SE using the `HermesData()` constructor:
+When the SE follows the conventions, we can just call the `HermesData` constructor on it:
 
 ```{r}
-object <- hermes_data # HermesData(summarized_experiment)
+object <- hermes_data # REPHRASE SENTENCE
 ```
 
 And we have a `HermesData` object.
@@ -111,11 +111,11 @@ In general we can also import a matrix of counts. We just have to pass the requi
 gene and sample information as data frames to the constructor.
 
 ```{r}
-counts_matrix <- assay(summarized_experiment)
+counts_matrix <- assay(hermes_data)
 object3 <- HermesDataFromMatrix(
   counts = counts_matrix,
-  rowData = rowData(summarized_experiment),
-  colData = colData(summarized_experiment)
+  rowData = rowData(hermes_data),
+  colData = colData(hermes_data)
 )
 object3
 identical(object, object3)
@@ -226,11 +226,11 @@ This can be done with the `subset()` function. Genes can be filtered with the `s
 ```{r}
 names(rowData(object_flagged))
 names(colData(object_flagged))
-head(rowData(object_flagged)$Chromosome)
+head(rowData(object_flagged)$chromosome)
 head(object_flagged$ARMCD)
 object_flagged_subsetted <- subset(
   object_flagged, 
-  subset = Chromosome == "5", 
+  subset = chromosome == "5", 
   select = ARMCD == "COH1"
 )
 ```
