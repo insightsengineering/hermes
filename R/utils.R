@@ -156,7 +156,7 @@ colPrinComp1 <- function(x,
   gene_is_constant <- apply(x, MARGIN = 1L, FUN = S4Vectors::isConstant)
   selected_data <- x[!gene_is_constant, ]
 
-  pca_result <- prcomp(t(selected_data), center = center, scale = scale)
+  pca_result <- stats::prcomp(t(selected_data), center = center, scale = scale)
   pca_result$x[, 1L]
 }
 
