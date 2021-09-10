@@ -468,6 +468,22 @@ setMethod(
   }
 )
 
+setMethod(
+  f = "filter",
+  signature = signature(object = "data.frame"),
+  definition = function(object, ...) {
+    dplyr::filter(object, ...)
+  }
+)
+
+setMethod(
+  f = "filter",
+  signature = signature(object = "ts"),
+  definition = function(object, ...) {
+    dplyr::filter(object, ...)
+  }
+)
+
 #' Extra Variable Names Accessor Methods
 #'
 #' @description `r lifecycle::badge("experimental")`

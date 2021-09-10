@@ -30,6 +30,7 @@ Imports:
     checkmate,
     ComplexHeatmap,
     DESeq2,
+    dplyr,
     edgeR,
     EnvStats,
     ggplot2,
