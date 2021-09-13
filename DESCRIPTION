@@ -30,6 +30,7 @@ Imports:
     checkmate,
     ComplexHeatmap,
     DESeq2,
+    dplyr,
     edgeR,
     EnvStats,
     ggplot2,
@@ -72,6 +73,7 @@ Collate:
     'draw_barplot.R'
     'draw_boxplot.R'
     'draw_scatterplot.R'
+    'filter_dplyr.R'
     'graphs.R'
     'normalization.R'
     'package.R'
