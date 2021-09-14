@@ -85,6 +85,7 @@ reference:
       - top_genes
       - connect_biomart
       - df_char_to_factor
+      - df_cols_to_factor
   - title: Graphs
     contents:
       - draw_libsize_hist
