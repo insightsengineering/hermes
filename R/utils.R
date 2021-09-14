@@ -139,10 +139,10 @@ h_parens <- function(x) {
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment) |>
-#'   add_quality_flags() |>
-#'   filter() |>
-#'   normalize() |>
+#' object <- HermesData(summarized_experiment) %>%
+#'   add_quality_flags() %>%
+#'   filter() %>%
+#'   normalize() %>%
 #'   assay("counts")
 #'
 #' colPrinComp1(object)
@@ -173,10 +173,10 @@ colPrinComp1 <- function(x,
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment) |>
-#'   add_quality_flags() |>
-#'   filter() |>
-#'   normalize() |>
+#' object <- HermesData(summarized_experiment) %>%
+#'   add_quality_flags() %>%
+#'   filter() %>%
+#'   normalize() %>%
 #'   assay("counts")
 #'
 #' colMeanZscores(object)
