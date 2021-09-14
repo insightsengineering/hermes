@@ -25,10 +25,10 @@ This helper function returns the first principal component from an assay
 stored as a \code{matrix}.
 }
 \examples{
-object <- HermesData(summarized_experiment) |>
-  add_quality_flags() |>
-  filter() |>
-  normalize() |>
+object <- HermesData(summarized_experiment) \%>\%
+  add_quality_flags() \%>\%
+  filter() \%>\%
+  normalize() \%>\%
   assay("counts")
 
 colPrinComp1(object)
