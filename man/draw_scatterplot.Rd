@@ -42,6 +42,7 @@ This produces a scatterplot of two genes or gene signatures.
 }
 \examples{
 object <- hermes_data
+
 g <- genes(object)
 
 draw_scatterplot(

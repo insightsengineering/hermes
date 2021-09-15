@@ -44,4 +44,3 @@ design/*.html
 .DS_Store
 .Rproj.user
 
-tests/testthat/Rplots.pdf

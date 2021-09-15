@@ -11,6 +11,7 @@ filter(object, ...)
 
 \S4method{filter}{AnyHermesData}(object, what = c("genes", "samples"), annotation_required = "size")
 
+
 \S4method{filter}{data.frame}(object, ...)
 
 \S4method{filter}{ts}(object, ...)

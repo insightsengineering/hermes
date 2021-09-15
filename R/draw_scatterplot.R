@@ -21,6 +21,7 @@
 #'
 #' @examples
 #' object <- hermes_data
+
 #' g <- genes(object)
 #'
 #' draw_scatterplot(
