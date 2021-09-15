@@ -31,6 +31,6 @@ problematic when not supported classes are used in other non-character columns.
 \examples{
 dat <- colData(summarized_experiment)
 any(sapply(dat, is.character))
-dat_converted <- expect_warning(df_char_to_factor(dat))
+dat_converted <- suppressWarnings(df_char_to_factor(dat))
 any(sapply(dat_converted, is.character))
 }
