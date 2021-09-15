@@ -37,7 +37,7 @@ NULL
 #' @examples
 #' dat <- colData(summarized_experiment)
 #' any(sapply(dat, is.character))
-#' dat_converted <- df_char_to_factor(dat)
+#' dat_converted <- expect_warning(df_char_to_factor(dat))
 #' any(sapply(dat_converted, is.character))
 df_char_to_factor <- function(data,
                               omit_columns = NULL,
@@ -81,18 +81,20 @@ df_char_to_factor <- function(data,
 #' @examples
 #' dat <- colData(summarized_experiment)
 #' any(sapply(dat, is.character))
+#' any(sapply(dat, is.logical))
 #' dat_converted <- df_cols_to_factor(dat)
-#' any(sapply(dat_converted, is.character))
+#' any(sapply(dat_converted, function(x) is.character(x) || is.logical(x)))
 df_cols_to_factor <- function(data,
                               omit_columns = NULL,
                               na_level = "<Missing>") {
   assert_that(is(data, "DataFrame"))
-  col_is_char <- sapply(data, is.character)
-  if (!any(col_is_char)) {
+  col_is_char_or_logical <- sapply(data, function(x) is.character(x) || is.logical(x))
+  if (!any(col_is_char_or_logical)) {
     return(data)
   }
-  data[, col_is_char] <- tern::df_explicit_na(
-    as.data.frame(data[, col_is_char]),  # It is safe to convert the character columns only here.
+  data[, col_is_char_or_logical] <- tern::df_explicit_na(
+    # It is safe to convert the character or logical columns only here.
+    as.data.frame(data[, col_is_char_or_logical]),
     omit_columns = omit_columns,
     char_as_factor = TRUE,
     logical_as_factor = TRUE,

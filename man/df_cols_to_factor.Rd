@@ -31,6 +31,7 @@ problematic when not supported classes are used in other non-character columns.
 \examples{
 dat <- colData(summarized_experiment)
 any(sapply(dat, is.character))
+any(sapply(dat, is.logical))
 dat_converted <- df_cols_to_factor(dat)
-any(sapply(dat_converted, is.character))
+any(sapply(dat_converted, function(x) is.character(x) || is.logical(x)))
 }

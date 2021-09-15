@@ -81,9 +81,9 @@ converting it again into a \code{\link{HermesData}} object.
 method, which allows us to turn off the validity checks in internal
 functions where intermediate objects may not be valid within the scope of
 the function.
-\item It can be helpful to convert character variables to factors in \code{colData()}
+\item It can be helpful to convert character and logical variables to factors in \code{colData()}
 (before or after the \code{HermesData} creation). We provide the utility function
-\code{\link[=df_char_to_factor]{df_char_to_factor()}} to simplify this task, but leave it to the user to allow
+\code{\link[=df_cols_to_factor]{df_cols_to_factor()}} to simplify this task, but leave it to the user to allow
 for full control of the details.
 }
 }

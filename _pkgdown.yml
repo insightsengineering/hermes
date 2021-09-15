@@ -84,7 +84,6 @@ reference:
       - set_tech_failure
       - top_genes
       - connect_biomart
-      - df_char_to_factor
       - df_cols_to_factor
   - title: Graphs
     contents:
@@ -111,3 +110,6 @@ reference:
   - title: Constants
     contents:
       - .row_data_annotation_cols
+  - title: Deprecated Functions
+    contents:
+      - df_char_to_factor

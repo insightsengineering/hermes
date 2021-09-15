@@ -8,7 +8,7 @@ test_that("df_char_to_factor works as expected with default settings", {
     d = factor(c("X", NA)),
     e = c("U", NA)
   )
-  result <- df_char_to_factor(dat)
+  result <- expect_warning(df_char_to_factor(dat), "deprecated")
   expected <- S4Vectors::DataFrame(
     a = factor(c("<Missing>", "B"), levels = c("B", "<Missing>")),
     b = array(1:4, c(2, 1, 2)),
@@ -63,7 +63,7 @@ test_that("df_cols_to_factor works as expected with custom settings", {
   dat <- S4Vectors::DataFrame(
     a = c(NA, "B"),
     b = array(1:4, c(2, 1, 2)),
-    c = c(TRUE, FALSE),
+    c = c(TRUE, NA),
     d = factor(c("X", NA)),
     e = c("U", NA)
   )
@@ -71,7 +71,7 @@ test_that("df_cols_to_factor works as expected with custom settings", {
   expected <- S4Vectors::DataFrame(
     a = c(NA, "B"),
     b = array(1:4, c(2, 1, 2)),
-    c = factor(c(TRUE, FALSE)),
+    c = factor(c(TRUE, "Misses"), levels = c("TRUE", "Misses")),
     d = factor(c("X", NA)),
     e = factor(c("U", "Misses"), levels = c("U", "Misses"))
   )
