@@ -18,7 +18,7 @@ se3 <- se[1501:2800, 15:20]
 
 # Find suitable patient names.
 adsl <- radsl(cached = TRUE)
-# adsl$USUBJID[1:20]
+
 pat_names <- c(
   "AB12345-CHN-3-id-128", "AB12345-CHN-15-id-262", "AB12345-RUS-3-id-378",
   "AB12345-CHN-11-id-220", "AB12345-CHN-7-id-267", "AB12345-CHN-15-id-201",
@@ -47,7 +47,10 @@ se2map <- data.frame(
 
 se3map <- data.frame(
   primary = pat_names[c(15, 15, 16, 17, 18, 18)],
-  colname = c("06520093C0017R", "06520070C0018R", "06520023C0018R", "06520099B0017R", "06520015C0016R", "06520019C0023R"),
+  colname = c(
+    "06520093C0017R", "06520070C0018R", "06520023C0018R",
+    "06520099B0017R", "06520015C0016R", "06520019C0023R"
+  ),
   stringsAsFactors = FALSE
 )
 
@@ -82,7 +85,7 @@ assaylist <- list(
   hd2 = hd2,
   hd3 = hd3
 )
-ExpList <- ExperimentList(assaylist)
+exp_list <- ExperimentList(assaylist)
 
 # Create a sample map.
 maplist <- list(hd1 = se1map, hd2 = se2map, hd3 = se3map)
@@ -90,7 +93,7 @@ samp_map <- listToMap(maplist)
 
 # Create a MultiAssayExperiment object.
 multi_assay_experiment <- MultiAssayExperiment(
-  experiments = ExpList,
+  experiments = exp_list,
   colData = col_dat,
   sampleMap = samp_map
 )

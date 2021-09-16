@@ -242,9 +242,8 @@ names(colData(object_flagged))
 head(rowData(object_flagged)$chromosome)
 head(object_flagged$ARMCD)
 object_flagged_subsetted <- subset(
-  subset = chromosome == "5", 
-  object_flagged, 
-
+  object_flagged,
+  subset = chromosome == "5",
   select = ARMCD == "COH1"
 )
 ```
