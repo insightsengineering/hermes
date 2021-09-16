@@ -20,11 +20,11 @@ test_that("hermes_data is a subset of summarized_experiment", {
   # Used to ignore changes in colnames
   strip_df <- function(x) unname(as.data.frame(x))
 
-  rowData_se <- rowData(dat_se) %>%
+  row_data_se <- rowData(dat_se) %>%
     as.data.frame() %>%
     dplyr::select(-c(StartBP, EndBP, CanonicalTranscript, ProteinTranscript))
 
-  expect_equal(strip_df(rowData_se), strip_df(rowData(dat_hd)))
+  expect_equal(strip_df(row_data_se), strip_df(rowData(dat_hd)))
   expect_equal(strip_df(colData(dat_se)), strip_df(colData(dat_hd)))
   expect_equal(dat_se@assays@data$counts, assay(dat_hd))
 

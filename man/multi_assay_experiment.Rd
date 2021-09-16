@@ -3,8 +3,11 @@
 \docType{data}
 \name{multi_assay_experiment}
 \alias{multi_assay_experiment}
-\title{Example \code{MultiAssayExperiment} Data}
+\title{Example \code{HermesData} Data}
 \format{
+A \link{HermesData} object with 20 samples covering
+5085 features (Entrez gene IDs).
+
 A \code{\link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment}} object with 3 separate \code{\link{HermesData}}
 objects.
 \itemize{
@@ -15,13 +18,26 @@ objects.
 }
 \source{
 This is an artificial dataset designed to resemble real data.
+
+This is an artificial dataset designed to resemble real data.
 }
 \usage{
 multi_assay_experiment
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+This example \code{\link{HermesData}} is created from the underlying \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+object by renaming descriptors to align with standard specification. It already
+contains the required columns in \code{rowData} and \code{colData}.
+
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This example \code{\link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment}} can be used as test data.
+}
+\seealso{
+\code{\link{summarized_experiment}} for the underlying \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+object.
+Example \code{MultiAssayExperiment} Data
 }
 \keyword{datasets}

@@ -88,7 +88,7 @@ test_that("annotation accessor works as expected", {
   expect_identical(rownames(result), rownames(h1))
 })
 
-test_that("annotation setter works as expected", {
+test_that("annotation setter works as expected when the columns are set equal", {
   object <- get_se()
   h1 <- HermesData(object)
   value <- S4Vectors::DataFrame(
@@ -102,6 +102,25 @@ test_that("annotation setter works as expected", {
   # Internally we expect a reordering of the columns to take place.
   expect_false(identical(names(annotation(h1)), names(value)))
   expect_setequal(names(annotation(h1)), names(value))
+})
+
+test_that("annotation setter works also when there are more columns provided in the value", {
+  object <- get_se()
+  h1 <- HermesData(object)
+  value <- S4Vectors::DataFrame(
+    symbol = c(1, 1),
+    desc = c(1, 1),
+    size = c(11, 1),
+    chromosome = c(1, 1),
+    protein_information = c("A", "C"),
+    important_others = c("D", "E"),
+    row.names = c("GeneID:a", "GeneID:b")
+  )
+  expect_silent(annotation(h1) <- value)
+  # Internally we expect a reordering of the columns to take place.
+  expect_false(identical(names(annotation(h1)), names(value)[1:4]))
+  expect_setequal(names(annotation(h1)), names(value)[1:4])
+  expect_subset(names(value), names(rowData(h1)))
 })
 
 test_that("annotation setter gives a warning, saves gene IDs in attribute if gene info is missing", {

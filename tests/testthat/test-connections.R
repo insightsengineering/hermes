@@ -63,7 +63,7 @@ test_that("query to Biomart works as expected", {
   connection <- connect_biomart(prefix(object))
   result <- query(genes(object), connection)
   expect_s4_class(result, "DataFrame")
-  expect_identical(names(result), .row_data_annotation_cols)
+  expect_subset(.row_data_annotation_cols, names(result))
   expect_identical(genes(object), rownames(result))
   result_subset <- result[3:4, ]
   expected_subset <- S4Vectors::DataFrame(
@@ -71,6 +71,8 @@ test_that("query to Biomart works as expected", {
     desc = c(NA, "microRNA 3183"),
     chromosome = c(NA, "17"),
     size = c(NA, 84L),
+    canonical_transcript = as.character(c(NA, NA)),
+    protein_transcript = as.character(c(NA, NA)),
     row.names = c("GeneID:101928428", "GeneID:100422835")
   )
   expect_identical(result_subset, expected_subset)

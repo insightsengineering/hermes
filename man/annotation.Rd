@@ -40,9 +40,11 @@ The \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene 
 These methods access and set the gene annotations stored in a \code{\link{AnyHermesData}} object.
 }
 \note{
-When trying to replace the annotation with completely missing values for any genes,
-a warning will be given and the corresponding gene IDs will be saved in the
-attribute \code{annotation.missing.genes}.
+When trying to replace the required annotations with completely missing
+values for any genes, a warning will be given and the corresponding gene
+IDs will be saved in the attribute \code{annotation.missing.genes}. Note also
+that additional annotations beyond the required ones may be supplied and
+will be stored.
 }
 \examples{
 object <- hermes_data

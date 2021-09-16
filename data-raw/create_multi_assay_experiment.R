@@ -52,7 +52,7 @@ se3map <- data.frame(
 )
 
 # Create an example phenotype data.
-colDat <- data.frame(
+col_dat <- data.frame(
   sex = sample(c("M", "F"), size = 18, replace = TRUE),
   age = seq(from = 35, length = 18),
   row.names = pat_names[1:18]
@@ -86,13 +86,13 @@ ExpList <- ExperimentList(assaylist)
 
 # Create a sample map.
 maplist <- list(hd1 = se1map, hd2 = se2map, hd3 = se3map)
-sampMap <- listToMap(maplist)
+samp_map <- listToMap(maplist)
 
 # Create a MultiAssayExperiment object.
 multi_assay_experiment <- MultiAssayExperiment(
   experiments = ExpList,
-  colData = colDat,
-  sampleMap = sampMap
+  colData = col_dat,
+  sampleMap = samp_map
 )
 
 # Save it in the package.

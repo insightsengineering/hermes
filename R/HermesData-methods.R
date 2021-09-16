@@ -140,9 +140,11 @@ setMethod(
 
 #' @param value (`DataFrame`)\cr what should the annotations be replaced with.
 #'
-#' @note When trying to replace the annotation with completely missing values for any genes,
-#'   a warning will be given and the corresponding gene IDs will be saved in the
-#'   attribute `annotation.missing.genes`.
+#' @note When trying to replace the required annotations with completely missing
+#'   values for any genes, a warning will be given and the corresponding gene
+#'   IDs will be saved in the attribute `annotation.missing.genes`. Note also
+#'   that additional annotations beyond the required ones may be supplied and
+#'   will be stored.
 #'
 #' @importFrom BiocGenerics `annotation<-`
 #' @rdname annotation
@@ -153,17 +155,21 @@ setReplaceMethod(
   definition = function(object, value) {
     assert_that(
       identical(rownames(object), rownames(value)),
-      setequal(.row_data_annotation_cols, colnames(value))
+      all(.row_data_annotation_cols %in% colnames(value))
     )
-    row_is_all_na <- apply(X = value, MARGIN = 1L, FUN = all_na)
+    row_is_all_na <- apply(X = value[, .row_data_annotation_cols], MARGIN = 1L, FUN = all_na)
     if (any(row_is_all_na)) {
       warning(paste(
-        "annotations completely missing for", sum(row_is_all_na), "genes,",
+        "required annotations completely missing for", sum(row_is_all_na), "genes,",
         "see attribute `annotation.missing.genes` for the corresponding gene IDs"
       ))
       attr(object, "annotation.missing.genes") <- names(which(row_is_all_na))
     }
     rowData(object)[, .row_data_annotation_cols] <- value[, .row_data_annotation_cols]
+    add_annotation_cols <- setdiff(colnames(value), .row_data_annotation_cols)
+    if (length(add_annotation_cols)) {
+      rowData(object)[, add_annotation_cols] <- value[, add_annotation_cols, drop = FALSE]
+    }
     validObject(object)
     object
   }

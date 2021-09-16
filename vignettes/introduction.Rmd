@@ -75,10 +75,10 @@ gene and sample variables, and have unique row and column names. The row names, 
 start with a common prefix `GeneID` or `ENSG` to enable easy annotations.
 See `?HermesData` for the detailed requirements. 
 
-When the SE follows the conventions, we can just call the `HermesData` constructor on it:
+When the SE follows the minimum conventions, we can just call the `HermesData` constructor on it:
 
 ```{r}
-object <- hermes_data # REPHRASE SENTENCE
+object <- HermesData(summarized_experiment)
 ```
 
 And we have a `HermesData` object.
@@ -87,13 +87,26 @@ And we have a `HermesData` object.
 object
 ```
 
+Note that in this case deprecated names were used for the `rowData` and `colData` variables,
+therefore they appear under "additional" gene and sample information. However we can 
+still call the default constructor because the new names will be filled with missing values, e.g.:
+
+```{r}
+head(annotation(object))
+```
+
 For a bit more details we can also call `summary()` on the object.
 
 ```{r}
 summary(object)
 ```
 
-Note that here the "additional" columns refer to everything that is not mandatory to be included in a `HermesData` object.
+For the below, let's use the correct `HermesData` object.
+
+```{r}
+object <- hermes_data
+```
+
 
 ### Importing an `ExpressionSet`
 

@@ -136,7 +136,7 @@ setGeneric(
     assert_that(
       is(value, "DataFrame"),
       identical(genes, rownames(value)),
-      setequal(.row_data_annotation_cols, colnames(value))
+      all(.row_data_annotation_cols %in% colnames(value))
     )
     value
   }
@@ -202,12 +202,17 @@ setMethod(
     with(
       df,
       S4Vectors::DataFrame(
+        # Required annotations.
         symbol = hgnc_symbol,
         desc = entrezgene_description,
         chromosome = as.character(chromosome_name),
         size = end_position - start_position + 1L,
+        # Additional annotations.
+        canonical_transcript = refseq_mrna,
+        protein_transcript = refseq_peptide,
+        # Ensure correct row names.
         row.names = genes
-      )[, .row_data_annotation_cols] # Ensure correct column order.
+      )
     )
   }
 )

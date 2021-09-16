@@ -34,7 +34,7 @@ object <- hermes_data \%>\%
 pca <- calc_pca(object)$x
 
 # Obtain the sample variable.
-x <- colData(object)$low_depth_flag
+x <- colData(object)$AGE18
 
 # Correlate them.
 r2 <- h_pca_var_rsquared(pca, x)

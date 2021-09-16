@@ -39,8 +39,8 @@
 #' @format A [hermes::HermesData] object with 20 samples covering
 #'   5085 features (Entrez gene IDs).
 #' @source This is an artificial dataset designed to resemble real data.
-#' @seealso [`expression_set`] which contains similar data as a [`Biobase::ExpressionSet`].
-"hermes_data"
+#' @seealso [`summarized_experiment`] for the underlying [`SummarizedExperiment::SummarizedExperiment`]
+#'   object.
 
 #' Example `MultiAssayExperiment` Data
 #'
