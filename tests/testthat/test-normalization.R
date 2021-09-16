@@ -200,7 +200,7 @@ test_that("normalize works when global environment overwrites helper function", 
 # h_vst ----
 
 test_that("h_vst function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   result <- expect_silent(h_vst(object))
   expect_is(result, "matrix")
 })
@@ -239,7 +239,7 @@ test_that("h_vst fails when there are no genes", {
 # h_rlog ----
 
 test_that("h_rlog function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   result <- expect_silent(h_rlog(object))
   expect_is(result, "matrix")
 })

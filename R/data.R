@@ -41,6 +41,7 @@
 #' @source This is an artificial dataset designed to resemble real data.
 #' @seealso [`summarized_experiment`] for the underlying [`SummarizedExperiment::SummarizedExperiment`]
 #'   object.
+"hermes_data"
 
 #' Example `MultiAssayExperiment` Data
 #'

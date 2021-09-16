@@ -20,7 +20,7 @@ column in \code{x}.
 This helper function returns the Z-score from an assay stored as a \code{matrix}.
 }
 \examples{
-object <- HermesData(summarized_experiment) \%>\%
+object <- hermes_data \%>\%
   add_quality_flags() \%>\%
   filter() \%>\%
   normalize() \%>\%
