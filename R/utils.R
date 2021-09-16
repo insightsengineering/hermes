@@ -71,7 +71,8 @@ df_char_to_factor <- function(data,
 #'
 #' @param data (`DataFrame`)\cr input [`S4Vectors::DataFrame`].
 #' @param omit_columns (`character` or `NULL`)\cr which columns should be omitted from
-#'   the conversion.
+#'   the conversion. Note that all required `rowData` and `colData` variables cannot be converted
+#'   to ensure proper downstream behavior.
 #' @param na_level (`string`)\cr missing level to be used.
 #'
 #' @return The modified data.
@@ -92,6 +93,10 @@ df_cols_to_factor <- function(data,
   if (!any(col_is_char_or_logical)) {
     return(data)
   }
+  omit_columns <- union(
+    omit_columns,
+    c(.row_data_cols, .col_data_cols)
+  )
   data[, col_is_char_or_logical] <- tern::df_explicit_na(
     # It is safe to convert the character or logical columns only here.
     as.data.frame(data[, col_is_char_or_logical]),
