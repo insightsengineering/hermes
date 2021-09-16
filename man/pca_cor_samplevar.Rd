@@ -47,7 +47,7 @@ to visualize a \code{\link{HermesDataPcaCor}} object.
 }}
 
 \examples{
-object <- HermesData(summarized_experiment) \%>\%
+object <- hermes_data \%>\%
   add_quality_flags() \%>\%
   filter() \%>\%
   normalize()

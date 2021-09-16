@@ -19,8 +19,8 @@ Update and replace the `draw_boxplot()` function from `rnaseqTools` to use `ggpl
 In order to plot the number of non zero expression genes, we need to access the counts data in the `HermesData` object.
 
 ```{r}
-#Creating the HermesData object from the example SummarizedExperiment object.
-result <- HermesData(summarized_experiment)
+#Loading the example HermesData object.
+result <- hermes_data
 
 #Accessing the counts data.
 count_results <- counts(result)

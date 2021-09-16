@@ -37,7 +37,7 @@ on_failure(is_class) <- function(call, env) {
 #' @examples
 #'
 #' # Assert a `AnyHermesData` object.
-#' is_hermes_data(HermesData(summarized_experiment))
+#' is_hermes_data(hermes_data)
 #' is_hermes_data(42)
 is_hermes_data <- function(x) {
   is_class(x, "AnyHermesData")

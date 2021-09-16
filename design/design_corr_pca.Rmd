@@ -61,7 +61,7 @@ calc_pca <- function(object,
   )
 }
 
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 pca <- calc_pca(object)
 summary(pca)
 ```

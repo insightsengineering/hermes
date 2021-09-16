@@ -60,7 +60,7 @@ Let's first setup a `HermesData` object which includes annotations already,
 so we have something to compare against.
 
 ```{r}
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 ```
 
 Let's try it.

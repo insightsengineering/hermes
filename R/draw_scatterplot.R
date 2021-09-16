@@ -20,7 +20,8 @@
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
+
 #' g <- genes(object)
 #'
 #' draw_scatterplot(

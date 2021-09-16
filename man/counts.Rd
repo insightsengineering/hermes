@@ -35,7 +35,7 @@ These methods access and set the counts assay in a \code{\link{AnyHermesData}} o
 }}
 
 \examples{
-a <- HermesData(summarized_experiment)
+a <- hermes_data
 result <- counts(a)
 class(result)
 head(result)

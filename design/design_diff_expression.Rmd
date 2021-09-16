@@ -42,7 +42,7 @@ Later the user would proceed like this maybe:
 Example:
 
 ```{r}
-object <- HermesData(summarized_experiment) %>%
+object <- hermes_data %>%
   add_quality_flags() %>%
   filter() 
 ```

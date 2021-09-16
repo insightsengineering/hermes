@@ -10,7 +10,8 @@ df_cols_to_factor(data, omit_columns = NULL, na_level = "<Missing>")
 \item{data}{(\code{DataFrame})\cr input \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}}.}
 
 \item{omit_columns}{(\code{character} or \code{NULL})\cr which columns should be omitted from
-the conversion.}
+the conversion. Note that all required \code{rowData} and \code{colData} variables cannot be converted
+to ensure proper downstream behavior.}
 
 \item{na_level}{(\code{string})\cr missing level to be used.}
 }

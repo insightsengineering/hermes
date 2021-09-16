@@ -20,6 +20,6 @@ The \code{prefix} slot contents.
 Generic function to access the prefix from an object.
 }
 \examples{
-a <- HermesData(summarized_experiment)
+a <- hermes_data
 prefix(a)
 }

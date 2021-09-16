@@ -40,20 +40,16 @@ The additional criteria are:
 \item The first assay must be \code{counts} containing non-missing, integer, non-negative values.
 \item The following columns must be in \code{rowData}:
 \itemize{
-\item \code{HGNC}
-\item \code{HGNCGeneName}
-\item \code{Chromosome}
-\item \code{StartBP}
-\item \code{EndBP}
-\item \code{WidthBP}
-\item \code{CanonicalTranscript}
-\item \code{ProteinTranscript}
-\item \code{LowExpressionFlag}
+\item \code{symbol} (also often called \code{HGNC} or similar, example: \code{"INMT"})
+\item \code{desc} (the gene name, example: \code{"indolethylamine N-methyltransferase"})
+\item \code{chromosome} (the chromosome as string, example: \code{"7"})
+\item \code{size} (the size of the gene in base pairs, e.g \code{5468})
+\item \code{low_expression_flag} (can be populated with \code{\link[=add_quality_flags]{add_quality_flags()}})
 }
 \item The following columns must be in \code{colData}:
 \itemize{
-\item \code{LowDepthFlag}
-\item \code{TechnicalFailureFlag}
+\item \code{low_depth_flag} (can be populated with \code{\link[=add_quality_flags]{add_quality_flags()}})
+\item \code{tech_failure_flag} (can be populated with \code{\link[=add_quality_flags]{add_quality_flags()}})
 }
 \item The object must have unique row and column names. The row names are the gene names
 and the column names are the sample names.

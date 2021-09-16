@@ -42,14 +42,14 @@ test_that("control_quality fails as expected with invalid settings", {
 # add_quality_flags ----
 
 test_that("add_quality_flags function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   control <- control_quality()
   result <- expect_silent(add_quality_flags(object, control))
   expect_is(result, "HermesData")
 })
 
 test_that("add_quality_flags function works as expected with custom settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   control <- control_quality(min_cpm = 10, min_cpm_prop = 0.2, min_corr = 0.3, min_depth = 5)
   result <- expect_silent(add_quality_flags(object, control))
   expect_is(result, "HermesData")
@@ -70,7 +70,7 @@ test_that("add_quality_flags fails as expected with invalid settings", {
 # h_low_expression_flag ----
 
 test_that("h_low_expression_flag function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   control <- control_quality()
   result <- expect_silent(h_low_expression_flag(object, control))
   expect_is(result, "logical")
@@ -78,7 +78,7 @@ test_that("h_low_expression_flag function works as expected with default setting
 })
 
 test_that("h_low_expression_flag function works as expected with custom settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   control <- control_quality(min_cpm = 5, min_cpm_prop = 0.5, min_corr = .1, min_depth = 3)
   result <- expect_silent(h_low_expression_flag(object, control))
   expect_is(result, "logical")
@@ -100,7 +100,7 @@ test_that("h_low_expression_flag fails as expected with invalid settings", {
 # h_low_depth_flag ----
 
 test_that("h_low_depth_flag function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   control <- control_quality()
   result <- expect_silent(h_low_depth_flag(object, control))
   expect_is(result, "logical")
@@ -108,7 +108,7 @@ test_that("h_low_depth_flag function works as expected with default settings", {
 })
 
 test_that("h_low_depth_flag function works as expected with custom settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   control <- control_quality(min_cpm = 5, min_cpm_prop = 0.5, min_corr = .1, min_depth = 3)
   result <- expect_silent(h_low_depth_flag(object, control))
   expect_is(result, "logical")
@@ -130,14 +130,14 @@ test_that("h_low_depth_flag fails as expected with invalid settings", {
 # h_tech_failure_flag ----
 
 test_that("h_tech_failure_flag function works as expected with default settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   result <- expect_silent(h_tech_failure_flag(object))
   expect_is(result, "logical")
   expect_equal(length(result), ncol(object))
 })
 
 test_that("h_tech_failure_flag function works as expected with custom settings", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   control <- control_quality(min_corr = 0.35)
   result <- expect_silent(h_tech_failure_flag(object, control))
   expect_is(result, "logical")
@@ -207,7 +207,7 @@ test_that("get_low_expression fails as expected with invalid input", {
 # set_tech_failure ----
 
 test_that("set_tech_failure function works as expected", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   ids <- c("06520063C0043R", "06520105C0017R", "06520092C0017R", "06520103C0017R")
   expect_false(any(get_tech_failure(object)[ids]))
   result <- expect_silent(set_tech_failure(object, ids))

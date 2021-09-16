@@ -64,7 +64,7 @@ In the [entry function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5
 Our example:
 
 ```{r}
-object <- HermesData(summarized_experiment) %>%
+object <- hermes_data %>%
   add_quality_flags() %>%
   filter() %>%
   normalize()

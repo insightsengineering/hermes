@@ -21,7 +21,7 @@
 #' \insertRef{voom_method}{hermes}
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #'
 #' # Create the design matrix corresponding to the factor of interest.
 #' design <- model.matrix(~SEX, colData(object))
@@ -80,7 +80,7 @@ h_diff_expr_voom <- function(object, design, ...) {
 #' \insertRef{DESeq2_package}{hermes}
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #'
 #' # Create the design matrix corresponding to the factor of interest.
 #' design <- model.matrix(~SEX, colData(object))
@@ -163,7 +163,7 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment) %>%
+#' object <- hermes_data %>%
 #'   add_quality_flags() %>%
 #'   filter()
 #'

@@ -41,7 +41,7 @@ The \code{ggplot} scatterplot.
 This produces a scatterplot of two genes or gene signatures.
 }
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 g <- genes(object)
 
 draw_scatterplot(

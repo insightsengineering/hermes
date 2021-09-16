@@ -22,11 +22,11 @@ This helper function determines for each gene in the object whether all required
 annotation columns are filled.
 }
 \examples{
-object <- HermesData(summarized_experiment)
-result <- h_has_req_annotations(object, "WidthBP")
+object <- hermes_data
+result <- h_has_req_annotations(object, "size")
 all(result)
-rowData(object)$WidthBP[1] <- NA # nolint
-which(!h_has_req_annotations(object, "WidthBP"))
+rowData(object)$size[1] <- NA # nolint
+which(!h_has_req_annotations(object, "size"))
 }
 \seealso{
 \code{\link[=filter]{filter()}} where this is used internally.

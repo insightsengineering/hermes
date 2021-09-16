@@ -8,7 +8,7 @@ NULL
 #' The `correlate()` method can calculate the correlation matrix between the sample vectors of
 #' counts from a specified assay. This produces a [`HermesDataCor`] object, which is an extension
 #' of a [`matrix`] with additional quality flags in the slot `flag_data`
-#' (containing the `TechnicalFailureFlag` and `LowDepthFlag` columns describing the original
+#' (containing the `tech_failure_flag` and `low_depth_flag` columns describing the original
 #' input samples).
 #'
 #' An `autoplot()` method then afterwards can produce the corresponding heatmap.
@@ -25,7 +25,7 @@ NULL
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #'
 #' # Calculate the sample correlation matrix.
 #' correlate(object)
@@ -45,7 +45,7 @@ setMethod(
 
     .HermesDataCor(
       sample_cor_matrix,
-      flag_data = colData(object)[, c("TechnicalFailureFlag", "LowDepthFlag")]
+      flag_data = colData(object)[, c("tech_failure_flag", "low_depth_flag")]
     )
   }
 )
@@ -94,12 +94,12 @@ setMethod(
                         ...) {
     df <- object@flag_data
     left_annotation <- ComplexHeatmap::rowAnnotation(
-      LowDepthFlag = factor(df$LowDepthFlag),
-      col = list(LowDepthFlag = flag_colors)
+      low_depth_flag = factor(df$low_depth_flag),
+      col = list(low_depth_flag = flag_colors)
     )
     top_annotation <- ComplexHeatmap::HeatmapAnnotation(
-      TechnicalFailureFlag = factor(df$TechnicalFailureFlag),
-      col = list(TechnicalFailureFlag = flag_colors)
+      tech_failure_flag = factor(df$tech_failure_flag),
+      col = list(tech_failure_flag = flag_colors)
     )
     mat <- as(object, "matrix")
     ComplexHeatmap::Heatmap(

@@ -46,7 +46,9 @@ test_that("df_cols_to_factor works as expected with default settings", {
     b = array(1:4, c(2, 1, 2)),
     c = c(TRUE, FALSE),
     d = factor(c("X", NA)),
-    e = c("U", NA)
+    e = c("U", NA),
+    chromosome = c("a", "b"),
+    low_depth_flag = c(TRUE, FALSE)
   )
   result <- df_cols_to_factor(dat)
   expected <- S4Vectors::DataFrame(
@@ -54,7 +56,9 @@ test_that("df_cols_to_factor works as expected with default settings", {
     b = array(1:4, c(2, 1, 2)),
     c = factor(c(TRUE, FALSE)),
     d = factor(c("X", NA)),
-    e = factor(c("U", "<Missing>"), levels = c("U", "<Missing>"))
+    e = factor(c("U", "<Missing>"), levels = c("U", "<Missing>")),
+    chromosome = c("a", "b"),
+    low_depth_flag = c(TRUE, FALSE)
   )
   expect_identical(result, expected)
 })
@@ -65,7 +69,9 @@ test_that("df_cols_to_factor works as expected with custom settings", {
     b = array(1:4, c(2, 1, 2)),
     c = c(TRUE, NA),
     d = factor(c("X", NA)),
-    e = c("U", NA)
+    e = c("U", NA),
+    chromosome = c("a", "b"),
+    low_depth_flag = c(TRUE, FALSE)
   )
   result <- df_cols_to_factor(dat, omit_columns = c("a", "b"), na_level = "Misses")
   expected <- S4Vectors::DataFrame(
@@ -73,7 +79,9 @@ test_that("df_cols_to_factor works as expected with custom settings", {
     b = array(1:4, c(2, 1, 2)),
     c = factor(c(TRUE, "Misses"), levels = c("TRUE", "Misses")),
     d = factor(c("X", NA)),
-    e = factor(c("U", "Misses"), levels = c("U", "Misses"))
+    e = factor(c("U", "Misses"), levels = c("U", "Misses")),
+    chromosome = c("a", "b"),
+    low_depth_flag = c(TRUE, FALSE)
   )
   expect_identical(result, expected)
 })

@@ -26,14 +26,14 @@ Note that this just inherits
 \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::subset,SummarizedExperiment-method()}}.
 }
 \examples{
-a <- HermesData(summarized_experiment)
+a <- hermes_data
 a
 
 # Subset both genes and samples.
-subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
+subset(a, subset = low_expression_flag, select = DISCSTUD == "N")
 
 # Subset only genes.
-subset(a, subset = Chromosome == "2")
+subset(a, subset = chromosome == "2")
 
 # Subset only samples.
 subset(a, select = AGE > 18)

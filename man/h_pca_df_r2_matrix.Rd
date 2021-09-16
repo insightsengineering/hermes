@@ -32,7 +32,7 @@ columns with too many levels are also dropped before the analysis.
 }
 }
 \examples{
-object <- HermesData(summarized_experiment) \%>\%
+object <- hermes_data \%>\%
   add_quality_flags() \%>\%
   filter() \%>\%
   normalize()

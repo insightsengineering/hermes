@@ -1,7 +1,7 @@
 # top_genes ----
 
 test_that("top_genes function works as expected for HermesData with default counts assay", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   result <- expect_silent(top_genes(object))
   expect_s4_class(result, "HermesDataTopGenes")
   expect_named(result, c("expression", "name"))
@@ -10,7 +10,7 @@ test_that("top_genes function works as expected for HermesData with default coun
 })
 
 test_that("top_genes function works as expected for HermesData with another assay", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- hermes_data
   object_norm <- expect_silent(normalize(object))
   result <- expect_silent(top_genes(object_norm, assay_name = "cpm"))
   expect_s4_class(result, "HermesDataTopGenes")
@@ -26,20 +26,20 @@ test_that("top_genes function works as expected for RangedHermesData", {
 })
 
 test_that("top_genes function fails as expected with wrong assay choice", {
-  object <- expect_silent(normalize(HermesData(summarized_experiment)))
+  object <- expect_silent(normalize(hermes_data))
   expect_error(top_genes(object, assay_name = 1))
   expect_error(top_genes(object, assay_name = c("counts", "cpm")))
 })
 
 test_that("top_genes function fails as expected with wrong summary function", {
-  object <- expect_silent(normalize(HermesData(summarized_experiment)))
+  object <- expect_silent(normalize(hermes_data))
   expect_error(top_genes(object, summary_fun = "rowMeans"))
   expect_error(top_genes(object, summary_fun = sum))
   expect_error(top_genes(object, summary_fun = colMeans))
 })
 
 test_that("top_genes function fails as expected with when selection criteria are incorrect", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- expect_silent(hermes_data)
   expect_error(top_genes(object, n_top = 10L, min_threshold = 10))
   expect_error(top_genes(object, n_top = NULL, min_threshold = NULL))
   expect_error(top_genes(object, n_top = 0))
@@ -49,7 +49,7 @@ test_that("top_genes function fails as expected with when selection criteria are
 })
 
 test_that("top_genes function works as expected with correct selection criteria", {
-  object <- expect_silent(HermesData(summarized_experiment))
+  object <- expect_silent(hermes_data)
 
   result1 <- expect_silent(top_genes(object, n_top = 5L))
   expect_identical(nrow(result1), 5L)
@@ -60,7 +60,7 @@ test_that("top_genes function works as expected with correct selection criteria"
 })
 
 test_that("top genes gives the names of the genes in the correct order", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   result <- expect_silent(top_genes(object, n_top = 5L))
   orig_names <- rownames(object)[1:5]
   ordered_names <- as.character(result$name)

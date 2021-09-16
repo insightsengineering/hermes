@@ -17,7 +17,7 @@ test_that("assertion with is_class gives readable error message", {
 
 test_that("is_hermes_data works correctly", {
   expect_false(is_hermes_data("bla"))
-  expect_true(is_hermes_data(HermesData(summarized_experiment)))
+  expect_true(is_hermes_data(hermes_data))
 })
 
 test_that("assertion with is_hermes_data gives readable error message", {

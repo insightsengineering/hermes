@@ -42,7 +42,7 @@ This produces a boxplot of the gene expression values of a gene for a
 sample variable.
 }
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 draw_boxplot(
   object,
   assay_name = "counts",

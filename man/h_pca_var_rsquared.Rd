@@ -25,7 +25,7 @@ Note that in case there are estimation problems for any of the PCs, then \code{N
 be returned for those.
 }
 \examples{
-object <- HermesData(summarized_experiment) \%>\%
+object <- hermes_data \%>\%
   add_quality_flags() \%>\%
   filter() \%>\%
   normalize()
@@ -34,7 +34,7 @@ object <- HermesData(summarized_experiment) \%>\%
 pca <- calc_pca(object)$x
 
 # Obtain the sample variable.
-x <- colData(object)$LowDepthFlag
+x <- colData(object)$AGE18
 
 # Correlate them.
 r2 <- h_pca_var_rsquared(pca, x)

@@ -1,6 +1,6 @@
 # plot_all ----
 test_that("autoplot function works as expected on HermesData", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   result <- autoplot(object)
   expect_is(result, "list")
   expect_named(result, c("libsize_hist", "libsize_qq", "libsize_densities", "nonzero_boxplot", "genes_barplot"))

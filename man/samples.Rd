@@ -20,7 +20,7 @@ Access the sample IDs, i.e. col names, of a \code{\link{AnyHermesData}} object w
 nicely named accessor method.
 }
 \examples{
-a <- HermesData(summarized_experiment)
+a <- hermes_data
 samples(a)
 }
 \seealso{
