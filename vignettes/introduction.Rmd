@@ -384,12 +384,12 @@ In addition to the above QC analyses, simple differential expression analysis is
 In addition to the filtered object (normalization of counts is not required) the variable name of the factor to contrast the samples needs to be provided to `diff_expression()`.
 
 ```{r}
-colData(object) <- df_char_to_factor(colData(object))
+colData(object) <- df_cols_to_factor(colData(object))
 diff_res <- diff_expression(object, group = "SEX", method = "voom")
 head(diff_res)
 ```
 
-Note that we use here the utility function `df_char_to_factor()` which converts by default all character variables to factor variables. This is one possible way here to ensure that the utilized group variable is a factor.
+Note that we use here the utility function `df_cols_to_factor()` which converts by default all character and logical variables to factor variables. This is one possible way here to ensure that the utilized group variable is a factor.
 
 Afterwards a standard volcano plot can be produced.
 

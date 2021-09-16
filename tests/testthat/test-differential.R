@@ -81,7 +81,7 @@ test_that("h_diff_expr_deseq2 fails if design matrix is not correct", {
 test_that("diff_expression works as expected with the DESeq2 method", {
   test.nest::skip_if_too_deep(3)
   object <- hermes_data
-  colData(object) <- df_char_to_factor(colData(object))
+  colData(object) <- df_cols_to_factor(colData(object))
   result <- expect_silent(diff_expression(object, group = "SEX", method = "deseq2"))
   expect_s4_class(result, "HermesDataDiffExpr")
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
@@ -91,7 +91,7 @@ test_that("diff_expression works as expected with the DESeq2 method", {
 
 test_that("diff_expression works as expected with the voom method", {
   object <- hermes_data
-  colData(object) <- df_char_to_factor(colData(object))
+  colData(object) <- df_cols_to_factor(colData(object))
   result <- expect_silent(diff_expression(object, group = "SEX", method = "voom"))
   expect_s4_class(result, "HermesDataDiffExpr")
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
@@ -102,7 +102,7 @@ test_that("diff_expression works as expected with the voom method", {
 test_that("diff_expression allows passing of method arguments to helper functions", {
   test.nest::skip_if_too_deep(3)
   object <- hermes_data
-  colData(object) <- df_char_to_factor(colData(object))
+  colData(object) <- df_cols_to_factor(colData(object))
   expect_silent(diff_expression(object, group = "SEX", method = "voom", robust = TRUE))
   expect_silent(diff_expression(object, group = "SEX", method = "deseq2", fitType = "local"))
 })

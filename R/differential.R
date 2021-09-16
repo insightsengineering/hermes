@@ -153,9 +153,9 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
 #'   - `adj_p_val` (the multiplicity adjusted p-value value)
 #'
 #' @note
-#'   - We provide the [df_char_to_factor()] utility function that makes it easy to convert the
-#'     `colData()` character variables to factors, so that they can be subsequently used as `group`
-#'     inputs. See the example.
+#'   - We provide the [df_cols_to_factor()] utility function that makes it easy to convert the
+#'     `colData()` character and logical variables to factors, so that they can be subsequently
+#'     used as `group` inputs. See the example.
 #'   - In order to avoid a warning when using `deseq2`, it can be necessary to specify
 #'     `fitType = "local"` as additional argument. This could e.g. be the case when only few samples
 #'     are present in which case the default parametric dispersions estimation will not work.
@@ -167,8 +167,9 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
 #'   add_quality_flags() %>%
 #'   filter()
 #'
-#' # Convert character to factor variables in `colData`, including the below used `group` variable.
-#' colData(object) <- df_char_to_factor(colData(object))
+#' # Convert character and logical to factor variables in `colData`,
+#' # including the below used `group` variable.
+#' colData(object) <- df_cols_to_factor(colData(object))
 #' res1 <- diff_expression(object, group = "SEX", method = "voom")
 #' head(res1)
 #' res2 <- diff_expression(object, group = "SEX", method = "deseq2")

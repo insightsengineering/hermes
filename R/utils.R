@@ -16,6 +16,50 @@ NULL
 
 #' Conversion of Character to Factor Variables in a `DataFrame`
 #'
+#' @description `r lifecycle::badge("deprecated")`
+#'
+#' This utility function converts all character variables in a [`S4Vectors::DataFrame`]
+#' to factor variables with explicit missing level.
+#'
+#' @details This is using [tern::df_explicit_na()] which only works for classic [`data.frame`]
+#' objects. We avoid a conversion of the whole `data` to [`data.frame`] since that could be
+#' problematic when not supported classes are used in other non-character columns.
+#'
+#' @param data (`DataFrame`)\cr input [`S4Vectors::DataFrame`].
+#' @param omit_columns (`character` or `NULL`)\cr which columns should be omitted from
+#'   the conversion.
+#' @param na_level (`string`)\cr missing level to be used.
+#'
+#' @return The modified data.
+#'
+#' @export
+#'
+#' @examples
+#' dat <- colData(summarized_experiment)
+#' any(sapply(dat, is.character))
+#' dat_converted <- suppressWarnings(df_char_to_factor(dat))
+#' any(sapply(dat_converted, is.character))
+df_char_to_factor <- function(data,
+                              omit_columns = NULL,
+                              na_level = "<Missing>") {
+  lifecycle::deprecate_warn("0.1.0.9000", "df_char_to_factor()", "df_cols_to_factor()")
+
+  assert_that(is(data, "DataFrame"))
+  col_is_char <- sapply(data, is.character)
+  if (!any(col_is_char)) {
+    return(data)
+  }
+  data[, col_is_char] <- tern::df_explicit_na(
+    as.data.frame(data[, col_is_char]),  # It is safe to convert the character columns only here.
+    omit_columns = omit_columns,
+    char_as_factor = TRUE,
+    na_level = na_level
+  )
+  data
+}
+
+#' Conversion of Character to Factor Variables in a `DataFrame`
+#'
 #' @description `r lifecycle::badge("experimental")`
 #'
 #' This utility function converts all character variables in a [`S4Vectors::DataFrame`]
@@ -37,20 +81,23 @@ NULL
 #' @examples
 #' dat <- colData(summarized_experiment)
 #' any(sapply(dat, is.character))
-#' dat_converted <- df_char_to_factor(dat)
-#' any(sapply(dat_converted, is.character))
-df_char_to_factor <- function(data,
+#' any(sapply(dat, is.logical))
+#' dat_converted <- df_cols_to_factor(dat)
+#' any(sapply(dat_converted, function(x) is.character(x) || is.logical(x)))
+df_cols_to_factor <- function(data,
                               omit_columns = NULL,
                               na_level = "<Missing>") {
   assert_that(is(data, "DataFrame"))
-  col_is_char <- sapply(data, is.character)
-  if (!any(col_is_char)) {
+  col_is_char_or_logical <- sapply(data, function(x) is.character(x) || is.logical(x))
+  if (!any(col_is_char_or_logical)) {
     return(data)
   }
-  data[, col_is_char] <- tern::df_explicit_na(
-    as.data.frame(data[, col_is_char]),  # It is safe to convert the character columns only here.
+  data[, col_is_char_or_logical] <- tern::df_explicit_na(
+    # It is safe to convert the character or logical columns only here.
+    as.data.frame(data[, col_is_char_or_logical]),
     omit_columns = omit_columns,
     char_as_factor = TRUE,
+    logical_as_factor = TRUE,
     na_level = na_level
   )
   data
