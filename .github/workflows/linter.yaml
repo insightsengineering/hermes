@@ -21,7 +21,7 @@ jobs:
         uses: github/super-linter@v4
         env:
           DEFAULT_BRANCH: main
-          FILTER_REGEX_EXCLUDE: NEWS.md design_.*.Rmd
+          FILTER_REGEX_EXCLUDE: NEST.md|design/.*
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_BASH: true
