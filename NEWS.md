@@ -6,6 +6,7 @@
 * The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
 * `calc_pca` now includes a top number of gene filtering option `n_top`, which allows filtering genes with greatest variability across samples. 
 * Generation of gene signatures with the functions `colPrinComp1` and `colMeanZscores` using the PC1 and the Z-score respectively.
+* `df_chars_to_factor` has been deprecated (and can still be used with a warning) and replaced with `df_cols_to_factor`, which also converts logical variables to factor variables.
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.
