@@ -14,7 +14,7 @@
 #'   input sample variables.
 #' @param facet_var (`string` or `NULL`)\cr optional faceting variable, taken
 #'   from input sample variables.
-#' @param violin (`logical`)\cr whether to draw a boxplot or a violin plot.
+#' @param violin (`flag`)\cr whether to draw a violin plot instead of a boxplot.
 #' @param jitter (`flag`)\cr whether to add jittered original data points or not.
 #'
 #' @return The `ggplot` boxplot.
