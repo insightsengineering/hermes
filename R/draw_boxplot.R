@@ -117,28 +117,26 @@ draw_boxplot <- function(object,
   }
   p <- ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill))
 
-  if (isFALSE(violin)) {
+  if (!violin) {
 
     p <- p +
       geom_boxplot(outlier.shape = ifelse(jitter, NA, 19)) +
-      stat_boxplot(geom = "errorbar") +
-      geom_point(
-        mapping = point_aes,
-        position = position_jitterdodge(jitter.width = jitter_width),
-      )
+      stat_boxplot(geom = "errorbar")
 
-  } else if (isTRUE(violin)) {
+  } else {
 
     p <- p +
-      geom_violin(draw_quantiles = c(0.75, 0.5, 0.25)) +
-      geom_point(
-        mapping = point_aes,
-        position = position_jitterdodge(jitter.width = jitter_width),
-      )
+      geom_violin(draw_quantiles = c(0.75, 0.5, 0.25))
 
   }
 
-  p <- p + labs(x = x_var, y = assay_name, fill = "Gene")
+  p <- p +
+    geom_point(
+      mapping = point_aes,
+      position = position_jitterdodge(jitter.width = jitter_width)
+    ) +
+    labs(x = x_var, y = assay_name, fill = "Gene")
+
   if (is.null(x_var)) {
     p <- p +
       scale_x_discrete(breaks = NULL)

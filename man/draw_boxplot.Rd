@@ -31,7 +31,7 @@ input sample variables.}
 \item{facet_var}{(\code{string} or \code{NULL})\cr optional faceting variable, taken
 from input sample variables.}
 
-\item{violin}{(\code{logical})\cr whether to draw a boxplot or a violin plot.}
+\item{violin}{(\code{flag})\cr whether to draw a violin plot instead of a boxplot.}
 
 \item{jitter}{(\code{flag})\cr whether to add jittered original data points or not.}
 }
