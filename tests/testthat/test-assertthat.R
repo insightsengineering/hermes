@@ -84,3 +84,38 @@ test_that("is_list_with gives readable error messages", {
     "a is not a fully and uniquely named list containing all elements a, e"
   )
 })
+
+# one_provided ----
+
+test_that("one_provided works as expected", {
+  expect_false(one_provided(5, 5))
+  expect_false(one_provided(NULL, NULL))
+  expect_true(one_provided(5, NULL))
+  expect_true(one_provided(NULL, 3))
+})
+
+# is_constant ----
+
+test_that("is_constant works as expected with numeric", {
+  expect_true(is_constant(c(5, 5)))
+  expect_false(is_constant(c(2, 5)))
+  expect_true(is_constant(c(NA, 5)))
+})
+
+test_that("is_constant works as expected with character", {
+  expect_true(is_constant(c("A", "A")))
+  expect_false(is_constant(c("A", "B")))
+  expect_true(is_constant(c(NA, "B")))
+})
+
+test_that("is_constant works as expected with factor", {
+  expect_true(is_constant(factor(c("A", "A"))))
+  expect_false(is_constant(factor(c("A", "B"))))
+  expect_true(is_constant(factor(c(NA, "B"))))
+})
+
+test_that("is_constant works as expected with logical", {
+  expect_true(is_constant(c(TRUE, TRUE)))
+  expect_false(is_constant(c(TRUE, FALSE)))
+  expect_true(is_constant(c(NA, FALSE)))
+})

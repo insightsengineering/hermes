@@ -133,8 +133,9 @@ on_failure(one_provided) <- function(call, env) {
 #' is_constant(c(1, 2))
 #' is_constant(c(NA, 1))
 #' is_constant(c("a", "a"))
+#' is_constant(factor(c("a", "a")))
 is_constant <- function(x) {
-  assert_that(is.vector(x))
+  assert_that(is.atomic(x))
   x <- x[!is.na(x)]
   if (is.numeric(x)) {
     S4Vectors::isConstant(x)
