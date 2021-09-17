@@ -81,7 +81,7 @@ draw_boxplot <- function(object,
   assert_string(x_var, null.ok = TRUE)
   assert_string(color_var, null.ok = TRUE)
   assert_string(facet_var, null.ok = TRUE)
-  assert_logical(violin)
+  assert_flag(violin)
   assert_flag(jitter)
 
   assay_matrix <- assay(object, assay_name)
