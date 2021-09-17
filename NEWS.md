@@ -12,6 +12,7 @@
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.
+* `correlate()` now also works when there are factor variables in the sample variables of the `HermesData` object.
 
 ### Miscellaneous
 * Added `error_on_lint: TRUE` to `.lintr`.
