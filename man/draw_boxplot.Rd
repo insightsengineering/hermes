@@ -11,6 +11,7 @@ draw_boxplot(
   x_var = NULL,
   color_var = NULL,
   facet_var = NULL,
+  violin = FALSE,
   jitter = FALSE
 )
 }
@@ -29,6 +30,8 @@ input sample variables.}
 
 \item{facet_var}{(\code{string} or \code{NULL})\cr optional faceting variable, taken
 from input sample variables.}
+
+\item{violin}{(\code{logical})\cr whether to draw a boxplot or a violin plot.}
 
 \item{jitter}{(\code{flag})\cr whether to add jittered original data points or not.}
 }
@@ -69,6 +72,15 @@ draw_boxplot(
   x_var = "SEX",
   genes = genes(object)[2],
   jitter = TRUE
+)
+
+draw_boxplot(
+  object,
+  assay_name = "counts",
+  x_var = "SEX",
+  genes = genes(object)[2],
+  jitter = TRUE,
+  violin = TRUE
 )
 
 draw_boxplot(

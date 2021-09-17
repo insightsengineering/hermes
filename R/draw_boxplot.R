@@ -14,6 +14,7 @@
 #'   input sample variables.
 #' @param facet_var (`string` or `NULL`)\cr optional faceting variable, taken
 #'   from input sample variables.
+#' @param violin (`logical`)\cr whether to draw a boxplot or a violin plot.
 #' @param jitter (`flag`)\cr whether to add jittered original data points or not.
 #'
 #' @return The `ggplot` boxplot.
@@ -54,6 +55,15 @@
 #'   object,
 #'   assay_name = "counts",
 #'   x_var = "SEX",
+#'   genes = genes(object)[2],
+#'   jitter = TRUE,
+#'   violin = TRUE
+#' )
+#'
+#' draw_boxplot(
+#'   object,
+#'   assay_name = "counts",
+#'   x_var = "SEX",
 #'   genes = genes(object)[1:2],
 #'   facet_var = "RACE"
 #' )
@@ -63,6 +73,7 @@ draw_boxplot <- function(object,
                          x_var = NULL,
                          color_var = NULL,
                          facet_var = NULL,
+                         violin = FALSE,
                          jitter = FALSE) {
   assert_class(object, "AnyHermesData")
   assert_string(assay_name)
@@ -70,6 +81,7 @@ draw_boxplot <- function(object,
   assert_string(x_var, null.ok = TRUE)
   assert_string(color_var, null.ok = TRUE)
   assert_string(facet_var, null.ok = TRUE)
+  assert_logical(violin)
   assert_flag(jitter)
 
   assay_matrix <- assay(object, assay_name)
@@ -103,14 +115,30 @@ draw_boxplot <- function(object,
   } else {
     aes(group = .data$fill)
   }
-  p <- ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill)) +
-    geom_boxplot(outlier.shape = ifelse(jitter, NA, 19)) +
-    stat_boxplot(geom = "errorbar") +
-    geom_point(
-      mapping = point_aes,
-      position = position_jitterdodge(jitter.width = jitter_width),
-    ) +
-    labs(x = x_var, y = assay_name, fill = "Gene")
+  p <- ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill))
+
+  if (isFALSE(violin)) {
+
+    p <- p +
+      geom_boxplot(outlier.shape = ifelse(jitter, NA, 19)) +
+      stat_boxplot(geom = "errorbar") +
+      geom_point(
+        mapping = point_aes,
+        position = position_jitterdodge(jitter.width = jitter_width),
+      )
+
+  } else if (isTRUE(violin)) {
+
+    p <- p +
+      geom_violin(draw_quantiles = c(0.75, 0.5, 0.25)) +
+      geom_point(
+        mapping = point_aes,
+        position = position_jitterdodge(jitter.width = jitter_width),
+      )
+
+  }
+
+  p <- p + labs(x = x_var, y = assay_name, fill = "Gene")
   if (is.null(x_var)) {
     p <- p +
       scale_x_discrete(breaks = NULL)
