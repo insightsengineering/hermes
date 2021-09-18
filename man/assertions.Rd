@@ -83,4 +83,5 @@ one_provided(a, NULL)
 is_constant(c(1, 2))
 is_constant(c(NA, 1))
 is_constant(c("a", "a"))
+is_constant(factor(c("a", "a")))
 }
