@@ -11,6 +11,8 @@ vignette: >
 
 ## The `HermesData`
 
+The `HermesData` constructor shall borrow ideas from the legacy `se2gSE` and `gSummarizedExperiment` functions. To be specific,
+
 * The `gSummarizedExperiment()` takes `assays`, `rowData`, `colData` and `metadata` as input, while `HermesData()` should directly take `SummarizedExperiment` object as input, similar like `se2gSE()`.
 
 * The first assay must be `counts` containing non-missing, integer, non-negative values.
