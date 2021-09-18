@@ -11,8 +11,6 @@ vignette: >
 
 ## The `HermesData`
 
-The `HermesData` constructor shall borrow ideas from the legacy [se2gSE](https://github.roche.com/Rpackages/rnaseqTools/blob/dae3c425cf5bf0d45848323f722b558ce3bbf851/R/gSE_Build.R#L39)  and [gSummarizedExperiment](https://github.roche.com/Rpackages/rnaseqTools/blob/dae3c425cf5bf0d45848323f722b558ce3bbf851/R/gSE-class.R#L175) functions. To be specific,
-
 * The `gSummarizedExperiment()` takes `assays`, `rowData`, `colData` and `metadata` as input, while `HermesData()` should directly take `SummarizedExperiment` object as input, similar like `se2gSE()`.
 
 * The first assay must be `counts` containing non-missing, integer, non-negative values.
