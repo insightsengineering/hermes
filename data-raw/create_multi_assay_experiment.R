@@ -54,22 +54,27 @@ hd3map <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Create an example phenotype data.
-col_dat <- data.frame(
-  sex = sample(c("M", "F"), size = 18, replace = TRUE),
-  age = seq(from = 35, length = 18),
-  row.names = pat_names[1:18]
-)
+# Migrating subject level phenotype variables from experiment level to subject level
+col_dat <- rbind(as.data.frame(colData(hd1)), as.data.frame(colData(hd2)), as.data.frame(colData(hd3)))[-c(16, 20), ]
+drop_vars <- c("low_depth_flag", "SampleID", "tech_failure_flag")
+col_dat <- col_dat[, !names(col_dat) %in% drop_vars]
+rownames(col_dat) = pat_names[1:18]
 
-# Remove SEX and AGE variables from experiment colData.
+col_dat <- col_dat %>%
+  dplyr::mutate(
+    USUBJID = rownames(col_dat),
+    SUBJID = rownames(col_dat)
+  )
+
+# Remove phenotype variables now at subject level from experiment colData.
 cd1 <- colData(hd1)
-colData(hd1) <- cd1[, - match(c("SEX", "AGE"), names(cd1))]
+colData(hd1) <- cd1[, - match(names(col_dat), names(cd1))]
 
 cd2 <- colData(hd2)
-colData(hd2) <- cd2[, - match(c("SEX", "AGE"), names(cd2))]
+colData(hd2) <- cd2[, - match(names(col_dat), names(cd2))]
 
 cd3 <- colData(hd3)
-colData(hd3) <- cd3[, - match(c("SEX", "AGE"), names(cd3))]
+colData(hd3) <- cd3[, - match(names(col_dat), names(cd3))]
 
 # Add normalized assays to the second `HermesData` object.
 hd2 <- hd2 %>%
