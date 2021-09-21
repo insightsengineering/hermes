@@ -1,0 +1,38 @@
+---
+title: "Design: mapping arguments for HermesData constructor"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+This vignette explores the introduction of mapping arguments to the `HermesData` constructor.
+
+## Current state
+
+The `HermesData` constructor currently just takes a `SummarizedExperiment` object and no
+other arguments. First it checks for missing required columns in the `rowData` and `colData`
+and fills in missing ones with `NA`s. Second it derives and checks the gene ID prefix, and then 
+hands over to the internal default constructors which don't do anything besides validating the
+object. The validation includes checks for the counts assay (e.g. it needs to be called `counts`),
+the required columns and the names and gene ID prefix.
+
+## Motivation
+
+Often the user will have a `SummarizedExperiment` object with counts data, but there can be 
+different names used:
+
+- The assay with the raw counts might not be called `counts` but e.g. `count`.
+- The required columns might have different names, e.g. `SYMBOL` instead of `symbol`, 
+  `LowDepthFlag` instead of `low_depth_flag` etc.
+  
+Now the user could manually map the names to be aligned with what the constructor needs or to 
+avoid duplication of columns internally (e.g. filling a `symbol` column with `NA`s just because
+the `SYMBOL` column cannot be used). But that would be tedious. Therefore we want to make it easier
+for the user to have this mapping been done as part of the constructor work.
+
+## 
