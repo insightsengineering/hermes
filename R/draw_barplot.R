@@ -43,7 +43,7 @@
 #' draw_barplot(
 #'   object,
 #'   assay_name = "counts",
-#'   x_spec = gene_spec(g[1:3], colMeans, "Median"),
+#'   x_spec = gene_spec(g[1:3], colMeans, "Mean"),
 #'   facet_var = "SEX",
 #'   fill_var = "AGE18",
 #'   percentiles = c(0.1, 0.9)
