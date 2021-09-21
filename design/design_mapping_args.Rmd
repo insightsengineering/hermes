@@ -35,4 +35,122 @@ avoid duplication of columns internally (e.g. filling a `symbol` column with `NA
 the `SYMBOL` column cannot be used). But that would be tedious. Therefore we want to make it easier
 for the user to have this mapping been done as part of the constructor work.
 
-## 
+## Arguments ideas
+
+### One list argument
+
+So the interface could look like this:
+
+```
+HermesData(object, map_names = list(
+  row_data = c(symbol = "HGNC"), 
+  col_data = c(low_depth_flag = "LowDepthFlag"),
+  assay = c(counts = "count")
+))
+```
+
+This would be one `map_names` argument taking a list of three character vectors
+`row_data`, `col_data` and `assay`, where the left-hand (name) side is the target
+and the right-hand (value) side is the source.
+
+If one of these vectors is `NULL` that is not specified in the list then nothing
+will be renamed there.
+
+We would not need to be strict about which targets are used, it would not need
+to only be required names in `HermesData` objects but also renaming to other targets would 
+be ok.
+
+### Three separate arguments
+
+We could also work with three separate arguments:
+
+```
+HermesData(object, 
+  row_data_map = c(symbol = "HGNC"), 
+  col_data_map = c(low_depth_flag = "LowDepthFlag"),
+  assay_map = c(counts = "count")
+)
+```
+
+But that looks a bit too clunky.
+
+### Implementation details
+
+In the constructor, we would do the renaming as the first action, before checking
+for required columns. Something like this:
+
+```{r}
+HermesData2 <- function(object, map_names = list()) {
+  assert_that(
+    is_class(object, "SummarizedExperiment"),
+    not_empty(assays(object))
+  )
+  
+  # Rename in separate function.
+  object <- rename(object, map_names = map_names)
+  
+  # Other actions here.
+  
+  # Then return.
+  .HermesData(object)
+}
+```
+
+Actually, looking at it like this - we just want a specific `rename` method:
+
+```{r}
+h_map_pos <- function(names, map) {
+  assert_character(map, min.chars = 1L, any.missing = FALSE, unique = TRUE, names = "unique")
+  assert_subset(map, names)
+  match(map, names)
+}
+
+setMethod(
+  "rename", 
+  signature = "SummarizedExperiment", 
+  definition = function(x, map_names) {
+    assert_list(map_names, types = "character")
+    assert_subset(names(map_names), c("row_data", "col_data", "assay"))
+    
+    if (!is.null(row_map <- map_names$row_data)) {
+      row_data <- rowData(x)
+      col_names <- names(row_data)
+      col_pos <- h_map_pos(names = col_names, map = row_map)
+      names(rowData(x))[col_pos] <- names(row_map)
+    }
+    if (!is.null(col_map <- map_names$col_data)) {
+      col_data <- colData(x)
+      col_names <- names(col_data)
+      col_pos <- h_map_pos(names = col_names, map = col_map)
+      names(colData(x))[col_pos] <- names(col_map)
+    }
+    if (!is.null(assay_map <- map_names$assay)) {
+      assay_names <- assayNames(x)
+      assay_pos <- h_map_pos(names = assay_names, map = assay_map)
+      assayNames(x)[assay_pos] <- names(assay_map)
+    }
+    x
+  }
+)
+```
+
+Let's try this out:
+
+```{r}
+object <- summarized_experiment
+assayNames(object) <- "count"
+
+object2 <- rename(object, map_names = list(
+  row_data = c(symbol = "HGNC"), 
+  col_data = c(low_depth_flag = "LowDepthFlag"),
+  assay = c(counts = "count")
+))
+
+names(rowData(object2))
+names(colData(object2))
+assayNames(object2)
+```
+
+This is nice. The user can use this in the pipeline from the original input to the final
+`HermesData` object in a very transparent manner. So we will not make this a constructor argument
+but a separate rename method instead.
