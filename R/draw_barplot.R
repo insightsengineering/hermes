@@ -71,10 +71,9 @@ draw_barplot <- function(object,
   )
 
   assay_matrix <- assay(object, assay_name)
+  x_cont <- x_spec$extract(assay_matrix)
 
   col_data <- colData(object)
-
-  x_cont <- x_spec$extract(assay_matrix)
 
   percentiles_without_borders <- setdiff(percentiles, c(0, 1))
   df <- data.frame(
