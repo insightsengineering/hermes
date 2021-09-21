@@ -7,7 +7,7 @@
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param assay_name (`string`)\cr selects assay from input.
-#' @param x_spec (`GeneSpec`)\cr gene specification fot the x-axis.
+#' @param x_spec (`GeneSpec`)\cr gene specification for the x-axis.
 #' @param facet_var (`string` or `NULL`)\cr optional faceting variable, taken
 #'   from input sample variables.
 #' @param fill_var (`string` or `NULL`)\cr optional fill variable, taken
@@ -46,7 +46,7 @@
 #'   x_spec = gene_spec(g[1:3], colMeans, "Median"),
 #'   facet_var = "SEX",
 #'   fill_var = "AGE18",
-#'   percentiles = c(0.1,0.9)
+#'   percentiles = c(0.1, 0.9)
 #' )
 draw_barplot <- function(object,
                          assay_name,

@@ -18,7 +18,7 @@ draw_barplot(
 
 \item{assay_name}{(\code{string})\cr selects assay from input.}
 
-\item{x_spec}{(\code{GeneSpec})\cr gene specification fot the x-axis.}
+\item{x_spec}{(\code{GeneSpec})\cr gene specification for the x-axis.}
 
 \item{facet_var}{(\code{string} or \code{NULL})\cr optional faceting variable, taken
 from input sample variables.}
@@ -65,6 +65,6 @@ draw_barplot(
   x_spec = gene_spec(g[1:3], colMeans, "Median"),
   facet_var = "SEX",
   fill_var = "AGE18",
-  percentiles = c(0.1,0.9)
+  percentiles = c(0.1, 0.9)
 )
 }
