@@ -58,7 +58,7 @@ hd3map <- data.frame(
 col_dat <- rbind(as.data.frame(colData(hd1)), as.data.frame(colData(hd2)), as.data.frame(colData(hd3)))[-c(16, 20), ]
 drop_vars <- c("low_depth_flag", "SampleID", "tech_failure_flag")
 col_dat <- col_dat[, !names(col_dat) %in% drop_vars]
-rownames(col_dat) = pat_names[1:18]
+rownames(col_dat) <- pat_names[1:18]
 
 col_dat <- col_dat %>%
   dplyr::mutate(
