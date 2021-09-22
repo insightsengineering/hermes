@@ -61,6 +61,11 @@ col_dat <- rbind(
 drop_vars <- c("low_depth_flag", "SampleID", "tech_failure_flag")
 col_dat <- col_dat[, !(names(col_dat) %in% drop_vars)]
 
+# Double check age variables consistency.
+age_less_18 <- col_dat$AGE < 18
+stopifnot(all(col_dat$AGE18[age_less_18] == "< 18"))
+stopifnot(all(col_dat$AGE18[!age_less_18] == ">= 18"))
+
 # Ensure that patient IDs are consistent.
 rownames(col_dat) <- pat_names
 col_dat <- col_dat %>%
