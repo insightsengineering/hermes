@@ -84,7 +84,6 @@ colData(hd3) <- cd3[, !(names(cd3) %in% remove_vars)]
 
 # Add normalized assays to the second `HermesData` object.
 hd2 <- hd2 %>%
-  filter() %>%
   normalize()
 
 # Create a named experiment list.
