@@ -567,7 +567,7 @@ h_map_pos <- function(names, map) {
 #' [`SummarizedExperiment::SummarizedExperiment`] objects. This increases the flexibility
 #' since renaming can be done before conversion to a [`HermesData`] object.
 #'
-#' @name rename
+#' @rdname rename
 #'
 #' @param x (`SummarizedExperiment`)\cr object to rename contents in.
 #' @param row_data (named `character`)\cr mapping from existing (right-hand side values)
@@ -576,9 +576,11 @@ h_map_pos <- function(names, map) {
 #'   to new (left-hand side names) column names of `colData`.
 #' @param assays (named `character`)\cr mapping from existing (right-hand side values)
 #'   to new (left-hand side names) assay names.
+#' @param ... additional arguments (not used here).
 #'
 #' @return The [`SummarizedExperiment::SummarizedExperiment`] object with renamed contents.
 #'
+#' @importFrom S4Vectors `rename`
 #' @export
 #' @examples
 #' x <- summarized_experiment
@@ -600,7 +602,8 @@ setMethod(
   definition = function(x,
                         row_data = character(),
                         col_data = character(),
-                        assays = character()) {
+                        assays = character(),
+                        ...) {
     if (length(row_data)) {
       col_names <- names(rowData(x))
       col_pos <- h_map_pos(names = col_names, map = row_data)
