@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter AnyHermesData on Subset Passing Default QC Flags — filter • hermes</title>
+<title>Renaming Contents of SummarizedExperiment Objects — rename,SummarizedExperiment-method • hermes</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,11 @@
 
 
 
-<meta property="og:title" content="Filter AnyHermesData on Subset Passing Default QC Flags — filter" />
+<meta property="og:title" content="Renaming Contents of SummarizedExperiment Objects — rename,SummarizedExperiment-method" />
 <meta property="og:description" content="
-This filters a AnyHermesData object using the default QC flags and required annotations." />
+This method renames columns of the rowData and colData, as well as assays, of
+SummarizedExperiment::SummarizedExperiment objects. This increases the flexibility
+since renaming can be done before conversion to a HermesData object." />
 
 
 
@@ -124,86 +126,79 @@ This filters a AnyHermesData object using the default QC flags and required anno
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter <code>AnyHermesData</code> on Subset Passing Default QC Flags</h1>
+    <h1>Renaming Contents of <code>SummarizedExperiment</code> Objects</h1>
     <small class="dont-index">Source: <a href='https://github.com/insightsengineering/hermes/blob/master/R/HermesData-methods.R'><code>R/HermesData-methods.R</code></a>, <a href='https://github.com/insightsengineering/hermes/blob/master/R/dplyr_compatibility.R'><code>R/dplyr_compatibility.R</code></a></small>
-    <div class="hidden name"><code>filter.Rd</code></div>
+    <div class="hidden name"><code>rename.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='[Stable]' /></a></p>
-<p>This filters a <code><a href='HermesData-class.html'>AnyHermesData</a></code> object using the default QC flags and required annotations.</p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
+<p>This method renames columns of the <code>rowData</code> and <code>colData</code>, as well as assays, of
+<code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>SummarizedExperiment::SummarizedExperiment</a></code> objects. This increases the flexibility
+since renaming can be done before conversion to a <code><a href='HermesData-class.html'>HermesData</a></code> object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S4 method for AnyHermesData</span>
-<span class='fu'>filter</span><span class='op'>(</span><span class='va'>object</span>, what <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"genes"</span>, <span class='st'>"samples"</span><span class='op'>)</span>, annotation_required <span class='op'>=</span> <span class='st'>"size"</span><span class='op'>)</span>
+    <pre class="usage"><span class='co'># S4 method for SummarizedExperiment</span>
+<span class='fu'>rename</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  row_data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  col_data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  assays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S4 method for data.frame</span>
-<span class='fu'>filter</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S4 method for ts</span>
-<span class='fu'>filter</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>rename</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>(<code>AnyHermesData</code>)<br /> object to filter.</p></td>
+      <th>x</th>
+      <td><p>(<code>SummarizedExperiment</code>)<br /> object to rename contents in.</p></td>
+    </tr>
+    <tr>
+      <th>row_data</th>
+      <td><p>(named <code>character</code>)<br /> mapping from existing (right-hand side values)
+to new (left-hand side names) column names of <code>rowData</code>.</p></td>
+    </tr>
+    <tr>
+      <th>col_data</th>
+      <td><p>(named <code>character</code>)<br /> mapping from existing (right-hand side values)
+to new (left-hand side names) column names of <code>colData</code>.</p></td>
+    </tr>
+    <tr>
+      <th>assays</th>
+      <td><p>(named <code>character</code>)<br /> mapping from existing (right-hand side values)
+to new (left-hand side names) assay names.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments.</p></td>
-    </tr>
-    <tr>
-      <th>what</th>
-      <td><p>(<code>character</code>)<br /> specify whether to apply the filter on <code>genes</code> and / or <code>samples</code>.</p></td>
-    </tr>
-    <tr>
-      <th>annotation_required</th>
-      <td><p>(<code>character</code>)<br /> names of required <code><a href='annotation,AnyHermesData-method.html'>annotation</a></code> columns for genes. Only
-used when <code>genes</code> are filtered.</p></td>
+      <td><p>additional arguments (not used here).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The filtered <code><a href='HermesData-class.html'>AnyHermesData</a></code> object.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    
-<ul>
-<li><p>Only genes without low expression (<code>low_expression_flag</code>) and samples
-without low depth (<code>low_depth_flag</code>) or technical failure (<code>tech_failure_flag</code>)
-remain in the returned filtered object.</p></li>
-<li><p>Also required gene annotation columns can be specified, so that genes which are not complete
-for these columns are filtered out. By default this is the <code>size</code> column, which is needed
-for default normalization of the object.</p></li>
-</ul>
-
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>The internal implementation cannot use the <code><a href='subset.html'>subset()</a></code> method since that
-requires non-standard evaluation of arguments.</p>
+    <p>The <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>SummarizedExperiment::SummarizedExperiment</a></code> object with renamed contents.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5085   20</div><div class='input'>
-<span class='co'># Filter genes and samples on default QC flags.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2064   18</div><div class='input'>
-<span class='co'># Filter only genes without low expression.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>a</span>, what <span class='op'>=</span> <span class='st'>"genes"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>summarized_experiment</span>
 
-<span class='co'># Filter only samples with low depth and technical failure.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>a</span>, what <span class='op'>=</span> <span class='st'>"samples"</span><span class='op'>)</span>
-
-<span class='co'># Filter only genes, and require certain annotations to be present.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>filter</span><span class='op'>(</span><span class='va'>a</span>, what <span class='op'>=</span> <span class='st'>"genes"</span>, annotation_required <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"size"</span><span class='op'>)</span><span class='op'>)</span>
-</div></pre>
+<span class='co'># Rename `HGNC` to `symbol` in the `rowData`.</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>rename</span><span class='op'>(</span><span class='va'>x</span>, row_data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>symbol <span class='op'>=</span> <span class='st'>"HGNC"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'>rowData</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "symbol"       "HGNCGeneName" "GeneID"       "Chromosome"   "StartBP"     
+#&gt; [6] "EndBP"       </div><div class='input'>
+<span class='co'># Rename `LowDepthFlag` to `low_depth_flag` in `colData`.</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>rename</span><span class='op'>(</span><span class='va'>x</span>, col_data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>low_depth_flag <span class='op'>=</span> <span class='st'>"LowDepthFlag"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'>colData</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "COHORT"               "TTYPE"                "STDSSDY"             
+#&gt; [4] "SUBID"                "low_depth_flag"       "TechnicalFailureFlag"</div><div class='input'>
+<span class='co'># Rename assay `counts` to `count`.</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>rename</span><span class='op'>(</span><span class='va'>x</span>, assays <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='st'>"counts"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>assayNames</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "count"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • hermes</title>
+<title>Helper Function For Matching Map Values to Names — h_map_pos • hermes</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Helper Function For Matching Map Values to Names — h_map_pos" />
+<meta property="og:description" content="This is used by the rename method. It wraps the assertions and the
+matching used several times." />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -122,80 +124,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/insightsengineering/hermes/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Helper Function For Matching Map Values to Names</h1>
+    <small class="dont-index">Source: <a href='https://github.com/insightsengineering/hermes/blob/master/R/HermesData-methods.R'><code>R/HermesData-methods.R</code></a></small>
+    <div class="hidden name"><code>h_map_pos.Rd</code></div>
     </div>
 
-    <div id="hermes-0109000" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0.9000">
-<a href="#hermes-0109000" class="anchor"></a>hermes 0.1.0.9000</h1>
-<div id="new-features" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New Features</h3>
-<ul>
-<li>Scatterplot of the two genes or gene signatures via <code>draw_scatterplot</code>.</li>
-<li>Boxplot of the gene expression values via <code>draw_boxplot</code>. Faceting, stratifying, and coloring by sample variables, as well as comparison of multiple genes is supported. Additionally, a violin plot can be drawn instead of the boxplot.</li>
-<li>The <code>multi_assay_experiment</code> now contains <code>HermesData</code> experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.</li>
-<li>
-<code>calc_pca</code> now includes a top number of gene filtering option <code>n_top</code>, which allows filtering genes with greatest variability across samples.</li>
-<li>Generation of gene signatures with the functions <code>colPrinComp1</code> and <code>colMeanZscores</code> using the PC1 and the Z-score respectively.</li>
-<li>Renaming of required <code>rowData</code> and <code>colData</code> columns to be more consistent with standards and use lowercase snake-case names.</li>
-<li>Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.</li>
-<li>
-<code>df_chars_to_factor</code> has been deprecated (and can still be used with a warning) and replaced with <code>df_cols_to_factor</code>, which also converts logical variables to factor variables.</li>
-<li>New <code>rename</code> method that makes renaming columns of <code>rowData</code> and <code>colData</code> as well as assay names in existing <code>SummarizedExperiment</code> objects much easier, as a step before converting to <code>HermesData</code>.</li>
-</ul>
-</div>
-<div id="bug-fixes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h3>
-<ul>
-<li>
-<code><a href="../reference/normalize,AnyHermesData-method.html">normalize()</a></code> now also works when the <code>hermes</code> package is not loaded, i.e. you can use it with <code><a href="../reference/normalize,AnyHermesData-method.html">hermes::normalize()</a></code>.</li>
-<li>
-<code><a href="../reference/correlate.html">correlate()</a></code> now also works when there are factor variables in the sample variables of the <code>HermesData</code> object.</li>
-</ul>
-</div>
-<div id="miscellaneous" class="section level3">
-<h3 class="hasAnchor">
-<a href="#miscellaneous" class="anchor"></a>Miscellaneous</h3>
-<ul>
-<li>Added <code>error_on_lint: TRUE</code> to <code>.lintr</code>.</li>
-</ul>
-</div>
-</div>
-    <div id="hermes-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#hermes-010" class="anchor"></a>hermes 0.1.0</h1>
-<ul>
-<li>First release of the <code>hermes</code> package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze RNAseq counts data for differential expression.</li>
-<li>
-<code>hermes</code> is a successor of the <code>rnaseqTools</code> R package. The core functionality is built on the BioConductor ecosystem, especially the <code>SummarizedExperiment</code> class. New users should first begin by reading the “Introduction to <code>hermes</code>” vignette to become familiar with the <code>hermes</code> concepts.</li>
-</ul>
-<div id="new-features-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New Features</h3>
-<ul>
-<li>Import RNAseq count data into the <code>hermes</code> ready format.</li>
-<li>Annotate gene information from the Ensembl database via <code>biomaRt</code>.</li>
-<li>Add quality control (QC) flags to genes and samples.</li>
-<li>Filter and subset the data set.</li>
-<li>Normalize the counts.</li>
-<li>Produce descriptive plots.</li>
-<li>Perform principal components analysis.</li>
-<li>Produce a templated QC Rmd report.</li>
-<li>Perform differential expression analysis.</li>
-</ul>
-</div>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>This is used by the <code>rename</code> method. It wraps the assertions and the
+matching used several times.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>h_map_pos</span><span class='op'>(</span><span class='va'>names</span>, <span class='va'>map</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>names</th>
+      <td><p>(<code>character</code>)<br /> original names.</p></td>
+    </tr>
+    <tr>
+      <th>map</th>
+      <td><p>(named <code>character</code>)<br /> the mapping vector from old (value) to new
+(name) names. All values must be included in <code>names</code>.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Integer vector of the positions of the <code>map</code> values in the <code>names</code>.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>h_map_pos</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>d <span class='op'>=</span> <span class='st'>"b"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

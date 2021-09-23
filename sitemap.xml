@@ -109,6 +109,9 @@
     <loc>https://insightsengineering.github.io/hermes/reference/h_has_req_annotations.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_map_pos.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/hermes/reference/h_parens.html</loc>
   </url>
   <url>
@@ -158,6 +161,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/hermes/reference/rbind.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/hermes/reference/rename.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/hermes/reference/samples.html</loc>
