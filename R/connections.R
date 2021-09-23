@@ -291,7 +291,7 @@ h_get_GRanges_by_id <- function(df, id) {
 
   exons <- GenomicRanges::GRanges(
     exons$chromosome_name,
-    GenomicRanges::IRanges(exons$exon_chrom_start, exons$exon_chrom_end)
+    IRanges::IRanges(exons$exon_chrom_start, exons$exon_chrom_end)
   )
 
   return(exons)
