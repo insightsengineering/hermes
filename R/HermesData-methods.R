@@ -526,6 +526,100 @@ setMethod(
   }
 )
 
+# rename ----
+
+#' Helper Function For Matching Map Values to Names
+#'
+#' This is used by the [`rename`] method. It wraps the assertions and the
+#' matching used several times.
+#'
+#' @param names (`character`)\cr original names.
+#' @param map (named `character`)\cr the mapping vector from old (value) to new
+#'   (name) names. All values must be included in `names`.
+#'
+#' @return Integer vector of the positions of the `map` values in the `names`.
+#' @export
+#'
+#' @examples
+#' h_map_pos(c("a", "b"), c(d = "b"))
+h_map_pos <- function(names, map) {
+  assert_character(
+    names,
+    any.missing = FALSE,
+    unique = TRUE
+  )
+  assert_character(
+    map,
+    min.chars = 1L,
+    any.missing = FALSE,
+    unique = TRUE,
+    names = "unique"
+  )
+  assert_subset(map, names)
+  match(map, names)
+}
+
+#' Renaming Contents of `SummarizedExperiment` Objects
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This method renames columns of the `rowData` and `colData`, as well as assays, of
+#' [`SummarizedExperiment::SummarizedExperiment`] objects. This increases the flexibility
+#' since renaming can be done before conversion to a [`HermesData`] object.
+#'
+#' @name rename
+#'
+#' @param x (`SummarizedExperiment`)\cr object to rename contents in.
+#' @param row_data (named `character`)\cr mapping from existing (right-hand side values)
+#'   to new (left-hand side names) column names of `rowData`.
+#' @param col_data (named `character`)\cr mapping from existing (right-hand side values)
+#'   to new (left-hand side names) column names of `colData`.
+#' @param assays (named `character`)\cr mapping from existing (right-hand side values)
+#'   to new (left-hand side names) assay names.
+#'
+#' @return The [`SummarizedExperiment::SummarizedExperiment`] object with renamed contents.
+#'
+#' @export
+#' @examples
+#' x <- summarized_experiment
+#'
+#' # Rename `HGNC` to `symbol` in the `rowData`.
+#' x <- rename(x, row_data = c(symbol = "HGNC"))
+#' head(names(rowData(x)))
+#'
+#' # Rename `LowDepthFlag` to `low_depth_flag` in `colData`.
+#' x <- rename(x, col_data = c(low_depth_flag = "LowDepthFlag"))
+#' tail(names(colData(x)))
+#'
+#' # Rename assay `counts` to `count`.
+#' x <- rename(x, assays = c(count = "counts"))
+#' assayNames(x)
+setMethod(
+  f = "rename",
+  signature = "SummarizedExperiment",
+  definition = function(x,
+                        row_data = character(),
+                        col_data = character(),
+                        assays = character()) {
+    if (length(row_data)) {
+      col_names <- names(rowData(x))
+      col_pos <- h_map_pos(names = col_names, map = row_data)
+      names(rowData(x))[col_pos] <- names(row_data)
+    }
+    if (length(col_data)) {
+      col_names <- names(colData(x))
+      col_pos <- h_map_pos(names = col_names, map = col_data)
+      names(colData(x))[col_pos] <- names(col_data)
+    }
+    if (length(assays)) {
+      assay_names <- assayNames(x)
+      assay_pos <- h_map_pos(names = assay_names, map = assays)
+      assayNames(x)[assay_pos] <- names(assays)
+    }
+    x
+  }
+)
+
 # summary ----
 
 #' Summary Method for `AnyHermesData` Objects
