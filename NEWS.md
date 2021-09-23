@@ -9,6 +9,7 @@
 * Renaming of required `rowData` and `colData` columns to be more consistent with standards and use lowercase snake-case names.
 * Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.
 * `df_chars_to_factor` has been deprecated (and can still be used with a warning) and replaced with `df_cols_to_factor`, which also converts logical variables to factor variables.
+* 'wrap_in_mae` new helper function that wraps single summarized experiment objects into an MAE object.
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.

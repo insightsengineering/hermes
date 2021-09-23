@@ -172,3 +172,19 @@ test_that("colMeanZScores function returns an error when data are not numeric", 
   result <- expect_silent(matrix(as.character(1:20), 4, 5))
   expect_error(colMeanZScores(result))
 })
+
+# wrap_in_mae ----
+
+test_that("wrap_in_mae function works as expected for standard summarized experiment object", {
+  set.seed(123)
+  object <- summarized_experiment
+  result <- expect_silent(wrap_in_mae(object))
+  expect_is(result, "MultiAssayExperiment")
+  expect_identical(colData(object), colData(result))
+})
+
+test_that("wrap_in_mae function returns an error when data is not a summarized experiment object", {
+  set.seed(123)
+  object <- hermes_data
+  expect_silent(wrap_in_mae(object))
+})

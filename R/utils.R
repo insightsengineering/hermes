@@ -247,3 +247,28 @@ colMeanZscores <- function(x) {
   )
   colMeans(z_vals, na.rm = TRUE)
 }
+
+#' Wrap in MAE
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function wraps SummarizedExperiment objects into an MAE object.
+#'
+#' @param x (`SummarizedExperiment`)\cr input to create the MAE object from.
+#'
+#' @return An MAE object.
+#'
+#' @export
+#'
+#' @examples
+#' object <- summarized_experiment
+#' mae <- wrap_in_mae(object)
+#'
+wrap_in_mae <- function(x){
+  assert_that(
+    is_class(x, "SummarizedExperiment"),
+    not_empty(assays(x))
+  )
+  colDat <- SummarizedExperiment::colData(object)
+  MultiAssayExperiment::MultiAssayExperiment(experiments = list(name = x), colData = colDat)
+}
