@@ -54,6 +54,220 @@ test_that("h_strip_prefix works as expected", {
   )
 })
 
+# h_get_size_biomart ----
+
+test_that("h_get_size_biomart works as expected", {
+  expect_identical(
+    h_get_size_biomart("11185"),
+    c(ENSG00000241644 = 3376L)
+  )
+  expect_identical(
+    h_get_size_biomart("GeneID:11185"),
+    c(ENSG00000241644 = 3376L)
+  )
+  expect_identical(
+    h_get_size_biomart("ENSG00000215417"),
+    c(ENSG00000215417 = 3774L)
+  )
+  expect_identical(
+    h_get_size_biomart("ENSG00000215417.1"),
+    c(ENSG00000215417 = 3774L)
+  )
+  expect_identical(
+    h_get_size_biomart(c("GeneID:11185", "GeneID:10677")),
+    c(ENSG00000135407 = 5889L, ENSG00000241644 = 3376L)
+  )
+  expect_identical(
+    h_get_size_biomart(c("ENSG00000135407", "ENSG00000215417")),
+    c(ENSG00000135407 = 5889L, ENSG00000215417 = 3774L)
+  )
+})
+
+# h_get_GRanges_by_id ----
+
+test_that("h_get_GRanges_by_id works as expected", {
+
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+  attrs <- c("ensembl_gene_id",
+             "ensembl_exon_id",
+             "chromosome_name",
+             "exon_chrom_start",
+             "exon_chrom_end")
+
+  coords <- biomaRt::getBM(filters = "entrezgene_id",
+                           attributes = attrs,
+                           values = c("11185", "10677"),
+                           mart = mart)
+
+  expected_output <-
+    new(
+      "GRanges",
+      seqnames = new(
+        "Rle",
+        values = structure(1L, .Label = "12", class = "factor"),
+        lengths = 57L,
+        elementMetadata = NULL,
+        metadata = list()
+      ),
+      ranges = new(
+        "IRanges",
+        start = c(
+          57799795L,
+          57797376L,
+          57815975L,
+          57815578L,
+          57814152L,
+          57813227L,
+          57811019L,
+          57810816L,
+          57810349L,
+          57809812L,
+          57809597L,
+          57808395L,
+          57808194L,
+          57807590L,
+          57807331L,
+          57806360L,
+          57803524L,
+          57803247L,
+          57802160L,
+          57801144L,
+          57799795L,
+          57797740L,
+          57801144L,
+          57797778L,
+          57815975L,
+          57814152L,
+          57813227L,
+          57811019L,
+          57810816L,
+          57810349L,
+          57809812L,
+          57809597L,
+          57808395L,
+          57808194L,
+          57807590L,
+          57807331L,
+          57806360L,
+          57803524L,
+          57803247L,
+          57802160L,
+          57801144L,
+          57799795L,
+          57797882L,
+          57808395L,
+          57807331L,
+          57802183L,
+          57806360L,
+          57803296L,
+          57808194L,
+          57805856L,
+          57807590L,
+          57806132L,
+          57814152L,
+          57806138L,
+          57818629L,
+          57815975L,
+          57810901L
+        ),
+        width = c(
+          859L,
+          620L,
+          84L,
+          115L,
+          75L,
+          197L,
+          109L,
+          111L,
+          203L,
+          79L,
+          99L,
+          154L,
+          101L,
+          138L,
+          159L,
+          180L,
+          146L,
+          145L,
+          189L,
+          69L,
+          126L,
+          256L,
+          274L,
+          218L,
+          497L,
+          75L,
+          197L,
+          109L,
+          111L,
+          203L,
+          79L,
+          99L,
+          154L,
+          101L,
+          138L,
+          159L,
+          180L,
+          146L,
+          145L,
+          189L,
+          69L,
+          126L,
+          114L,
+          298L,
+          397L,
+          166L,
+          130L,
+          96L,
+          986L,
+          712L,
+          52L,
+          408L,
+          75L,
+          402L,
+          76L,
+          85L,
+          26L
+        ),
+        NAMES = NULL,
+        elementType = "ANY",
+        elementMetadata = NULL,
+        metadata = list()
+      ),
+      strand = new(
+        "Rle",
+        values = structure(3L, .Label = c("+",
+                                          "-", "*"), class = "factor"),
+        lengths = 57L,
+        elementMetadata = NULL,
+        metadata = list()
+      ),
+      seqinfo = new(
+        "Seqinfo",
+        seqnames = "12",
+        seqlengths = NA_integer_,
+        is_circular = NA,
+        genome = NA_character_
+      ),
+      elementMetadata = new(
+        "DFrame",
+        rownames = NULL,
+        nrows = 57L,
+        listData = structure(list(), .Names = character(0)),
+        elementType = "ANY",
+        elementMetadata = NULL,
+        metadata = list()
+      ),
+      elementType = "ANY",
+      metadata = list()
+    )
+
+  expect_identical(
+    h_get_GRanges_by_id(coords, "ENSG00000135407"),
+    expected_output
+  )
+})
+
 # query-ConnectionBiomart ----
 
 test_that("query to Biomart works as expected", {

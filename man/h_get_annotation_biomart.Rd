@@ -21,8 +21,7 @@ A data frame with columns:
 \item \code{hgnc_symbol}
 \item \code{entrezgene_description}
 \item \code{chromosome_name}
-\item \code{start_position}
-\item \code{end_position}
+\item \code{size}
 \item \code{refseq_mrna}
 \item \code{refseq_peptide}
 }
