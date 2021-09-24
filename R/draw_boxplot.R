@@ -7,7 +7,7 @@
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param assay_name (`string`)\cr selects assay from input for the y-axis.
-#' @param genes (`character`)\cr gene ID(s) for which to produce boxplots.
+#' @param genes (`GeneSpec`)\cr gene ID(s) for which to produce boxplots.
 #' @param x_var (`string` or `NULL`)\cr optional stratifying variable for the x-axis,
 #'   taken from input sample variables.
 #' @param color_var (`string` or `NULL`)\cr optional color variable, taken from
@@ -77,7 +77,8 @@ draw_boxplot <- function(object,
                          jitter = FALSE) {
   assert_class(object, "AnyHermesData")
   assert_string(assay_name)
-  assert_character(genes, any.missing = FALSE, unique = TRUE)
+  assert_class(genes, "GeneSpec")
+  assert_true(genes$returns_vector())
   assert_string(x_var, null.ok = TRUE)
   assert_string(color_var, null.ok = TRUE)
   assert_string(facet_var, null.ok = TRUE)
@@ -86,7 +87,7 @@ draw_boxplot <- function(object,
 
   assay_matrix <- assay(object, assay_name)
   col_data <- colData(object)
-  assert_names(rownames(assay_matrix), must.include = genes)
+  assert_names(rownames(assay_matrix), must.include = genes$get_genes())
 
   x <- if (!is.null(x_var)) {
     assert_names(names(col_data), must.include = x_var)
@@ -97,8 +98,8 @@ draw_boxplot <- function(object,
 
   df <- data.frame(
     x = x,
-    y = as.numeric(t(assay_matrix[genes, , drop = FALSE])),
-    fill = factor(rep(genes, each = ncol(assay_matrix)))
+    y = genes$extract(assay_matrix),
+    fill = factor(rep(genes$get_label(), each = ncol(assay_matrix)))
   )
 
   if (!is.null(facet_var)) {
@@ -115,7 +116,8 @@ draw_boxplot <- function(object,
   } else {
     aes(group = .data$fill)
   }
-  p <- ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill))
+  p <- ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill)) +
+    labs(x = genes$get_label())
 
   if (!violin) {
 
