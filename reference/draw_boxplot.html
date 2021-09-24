@@ -41,8 +41,8 @@
 
 <meta property="og:title" content="Boxplot for Gene Expression Values — draw_boxplot" />
 <meta property="og:description" content="
-This produces a boxplot of the gene expression values of a gene for a
-sample variable." />
+This produces boxplots of the gene expression values of a single gene, multiple genes or
+a gene signature." />
 
 
 
@@ -132,8 +132,8 @@ sample variable." />
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p>This produces a boxplot of the gene expression values of a gene for a
-sample variable.</p>
+<p>This produces boxplots of the gene expression values of a single gene, multiple genes or
+a gene signature.</p>
     </div>
 
     <pre class="usage"><span class='fu'>draw_boxplot</span><span class='op'>(</span>
@@ -160,7 +160,7 @@ sample variable.</p>
     </tr>
     <tr>
       <th>genes</th>
-      <td><p>(<code>character</code>)<br /> gene ID(s) for which to produce boxplots.</p></td>
+      <td><p>(<code>GeneSpec</code>)<br /> for which genes or which gene signature to produce boxplots.</p></td>
     </tr>
     <tr>
       <th>x_var</th>
@@ -183,7 +183,7 @@ from input sample variables.</p></td>
     </tr>
     <tr>
       <th>jitter</th>
-      <td><p>(<code>flag</code>)<br /> whether to add jittered original data points or not.</p></td>
+      <td><p>(<code>flag</code>)<br /> whether to add jittered original data points.</p></td>
     </tr>
     </table>
 
@@ -196,7 +196,8 @@ from input sample variables.</p></td>
 <span class='fu'>draw_boxplot</span><span class='op'>(</span>
   <span class='va'>object</span>,
   assay_name <span class='op'>=</span> <span class='st'>"counts"</span>,
-  genes <span class='op'>=</span> <span class='fu'><a href='genes.html'>genes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
+  genes <span class='op'>=</span> <span class='fu'><a href='gene_spec.html'>gene_spec</a></span><span class='op'>(</span><span class='fu'><a href='genes.html'>genes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>,
+  violin <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 </div><div class='img'><img src='draw_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>object2</span> <span class='op'>&lt;-</span> <span class='va'>object</span> <span class='op'>%&gt;%</span>
@@ -207,7 +208,7 @@ from input sample variables.</p></td>
   <span class='va'>object2</span>,
   assay_name <span class='op'>=</span> <span class='st'>"tpm"</span>,
   x_var <span class='op'>=</span> <span class='st'>"SEX"</span>,
-  genes <span class='op'>=</span> <span class='fu'><a href='genes.html'>genes</a></span><span class='op'>(</span><span class='va'>object2</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>20</span><span class='op'>]</span>,
+  genes <span class='op'>=</span> <span class='fu'><a href='gene_spec.html'>gene_spec</a></span><span class='op'>(</span><span class='fu'><a href='genes.html'>genes</a></span><span class='op'>(</span><span class='va'>object2</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>, fun <span class='op'>=</span> <span class='va'>colMeans</span><span class='op'>)</span>,
   facet_var <span class='op'>=</span> <span class='st'>"RACE"</span>,
   color_var <span class='op'>=</span> <span class='st'>"AGE18"</span>,
   jitter <span class='op'>=</span> <span class='cn'>TRUE</span>
@@ -217,27 +218,11 @@ from input sample variables.</p></td>
   <span class='va'>object</span>,
   assay_name <span class='op'>=</span> <span class='st'>"counts"</span>,
   x_var <span class='op'>=</span> <span class='st'>"SEX"</span>,
-  genes <span class='op'>=</span> <span class='fu'><a href='genes.html'>genes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>,
-  jitter <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='draw_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>draw_boxplot</span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  assay_name <span class='op'>=</span> <span class='st'>"counts"</span>,
-  x_var <span class='op'>=</span> <span class='st'>"SEX"</span>,
-  genes <span class='op'>=</span> <span class='fu'><a href='genes.html'>genes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>,
+  genes <span class='op'>=</span> <span class='fu'><a href='gene_spec.html'>gene_spec</a></span><span class='op'>(</span><span class='fu'><a href='genes.html'>genes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>,
   jitter <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  violin <span class='op'>=</span> <span class='cn'>TRUE</span>
+  facet_var <span class='op'>=</span> <span class='st'>"AGE18"</span>
 <span class='op'>)</span>
-</div><div class='img'><img src='draw_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>draw_boxplot</span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  assay_name <span class='op'>=</span> <span class='st'>"counts"</span>,
-  x_var <span class='op'>=</span> <span class='st'>"SEX"</span>,
-  genes <span class='op'>=</span> <span class='fu'><a href='genes.html'>genes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>,
-  facet_var <span class='op'>=</span> <span class='st'>"RACE"</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='draw_boxplot-5.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='img'><img src='draw_boxplot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
