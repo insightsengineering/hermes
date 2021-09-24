@@ -54,6 +54,7 @@ reference:
       - h_parens
       - colPrinComp1
       - colMeanZscores
+      - wrap_in_mae
   - title: Example Data
     contents:
       - expression_set
