@@ -434,7 +434,7 @@ test_that("lapply works as expected for an MAE", {
   expect_equal(dim(mae[[3]]), dim(result[[3]]))
 })
 
-test_that("lapply works as expected with safe = TRUE (default) argument when converting experiments in an MAE to HermesData", {
+test_that("lapply works as expected with safe = TRUE argument when converting experiments in an MAE to HermesData", {
   mae <- hermes::multi_assay_experiment
   mae[[1]] <- rename(mae[[1]], assay = c(count = "counts"))
   result <- lapply(mae, HermesData)
