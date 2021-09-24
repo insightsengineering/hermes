@@ -37,6 +37,7 @@ reference:
       - validate_col_data
       - validate_names
       - validate_prefix
+      - h_map_pos
       - h_rpkm
       - h_cpm
       - h_tpm
@@ -67,6 +68,7 @@ reference:
       - cbind
       - correlate
       - counts
+      - extra_data_names
       - filter
       - genes
       - metadata
