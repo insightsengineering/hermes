@@ -11,7 +11,7 @@ License: Apache License 2.0 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 RdMacros: Rdpack, lifecycle
 VignetteBuilder: knitr 
 URL: https://github.com/insightsengineering/hermes/
@@ -70,10 +70,10 @@ Collate:
     'connections.R'
     'data.R'
     'differential.R'
+    'dplyr_compatibility.R'
     'draw_barplot.R'
     'draw_boxplot.R'
     'draw_scatterplot.R'
-    'filter_dplyr.R'
     'graphs.R'
     'normalization.R'
     'package.R'
