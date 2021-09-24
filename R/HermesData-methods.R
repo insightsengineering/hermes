@@ -745,3 +745,42 @@ setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 # autoplot ----
 
 setGeneric("autoplot")
+
+# lapply ----
+
+#' lapply method for `MultiAssayExperiment`
+##'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Convert all experiments in an MAE to HermesData object
+#'
+#' @param X (`MultiAssayExperiment`)\cr input.
+#' @param FUN A function to be applied to each `SummarizedExperiment` in `X`.
+#' @param safe (`logical`)\cr whether this method should skip experiments
+#'    where conversion to HermesData fails. Set to `TRUE` by default
+#' @param ... additional arguments.
+#'
+#' @return `MultiAssayExperiment` object with HermesData experiments.
+#'
+#' @importMethodsFrom BiocGenerics lapply
+#' @importFrom S4Vectors endoapply
+#' @importFrom MultiAssayExperiment experiments
+#' @export
+#' @example
+#' object <- readRDS("~/NEST/hermes/data/cdse_demo_mae_cid6828341065561714688.rds")
+#' result <- lapply(object, HermesData, safe = TRUE)
+setMethod(
+  f = "lapply",
+  signature = "MultiAssayExperiment",
+  definition = function(X, FUN, safe = TRUE, ...) {
+    assert_class(X, "MultiAssayExperiment")
+    assert_that(is.logical(safe))
+    if (safe) {
+      experiments(X) <- endoapply(experiments(X), FUN, ...)
+      return(tryCatch(X, error = function(e) NULL))
+    } else {
+      experiments(X) <- endoapply(experiments(X), FUN, ...)
+      return(X)
+    }
+  }
+)

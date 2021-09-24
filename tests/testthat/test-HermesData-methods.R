@@ -379,3 +379,17 @@ test_that("show works as expected for RangedHermesData", {
   expect_match(result, "additional gene information(1):", fixed = TRUE)
   expect_match(result, "additional sample information(0):", fixed = TRUE)
 })
+
+# lapply ----
+test_that("lapply works as expected", {
+  object <- readRDS("~/NEST/hermes/data/cdse_demo_mae_cid6828341065561714688.rds")
+  result <- lapply(object, HermesData)
+  expect_is(result, "MultiAssayExperiment")
+  expect_is(result[[1]], "HermesData")
+  expect_is(result[[2]], "HermesData")
+  expect_is(result[[3]], "HermesData")
+  expect_equal(dim(object[[1]]), dim(result[[1]]))
+  expect_equal(dim(object[[2]]), dim(result[[2]]))
+  expect_equal(dim(object[[3]]), dim(result[[3]]))
+})
+## Need to address safe = FALSE / where expts cannot be converted to HD ##
