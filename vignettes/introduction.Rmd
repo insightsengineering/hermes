@@ -95,18 +95,41 @@ still call the default constructor because the new names will be filled with mis
 head(annotation(object))
 ```
 
+If we want to map old column names to new column names to avoid duplication with new missing value columns,
+we can do this using the `rename()` method. For example here:
+
+```{r}
+object <- summarized_experiment %>%
+  rename(
+    row_data = c(
+      symbol = "HGNC", desc = "HGNCGeneName", chromosome = "Chromosome", size = "WidthBP",
+      low_expression_flag = "LowExpressionFlag"
+    ),
+    col_data = c(
+      low_depth_flag = "LowDepthFlag", technical_failure_flag = "TechnicalFailureFlag"
+    )
+  ) %>%
+  HermesData()
+```
+
+For example we can now see in the annotations that we successfully carried over the information
+since we mapped the old annotations to the new required names above:
+
+```{r}
+head(annotation(object))
+```
+
 For a bit more details we can also call `summary()` on the object.
 
 ```{r}
 summary(object)
 ```
 
-For the below, let's use the correct `HermesData` object.
+For the below, let's use the already prepared `HermesData` object.
 
 ```{r}
 object <- hermes_data
 ```
-
 
 ### Importing an `ExpressionSet`
 

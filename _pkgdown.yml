@@ -73,6 +73,7 @@ reference:
       - prefix
       - query
       - rbind
+      - rename
       - samples
       - show
       - subset
