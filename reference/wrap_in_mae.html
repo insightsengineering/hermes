@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prefix Accessor — prefix • hermes</title>
+<title>Wrap in MAE — wrap_in_mae • hermes</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="Prefix Accessor — prefix" />
+<meta property="og:title" content="Wrap in MAE — wrap_in_mae" />
 <meta property="og:description" content="
-Generic function to access the prefix from an object." />
+This helper function wraps SummarizedExperiment objects into an
+a MultiAssayExperiment (MAE) object." />
 
 
 
@@ -124,39 +125,51 @@ Generic function to access the prefix from an object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prefix Accessor</h1>
-    <small class="dont-index">Source: <a href='https://github.com/insightsengineering/hermes/blob/master/R/HermesData-methods.R'><code>R/HermesData-methods.R</code></a></small>
-    <div class="hidden name"><code>prefix.Rd</code></div>
+    <h1>Wrap in MAE</h1>
+    <small class="dont-index">Source: <a href='https://github.com/insightsengineering/hermes/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>wrap_in_mae.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p>Generic function to access the prefix from an object.</p>
+<p>This helper function wraps <code>SummarizedExperiment</code> objects into an
+a <code>MultiAssayExperiment</code> (MAE) object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prefix</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>wrap_in_mae</span><span class='op'>(</span><span class='va'>x</span>, name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>substitute</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>(<code>AnyHermesData</code>)<br /> input.</p></td>
+      <th>x</th>
+      <td><p>(<code>SummarizedExperiment</code>)<br /> input to create the MAE object from.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>additional arguments.</p></td>
+      <th>name</th>
+      <td><p>(<code>string</code>)<br /> experiment name to use in the MAE for <code>x</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The <code>prefix</code> slot contents.</p>
+    <p>The MAE object with the only experiment being <code>x</code> having the given
+<code>name</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-<span class='fu'>prefix</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "GeneID"</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>mae</span> <span class='op'>&lt;-</span> <span class='fu'>wrap_in_mae</span><span class='op'>(</span><span class='va'>summarized_experiment</span><span class='op'>)</span>
+<span class='va'>mae</span><span class='op'>[[</span><span class='st'>"summarized_experiment"</span><span class='op'>]</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; class: SummarizedExperiment 
+#&gt; dim: 5085 20 
+#&gt; metadata(0):
+#&gt; assays(1): counts
+#&gt; rownames(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426
+#&gt; rowData names(12): HGNC HGNCGeneName ... chromosome_name
+#&gt;   LowExpressionFlag
+#&gt; colnames(20): 06520011B0023R 06520067C0018R ... 06520015C0016R
+#&gt;   06520019C0023R
+#&gt; colData names(87): Filename SampleID ... LowDepthFlag
+#&gt;   TechnicalFailureFlag</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
