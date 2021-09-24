@@ -422,15 +422,33 @@ test_that("show works as expected for RangedHermesData", {
 })
 
 # lapply ----
-test_that("lapply works as expected", {
-  object <- readRDS("~/NEST/hermes/data/cdse_demo_mae_cid6828341065561714688.rds")
-  result <- lapply(object, HermesData)
+test_that("lapply works as expected for an MAE", {
+  mae <- hermes::multi_assay_experiment
+  result <- lapply(mae, normalize)
   expect_is(result, "MultiAssayExperiment")
   expect_is(result[[1]], "HermesData")
   expect_is(result[[2]], "HermesData")
   expect_is(result[[3]], "HermesData")
-  expect_equal(dim(object[[1]]), dim(result[[1]]))
-  expect_equal(dim(object[[2]]), dim(result[[2]]))
-  expect_equal(dim(object[[3]]), dim(result[[3]]))
+  expect_equal(dim(mae[[1]]), dim(result[[1]]))
+  expect_equal(dim(mae[[2]]), dim(result[[2]]))
+  expect_equal(dim(mae[[3]]), dim(result[[3]]))
 })
-## Need to address safe = FALSE / where expts cannot be converted to HD ##
+
+test_that("lapply works as expected with safe = TRUE (default) argument when converting experiments in an MAE to HermesData", {
+  mae <- hermes::multi_assay_experiment
+  mae[[1]] <- rename(mae[[1]], assay = c(count = "counts"))
+  result <- lapply(mae, HermesData)
+  expect_is(result, "MultiAssayExperiment")
+  expect_is(result[[1]], "NULL")
+  expect_is(result[[2]], "HermesData")
+  expect_is(result[[3]], "HermesData")
+  expect_equal(dim(result[[1]]), NULL)
+  expect_equal(dim(mae[[2]]), dim(result[[2]]))
+  expect_equal(dim(mae[[3]]), dim(result[[3]]))
+})
+
+test_that("lapply fails as expected with safe = FALSE arugment when converting experiments in an MAE to HermesData", {
+  mae <- hermes::multi_assay_experiment
+  mae[[1]] <- rename(mae[[1]], assay = c(count = "counts"))
+  expect_error(lapply(mae, HermesData, safe = FALSE))
+})

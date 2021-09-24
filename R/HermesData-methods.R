@@ -845,39 +845,41 @@ setGeneric("autoplot")
 
 # lapply ----
 
-#' lapply method for `MultiAssayExperiment`
+#' `lapply` method for `MultiAssayExperiment`
 ##'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Convert all experiments in an MAE to HermesData object
+#' Apply a function on all experiments in an MAE.
 #'
 #' @param X (`MultiAssayExperiment`)\cr input.
 #' @param FUN A function to be applied to each `SummarizedExperiment` in `X`.
-#' @param safe (`logical`)\cr whether this method should skip experiments
-#'    where conversion to HermesData fails. Set to `TRUE` by default
+#' @param safe (`logical`)\cr whether this method should skip experiment
+#' where the function fails. Set to `TRUE` by default.
 #' @param ... additional arguments.
 #'
-#' @return `MultiAssayExperiment` object with HermesData experiments.
+#' @return `MultiAssayExperiment` object with specified function applied.
 #'
 #' @importMethodsFrom BiocGenerics lapply
 #' @importFrom S4Vectors endoapply
-#' @importFrom MultiAssayExperiment experiments
+#' @importFrom purrr possibly compact
 #' @export
 #' @example
-#' object <- readRDS("~/NEST/hermes/data/cdse_demo_mae_cid6828341065561714688.rds")
-#' result <- lapply(object, HermesData, safe = TRUE)
+#' object <- hermes::multi_assay_experiment
+#' result <- lapply(object, normalize, safe = TRUE)
+#' # Similarly, all experiments in an AE can be converted to HermesData class:
+#' result <- lapply(mae, HermesData, safe = TRUE)
 setMethod(
   f = "lapply",
   signature = "MultiAssayExperiment",
   definition = function(X, FUN, safe = TRUE, ...) {
     assert_class(X, "MultiAssayExperiment")
     assert_that(is.logical(safe))
-    if (safe) {
-      experiments(X) <- endoapply(experiments(X), FUN, ...)
-      return(tryCatch(X, error = function(e) NULL))
+    FUN2 <- if (safe) {
+      purrr::possibly(FUN, otherwise = NULL)
     } else {
-      experiments(X) <- endoapply(experiments(X), FUN, ...)
-      return(X)
+      FUN
     }
+    experiments(X) <- S4Vectors::endoapply(experiments(X), FUN2, ...)
+    return(X)
   }
 )

@@ -77,6 +77,7 @@ reference:
       - show
       - subset
       - summary
+      - lapply
   - title: Functions
     contents:
       - add_quality_flags
