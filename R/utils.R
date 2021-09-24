@@ -252,23 +252,24 @@ colMeanZscores <- function(x) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function wraps SummarizedExperiment objects into an MAE object.
+#' This helper function wraps `SummarizedExperiment` objects into an
+#' a `MultiAssayExperiment` (MAE) object.
 #'
 #' @param x (`SummarizedExperiment`)\cr input to create the MAE object from.
+#' @param name (`string`)\cr experiment name to use in the MAE for `x`.
 #'
-#' @return An MAE object.
+#' @return The MAE object with the only experiment being `x` having the given
+#' `name`.
 #'
 #' @export
 #'
 #' @examples
-#' object <- summarized_experiment
-#' mae <- wrap_in_mae(object)
-#'
-wrap_in_mae <- function(x){
-  assert_that(
-    is_class(x, "SummarizedExperiment"),
-    not_empty(assays(x))
-  )
-  colDat <- SummarizedExperiment::colData(object)
-  MultiAssayExperiment::MultiAssayExperiment(experiments = list(name = x), colData = colDat)
+#' mae <- wrap_in_mae(summarized_experiment)
+#' mae[["summarized_experiment"]]
+wrap_in_mae <- function(x,
+                        name = deparse(substitute(x))) {
+  assert_class(x, "SummarizedExperiment")
+  assert_string(name, min.chars = 1L)
+  exp_list <- stats::setNames(list(x), name)
+  MultiAssayExperiment::MultiAssayExperiment(experiments = exp_list)
 }
