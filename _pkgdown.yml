@@ -11,6 +11,9 @@ navbar:
       href: https://github.com/insightsengineering/hermes
 
 reference:
+  - title: Package
+    contents:
+      - hermes-package
   - title: Classes
     contents:
       - HermesData
@@ -60,6 +63,7 @@ reference:
   - title: Example Data
     contents:
       - expression_set
+      - hermes_data
       - summarized_experiment
       - multi_assay_experiment
   - title: Methods
