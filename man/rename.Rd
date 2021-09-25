@@ -2,6 +2,7 @@
 % Please edit documentation in R/HermesData-methods.R, R/dplyr_compatibility.R
 \name{rename,SummarizedExperiment-method}
 \alias{rename,SummarizedExperiment-method}
+\alias{rename}
 \alias{rename,data.frame-method}
 \title{Renaming Contents of \code{SummarizedExperiment} Objects}
 \usage{

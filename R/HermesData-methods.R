@@ -568,6 +568,7 @@ h_map_pos <- function(names, map) {
 #' since renaming can be done before conversion to a [`HermesData`] object.
 #'
 #' @rdname rename
+#' @aliases rename
 #'
 #' @param x (`SummarizedExperiment`)\cr object to rename contents in.
 #' @param row_data (named `character`)\cr mapping from existing (right-hand side values)
