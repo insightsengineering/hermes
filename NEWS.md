@@ -10,7 +10,7 @@
 * Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.
 * `df_chars_to_factor` has been deprecated (and can still be used with a warning) and replaced with `df_cols_to_factor`, which also converts logical variables to factor variables.
 * New `rename` method that makes renaming columns of `rowData` and `colData` as well as assay names in existing `SummarizedExperiment` objects much easier, as a step before converting to `HermesData`.
-* New `lapply` method that allows user to apply a function on all experiments in a multiassay experiment.
+* New `lapply` method that allows user to apply a function on all experiments in a `MultiAssayExperiment`.
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.
