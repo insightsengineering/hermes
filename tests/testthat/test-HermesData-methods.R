@@ -299,6 +299,47 @@ test_that("filter by default correctly filters out genes which don't have requir
   expect_true(noNA(annotation(result)$size))
 })
 
+# h_map_pos ----
+
+test_that("h_map_pos works as expected", {
+  result <- expect_silent(h_map_pos(c("a", "b"), c(d = "b")))
+  expected <- 2L
+  expect_identical(result, expected)
+})
+
+test_that("h_map_pos fails as expected when old names are not found", {
+  expect_error(
+    h_map_pos(c("a", "b"), c(d = "b", e = "z")),
+    "Must be a subset of {'a','b'}, but is {'b','z'}",
+    fixed = TRUE
+  )
+})
+
+# rename ----
+
+test_that("rename works with rowData columns", {
+  x <- summarized_experiment
+  pos <- match("HGNC", names(rowData(x)))
+  assert_count(pos)
+  result <- rename(x, row_data = c(symbol = "HGNC"))
+  expect_true(identical(names(rowData(result))[pos], "symbol"))
+})
+
+test_that("rename works with colData columns", {
+  x <- summarized_experiment
+  pos <- match("LowDepthFlag", names(colData(x)))
+  assert_count(pos)
+  result <- rename(x, col_data = c(low_depth_flag = "LowDepthFlag"))
+  expect_true(identical(names(colData(result))[pos], "low_depth_flag"))
+})
+
+test_that("rename works with assay names", {
+  x <- summarized_experiment
+  assert_names(assayNames(x), identical.to = "counts")
+  result <- rename(x, assays = c(count = "counts"))
+  expect_names(assayNames(result), identical.to = "count")
+})
+
 # summary ----
 
 test_that("summary works as expected for HermesData", {

@@ -1,17 +1,20 @@
-# hermes 0.1.0.9000
+# hermes 0.1.1
 
 ### New Features
 * Scatterplot of the two genes or gene signatures via `draw_scatterplot`.
-* Boxplot of the gene expression values via `draw_boxplot`. Faceting, stratifying, and coloring by sample variables, as well as comparison of multiple genes is supported.
+* Boxplot of the gene expression values via `draw_boxplot`. Faceting, stratifying, and coloring by sample variables, as well as comparison of multiple genes is supported. Additionally, a violin plot can be drawn instead of the boxplot.
 * The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
 * `calc_pca` now includes a top number of gene filtering option `n_top`, which allows filtering genes with greatest variability across samples. 
 * Generation of gene signatures with the functions `colPrinComp1` and `colMeanZscores` using the PC1 and the Z-score respectively.
 * Renaming of required `rowData` and `colData` columns to be more consistent with standards and use lowercase snake-case names.
 * Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.
 * `df_chars_to_factor` has been deprecated (and can still be used with a warning) and replaced with `df_cols_to_factor`, which also converts logical variables to factor variables.
+* New helper function `wrap_in_mae` that wraps a single `SummarizedExperiment` object into an MAE object.
+* New `rename` method that makes renaming columns of `rowData` and `colData` as well as assay names in existing `SummarizedExperiment` objects much easier, as a step before converting to `HermesData`.
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.
+* `correlate()` now also works when there are factor variables in the sample variables of the `HermesData` object.
 
 ### Miscellaneous
 * Added `error_on_lint: TRUE` to `.lintr`.

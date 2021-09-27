@@ -33,7 +33,7 @@ test_that("h_pca_var_rsquared returns NAs when something is not estimable", {
 test_that("h_pca_df_r2_matrix works as expected", {
   object <- hermes_data
   pca <- expect_silent(calc_pca(object)$x)
-  df <- expect_silent(as.data.frame(colData(object)))
+  df <- expect_silent(as.data.frame(df_cols_to_factor(colData(object))))
   result <- expect_silent(h_pca_df_r2_matrix(pca, df))
   expect_is(result, "matrix")
   expect_identical(nrow(result), ncol(pca))
