@@ -1,4 +1,4 @@
-# hermes 0.1.0.9000
+# hermes 0.1.1
 
 ### New Features
 * Scatterplot of the two genes or gene signatures via `draw_scatterplot`.
