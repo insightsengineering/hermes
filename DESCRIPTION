@@ -1,8 +1,8 @@
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
 Type: Package
-Date: 2021-07-07
-Version: 0.1.0.9000
+Date: 2021-10-13
+Version: 0.1.1
 Authors@R: c(
   person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre"))
   )
@@ -50,7 +50,7 @@ Imports:
     tern,
     tidyr,
     utils,
-    utils.nest (>= 0.2.9)
+    utils.nest (>= 0.2.11)
 Suggests:
     DT,
     grid,
@@ -58,7 +58,7 @@ Suggests:
     knitr,
     rmarkdown,
     statmod,
-    test.nest (>= 0.2.9),
+    test.nest (>= 0.2.11),
     testthat (>= 2.0),
     withr
 Collate: 
