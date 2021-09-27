@@ -284,7 +284,7 @@ h_get_size_biomart <- function(gene_ids) {
 #'                          mart = mart)
 #'
 #' h_get_GRanges_by_id(coords, "ENSG00000135407")
-h_get_GRanges_by_id <- function(df, id) {
+h_get_granges_by_id <- function(df, id) {
 
   exons <-
     df[df[, "ensembl_gene_id"] == id, c("chromosome_name", "exon_chrom_start", "exon_chrom_end")]
