@@ -206,8 +206,7 @@ h_get_size_biomart <- function(gene_ids) {
   mart <-
     biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 
-  is_ensemble <-
-    ifelse(sum(grepl("ENSG", gene_ids)) > 0, TRUE, FALSE)
+  is_ensemble <- sum(grepl("ENSG", gene_ids)) > 0
 
   if (is_ensemble) {
     # Remove version number
