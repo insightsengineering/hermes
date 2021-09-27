@@ -7,7 +7,7 @@
 h_get_size_biomart(gene_ids)
 }
 \arguments{
-\item{gene_ids}{(\code{character})\cr gene ID(s) to query the size for, either ENTREZ or ENSEMBL ID.}
+\item{gene_ids}{(\code{character})\cr gene ID(s) to query the size for, either Entrez or Ensembl ID.}
 }
 \value{
 Named integer(s) indicating the gene length(s).
@@ -15,18 +15,22 @@ Named integer(s) indicating the gene length(s).
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper function queries biomaRt for the length of a gene by adding up all exon lengths after reducing overlaps.
+This helper function queries biomart for the length of a gene by adding up all exon lengths after reducing overlaps.
 }
 \examples{
-h_get_size_biomart("11185")
+if(interactive()){
 
-h_get_size_biomart("GeneID:11185")
+  h_get_size_biomart("11185")
 
-h_get_size_biomart("ENSG00000215417")
+  h_get_size_biomart("GeneID:11185")
 
-h_get_size_biomart("ENSG00000215417.1")
+  h_get_size_biomart("ENSG00000215417")
 
-h_get_size_biomart(c("GeneID:11185", "GeneID:10677"))
+  h_get_size_biomart("ENSG00000215417.1")
 
-h_get_size_biomart(c("ENSG00000135407", "ENSG00000215417"))
+  h_get_size_biomart(c("GeneID:11185", "GeneID:10677"))
+
+  h_get_size_biomart(c("ENSG00000135407", "ENSG00000215417"))
+
+}
 }

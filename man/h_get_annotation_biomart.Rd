@@ -34,7 +34,7 @@ a specific ID variable and given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}}
 }
 \examples{
 \dontrun{
-mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl") # nolint
 h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
 }
 }

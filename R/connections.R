@@ -21,7 +21,7 @@
 connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
   prefix <- match.arg(prefix)
   .ConnectionBiomart(
-    biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl"),
+    biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl"), # nolint
     prefix = prefix
   )
 }
@@ -61,7 +61,7 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
 #'
 #' @examples
 #' \dontrun{
-#' mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+#' mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl") # nolint
 #' h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
 #' }
 h_get_annotation_biomart <- function(gene_ids,
@@ -72,7 +72,7 @@ h_get_annotation_biomart <- function(gene_ids,
     is.string(id_var),
     is(mart, "Mart")
   )
-  df_gene <- biomaRt::getBM(
+  df_gene <- biomaRt::getBM( # nolint
     attributes = c(
       id_var,
       "hgnc_symbol",
@@ -83,9 +83,11 @@ h_get_annotation_biomart <- function(gene_ids,
     values = gene_ids,
     mart = mart
   )
-  # Can we assume correct order here? INVESTIGATE @ TTREIS
-  df_gene$size <- h_get_size_biomart(df_gene$entrezgene_id %>% as.character()) %>% unlist()
-  df_protein <- biomaRt::getBM(
+  entrez_ids <- as.character(df_gene$entrezgene_id)
+  exon_sizes <- h_get_size_biomart(entrez_ids)
+  df_gene <- dplyr::left_join(df_gene, exon_sizes, by = "entrezgene_id")
+  df_gene <- df_gene[, -which(colnames(df_gene) == "ensembl_gene_id")]
+  df_protein <- biomaRt::getBM( # nolint
     attributes = c(
       id_var,
       "refseq_mrna",
@@ -172,29 +174,32 @@ h_strip_prefix <- function(gene_ids, prefix) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function queries biomaRt for the length of a gene by adding up all exon lengths after reducing overlaps.
+#' This helper function queries biomart for the length of a gene by adding up all exon lengths after reducing overlaps.
 #'
-#' @param gene_ids (`character`)\cr gene ID(s) to query the size for, either ENTREZ or ENSEMBL ID.
+#' @param gene_ids (`character`)\cr gene ID(s) to query the size for, either Entrez or Ensembl ID.
 #'
 #' @return Named integer(s) indicating the gene length(s).
 #' @export
 #'
 #' @examples
-#' h_get_size_biomart("11185")
+#' if(interactive()){
 #'
-#' h_get_size_biomart("GeneID:11185")
+#'   h_get_size_biomart("11185")
 #'
-#' h_get_size_biomart("ENSG00000215417")
+#'   h_get_size_biomart("GeneID:11185")
 #'
-#' h_get_size_biomart("ENSG00000215417.1")
+#'   h_get_size_biomart("ENSG00000215417")
 #'
-#' h_get_size_biomart(c("GeneID:11185", "GeneID:10677"))
+#'   h_get_size_biomart("ENSG00000215417.1")
 #'
-#' h_get_size_biomart(c("ENSG00000135407", "ENSG00000215417"))
+#'   h_get_size_biomart(c("GeneID:11185", "GeneID:10677"))
+#'
+#'   h_get_size_biomart(c("ENSG00000135407", "ENSG00000215417"))
+#'
+#' }
 h_get_size_biomart <- function(gene_ids) {
 
   assert_character(gene_ids)
-
   attrs <- c(
     "ensembl_gene_id",
     "ensembl_exon_id",
@@ -202,58 +207,44 @@ h_get_size_biomart <- function(gene_ids) {
     "exon_chrom_start",
     "exon_chrom_end"
   )
-
-  mart <-
-    biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-
-  is_ensemble <-
-    ifelse(sum(grepl("ENSG", gene_ids)) > 0, TRUE, FALSE)
-
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl") # nolint
+  is_ensemble <- sum(grepl("ENSG", gene_ids)) > 0
   if (is_ensemble) {
-    # Remove version number
-    gene_ids <-
-      lapply(gene_ids, function(id)
-        gsub("\\.\\d+", "", id)) %>% unlist()
-    biomaRt_filter <- "ensembl_gene_id"
-
+    # Remove version number.
+    gene_ids <- unlist(lapply(gene_ids, function(id) { gsub("\\.\\d+", "", id) }))
+    biomart_filter <- "ensembl_gene_id"
   } else {
-    is_prefixed_entrez <-
-      ifelse(sum(grepl("GeneID", gene_ids)) > 0, TRUE, FALSE)
-
+    is_prefixed_entrez <- sum(grepl("GeneID", gene_ids)) > 0
     if (is_prefixed_entrez) {
       gene_ids <- h_strip_prefix(gene_ids, prefix = "GeneID")
       is_entrez <- TRUE
-
     } else {
       # Since input is sanitized, this is the only option left
       is_entrez <- TRUE
-
     }
-
-    biomaRt_filter <- "entrezgene_id"
-
+    biomart_filter <- "entrezgene_id"
   }
-
-  coords <- biomaRt::getBM(
-    filters = biomaRt_filter,
+  coords <- biomaRt::getBM( # nolint
+    filters = biomart_filter,
     attributes = attrs,
     values = gene_ids,
     mart = mart
   )
-
   ids <- unique(coords[, "ensembl_gene_id"])
-
-  exons <-
-    GenomicRanges::GRangesList(sapply(ids, function(id)
-      h_get_GRanges_by_id(coords, id)), compress = FALSE)
-
-  len <- exons %>%
-    GenomicRanges::reduce() %>%
-    GenomicRanges::width() %>%
-    sum()
-
-  return(len)
-
+  exons <- GenomicRanges::GRangesList(sapply(ids, function(id) { h_get_granges_by_id(coords, id) }), compress = FALSE)
+  unique_exons <- GenomicRanges::reduce(exons)
+  unique_exon_sizes <- GenomicRanges::width(unique_exons)
+  total_exon_size <- sum(unique_exon_sizes)
+  result_df <- data.frame(ensembl_gene_id = names(total_exon_size),
+                          size = unlist(total_exon_size))
+  entrezgene_id_helper <- biomaRt::getBM( # nolint
+    filters = "ensembl_gene_id",
+    attributes = c("ensembl_gene_id", "entrezgene_id"),
+    values = result_df$ensembl_gene_id ,
+    mart = mart
+  )
+  result_df <- dplyr::left_join(result_df, entrezgene_id_helper, by = "ensembl_gene_id")
+  result_df
 }
 
 #' Converts coordinates as returned by `biomaRt::getBM()` into `GRanges` objects.
@@ -271,30 +262,26 @@ h_get_size_biomart <- function(gene_ids) {
 #'
 #' @examples
 #'
-#' mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+#' mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl") # nolint
 #' attrs <- c("ensembl_gene_id",
 #'            "ensembl_exon_id",
 #'            "chromosome_name",
 #'            "exon_chrom_start",
 #'            "exon_chrom_end")
 #'
-#' coords <- biomaRt::getBM(filters = "entrezgene_id",
+#' coords <- biomaRt::getBM(filters = "entrezgene_id", # nolint
 #'                          attributes = attrs,
 #'                          values = c("11185", "10677"),
 #'                          mart = mart)
 #'
-#' h_get_GRanges_by_id(coords, "ENSG00000135407")
-h_get_GRanges_by_id <- function(df, id) {
-
-  exons <-
-    df[df[, "ensembl_gene_id"] == id, c("chromosome_name", "exon_chrom_start", "exon_chrom_end")]
-
+#' h_get_granges_by_id(coords, "ENSG00000135407")
+h_get_granges_by_id <- function(df, id) {
+  exons <- df[df[, "ensembl_gene_id"] == id, c("chromosome_name", "exon_chrom_start", "exon_chrom_end")]
   exons <- GenomicRanges::GRanges(
     exons$chromosome_name,
     IRanges::IRanges(exons$exon_chrom_start, exons$exon_chrom_end)
   )
-
-  return(exons)
+  exons
 
 }
 
