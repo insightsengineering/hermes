@@ -170,7 +170,7 @@ h_strip_prefix <- function(gene_ids, prefix) {
   )
 }
 
-#' Returns the total length of all exons for a given ID
+#' Returns the Total Length of All Exons for a given ID
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
