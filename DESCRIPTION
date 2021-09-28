@@ -1,8 +1,8 @@
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
 Type: Package
-Date: 2021-07-07
-Version: 0.1.0.9000
+Date: 2021-10-13
+Version: 0.1.1
 Authors@R: c(
   person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre"))
   )
@@ -11,7 +11,7 @@ License: Apache License 2.0 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 RdMacros: Rdpack, lifecycle
 VignetteBuilder: knitr 
 URL: https://github.com/insightsengineering/hermes/
@@ -51,7 +51,7 @@ Imports:
     tern,
     tidyr,
     utils,
-    utils.nest (>= 0.2.9)
+    utils.nest (>= 0.2.11)
 Suggests:
     DT,
     grid,
@@ -59,7 +59,7 @@ Suggests:
     knitr,
     rmarkdown,
     statmod,
-    test.nest (>= 0.2.9),
+    test.nest (>= 0.2.11),
     testthat (>= 2.0),
     withr
 Collate: 
@@ -72,10 +72,10 @@ Collate:
     'connections.R'
     'data.R'
     'differential.R'
+    'dplyr_compatibility.R'
     'draw_barplot.R'
     'draw_boxplot.R'
     'draw_scatterplot.R'
-    'filter_dplyr.R'
     'graphs.R'
     'normalization.R'
     'package.R'

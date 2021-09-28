@@ -2,12 +2,11 @@ library(hermes)
 library(MultiAssayExperiment)
 library(random.cdisc.data)
 
-set.seed(100)
-
 # Start with the example HermesData object.
 hd <- hermes_data
 
 # Randomly add to the counts assay.
+set.seed(100)
 assay(hd, "counts")[] <- assay(hd, "counts")[] +
   rnbinom(n = prod(dim(hd)), size = 100, prob = 0.5)
 
@@ -18,15 +17,14 @@ hd3 <- hd[1501:2800, 15:20]
 
 # Find suitable patient names.
 adsl <- radsl(cached = TRUE)
-
+adsl$USUBJID[1:18]
 pat_names <- c(
   "AB12345-CHN-3-id-128", "AB12345-CHN-15-id-262", "AB12345-RUS-3-id-378",
   "AB12345-CHN-11-id-220", "AB12345-CHN-7-id-267", "AB12345-CHN-15-id-201",
   "AB12345-USA-1-id-45", "AB12345-USA-1-id-261", "AB12345-NGA-11-id-173",
   "AB12345-CHN-1-id-307", "AB12345-CHN-7-id-28", "AB12345-CHN-4-id-73",
   "AB12345-RUS-1-id-52", "AB12345-PAK-11-id-268", "AB12345-CHN-13-id-102",
-  "AB12345-CHN-17-id-84", "AB12345-BRA-11-id-9", "AB12345-CHN-4-id-115",
-  "AB12345-CHN-15-id-245", "AB12345-CHN-4-id-370"
+  "AB12345-CHN-17-id-84", "AB12345-BRA-11-id-9", "AB12345-CHN-4-id-115"
 )
 
 # Create sample maps for each experiment.
@@ -54,27 +52,43 @@ hd3map <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Create an example phenotype data.
-col_dat <- data.frame(
-  sex = sample(c("M", "F"), size = 18, replace = TRUE),
-  age = seq(from = 35, length = 18),
-  row.names = pat_names[1:18]
+# Migrating subject level phenotype variables from experiment level to subject level.
+col_dat <- rbind(
+  as.data.frame(colData(hd1)),
+  as.data.frame(colData(hd2)),
+  as.data.frame(colData(hd3))[-c(2, 6), ]
 )
+drop_vars <- c("low_depth_flag", "SampleID", "tech_failure_flag")
+col_dat <- col_dat[, !(names(col_dat) %in% drop_vars)]
 
-# Remove SEX and AGE variables from experiment colData.
+# Double check age variables consistency.
+age_less_18 <- col_dat$AGE < 18
+stopifnot(all(col_dat$AGE18[age_less_18] == "< 18"))
+stopifnot(all(col_dat$AGE18[!age_less_18] == ">= 18"))
+
+# Ensure that patient IDs are consistent.
+rownames(col_dat) <- pat_names
+col_dat <- col_dat %>%
+  dplyr::mutate(
+    USUBJID = pat_names,
+    SUBJID = pat_names
+  )
+
+# Remove phenotype variables now at subject level from experiment colData.
+# Also remove `SampleID` since that is duplicate with the row names.
+remove_vars <- c("SampleID", names(col_dat))
+
 cd1 <- colData(hd1)
-colData(hd1) <- cd1[, - match(c("SEX", "AGE"), names(cd1))]
+colData(hd1) <- cd1[, !(names(cd1) %in% remove_vars)]
 
 cd2 <- colData(hd2)
-colData(hd2) <- cd2[, - match(c("SEX", "AGE"), names(cd2))]
+colData(hd2) <- cd2[, !(names(cd2) %in% remove_vars)]
 
 cd3 <- colData(hd3)
-colData(hd3) <- cd3[, - match(c("SEX", "AGE"), names(cd3))]
+colData(hd3) <- cd3[, !(names(cd3) %in% remove_vars)]
 
 # Add normalized assays to the second `HermesData` object.
 hd2 <- hd2 %>%
-  add_quality_flags() %>%
-  filter() %>%
   normalize()
 
 # Create a named experiment list.

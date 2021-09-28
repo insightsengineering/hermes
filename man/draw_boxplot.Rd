@@ -11,6 +11,7 @@ draw_boxplot(
   x_var = NULL,
   color_var = NULL,
   facet_var = NULL,
+  violin = FALSE,
   jitter = FALSE
 )
 }
@@ -19,7 +20,7 @@ draw_boxplot(
 
 \item{assay_name}{(\code{string})\cr selects assay from input for the y-axis.}
 
-\item{genes}{(\code{character})\cr gene ID(s) for which to produce boxplots.}
+\item{genes}{(\code{GeneSpec})\cr for which genes or which gene signature to produce boxplots.}
 
 \item{x_var}{(\code{string} or \code{NULL})\cr optional stratifying variable for the x-axis,
 taken from input sample variables.}
@@ -30,7 +31,9 @@ input sample variables.}
 \item{facet_var}{(\code{string} or \code{NULL})\cr optional faceting variable, taken
 from input sample variables.}
 
-\item{jitter}{(\code{flag})\cr whether to add jittered original data points or not.}
+\item{violin}{(\code{flag})\cr whether to draw a violin plot instead of a boxplot.}
+
+\item{jitter}{(\code{flag})\cr whether to add jittered original data points.}
 }
 \value{
 The \code{ggplot} boxplot.
@@ -38,15 +41,16 @@ The \code{ggplot} boxplot.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This produces a boxplot of the gene expression values of a gene for a
-sample variable.
+This produces boxplots of the gene expression values of a single gene, multiple genes or
+a gene signature.
 }
 \examples{
 object <- hermes_data
 draw_boxplot(
   object,
   assay_name = "counts",
-  genes = genes(object)[2]
+  genes = gene_spec(genes(object)[1]),
+  violin = TRUE
 )
 
 object2 <- object \%>\%
@@ -57,7 +61,7 @@ draw_boxplot(
   object2,
   assay_name = "tpm",
   x_var = "SEX",
-  genes = genes(object2)[20],
+  genes = gene_spec(genes(object2)[1:10], fun = colMeans),
   facet_var = "RACE",
   color_var = "AGE18",
   jitter = TRUE
@@ -67,15 +71,8 @@ draw_boxplot(
   object,
   assay_name = "counts",
   x_var = "SEX",
-  genes = genes(object)[2],
-  jitter = TRUE
-)
-
-draw_boxplot(
-  object,
-  assay_name = "counts",
-  x_var = "SEX",
-  genes = genes(object)[1:2],
-  facet_var = "RACE"
+  genes = gene_spec(genes(object)[1:3]),
+  jitter = TRUE,
+  facet_var = "AGE18"
 )
 }

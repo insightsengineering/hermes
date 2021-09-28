@@ -7,7 +7,7 @@
 draw_barplot(
   object,
   assay_name,
-  x_var,
+  x_spec,
   facet_var = NULL,
   fill_var = NULL,
   percentiles = c(1/3, 2/3)
@@ -18,7 +18,7 @@ draw_barplot(
 
 \item{assay_name}{(\code{string})\cr selects assay from input.}
 
-\item{x_var}{(\code{string})\cr gene ID for the x-axis.}
+\item{x_spec}{(\code{GeneSpec})\cr gene specification for the x-axis.}
 
 \item{facet_var}{(\code{string} or \code{NULL})\cr optional faceting variable, taken
 from input sample variables.}
@@ -39,32 +39,32 @@ This produces a barplot of the dichotomized gene expression counts into two or t
 categories based on custom defined percentiles.
 }
 \examples{
-object <- hermes_data \%>\%
-  add_quality_flags() \%>\%
-  filter() \%>\%
-  normalize()
+object <- hermes_data
+
+g <- genes(object)
 
 draw_barplot(
   object,
   assay_name = "counts",
-  x_var = genes(object)[1],
+  x_spec = gene_spec(g[1]),
+  facet_var = "SEX",
+  fill_var = "AGE18"
+)
+
+ draw_barplot(
+  object,
+  assay_name = "counts",
+  x_spec = gene_spec(g[1:3], colMedians, "Median"),
   facet_var = "SEX",
   fill_var = "AGE18"
 )
 
 draw_barplot(
   object,
-  assay_name = "tpm",
-  x_var = genes(object)[5],
-  percentiles = c(0.2, 0.8)
-)
-
-draw_barplot(
-  object,
-  assay_name = "cpm",
-  x_var = genes(object)[1],
+  assay_name = "counts",
+  x_spec = gene_spec(g[1:3], colMeans, "Mean"),
   facet_var = "SEX",
   fill_var = "AGE18",
-  percentiles = c(0, 0.8)
+  percentiles = c(0.1, 0.9)
 )
 }

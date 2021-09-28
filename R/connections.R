@@ -207,8 +207,17 @@ h_get_size_biomart <- function(gene_ids) {
     "exon_chrom_start",
     "exon_chrom_end"
   )
+<<<<<<< HEAD
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl") # nolint
   is_ensemble <- sum(grepl("ENSG", gene_ids)) > 0
+=======
+
+  mart <-
+    biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+
+  is_ensemble <- sum(grepl("ENSG", gene_ids)) > 0
+
+>>>>>>> 4ff6a6373b6ab192a77591c58a1728bddefc0443
   if (is_ensemble) {
     # Remove version number.
     gene_ids <- unlist(lapply(gene_ids, function(id) { gsub("\\.\\d+", "", id) }))
