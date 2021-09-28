@@ -42,8 +42,8 @@ h_pca_var_rsquared <- function(pca, x) {
   )
   use_sample <- !is.na(x)
   x <- x[use_sample]
-  if(is_constant(x) == TRUE){
-    stop("sample variable is constant and R2 values cannot be calculated")
+  if(is_constant(x)){
+    warning("sample variable is constant and R2 values cannot be calculated")
   }
   pca <- pca[use_sample, ]
   design <- stats::model.matrix(~x)
