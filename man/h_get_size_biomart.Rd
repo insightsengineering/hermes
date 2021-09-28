@@ -2,7 +2,7 @@
 % Please edit documentation in R/connections.R
 \name{h_get_size_biomart}
 \alias{h_get_size_biomart}
-\title{Returns the total length of all exons for a given ID}
+\title{Returns the Total Length of All Exons for a given ID}
 \usage{
 h_get_size_biomart(gene_ids)
 }
