@@ -423,8 +423,8 @@ test_that("show works as expected for RangedHermesData", {
 
 # lapply ----
 test_that("lapply works as expected for an MAE", {
-  mae <- hermes::multi_assay_experiment
-  result <- lapply(mae, normalize)
+  mae <- multi_assay_experiment
+  result <- expect_silent(lapply(mae, normalize))
   expect_is(result, "MultiAssayExperiment")
   expect_is(result[[1]], "HermesData")
   expect_is(result[[2]], "HermesData")
@@ -437,7 +437,7 @@ test_that("lapply works as expected for an MAE", {
 test_that("lapply works as expected with safe = TRUE argument when converting experiments in an MAE to HermesData", {
   mae <- hermes::multi_assay_experiment
   mae[[1]] <- rename(mae[[1]], assay = c(count = "counts"))
-  result <- expect_warning(lapply(mae, HermesData))
+  result <- expect_warning(lapply(mae, HermesData), "Specified function fails on hd1")
   expect_is(result, "MultiAssayExperiment")
   expect_is(result[[1]], "HermesData")
   expect_is(result[[2]], "HermesData")
