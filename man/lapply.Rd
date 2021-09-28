@@ -10,12 +10,12 @@
 \arguments{
 \item{X}{(\code{MultiAssayExperiment})\cr input.}
 
-\item{FUN}{A function to be applied to each \code{SummarizedExperiment} in \code{X}.}
+\item{FUN}{(\code{function}) to be applied to each experiment in \code{X}.}
 
-\item{safe}{(\code{logical})\cr whether this method should skip experiment
-where the function fails. Set to \code{TRUE} by default.}
+\item{safe}{(\code{flag})\cr whether this method should skip experiments
+where the function fails.}
 
-\item{...}{additional arguments.}
+\item{...}{additional arguments passed to \code{FUN}.}
 }
 \value{
 \code{MultiAssayExperiment} object with specified function applied.
