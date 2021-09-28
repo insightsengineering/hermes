@@ -21,7 +21,7 @@ test_that("h_pca_var_rsquared fails as expected with invalid inputs", {
 test_that("h_pca_var_rsquared returns warning when something is not estimable", {
   pca <- rbind(X = -1, Y = 1)
   x <- c(FALSE, FALSE)
-  expect_error(h_pca_var_rsquared(pca, x))
+  expect_warning(h_pca_var_rsquared(pca, x), "sample variable is constant and R2 values cannot be calculated")
 })
 
 # h_pca_df_r2_matrix ----
