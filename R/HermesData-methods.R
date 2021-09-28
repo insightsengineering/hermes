@@ -847,10 +847,13 @@ setGeneric("autoplot")
 # lapply ----
 
 #' `lapply` method for `MultiAssayExperiment`
-##'
+##
 #' @description `r lifecycle::badge("experimental")`
 #'
 #' Apply a function on all experiments in an MAE.
+#'
+#' @rdname lapply
+#' @aliases lapply
 #'
 #' @param X (`MultiAssayExperiment`)\cr input.
 #' @param FUN A function to be applied to each `SummarizedExperiment` in `X`.
@@ -874,13 +877,20 @@ setMethod(
   signature = "MultiAssayExperiment",
   definition = function(X, FUN, safe = TRUE, ...) {
     assert_class(X, "MultiAssayExperiment")
-    assert_that(is.logical(safe))
+    assert_flag(safe)
     FUN2 <- if (safe) {
       purrr::possibly(FUN, otherwise = NULL)
     } else {
       FUN
     }
     experiments(X) <- S4Vectors::endoapply(experiments(X), FUN2, ...)
+    null_experiments <- experiments(X) [lengths(experiments(X)) == 0]
+    if (length(null_experiments) != 0) {
+      warning(paste(
+        "Specified function failed on", names(null_experiments)
+      ))
+    }
+    experiments(X) <- experiments(X) [lengths(experiments(X)) != 0]
     return(X)
   }
 )

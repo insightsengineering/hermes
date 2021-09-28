@@ -2,6 +2,7 @@
 % Please edit documentation in R/HermesData-methods.R
 \name{lapply,MultiAssayExperiment-method}
 \alias{lapply,MultiAssayExperiment-method}
+\alias{lapply}
 \title{\code{lapply} method for \code{MultiAssayExperiment}}
 \usage{
 \S4method{lapply}{MultiAssayExperiment}(X, FUN, safe = TRUE, ...)
