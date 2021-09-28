@@ -25,3 +25,9 @@ where the function fails.}
 
 Apply a function on all experiments in an MAE.
 }
+\examples{
+object <- multi_assay_experiment
+result <- lapply(object, normalize, safe = TRUE)
+# Similarly, all experiments in an MAE can be converted to HermesData class:
+result <- lapply(object, HermesData, safe = TRUE)
+}

@@ -865,11 +865,12 @@ setGeneric("autoplot")
 #'
 #' @importMethodsFrom BiocGenerics lapply
 #' @export
-#' @example
+#'
+#' @examples
 #' object <- multi_assay_experiment
 #' result <- lapply(object, normalize, safe = TRUE)
 #' # Similarly, all experiments in an MAE can be converted to HermesData class:
-#' result <- lapply(mae, HermesData, safe = TRUE)
+#' result <- lapply(object, HermesData, safe = TRUE)
 setMethod(
   f = "lapply",
   signature = "MultiAssayExperiment",
