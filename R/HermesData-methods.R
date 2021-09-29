@@ -843,3 +843,54 @@ setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 # autoplot ----
 
 setGeneric("autoplot")
+
+# lapply ----
+
+#' `lapply` method for `MultiAssayExperiment`
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Apply a function on all experiments in an MAE.
+#'
+#' @rdname lapply
+#' @aliases lapply
+#'
+#' @param X (`MultiAssayExperiment`)\cr input.
+#' @param FUN (`function`) to be applied to each experiment in `X`.
+#' @param safe (`flag`)\cr whether this method should skip experiments
+#'   where the function fails.
+#' @param ... additional arguments passed to `FUN`.
+#'
+#' @return `MultiAssayExperiment` object with specified function applied.
+#'
+#' @importMethodsFrom BiocGenerics lapply
+#' @export
+#'
+#' @examples
+#' object <- multi_assay_experiment
+#' result <- lapply(object, normalize, safe = TRUE)
+#' # Similarly, all experiments in an MAE can be converted to HermesData class:
+#' result <- lapply(object, HermesData, safe = TRUE)
+setMethod(
+  f = "lapply",
+  signature = "MultiAssayExperiment",
+  definition = function(X, FUN, safe = TRUE, ...) {
+    assert_class(X, "MultiAssayExperiment")
+    assert_function(FUN)
+    assert_flag(safe)
+    FUN2 <- if (safe) {
+      purrr::possibly(FUN, otherwise = NULL)
+    } else {
+      FUN
+    }
+    experiments(X) <- S4Vectors::endoapply(experiments(X), FUN2, ...)
+    null_experiments <- experiments(X)[lengths(experiments(X)) == 0]
+    if (length(null_experiments)) {
+      warning(paste(
+        "Specified function failed on", toString(names(null_experiments))
+      ))
+    }
+    experiments(X) <- experiments(X)[lengths(experiments(X)) > 0]
+    X
+  }
+)

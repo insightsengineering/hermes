@@ -43,6 +43,7 @@ Imports:
     matrixStats,
     methods,
     MultiAssayExperiment,
+    purrr,
     R6,
     Rdpack,
     rlang,
