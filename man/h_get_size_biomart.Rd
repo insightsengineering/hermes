@@ -15,7 +15,7 @@ Named integer(s) indicating the gene length(s).
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper function queries biomart for the length of a gene by adding up all exon lengths after reducing overlaps.
+This helper function queries BioMart for the length of a gene by adding up all exon lengths after reducing overlaps.
 }
 \examples{
 if(interactive()){

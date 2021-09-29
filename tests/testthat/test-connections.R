@@ -89,13 +89,15 @@ test_that("h_get_size_biomart works as expected", {
 test_that("h_get_granges_by_id works as expected", {
 
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl") # nolint
-  attrs <- c("ensembl_gene_id",
-             "ensembl_exon_id",
-             "chromosome_name",
-             "exon_chrom_start",
-             "exon_chrom_end")
+  attrs <- c(
+    "ensembl_gene_id",
+    "ensembl_exon_id",
+    "chromosome_name",
+    "exon_chrom_start",
+    "exon_chrom_end"
+  )
 
-  coords <- biomaRt::getBM( # nolint
+  coords <- biomaRt::getBM(
     filters = "entrezgene_id",
     attributes = attrs,
     values = c("11185", "10677"),
