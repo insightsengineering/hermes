@@ -15,8 +15,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' connection <- connect_biomart("ENSG")
+#' if(interactive()){
+#'   connection <- connect_biomart("ENSG")
 #' }
 connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
   prefix <- match.arg(prefix)
@@ -60,9 +60,9 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-#' h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
+#' if(interactive()){
+#'   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+#'   h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
 #' }
 h_get_annotation_biomart <- function(gene_ids,
                                      id_var,
@@ -259,20 +259,21 @@ h_get_size_biomart <- function(gene_ids) {
 #' @export
 #'
 #' @examples
-#'
-#' mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-#' attrs <- c("ensembl_gene_id",
-#'            "ensembl_exon_id",
-#'            "chromosome_name",
-#'            "exon_chrom_start",
-#'            "exon_chrom_end")
-#'
-#' coords <- biomaRt::getBM(filters = "entrezgene_id",
-#'                          attributes = attrs,
-#'                          values = c("11185", "10677"),
-#'                          mart = mart)
-#'
-#' h_get_granges_by_id(coords, "ENSG00000135407")
+#' if(interactive()){
+#'   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+#'   attrs <- c("ensembl_gene_id",
+#'              "ensembl_exon_id",
+#'              "chromosome_name",
+#'              "exon_chrom_start",
+#'              "exon_chrom_end")
+#'   coords <- biomaRt::getBM(
+#'     filters = "entrezgene_id",
+#'     attributes = attrs,
+#'     values = c("11185", "10677"),
+#'     mart = mart
+#'   )
+#'   h_get_granges_by_id(coords, "ENSG00000135407")
+#' }
 h_get_granges_by_id <- function(df, id) {
   exons <- df[df[, "ensembl_gene_id"] == id, c("chromosome_name", "exon_chrom_start", "exon_chrom_end")]
   GenomicRanges::GRanges(
@@ -287,12 +288,12 @@ h_get_granges_by_id <- function(df, id) {
 #'
 #' @export
 #' @examples
-#' \dontrun{
-#' object <- hermes_data
-#' connection <- connect_biomart(prefix(object))
-#' result <- query(genes(object), connection)
-#' head(result)
-#' head(annotation(object))
+#' if(interactive()){
+#'   object <- hermes_data
+#'   connection <- connect_biomart(prefix(object))
+#'   result <- query(genes(object), connection)
+#'   head(result)
+#'   head(annotation(object))
 #' }
 setMethod(
   f = "query",

@@ -27,7 +27,7 @@ which is used downstream for the query.
 This connects to the Ensembl data base of BioMart for human genes.
 }
 \examples{
-\dontrun{
-connection <- connect_biomart("ENSG")
+if(interactive()){
+  connection <- connect_biomart("ENSG")
 }
 }

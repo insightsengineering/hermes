@@ -21,18 +21,19 @@ This function automatically extracts the chromosome number, the start position a
 in given data.frame as returned by \code{biomaRt::getBM()} and converts them to \code{GRanges} objects.
 }
 \examples{
-
-mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-attrs <- c("ensembl_gene_id",
-           "ensembl_exon_id",
-           "chromosome_name",
-           "exon_chrom_start",
-           "exon_chrom_end")
-
-coords <- biomaRt::getBM(filters = "entrezgene_id",
-                         attributes = attrs,
-                         values = c("11185", "10677"),
-                         mart = mart)
-
-h_get_granges_by_id(coords, "ENSG00000135407")
+if(interactive()){
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+  attrs <- c("ensembl_gene_id",
+             "ensembl_exon_id",
+             "chromosome_name",
+             "exon_chrom_start",
+             "exon_chrom_end")
+  coords <- biomaRt::getBM(
+    filters = "entrezgene_id",
+    attributes = attrs,
+    values = c("11185", "10677"),
+    mart = mart
+  )
+  h_get_granges_by_id(coords, "ENSG00000135407")
+}
 }
