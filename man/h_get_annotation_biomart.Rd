@@ -21,8 +21,7 @@ A data frame with columns:
 \item \code{hgnc_symbol}
 \item \code{entrezgene_description}
 \item \code{chromosome_name}
-\item \code{start_position}
-\item \code{end_position}
+\item \code{size}
 \item \code{refseq_mrna}
 \item \code{refseq_peptide}
 }
@@ -34,8 +33,8 @@ Helper function to query annotations from \code{biomaRt}, for cleaned up gene ID
 a specific ID variable and given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}}.
 }
 \examples{
-\dontrun{
-mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
+if(interactive()){
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+  h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
 }
 }

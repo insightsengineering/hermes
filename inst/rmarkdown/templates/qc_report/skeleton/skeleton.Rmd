@@ -93,10 +93,10 @@ template_version <- "1.0.0"
 knitr::opts_chunk$set(
   cache = FALSE, # Set `TRUE` to enable rmarkdown cache.
   cache.lazy = FALSE,
-  eval = TRUE, 
-  echo = TRUE, 
+  eval = TRUE,
+  echo = TRUE,
   message = TRUE,
-  warning = TRUE, 
+  warning = TRUE,
   error = FALSE # Important to have `FALSE` here in order to stop after an error.
 )
 
@@ -106,7 +106,7 @@ library(hermes)
 
 
 ```{r}
-# Load Data and get object HermesData 
+# Load Data and get object HermesData
 se <- get(params$input_summarized_experiment)
 stopifnot(is(se, "SummarizedExperiment"))
 
@@ -147,14 +147,14 @@ sessionInfo()
 # Dataset Summary
 
 The dataset used is "`r params$input_summarized_experiment`".
-The data set was composed of <b>`r ncol(object_original)`</b> samples and <b>`r nrow(object_original)`</b> genes. 
+The data set was composed of <b>`r ncol(object_original)`</b> samples and <b>`r nrow(object_original)`</b> genes.
 
 ## Technical Metrics {.tabset}
 
-### Histogram of Library Sizes 
+### Histogram of Library Sizes
 
-First, we check how the distribution of library sizes looks like across all samples. The median library size is <b>`r sprintf("%0.3G", median(colSums(counts(object_original))))`</b>. 
-According to [Standards, Guidelines and Best Practices for RNA-Seq (The ENCODE Consortium)](https://www.encodeproject.org/documents/cede0cbe-d324-4ce7-ace4-f0c3eddf5972/@@download/attachment/ENCODE%20Best%20Practices%20for%20RNA_v2.pdf "ENCODE Project Homepage"), the sequencing depth/library size is usually determined by the goals of the experiment and the nature of the RNA sample. The minimum library size required is around 20-30 million aligned reads. 
+First, we check how the distribution of library sizes looks like across all samples. The median library size is <b>`r sprintf("%0.3G", median(colSums(counts(object_original))))`</b>.
+According to [Standards, Guidelines and Best Practices for RNA-Seq (The ENCODE Consortium)](https://www.encodeproject.org/documents/cede0cbe-d324-4ce7-ace4-f0c3eddf5972/@@download/attachment/ENCODE%20Best%20Practices%20for%20RNA_v2.pdf "ENCODE Project Homepage"), the sequencing depth/library size is usually determined by the goals of the experiment and the nature of the RNA sample. The minimum library size required is around 20-30 million aligned reads.
 
 ```{r genes_hist_libdepth, results = "asis", include = params$show_output}
 draw_libsize_hist(object_original)
@@ -170,7 +170,7 @@ draw_libsize_qq(object_original)
 
 ### Density Plot of (Log) Counts Distributions
 
-In this plot, each line represents density of expression of all the genes within one sample. Lines that deviate from the majority may suggest inconsistent read depth or technical failure of the samples. The peaks in log2 (count) distribution indicate the log2(count) value at which the majority of genes are expressed. 
+In this plot, each line represents density of expression of all the genes within one sample. Lines that deviate from the majority may suggest inconsistent read depth or technical failure of the samples. The peaks in log2 (count) distribution indicate the log2(count) value at which the majority of genes are expressed.
 
 ```{r genes_density_libdepth, results = "asis", include = params$show_output}
 draw_libsize_densities(object_original)
@@ -178,7 +178,7 @@ draw_libsize_densities(object_original)
 
 ## Gene filtering {.tabset}
 
-This step is necessary to flag out genes with low expression. Genes with very low counts across all libraries provide little evidence for differential expression and they interfere with some of the statistical analyses conducted later in the pipeline. Therefore, these genes should be filtered out prior to the analysis. 
+This step is necessary to flag out genes with low expression. Genes with very low counts across all libraries provide little evidence for differential expression and they interfere with some of the statistical analyses conducted later in the pipeline. Therefore, these genes should be filtered out prior to the analysis.
 
 There are many ways to filter out genes with lower counts. When there are n biological replicates in each group, we usually filter on a minimum counts per million threshold present in at least n samples. In this dataset, we choose to retain genes if they are expressed at a counts-per-million (CPM) above <b> `r params$min_cpm` </b> in at least in <b> `r (params$min_cpm_prop)*100`% </b> of the samples. These thresholds can be modified.
 
@@ -195,8 +195,8 @@ draw_genes_barplot(object_original) +
 
 ```{r}
 object_tg <- top_genes(
-  object_original, 
-  n_top = params$top_gene_n_top, 
+  object_original,
+  n_top = params$top_gene_n_top,
   min_threshold = params$top_gene_min_threshold
 )
 ```
@@ -211,9 +211,9 @@ autoplot(object_tg, y_lab = "Maximum Count", title = "Top genes")
 
 ```{r}
 object_sds <- top_genes(
-  object_original, 
-  summary_fun = rowSds, 
-  n_top = params$top_gene_n_top, 
+  object_original,
+  summary_fun = rowSds,
+  n_top = params$top_gene_n_top,
   min_threshold = params$top_gene_min_threshold
 )
 ```
@@ -222,19 +222,19 @@ This bar plot shows the shows the expression standard deviation (y axis) for eac
 
 ```{r, include = params$show_output}
 autoplot(
-  object_sds, 
-  y_lab = "Standard Deviation across samples", 
+  object_sds,
+  y_lab = "Standard Deviation across samples",
   title = "Top variability genes"
 )
 ```
 
 ## Sample filtering {.tabset}
 
-This step is necessary to filter out samples with low depth or technical failure. There are three approaches:   
+This step is necessary to filter out samples with low depth or technical failure. There are three approaches:
 
 ### Low depth samples
 
-Identified either by lower quartile minus 1.5*IQR (default) or user-defined threshold: <b>`r ifelse(is.null(params$min_depth), "still default here", params$min_depth)`</b> 
+Identified either by lower quartile minus 1.5*IQR (default) or user-defined threshold: <b>`r ifelse(is.null(params$min_depth), "still default here", params$min_depth)`</b>
 
 ### Correlation between samples
 
@@ -243,23 +243,23 @@ Humans usually have a similar RNAseq profile; therefore, correlation of RNAseq v
 Correlation matrix between the sample vectors of counts from a specified assay, containing quality flags (`TechnicalFailureFlag`, `LowDepthFlag`) describing the original input samples:
 
 ```{r}
-object_cor <- hermes::correlate(object_original, method = params$cor_method) 
+object_cor <- hermes::correlate(object_original, method = params$cor_method)
 ```
 
 ```{r, include = params$show_output}
 autoplot(
   object_cor,
-  row_names_gp = grid::gpar(fontsize = 8), 
+  row_names_gp = grid::gpar(fontsize = 8),
   column_names_gp = grid::gpar(fontsize = 8)
 )
 ```
 
 ### Boxplot of non-zero genes per sample
 
-In this plot, each data point represents the number of non-zero expressed genes in a sample. Samples with a lower number non-zero count genes may be also of interest. 
+In this plot, each data point represents the number of non-zero expressed genes in a sample. Samples with a lower number non-zero count genes may be also of interest.
 
 ```{r, include = params$show_output}
-draw_nonzero_boxplot(object_original) 
+draw_nonzero_boxplot(object_original)
 ```
 
 # Filtering and Normalization Effects
@@ -282,19 +282,19 @@ Rate of passing: <b> `r round((100/ncol(object_original))*ncol(object_filtered_n
 
 Here we use the counts assay of the filtered object, i.e. less samples might be included here.
 
-### Histogram of Library Sizes 
+### Histogram of Library Sizes
 
 ```{r , results = "asis", include = params$show_output}
 draw_libsize_hist(object_filtered_normalized)
 ```
 
-### Q-Q Plot of Library Sizes 
+### Q-Q Plot of Library Sizes
 
 ```{r , results = "asis", include = params$show_output}
 draw_libsize_qq(object_filtered_normalized)
 ```
 
-### Density Plot of (Log) Counts Distributions 
+### Density Plot of (Log) Counts Distributions
 
 ```{r , results = "asis", include = params$show_output}
 draw_libsize_densities(object_filtered_normalized)
@@ -308,7 +308,7 @@ PCA `r ifelse(is.null(params$pca_batch_var), "is not performed because 'pca_batc
 
 Background: If batch information is provided in the column data, principal component analysis will be performed below on autosomes for checking batch effect. In general, it is a good sign to see that data points from different batches are mixing up well. This suggests that the batch effect is negligible.
 
-Note that genes with constant counts across all samples are excluded from the analysis internally. Centering and scaling is applied internally. 
+Note that genes with constant counts across all samples are excluded from the analysis internally. Centering and scaling is applied internally.
 
 ### PCA before normalization
 
@@ -318,7 +318,7 @@ Here the original counts are used, after filtering samples and genes as describe
 object_pca <- calc_pca(object_filtered_normalized, assay_name = "counts")
 
 autoplot(
-  object_pca, 
+  object_pca,
   label = TRUE,
   label.repel = TRUE,
   data = as.data.frame(colData(object_filtered_normalized)),
@@ -332,12 +332,12 @@ In this analysis the `r params$pca_assay_name` assay is used.
 
 ```{r, eval = !is.null(params$pca_batch_var), include = params$show_output}
 object_norm_pca <- calc_pca(
-  object_filtered_normalized, 
+  object_filtered_normalized,
   assay_name = params$pca_assay_name
 )
 
 autoplot(
-  object_norm_pca, 
+  object_norm_pca,
   label = TRUE,
   label.repel = TRUE,
   data = as.data.frame(colData(object_filtered_normalized)),
@@ -378,7 +378,7 @@ df_comp_low_depth <- data.frame(
 DT::datatable(subset(df_comp_low_depth, default != result))
 ```
 
-## Comparing QC results on genes 
+## Comparing QC results on genes
 
 We list the genes where the default low expression flags are
 different from the resulting ones, using the custom CPM and proportion thresholds:
@@ -395,7 +395,7 @@ DT::datatable(subset(df_comp_low_expression, default != result))
 ```
 
 # Output
- 
+
 The used `HermesData` object called `object_filtered_normalized` has been saved in `r params$output_data_file` if that file did not exist beforehand.
 
 ```{r}

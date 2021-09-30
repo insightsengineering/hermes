@@ -53,6 +53,8 @@ reference:
       - h_pca_var_rsquared
       - h_pca_df_r2_matrix
       - h_get_annotation_biomart
+      - h_get_granges_by_id
+      - h_get_size_biomart
       - h_strip_prefix
       - h_has_req_annotations
       - h_short_list

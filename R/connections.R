@@ -15,8 +15,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' connection <- connect_biomart("ENSG")
+#' if(interactive()){
+#'   connection <- connect_biomart("ENSG")
 #' }
 connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
   prefix <- match.arg(prefix)
@@ -30,7 +30,7 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
 #' @aliases ConnectionBiomart
 #' @importClassesFrom biomaRt Mart
 #' @export
-.ConnectionBiomart <- setClass( # nolint
+.ConnectionBiomart <- setClass(
   "ConnectionBiomart",
   contains = "Mart",
   slots = c(prefix = "character")
@@ -53,17 +53,16 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
 #'   - `hgnc_symbol`
 #'   - `entrezgene_description`
 #'   - `chromosome_name`
-#'   - `start_position`
-#'   - `end_position`
+#'   - `size`
 #'   - `refseq_mrna`
 #'   - `refseq_peptide`
 #'
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-#' h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
+#' if(interactive()){
+#'   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+#'   h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
 #' }
 h_get_annotation_biomart <- function(gene_ids,
                                      id_var,
@@ -78,14 +77,16 @@ h_get_annotation_biomart <- function(gene_ids,
       id_var,
       "hgnc_symbol",
       "entrezgene_description",
-      "chromosome_name",
-      "start_position",
-      "end_position"
+      "chromosome_name"
     ),
     filters = id_var,
     values = gene_ids,
     mart = mart
   )
+  entrez_ids <- as.character(df_gene$entrezgene_id)
+  exon_sizes <- h_get_size_biomart(entrez_ids)
+  df_gene <- dplyr::left_join(df_gene, exon_sizes, by = "entrezgene_id")
+  df_gene <- df_gene[, -which(colnames(df_gene) == "ensembl_gene_id")]
   df_protein <- biomaRt::getBM(
     attributes = c(
       id_var,
@@ -99,7 +100,7 @@ h_get_annotation_biomart <- function(gene_ids,
   df <- merge(df_gene, df_protein, by = id_var, all = TRUE)
   df <- df[match(gene_ids, df[[id_var]]), ]
   rownames(df) <- gene_ids
-  df[, - which(colnames(df) == id_var)]
+  df[, -which(colnames(df) == id_var)]
 }
 
 # query ----
@@ -169,18 +170,130 @@ h_strip_prefix <- function(gene_ids, prefix) {
   )
 }
 
+#' Returns the Total Length of All Exons for a given ID
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function queries BioMart for the length of a gene by adding up all exon lengths after reducing overlaps.
+#'
+#' @param gene_ids (`character`)\cr gene ID(s) to query the size for, either Entrez or Ensembl ID.
+#'
+#' @return Named integer(s) indicating the gene length(s).
+#' @export
+#'
+#' @examples
+#' if(interactive()){
+#'
+#'   h_get_size_biomart("11185")
+#'
+#'   h_get_size_biomart("GeneID:11185")
+#'
+#'   h_get_size_biomart("ENSG00000215417")
+#'
+#'   h_get_size_biomart("ENSG00000215417.1")
+#'
+#'   h_get_size_biomart(c("GeneID:11185", "GeneID:10677"))
+#'
+#'   h_get_size_biomart(c("ENSG00000135407", "ENSG00000215417"))
+#'
+#' }
+h_get_size_biomart <- function(gene_ids) {
+
+  assert_character(gene_ids)
+  attrs <- c(
+    "ensembl_gene_id",
+    "ensembl_exon_id",
+    "chromosome_name",
+    "exon_chrom_start",
+    "exon_chrom_end"
+  )
+
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+  is_ensemble <- sum(grepl("ENSG", gene_ids)) > 0
+
+  if (is_ensemble) {
+    # Remove version number.
+    gene_ids <- unlist(lapply(gene_ids, function(id) { gsub("\\.\\d+", "", id) }))
+    biomart_filter <- "ensembl_gene_id"
+  } else {
+    # if it's not an ensembl id, it's an entrez id
+    is_prefixed_entrez <- sum(grepl("GeneID", gene_ids)) > 0
+    if (is_prefixed_entrez) { gene_ids <- h_strip_prefix(gene_ids, prefix = "GeneID") }
+    biomart_filter <- "entrezgene_id"
+  }
+  coords <- biomaRt::getBM(
+    filters = biomart_filter,
+    attributes = attrs,
+    values = gene_ids,
+    mart = mart
+  )
+  ids <- unique(coords[, "ensembl_gene_id"])
+  exons <- GenomicRanges::GRangesList(sapply(ids, h_get_granges_by_id, df = coords), compress = FALSE)
+  unique_exons <- GenomicRanges::reduce(exons)
+  unique_exon_sizes <- GenomicRanges::width(unique_exons)
+  total_exon_size <- sum(unique_exon_sizes)
+  result_df <- data.frame(
+    ensembl_gene_id = names(total_exon_size),
+    size = unlist(total_exon_size)
+  )
+  entrezgene_id_helper <- biomaRt::getBM(
+    filters = "ensembl_gene_id",
+    attributes = c("ensembl_gene_id", "entrezgene_id"),
+    values = result_df$ensembl_gene_id ,
+    mart = mart
+  )
+  dplyr::left_join(result_df, entrezgene_id_helper, by = "ensembl_gene_id")
+}
+
+#' Conversion of BioMart Coordinates into `GRanges`
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This function automatically extracts the chromosome number, the start position and the end position of transcripts
+#' in given data.frame as returned by `biomaRt::getBM()` and converts them to `GRanges` objects.
+#'
+#' @param df (`data.frame`)\cr data.frame as returned by `biomaRt::getBM()`.
+#' @param id (`character`)\cr gene ID(s) to convert the coordinates for.
+#'
+#' @return `GRange` objects for the respective gene ID(s).
+#' @export
+#'
+#' @examples
+#' if(interactive()){
+#'   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+#'   attrs <- c("ensembl_gene_id",
+#'              "ensembl_exon_id",
+#'              "chromosome_name",
+#'              "exon_chrom_start",
+#'              "exon_chrom_end")
+#'   coords <- biomaRt::getBM(
+#'     filters = "entrezgene_id",
+#'     attributes = attrs,
+#'     values = c("11185", "10677"),
+#'     mart = mart
+#'   )
+#'   h_get_granges_by_id(coords, "ENSG00000135407")
+#' }
+h_get_granges_by_id <- function(df, id) {
+  exons <- df[df[, "ensembl_gene_id"] == id, c("chromosome_name", "exon_chrom_start", "exon_chrom_end")]
+  GenomicRanges::GRanges(
+    exons$chromosome_name,
+    IRanges::IRanges(exons$exon_chrom_start, exons$exon_chrom_end)
+  )
+}
+
 # query-ConnectionBiomart ----
 
 #' @rdname query
 #'
 #' @export
 #' @examples
-#' \dontrun{
-#' object <- hermes_data
-#' connection <- connect_biomart(prefix(object))
-#' result <- query(genes(object), connection)
-#' head(result)
-#' head(annotation(object))
+#' if(interactive()){
+#'   object <- hermes_data
+#'   connection <- connect_biomart(prefix(object))
+#'   result <- query(genes(object), connection)
+#'   head(result)
+#'   head(annotation(object))
 #' }
 setMethod(
   f = "query",
@@ -206,7 +319,7 @@ setMethod(
         symbol = hgnc_symbol,
         desc = entrezgene_description,
         chromosome = as.character(chromosome_name),
-        size = end_position - start_position + 1L,
+        size = size,
         # Additional annotations.
         canonical_transcript = refseq_mrna,
         protein_transcript = refseq_peptide,
