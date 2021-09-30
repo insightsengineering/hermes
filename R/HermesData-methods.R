@@ -875,7 +875,6 @@ setMethod(
   f = "lapply",
   signature = "MultiAssayExperiment",
   definition = function(X, FUN, safe = TRUE, ...) {
-    assert_class(X, "MultiAssayExperiment")
     assert_function(FUN)
     assert_flag(safe)
     FUN2 <- if (safe) {
@@ -884,13 +883,45 @@ setMethod(
       FUN
     }
     experiments(X) <- S4Vectors::endoapply(experiments(X), FUN2, ...)
-    null_experiments <- experiments(X)[lengths(experiments(X)) == 0]
-    if (length(null_experiments)) {
+    exp_lengths <- lengths(experiments(X))
+    if (any(exp_lengths == 0)) {
+      null_experiments <- experiments(X)[exp_lengths == 0]
       warning(paste(
         "Specified function failed on", toString(names(null_experiments))
       ))
     }
-    experiments(X) <- experiments(X)[lengths(experiments(X)) > 0]
+    experiments(X) <- experiments(X)[exp_lengths > 0]
     X
+  }
+)
+
+# isEmpty ----
+
+#' Checking for Empty `SummarizedExperiment`
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This method checks whether a [`SummarizedExperiment::SummarizedExperiment`] object is empty.
+#'
+#' @rdname isEmpty
+#' @aliases isEmpty
+#'
+#' @param x (`SummarizedExperiment`)\cr object to check.
+#'
+#' @return Flag whether the `object` is empty.
+#'
+#' @importFrom S4Vectors isEmpty
+#' @export
+#'
+#' @examples
+#' isEmpty(summarized_experiment)
+#' isEmpty(summarized_experiment[NULL, ])
+#' isEmpty(hermes_data)
+setMethod(
+  f = "isEmpty",
+  signature = "SummarizedExperiment",
+  definition = function(x) {
+    dims <- dim(x)
+    isTRUE(any(dims == 0))
   }
 )

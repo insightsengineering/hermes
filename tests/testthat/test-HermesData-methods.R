@@ -422,6 +422,7 @@ test_that("show works as expected for RangedHermesData", {
 })
 
 # lapply ----
+
 test_that("lapply works as expected for an MAE", {
   mae <- multi_assay_experiment
   result <- expect_message(lapply(mae, normalize))
@@ -449,4 +450,14 @@ test_that("lapply fails as expected with safe = FALSE arugment when converting e
   mae <- multi_assay_experiment
   mae[[1]] <- rename(mae[[1]], assay = c(count = "counts"))
   expect_error(lapply(mae, HermesData, safe = FALSE), "invalid class")
+})
+
+# isEmpty ----
+
+test_that("isEmpty works as expected", {
+  expect_false(isEmpty(hermes_data))
+  expect_false(isEmpty(summarized_experiment))
+  expect_true(isEmpty(hermes_data[NULL, ]))
+  expect_true(isEmpty(summarized_experiment[, NULL]))
+  expect_true(isEmpty(summarized_experiment[NULL, NULL]))
 })

@@ -77,6 +77,8 @@ reference:
       - extra_data_names
       - filter
       - genes
+      - isEmpty
+      - lapply
       - metadata
       - normalize
       - prefix
@@ -87,7 +89,6 @@ reference:
       - show
       - subset
       - summary
-      - lapply
   - title: Functions
     contents:
       - add_quality_flags
