@@ -216,14 +216,9 @@ h_get_size_biomart <- function(gene_ids) {
     gene_ids <- unlist(lapply(gene_ids, function(id) { gsub("\\.\\d+", "", id) }))
     biomart_filter <- "ensembl_gene_id"
   } else {
+    # if it's not an ensembl id, it's an entrez id
     is_prefixed_entrez <- sum(grepl("GeneID", gene_ids)) > 0
-    if (is_prefixed_entrez) {
-      gene_ids <- h_strip_prefix(gene_ids, prefix = "GeneID")
-      is_entrez <- TRUE
-    } else {
-      # Since input is sanitized, this is the only option left
-      is_entrez <- TRUE
-    }
+    if (is_prefixed_entrez) { gene_ids <- h_strip_prefix(gene_ids, prefix = "GeneID") }
     biomart_filter <- "entrezgene_id"
   }
   coords <- biomaRt::getBM(
@@ -233,7 +228,7 @@ h_get_size_biomart <- function(gene_ids) {
     mart = mart
   )
   ids <- unique(coords[, "ensembl_gene_id"])
-  exons <- GenomicRanges::GRangesList(sapply(ids, function(id) { h_get_granges_by_id(coords, id) }), compress = FALSE)
+  exons <- GenomicRanges::GRangesList(sapply(ids, h_get_granges_by_id, df = coords), compress = FALSE)
   unique_exons <- GenomicRanges::reduce(exons)
   unique_exon_sizes <- GenomicRanges::width(unique_exons)
   total_exon_size <- sum(unique_exon_sizes)
@@ -247,11 +242,10 @@ h_get_size_biomart <- function(gene_ids) {
     values = result_df$ensembl_gene_id ,
     mart = mart
   )
-  result_df <- dplyr::left_join(result_df, entrezgene_id_helper, by = "ensembl_gene_id")
-  result_df
+  dplyr::left_join(result_df, entrezgene_id_helper, by = "ensembl_gene_id")
 }
 
-#' Converts coordinates as returned by `biomaRt::getBM()` into `GRanges` objects.
+#' Conversion of BioMart Coordinates into `GRanges`
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -281,12 +275,10 @@ h_get_size_biomart <- function(gene_ids) {
 #' h_get_granges_by_id(coords, "ENSG00000135407")
 h_get_granges_by_id <- function(df, id) {
   exons <- df[df[, "ensembl_gene_id"] == id, c("chromosome_name", "exon_chrom_start", "exon_chrom_end")]
-  exons <- GenomicRanges::GRanges(
+  GenomicRanges::GRanges(
     exons$chromosome_name,
     IRanges::IRanges(exons$exon_chrom_start, exons$exon_chrom_end)
   )
-  exons
-
 }
 
 # query-ConnectionBiomart ----

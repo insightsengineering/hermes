@@ -2,7 +2,7 @@
 % Please edit documentation in R/connections.R
 \name{h_get_granges_by_id}
 \alias{h_get_granges_by_id}
-\title{Converts coordinates as returned by \code{biomaRt::getBM()} into \code{GRanges} objects.}
+\title{Conversion of BioMart Coordinates into \code{GRanges}}
 \usage{
 h_get_granges_by_id(df, id)
 }
