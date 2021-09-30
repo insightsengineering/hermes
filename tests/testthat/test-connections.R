@@ -15,9 +15,9 @@ test_that("connect_biomart works as expected", {
 # h_get_annotation_biomart ----
 
 test_that("h_get_annotation_biomart works as expected", {
-  test.nest::skip_if_too_deep(3)
+  test.nest::skip_if_too_deep(5)
 
-  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl") # nolint
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   result <- h_get_annotation_biomart(
     gene_ids = c("11185", "10677"),
     id_var = "entrezgene_id",
@@ -87,8 +87,9 @@ test_that("h_get_size_biomart works as expected", {
 # h_get_granges_by_id ----
 
 test_that("h_get_granges_by_id works as expected", {
+  test.nest::skip_if_too_deep(5)
 
-  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl") # nolint
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   attrs <- c(
     "ensembl_gene_id",
     "ensembl_exon_id",
@@ -274,7 +275,7 @@ test_that("h_get_granges_by_id works as expected", {
 # query-ConnectionBiomart ----
 
 test_that("query to Biomart works as expected", {
-  test.nest::skip_if_too_deep(3)
+  test.nest::skip_if_too_deep(5)
 
   object <- hermes_data[1:10, ]
   connection <- connect_biomart(prefix(object))
