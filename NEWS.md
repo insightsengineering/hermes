@@ -19,7 +19,7 @@
 * `correlate()` now also works when there are factor variables in the sample variables of the `HermesData` object.
 
 ### Miscellaneous
-* Updated `LICENCE` and `README` with new package reference.
+* Updated `LICENCE` and `README` with new package references.
 * Added `error_on_lint: TRUE` to `.lintr`.
 
 # hermes 0.1.0
