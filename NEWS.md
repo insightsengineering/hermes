@@ -8,6 +8,7 @@
 * Generation of gene signatures with the functions `colPrinComp1` and `colMeanZscores` using the PC1 and the Z-score respectively.
 * Renaming of required `rowData` and `colData` columns to be more consistent with standards and use lowercase snake-case names.
 * Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.
+* Instead of gene starts and ends, the total length of gene exons is now used as the annotation column `size`. Corresponding queries from BioMart are used to return this gene size.
 * `df_chars_to_factor` has been deprecated (and can still be used with a warning) and replaced with `df_cols_to_factor`, which also converts logical variables to factor variables.
 * New helper function `wrap_in_mae` that wraps a single `SummarizedExperiment` object into an MAE object.
 * New `rename` method that makes renaming columns of `rowData` and `colData` as well as assay names in existing `SummarizedExperiment` objects much easier, as a step before converting to `HermesData`.

@@ -55,6 +55,7 @@ reference:
       - h_get_annotation_biomart
       - h_get_granges_by_id
       - h_get_size_biomart
+      - h_ensembl_to_entrez_ids
       - h_strip_prefix
       - h_has_req_annotations
       - h_short_list

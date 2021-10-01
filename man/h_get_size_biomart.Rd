@@ -2,35 +2,34 @@
 % Please edit documentation in R/connections.R
 \name{h_get_size_biomart}
 \alias{h_get_size_biomart}
-\title{Returns the Total Length of All Exons for a given ID}
+\title{Total Length of All Exons for Genes}
 \usage{
-h_get_size_biomart(gene_ids)
+h_get_size_biomart(gene_ids, id_var, mart)
 }
 \arguments{
-\item{gene_ids}{(\code{character})\cr gene ID(s) to query the size for, either Entrez or Ensembl ID.}
+\item{gene_ids}{(\code{character})\cr gene IDs, e.g. \code{10329}, i.e. already
+without the Entrez \code{GeneID} prefix, or \code{ENSG00000241644} for Ensembl gene ID.}
+
+\item{id_var}{(\code{string})\cr corresponding gene ID variable name in BioMart,
+i.e. \code{entrezgene_id} or \code{ensembl_gene_id}.}
+
+\item{mart}{(\code{Mart})\cr given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}} object.}
 }
 \value{
-Named integer(s) indicating the gene length(s).
+Named integer vector indicating the gene lengths.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper function queries BioMart for the length of a gene by adding up all exon lengths after reducing overlaps.
+This helper function queries BioMart for lengths of genes by adding up all
+exon lengths after reducing overlaps.
 }
 \examples{
 if(interactive()){
-
-  h_get_size_biomart("11185")
-
-  h_get_size_biomart("GeneID:11185")
-
-  h_get_size_biomart("ENSG00000215417")
-
-  h_get_size_biomart("ENSG00000215417.1")
-
-  h_get_size_biomart(c("GeneID:11185", "GeneID:10677"))
-
-  h_get_size_biomart(c("ENSG00000135407", "ENSG00000215417"))
-
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+  h_get_size_biomart("11185", "entrezgene_id", mart)
+  h_get_size_biomart("ENSG00000215417", "ensembl_gene_id", mart)
+  h_get_size_biomart(c("11185", "10677"), "entrezgene_id", mart)
+  h_get_size_biomart(c("ENSG00000135407", "ENSG00000215417"), "ensembl_gene_id", mart)
 }
 }
