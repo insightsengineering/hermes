@@ -249,7 +249,7 @@ h_get_size_biomart <- function(gene_ids,
 #' }
 h_ensembl_to_entrez_ids <- function(gene_ids,
                                     mart) {
-  assert_character(ids, pattern = "^ENSG")
+  assert_character(gene_ids, pattern = "^ENSG")
   assert_class(mart, "Mart")
 
   translate_df <- biomaRt::getBM(
