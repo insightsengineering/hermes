@@ -92,8 +92,8 @@ test_that("HermesData creates missing columns with NAs correctly", {
 })
 
 test_that("HermesData converts DelayedMatrix assays to matrix/assay type", {
-  n_row = length(rownames(SummarizedExperiment::rowData(hermes_data)))
-  n_col = length(colnames(SummarizedExperiment::assay(hermes_data)))
+  n_row <- length(rownames(SummarizedExperiment::rowData(hermes_data)))
+  n_col <- length(colnames(SummarizedExperiment::assay(hermes_data)))
   vals <- rnorm(n = n_row * n_col, mean = 10, sd = 20)
   vals_m <- round(matrix(vals, ncol = n_col))
   vals_m <- abs(vals_m)
