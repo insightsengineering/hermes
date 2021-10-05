@@ -107,13 +107,11 @@ HermesData <- function(object) { # nolint
   )
 
   assays(object) <- lapply(assays(object), function(x) {
-    if ("DelayedMatrix" %in% class(x)) {
+    if (is(x, "DelayedMatrix")) {
       x <- as.matrix(x)
       mode(x) <- "integer"
-      x
-    } else {
-      x
     }
+    x
   })
 
   missing_row <- setdiff(.row_data_cols, names(rowData(object)))

@@ -54,6 +54,7 @@ Imports:
     utils,
     utils.nest (>= 0.2.11)
 Suggests:
+    DelayedArray,
     DT,
     grid,
     httr,

@@ -14,7 +14,7 @@
 * New `rename` method that makes renaming columns of `rowData` and `colData` as well as assay names in existing `SummarizedExperiment` objects much easier, as a step before converting to `HermesData`.
 * New `lapply` method that allows user to apply a function on all experiments in a `MultiAssayExperiment`.
 * New `isEmpty` method that checks whether a `SummarizedExperiment` object is empty.
-* When providing `DelayedMatrix` objects as assays, these are silently converted to `matrix`/`array`.
+* When providing `SummarizedExperiment` objects containing `DelayedMatrix` assays to the `HermesData()` constructor, these are silently converted to `matrix` assays to ensure downstream functionality.
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.

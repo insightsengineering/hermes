@@ -91,24 +91,16 @@ test_that("HermesData creates missing columns with NAs correctly", {
   expect_true(all(.row_data_cols %in% names(rowData(result))))
 })
 
-test_that("HermesData converts DelayedMatrix assays to matrix/assay type", {
-  n_row <- length(rownames(SummarizedExperiment::rowData(hermes_data)))
-  n_col <- length(colnames(SummarizedExperiment::assay(hermes_data)))
-  vals <- rnorm(n = n_row * n_col, mean = 10, sd = 20)
-  vals_m <- round(matrix(vals, ncol = n_col))
-  vals_m <- abs(vals_m)
-  rownames(vals_m) <- rownames(SummarizedExperiment::rowData(hermes_data))
-  colnames(vals_m) <- rownames(SummarizedExperiment::colData(hermes_data))
-  mock_delayed_array <- DelayedArray::DelayedArray(vals_m)
-  my_se <- SummarizedExperiment(
-    rowData = SummarizedExperiment::rowData(hermes_data),
-    colData = SummarizedExperiment::colData(hermes_data)
-  )
-  SummarizedExperiment::assays(my_se) <- SimpleList(mock_delayed_array, mock_delayed_array)
-  SummarizedExperiment::assayNames(my_se) <- c("counts", "not_counts")
-  my_hd <- HermesData(my_se)
-
-  expect_true(all(unlist(lapply(assays(my_hd), function(x) c("matrix", "array") %in% class(x)))))
+test_that("HermesData converts DelayedMatrix assays correctly to matrix assays", {
+  se <- summarized_experiment
+  assay(se, "delayed") <- DelayedArray::DelayedArray(assay(se, "counts"))
+  expect_s4_class(assay(se, "delayed"), "DelayedMatrix")
+  result <- HermesData(se)
+  expect_matrix(assay(result, "delayed"))
+  a1 <- assay(se, "delayed")
+  a2 <- assay(result, "delayed")
+  expect_identical(dim(a1), dim(a2))
+  expect_identical(as.integer(a1), as.integer(a2))
 })
 
 test_that("RangedHermesData objects can be created with constructor HermesData", {
