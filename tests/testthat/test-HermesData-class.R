@@ -91,6 +91,18 @@ test_that("HermesData creates missing columns with NAs correctly", {
   expect_true(all(.row_data_cols %in% names(rowData(result))))
 })
 
+test_that("HermesData converts DelayedMatrix assays correctly to matrix assays", {
+  se <- summarized_experiment
+  assay(se, "delayed") <- DelayedArray::DelayedArray(assay(se, "counts"))
+  expect_s4_class(assay(se, "delayed"), "DelayedMatrix")
+  result <- HermesData(se)
+  expect_matrix(assay(result, "delayed"))
+  a1 <- assay(se, "delayed")
+  a2 <- assay(result, "delayed")
+  expect_identical(dim(a1), dim(a2))
+  expect_identical(as.integer(a1), as.integer(a2))
+})
+
 test_that("RangedHermesData objects can be created with constructor HermesData", {
   result <- expect_silent(HermesData(get_rse()))
   expect_is(result, "RangedHermesData")

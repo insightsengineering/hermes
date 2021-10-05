@@ -106,6 +106,14 @@ HermesData <- function(object) { # nolint
     not_empty(assays(object))
   )
 
+  assays(object) <- lapply(assays(object), function(x) {
+    if (is(x, "DelayedMatrix")) {
+      x <- as.matrix(x)
+      mode(x) <- "integer"
+    }
+    x
+  })
+
   missing_row <- setdiff(.row_data_cols, names(rowData(object)))
   rowData(object)[, missing_row] <- NA
 
