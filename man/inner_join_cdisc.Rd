@@ -21,7 +21,7 @@ inner_join_cdisc(
 \item{additional_keys}{(\code{character})\cr potential additional keys for the two data sets.}
 }
 \value{
-Data set which contains columns from both data sets merged by the keys.
+A \code{data.frame} which contains columns from both data sets merged by the keys.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
