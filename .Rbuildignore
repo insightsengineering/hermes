@@ -14,3 +14,4 @@ TODO\.md
 ^data-raw$
 ^staged_dependencies\.yaml$
 ^\.gitlab-ci\.yml$
+coverage.*
