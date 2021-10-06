@@ -79,6 +79,7 @@ Collate:
     'draw_boxplot.R'
     'draw_scatterplot.R'
     'graphs.R'
+    'join_cdisc.R'
     'normalization.R'
     'package.R'
     'pca.R'

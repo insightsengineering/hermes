@@ -5,6 +5,7 @@
 * Boxplot of the gene expression values via `draw_boxplot`. Faceting, stratifying, and coloring by sample variables, as well as comparison of multiple genes is supported. Additionally, a violin plot can be drawn instead of the boxplot.
 * The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
 * `calc_pca` now includes a top number of gene filtering option `n_top`, which allows filtering genes with greatest variability across samples. 
+* Specification of genes or gene signatures using the `GeneSpec` class, see `?gene_spec` for simple construction.
 * Generation of gene signatures with the functions `colPrinComp1` and `colMeanZscores` using the PC1 and the Z-score respectively.
 * Renaming of required `rowData` and `colData` columns to be more consistent with standards and use lowercase snake-case names.
 * Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.
@@ -15,6 +16,7 @@
 * New `lapply` method that allows user to apply a function on all experiments in a `MultiAssayExperiment`.
 * New `isEmpty` method that checks whether a `SummarizedExperiment` object is empty.
 * When providing `SummarizedExperiment` objects containing `DelayedMatrix` assays to the `HermesData()` constructor, these are silently converted to `matrix` assays to ensure downstream functionality.
+* New helper function `col_data_with_genes` which extracts the sample variables saved in `colData` together with selected gene information as a combined data set.
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.
