@@ -55,7 +55,7 @@ col_data_with_genes <- function(object,
 #' @param patient_key (`string`)\cr patient identifier.
 #' @param additional_keys (`character`)\cr potential additional keys for the two data sets.
 #'
-#' @return Data set which contains columns from both data sets merged by the keys.
+#' @return A `data.frame` which contains columns from both data sets merged by the keys.
 #'
 #' @note Columns which are contained in both data sets but are not specified as keys are taken
 #'   from `gene_data` and not from `cdisc_data`.
@@ -99,5 +99,5 @@ inner_join_cdisc <- function(gene_data,
     ))
   }
 
-  result
+  as.data.frame(result)
 }
