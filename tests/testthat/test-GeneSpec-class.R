@@ -1,5 +1,7 @@
 # GeneSpec ----
 
+# $new() ----
+
 test_that("GeneSpec initialization works as expected", {
   spec <- expect_silent(GeneSpec$new("GeneID:1820"))
   expect_r6(spec, "GeneSpec")
@@ -14,6 +16,8 @@ test_that("GeneSpec initialization works as expected", {
   expect_identical(spec3$get_genes(), NULL)
 })
 
+# $returns_vector() ----
+
 test_that("GeneSpec returns_vector method works as expected", {
   spec <- expect_silent(GeneSpec$new("GeneID:1820", fun = colMeans))
   expect_identical(spec$returns_vector(), TRUE)
@@ -24,6 +28,8 @@ test_that("GeneSpec returns_vector method works as expected", {
   spec3 <- expect_silent(GeneSpec$new(c("a", "b"), fun = colMeans))
   expect_identical(spec3$returns_vector(), TRUE)
 })
+
+# $get_gene_labels() ----
 
 test_that("GeneSpec get_gene_labels method works as expected", {
   spec <- expect_silent(GeneSpec$new(c(a = "123", "435", c = "4353"), fun = colMeans))
@@ -38,6 +44,8 @@ test_that("GeneSpec get_gene_labels method works as expected", {
   expect_identical(spec3$get_gene_labels(), NULL)
 })
 
+# $get_label() ----
+
 test_that("GeneSpec get_label method works as expected", {
   spec <- expect_silent(GeneSpec$new(c(A = "GeneID:1820"), fun = colMeans))
   expect_identical(spec$get_label(), "A")
@@ -51,6 +59,8 @@ test_that("GeneSpec get_label method works as expected", {
   spec4 <- expect_silent(GeneSpec$new(letters))
   expect_identical(spec4$get_label(letters[1:3]), "(a, b, c)")
 })
+
+# $extract() ----
 
 test_that("GeneSpec extract method works as expected", {
   mat <- matrix(
@@ -92,6 +102,53 @@ test_that("GeneSpec extract method works as expected", {
   rownames(mat2) <- letters[4:6]
   expect_error(
     spec3$extract(mat2),
+    "Must include the elements {a,b}",
+    fixed = TRUE
+  )
+})
+
+# $extract_data_frame() ----
+
+test_that("GeneSpec extract_data_frame method works as expected", {
+  mat <- matrix(
+    data = 1:15,
+    nrow = 3, ncol = 5,
+    dimnames = list(c("a", "b", "c"), NULL)
+  )
+
+  spec <- expect_silent(GeneSpec$new(c(A = "a"), fun = colMeans))
+  expect_identical(
+    spec$extract_data_frame(mat),
+    data.frame(A = mat[1L, ])
+  )
+
+  spec2 <- expect_silent(GeneSpec$new(c("a", D = "b"), fun = colMeans))
+  expect_identical(
+    spec2$extract_data_frame(mat),
+    data.frame(`colMeans.a..D.` = colMeans(mat[1:2, ]))
+  )
+
+  spec3 <- expect_silent(GeneSpec$new(c("a", "b")))
+  expect_identical(
+    spec3$extract_data_frame(mat),
+    as.data.frame(t(mat[1:2, ]))
+  )
+
+  spec4 <- expect_silent(GeneSpec$new())
+  expect_equivalent(
+    spec4$extract_data_frame(mat),
+    as.data.frame(t(mat[NULL, ]))
+  )
+
+  expect_error(
+    spec4$extract_data_frame(as.data.frame(mat)),
+    "Must inherit from class 'matrix'"
+  )
+
+  mat2 <- mat
+  rownames(mat2) <- letters[4:6]
+  expect_error(
+    spec3$extract_data_frame(mat2),
     "Must include the elements {a,b}",
     fixed = TRUE
   )
