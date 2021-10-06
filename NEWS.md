@@ -17,6 +17,7 @@
 * New `isEmpty` method that checks whether a `SummarizedExperiment` object is empty.
 * When providing `SummarizedExperiment` objects containing `DelayedMatrix` assays to the `HermesData()` constructor, these are silently converted to `matrix` assays to ensure downstream functionality.
 * New helper function `col_data_with_genes` which extracts the sample variables saved in `colData` together with selected gene information as a combined data set.
+* New helper function `inner_join_cdisc` which joins genetic with CDISC data sets.
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.

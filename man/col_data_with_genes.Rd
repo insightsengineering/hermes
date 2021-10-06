@@ -18,6 +18,8 @@ The combined data set, where the additional attribute \code{gene_cols} contains
 the names of the columns obtained by extracting the \code{genes} information.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 This obtains the sample variables of a \code{HermesData} object together
 with selected gene information.
 }
