@@ -186,7 +186,7 @@ small_object <- object[1:10, ]
 The corresponding function takes the common gene ID prefix as argument to determine the
 format of the gene IDs and the filter variable to use in the query later on.
 
-```{r}
+```{r eval=FALSE}
 httr::set_config(httr::config(ssl_verifypeer = 0L))
 connection <- connect_biomart(prefix(small_object))
 ```
@@ -197,7 +197,7 @@ Here we are using the `prefix()` method to access the prefix saved in the `Herme
 
 Then the second step is to query the gene annotations and save them in the object.
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 annotation(small_object) <- query(genes(small_object), connection)
 ```
 
