@@ -70,22 +70,21 @@ test_that("GeneSpec extract method works as expected", {
   )
 
   spec <- expect_silent(GeneSpec$new(c(A = "a"), fun = colMeans))
-  expect_identical(
-    spec$extract(mat),
-    mat[1L, ]
-  )
+  result <- spec$extract(mat)
+  expected <- matrix(data = as.integer(c(1, 4, 7, 10, 13)), nrow = 1L)
+  rownames(expected) <- "A"
+  expect_identical(result, expected)
 
   spec2 <- expect_silent(GeneSpec$new(c("a", D = "b"), fun = colMeans))
-  expect_identical(
-    spec2$extract(mat),
-    colMeans(mat[1:2, ])
-  )
+  result <- spec2$extract(mat)
+  expected <- colMeans(mat[1:2, ])
+  expect_identical(result, expected)
 
-  spec3 <- expect_silent(GeneSpec$new(c("a", "b")))
-  expect_identical(
-    spec3$extract(mat),
-    mat[1:2, ]
-  )
+  spec3 <- expect_silent(GeneSpec$new(c("a", E = "b")))
+  result <- spec3$extract(mat)
+  expected <- mat[1:2, ]
+  rownames(expected) <- c("a", "E")
+  expect_identical(result, expected)
 
   spec4 <- expect_silent(GeneSpec$new())
   expect_identical(

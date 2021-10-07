@@ -101,12 +101,16 @@ GeneSpec <- R6::R6Class(
     extract = function(assay) {
       assert_class(assay, "matrix")
       assert_names(rownames(assay), must.include = private$genes)
-      assay_cols <- assay[private$genes, , drop = TRUE]
+      assay_cols <- assay[private$genes, , drop = FALSE]
       if (length(private$genes) > 1 && is.function(private$fun)) {
         summary_res <- private$fun(assay_cols)
         assert_numeric(summary_res, len = ncol(assay_cols))
-        summary_res
+        stats::setNames(
+          summary_res,
+          colnames(assay)
+        )
       } else {
+        rownames(assay_cols) <- private$gene_labels
         assay_cols
       }
     },
