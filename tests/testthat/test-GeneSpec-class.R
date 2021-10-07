@@ -70,28 +70,30 @@ test_that("GeneSpec extract method works as expected", {
   )
 
   spec <- expect_silent(GeneSpec$new(c(A = "a"), fun = colMeans))
-  expect_identical(
-    spec$extract(mat),
-    mat[1L, ]
-  )
+  result <- spec$extract(mat)
+  expected <- c(1, 4, 7, 10, 13)
+  expect_identical(result, expected)
+  expect_true(spec$returns_vector())
 
   spec2 <- expect_silent(GeneSpec$new(c("a", D = "b"), fun = colMeans))
-  expect_identical(
-    spec2$extract(mat),
-    colMeans(mat[1:2, ])
-  )
+  result <- spec2$extract(mat)
+  expected <- colMeans(mat[1:2, ])
+  expect_identical(result, expected)
+  expect_true(spec2$returns_vector())
 
-  spec3 <- expect_silent(GeneSpec$new(c("a", "b")))
-  expect_identical(
-    spec3$extract(mat),
-    mat[1:2, ]
-  )
+  spec3 <- expect_silent(GeneSpec$new(c("a", E = "b")))
+  result <- spec3$extract(mat)
+  expected <- mat[1:2, ]
+  rownames(expected) <- c("a", "E")
+  expect_identical(result, expected)
+  expect_false(spec3$returns_vector())
 
   spec4 <- expect_silent(GeneSpec$new())
   expect_identical(
     spec4$extract(mat),
     mat[NULL, ]
   )
+  expect_false(spec4$returns_vector())
 
   expect_error(
     spec4$extract(as.data.frame(mat)),
@@ -107,6 +109,27 @@ test_that("GeneSpec extract method works as expected", {
   )
 })
 
+test_that("GeneSpec extract method ensures correct names for result", {
+  mat <- matrix(
+    data = 1:15,
+    nrow = 3, ncol = 5,
+    dimnames = list(c("a", "b", "c"), 1:5)
+  )
+
+  spec <- expect_silent(GeneSpec$new(c(A = "a", B = "b"), fun = colMedians))
+  result <- spec$extract(mat)
+  expect_named(result, colnames(mat))
+
+  spec <- expect_silent(GeneSpec$new(c(A = "a")))
+  result <- spec$extract(mat)
+  expect_named(result, colnames(mat))
+
+  spec <- expect_silent(GeneSpec$new(c(B = "b", A = "a")))
+  result <- spec$extract(mat)
+  expect_names(rownames(result), identical.to = c("B", "A"))
+  expect_names(colnames(result), identical.to = colnames(mat))
+})
+
 # $extract_data_frame() ----
 
 test_that("GeneSpec extract_data_frame method works as expected", {
@@ -119,7 +142,7 @@ test_that("GeneSpec extract_data_frame method works as expected", {
   spec <- expect_silent(GeneSpec$new(c(A = "a"), fun = colMeans))
   expect_identical(
     spec$extract_data_frame(mat),
-    data.frame(A = mat[1L, ])
+    data.frame(A = as.numeric(mat[1L, ]))
   )
 
   spec2 <- expect_silent(GeneSpec$new(c("a", D = "b"), fun = colMeans))
@@ -152,6 +175,29 @@ test_that("GeneSpec extract_data_frame method works as expected", {
     "Must include the elements {a,b}",
     fixed = TRUE
   )
+})
+
+test_that("GeneSpec extract_data_frame method ensures correct names for result", {
+  mat <- matrix(
+    data = 1:15,
+    nrow = 3, ncol = 5,
+    dimnames = list(c("a", "b", "c"), 5:1)
+  )
+
+  spec <- expect_silent(GeneSpec$new(c(A = "a"), fun = colMedians))
+  result <- spec$extract_data_frame(mat)
+  expect_names(colnames(result), identical.to = "A")
+  expect_names(rownames(result), identical.to = colnames(mat))
+
+  spec <- expect_silent(GeneSpec$new(c("c", A = "a")))
+  result <- spec$extract_data_frame(mat)
+  expect_names(colnames(result), identical.to = c("c", "A"))
+  expect_names(rownames(result), identical.to = colnames(mat))
+
+  spec <- expect_silent(GeneSpec$new("c"))
+  result <- spec$extract_data_frame(mat)
+  expect_names(colnames(result), identical.to = "c")
+  expect_names(rownames(result), identical.to = colnames(mat))
 })
 
 # gene_spec ----

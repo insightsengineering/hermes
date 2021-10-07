@@ -49,7 +49,7 @@ object <- hermes_data
 draw_boxplot(
   object,
   assay_name = "counts",
-  genes = gene_spec(genes(object)[1]),
+  genes = gene_spec(c(A = genes(object)[1])),
   violin = TRUE
 )
 
@@ -61,7 +61,7 @@ draw_boxplot(
   object2,
   assay_name = "tpm",
   x_var = "SEX",
-  genes = gene_spec(genes(object2)[1:10], fun = colMeans),
+  genes = gene_spec(setNames(genes(object2)[1:10], 1:10), fun = colMeans),
   facet_var = "RACE",
   color_var = "AGE18",
   jitter = TRUE
