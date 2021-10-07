@@ -102,15 +102,17 @@ GeneSpec <- R6::R6Class(
       assert_class(assay, "matrix")
       assert_names(rownames(assay), must.include = private$genes)
       assay_cols <- assay[private$genes, , drop = FALSE]
-      if (is.function(private$fun)) {
-        summary_res <- private$fun(assay_cols)
-        assert_numeric(summary_res, len = ncol(assay_cols))
+      if (self$returns_vector()) {
+        res <- if (is.function(private$fun)) {
+          private$fun(assay_cols)
+        } else {
+          as.vector(assay_cols)
+        }
+        assert_numeric(res, len = ncol(assay_cols))
         stats::setNames(
-          summary_res,
+          res,
           colnames(assay)
         )
-      } else if (length(private$genes) == 1) {
-        as.vector(assay_cols)
       } else {
         rownames(assay_cols) <- private$gene_labels
         assay_cols
