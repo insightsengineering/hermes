@@ -60,9 +60,6 @@ reference:
       - h_has_req_annotations
       - h_short_list
       - h_parens
-      - colPrinComp1
-      - colMeanZscores
-      - wrap_in_mae
   - title: Example Data
     contents:
       - expression_set
@@ -99,6 +96,11 @@ reference:
       - top_genes
       - connect_biomart
       - df_cols_to_factor
+      - colPrinComp1
+      - colMeanZscores
+      - wrap_in_mae
+      - col_data_with_genes
+      - inner_join_cdisc
   - title: Graphs
     contents:
       - draw_libsize_hist
