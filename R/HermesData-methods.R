@@ -843,3 +843,85 @@ setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 # autoplot ----
 
 setGeneric("autoplot")
+
+# lapply ----
+
+#' `lapply` method for `MultiAssayExperiment`
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Apply a function on all experiments in an MAE.
+#'
+#' @rdname lapply
+#' @aliases lapply
+#'
+#' @param X (`MultiAssayExperiment`)\cr input.
+#' @param FUN (`function`) to be applied to each experiment in `X`.
+#' @param safe (`flag`)\cr whether this method should skip experiments
+#'   where the function fails.
+#' @param ... additional arguments passed to `FUN`.
+#'
+#' @return `MultiAssayExperiment` object with specified function applied.
+#'
+#' @importMethodsFrom BiocGenerics lapply
+#' @export
+#'
+#' @examples
+#' object <- multi_assay_experiment
+#' result <- lapply(object, normalize, safe = TRUE)
+#' # Similarly, all experiments in an MAE can be converted to HermesData class:
+#' result <- lapply(object, HermesData, safe = TRUE)
+setMethod(
+  f = "lapply",
+  signature = "MultiAssayExperiment",
+  definition = function(X, FUN, safe = TRUE, ...) {
+    assert_function(FUN)
+    assert_flag(safe)
+    FUN2 <- if (safe) {
+      purrr::possibly(FUN, otherwise = NULL)
+    } else {
+      FUN
+    }
+    experiments(X) <- S4Vectors::endoapply(experiments(X), FUN2, ...)
+    exp_lengths <- lengths(experiments(X))
+    if (any(exp_lengths == 0)) {
+      null_experiments <- experiments(X)[exp_lengths == 0]
+      warning(paste(
+        "Specified function failed on", toString(names(null_experiments))
+      ))
+    }
+    experiments(X) <- experiments(X)[exp_lengths > 0]
+    X
+  }
+)
+
+# isEmpty ----
+
+#' Checking for Empty `SummarizedExperiment`
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This method checks whether a [`SummarizedExperiment::SummarizedExperiment`] object is empty.
+#'
+#' @rdname isEmpty
+#' @aliases isEmpty
+#'
+#' @param x (`SummarizedExperiment`)\cr object to check.
+#'
+#' @return Flag whether the `object` is empty.
+#'
+#' @importFrom S4Vectors isEmpty
+#' @export
+#'
+#' @examples
+#' isEmpty(summarized_experiment)
+#' isEmpty(summarized_experiment[NULL, ])
+#' isEmpty(hermes_data)
+setMethod(
+  f = "isEmpty",
+  signature = "SummarizedExperiment",
+  definition = function(x) {
+    dims <- dim(x)
+    isTRUE(any(dims == 0))
+  }
+)

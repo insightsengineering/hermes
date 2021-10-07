@@ -31,6 +31,9 @@
 #'   dimnames = list(c("GeneID:1820", "GeneID:52", "GeneID:523"), NULL)
 #' )
 #' x_spec$extract(mat)
+#'
+#' # We can also extract these as a `data.frame`.
+#' x_spec$extract_data_frame(mat)
 GeneSpec <- R6::R6Class(
   "GeneSpec",
   public = list(
@@ -106,6 +109,26 @@ GeneSpec <- R6::R6Class(
       } else {
         assay_cols
       }
+    },
+    #' @description Extract the gene values as a `data.frame`.
+    #' @param assay (`matrix`)\cr original matrix with rownames containing the
+    #'   specified genes.
+    #' @return A `data.frame` with the genes in the columns and the samples
+    #'   in the rows.
+    extract_data_frame = function(assay) {
+      gene_matrix <- self$extract(assay)
+      if (!is.matrix(gene_matrix)) {
+        gene_matrix <- t(gene_matrix)
+      }
+      num_genes <- nrow(gene_matrix)
+      gene_names <- if (num_genes == 1) {
+        self$get_label()
+      } else {
+        self$get_gene_labels()
+      }
+      gene_names <- make.names(gene_names, unique = TRUE)
+      rownames(gene_matrix) <- gene_names
+      data.frame(t(gene_matrix))
     }
   ),
   private = list(

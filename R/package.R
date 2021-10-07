@@ -9,5 +9,11 @@
 #' @import ggplot2
 #' @import methods
 #' @import SummarizedExperiment
+#' @importFrom circlize add_transparency
+#' @importFrom ComplexHeatmap add_heatmap
+#' @importFrom ggrepel geom_label_repel
+#' @importFrom purrr accumulate
+#' @importFrom R6 is.R6
+#' @importFrom Rdpack append_to_Rd_list
 #' @importFrom rlang .data
 NULL

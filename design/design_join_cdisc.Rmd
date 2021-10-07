@@ -1,0 +1,181 @@
+---
+title: "Design: Joining data frame with colData and gene info from `HermesData`"
+author: "Daniel Sabanes Bove"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+  
+## Objective
+
+Starting point is that we have a data frame (e.g. CDISC format) containing keys (e.g. a subject ID column
+`USUBJID`). We also have a `HermesData` object containing RNA-seq data, here the `colData`
+needs to contain the same keys (e.g. `USUBJID`) as well. For specified genes or a gene signature
+we now want to join the corresponding RNA-seq data from a specific assay to the data frame so that it
+contains these as additional columns.
+
+Note that the `HermesData` object here might have come from a larger MAE originally and now contains 
+the required `colData`, but that can be done as a separate step.
+
+## Idea
+
+We can proceed in steps here:
+
+1) obtain gene columns via `GeneSpec` extraction from assay as a data frame, and 
+2) join that with `colData` of the experiment
+3) join that to the data frame
+
+## Prototype
+
+### Get gene data frame
+
+This will go as a new extraction method into the `GeneSpec` class.
+
+```{r}
+get_gene_data <- function(assay_matrix, genes) {
+  gene_matrix <- genes$extract(assay_matrix)
+  if (!is.matrix(gene_matrix)) {
+    gene_matrix <- t(gene_matrix)
+  }
+  num_genes <- nrow(gene_matrix)
+  gene_names <- if (num_genes == 1) {
+    genes$get_label()
+  } else {
+    genes$get_gene_labels()
+  }
+  gene_names <- make.names(gene_names)
+  rownames(gene_matrix) <- gene_names
+  data.frame(t(gene_matrix))
+}
+```
+
+Let's try it out:
+
+```{r}
+res <- get_gene_data(
+  counts(hermes_data),
+  gene_spec(genes(hermes_data)[1:5])
+)
+
+head(res)
+```
+
+### Get `colData` with genes
+
+```{r}
+#' @param object (`AnyHermesData`)\cr input experiment.
+#' @param assay_name (`string`)\cr which assay to use.
+#' @param genes (`GeneSpec`)\cr which genes or which gene signature should be extracted.
+col_data_with_genes <- function(object,
+                                assay_name,
+                                genes) {
+  assert_class(object, "AnyHermesData")
+  assert_string(assay_name)
+  assert_class(genes, "GeneSpec")
+  
+  col_data <- colData(object)
+  assay_matrix <- assay(object, assay_name)
+  gene_data <- get_gene_data(assay_matrix, genes)
+  
+  assert_true(identical(rownames(col_data), rownames(gene_data)))
+  structure(
+    cbind(
+      col_data,
+      gene_data
+    ),
+    gene_cols = names(gene_data)
+  )
+}
+```
+
+Let's try it out:
+
+```{r}
+res <- col_data_with_genes(
+  hermes_data, 
+  "counts", 
+  gene_spec("GeneID:11185")
+)
+
+head(res)
+attributes(res)$gene_cols
+```
+
+### Join that with data frame
+
+Finally in this function we require the patient (`USUBJID`) column to be present.
+Also additional keys can be specified. (TODO)
+
+```{r}
+join_cdisc <- function(cdisc_data,
+                       object,
+                       assay_name,
+                       genes) {
+  assert_data_frame(cdisc_data)
+  col_data <- col_data_with_genes(
+    object,
+    assay_name,
+    genes
+  )  
+  assert_names(names(cdisc_data), must.include = "USUBJID")
+  assert_names(names(col_data), must.include = "USUBJID")
+  
+  # Check on patients.
+  gene_patients <- unique(col_data$USUBJID)
+  cdisc_patients <- unique(cdisc_data$USUBJID)
+  patients_not_in_cdisc <- setdiff(gene_patients, cdisc_patients)
+  if (length(patients_not_in_cdisc) > 0) {
+    warning(paste(
+      "Patients", paste(patients_not_in_cdisc, collapse = ", "),
+      "removed because not contained in CDISC data set"
+    ))
+  }
+  
+  # Inner join by USUBJID.
+  cols_to_take_from_col_data <- setdiff(names(col_data), "USUBJID")
+  cdisc_data <- adtte[, - which(names(cdisc_data) %in% cols_to_take_from_col_data)]
+  result <- merge(cdisc_data, col_data, by = "USUBJID")
+}
+```
+
+### Separate check function?
+
+I am not sure if we want a separate checking function. This could maybe stay in `tmh`.
+
+```{r}
+check_patient_id_mae <- function(mae) {
+  mae_samplemap <- MultiAssayExperiment::sampleMap(mae)
+  mae_coldata <- MultiAssayExperiment::colData(mae)
+  sm_usubjid <- as.character(merge_samplemap$USUBJID)
+  if ("USUBJID" %in% colnames(mae_coldata)) {
+    mae_usubjid <- as.character(mae_coldata$USUBJID)
+    assert_subset(
+      x = sm_usubjid,
+      choices = mae_usubjid
+    )
+  }
+  
+  # todo loop over all experiments? or only for one experiment?
+  samplemap_experiment <- mae_samplemap[mae_samplemap$assay == experiment_name, ]
+  patients_in_experiment <- samplemap_experiment$primary
+  assert_character(patients_in_experiment, unique = TRUE)
+
+  merge_samplemap <- samplemap_experiment[, c("primary", "colname")]
+  merge_samplemap <- as.data.frame(merge_samplemap)
+  colnames(merge_samplemap) <- c("USUBJID", "SampleID")
+
+  hd <- suppressWarnings(MultiAssayExperiment::getWithColData(mae, experiment_name))
+  assert_class(hd, "AnyHermesData")
+  hd_usubjid <- as.character(SummarizedExperiment::colData(hd)$USUBJID)
+  
+  assert_subset(
+    x = hd_usubjid,
+    choices = sm_usubjid
+  )
+}
+```
+

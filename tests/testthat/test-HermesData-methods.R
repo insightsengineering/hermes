@@ -420,3 +420,44 @@ test_that("show works as expected for RangedHermesData", {
   expect_match(result, "additional gene information(1):", fixed = TRUE)
   expect_match(result, "additional sample information(0):", fixed = TRUE)
 })
+
+# lapply ----
+
+test_that("lapply works as expected for an MAE", {
+  mae <- multi_assay_experiment
+  result <- expect_message(lapply(mae, normalize))
+  expect_is(result, "MultiAssayExperiment")
+  expect_is(result[[1]], "HermesData")
+  expect_is(result[[2]], "HermesData")
+  expect_is(result[[3]], "HermesData")
+  expect_equal(dim(mae[[1]]), dim(result[[1]]))
+  expect_equal(dim(mae[[2]]), dim(result[[2]]))
+  expect_equal(dim(mae[[3]]), dim(result[[3]]))
+})
+
+test_that("lapply works as expected with safe = TRUE argument when converting experiments in an MAE to HermesData", {
+  mae <- multi_assay_experiment
+  mae[[1]] <- rename(mae[[1]], assay = c(count = "counts"))
+  result <- expect_warning(lapply(mae, HermesData), "Specified function failed on hd1")
+  expect_is(result, "MultiAssayExperiment")
+  expect_is(result[[1]], "HermesData")
+  expect_is(result[[2]], "HermesData")
+  expect_equal(dim(mae[[2]]), dim(result[[1]]))
+  expect_equal(dim(mae[[3]]), dim(result[[2]]))
+})
+
+test_that("lapply fails as expected with safe = FALSE arugment when converting experiments in an MAE to HermesData", {
+  mae <- multi_assay_experiment
+  mae[[1]] <- rename(mae[[1]], assay = c(count = "counts"))
+  expect_error(lapply(mae, HermesData, safe = FALSE), "invalid class")
+})
+
+# isEmpty ----
+
+test_that("isEmpty works as expected", {
+  expect_false(isEmpty(hermes_data))
+  expect_false(isEmpty(summarized_experiment))
+  expect_true(isEmpty(hermes_data[NULL, ]))
+  expect_true(isEmpty(summarized_experiment[, NULL]))
+  expect_true(isEmpty(summarized_experiment[NULL, NULL]))
+})

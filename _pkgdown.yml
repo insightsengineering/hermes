@@ -53,13 +53,13 @@ reference:
       - h_pca_var_rsquared
       - h_pca_df_r2_matrix
       - h_get_annotation_biomart
+      - h_get_granges_by_id
+      - h_get_size_biomart
+      - h_ensembl_to_entrez_ids
       - h_strip_prefix
       - h_has_req_annotations
       - h_short_list
       - h_parens
-      - colPrinComp1
-      - colMeanZscores
-      - wrap_in_mae
   - title: Example Data
     contents:
       - expression_set
@@ -75,6 +75,8 @@ reference:
       - extra_data_names
       - filter
       - genes
+      - isEmpty
+      - lapply
       - metadata
       - normalize
       - prefix
@@ -94,6 +96,11 @@ reference:
       - top_genes
       - connect_biomart
       - df_cols_to_factor
+      - colPrinComp1
+      - colMeanZscores
+      - wrap_in_mae
+      - col_data_with_genes
+      - inner_join_cdisc
   - title: Graphs
     contents:
       - draw_libsize_hist
