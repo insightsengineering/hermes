@@ -189,6 +189,11 @@ test_that("GeneSpec extract_data_frame method ensures correct names for result",
   result <- spec$extract_data_frame(mat)
   expect_names(colnames(result), identical.to = c("c", "A"))
   expect_names(rownames(result), identical.to = colnames(mat))
+
+  spec <- expect_silent(GeneSpec$new("c"))
+  result <- spec$extract_data_frame(mat)
+  expect_names(colnames(result), identical.to = "c")
+  expect_names(rownames(result), identical.to = colnames(mat))
 })
 
 # gene_spec ----
