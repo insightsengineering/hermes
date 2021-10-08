@@ -2,7 +2,8 @@
 
 ### New Features
 * Scatterplot of the two genes or gene signatures via `draw_scatterplot`.
-* Boxplot of the gene expression values via `draw_boxplot`. Faceting, stratifying, and coloring by sample variables, as well as comparison of multiple genes is supported. Additionally, a violin plot can be drawn instead of the boxplot.
+* Boxplot of the gene expression values via `draw_boxplot`. Faceting, stratifying, and coloring by sample variables, jittering, as well as comparison of multiple genes is supported. Additionally, a violin plot can be drawn instead of the boxplot.
+* Barplot of the dichotomized gene expression counts into two or three categories based on custom defined percentiles via `draw_barplot`.
 * The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
 * The main `HermesData` example is now saved in the package as `hermes_data`, and the previous `summarized_experiment` is still available. Note that patient IDs have been changed in the new version to align with the `multi_assay_experiment`.
 * `calc_pca` now includes a top number of gene filtering option `n_top`, which allows filtering genes with greatest variability across samples. 
@@ -11,7 +12,7 @@
 * Renaming of required `rowData` and `colData` columns to be more consistent with standards and use lowercase snake-case names.
 * Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.
 * Instead of gene starts and ends, the total length of gene exons is now used as the annotation column `size`. Corresponding queries from BioMart are used to return this gene size.
-* `df_chars_to_factor` has been deprecated (and can still be used with a warning) and replaced with `df_cols_to_factor`, which also converts logical variables to factor variables.
+* `df_char_to_factor` has been deprecated (and can still be used with a warning) and replaced with `df_cols_to_factor`, which also converts logical variables to factor variables.
 * New helper function `wrap_in_mae` that wraps a single `SummarizedExperiment` object into an MAE object.
 * New `rename` method that makes renaming columns of `rowData` and `colData` as well as assay names in existing `SummarizedExperiment` objects much easier, as a step before converting to `HermesData`.
 * New `lapply` method that allows user to apply a function on all experiments in a `MultiAssayExperiment`.
