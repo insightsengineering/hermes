@@ -75,4 +75,11 @@ draw_boxplot(
   jitter = TRUE,
   facet_var = "AGE18"
 )
+
+draw_boxplot(
+  object,
+  assay_name = "counts",
+  genes = gene_spec(c(A = "GeneID:11185", B = "GeneID:10677")),
+  violin = TRUE
+)
 }
