@@ -52,6 +52,13 @@
 #'   jitter = TRUE,
 #'   facet_var = "AGE18"
 #' )
+#'
+#' draw_boxplot(
+#'   object,
+#'   assay_name = "counts",
+#'   genes = gene_spec(c(A = "GeneID:11185", B = "GeneID:10677")),
+#'   violin = TRUE
+#' )
 draw_boxplot <- function(object,
                          assay_name,
                          genes,
@@ -99,7 +106,6 @@ draw_boxplot <- function(object,
     assert_names(names(col_data), must.include = color_var)
     df$color <- col_data[[color_var]]
   }
-  jitter_width <- if (jitter) NULL else 0
   point_aes <- if (!is.null(color_var)) {
     aes(group = .data$fill, color = .data$color)
   } else {
@@ -115,10 +121,15 @@ draw_boxplot <- function(object,
     p +
       geom_violin(draw_quantiles = c(0.75, 0.5, 0.25))
   }
+  dodge_width <- ifelse(violin, 0.9, 0.75)
+  jitter_width <- if (jitter) NULL else 0
   p <- p +
     geom_point(
       mapping = point_aes,
-      position = position_jitterdodge(jitter.width = jitter_width)
+      position = position_jitterdodge(
+        dodge.width = dodge_width,
+        jitter.width = jitter_width
+      )
     ) +
     labs(x = x_var, y = assay_name, fill = "Gene")
   if (is.null(x_var)) {
