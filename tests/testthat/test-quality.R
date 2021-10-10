@@ -97,6 +97,13 @@ test_that("h_low_expression_flag fails as expected with invalid settings", {
   expect_error(h_low_expression_flag(object2, cont2))
 })
 
+test_that("h_low_expression_flag also works for an object containing only a single sample", {
+  object <- hermes_data[, 2L]
+  result <- expect_silent(h_low_expression_flag(object))
+  expect_logical(result)
+  expect_named(result, genes(object))
+})
+
 # h_low_depth_flag ----
 
 test_that("h_low_depth_flag function works as expected with default settings", {
@@ -127,6 +134,13 @@ test_that("h_low_depth_flag fails as expected with invalid settings", {
   expect_error(h_low_depth_flag(object2, cont2))
 })
 
+test_that("h_low_depth_flag also works for an object containing only a single gene", {
+  object <- hermes_data[2L, ]
+  result <- expect_silent(h_low_depth_flag(object))
+  expect_logical(result)
+  expect_named(result, samples(object))
+})
+
 # h_tech_failure_flag ----
 
 test_that("h_tech_failure_flag function works as expected with default settings", {
@@ -154,6 +168,14 @@ test_that("h_tech_failure_flag fails as expected with invalid settings", {
   expect_error(h_tech_failure_flag(object3, cont2))
   expect_error(h_tech_failure_flag(object2, cont1))
   expect_error(h_tech_failure_flag(object2, cont2))
+})
+
+test_that("h_tech_failure_flag gives all FALSE for an object containing only a single gene", {
+  object <- hermes_data[2L, ]
+  result <- expect_silent(h_tech_failure_flag(object))
+  expect_logical(result)
+  expect_true(all(sapply(result, isFALSE)))
+  expect_named(result, samples(object))
 })
 
 # get_tech_failure ----

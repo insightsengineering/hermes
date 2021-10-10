@@ -190,8 +190,16 @@ h_tech_failure_flag <- function(object,
     is_list_with(control, "min_corr")
   )
   cpm <- edgeR::cpm(counts(object))
-  corr_matrix <- stats::cor(cpm, method = "pearson")
-  colMeans(corr_matrix) < control$min_corr
+
+  if (nrow(cpm) > 1) {
+    corr_matrix <- stats::cor(cpm, method = "pearson")
+    colMeans(corr_matrix) < control$min_corr
+  } else {
+    setNames(
+      rep(FALSE, ncol(cpm)),
+      colnames(cpm)
+    )
+  }
 }
 
 #' @describeIn quality_flags get the technical failure flags for all samples.
