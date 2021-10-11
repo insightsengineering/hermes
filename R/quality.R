@@ -195,7 +195,7 @@ h_tech_failure_flag <- function(object,
     corr_matrix <- stats::cor(cpm, method = "pearson")
     colMeans(corr_matrix) < control$min_corr
   } else {
-    setNames(
+    stats::setNames(
       rep(FALSE, ncol(cpm)),
       colnames(cpm)
     )
