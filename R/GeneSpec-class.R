@@ -1,3 +1,42 @@
+#' Creation of Unique Labels
+#'
+#' This helper function generates a set of unique labels given
+#' unique IDs and not necessarily unique names.
+#'
+#' @param ids (`character` or `NULL`)\cr unique IDs.
+#' @param nms (`character` or `NULL`)\cr not necessarily unique names if provided.
+#'
+#' @return Character vector where empty names are replaced by the IDs and
+#'   non-unique names are made unique by appending the IDs in parentheses.
+#' @export
+#'
+#' @examples
+#' h_unique_labels(c("1", "2", "3"), c("A", "B", "A"))
+#' h_unique_labels(NULL)
+#' h_unique_labels(c("1", "2", "3"))
+h_unique_labels <- function(ids, nms = NULL) {
+  if (is.null(ids)) {
+    return(NULL)
+  }
+  assert_character(ids, any.missing = FALSE, unique = TRUE)
+  if (is.null(nms)) {
+    return(ids)
+  }
+  assert_character(nms, any.missing = FALSE)
+  assert_true(identical(length(ids), length(nms)))
+
+  res <- ifelse(nms == "", ids, nms)
+  are_duplicate <- h_all_duplicated(res)
+  if (any(are_duplicate)) {
+    res[are_duplicate] <- paste(
+      res[are_duplicate],
+      h_parens(ids[are_duplicate])
+    )
+  }
+  assert_character(res, any.missing = FALSE, unique = TRUE)
+  res
+}
+
 #' R6 Class Representing a Gene (Signature) Specification
 #'
 #' @description `r lifecycle::badge("experimental")`
@@ -52,13 +91,7 @@ GeneSpec <- R6::R6Class(
       assert_function(fun, null.ok = TRUE)
       assert_string(fun_name, min.chars = 1L)
 
-      private$gene_labels <- if (is.null(names(genes))) {
-        genes
-      } else {
-        nms <- names(genes)
-        ifelse(nms == "", genes, nms)
-      }
-      assert_character(private$gene_labels, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+      private$gene_labels <- h_unique_labels(ids = genes, nms = names(genes))
       private$genes <- genes
       private$fun <- fun
       private$fun_name <- fun_name

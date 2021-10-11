@@ -150,15 +150,16 @@ h_short_list <- function(x, sep = ", ", thresh = 3L) {
   paste(x, collapse = sep)
 }
 
-#' Parenthesize a String
+#' Parenthesize a Character Vector
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function adds parentheses around a string.
+#' This helper function adds parentheses around each element of a character
+#' vector.
 #'
-#' @param x (`string`)\cr input which should be parenthesized.
+#' @param x (`character`)\cr inputs which should be parenthesized.
 #'
-#' @return String with parentheses, except when `x` is a blank string
+#' @return Character vector with parentheses, except when `x` is a blank string
 #'   in which case it is returned unaltered.
 #'
 #' @export
@@ -166,12 +167,10 @@ h_short_list <- function(x, sep = ", ", thresh = 3L) {
 #' @examples
 #' h_parens("bla")
 #' h_parens("")
+#' h_parens(c("bla", "bli"))
 h_parens <- function(x) {
-  assert_string(x)
-  if (identical(x, ""))
-    ""
-  else
-    paste0("(", x, ")")
+  assert_character(x, any.missing = FALSE)
+  ifelse(x == "", x, paste0("(", x, ")"))
 }
 
 #' First Principal Component (PC1) Gene Signature
@@ -272,4 +271,23 @@ wrap_in_mae <- function(x,
   assert_string(name, min.chars = 1L)
   exp_list <- stats::setNames(list(x), name)
   MultiAssayExperiment::MultiAssayExperiment(experiments = exp_list)
+}
+
+#' Finding All Duplicates in Vector
+#'
+#' The difference here to [duplicated()] is that also the first occurrence
+#' of a duplicate is flagged as `TRUE`.
+#'
+#' @inheritParams base::duplicated
+#'
+#' @return Logical vector flagging all occurrences of duplicate values as `TRUE`.
+#' @export
+#'
+#' @examples
+#' h_all_duplicated(c("a", "a", "b"))
+#' duplicated(c("a", "a", "b"))
+h_all_duplicated <- function(x) {
+  front <- duplicated(x, fromLast = FALSE)
+  back <- duplicated(x, fromLast = TRUE)
+  front | back
 }

@@ -2,23 +2,25 @@
 % Please edit documentation in R/utils.R
 \name{h_parens}
 \alias{h_parens}
-\title{Parenthesize a String}
+\title{Parenthesize a Character Vector}
 \usage{
 h_parens(x)
 }
 \arguments{
-\item{x}{(\code{string})\cr input which should be parenthesized.}
+\item{x}{(\code{character})\cr inputs which should be parenthesized.}
 }
 \value{
-String with parentheses, except when \code{x} is a blank string
+Character vector with parentheses, except when \code{x} is a blank string
 in which case it is returned unaltered.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper function adds parentheses around a string.
+This helper function adds parentheses around each element of a character
+vector.
 }
 \examples{
 h_parens("bla")
 h_parens("")
+h_parens(c("bla", "bli"))
 }

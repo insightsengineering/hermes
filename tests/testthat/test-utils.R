@@ -126,7 +126,7 @@ test_that("h_short_list works as expected with custom arguments", {
 
 # h_parens ----
 
-test_that("h_parens works as expected", {
+test_that("h_parens works as expected for strings", {
   expect_identical(
     h_parens("bla"),
     "(bla)"
@@ -137,6 +137,18 @@ test_that("h_parens works as expected", {
   )
   expect_error(h_parens(123))
   expect_error(h_parens(NULL))
+})
+
+test_that("h_parens works as expected for character vectors", {
+  expect_identical(
+    h_parens(c("bla", "bli")),
+    c("(bla)", "(bli)")
+  )
+  expect_identical(
+    h_parens(c("", "bla")),
+    c("", "(bla)")
+  )
+  expect_error(h_parens(c(NA, "")))
 })
 
 # colPrinComp1 ----
@@ -193,4 +205,18 @@ test_that("wrap_in_mae function uses the custom name for the experiment", {
     name = "bla"
   ))
   expect_named(result, "bla")
+})
+
+# h_all_duplicated ----
+
+test_that("h_all_duplicated works as expected for numerics", {
+  result <- expect_silent(h_all_duplicated(c(1, 1, 2, 3, 3, 4)))
+  expected <- c(TRUE, TRUE, FALSE, TRUE, TRUE, FALSE)
+  expect_identical(result, expected)
+})
+
+test_that("h_all_duplicated works as expected for character", {
+  result <- expect_silent(h_all_duplicated(c("a", "", "", "a", "c")))
+  expected <- c(TRUE, TRUE, TRUE, TRUE, FALSE)
+  expect_identical(result, expected)
 })
