@@ -63,6 +63,7 @@ Suggests:
     statmod,
     test.nest (>= 0.2.11),
     testthat (>= 2.0),
+    vdiffr,
     withr
 Collate: 
     'GeneSpec-class.R'

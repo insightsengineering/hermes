@@ -10,6 +10,23 @@ test_that("col_data_with_genes works as expected", {
   expect_identical(dim(result), dim(colData(hermes_data)) + c(0L, 1L))
 })
 
+test_that("col_data_with_genes works with duplicate gene names", {
+  result <- col_data_with_genes(
+    hermes_data,
+    "counts",
+    gene_spec(c(A = "GeneID:11185", A = "GeneID:10677"))
+  )
+  expect_names(names(result), must.include = c(
+    names(colData(hermes_data)),
+    c("A..GeneID.11185.", "A..GeneID.10677.")
+  ))
+  expect_identical(
+    attr(result, "gene_cols"),
+    c("A..GeneID.11185.", "A..GeneID.10677.")
+  )
+  expect_identical(dim(result), dim(colData(hermes_data)) + c(0L, 2L))
+})
+
 # inner_join_cdisc ----
 
 test_that("inner_join_cdisc works as expected in the simplest case", {
