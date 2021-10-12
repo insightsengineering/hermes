@@ -230,10 +230,18 @@ h_vst <- function(object,
     is_hermes_data(object),
     is_list_with(control, "fit_type")
   )
-  DESeq2::varianceStabilizingTransformation(
-    counts(object),
-    fitType = control$fit_type
-  )
+  tryCatch({
+    DESeq2::varianceStabilizingTransformation(
+      counts(object),
+      fitType = control$fit_type
+    )
+  },
+  error = function(e) {
+    stop(paste(
+      "During calculation of variance-stabilized transformation (VST) hit error,",
+      "try again with more genes. Original error:", e
+    ))
+  })
 }
 
 #' @describeIn normalize regularized log transformation (`rlog`) from `DESeq2` package.

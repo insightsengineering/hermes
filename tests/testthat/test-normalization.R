@@ -236,6 +236,14 @@ test_that("h_vst fails when there are no genes", {
   expect_error(h_vst(object))
 })
 
+test_that("h_vst gives understandable error for an object with few genes", {
+  object <- HermesData(get_se())
+  expect_error(
+    h_vst(object),
+    "try again with more genes"
+  )
+})
+
 # h_rlog ----
 
 test_that("h_rlog function works as expected with default settings", {
