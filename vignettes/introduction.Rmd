@@ -102,11 +102,15 @@ we can do this using the `rename()` method. For example here:
 object <- summarized_experiment %>%
   rename(
     row_data = c(
-      symbol = "HGNC", desc = "HGNCGeneName", chromosome = "Chromosome", size = "WidthBP",
+      symbol = "HGNC", 
+      desc = "HGNCGeneName", 
+      chromosome = "Chromosome", 
+      size = "WidthBP",
       low_expression_flag = "LowExpressionFlag"
     ),
     col_data = c(
-      low_depth_flag = "LowDepthFlag", technical_failure_flag = "TechnicalFailureFlag"
+      low_depth_flag = "LowDepthFlag", 
+      technical_failure_flag = "TechnicalFailureFlag"
     )
   ) %>%
   HermesData()
