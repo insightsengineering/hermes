@@ -13,6 +13,5 @@ test_that("draw_scatterplot works when there are duplicate labels in gene specs"
   )
   # Note that here it is ok that both x and y axis have the same label, as the user
   # controls via the arguments where is what, same for downstream teal module.
-
-  vdiffr::expect_doppelganger("draw_scatterplot with duplicate labels", result)
+  expect_class(result, "ggplot")
 })
