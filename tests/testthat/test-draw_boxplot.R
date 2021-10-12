@@ -8,6 +8,5 @@ test_that("draw_boxplot works when there are duplicate labels in gene spec", {
     genes = genes,
     violin = TRUE
   )
-
-  vdiffr::expect_doppelganger("draw_boxplot with duplicate labels", result)
+  expect_class(result, "ggplot")
 })
