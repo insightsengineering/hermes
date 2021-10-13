@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -136,25 +136,28 @@
       <small>Source: <a href='https://github.com/insightsengineering/hermes/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="hermes-0109000" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0.9000">
-<a href="#hermes-0109000" class="anchor"></a>hermes 0.1.0.9000</h1>
+    <div id="hermes-0119000" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.1.9000">
+<a href="#hermes-0119000" class="anchor"></a>hermes 0.1.1.9000</h1>
+</div>
+    <div id="hermes-011" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.1">
+<a href="#hermes-011" class="anchor"></a>hermes 0.1.1</h1>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h3>
 <ul>
-<li>Scatterplot of the two genes or gene signatures via <code>draw_scatterplot</code>.</li>
-<li>Boxplot of the gene expression values via <code>draw_boxplot</code>. Faceting, stratifying, and coloring by sample variables, as well as comparison of multiple genes is supported. Additionally, a violin plot can be drawn instead of the boxplot.</li>
-<li>The <code>multi_assay_experiment</code> now contains <code>HermesData</code> experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.</li>
-<li>
-<code>calc_pca</code> now includes a top number of gene filtering option <code>n_top</code>, which allows filtering genes with greatest variability across samples.</li>
-<li>Generation of gene signatures with the functions <code>colPrinComp1</code> and <code>colMeanZscores</code> using the PC1 and the Z-score respectively.</li>
-<li>Renaming of required <code>rowData</code> and <code>colData</code> columns to be more consistent with standards and use lowercase snake-case names.</li>
-<li>Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.</li>
-<li>
-<code>df_chars_to_factor</code> has been deprecated (and can still be used with a warning) and replaced with <code>df_cols_to_factor</code>, which also converts logical variables to factor variables.</li>
+<li>New function <code>draw_scatterplot</code> to produce scatterplots of two genes or gene signatures.</li>
+<li>New function <code>draw_boxplot</code> for boxplots of gene expression values.</li>
+<li>New function <code>draw_barplot</code> for barplots of dichotomized gene expression counts into two or three percentile categories.</li>
 <li>New helper function <code>wrap_in_mae</code> that wraps a single <code>SummarizedExperiment</code> object into an MAE object.</li>
-<li>New <code>rename</code> method that makes renaming columns of <code>rowData</code> and <code>colData</code> as well as assay names in existing <code>SummarizedExperiment</code> objects much easier, as a step before converting to <code>HermesData</code>.</li>
+<li>New method <code>rename</code> that makes renaming columns of <code>rowData</code> and <code>colData</code> as well as assay names in existing <code>SummarizedExperiment</code> objects much easier, as a step before converting to <code>HermesData</code>.</li>
+<li>New method <code>lapply</code> that allows user to apply a function on all experiments in a <code>MultiAssayExperiment</code>.</li>
+<li>New method <code>isEmpty</code> that checks whether a <code>SummarizedExperiment</code> object is empty.</li>
+<li>New gene filtering option <code>n_top</code> in the <code>calc_pca</code> function, which allows filtering genes with greatest variability across samples.</li>
+<li>New class <code>GeneSpec</code> for specification of genes or gene signatures, see <code><a href="../reference/gene_spec.html">?gene_spec</a></code> for simple construction. Inclusion of gene signature functions <code>colPrinComp1</code> and <code>colMeanZscores</code> to supplement standard column statistics functions.</li>
+<li>New helper function <code>col_data_with_genes</code> which extracts the sample variables saved in <code>colData</code> together with selected gene information as a combined data set.</li>
+<li>New helper function <code>inner_join_cdisc</code> which joins genetic with CDISC data sets.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">
@@ -165,13 +168,23 @@
 <code><a href="../reference/normalize,AnyHermesData-method.html">normalize()</a></code> now also works when the <code>hermes</code> package is not loaded, i.e. you can use it with <code><a href="../reference/normalize,AnyHermesData-method.html">hermes::normalize()</a></code>.</li>
 <li>
 <code><a href="../reference/correlate.html">correlate()</a></code> now also works when there are factor variables in the sample variables of the <code>HermesData</code> object.</li>
+<li>
+<code><a href="../reference/add_quality_flags.html">add_quality_flags()</a></code> does no longer return <code>NA</code> as the technical failure flags for the samples if there is only a single gene contained in the input, but instead a vector of <code>FALSE</code> to ensure correct downstream functionality.</li>
 </ul>
 </div>
 <div id="miscellaneous" class="section level3">
 <h3 class="hasAnchor">
 <a href="#miscellaneous" class="anchor"></a>Miscellaneous</h3>
 <ul>
-<li>Added <code>error_on_lint: TRUE</code> to <code>.lintr</code>.</li>
+<li>Updated <code>LICENCE</code> and <code>README</code> with new package references.</li>
+<li>The <code>multi_assay_experiment</code> now contains <code>HermesData</code> experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.</li>
+<li>The main <code>HermesData</code> example is now saved in the package as <code>hermes_data</code>, and the previous <code>summarized_experiment</code> is still available. Note that patient IDs have been changed in the new version to align with the <code>multi_assay_experiment</code>.</li>
+<li>Renaming of required <code>rowData</code> and <code>colData</code> columns to be more consistent with standards and use lowercase snake-case names.</li>
+<li>Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.</li>
+<li>Instead of gene starts and ends, the total length of gene exons is now used as the annotation column <code>size</code>. Corresponding queries from BioMart are used to return this gene size.</li>
+<li>
+<code>df_char_to_factor</code> has been deprecated (and can still be used with a warning) and replaced with <code>df_cols_to_factor</code>, which also converts logical variables to factor variables.</li>
+<li>When providing <code>SummarizedExperiment</code> objects containing <code>DelayedMatrix</code> assays to the <code><a href="../reference/HermesData-class.html">HermesData()</a></code> constructor, these are silently converted to <code>matrix</code> assays to ensure downstream functionality.</li>
 </ul>
 </div>
 </div>

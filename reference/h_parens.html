@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Parenthesize a String — h_parens • hermes</title>
+<title>Parenthesize a Character Vector — h_parens • hermes</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="Parenthesize a String — h_parens" />
+<meta property="og:title" content="Parenthesize a Character Vector — h_parens" />
 <meta property="og:description" content="
-This helper function adds parentheses around a string." />
+This helper function adds parentheses around each element of a character
+vector." />
 
 
 
@@ -83,7 +84,7 @@ This helper function adds parentheses around a string." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -134,14 +135,15 @@ This helper function adds parentheses around a string." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Parenthesize a String</h1>
+    <h1>Parenthesize a Character Vector</h1>
     <small class="dont-index">Source: <a href='https://github.com/insightsengineering/hermes/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
     <div class="hidden name"><code>h_parens.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p>This helper function adds parentheses around a string.</p>
+<p>This helper function adds parentheses around each element of a character
+vector.</p>
     </div>
 
     <pre class="usage"><span class='fu'>h_parens</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
@@ -151,19 +153,20 @@ This helper function adds parentheses around a string." />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>(<code>string</code>)<br /> input which should be parenthesized.</p></td>
+      <td><p>(<code>character</code>)<br /> inputs which should be parenthesized.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>String with parentheses, except when <code>x</code> is a blank string
+    <p>Character vector with parentheses, except when <code>x</code> is a blank string
 in which case it is returned unaltered.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>h_parens</span><span class='op'>(</span><span class='st'>"bla"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "(bla)"</div><div class='input'><span class='fu'>h_parens</span><span class='op'>(</span><span class='st'>""</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] ""</div></pre>
+</div><div class='output co'>#&gt; [1] ""</div><div class='input'><span class='fu'>h_parens</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bla"</span>, <span class='st'>"bli"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "(bla)" "(bli)"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

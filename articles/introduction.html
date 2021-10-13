@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       <h1 data-toc-skip>Introduction to <code>hermes</code>
 </h1>
             
-            <h4 class="date">2021-09-25</h4>
+            <h4 class="date">2021-10-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/insightsengineering/hermes/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -176,11 +176,15 @@
 <code class="sourceCode R"><span class="va">object</span> <span class="op">&lt;-</span> <span class="va">summarized_experiment</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/rename,SummarizedExperiment-method.html">rename</a></span><span class="op">(</span>
     row_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-      symbol <span class="op">=</span> <span class="st">"HGNC"</span>, desc <span class="op">=</span> <span class="st">"HGNCGeneName"</span>, chromosome <span class="op">=</span> <span class="st">"Chromosome"</span>, size <span class="op">=</span> <span class="st">"WidthBP"</span>,
+      symbol <span class="op">=</span> <span class="st">"HGNC"</span>,
+      desc <span class="op">=</span> <span class="st">"HGNCGeneName"</span>,
+      chromosome <span class="op">=</span> <span class="st">"Chromosome"</span>,
+      size <span class="op">=</span> <span class="st">"WidthBP"</span>,
       low_expression_flag <span class="op">=</span> <span class="st">"LowExpressionFlag"</span>
     <span class="op">)</span>,
     col_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-      low_depth_flag <span class="op">=</span> <span class="st">"LowDepthFlag"</span>, technical_failure_flag <span class="op">=</span> <span class="st">"TechnicalFailureFlag"</span>
+      low_depth_flag <span class="op">=</span> <span class="st">"LowDepthFlag"</span>,
+      technical_failure_flag <span class="op">=</span> <span class="st">"TechnicalFailureFlag"</span>
     <span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/HermesData-class.html">HermesData</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -528,7 +532,7 @@
 <span class="co">#&gt; Proportion of Variance 0.047520 0.039550 0.035920 0.033160 0.030850 0.025700</span>
 <span class="co">#&gt; Cumulative Proportion  0.754200 0.793750 0.829670 0.862830 0.893680 0.919380</span>
 <span class="co">#&gt;                           PC13     PC14     PC15     PC16     PC17             </span>
-<span class="co">#&gt; Standard deviation     6.92755 6.532485 5.501383 5.151959 3.983283 2.302918e-14</span>
+<span class="co">#&gt; Standard deviation     6.92755 6.532485 5.501383 5.151959 3.983283 2.290846e-14</span>
 <span class="co">#&gt; Proportion of Variance 0.02369 0.021060 0.014940 0.013100 0.007830 0.000000e+00</span>
 <span class="co">#&gt; Cumulative Proportion  0.94307 0.964130 0.979070 0.992170 1.000000 1.000000e+00</span>
 <span class="fu">autoplot</span><span class="op">(</span><span class="va">pca_res</span><span class="op">)</span></code></pre></div>

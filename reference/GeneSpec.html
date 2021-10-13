@@ -84,7 +84,7 @@ the summary function and the name of the summary function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -160,6 +160,7 @@ the summary function and the name of the summary function.</p>
 <li><p><a href='#method-returns_vector'><code>GeneSpec$returns_vector()</code></a></p></li>
 <li><p><a href='#method-get_label'><code>GeneSpec$get_label()</code></a></p></li>
 <li><p><a href='#method-extract'><code>GeneSpec$extract()</code></a></p></li>
+<li><p><a href='#method-extract_data_frame'><code>GeneSpec$extract_data_frame()</code></a></p></li>
 <li><p><a href='#method-clone'><code>GeneSpec$clone()</code></a></p></li>
 </ul>
 <p><hr>
@@ -226,6 +227,20 @@ specified genes.</p></dd>
 <p>Either a vector with one value per column, or a matrix with multiple
 genes in the rows.</p>
 <p><hr>
+<a id="method-extract_data_frame"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>extract_data_frame()</code></h3>
+<p>Extract the gene values as a <code>data.frame</code>.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>GeneSpec</span><span class='op'>$</span><span class='fu'>extract_data_frame</span><span class='op'>(</span><span class='va'>assay</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
+<p><div class="arguments"></p><dl>
+<dt><code>assay</code></dt><dd><p>(<code>matrix</code>)<br /> original matrix with rownames containing the
+specified genes.</p></dd>
+
+</dl><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
+<p>A <code>data.frame</code> with the genes in the columns and the samples
+in the rows.</p>
+<p><hr>
 <a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
 <p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
 <p><div class="r"></p><pre><span class='va'>GeneSpec</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
@@ -262,9 +277,17 @@ genes in the rows.</p>
   dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GeneID:1820"</span>, <span class='st'>"GeneID:52"</span>, <span class='st'>"GeneID:523"</span><span class='op'>)</span>, <span class='cn'>NULL</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>x_spec</span><span class='op'>$</span><span class='fu'>extract</span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             [,1] [,2] [,3] [,4] [,5]
-#&gt; GeneID:1820    5   11    7   11   11
-#&gt; GeneID:52      6   13    9   16    7</div></pre>
+</div><div class='output co'>#&gt;           [,1] [,2] [,3] [,4] [,5]
+#&gt; A            5   11    7   11   11
+#&gt; GeneID:52    6   13    9   16    7</div><div class='input'>
+<span class='co'># We can also extract these as a `data.frame`.</span>
+<span class='va'>x_spec</span><span class='op'>$</span><span class='fu'>extract_data_frame</span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    A GeneID.52
+#&gt; 1  5         6
+#&gt; 2 11        13
+#&gt; 3  7         9
+#&gt; 4 11        16
+#&gt; 5 11         7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
