@@ -291,3 +291,61 @@ h_all_duplicated <- function(x) {
   back <- duplicated(x, fromLast = TRUE)
   front | back
 }
+
+
+
+
+
+#' Cut into bins
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function returns a strings corresponding to the interval for each provided observations. Intervals are
+#' left-open, right closed.
+#'
+#' @param x (`numeric` vector)\cr the continuous variable values which should be cut into quantile bins. `NA` values are
+#'   not taken into account when computing quantiles and are be attributed to the `NA` interval.
+#' @param percentiles_without_borders (`proportion` vector)\cr the proportions identifying the limits of the intervals
+#'   to be generated. Duplicated values are removed.
+#' @param digits (`integer`)\cr  the precision to use when formatting the percentages.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' set.seed(452)
+#' x <- runif(10,-10,10)
+#' cut_quantile(x, c(0.33333333,0.6666666), digits = 4)
+#'
+#' x[1:4] <- NA
+#' cut_quantile(x, c(0.2,0.2))
+cut_quantile <- function(x,
+                         percentiles = c(1/3, 2/3),
+                         digits = 1
+                         ) {
+
+  assert_that(is.numeric(x))
+  assert_that(all(percentiles >= 0), all(percentiles<= 1))
+  assert_numeric(digits, lower = 0)
+
+  percentiles_without_borders <- setdiff(percentiles, c(0,1))
+  percentiles_without_borders <- unique(percentiles_without_borders)
+  percentile_with_borders <- c(0, sort(percentiles_without_borders), 1)
+
+  quant <- quantile(x, percentile_with_borders, names = TRUE, digits = digits, na.rm = TRUE)
+
+  assert_that(!any(duplicated(quant)), msg = "duplicated quantile boundaries")
+
+  name_quant <- names(quant)
+
+  labs_quant <- c()
+  for(i in 2:length(name_quant)) {
+    labs_quant[i-1] <- paste0(name_quant[i-1], ",", name_quant[i])
+  }
+
+  labs_quant <- paste0("(", labs_quant, "]")
+  labs_quant[1] <- gsub("\\(", "[", labs_quant[1])
+
+  cut(x, quant, labs_quant, include.lowest = TRUE)
+
+}
