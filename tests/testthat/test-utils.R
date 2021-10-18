@@ -225,12 +225,12 @@ test_that("h_all_duplicated works as expected for character", {
 
 test_that("cut_quantile produces intervals", {
   set.seed(454)
-  x <- runif(10,-10,10)
-  result <- cut_quantile(x, c(0.33333333,0.6666666), digits = 4)
+  x <- runif(10, 0, 10)
+  result <- cut_quantile(x, c(0.33333333, 0.6666666), digits = 4)
   expect_true(all(grepl("[\\[\\(][0-9\\.]{1,5}%,[0-9\\.]{1,5}%\\]", result)))
 })
 
 test_that("cut_quantile produces an error if quantile boundaries are not unique", {
-  x <- rep(1,10)
+  x <- rep(1, 10)
   expect_error(cut_quantile(x))
 })
