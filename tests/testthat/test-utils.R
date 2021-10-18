@@ -90,3 +90,12 @@ test_that("h_parens works as expected", {
   expect_error(h_parens(123))
   expect_error(h_parens(NULL))
 })
+
+# cat_with_newline ----
+
+test_that("cat_with_newline works as expected", {
+  expect_identical(
+    cat_with_newline("hello", "world"),
+  )
+
+})
