@@ -10,10 +10,10 @@ cut_quantile(x, percentiles = c(1/3, 2/3), digits = 1)
 \item{x}{(\code{numeric} vector)\cr the continuous variable values which should be cut into quantile bins. \code{NA} values are
 not taken into account when computing quantiles and are be attributed to the \code{NA} interval.}
 
-\item{digits}{(\code{integer})\cr  the precision to use when formatting the percentages.}
-
-\item{percentiles_without_borders}{(\code{proportion} vector)\cr the proportions identifying the limits of the intervals
+\item{percentiles}{(\code{proportion} vector)\cr the proportions identifying the limits of the intervals
 to be generated. Duplicated values are removed.}
+
+\item{digits}{(\code{integer})\cr  the precision to use when formatting the percentages.}
 }
 \value{
 

@@ -1,5 +1,8 @@
 # hermes 0.1.1.9000
 
+### Miscellaneous
+* A new utility function `cut_quantile` replaces the `tern::cut_quantile_bins` in `draw_barplot`.
+
 # hermes 0.1.1
 
 ### New Features

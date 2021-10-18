@@ -103,6 +103,7 @@ reference:
       - wrap_in_mae
       - col_data_with_genes
       - inner_join_cdisc
+      - cut_quantile
   - title: Graphs
     contents:
       - draw_libsize_hist

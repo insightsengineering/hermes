@@ -305,7 +305,7 @@ h_all_duplicated <- function(x) {
 #'
 #' @param x (`numeric` vector)\cr the continuous variable values which should be cut into quantile bins. `NA` values are
 #'   not taken into account when computing quantiles and are be attributed to the `NA` interval.
-#' @param percentiles_without_borders (`proportion` vector)\cr the proportions identifying the limits of the intervals
+#' @param percentiles (`proportion` vector)\cr the proportions identifying the limits of the intervals
 #'   to be generated. Duplicated values are removed.
 #' @param digits (`integer`)\cr  the precision to use when formatting the percentages.
 #'
