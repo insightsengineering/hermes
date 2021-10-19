@@ -122,8 +122,6 @@ h_parens <- function(x) {
     paste0("(", x, ")")
 }
 
-# Cats ----
-
 #' Cats (prints) the objects with a final new line added
 #'
 #' #' @description `r lifecycle::badge("experimental")`
