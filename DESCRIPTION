@@ -71,6 +71,7 @@ Collate:
     'HermesData-methods.R'
     'assertthat.R'
     'calc_cor.R'
+    'checkmate.R'
     'connections.R'
     'data.R'
     'differential.R'

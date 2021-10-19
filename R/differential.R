@@ -187,12 +187,10 @@ diff_expression <- function(object,
   assert_that(
     is_hermes_data(object),
     is.string(group),
-    tern::is_df_with_nlevels_factor(
-      df = as.data.frame(colData(object)),
-      variable = group,
-      n_levels = 2L
-    )
+    check_data_frame(as.data.frame(colData(object))),
+    check_factor(as.factor(object$group), max.levels = 2)
   )
+
   method <- match.arg(method, c("voom", "deseq2"))
 
   if (anyNA(get_tech_failure(object))) {
@@ -267,7 +265,7 @@ setMethod(
                         adj_p_val_thresh = 0.05,
                         log2_fc_thresh = 2.5) {
     assert_that(
-      tern::is_proportion(adj_p_val_thresh, include_boundaries = TRUE),
+      check_proportion(adj_p_val_thresh),
       is.number(log2_fc_thresh),
       log2_fc_thresh > 0
     )

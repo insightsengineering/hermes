@@ -1,0 +1,14 @@
+# check_proportion ----
+
+test_that("check_proportion works as expected", {
+  expect_identical(
+    check_proportion(2),
+    "Must be a 'proportion': number between 0 and 1"
+  )
+  expect_error(
+    check_proportion(NULL)
+  )
+  expect_true(
+    check_proportion(0.5)
+  )
+})
