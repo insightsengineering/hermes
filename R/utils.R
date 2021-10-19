@@ -292,56 +292,47 @@ h_all_duplicated <- function(x) {
   front | back
 }
 
-
-
-
-
-#' Cut into bins
+#' Cutting a Numeric Vector into a Factor of Quantile Bins
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function returns a strings corresponding to the interval for each provided observations. Intervals are
-#' left-open, right closed.
+#' This function transforms a numeric vector into a factor corresponding to the quantile intervals.
+#' The intervals are left-open and right-closed.
 #'
-#' @param x (`numeric` vector)\cr the continuous variable values which should be cut into quantile bins. `NA` values are
-#'   not taken into account when computing quantiles and are be attributed to the `NA` interval.
-#' @param percentiles (`proportion` vector)\cr the proportions identifying the limits of the intervals
+#' @param x (`numeric`)\cr the continuous variable values which should be cut into quantile bins. `NA` values are
+#'   not taken into account when computing quantiles and are attributed to the `NA` interval.
+#' @param percentiles (`proportions`)\cr the required percentiles for the quantile intervals
 #'   to be generated. Duplicated values are removed.
 #' @param digits (`integer`)\cr  the precision to use when formatting the percentages.
 #'
-#' @return
+#' @return The factor with a description of the available quantiles as levels.
 #' @export
 #'
 #' @examples
 #' set.seed(452)
-#' x <- runif(10,-10,10)
-#' cut_quantile(x, c(0.33333333,0.6666666), digits = 4)
+#' x <- runif(10, -10, 10)
+#' cut_quantile(x, c(0.33333333, 0.6666666), digits = 4)
 #'
 #' x[1:4] <- NA
-#' cut_quantile(x, c(0.2,0.2))
+#' cut_quantile(x)
 cut_quantile <- function(x,
                          percentiles = c(1/3, 2/3),
-                         digits = 1
-                         ) {
+                         digits = 1) {
 
-  assert_that(is.numeric(x))
-  assert_that(all(percentiles >= 0), all(percentiles<= 1))
-  assert_numeric(digits, lower = 0)
+  assert(check_numeric(x))
+  assert(check_numeric(percentiles, lower = 0, upper = 1), check_null(percentiles), combine = "or")
+  assert(check_numeric(digits, lower = 0))
 
-  percentiles_without_borders <- setdiff(percentiles, c(0,1))
+  percentiles_without_borders <- setdiff(percentiles, c(0, 1))
   percentiles_without_borders <- unique(percentiles_without_borders)
   percentile_with_borders <- c(0, sort(percentiles_without_borders), 1)
 
   quant <- quantile(x, percentile_with_borders, names = TRUE, digits = digits, na.rm = TRUE)
 
-  assert_that(!any(duplicated(quant)), msg = "duplicated quantile boundaries")
+  assert(!any(duplicated(quant)), "Duplicate quantiles produced, please use a coarser `percentiles` vector")
 
   name_quant <- names(quant)
-
-  labs_quant <- c()
-  for(i in 2:length(name_quant)) {
-    labs_quant[i-1] <- paste0(name_quant[i-1], ",", name_quant[i])
-  }
+  labs_quant <- paste0(name_quant[-length(name_quant)], ",", name_quant[-1])
 
   labs_quant <- paste0("(", labs_quant, "]")
   labs_quant[1] <- gsub("\\(", "[", labs_quant[1])

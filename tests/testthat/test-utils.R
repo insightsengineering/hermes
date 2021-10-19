@@ -223,11 +223,41 @@ test_that("h_all_duplicated works as expected for character", {
 
 # cut_quantile ----
 
-test_that("cut_quantile produces intervals", {
+test_that("cut_quantile works as expected with default settings", {
   set.seed(454)
   x <- runif(10, 0, 10)
-  result <- cut_quantile(x, c(0.33333333, 0.6666666), digits = 4)
+  result <- cut_quantile(x)
+  expect_true(all(grepl("[\\[\\(][0-9]{1,2}%,[0-9]{2,3}%\\]", result)))
+  expect_equal(length(levels(result)), 3)
+  expect_identical(length(x), length(result))
+  expect_true(is.factor(result))
+})
+
+test_that("cut_quantile works as expected with custom settings", {
+  set.seed(454)
+  x <- runif(10, 0, 10)
+  result <- cut_quantile(x, c(0.33333333, 0.6666666, 0.8), digits = 4)
   expect_true(all(grepl("[\\[\\(][0-9\\.]{1,5}%,[0-9\\.]{1,5}%\\]", result)))
+  expect_equal(length(levels(result)), 4)
+  expect_identical(length(x), length(result))
+  expect_true(is.factor(result))
+})
+
+test_that("cut_quantile preserves NAs in result", {
+  set.seed(454)
+  x <- runif(10, 0, 10)
+  x[c(1, 4, 5)] <- NA
+  result <- cut_quantile(x)
+  expect_identical(is.na(x), is.na(result))
+  result2 <- cut_quantile(x, percentiles = c(0.2, 0.7, 0.8))
+  expect_identical(is.na(x), is.na(result2))
+})
+
+test_that("cut_quantile works with NULL percentile", {
+  set.seed(454)
+  x <- runif(10, 0, 10)
+  result <- cut_quantile(x, c())
+  expect_identical(levels(result), "[0%,100%]")
 })
 
 test_that("cut_quantile produces an error if quantile boundaries are not unique", {
