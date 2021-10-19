@@ -124,7 +124,7 @@ h_parens <- function(x) {
 
 #' Cats (prints) the objects with a final new line added
 #'
-#' #' @description `r lifecycle::badge("experimental")`
+#' @description `r lifecycle::badge("experimental")`
 #'
 #' Use this function for simple objects as, for example,
 #' it removes the "[1]" for scalars unlike print().
