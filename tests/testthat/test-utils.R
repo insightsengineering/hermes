@@ -94,8 +94,17 @@ test_that("h_parens works as expected", {
 # cat_with_newline ----
 
 test_that("cat_with_newline works as expected", {
-  expect_identical(
-    cat_with_newline("hello", "world"),
+  expect_equal(
+    capture.output({
+      cat_with_newline("hello")
+      cat_with_newline("world", append = TRUE)
+    }),
+    c("hello", "world")
   )
 
+  filename <- tempfile()
+  on.exit(unlink(filename))
+  cat_with_newline("hello", file = filename)
+  cat_with_newline("world", append = TRUE, file = filename)
+  expect_equal(readLines(filename), c("hello", "world"))
 })
