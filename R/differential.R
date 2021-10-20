@@ -187,8 +187,8 @@ diff_expression <- function(object,
   assert_that(
     is_hermes_data(object),
     is.string(group),
-    check_data_frame(as.data.frame(colData(object))),
-    check_factor(object[[group]], n.levels = 2L)
+    expect_data_frame(as.data.frame(colData(object))),
+    expect_factor(object[[group]], n.levels = 2L)
   )
 
   method <- match.arg(method, c("voom", "deseq2"))

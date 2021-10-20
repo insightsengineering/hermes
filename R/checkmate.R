@@ -35,7 +35,7 @@ NULL
 #' @examples
 #' check_proportion(0.25)
 check_proportion <- function(x, null.ok = FALSE) {
-  ok <- check_double(x, lower = 0, upper = 1)
+  ok <- test_double(x, lower = 0, upper = 1)
   if (!ok)
     return("Must be a 'proportion': number between 0 and 1")
   return(TRUE)

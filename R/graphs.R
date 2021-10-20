@@ -148,7 +148,7 @@ draw_nonzero_boxplot <- function(object,
   assert_that(
     is_hermes_data(object),
     is_class(position, "Position"),
-    check_proportion(alpha)
+    expect_proportion(alpha)
   )
 
   no_na_count <- colSums(counts(object) != 0)
