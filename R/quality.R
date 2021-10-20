@@ -258,9 +258,9 @@ get_low_expression <- function(object) {
 #' get_tech_failure(result)["06520101B0017R"]
 set_tech_failure <- function(object,
                              sample_ids) {
+  assert_character(sample_ids, any.missing = FALSE)
   assert_that(
     is_hermes_data(object),
-    utils.nest::is_character_vector(sample_ids),
     all(sample_ids %in% colnames(object))
   )
   matches <- match(sample_ids, colnames(object))
