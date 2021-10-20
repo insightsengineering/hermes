@@ -80,7 +80,7 @@ on_failure(is_counts_vector) <- function(call, env) {
 #' is_list_with(b, c("a", "b"))
 is_list_with <- function(x, elements) {
   assert_character(elements, any.missing = FALSE, min.len = 1L)
-  check_list(x, names = "unique") &&
+  test_list(x, names = "unique") &&
     all(elements %in% names(x))
 }
 
