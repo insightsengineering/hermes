@@ -321,7 +321,7 @@ cut_quantile <- function(x,
 
   assert_numeric(x)
   assert_numeric(percentiles, lower = 0, upper = 1, null.ok = TRUE)
-  assert(check_numeric(digits, lower = 0))
+  assert_number(digits, lower = 1)
 
   percentiles_without_borders <- setdiff(percentiles, c(0, 1))
   percentiles_without_borders <- unique(percentiles_without_borders)
@@ -329,7 +329,7 @@ cut_quantile <- function(x,
 
   quant <- quantile(x, percentile_with_borders, names = TRUE, digits = digits, na.rm = TRUE)
 
-  assert_false(any(duplicated(quant)), "Duplicate quantiles produced, please use a coarser `percentiles` vector")
+  assert_false(any(duplicated(quant)), na.ok = FALSE, "Duplicate quantiles produced, please use a coarser `percentiles` vector")
 
   name_quant <- names(quant)
   labs_quant <- paste0(name_quant[-length(name_quant)], ",", name_quant[-1])
