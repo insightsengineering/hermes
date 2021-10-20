@@ -76,9 +76,8 @@ draw_barplot <- function(object,
   col_data <- colData(object)
 
   percentiles_without_borders <- setdiff(percentiles, c(0, 1))
-  df <- data.frame(
-    x = tern::cut_quantile_bins(x_cont, probs = percentiles_without_borders)
-  )
+
+  df <- data.frame(x = cut_quantile(x_cont, percentiles_without_borders))
 
   if (!is.null(facet_var)) {
     assert_names(names(col_data), must.include = facet_var)

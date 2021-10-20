@@ -1,5 +1,8 @@
 # hermes 0.1.1.9000
 
+### Miscellaneous
+* New utility function `cut_quantile` for cutting a numeric vector into quantiles.
+
 # hermes 0.1.1
 
 ### New Features
