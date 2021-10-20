@@ -101,10 +101,8 @@ test_that("cat_with_newline works as expected", {
     }),
     c("hello", "world")
   )
-
-  filename <- tempfile()
-  on.exit(unlink(filename))
-  cat_with_newline("hello", file = filename)
-  cat_with_newline("world", append = TRUE, file = filename)
-  expect_equal(readLines(filename), c("hello", "world"))
+  expect_equal(
+    cat_with_newline(),
+    NULL
+  )
 })

@@ -122,29 +122,27 @@ h_parens <- function(x) {
     paste0("(", x, ")")
 }
 
-#' Cats (prints) the objects with a final new line added
+#' Concatenate and Print with Newline
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Use this function for simple objects as, for example,
-#' it removes the "[1]" for scalars unlike print().
+#' This function concatenate the representations like \code[base::cat()]
+#' and prints them with newline.
 #'
 #' For non-simple objects like lists, use print to display
 #' them (which is a generic method)
 #'
-#' This imitates \code{cli::cat_line}.
+#' @seealso This imitates \code[cli::cat_line].
 #'
 #' @param ... arguments to cat
-#' @param file file to write to, otherwise \code{stdout}
 #'
 #' @return objects with a final new line added.
 #'
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' cat_with_newline("hello", "world")
-#' }
+#'
 cat_with_newline <- function(..., file = "") {
   cat(..., file = file)
   cat("\n", file = file, append = TRUE)
