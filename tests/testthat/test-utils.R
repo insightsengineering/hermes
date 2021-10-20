@@ -220,3 +220,43 @@ test_that("h_all_duplicated works as expected for character", {
   expected <- c(TRUE, TRUE, TRUE, TRUE, FALSE)
   expect_identical(result, expected)
 })
+
+# cut_quantile ----
+
+test_that("cut_quantile works as expected with default settings", {
+  x <- c(4, 6, -10, 2.2, 0)
+  result <- cut_quantile(x)
+  expect_identical(as.character(result), c("(67%,100%]", "(67%,100%]", "[0%,33%]", "(33%,67%]", "[0%,33%]"))
+  expect_equal(length(levels(result)), 3)
+  expect_identical(length(x), length(result))
+  expect_true(is.factor(result))
+})
+
+test_that("cut_quantile works as expected with custom settings", {
+  x <- c(4, 6, -10, 2.2, 0)
+  result <- cut_quantile(x, c(0.33333333, 0.6666666, 0.8), digits = 3)
+  expect_identical(as.character(result), c("(66.7%,80%]", "(80%,100%]", "[0%,33.3%]", "(33.3%,66.7%]", "[0%,33.3%]"))
+  expect_equal(length(levels(result)), 4)
+  expect_identical(length(x), length(result))
+  expect_true(is.factor(result))
+})
+
+test_that("cut_quantile preserves NAs in result", {
+  x <- c(4, 6, -10, 2.2, 0)
+  x[c(1, 4)] <- NA
+  result <- cut_quantile(x)
+  expect_identical(is.na(x), is.na(result))
+  result2 <- cut_quantile(x, percentiles = c(0.2, 0.7, 0.8))
+  expect_identical(is.na(x), is.na(result2))
+})
+
+test_that("cut_quantile works with NULL percentile", {
+  x <- c(4, 6, -10, 2.2, 0)
+  result <- cut_quantile(x, c())
+  expect_identical(levels(result), "[0%,100%]")
+})
+
+test_that("cut_quantile produces an error if quantile boundaries are not unique", {
+  x <- rep(1, 10)
+  expect_error(cut_quantile(x))
+})
