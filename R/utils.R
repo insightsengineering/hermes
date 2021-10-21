@@ -131,7 +131,7 @@ h_parens <- function(x) {
 #'
 #' @seealso This is similar to [cli::cat_line()].
 #'
-#' @param ... arguments to cat
+#' @param ... inputs to concatenate.
 #'
 #' @return None, only used for the side effect of producing the concatenated output in the R console.
 #'
