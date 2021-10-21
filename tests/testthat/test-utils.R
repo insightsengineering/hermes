@@ -275,3 +275,4 @@ test_that("cat_with_newline works as expected", {
     cat_with_newline(),
     NULL
   )
+  })
