@@ -4,27 +4,23 @@
 \alias{cat_with_newline}
 \title{Concatenate and Print with Newline}
 \usage{
-cat_with_newline(..., file = "")
+cat_with_newline(...)
 }
 \arguments{
-\item{...}{arguments to cat}
+\item{...}{inputs to concatenate.}
 }
 \value{
-objects with a final new line added.
+None, only used for the side effect of producing the concatenated output in the R console.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This function concatenate the representations like \code\code{\link[base:cat]{base::cat()}}
+This function concatenates inputs like \code{\link[=cat]{cat()}}
 and prints them with newline.
-
-For non-simple objects like lists, use print to display
-them (which is a generic method)
 }
 \examples{
 cat_with_newline("hello", "world")
-
 }
 \seealso{
-This imitates \code\link[cli:cat_line]{cli::cat_line}.
+This is similar to \code{\link[cli:cat_line]{cli::cat_line()}}.
 }
