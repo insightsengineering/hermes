@@ -317,28 +317,37 @@ h_all_duplicated <- function(x) {
 #' cut_quantile(x)
 cut_quantile <- function(x,
                          percentiles = c(1/3, 2/3),
-                         digits = 1) {
-
+                         digits = 0) {
   assert_numeric(x)
-  assert_numeric(percentiles, lower = 0, upper = 1, null.ok = TRUE)
-  assert_number(digits, lower = 1)
+  assert_numeric(percentiles, lower = 0, upper = 1)
+  assert_integerish(digits, lower = 0)
 
   percentiles_without_borders <- setdiff(percentiles, c(0, 1))
+  percentiles_without_borders <- round(percentiles_without_borders, digits = digits + 2L)
   percentiles_without_borders <- unique(percentiles_without_borders)
   percentile_with_borders <- c(0, sort(percentiles_without_borders), 1)
 
-  quant <- quantile(x, percentile_with_borders, names = TRUE, digits = digits, na.rm = TRUE)
+  if ((length(x) == 1) && (length(percentile_with_borders) == 2)) {
+    return(factor("[0%,100%]"))
+  }
 
-  assert_false(any(duplicated(quant)), na.ok = FALSE, "Duplicate quantiles produced, please use a coarser `percentiles` vector")
+  quant <- quantile(
+    x,
+    probs = percentile_with_borders,
+    names = TRUE,
+    na.rm = TRUE
+  )
+  if (any(duplicated(quant))) {
+    stop("Duplicate quantiles produced, please use a coarser `percentiles` vector")
+  }
 
   name_quant <- names(quant)
   labs_quant <- paste0(name_quant[-length(name_quant)], ",", name_quant[-1])
-
   labs_quant <- paste0("(", labs_quant, "]")
   labs_quant[1] <- gsub("\\(", "[", labs_quant[1])
 
-  cut(x, quant, labs_quant, include.lowest = TRUE)
 
+  cut(x, quant, labs_quant, include.lowest = TRUE)
 }
 
 #' Concatenate and Print with Newline
