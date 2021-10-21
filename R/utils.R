@@ -126,7 +126,7 @@ h_parens <- function(x) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This function concatenate the representations like \code[base::cat()]
+#' This function concatenates inputs like [cat()]
 #' and prints them with newline.
 #'
 #' For non-simple objects like lists, use print to display
