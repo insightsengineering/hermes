@@ -10,49 +10,52 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Objective: replace `tern::df_explicit_na` with a simpler hermes functio
+## Objective: replace `tern::df_explicit_na` with a simpler hermes function
  
-For the example, we use the colData from the `hermes` package. We add one missing value to categorical variable AGE18, and add one missing value to continuous variable BAGE.
+For the example, we use the `colData` from the `summarized_experiment` object in the `hermes` package. We add one missing value to the categorical variable `AGE18`, and add one missing value to the continuous variable `BAGE`.
 
 ```{r}
 library(hermes)
 dat <- colData(summarized_experiment)
-dat[1,4]<-NA
-dat[1,59]<-NA
+dat[1, 4] <- NA
+dat[1, 59] <- NA
 ```
 
 ### Raw Code
-We use `addNA()` function in `base` to add a factor level `NA`. This skips using the `explicit_na` functions in `tern` or `forcats`.
+We use `forcats::fct_explicit_na()` function to add a factor level `(Missing)`. This skips using the `df_explicit_na` functions in `tern`.
 
 We use `as.data.frame(, stringsAsFactors = TRUE)` to convert character variables into factors without using loop, which is used in `tern::df_explicit_na`.
 
 ```{r}
+hermes_explicit_na <- function(data, na_level = "<Missing>") {
+    assert_that(is(data, "DataFrame"))
+    dat_logical_convert_char <- lapply(data, function(s)  if(is.logical(s)) as.character(s) else s  )
+    dat_char_convert_factor <- as.data.frame(dat_logical_convert_char, stringsAsFactors = TRUE)
+    dat_convert <- as.data.frame(lapply(dat_char_convert_factor, function(s)  if(is.numeric(s) == FALSE & any(is.na(s))) forcats::fct_explicit_na(s) else s  ))
 
- 
-a1<-lapply(attr(unclass(dat),"listData"),function(s)  if(is.logical(s)) as.character(s) else s  )
- 
-a2<-lapply(a1, function(s)  if(is.character(s) & any(is.na(s))) addNA(s) else s  )
+}
 
-dat_convert<-as.data.frame(a2, stringsAsFactors = TRUE)
 ```
 
 ### Test
-A new level `NA` is added to `AGE18`.
+A new level `(Missing)` is added to `AGE18`.
 ```{r}
-dat_convert$AGE18
+dat_hermes_convert <- hermes_explicit_na(dat)
+
+dat_hermes_convert$AGE18
 ```
 
 Continuous variable `BAGE` does not have any change.
 ```{r}
-dat_convert$BAGE
+dat_hermes_convert$BAGE
 ```
 
 Logical variable is converted to factor.
 ```{r}
-dat_convert$LowDepthFlag
+dat_hermes_convert$LowDepthFlag
 ```
 
-Original variable with all records missing is converted to a factor with one level `NA`.
+Original variable with all records missing is converted to a factor with one level `(Missing)`.
 ```{r}
-dat_convert$RACE3
+dat_hermes_convert$RACE3
 ```
