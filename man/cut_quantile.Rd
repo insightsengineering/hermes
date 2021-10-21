@@ -4,7 +4,7 @@
 \alias{cut_quantile}
 \title{Cutting a Numeric Vector into a Factor of Quantile Bins}
 \usage{
-cut_quantile(x, percentiles = c(1/3, 2/3), digits = 1)
+cut_quantile(x, percentiles = c(1/3, 2/3), digits = 0)
 }
 \arguments{
 \item{x}{(\code{numeric})\cr the continuous variable values which should be cut into quantile bins. \code{NA} values are
