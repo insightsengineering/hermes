@@ -274,3 +274,19 @@ test_that("cut_quantile produces an error if quantile boundaries are not unique"
     "Duplicate quantiles produced, please use a coarser `percentiles` vector"
   )
 })
+
+# cat_with_newline ----
+
+test_that("cat_with_newline works as expected", {
+  expect_equal(
+    capture.output({
+      cat_with_newline("hello")
+      cat_with_newline("world", append = TRUE)
+    }),
+    c("hello", "world")
+  )
+  expect_equal(
+    cat_with_newline(),
+    NULL
+  )
+  })
