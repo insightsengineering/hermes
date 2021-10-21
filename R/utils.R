@@ -139,7 +139,6 @@ h_parens <- function(x) {
 #'
 #' @examples
 #' cat_with_newline("hello", "world")
-#'
 cat_with_newline <- function(...) {
   cat(...)
   cat("\n", append = TRUE)
