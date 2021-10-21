@@ -132,7 +132,7 @@ h_parens <- function(x) {
 #' For non-simple objects like lists, use print to display
 #' them (which is a generic method)
 #'
-#' @seealso This imitates [cli::cat_line()].
+#' @seealso This is similar to [cli::cat_line()].
 #'
 #' @param ... arguments to cat
 #'
