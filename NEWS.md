@@ -25,7 +25,6 @@
 * `add_quality_flags()` does no longer return `NA` as the technical failure flags for the samples if there is only a single gene contained in the input, but instead a vector of `FALSE` to ensure correct downstream functionality.
 
 ### Miscellaneous
-* Added `error_on_lint: TRUE` to `.lintr`.
 * Updated `LICENCE` and `README` with new package references.
 * The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
 * The main `HermesData` example is now saved in the package as `hermes_data`, and the previous `summarized_experiment` is still available. Note that patient IDs have been changed in the new version to align with the `multi_assay_experiment`.
