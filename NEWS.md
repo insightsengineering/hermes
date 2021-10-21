@@ -12,6 +12,7 @@ filtering genes with greatest variability across samples.
 
 ### Miscellaneous
 * Added `error_on_lint: TRUE` to `.lintr`.
+* New utility function `cat_with_newline` for concatenating and printing with newline.
 
 # hermes 0.1.0
 * First release of the `hermes` package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze RNAseq counts data for differential expression.
