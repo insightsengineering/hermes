@@ -136,7 +136,7 @@ h_parens <- function(x) {
 #'
 #' @param ... arguments to cat
 #'
-#' @return objects with a final new line added.
+#' @return None, only used for the side effect of producing the concatenated output in the R console.
 #'
 #' @export
 #'
