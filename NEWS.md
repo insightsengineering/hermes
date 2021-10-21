@@ -1,5 +1,9 @@
 # hermes 0.1.1.9000
 
+### Miscellaneous
+* New utility function `cut_quantile` for cutting a numeric vector into quantiles.
+* New utility function `cat_with_newline` for concatenating and printing with newline.
+
 # hermes 0.1.1
 
 ### New Features

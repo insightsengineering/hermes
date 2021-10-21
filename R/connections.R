@@ -68,8 +68,8 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
 h_get_annotation_biomart <- function(gene_ids,
                                      id_var,
                                      mart) {
+  assert_character(gene_ids, any.missing = FALSE)
   assert_that(
-    utils.nest::is_character_vector(gene_ids),
     is.string(id_var),
     is(mart, "Mart")
   )

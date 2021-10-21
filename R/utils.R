@@ -291,3 +291,83 @@ h_all_duplicated <- function(x) {
   back <- duplicated(x, fromLast = TRUE)
   front | back
 }
+
+#' Cutting a Numeric Vector into a Factor of Quantile Bins
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This function transforms a numeric vector into a factor corresponding to the quantile intervals.
+#' The intervals are left-open and right-closed.
+#'
+#' @param x (`numeric`)\cr the continuous variable values which should be cut into quantile bins. `NA` values are
+#'   not taken into account when computing quantiles and are attributed to the `NA` interval.
+#' @param percentiles (`proportions`)\cr the required percentiles for the quantile intervals
+#'   to be generated. Duplicated values are removed.
+#' @param digits (`integer`)\cr  the precision to use when formatting the percentages.
+#'
+#' @return The factor with a description of the available quantiles as levels.
+#' @export
+#'
+#' @examples
+#' set.seed(452)
+#' x <- runif(10, -10, 10)
+#' cut_quantile(x, c(0.33333333, 0.6666666), digits = 4)
+#'
+#' x[1:4] <- NA
+#' cut_quantile(x)
+cut_quantile <- function(x,
+                         percentiles = c(1/3, 2/3),
+                         digits = 0) {
+  assert_numeric(x)
+  assert_numeric(percentiles, lower = 0, upper = 1)
+  assert_integerish(digits, lower = 0)
+
+  percentiles_without_borders <- setdiff(percentiles, c(0, 1))
+  percentiles_without_borders <- round(percentiles_without_borders, digits = digits + 2L)
+  percentiles_without_borders <- unique(percentiles_without_borders)
+  percentile_with_borders <- c(0, sort(percentiles_without_borders), 1)
+
+  if ((length(x) == 1) && (length(percentile_with_borders) == 2)) {
+    return(factor("[0%,100%]"))
+  }
+
+  quant <- quantile(
+    x,
+    probs = percentile_with_borders,
+    names = TRUE,
+    na.rm = TRUE
+  )
+  if (any(duplicated(quant))) {
+    stop("Duplicate quantiles produced, please use a coarser `percentiles` vector")
+  }
+
+  name_quant <- names(quant)
+  labs_quant <- paste0(name_quant[-length(name_quant)], ",", name_quant[-1])
+  labs_quant <- paste0("(", labs_quant, "]")
+  labs_quant[1] <- gsub("\\(", "[", labs_quant[1])
+
+
+  cut(x, quant, labs_quant, include.lowest = TRUE)
+}
+
+#' Concatenate and Print with Newline
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This function concatenates inputs like [cat()]
+#' and prints them with newline.
+#'
+#' @seealso This is similar to [cli::cat_line()].
+#'
+#' @param ... inputs to concatenate.
+#'
+#' @return None, only used for the side effect of producing the concatenated output in the R console.
+#'
+#' @export
+#'
+#' @examples
+#' cat_with_newline("hello", "world")
+cat_with_newline <- function(...) {
+  cat(...)
+  cat("\n", append = TRUE)
+}

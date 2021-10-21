@@ -34,6 +34,7 @@ reference:
   - title: Internal Helper Functions
     contents:
       - all_na
+      - cat_with_newline
       - validate_counts
       - validate_cols
       - validate_row_data
@@ -103,6 +104,7 @@ reference:
       - wrap_in_mae
       - col_data_with_genes
       - inner_join_cdisc
+      - cut_quantile
   - title: Graphs
     contents:
       - draw_libsize_hist
