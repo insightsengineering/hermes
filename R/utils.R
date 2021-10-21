@@ -126,24 +126,20 @@ h_parens <- function(x) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This function concatenate the representations like \code[base::cat()]
+#' This function concatenates inputs like [cat()]
 #' and prints them with newline.
 #'
-#' For non-simple objects like lists, use print to display
-#' them (which is a generic method)
+#' @seealso This is similar to [cli::cat_line()].
 #'
-#' @seealso This imitates [cli::cat_line()].
+#' @param ... inputs to concatenate.
 #'
-#' @param ... arguments to cat
-#'
-#' @return objects with a final new line added.
+#' @return None, only used for the side effect of producing the concatenated output in the R console.
 #'
 #' @export
 #'
 #' @examples
 #' cat_with_newline("hello", "world")
-#'
-cat_with_newline <- function(..., file = "") {
-  cat(..., file = file)
-  cat("\n", file = file, append = TRUE)
+cat_with_newline <- function(...) {
+  cat(...)
+  cat("\n", append = TRUE)
 }
