@@ -129,9 +129,6 @@ h_parens <- function(x) {
 #' This function concatenates inputs like [cat()]
 #' and prints them with newline.
 #'
-#' For non-simple objects like lists, use print to display
-#' them (which is a generic method)
-#'
 #' @seealso This is similar to [cli::cat_line()].
 #'
 #' @param ... arguments to cat
