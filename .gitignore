@@ -43,3 +43,5 @@ design/*.html
 # MacOS Files
 .DS_Store
 .Rproj.user
+
+coverage.*

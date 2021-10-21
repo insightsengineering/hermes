@@ -20,7 +20,7 @@ These methods access or set the metadata in a \code{\link{AnyHermesData}} object
 Note that this just inherits \code{\link[S4Vectors:Annotated-class]{S4Vectors::metadata,Annotated-method()}}.
 }
 \examples{
-a <- HermesData(summarized_experiment)
+a <- hermes_data
 metadata(a)
 metadata(a) <- list(new = "my metadata")
 metadata(a)

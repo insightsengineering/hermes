@@ -22,7 +22,7 @@ Access the gene IDs, i.e. row names, of a \code{\link{AnyHermesData}} object wit
 nicely named accessor method.
 }
 \examples{
-a <- HermesData(summarized_experiment)
+a <- hermes_data
 genes(a)
 }
 \seealso{

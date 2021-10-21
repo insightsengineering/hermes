@@ -15,7 +15,7 @@ test_that("HermesData validation fails as expected", {
 })
 
 test_that("HermesData prefix slot can not be assigned numeric", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   expect_error(object@prefix <- 124)
 })
 
@@ -53,7 +53,7 @@ test_that("SummarizedExperiment can be created from ExpressionSet", {
 # HermesData ----
 
 test_that("HermesData objects can be created with constructor HermesData", {
-  result <- expect_silent(HermesData(summarized_experiment))
+  result <- expect_silent(hermes_data)
   expect_is(result, "HermesData")
 })
 
@@ -82,14 +82,25 @@ test_that("HermesData accepts SummarizedExperiment object with rowData or colDat
 
 test_that("HermesData creates missing columns with NAs correctly", {
   object <- get_se()
-  colData(object) <- colData(object)[, "LowDepthFlag", drop = FALSE]
-  rowData(object) <- rowData(object)[, c("HGNC", "EndBP", "WidthBP")]
+  colData(object) <- colData(object)[, "low_depth_flag", drop = FALSE]
+  rowData(object) <- rowData(object)[, c("symbol", "size")]
   expect_false(all(.col_data_cols %in% names(colData(object))))
   expect_false(all(.row_data_cols %in% names(rowData(object))))
   result <- expect_silent(HermesData(object))
   expect_true(all(.col_data_cols %in% names(colData(result))))
   expect_true(all(.row_data_cols %in% names(rowData(result))))
-  expect_true(all_na(result$StartBP))
+})
+
+test_that("HermesData converts DelayedMatrix assays correctly to matrix assays", {
+  se <- summarized_experiment
+  assay(se, "delayed") <- DelayedArray::DelayedArray(assay(se, "counts"))
+  expect_s4_class(assay(se, "delayed"), "DelayedMatrix")
+  result <- HermesData(se)
+  expect_matrix(assay(result, "delayed"))
+  a1 <- assay(se, "delayed")
+  a2 <- assay(result, "delayed")
+  expect_identical(dim(a1), dim(a2))
+  expect_identical(as.integer(a1), as.integer(a2))
 })
 
 test_that("RangedHermesData objects can be created with constructor HermesData", {

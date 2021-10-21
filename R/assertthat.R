@@ -37,7 +37,7 @@ on_failure(is_class) <- function(call, env) {
 #' @examples
 #'
 #' # Assert a `AnyHermesData` object.
-#' is_hermes_data(HermesData(summarized_experiment))
+#' is_hermes_data(hermes_data)
 #' is_hermes_data(42)
 is_hermes_data <- function(x) {
   is_class(x, "AnyHermesData")
@@ -79,8 +79,8 @@ on_failure(is_counts_vector) <- function(call, env) {
 #' is_list_with(b, c("a", "c"))
 #' is_list_with(b, c("a", "b"))
 is_list_with <- function(x, elements) {
-  assert_that(utils.nest::is_character_vector(elements))
-  utils.nest::is_fully_named_list(x) &&
+  assert_character(elements, any.missing = FALSE, min.len = 1L)
+  test_list(x, names = "unique") &&
     all(elements %in% names(x))
 }
 
@@ -133,8 +133,9 @@ on_failure(one_provided) <- function(call, env) {
 #' is_constant(c(1, 2))
 #' is_constant(c(NA, 1))
 #' is_constant(c("a", "a"))
+#' is_constant(factor(c("a", "a")))
 is_constant <- function(x) {
-  assert_that(is.vector(x))
+  assert_that(is.atomic(x))
   x <- x[!is.na(x)]
   if (is.numeric(x)) {
     S4Vectors::isConstant(x)

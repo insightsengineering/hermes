@@ -25,9 +25,9 @@ Use `ggplot()` and `geom_bar()` functions to create stack bar.
 ```{r}
 #Creating the HermesData object and read rowData information
 
-load("~/hermes/data/summarized_experiment.rda")
+load("~/hermes/data/hermes_data.rda")
 
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 
 df <- data.frame(Chromosome = rowData(object)$Chromosome, LowExpressionFlag = rowData(object)$LowExpressionFlag)
 

@@ -26,7 +26,7 @@ method from the \code{limma} package (via \code{\link[limma:voom]{limma::voom()}
 for given counts in a \link{AnyHermesData} object and a corresponding \code{design} matrix.
 }
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 
 # Create the design matrix corresponding to the factor of interest.
 design <- model.matrix(~SEX, colData(object))

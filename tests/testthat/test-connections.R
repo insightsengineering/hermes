@@ -1,5 +1,8 @@
 # connect_biomart ----
 
+# To avoid SSL connection issues.
+httr::set_config(httr::config(ssl_verifypeer = FALSE))
+
 test_that("connect_biomart works as expected", {
   test.nest::skip_if_too_deep(5)
 
@@ -15,7 +18,7 @@ test_that("connect_biomart works as expected", {
 # h_get_annotation_biomart ----
 
 test_that("h_get_annotation_biomart works as expected", {
-  test.nest::skip_if_too_deep(3)
+  test.nest::skip_if_too_deep(5)
 
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   result <- h_get_annotation_biomart(
@@ -27,8 +30,7 @@ test_that("h_get_annotation_biomart works as expected", {
     hgnc_symbol = c("INMT", "AVIL"),
     entrezgene_description = c("indolethylamine N-methyltransferase", "advillin"),
     chromosome_name = c(7L, 12L),
-    start_position = c(30697985L, 57797376L),
-    end_position = c(30757602L, 57818704L),
+    size = c(3376L, 5889L),
     refseq_mrna = c("NM_006774", "NM_006576"),
     refseq_peptide = c("NP_006765", "NP_006567"),
     row.names = c("11185", "10677"),
@@ -54,27 +56,102 @@ test_that("h_strip_prefix works as expected", {
   )
 })
 
+# h_get_size_biomart ----
+
+test_that("h_get_size_biomart works as expected", {
+  test.nest::skip_if_too_deep(5)
+
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+  expect_identical(
+    h_get_size_biomart(
+      "11185",
+      id_var = "entrezgene_id",
+      mart = mart
+    ),
+    c("11185" = 3376L)
+  )
+  expect_identical(
+    h_get_size_biomart(
+      "ENSG00000215417",
+      id_var = "ensembl_gene_id",
+      mart = mart
+    ),
+    c(ENSG00000215417 = 3774L)
+  )
+  expect_identical(
+    h_get_size_biomart(
+      c("11185", "10677"),
+      id_var = "entrezgene_id",
+      mart = mart
+    ),
+    c("11185" = 3376L, "10677" = 5889L)
+  )
+  expect_identical(
+    h_get_size_biomart(
+      c("ENSG00000135407", "ENSG00000215417"),
+      id_var = "ensembl_gene_id",
+      mart = mart
+    ),
+    c(ENSG00000135407 = 5889L, ENSG00000215417 = 3774L)
+  )
+})
+
+# h_ensembl_to_entrez_ids ----
+
+test_that("h_ensembl_to_entrez_ids works as expected", {
+  test.nest::skip_if_too_deep(5)
+
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+  result <- h_ensembl_to_entrez_ids(c("ENSG00000135407", "ENSG00000241644"), mart)
+  expected <- c("10677", "11185")
+  expect_identical(result, expected)
+})
+
+# h_get_granges_by_id ----
+
+test_that("h_get_granges_by_id works as expected", {
+  coords <- data.frame(
+    ensembl_gene_id = rep("ENSG00000135407", 11),
+    ensembl_exon_id = c(
+      "ENSE00002428433", "ENSE00002327057", "ENSE00002335328", "ENSE00002383516",
+      "ENSE00003482354", "ENSE00003649447", "ENSE00003573463", "ENSE00003532761",
+      "ENSE00002347218", "ENSE00002327284", "ENSE00002346343"
+    ),
+    chromosome_name = rep(12L, 11),
+    exon_chrom_start = c(
+      57799795L, 57797376L, 57815975L, 57815578L, 57814152L,
+      57802160L, 57801144L, 57799795L, 57797882L, 57808395L, 57807331L
+    ),
+    exon_chrom_end = c(
+      57800653L, 57797995L, 57816058L, 57815692L, 57814226L, 57802348L, 57801212L,
+      57799920L, 57797995L, 57808692L, 57807727L
+    )
+  )
+  result <- h_get_granges_by_id(coords, "ENSG00000135407")
+  expect_s4_class(result, "GRanges")
+  expect_identical(IRanges::start(result), coords$exon_chrom_start)
+  expect_identical(IRanges::end(result), coords$exon_chrom_end)
+})
+
 # query-ConnectionBiomart ----
 
 test_that("query to Biomart works as expected", {
-  test.nest::skip_if_too_deep(3)
+  test.nest::skip_if_too_deep(5)
 
-  object <- HermesData(summarized_experiment)[1:10, ]
+  object <- hermes_data[1:10, ]
   connection <- connect_biomart(prefix(object))
   result <- query(genes(object), connection)
   expect_s4_class(result, "DataFrame")
-  expect_identical(names(result), .row_data_annotation_cols)
+  expect_subset(.row_data_annotation_cols, names(result))
   expect_identical(genes(object), rownames(result))
   result_subset <- result[3:4, ]
   expected_subset <- S4Vectors::DataFrame(
-    HGNC = c(NA, "MIR3183"),
-    HGNCGeneName = c(NA, "microRNA 3183"),
-    Chromosome = c(NA, "17"),
-    StartBP = c(NA, 1022476L),
-    EndBP = c(NA, 1022559L),
-    WidthBP = c(NA, 84L),
-    CanonicalTranscript = c(NA_character_, NA_character_),
-    ProteinTranscript = c(NA_character_, NA_character_),
+    symbol = c(NA, "MIR3183"),
+    desc = c(NA, "microRNA 3183"),
+    chromosome = c(NA, "17"),
+    size = c(NA, 84L),
+    canonical_transcript = as.character(c(NA, NA)),
+    protein_transcript = as.character(c(NA, NA)),
     row.names = c("GeneID:101928428", "GeneID:100422835")
   )
   expect_identical(result_subset, expected_subset)

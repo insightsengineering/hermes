@@ -1,7 +1,7 @@
 # h_diff_expr_voom ----
 
 test_that("h_diff_expr_voom works as expected", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   design <- model.matrix(~SEX, colData(object))
   result <- h_diff_expr_voom(object, design)
   expect_is(result, "data.frame")
@@ -11,7 +11,7 @@ test_that("h_diff_expr_voom works as expected", {
 })
 
 test_that("h_diff_expr_voom can pass arguments to limma::eBayes", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   design <- model.matrix(~SEX, colData(object))
   result <- expect_silent(h_diff_expr_voom(
     object,
@@ -29,7 +29,7 @@ test_that("h_diff_expr_voom can pass arguments to limma::eBayes", {
 })
 
 test_that("h_diff_expr_voom fails if design matrix is not correct", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   design_too_wide <- model.matrix(~SEX + COUNTRY, colData(object))
   expect_error(h_diff_expr_voom(object, design_too_wide))
   design_diff_obs <- model.matrix(~SEX, colData(object)[1:10, ])
@@ -40,7 +40,7 @@ test_that("h_diff_expr_voom fails if design matrix is not correct", {
 
 test_that("h_diff_expr_deseq2 works as expected", {
   test.nest::skip_if_too_deep(3)
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   design <- model.matrix(~SEX, colData(object))
   result <- h_diff_expr_deseq2(object, design)
   expect_is(result, "data.frame")
@@ -51,7 +51,7 @@ test_that("h_diff_expr_deseq2 works as expected", {
 
 test_that("h_diff_expr_deseq2 can pass arguments to DESeq2::DESeq", {
   test.nest::skip_if_too_deep(5)
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   design <- model.matrix(~SEX, colData(object))
   result <- expect_silent(h_diff_expr_deseq2(
     object,
@@ -69,7 +69,7 @@ test_that("h_diff_expr_deseq2 can pass arguments to DESeq2::DESeq", {
 })
 
 test_that("h_diff_expr_deseq2 fails if design matrix is not correct", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   design_too_wide <- model.matrix(~SEX + COUNTRY, colData(object))
   expect_error(h_diff_expr_voom(object, design_too_wide))
   design_diff_obs <- model.matrix(~SEX, colData(object)[1:10, ])
@@ -80,8 +80,8 @@ test_that("h_diff_expr_deseq2 fails if design matrix is not correct", {
 
 test_that("diff_expression works as expected with the DESeq2 method", {
   test.nest::skip_if_too_deep(3)
-  object <- HermesData(summarized_experiment)
-  colData(object) <- df_char_to_factor(colData(object))
+  object <- hermes_data
+  colData(object) <- df_cols_to_factor(colData(object))
   result <- expect_silent(diff_expression(object, group = "SEX", method = "deseq2"))
   expect_s4_class(result, "HermesDataDiffExpr")
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
@@ -90,8 +90,8 @@ test_that("diff_expression works as expected with the DESeq2 method", {
 })
 
 test_that("diff_expression works as expected with the voom method", {
-  object <- HermesData(summarized_experiment)
-  colData(object) <- df_char_to_factor(colData(object))
+  object <- hermes_data
+  colData(object) <- df_cols_to_factor(colData(object))
   result <- expect_silent(diff_expression(object, group = "SEX", method = "voom"))
   expect_s4_class(result, "HermesDataDiffExpr")
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
@@ -101,14 +101,14 @@ test_that("diff_expression works as expected with the voom method", {
 
 test_that("diff_expression allows passing of method arguments to helper functions", {
   test.nest::skip_if_too_deep(3)
-  object <- HermesData(summarized_experiment)
-  colData(object) <- df_char_to_factor(colData(object))
+  object <- hermes_data
+  colData(object) <- df_cols_to_factor(colData(object))
   expect_silent(diff_expression(object, group = "SEX", method = "voom", robust = TRUE))
   expect_silent(diff_expression(object, group = "SEX", method = "deseq2", fitType = "local"))
 })
 
 test_that("diff_expression fails as expected with inappropriate inputs", {
-  object <- HermesData(summarized_experiment)
+  object <- hermes_data
   gse <- get_se()
   expect_error(diff_expression(object, "COUNRTY", "deseq2"))
   expect_error(diff_expression(object, "COUNRTY", "anbc"))

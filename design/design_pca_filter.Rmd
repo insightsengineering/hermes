@@ -17,7 +17,7 @@ Take the summarized experiment and calculate the Variance across each gene using
  - Cons: Limited testing options in tmh and no availability to hermes user
 ```{r}
 library(hermes)
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 object2 <- top_genes(
   object,
   assay_name = "counts",
@@ -154,7 +154,7 @@ calc_pca_filtered <- function(object,
 
 # Test calc_pca_filtered out
 ```{r}
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 result <- calc_pca_filtered(object, assay_name = "counts", 700)
 summary(result)
 ```

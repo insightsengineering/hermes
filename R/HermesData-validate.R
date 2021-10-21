@@ -11,19 +11,15 @@ NULL
 
 # Constants which are used in multiple places.
 .row_data_cols <- c(
-  "HGNC",
-  "HGNCGeneName",
-  "Chromosome",
-  "StartBP",
-  "EndBP",
-  "WidthBP",
-  "CanonicalTranscript",
-  "ProteinTranscript",
-  "LowExpressionFlag"
+  "symbol",
+  "desc",
+  "chromosome",
+  "size",
+  "low_expression_flag"
 )
 .col_data_cols <- c(
-  "LowDepthFlag",
-  "TechnicalFailureFlag"
+  "low_depth_flag",
+  "tech_failure_flag"
 )
 
 #' @describeIn validate validates that the first assay is `counts` containing

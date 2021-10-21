@@ -1,18 +1,39 @@
-# hermes 0.1.0.9000
+# hermes 0.1.1.9000
+
+### Miscellaneous
+* New utility function `cut_quantile` for cutting a numeric vector into quantiles.
+* New utility function `cat_with_newline` for concatenating and printing with newline.
+
+# hermes 0.1.1
 
 ### New Features
-* Scatterplot of the two genes or gene signatures via `draw_scatterplot`.
-* Boxplot of the gene expression values via `draw_boxplot`. Faceting, stratifying, and coloring by sample variables, as well as comparison of multiple genes is supported.
-* The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
-* `calc_pca` now includes a top number of gene filtering option `n_top`, which allows
-filtering genes with greatest variability across samples. 
+* New function `draw_scatterplot` to produce scatterplots of two genes or gene signatures.
+* New function `draw_boxplot` for boxplots of gene expression values.
+* New function `draw_barplot` for barplots of dichotomized gene expression counts into two or three percentile categories.
+* New helper function `wrap_in_mae` that wraps a single `SummarizedExperiment` object into an MAE object.
+* New method `rename` that makes renaming columns of `rowData` and `colData` as well as assay names in existing `SummarizedExperiment` objects much easier, as a step before converting to `HermesData`.
+* New method `lapply` that allows user to apply a function on all experiments in a `MultiAssayExperiment`.
+* New method `isEmpty` that checks whether a `SummarizedExperiment` object is empty.
+* New gene filtering option `n_top` in the `calc_pca` function, which allows filtering genes with greatest variability across samples. 
+* New class `GeneSpec` for specification of genes or gene signatures, see `?gene_spec` for simple construction. Inclusion of gene signature functions `colPrinComp1` and `colMeanZscores` to supplement standard column statistics functions.
+* New helper function `col_data_with_genes` which extracts the sample variables saved in `colData` together with selected gene information as a combined data set.
+* New helper function `inner_join_cdisc` which joins genetic with CDISC data sets.
 
 ### Bug Fixes
 * `normalize()` now also works when the `hermes` package is not loaded, i.e. you can use it with `hermes::normalize()`.
+* `correlate()` now also works when there are factor variables in the sample variables of the `HermesData` object.
+* `add_quality_flags()` does no longer return `NA` as the technical failure flags for the samples if there is only a single gene contained in the input, but instead a vector of `FALSE` to ensure correct downstream functionality.
 
 ### Miscellaneous
 * Added `error_on_lint: TRUE` to `.lintr`.
-* New utility function `cat_with_newline` for concatenating and printing with newline.
+* Updated `LICENCE` and `README` with new package references.
+* The `multi_assay_experiment` now contains `HermesData` experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.
+* The main `HermesData` example is now saved in the package as `hermes_data`, and the previous `summarized_experiment` is still available. Note that patient IDs have been changed in the new version to align with the `multi_assay_experiment`.
+* Renaming of required `rowData` and `colData` columns to be more consistent with standards and use lowercase snake-case names.
+* Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.
+* Instead of gene starts and ends, the total length of gene exons is now used as the annotation column `size`. Corresponding queries from BioMart are used to return this gene size.
+* `df_char_to_factor` has been deprecated (and can still be used with a warning) and replaced with `df_cols_to_factor`, which also converts logical variables to factor variables.
+* When providing `SummarizedExperiment` objects containing `DelayedMatrix` assays to the `HermesData()` constructor, these are silently converted to `matrix` assays to ensure downstream functionality.
 
 # hermes 0.1.0
 * First release of the `hermes` package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze RNAseq counts data for differential expression.

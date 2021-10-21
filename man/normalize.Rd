@@ -56,9 +56,9 @@ Possible normalization methods (which are implemented with separate helper funct
 are divided by the library size of this sample, and multiplied by one million. This is the
 appropriate normalization for between-sample comparisons.
 \item \code{rpkm}: Reads per Kilobase of transcript per Million reads mapped (RPKM). Each gene count is
-divided by the gene width (in kilobases) and then again divided by the library sizes of each
+divided by the gene size (in kilobases) and then again divided by the library sizes of each
 sample (in millions). This allows for within-sample comparisons, as it takes
-into account the gene lengths - longer genes will always have more counts than shorter genes.
+into account the gene sizes - longer genes will always have more counts than shorter genes.
 \item \code{tpm}: Transcripts per Million (TPM). This addresses the problem of RPKM being inconsistent
 across samples (which can be seen that the sum of all RPKM values will vary from sample to
 sample). Therefore here we divide the RPKM by the sum of all RPKM values for each sample,
@@ -88,7 +88,7 @@ count data for all genes into approximately homoskedastic values (having constan
 }}
 
 \examples{
-a <- HermesData(summarized_experiment)
+a <- hermes_data
 
 # By default, log values are used with a prior count of 1 added to original counts.
 result <- normalize(a)

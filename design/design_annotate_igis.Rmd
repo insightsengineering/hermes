@@ -138,15 +138,11 @@ This gives back the relevant data frame columns from `rowData(object)`.
 ```{r}
 # Define a package constant:
 .row_data_annotation_cols <- c(
-  "HGNC",
-  "HGNCGeneName",
+  "symbol",
+  "desc",
   "GeneID",
-  "Chromosome",
-  "StartBP",
-  "EndBP",
-  "WidthBP",
-  "CanonicalTranscript",
-  "ProteinTranscript"
+  "chromosome",
+  "size"
 )
 
 #' @importFrom BiocGenerics annotation
@@ -182,11 +178,9 @@ setMethod(
       setNames(
         mcols(trans),
         c(
-          "HGNC", 
+          "symbol", 
           "GeneID", 
-          "CanonicalTranscript", 
-          "HGNCGeneName", 
-          "ProteinTranscript"
+          "desc"
         )
       ),
       Chromosome = as.vector(seqnames(trans)),
@@ -237,7 +231,7 @@ Let's try:
 
 ```{r}
 # first remove some info
-rowData(object)[, "CanonicalTranscript"] <- ""
+# rowData(object)[, "CanonicalTranscript"] <- ""
 
 # then fill in
 annotation(object) <- new_annotations

@@ -1,3 +1,42 @@
+#' Creation of Unique Labels
+#'
+#' This helper function generates a set of unique labels given
+#' unique IDs and not necessarily unique names.
+#'
+#' @param ids (`character` or `NULL`)\cr unique IDs.
+#' @param nms (`character` or `NULL`)\cr not necessarily unique names if provided.
+#'
+#' @return Character vector where empty names are replaced by the IDs and
+#'   non-unique names are made unique by appending the IDs in parentheses.
+#' @export
+#'
+#' @examples
+#' h_unique_labels(c("1", "2", "3"), c("A", "B", "A"))
+#' h_unique_labels(NULL)
+#' h_unique_labels(c("1", "2", "3"))
+h_unique_labels <- function(ids, nms = NULL) {
+  if (is.null(ids)) {
+    return(NULL)
+  }
+  assert_character(ids, any.missing = FALSE, unique = TRUE)
+  if (is.null(nms)) {
+    return(ids)
+  }
+  assert_character(nms, any.missing = FALSE)
+  assert_true(identical(length(ids), length(nms)))
+
+  res <- ifelse(nms == "", ids, nms)
+  are_duplicate <- h_all_duplicated(res)
+  if (any(are_duplicate)) {
+    res[are_duplicate] <- paste(
+      res[are_duplicate],
+      h_parens(ids[are_duplicate])
+    )
+  }
+  assert_character(res, any.missing = FALSE, unique = TRUE)
+  res
+}
+
 #' R6 Class Representing a Gene (Signature) Specification
 #'
 #' @description `r lifecycle::badge("experimental")`
@@ -13,6 +52,7 @@
 #'
 #' # Using multiple genes with a signature.
 #' x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"), fun = colMeans)
+#' x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"), fun = colPrinComp1)
 #' x_spec$returns_vector()
 #' x_spec$get_genes()
 #' x_spec$get_gene_labels()
@@ -30,6 +70,9 @@
 #'   dimnames = list(c("GeneID:1820", "GeneID:52", "GeneID:523"), NULL)
 #' )
 #' x_spec$extract(mat)
+#'
+#' # We can also extract these as a `data.frame`.
+#' x_spec$extract_data_frame(mat)
 GeneSpec <- R6::R6Class(
   "GeneSpec",
   public = list(
@@ -48,13 +91,7 @@ GeneSpec <- R6::R6Class(
       assert_function(fun, null.ok = TRUE)
       assert_string(fun_name, min.chars = 1L)
 
-      private$gene_labels <- if (is.null(names(genes))) {
-        genes
-      } else {
-        nms <- names(genes)
-        ifelse(nms == "", genes, nms)
-      }
-      assert_character(private$gene_labels, any.missing = FALSE, unique = TRUE, null.ok = TRUE)
+      private$gene_labels <- h_unique_labels(ids = genes, nms = names(genes))
       private$genes <- genes
       private$fun <- fun
       private$fun_name <- fun_name
@@ -72,7 +109,7 @@ GeneSpec <- R6::R6Class(
     },
     #' @description Predicate whether the extract returns a vector or not.
     returns_vector = function() {
-      identical(length(private$genes), 1L) || is.function(private$fun)
+     (length(private$genes) == 1) || is.function(private$fun)
     },
     #' @description Returns a string which can be used e.g. for plot labels.
     #' @param genes (`character`)\cr for which subset of genes the labels should be returned.
@@ -97,14 +134,42 @@ GeneSpec <- R6::R6Class(
     extract = function(assay) {
       assert_class(assay, "matrix")
       assert_names(rownames(assay), must.include = private$genes)
-      assay_cols <- assay[private$genes, , drop = TRUE]
-      if (length(private$genes) > 1 && is.function(private$fun)) {
-        summary_res <- private$fun(assay_cols)
-        assert_numeric(summary_res, len = ncol(assay_cols))
-        summary_res
+      assay_cols <- assay[private$genes, , drop = FALSE]
+      if (self$returns_vector()) {
+        res <- if (is.function(private$fun)) {
+          private$fun(assay_cols)
+        } else {
+          as.vector(assay_cols)
+        }
+        assert_numeric(res, len = ncol(assay_cols))
+        stats::setNames(
+          res,
+          colnames(assay)
+        )
       } else {
+        rownames(assay_cols) <- private$gene_labels
         assay_cols
       }
+    },
+    #' @description Extract the gene values as a `data.frame`.
+    #' @param assay (`matrix`)\cr original matrix with rownames containing the
+    #'   specified genes.
+    #' @return A `data.frame` with the genes in the columns and the samples
+    #'   in the rows.
+    extract_data_frame = function(assay) {
+      gene_matrix <- self$extract(assay)
+      if (!is.matrix(gene_matrix)) {
+        gene_matrix <- t(gene_matrix)
+      }
+      num_genes <- nrow(gene_matrix)
+      gene_names <- if (num_genes == 1) {
+        self$get_label()
+      } else {
+        self$get_gene_labels()
+      }
+      gene_names <- make.names(gene_names, unique = TRUE)
+      rownames(gene_matrix) <- gene_names
+      data.frame(t(gene_matrix))
     }
   ),
   private = list(

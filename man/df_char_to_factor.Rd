@@ -18,7 +18,7 @@ the conversion.}
 The modified data.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
 This utility function converts all character variables in a \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}}
 to factor variables with explicit missing level.
@@ -31,6 +31,6 @@ problematic when not supported classes are used in other non-character columns.
 \examples{
 dat <- colData(summarized_experiment)
 any(sapply(dat, is.character))
-dat_converted <- df_char_to_factor(dat)
+dat_converted <- suppressWarnings(df_char_to_factor(dat))
 any(sapply(dat_converted, is.character))
 }

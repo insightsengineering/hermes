@@ -43,14 +43,14 @@ Let's think about how exactly we are going to correlate the `colData` columns wi
 
 ### Starting point: `biokitr` approach
 
-In the [entry function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L14) and the [calculation function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L195) we can see the following being done:
+In the _entry function_ and the _calculation function_, we can see the following being done:
 - categorical vars:
   - also int values with less than 10 different values will be converted to factors
   - skip if number of levels is too high or if only one constant value across all samples
 - continuous vars:
   - all get `log10(x)` transformed (0s are replaced by 1s)
 - R2 matrix is filled
-  - R2 is calculated [here](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5a3aa8fa5f6a0017bdf50817d9d9/R/qc_edapca.R#L232) 
+  - R2 is calculated
     - first centering (but not scaling) the y matrix, i.e. the principal components
     - note that y is a matrix here with one column for each component, and one row for each sample.
     - samples where the sample var is `NA` are removed from the data
@@ -64,7 +64,7 @@ In the [entry function](https://github.roche.com/BEDA/biokitr/blob/59dafca7544c5
 Our example:
 
 ```{r}
-object <- HermesData(summarized_experiment) %>%
+object <- hermes_data %>%
   add_quality_flags() %>%
   filter() %>%
   normalize()

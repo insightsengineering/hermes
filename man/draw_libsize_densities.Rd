@@ -21,7 +21,7 @@ This creates a density plot of the (log) counts distributions of the \link{AnyHe
 on the plot corresponds to a sample.
 }
 \examples{
-result <- HermesData(summarized_experiment)
+result <- hermes_data
 draw_libsize_densities(result)
 draw_libsize_densities(result, log = FALSE)
 }

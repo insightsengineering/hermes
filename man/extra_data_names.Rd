@@ -33,7 +33,7 @@ the object which are not required by design. So these can be additional sample o
 patient characteristics, or gene characteristics.
 }
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 extraColDataNames(object)
 extraRowDataNames(object)
 }

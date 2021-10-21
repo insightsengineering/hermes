@@ -7,7 +7,7 @@
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param assay_name (`string`)\cr selects assay from input.
-#' @param x_var (`string`)\cr gene ID for the x-axis.
+#' @param x_spec (`GeneSpec`)\cr gene specification for the x-axis.
 #' @param facet_var (`string` or `NULL`)\cr optional faceting variable, taken
 #'   from input sample variables.
 #' @param fill_var (`string` or `NULL`)\cr optional fill variable, taken
@@ -20,43 +20,44 @@
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment) %>%
-#'   add_quality_flags() %>%
-#'   filter() %>%
-#'   normalize()
+#' object <- hermes_data
+#'
+#' g <- genes(object)
 #'
 #' draw_barplot(
 #'   object,
 #'   assay_name = "counts",
-#'   x_var = genes(object)[1],
+#'   x_spec = gene_spec(g[1]),
+#'   facet_var = "SEX",
+#'   fill_var = "AGE18"
+#' )
+#'
+#'  draw_barplot(
+#'   object,
+#'   assay_name = "counts",
+#'   x_spec = gene_spec(g[1:3], colMedians, "Median"),
 #'   facet_var = "SEX",
 #'   fill_var = "AGE18"
 #' )
 #'
 #' draw_barplot(
 #'   object,
-#'   assay_name = "tpm",
-#'   x_var = genes(object)[5],
-#'   percentiles = c(0.2, 0.8)
-#' )
-#'
-#' draw_barplot(
-#'   object,
-#'   assay_name = "cpm",
-#'   x_var = genes(object)[1],
+#'   assay_name = "counts",
+#'   x_spec = gene_spec(g[1:3], colMeans, "Mean"),
 #'   facet_var = "SEX",
 #'   fill_var = "AGE18",
-#'   percentiles = c(0, 0.8)
+#'   percentiles = c(0.1, 0.9)
 #' )
 draw_barplot <- function(object,
                          assay_name,
-                         x_var,
+                         x_spec,
                          facet_var = NULL,
                          fill_var = NULL,
                          percentiles = c(1/3, 2/3)) {
-  assert_class(object, "HermesData")
+  assert_class(object, "AnyHermesData")
   assert_string(assay_name)
-  assert_string(x_var)
+  assert_class(x_spec, "GeneSpec")
+  assert_true(x_spec$returns_vector())
   assert_string(facet_var, null.ok = TRUE)
   assert_string(fill_var, null.ok = TRUE)
   assert_numeric(
@@ -70,14 +71,14 @@ draw_barplot <- function(object,
   )
 
   assay_matrix <- assay(object, assay_name)
-  assert_names(genes(object), must.include = x_var)
-  x_vals <- assay_matrix[x_var, ]
-  percentiles_without_borders <- setdiff(percentiles, c(0, 1))
-  df <- data.frame(
-    x = tern::cut_quantile_bins(x_vals, probs = percentiles_without_borders)
-  )
+  x_cont <- x_spec$extract(assay_matrix)
 
   col_data <- colData(object)
+
+  percentiles_without_borders <- setdiff(percentiles, c(0, 1))
+
+  df <- data.frame(x = cut_quantile(x_cont, percentiles_without_borders))
+
   if (!is.null(facet_var)) {
     assert_names(names(col_data), must.include = facet_var)
     df$facet <- col_data[[facet_var]]
@@ -89,7 +90,7 @@ draw_barplot <- function(object,
 
   p <- ggplot(df, aes(x = .data$x)) +
     geom_bar() +
-    labs(x = x_var)
+    labs(x = x_spec$get_label())
   if (!is.null(facet_var)) {
     p <- p +
       facet_wrap(~ facet)

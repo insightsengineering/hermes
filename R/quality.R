@@ -52,14 +52,14 @@ control_quality <- function(min_cpm = 1,
 #' @description `r lifecycle::badge("stable")`
 #'
 #' The function `add_quality_flags()` adds quality flag information to a [`AnyHermesData`] object:
-#' - `LowExpressionFlag`: for each gene, counts how many samples don't pass a minimum
+#' - `low_expression_flag`: for each gene, counts how many samples don't pass a minimum
 #'   expression Counts per Million (CPM) threshold. If too many, then it flags this gene
 #'   as a "low expression" gene.
-#' - `TechnicalFailureFlag`: first calculates the Pearson correlation matrix of the sample wise
+#' - `tech_failure_flag`: first calculates the Pearson correlation matrix of the sample wise
 #'   CPM values, resulting in a matrix measuring the correlation between samples.
 #'   Then compares the average correlation per sample with a threshold - if it is too low,
 #'   then the sample is flagged as a "technical failure" sample.
-#' - `LowDepthFlag`: computes the library size (total number of counts) per sample.
+#' - `low_depth_flag`: computes the library size (total number of counts) per sample.
 #'   If this number is too low, the sample is flagged as a "low depth" sample.
 #'
 #' Separate helper functions are internally used to create the flags, and
@@ -87,7 +87,7 @@ control_quality <- function(min_cpm = 1,
 #'
 #' @examples
 #' # Adding default quality flags to `AnyHermesData` object.
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' result <- add_quality_flags(object)
 #' which(get_tech_failure(result) != get_tech_failure(object))
 #' head(get_low_expression(result))
@@ -112,9 +112,9 @@ add_quality_flags <- function(object,
     }
   }
 
-  rowData(object)$LowExpressionFlag <- h_low_expression_flag(object, control) # nolint
-  colData(object)$TechnicalFailureFlag <- h_tech_failure_flag(object, control) # nolint
-  colData(object)$LowDepthFlag <- h_low_depth_flag(object, control) # nolint
+  rowData(object)$low_expression_flag <- h_low_expression_flag(object, control) # nolint
+  colData(object)$tech_failure_flag <- h_tech_failure_flag(object, control) # nolint
+  colData(object)$low_depth_flag <- h_low_depth_flag(object, control) # nolint
 
   metadata(object)$control_quality_flags <- control
 
@@ -190,8 +190,16 @@ h_tech_failure_flag <- function(object,
     is_list_with(control, "min_corr")
   )
   cpm <- edgeR::cpm(counts(object))
-  corr_matrix <- stats::cor(cpm, method = "pearson")
-  colMeans(corr_matrix) < control$min_corr
+
+  if (nrow(cpm) > 1) {
+    corr_matrix <- stats::cor(cpm, method = "pearson")
+    colMeans(corr_matrix) < control$min_corr
+  } else {
+    stats::setNames(
+      rep(FALSE, ncol(cpm)),
+      colnames(cpm)
+    )
+  }
 }
 
 #' @describeIn quality_flags get the technical failure flags for all samples.
@@ -200,7 +208,7 @@ h_tech_failure_flag <- function(object,
 #' head(get_tech_failure(object))
 get_tech_failure <- function(object) {
   assert_that(is_hermes_data(object))
-  flag_vals <- colData(object)$TechnicalFailureFlag
+  flag_vals <- colData(object)$tech_failure_flag
   samples <- colnames(object)
   stats::setNames(flag_vals, samples)
 }
@@ -211,7 +219,7 @@ get_tech_failure <- function(object) {
 #' head(get_low_depth(object))
 get_low_depth <- function(object) {
   assert_that(is_hermes_data(object))
-  flag_vals <- colData(object)$LowDepthFlag
+  flag_vals <- colData(object)$low_depth_flag
   samples <- colnames(object)
   stats::setNames(flag_vals, samples)
 }
@@ -222,7 +230,7 @@ get_low_depth <- function(object) {
 #' head(get_low_expression(object))
 get_low_expression <- function(object) {
   assert_that(is_hermes_data(object))
-  flag_vals <- rowData(object)$LowExpressionFlag
+  flag_vals <- rowData(object)$low_expression_flag
   genes <- rownames(object)
   stats::setNames(flag_vals, genes)
 }
@@ -244,18 +252,18 @@ get_low_expression <- function(object) {
 #'
 #' @examples
 #' # Manually flag technical failures in a `AnyHermesData` object.
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' get_tech_failure(object)["06520101B0017R"]
 #' result <- set_tech_failure(object, c("06520101B0017R", "06520047C0017R"))
 #' get_tech_failure(result)["06520101B0017R"]
 set_tech_failure <- function(object,
                              sample_ids) {
+  assert_character(sample_ids, any.missing = FALSE)
   assert_that(
     is_hermes_data(object),
-    utils.nest::is_character_vector(sample_ids),
     all(sample_ids %in% colnames(object))
   )
   matches <- match(sample_ids, colnames(object))
-  colData(object)$TechnicalFailureFlag[matches] <- TRUE
+  colData(object)$tech_failure_flag[matches] <- TRUE
   object
 }

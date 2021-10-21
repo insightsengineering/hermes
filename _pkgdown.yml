@@ -1,8 +1,9 @@
-url: https://go.roche.com/nest-docs/releases/latest/api-reference/hermes
+url: https://insightsengineering.github.io/hermes
 
 template:
   params:
     bootswatch: cerulean
+    ganalytics: "UA-125641273-1"
 
 navbar:
   right:
@@ -10,6 +11,9 @@ navbar:
       href: https://github.com/insightsengineering/hermes
 
 reference:
+  - title: Package
+    contents:
+      - hermes-package
   - title: Classes
     contents:
       - HermesData
@@ -37,6 +41,7 @@ reference:
       - validate_col_data
       - validate_names
       - validate_prefix
+      - h_map_pos
       - h_rpkm
       - h_cpm
       - h_tpm
@@ -49,13 +54,19 @@ reference:
       - h_pca_var_rsquared
       - h_pca_df_r2_matrix
       - h_get_annotation_biomart
+      - h_get_granges_by_id
+      - h_get_size_biomart
+      - h_ensembl_to_entrez_ids
       - h_strip_prefix
       - h_has_req_annotations
       - h_short_list
       - h_parens
+      - h_all_duplicated
+      - h_unique_labels
   - title: Example Data
     contents:
       - expression_set
+      - hermes_data
       - summarized_experiment
       - multi_assay_experiment
   - title: Methods
@@ -64,13 +75,17 @@ reference:
       - cbind
       - correlate
       - counts
+      - extra_data_names
       - filter
       - genes
+      - isEmpty
+      - lapply
       - metadata
       - normalize
       - prefix
       - query
       - rbind
+      - rename
       - samples
       - show
       - subset
@@ -83,7 +98,13 @@ reference:
       - set_tech_failure
       - top_genes
       - connect_biomart
-      - df_char_to_factor
+      - df_cols_to_factor
+      - colPrinComp1
+      - colMeanZscores
+      - wrap_in_mae
+      - col_data_with_genes
+      - inner_join_cdisc
+      - cut_quantile
   - title: Graphs
     contents:
       - draw_libsize_hist
@@ -109,3 +130,6 @@ reference:
   - title: Constants
     contents:
       - .row_data_annotation_cols
+  - title: Deprecated Functions
+    contents:
+      - df_char_to_factor

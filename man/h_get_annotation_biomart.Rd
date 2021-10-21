@@ -7,10 +7,11 @@
 h_get_annotation_biomart(gene_ids, id_var, mart)
 }
 \arguments{
-\item{gene_ids}{(\code{character})\cr gene IDs, e.g. \code{10329}.}
+\item{gene_ids}{(\code{character})\cr gene IDs, e.g. \code{10329}, i.e. already
+without the Entrez \code{GeneID} prefix, or \code{ENSG00000241644} for Ensembl gene ID.}
 
 \item{id_var}{(\code{string})\cr corresponding gene ID variable name in BioMart,
-e.g. \code{entrezgene_id}.}
+i.e. \code{entrezgene_id} or \code{ensembl_gene_id}.}
 
 \item{mart}{(\code{Mart})\cr given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}} object.}
 }
@@ -21,8 +22,7 @@ A data frame with columns:
 \item \code{hgnc_symbol}
 \item \code{entrezgene_description}
 \item \code{chromosome_name}
-\item \code{start_position}
-\item \code{end_position}
+\item \code{size}
 \item \code{refseq_mrna}
 \item \code{refseq_peptide}
 }
@@ -34,8 +34,8 @@ Helper function to query annotations from \code{biomaRt}, for cleaned up gene ID
 a specific ID variable and given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}}.
 }
 \examples{
-\dontrun{
-mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
+if(interactive()){
+  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+  h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
 }
 }

@@ -54,9 +54,9 @@ control_normalize <- function(log = TRUE,
 #'   are divided by the library size of this sample, and multiplied by one million. This is the
 #'   appropriate normalization for between-sample comparisons.
 #' - `rpkm`: Reads per Kilobase of transcript per Million reads mapped (RPKM). Each gene count is
-#'   divided by the gene width (in kilobases) and then again divided by the library sizes of each
+#'   divided by the gene size (in kilobases) and then again divided by the library sizes of each
 #'   sample (in millions). This allows for within-sample comparisons, as it takes
-#'   into account the gene lengths - longer genes will always have more counts than shorter genes.
+#'   into account the gene sizes - longer genes will always have more counts than shorter genes.
 #' - `tpm`: Transcripts per Million (TPM). This addresses the problem of RPKM being inconsistent
 #'   across samples (which can be seen that the sum of all RPKM values will vary from sample to
 #'   sample). Therefore here we divide the RPKM by the sum of all RPKM values for each sample,
@@ -85,7 +85,7 @@ control_normalize <- function(log = TRUE,
 #' @importFrom BiocGenerics normalize
 #' @export
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #'
 #' # By default, log values are used with a prior count of 1 added to original counts.
 #' result <- normalize(a)
@@ -104,16 +104,24 @@ setMethod(
                         methods = c("cpm", "rpkm", "tpm", "voom", "vst"),
                         control = control_normalize(),
                         ...) {
-    method_choices <- c("cpm", "rpkm", "tpm", "voom", "vst", "rlog")
-    assert_that(all(methods %in% method_choices))
+    norm_funs <- list(
+      cpm = h_cpm,
+      rpkm = h_rpkm,
+      tpm = h_tpm,
+      voom = h_voom,
+      vst = h_vst,
+      rlog = h_rlog
+    )
+    method_choices <- names(norm_funs)
+    assert_subset(x = methods, choices = method_choices)
     methods <- match.arg(methods, choices = method_choices, several.ok = TRUE)
+
     for (method in methods) {
-      fun_name <- paste0("hermes::h_", method)
-      method_result <- eval(utils.nest::call_with_colon(
-        fun_name,
+      fun <- norm_funs[[method]]
+      method_result <- fun(
         object = object,
         control = control
-      ))
+      )
       assay(object, method) <- method_result
     }
     metadata(object) <- c(metadata(object), list(control_normalize = control))
@@ -156,11 +164,11 @@ h_rpkm <- function(object,
   assert_that(
     is_hermes_data(object),
     is_list_with(control, c("lib_sizes", "log", "prior_count")),
-    noNA(rowData(object)$WidthBP)
+    noNA(rowData(object)$size)
   )
   edgeR::rpkm(
     y = counts(object),
-    gene.length = rowData(object)$WidthBP,
+    gene.length = rowData(object)$size,
     lib.size = control$lib_sizes,
     log = control$log,
     prior.count = control$prior_count
@@ -230,10 +238,18 @@ h_vst <- function(object,
     is_hermes_data(object),
     is_list_with(control, "fit_type")
   )
-  DESeq2::varianceStabilizingTransformation(
-    counts(object),
-    fitType = control$fit_type
-  )
+  tryCatch({
+    DESeq2::varianceStabilizingTransformation(
+      counts(object),
+      fitType = control$fit_type
+    )
+  },
+  error = function(e) {
+    stop(paste(
+      "During calculation of variance-stabilized transformation (VST) hit error,",
+      "try again with more genes. Original error:", e
+    ))
+  })
 }
 
 #' @describeIn normalize regularized log transformation (`rlog`) from `DESeq2` package.

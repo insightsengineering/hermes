@@ -13,18 +13,14 @@ NULL
 #' @details The additional criteria are:
 #' - The first assay must be `counts` containing non-missing, integer, non-negative values.
 #' - The following columns must be in `rowData`:
-#'   - `HGNC`
-#'   - `HGNCGeneName`
-#'   - `Chromosome`
-#'   - `StartBP`
-#'   - `EndBP`
-#'   - `WidthBP`
-#'   - `CanonicalTranscript`
-#'   - `ProteinTranscript`
-#'   - `LowExpressionFlag`
+#'   - `symbol` (also often called `HGNC` or similar, example: `"INMT"`)
+#'   - `desc` (the gene name, example: `"indolethylamine N-methyltransferase"`)
+#'   - `chromosome` (the chromosome as string, example: `"7"`)
+#'   - `size` (the size of the gene in base pairs, e.g `5468`)
+#'   - `low_expression_flag` (can be populated with [add_quality_flags()])
 #' - The following columns must be in `colData`:
-#'   - `LowDepthFlag`
-#'   - `TechnicalFailureFlag`
+#'   - `low_depth_flag` (can be populated with [add_quality_flags()])
+#'   - `tech_failure_flag` (can be populated with [add_quality_flags()])
 #' - The object must have unique row and column names. The row names are the gene names
 #'   and the column names are the sample names.
 #'
@@ -43,9 +39,9 @@ NULL
 #'   method, which allows us to turn off the validity checks in internal
 #'   functions where intermediate objects may not be valid within the scope of
 #'   the function.
-#'   - It can be helpful to convert character variables to factors in `colData()`
+#'   - It can be helpful to convert character and logical variables to factors in `colData()`
 #'   (before or after the `HermesData` creation). We provide the utility function
-#'   [df_char_to_factor()] to simplify this task, but leave it to the user to allow
+#'   [df_cols_to_factor()] to simplify this task, but leave it to the user to allow
 #'   for full control of the details.
 #'
 #' @slot prefix common prefix of the gene IDs (row names).
@@ -109,6 +105,14 @@ HermesData <- function(object) { # nolint
     is_class(object, "SummarizedExperiment"),
     not_empty(assays(object))
   )
+
+  assays(object) <- lapply(assays(object), function(x) {
+    if (is(x, "DelayedMatrix")) {
+      x <- as.matrix(x)
+      mode(x) <- "integer"
+    }
+    x
+  })
 
   missing_row <- setdiff(.row_data_cols, names(rowData(object)))
   rowData(object)[, missing_row] <- NA

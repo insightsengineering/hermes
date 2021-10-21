@@ -26,8 +26,8 @@
 #' @seealso [`cbind`] to column bind objects.
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment[1:2542, ])
-#' b <- HermesData(summarized_experiment[2543:5085, ])
+#' a <- hermes_data[1:2542, ]
+#' b <- hermes_data[2543:5085, ]
 #' result <- rbind(a, b)
 #' class(result)
 NULL
@@ -59,8 +59,8 @@ NULL
 #' @seealso [`rbind`] to row bind objects.
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment[, 1:10])
-#' b <- HermesData(summarized_experiment[, 11:20])
+#' a <- hermes_data[, 1:10]
+#' b <- hermes_data[, 11:20]
 #' result <- cbind(a, b)
 #' class(result)
 NULL
@@ -87,7 +87,7 @@ NULL
 #' @export `metadata<-`
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' metadata(a)
 #' metadata(a) <- list(new = "my metadata")
 #' metadata(a)
@@ -108,20 +108,16 @@ NULL
 #' @param ... not used.
 #'
 #' @return The [`S4Vectors::DataFrame`] with the gene annotations:
-#'   - `HGNC`
-#'   - `HGNCGeneName`
-#'   - `Chromosome`
-#'   - `StartBP`
-#'   - `EndBP`
-#'   - `WidthBP`
-#'   - `CanonicalTranscript`
-#'   - `ProteinTranscript`
+#'   - `symbol`
+#'   - `desc`
+#'   - `chromosome`
+#'   - `size`
 #'
 #' @importFrom BiocGenerics annotation
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' head(annotation(object))
 setMethod(
   f = "annotation",
@@ -136,21 +132,19 @@ setMethod(
 #'   character vector `.row_data_annotation_cols`.
 #' @export
 .row_data_annotation_cols <- c(
-  "HGNC",
-  "HGNCGeneName",
-  "Chromosome",
-  "StartBP",
-  "EndBP",
-  "WidthBP",
-  "CanonicalTranscript",
-  "ProteinTranscript"
+  "symbol",
+  "desc",
+  "chromosome",
+  "size"
 )
 
 #' @param value (`DataFrame`)\cr what should the annotations be replaced with.
 #'
-#' @note When trying to replace the annotation with completely missing values for any genes,
-#'   a warning will be given and the corresponding gene IDs will be saved in the
-#'   attribute `annotation.missing.genes`.
+#' @note When trying to replace the required annotations with completely missing
+#'   values for any genes, a warning will be given and the corresponding gene
+#'   IDs will be saved in the attribute `annotation.missing.genes`. Note also
+#'   that additional annotations beyond the required ones may be supplied and
+#'   will be stored.
 #'
 #' @importFrom BiocGenerics `annotation<-`
 #' @rdname annotation
@@ -161,17 +155,21 @@ setReplaceMethod(
   definition = function(object, value) {
     assert_that(
       identical(rownames(object), rownames(value)),
-      setequal(.row_data_annotation_cols, colnames(value))
+      all(.row_data_annotation_cols %in% colnames(value))
     )
-    row_is_all_na <- apply(X = value, MARGIN = 1L, FUN = all_na)
+    row_is_all_na <- apply(X = value[, .row_data_annotation_cols], MARGIN = 1L, FUN = all_na)
     if (any(row_is_all_na)) {
       warning(paste(
-        "annotations completely missing for", sum(row_is_all_na), "genes,",
+        "required annotations completely missing for", sum(row_is_all_na), "genes,",
         "see attribute `annotation.missing.genes` for the corresponding gene IDs"
       ))
       attr(object, "annotation.missing.genes") <- names(which(row_is_all_na))
     }
     rowData(object)[, .row_data_annotation_cols] <- value[, .row_data_annotation_cols]
+    add_annotation_cols <- setdiff(colnames(value), .row_data_annotation_cols)
+    if (length(add_annotation_cols)) {
+      rowData(object)[, add_annotation_cols] <- value[, add_annotation_cols, drop = FALSE]
+    }
     validObject(object)
     object
   }
@@ -197,7 +195,7 @@ setReplaceMethod(
 #' @export
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' result <- counts(a)
 #' class(result)
 #' head(result)
@@ -247,7 +245,7 @@ setReplaceMethod(
 #' @export
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' prefix(a)
 setGeneric("prefix", def = function(object, ...) {
   object@prefix
@@ -274,7 +272,7 @@ setGeneric("genes", def = function(object) standardGeneric("genes"))
 #' @rdname genes
 #' @export
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' genes(a)
 setMethod(
   f = "genes",
@@ -305,7 +303,7 @@ setMethod(
 #' @importFrom Biobase samples
 #' @export
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' samples(a)
 setMethod(
   f = "samples",
@@ -338,14 +336,14 @@ setMethod(
 #' @return The subsetted [`AnyHermesData`] object.
 #'
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' a
 #'
 #' # Subset both genes and samples.
-#' subset(a, subset = LowExpressionFlag, select = DISCSTUD == "N")
+#' subset(a, subset = low_expression_flag, select = DISCSTUD == "N")
 #'
 #' # Subset only genes.
-#' subset(a, subset = Chromosome == "2")
+#' subset(a, subset = chromosome == "2")
 #'
 #' # Subset only samples.
 #'subset(a, select = AGE > 18)
@@ -383,11 +381,11 @@ setGeneric("filter", function(object, ...) standardGeneric("filter"))
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
-#' result <- h_has_req_annotations(object, "WidthBP")
+#' object <- hermes_data
+#' result <- h_has_req_annotations(object, "size")
 #' all(result)
-#' rowData(object)$WidthBP[1] <- NA # nolint
-#' which(!h_has_req_annotations(object, "WidthBP"))
+#' rowData(object)$size[1] <- NA # nolint
+#' which(!h_has_req_annotations(object, "size"))
 h_has_req_annotations <- function(object,
                                   annotation_required) {
   assert_that(
@@ -401,11 +399,11 @@ h_has_req_annotations <- function(object,
 #' @rdname filter
 #'
 #' @details
-#' - Only genes without low expression (`LowExpressionFlag`) and samples
-#'   without low depth (`LowDepthFlag`) or technical failure (`TechnicalFailureFlag`)
+#' - Only genes without low expression (`low_expression_flag`) and samples
+#'   without low depth (`low_depth_flag`) or technical failure (`tech_failure_flag`)
 #'   remain in the returned filtered object.
 #' - Also required gene annotation columns can be specified, so that genes which are not complete
-#'   for these columns are filtered out. By default this is the `WidthBP` column, which is needed
+#'   for these columns are filtered out. By default this is the `size` column, which is needed
 #'   for default normalization of the object.
 #'
 #' @param what (`character`)\cr specify whether to apply the filter on `genes` and / or `samples`.
@@ -417,7 +415,7 @@ h_has_req_annotations <- function(object,
 #'
 #' @export
 #' @examples
-#' a <- HermesData(summarized_experiment)
+#' a <- hermes_data
 #' dim(a)
 #'
 #' # Filter genes and samples on default QC flags.
@@ -431,13 +429,13 @@ h_has_req_annotations <- function(object,
 #' result <- filter(a, what = "samples")
 #'
 #' # Filter only genes, and require certain annotations to be present.
-#' result <- filter(a, what = "genes", annotation_required = c("StartBP", "EndBP", "WidthBP"))
+#' result <- filter(a, what = "genes", annotation_required = c("size"))
 setMethod(
   f = "filter",
   signature = signature(object = "AnyHermesData"),
   definition = function(object,
                         what = c("genes", "samples"),
-                        annotation_required = "WidthBP") {
+                        annotation_required = "size") {
     low_exp <- get_low_expression(object)
     low_depth <- get_low_depth(object)
     tech_fail <- get_tech_failure(object)
@@ -485,7 +483,7 @@ setMethod(
 #'   `colData()` or `rowData()`.
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 NULL
 
 # extraColDataNames ----
@@ -528,6 +526,104 @@ setMethod(
   }
 )
 
+# rename ----
+
+#' Helper Function For Matching Map Values to Names
+#'
+#' This is used by the [`rename`] method. It wraps the assertions and the
+#' matching used several times.
+#'
+#' @param names (`character`)\cr original names.
+#' @param map (named `character`)\cr the mapping vector from old (value) to new
+#'   (name) names. All values must be included in `names`.
+#'
+#' @return Integer vector of the positions of the `map` values in the `names`.
+#' @export
+#'
+#' @examples
+#' h_map_pos(c("a", "b"), c(d = "b"))
+h_map_pos <- function(names, map) {
+  assert_character(
+    names,
+    any.missing = FALSE,
+    unique = TRUE
+  )
+  assert_character(
+    map,
+    min.chars = 1L,
+    any.missing = FALSE,
+    unique = TRUE,
+    names = "unique"
+  )
+  assert_subset(map, names)
+  match(map, names)
+}
+
+#' Renaming Contents of `SummarizedExperiment` Objects
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This method renames columns of the `rowData` and `colData`, as well as assays, of
+#' [`SummarizedExperiment::SummarizedExperiment`] objects. This increases the flexibility
+#' since renaming can be done before conversion to a [`HermesData`] object.
+#'
+#' @rdname rename
+#' @aliases rename
+#'
+#' @param x (`SummarizedExperiment`)\cr object to rename contents in.
+#' @param row_data (named `character`)\cr mapping from existing (right-hand side values)
+#'   to new (left-hand side names) column names of `rowData`.
+#' @param col_data (named `character`)\cr mapping from existing (right-hand side values)
+#'   to new (left-hand side names) column names of `colData`.
+#' @param assays (named `character`)\cr mapping from existing (right-hand side values)
+#'   to new (left-hand side names) assay names.
+#' @param ... additional arguments (not used here).
+#'
+#' @return The [`SummarizedExperiment::SummarizedExperiment`] object with renamed contents.
+#'
+#' @importFrom S4Vectors `rename`
+#' @export
+#' @examples
+#' x <- summarized_experiment
+#'
+#' # Rename `HGNC` to `symbol` in the `rowData`.
+#' x <- rename(x, row_data = c(symbol = "HGNC"))
+#' head(names(rowData(x)))
+#'
+#' # Rename `LowDepthFlag` to `low_depth_flag` in `colData`.
+#' x <- rename(x, col_data = c(low_depth_flag = "LowDepthFlag"))
+#' tail(names(colData(x)))
+#'
+#' # Rename assay `counts` to `count`.
+#' x <- rename(x, assays = c(count = "counts"))
+#' assayNames(x)
+setMethod(
+  f = "rename",
+  signature = "SummarizedExperiment",
+  definition = function(x,
+                        row_data = character(),
+                        col_data = character(),
+                        assays = character(),
+                        ...) {
+    if (length(row_data)) {
+      col_names <- names(rowData(x))
+      col_pos <- h_map_pos(names = col_names, map = row_data)
+      names(rowData(x))[col_pos] <- names(row_data)
+    }
+    if (length(col_data)) {
+      col_names <- names(colData(x))
+      col_pos <- h_map_pos(names = col_names, map = col_data)
+      names(colData(x))[col_pos] <- names(col_data)
+    }
+    if (length(assays)) {
+      assay_names <- assayNames(x)
+      assay_pos <- h_map_pos(names = assay_names, map = assays)
+      assayNames(x)[assay_pos] <- names(assays)
+    }
+    x
+  }
+)
+
 # summary ----
 
 #' Summary Method for `AnyHermesData` Objects
@@ -567,7 +663,7 @@ setGeneric("summary")
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' object_summary <- summary(object)
 #'
 #' # We can access parts of this S4 object with the slot operator.
@@ -712,7 +808,7 @@ setMethod(
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment)
+#' object <- hermes_data
 #' object
 setMethod(
   f = "show",
@@ -747,3 +843,85 @@ setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 # autoplot ----
 
 setGeneric("autoplot")
+
+# lapply ----
+
+#' `lapply` method for `MultiAssayExperiment`
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' Apply a function on all experiments in an MAE.
+#'
+#' @rdname lapply
+#' @aliases lapply
+#'
+#' @param X (`MultiAssayExperiment`)\cr input.
+#' @param FUN (`function`) to be applied to each experiment in `X`.
+#' @param safe (`flag`)\cr whether this method should skip experiments
+#'   where the function fails.
+#' @param ... additional arguments passed to `FUN`.
+#'
+#' @return `MultiAssayExperiment` object with specified function applied.
+#'
+#' @importMethodsFrom BiocGenerics lapply
+#' @export
+#'
+#' @examples
+#' object <- multi_assay_experiment
+#' result <- lapply(object, normalize, safe = TRUE)
+#' # Similarly, all experiments in an MAE can be converted to HermesData class:
+#' result <- lapply(object, HermesData, safe = TRUE)
+setMethod(
+  f = "lapply",
+  signature = "MultiAssayExperiment",
+  definition = function(X, FUN, safe = TRUE, ...) {
+    assert_function(FUN)
+    assert_flag(safe)
+    FUN2 <- if (safe) {
+      purrr::possibly(FUN, otherwise = NULL)
+    } else {
+      FUN
+    }
+    experiments(X) <- S4Vectors::endoapply(experiments(X), FUN2, ...)
+    exp_lengths <- lengths(experiments(X))
+    if (any(exp_lengths == 0)) {
+      null_experiments <- experiments(X)[exp_lengths == 0]
+      warning(paste(
+        "Specified function failed on", toString(names(null_experiments))
+      ))
+    }
+    experiments(X) <- experiments(X)[exp_lengths > 0]
+    X
+  }
+)
+
+# isEmpty ----
+
+#' Checking for Empty `SummarizedExperiment`
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This method checks whether a [`SummarizedExperiment::SummarizedExperiment`] object is empty.
+#'
+#' @rdname isEmpty
+#' @aliases isEmpty
+#'
+#' @param x (`SummarizedExperiment`)\cr object to check.
+#'
+#' @return Flag whether the `object` is empty.
+#'
+#' @importFrom S4Vectors isEmpty
+#' @export
+#'
+#' @examples
+#' isEmpty(summarized_experiment)
+#' isEmpty(summarized_experiment[NULL, ])
+#' isEmpty(hermes_data)
+setMethod(
+  f = "isEmpty",
+  signature = "SummarizedExperiment",
+  definition = function(x) {
+    dims <- dim(x)
+    isTRUE(any(dims == 0))
+  }
+)

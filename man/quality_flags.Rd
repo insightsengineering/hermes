@@ -40,14 +40,14 @@ The input object with added quality flags.
 
 The function \code{add_quality_flags()} adds quality flag information to a \code{\link{AnyHermesData}} object:
 \itemize{
-\item \code{LowExpressionFlag}: for each gene, counts how many samples don't pass a minimum
+\item \code{low_expression_flag}: for each gene, counts how many samples don't pass a minimum
 expression Counts per Million (CPM) threshold. If too many, then it flags this gene
 as a "low expression" gene.
-\item \code{TechnicalFailureFlag}: first calculates the Pearson correlation matrix of the sample wise
+\item \code{tech_failure_flag}: first calculates the Pearson correlation matrix of the sample wise
 CPM values, resulting in a matrix measuring the correlation between samples.
 Then compares the average correlation per sample with a threshold - if it is too low,
 then the sample is flagged as a "technical failure" sample.
-\item \code{LowDepthFlag}: computes the library size (total number of counts) per sample.
+\item \code{low_depth_flag}: computes the library size (total number of counts) per sample.
 If this number is too low, the sample is flagged as a "low depth" sample.
 }
 
@@ -80,7 +80,7 @@ given control settings.
 
 \examples{
 # Adding default quality flags to `AnyHermesData` object.
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 result <- add_quality_flags(object)
 which(get_tech_failure(result) != get_tech_failure(object))
 head(get_low_expression(result))

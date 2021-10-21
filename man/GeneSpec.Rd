@@ -15,6 +15,7 @@ x_spec <- gene_spec("GeneID:1820")
 
 # Using multiple genes with a signature.
 x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"), fun = colMeans)
+x_spec <- gene_spec(c("GeneID:1820", "GeneID:52"), fun = colPrinComp1)
 x_spec$returns_vector()
 x_spec$get_genes()
 x_spec$get_gene_labels()
@@ -32,6 +33,9 @@ mat <- matrix(
   dimnames = list(c("GeneID:1820", "GeneID:52", "GeneID:523"), NULL)
 )
 x_spec$extract(mat)
+
+# We can also extract these as a `data.frame`.
+x_spec$extract_data_frame(mat)
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -42,6 +46,7 @@ x_spec$extract(mat)
 \item \href{#method-returns_vector}{\code{GeneSpec$returns_vector()}}
 \item \href{#method-get_label}{\code{GeneSpec$get_label()}}
 \item \href{#method-extract}{\code{GeneSpec$extract()}}
+\item \href{#method-extract_data_frame}{\code{GeneSpec$extract_data_frame()}}
 \item \href{#method-clone}{\code{GeneSpec$clone()}}
 }
 }
@@ -146,6 +151,28 @@ specified genes.}
 \subsection{Returns}{
 Either a vector with one value per column, or a matrix with multiple
 genes in the rows.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-extract_data_frame"></a>}}
+\if{latex}{\out{\hypertarget{method-extract_data_frame}{}}}
+\subsection{Method \code{extract_data_frame()}}{
+Extract the gene values as a \code{data.frame}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$extract_data_frame(assay)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{assay}}{(\code{matrix})\cr original matrix with rownames containing the
+specified genes.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{data.frame} with the genes in the columns and the samples
+in the rows.
 }
 }
 \if{html}{\out{<hr>}}

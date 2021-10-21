@@ -14,7 +14,6 @@ This vignette explores the PCA analysis and plot.
 
 ## Idea
 
-We want to replace [`draw_pca()`](https://github.roche.com/Rpackages/rnaseqTools/blob/dae3c425cf5bf0d45848323f722b558ce3bbf851/R/gSE_Metrics.R#L233).
 - One function `calc_pca()` should do calculate the PCA
 - the other function `draw_pca()` takes those results and create the plot (but see below...)
 - The advantage of this modular design is that we can better test the PCA calculation and the user can also modify things / have their function before putting into the drawing function.
@@ -61,7 +60,7 @@ calc_pca <- function(object,
   )
 }
 
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 pca <- calc_pca(object)
 summary(pca)
 ```

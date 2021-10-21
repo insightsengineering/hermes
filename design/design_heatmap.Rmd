@@ -15,8 +15,6 @@ resulting heatmap plot.
 
 ## Idea
 
-This is to replace the legacy function [`draw_heatmap()`](https://github.roche.com/Rpackages/rnaseqTools/blob/dae3c425cf5bf0d45848323f722b558ce3bbf851/R/gSE_Metrics.R#L306).
-
 - One function `cor()` should calculate the correlations between samples.
 - The other function `draw_cor_heatmap()` takes those results and creates the plot.
 - The advantage of this modular design is that we can better test the
@@ -28,7 +26,7 @@ function before putting into the drawing function.
 Let's explore the annotation needed for the heatmap.
 
 ```{r}
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 anno <- data.frame(colData(object)[c("TechnicalFailureFlag", "LowDepthFlag")])
 head(anno)
 anno.char <- as.data.frame(lapply(anno, function(x) ifelse(is.na(x), "NA", as.character(x))))

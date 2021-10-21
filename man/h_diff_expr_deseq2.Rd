@@ -25,7 +25,7 @@ This helper functions performs the differential expression analysis with
 \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}} for a given \link{AnyHermesData} input and \code{design} matrix.
 }
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 
 # Create the design matrix corresponding to the factor of interest.
 design <- model.matrix(~SEX, colData(object))

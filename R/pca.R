@@ -29,7 +29,7 @@
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment) %>%
+#' object <- hermes_data %>%
 #'   add_quality_flags() %>%
 #'   filter() %>%
 #'   normalize()

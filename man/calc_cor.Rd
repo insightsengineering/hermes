@@ -43,7 +43,7 @@ A \code{\link{HermesDataCor}} object.
 The \code{correlate()} method can calculate the correlation matrix between the sample vectors of
 counts from a specified assay. This produces a \code{\link{HermesDataCor}} object, which is an extension
 of a \code{\link{matrix}} with additional quality flags in the slot \code{flag_data}
-(containing the \code{TechnicalFailureFlag} and \code{LowDepthFlag} columns describing the original
+(containing the \code{tech_failure_flag} and \code{low_depth_flag} columns describing the original
 input samples).
 
 An \code{autoplot()} method then afterwards can produce the corresponding heatmap.
@@ -55,7 +55,7 @@ to plot the correlations between samples saved in a \code{\link{HermesDataCor}} 
 }}
 
 \examples{
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 
 # Calculate the sample correlation matrix.
 correlate(object)

@@ -20,7 +20,7 @@ NULL
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment) %>%
+#' object <- hermes_data %>%
 #'   add_quality_flags() %>%
 #'   filter() %>%
 #'   normalize()
@@ -29,7 +29,7 @@ NULL
 #' pca <- calc_pca(object)$x
 #'
 #' # Obtain the sample variable.
-#' x <- colData(object)$LowDepthFlag
+#' x <- colData(object)$AGE18
 #'
 #' # Correlate them.
 #' r2 <- h_pca_var_rsquared(pca, x)
@@ -42,6 +42,9 @@ h_pca_var_rsquared <- function(pca, x) {
   )
   use_sample <- !is.na(x)
   x <- x[use_sample]
+  if(is_constant(x)){
+    warning("sample variable is constant and R2 values cannot be calculated")
+  }
   pca <- pca[use_sample, ]
   design <- stats::model.matrix(~x)
   # Transpose such that PCs are in rows, and samples in columns.
@@ -82,7 +85,7 @@ h_pca_var_rsquared <- function(pca, x) {
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment) %>%
+#' object <- hermes_data %>%
 #'   add_quality_flags() %>%
 #'   filter() %>%
 #'   normalize()
@@ -159,7 +162,7 @@ h_pca_df_r2_matrix <- function(pca, df) {
 #' @export
 #'
 #' @examples
-#' object <- HermesData(summarized_experiment) %>%
+#' object <- hermes_data %>%
 #'   add_quality_flags() %>%
 #'   filter() %>%
 #'   normalize()

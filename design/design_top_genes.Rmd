@@ -19,7 +19,7 @@ First we need to access the count data in Hermes data and select the top express
 
 ```{r}
 #Creating the HermesData object from the example SummarizedExperiment object.
-result <- HermesData(summarized_experiment)
+result <- hermes_data
 
 #Accessing the counts data.
 # for testing we could make sure that result is a hermesdata object 
@@ -137,7 +137,7 @@ top_genes <- function(object = result,
   }
 
 
-result <- HermesData(summarized_experiment)
+result <- hermes_data
 df <- top_genes(object = result)
 
 draw_top_barplot <- function(df, 

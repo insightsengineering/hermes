@@ -109,7 +109,7 @@ h_rlog <- function(object,
 ## Test
 ```{r}
 library(hermes)
-object <- HermesData(summarized_experiment)
+object <- hermes_data
 h_vst(object)
 h_rlog(object)
 aa <- normalize_update(object)
