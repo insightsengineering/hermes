@@ -226,19 +226,17 @@ test_that("h_all_duplicated works as expected for character", {
 test_that("cut_quantile works as expected with default settings", {
   x <- c(4, 6, -10, 2.2, 0)
   result <- cut_quantile(x)
-  expect_identical(as.character(result), c("(67%,100%]", "(67%,100%]", "[0%,33%]", "(33%,67%]", "[0%,33%]"))
-  expect_equal(length(levels(result)), 3)
-  expect_identical(length(x), length(result))
-  expect_true(is.factor(result))
+  expected_char <- c("(67%,100%]", "(67%,100%]", "[0%,33%]", "(33%,67%]", "[0%,33%]")
+  expect_identical(as.character(result), expected_char)
+  expect_factor(result, levels = c("[0%,33%]", "(33%,67%]", "(67%,100%]"))
 })
 
 test_that("cut_quantile works as expected with custom settings", {
   x <- c(4, 6, -10, 2.2, 0)
   result <- cut_quantile(x, c(0.33333333, 0.6666666, 0.8), digits = 3)
-  expect_identical(as.character(result), c("(66.7%,80%]", "(80%,100%]", "[0%,33.3%]", "(33.3%,66.7%]", "[0%,33.3%]"))
-  expect_equal(length(levels(result)), 4)
-  expect_identical(length(x), length(result))
-  expect_true(is.factor(result))
+  expected_char <- c("(66.667%,80%]", "(80%,100%]", "[0%,33.333%]", "(33.333%,66.667%]", "[0%,33.333%]")
+  expect_identical(as.character(result), expected_char)
+  expect_factor(result, levels = c("[0%,33.333%]", "(33.333%,66.667%]", "(66.667%,80%]", "(80%,100%]"))
 })
 
 test_that("cut_quantile preserves NAs in result", {
@@ -250,13 +248,45 @@ test_that("cut_quantile preserves NAs in result", {
   expect_identical(is.na(x), is.na(result2))
 })
 
-test_that("cut_quantile works with NULL percentile", {
+test_that("cut_quantile works without percentiles", {
   x <- c(4, 6, -10, 2.2, 0)
-  result <- cut_quantile(x, c())
+  result <- cut_quantile(x, numeric())
+  expect_true(all(result == "[0%,100%]"))
   expect_identical(levels(result), "[0%,100%]")
+})
+
+test_that("cut_quantile works without percentiles when there is only 1 number", {
+  x <- 4
+  result <- cut_quantile(x, numeric())
+  expect_identical(result, factor("[0%,100%]"))
+})
+
+test_that("cut_quantile works without percentiles when there are only 2 numbers", {
+  x <- c(2, 4)
+  result <- cut_quantile(x, numeric())
+  expect_identical(result, factor(c("[0%,100%]", "[0%,100%]")))
 })
 
 test_that("cut_quantile produces an error if quantile boundaries are not unique", {
   x <- rep(1, 10)
-  expect_error(cut_quantile(x))
+  expect_error(
+    cut_quantile(x),
+    "Duplicate quantiles produced, please use a coarser `percentiles` vector"
+  )
 })
+
+# cat_with_newline ----
+
+test_that("cat_with_newline works as expected", {
+  expect_equal(
+    capture.output({
+      cat_with_newline("hello")
+      cat_with_newline("world", append = TRUE)
+    }),
+    c("hello", "world")
+  )
+  expect_equal(
+    cat_with_newline(),
+    NULL
+  )
+  })
