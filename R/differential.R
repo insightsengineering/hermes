@@ -186,10 +186,9 @@ diff_expression <- function(object,
                             ...) {
   assert_that(
     is_hermes_data(object),
-    is.string(group),
-    expect_data_frame(as.data.frame(colData(object))),
-    expect_factor(object[[group]], n.levels = 2L)
+    is.string(group)
   )
+  expect_factor(colData(object)[[group]], n.levels = 2L)
 
   method <- match.arg(method, c("voom", "deseq2"))
 
@@ -264,8 +263,8 @@ setMethod(
   definition = function(object,
                         adj_p_val_thresh = 0.05,
                         log2_fc_thresh = 2.5) {
+    expect_proportion(adj_p_val_thresh)
     assert_that(
-      check_proportion(adj_p_val_thresh),
       is.number(log2_fc_thresh),
       log2_fc_thresh > 0
     )

@@ -147,9 +147,9 @@ draw_nonzero_boxplot <- function(object,
                                  alpha = 0.25) {
   assert_that(
     is_hermes_data(object),
-    is_class(position, "Position"),
-    expect_proportion(alpha)
+    is_class(position, "Position")
   )
+  expect_proportion(alpha)
 
   no_na_count <- colSums(counts(object) != 0)
   df <- data.frame(no_na = no_na_count, x = "Sample")

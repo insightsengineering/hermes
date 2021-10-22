@@ -25,7 +25,7 @@ NULL
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' Check whether `x` is a proportion.
+#' Check whether `x` is a (single) proportion.
 #'
 #' @inheritParams assertion_arguments
 #' @seealso [`assertions`] for more details.
@@ -35,7 +35,7 @@ NULL
 #' @examples
 #' check_proportion(0.25)
 check_proportion <- function(x, null.ok = FALSE) {
-  ok <- test_double(x, lower = 0, upper = 1)
+  ok <- test_number(x, lower = 0, upper = 1)
   if (!ok)
     return("Must be a 'proportion': number between 0 and 1")
   return(TRUE)
