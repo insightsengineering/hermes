@@ -331,7 +331,7 @@ cut_quantile <- function(x,
     return(factor("[0%,100%]"))
   }
 
-  quant <- quantile(
+  quant <- stats::quantile(
     x,
     probs = percentile_with_borders,
     names = TRUE,

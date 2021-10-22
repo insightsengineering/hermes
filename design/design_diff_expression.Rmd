@@ -91,13 +91,9 @@ diff_expression <- function(object,
                             method = c("limma_voom", "deseq2")) {
   assert_that(
     is_hermes_data(object),
-    is.string(group),
-    tern::is_df_with_nlevels_factor(
-      df = as.data.frame(colData(object)), 
-      variable = group, 
-      n_levels = 2L
-    )
+    is.string(group)
   )
+  expect_factor(colData(object)[[group]], n.levels = 2L)
   method <- match.arg(method, c("limma_voom", "deseq2"))
   
   if (anyNA(get_tech_failure(object))) {

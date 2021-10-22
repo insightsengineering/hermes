@@ -34,11 +34,12 @@ control_quality <- function(min_cpm = 1,
                             min_corr = 0.5,
                             min_depth = NULL) {
   assert_that(
-    is.number(min_cpm) && min_cpm >= 0,
-    tern::is_proportion(min_cpm_prop),
-    tern::is_proportion(min_corr),
-    is.null(min_depth) || tern::is_nonnegative_count(min_depth)
+    is.number(min_cpm) && min_cpm >= 0
   )
+  expect_proportion(min_cpm_prop)
+  expect_proportion(min_corr)
+  expect_count(min_depth, positive = TRUE, null.ok = TRUE)
+
   list(
     min_cpm = min_cpm,
     min_cpm_prop = min_cpm_prop,

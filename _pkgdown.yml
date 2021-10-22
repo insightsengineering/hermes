@@ -122,6 +122,8 @@ reference:
       - control_quality
   - title: Assertions
     contents:
+      - assertion_arguments
+      - check_proportion
       - is_class
       - is_counts_vector
       - is_hermes_data

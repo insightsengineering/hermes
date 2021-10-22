@@ -186,13 +186,10 @@ diff_expression <- function(object,
                             ...) {
   assert_that(
     is_hermes_data(object),
-    is.string(group),
-    tern::is_df_with_nlevels_factor(
-      df = as.data.frame(colData(object)),
-      variable = group,
-      n_levels = 2L
-    )
+    is.string(group)
   )
+  expect_factor(colData(object)[[group]], n.levels = 2L)
+
   method <- match.arg(method, c("voom", "deseq2"))
 
   if (anyNA(get_tech_failure(object))) {
@@ -266,8 +263,8 @@ setMethod(
   definition = function(object,
                         adj_p_val_thresh = 0.05,
                         log2_fc_thresh = 2.5) {
+    expect_proportion(adj_p_val_thresh)
     assert_that(
-      tern::is_proportion(adj_p_val_thresh, include_boundaries = TRUE),
       is.number(log2_fc_thresh),
       log2_fc_thresh > 0
     )
