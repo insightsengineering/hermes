@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conversion of Character to Factor Variables in a DataFrame — df_char_to_factor • hermes</title>
+<title>Standard Assertion Arguments — assertion_arguments • hermes</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,9 @@
 
 
 
-<meta property="og:title" content="Conversion of Character to Factor Variables in a DataFrame — df_char_to_factor" />
-<meta property="og:description" content="
-This utility function converts all character variables in a S4Vectors::DataFrame
-to factor variables with explicit missing level." />
+<meta property="og:title" content="Standard Assertion Arguments — assertion_arguments" />
+<meta property="og:description" content="The documentation to this function lists all the conventional arguments in
+additional checkmate assertions." />
 
 
 
@@ -135,54 +134,51 @@ to factor variables with explicit missing level." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Conversion of Character to Factor Variables in a <code>DataFrame</code></h1>
-    <small class="dont-index">Source: <a href='https://github.com/insightsengineering/hermes/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>df_char_to_factor.Rd</code></div>
+    <h1>Standard Assertion Arguments</h1>
+    <small class="dont-index">Source: <a href='https://github.com/insightsengineering/hermes/blob/master/R/argument_convention.R'><code>R/argument_convention.R</code></a></small>
+    <div class="hidden name"><code>assertion_arguments.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#deprecated'><img src='figures/lifecycle-deprecated.svg' alt='[Deprecated]' /></a></p>
-<p>This utility function converts all character variables in a <code><a href='https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html'>S4Vectors::DataFrame</a></code>
-to factor variables with explicit missing level.</p>
+    <p>The documentation to this function lists all the conventional arguments in
+additional <code>checkmate</code> assertions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>df_char_to_factor</span><span class='op'>(</span><span class='va'>data</span>, omit_columns <span class='op'>=</span> <span class='cn'>NULL</span>, na_level <span class='op'>=</span> <span class='st'>"&lt;Missing&gt;"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>(<code>DataFrame</code>)<br /> input <code><a href='https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html'>S4Vectors::DataFrame</a></code>.</p></td>
+      <th>x</th>
+      <td><p>an object to check.</p></td>
     </tr>
     <tr>
-      <th>omit_columns</th>
-      <td><p>(<code>character</code> or <code>NULL</code>)<br /> which columns should be omitted from
-the conversion.</p></td>
+      <th>null.ok</th>
+      <td><p>(<code>flag</code>)<br /> whether <code>x</code> may also be <code>NULL</code>.</p></td>
     </tr>
     <tr>
-      <th>na_level</th>
-      <td><p>(<code>string</code>)<br /> missing level to be used.</p></td>
+      <th>.var.name</th>
+      <td><p>(<code>string</code>)<br /> name of the checked object to print in
+assertions; defaults to the heuristic implemented in <code><a href='https://rdrr.io/pkg/checkmate/man/vname.html'>checkmate::vname()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>add</th>
+      <td><p>(<code>AssertCollection</code> or <code>NULL</code>)<br /> collection to store
+assertion messages, see <code><a href='https://rdrr.io/pkg/checkmate/man/AssertCollection.html'>checkmate::AssertCollection</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>info</th>
+      <td><p>(<code>string</code>)<br /> extra information to be included in the
+message for the testthat reporter, see <code><a href='https://testthat.r-lib.org/reference/expect_that.html'>testthat::expect_that()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>label</th>
+      <td><p>(<code>string</code>)<br /> name of the checked object to print in
+messages. Defaults to the heuristic implemented in <code><a href='https://rdrr.io/pkg/checkmate/man/vname.html'>checkmate::vname()</a></code>.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The modified data.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This is using <code><a href='https://rdrr.io/pkg/tern/man/df_explicit_na.html'>tern::df_explicit_na()</a></code> which only works for classic <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code>
-objects. We avoid a conversion of the whole <code>data</code> to <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> since that could be
-problematic when not supported classes are used in other non-character columns.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>summarized_experiment</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>is.character</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>dat_converted</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span><span class='op'>(</span><span class='fu'>df_char_to_factor</span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'tern':</span>
-#&gt; <span class='message'>  method   from </span>
-#&gt; <span class='message'>  tidy.glm broom</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>dat_converted</span>, <span class='va'>is.character</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

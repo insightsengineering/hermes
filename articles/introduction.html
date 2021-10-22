@@ -306,9 +306,7 @@
 <p>Thresholds for the above flags can be initialized with <code><a href="../reference/control_quality.html">control_quality()</a></code>, and the flags are added with <code><a href="../reference/add_quality_flags.html">add_quality_flags()</a></code>.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_controls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/control_quality.html">control_quality</a></span><span class="op">(</span>min_cpm <span class="op">=</span> <span class="fl">10</span>, min_cpm_prop <span class="op">=</span> <span class="fl">0.4</span>, min_corr <span class="op">=</span> <span class="fl">0.4</span>, min_depth <span class="op">=</span> <span class="fl">1e4</span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 method overwritten by 'tern':</span>
-<span class="co">#&gt;   method   from </span>
-<span class="co">#&gt;   tidy.glm broom</span>
+<span class="co">#&gt; Loading required namespace: testthat</span>
 <span class="va">object_flagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_quality_flags.html">add_quality_flags</a></span><span class="op">(</span><span class="va">object</span>, control <span class="op">=</span> <span class="va">my_controls</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="manual-sample-flagging" class="section level3">
@@ -575,6 +573,9 @@
 <p>In addition to the above QC analyses, simple differential expression analysis is supported by <code>hermes</code>. In addition to the filtered object (normalization of counts is not required) the variable name of the factor to contrast the samples needs to be provided to <code><a href="../reference/diff_expression.html">diff_expression()</a></code>.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/df_cols_to_factor.html">df_cols_to_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Registered S3 method overwritten by 'tern':</span>
+<span class="co">#&gt;   method   from </span>
+<span class="co">#&gt;   tidy.glm broom</span>
 <span class="va">diff_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diff_expression.html">diff_expression</a></span><span class="op">(</span><span class="va">object</span>, group <span class="op">=</span> <span class="st">"SEX"</span>, method <span class="op">=</span> <span class="st">"voom"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">diff_res</span><span class="op">)</span>
 <span class="co">#&gt;                 log2_fc     stat        p_val    adj_p_val</span>

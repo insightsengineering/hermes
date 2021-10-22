@@ -42,7 +42,11 @@
 <meta property="og:title" content="Additional Assertions for assert_that — assertions" />
 <meta property="og:description" content="
 We provide additional assertion functions which can be used together with
-assertthat::assert_that()." />
+assertthat::assert_that().
+
+We provide additional assertion functions which can be used together with
+the checkmate functions. These are described in individual help pages
+linked below." />
 
 
 
@@ -136,7 +140,7 @@ assertthat::assert_that()." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Additional Assertions for <code>assert_that</code></h1>
-    <small class="dont-index">Source: <a href='https://github.com/insightsengineering/hermes/blob/master/R/assertthat.R'><code>R/assertthat.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/insightsengineering/hermes/blob/master/R/assertthat.R'><code>R/assertthat.R</code></a>, <a href='https://github.com/insightsengineering/hermes/blob/master/R/checkmate.R'><code>R/checkmate.R</code></a></small>
     <div class="hidden name"><code>assertions.Rd</code></div>
     </div>
 
@@ -144,6 +148,10 @@ assertthat::assert_that()." />
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
 <p>We provide additional assertion functions which can be used together with
 <code><a href='https://rdrr.io/pkg/assertthat/man/assert_that.html'>assertthat::assert_that()</a></code>.</p>
+<p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
+<p>We provide additional assertion functions which can be used together with
+the <code>checkmate</code> functions. These are described in individual help pages
+linked below.</p>
     </div>
 
     <pre class="usage"><span class='fu'>is_class</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>class2</span><span class='op'>)</span>
@@ -183,6 +191,16 @@ assertthat::assert_that()." />
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Depending on the function prefix.</p><ul>
+<li><p><code>assert_</code> functions return the object invisibly if successful, and otherwise
+throw an error message.</p></li>
+<li><p><code>check_</code> functions return <code>TRUE</code> if successful, otherwise a string with the
+error message.</p></li>
+<li><p><code>test_</code> functions just return <code>TRUE</code> or <code>FALSE</code>.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
@@ -195,6 +213,9 @@ assertthat::assert_that()." />
 <li><p><code>is_constant</code>: checks whether the vector <code>x</code> is constant (only supports <code>numeric</code>, <code>factor</code>,
 <code>character</code>, <code>logical</code>). <code>NA</code>s are removed first.</p></li>
 </ul>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='check_proportion.html'>assert_proportion()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Assert a general class.</span>

@@ -16,6 +16,9 @@
     <loc>https://insightsengineering.github.io/hermes/reference/annotation.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/hermes/reference/assertion_arguments.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/hermes/reference/assertions.html</loc>
   </url>
   <url>
@@ -29,6 +32,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/hermes/reference/cbind.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/hermes/reference/check_proportion.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/hermes/reference/colMeanZscores.html</loc>
