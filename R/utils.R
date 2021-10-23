@@ -371,3 +371,53 @@ cat_with_newline <- function(...) {
   cat(...)
   cat("\n", append = TRUE)
 }
+
+#' Conversion of Character to Factor Variables in a `DataFrame`. For categorical
+#' and logical variables, the new factors include a new level with missing data
+#' label
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' This helper function makes character to factor Variables in a `DataFrame`
+#' with explicit missing data level.
+#'
+#' @details This is using [forcats::fct_explicit_na] to add explicit missing
+#' data level.
+#'
+#' @param data (`DataFrame`)\cr input [`S4Vectors::DataFrame`].
+#' @param na_level (`string`)\cr missing level to be used.
+#'
+#' @return The modified data.
+#'
+#' @export
+#'
+#' @examples
+#' dat <- colData(summarized_experiment)
+#' any(sapply(dat, is.character))
+#' any(sapply(dat, is.logical))
+#' dat_hermes_convert <- hermes_explicit_na(dat)
+#' any(sapply(dat_hermes_convert, function(x) is.character(x) || is.logical(x)))
+hermes_explicit_na <- function(data, na_level = "<Missing>") {
+  assert_that(is(data, "DataFrame"))
+
+  var_is_logical <- sapply(data, is.logical)
+  data[,var_is_logical] <- lapply(data[,var_is_logical, drop = FALSE], as.character)
+  # note: drop=FALSE is necessary to avoid the situation when only one column
+  # is selected and data[,var_is_logical] becomes a vector. The lapply() function
+  # will work for each element in the vector as a list, respectively
+
+  var_is_character <- sapply(data, is.character)
+  data[,var_is_character] <- lapply(data[,var_is_character, drop = FALSE], factor)
+
+  var_has_missing <- sapply(data, anyNA)
+  var_is_factor <- sapply(data, is.factor)
+  # note: add var_is_factor is necessary. Because if there is a factor variable
+  # in the dataframe with missing, var_is_character & var_has_missing
+  # can not detect it
+  var_to_add_NA_level <- var_is_factor & var_has_missing
+  data[,var_to_add_NA_level] <- lapply(data[,var_to_add_NA_level, drop = FALSE],
+                                       forcats::fct_explicit_na,
+                                       na_level = na_level
+                                       )
+  data
+}

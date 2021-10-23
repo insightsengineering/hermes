@@ -290,3 +290,86 @@ test_that("cat_with_newline works as expected", {
     NULL
   )
   })
+
+# hermes_explicit_na ----
+
+test_that("hermes_explicit_na works as expected with default settings in dataframe
+          with missing values", {
+  dat <- S4Vectors::DataFrame(
+    a = c(NA, "B", "C"),
+    b = array(c(1:5,NA), c(3, 1, 2)),
+    c = c(TRUE, FALSE, NA),
+    d = factor(c("X", "Y", NA)),
+    e = c("U", "V", NA)
+  )
+  result <- hermes_explicit_na(dat)
+  expected <- S4Vectors::DataFrame(
+    a = factor(c("<Missing>", "B", "C"), levels = c("B", "C", "<Missing>")),
+    b = array(c(1:5,NA), c(3, 1, 2)),
+    c = factor(c(TRUE, FALSE, "<Missing>"), levels = c("FALSE", "TRUE", "<Missing>")),
+    d = factor(c("X", "Y", "<Missing>"), levels = c("X", "Y", "<Missing>")),
+    e = factor(c("U", "V", "<Missing>"), levels = c("U", "V", "<Missing>"))
+  )
+  expect_identical(result, expected)
+})
+
+
+test_that("hermes_explicit_na works as expected with default settings in dataframe
+without missing values", {
+  dat <- S4Vectors::DataFrame(
+    a = c("B", "C"),
+    b = array(c(1:4), c(2, 1, 2)),
+    c = c(TRUE, FALSE),
+    d = factor(c("X", "Y")),
+    e = c("U", "V")
+  )
+  result <- hermes_explicit_na(dat)
+  expected <- S4Vectors::DataFrame(
+    a = factor(c("B", "C"), levels = c("B", "C")),
+    b = array(c(1:4), c(2, 1, 2)),
+    c = factor(c(TRUE, FALSE), levels = c("FALSE", "TRUE")),
+    d = factor(c("X", "Y")),
+    e = factor(c("U", "V"), levels = c("U", "V"))
+  )
+  expect_identical(result, expected)
+})
+
+test_that("hermes_explicit_na works as expected with default settings in dataframe
+with mixed complete and incomplete variables", {
+  dat <- S4Vectors::DataFrame(
+    a = c(NA, "B", "C"),
+    b = array(c(1:6), c(3, 1, 2)),
+    c = c(TRUE, FALSE, NA),
+    d = factor(c("X", "Y", NA)),
+    e = c("U", "V", "W")
+  )
+  result <- hermes_explicit_na(dat)
+  expected <- S4Vectors::DataFrame(
+    a = factor(c("<Missing>", "B", "C"), levels = c("B", "C", "<Missing>")),
+    b = array(c(1:6), c(3, 1, 2)),
+    c = factor(c(TRUE, FALSE, "<Missing>"), levels = c("FALSE", "TRUE", "<Missing>")),
+    d = factor(c("X", "Y", "<Missing>"), levels = c("X", "Y", "<Missing>")),
+    e = factor(c("U", "V", "W"))
+  )
+  expect_identical(result, expected)
+})
+
+test_that("hermes_explicit_na works as expected with custom settings in dataframe
+          with missing values", {
+  dat <- S4Vectors::DataFrame(
+    a = c(NA, "B"),
+    b = array(1:4, c(2, 1, 2)),
+    c = c(TRUE, FALSE),
+    d = factor(c("X", NA)),
+    e = c("U", NA)
+  )
+  result <- hermes_explicit_na(dat, na_level = "Misses")
+  expected <- S4Vectors::DataFrame(
+    a = factor(c("Misses", "B"), levels = c("B", "Misses")),
+    b = array(1:4, c(2, 1, 2)),
+    c = factor(c(TRUE, FALSE)),
+    d = factor(c("X", "Misses"), levels = c("X", "Misses")),
+    e = factor(c("U", "Misses"), levels = c("U", "Misses"))
+  )
+  expect_identical(result, expected)
+})
