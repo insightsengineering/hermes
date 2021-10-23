@@ -294,7 +294,7 @@ test_that("cat_with_newline works as expected", {
 # hermes_explicit_na ----
 
 test_that("hermes_explicit_na works as expected with default settings in dataframe
-          with missing values", {
+with missing values", {
   dat <- S4Vectors::DataFrame(
     a = c(NA, "B", "C"),
     b = array(c(1:5,NA), c(3, 1, 2)),
@@ -355,7 +355,7 @@ with mixed complete and incomplete variables", {
 })
 
 test_that("hermes_explicit_na works as expected with custom settings in dataframe
-          with missing values", {
+with missing values", {
   dat <- S4Vectors::DataFrame(
     a = c(NA, "B"),
     b = array(1:4, c(2, 1, 2)),

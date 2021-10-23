@@ -418,6 +418,6 @@ hermes_explicit_na <- function(data, na_level = "<Missing>") {
   data[,var_to_add_NA_level] <- lapply(data[,var_to_add_NA_level, drop = FALSE],
                                        forcats::fct_explicit_na,
                                        na_level = na_level
-                                       )
+  )
   data
 }
