@@ -11,7 +11,9 @@ Authors@R: c(
   person("Haocheng", "Li", role = "aut"),
   person("Jeff", "Luong", role = "aut"),
   person("Lyndsee", "Midori Zhang", role = "aut"),
-  person("Simona", "Rossomanno", role = "aut")
+  person("Simona", "Rossomanno", role = "aut"),
+  person("Joseph N.", "Paulson", email = "paulson.joseph@gene.com", role = "ctb"), 
+  person("Chendi", "Liao", email = "chendi.liao@roche.com", role = "ctb")
   )
 Description: Preprocessing, analyzing, and reporting of RNA-seq data.
 License: Apache License 2.0 | file LICENSE

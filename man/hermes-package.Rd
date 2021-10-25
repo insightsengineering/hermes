@@ -17,6 +17,23 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: NEST \email{nestcicd@roche.com}
+\strong{Maintainer}: Daniel Sabanés Bové \email{daniel.sabanes_bove@roche.com}
+
+Authors:
+\itemize{
+  \item Namrata Bhatia
+  \item Stefanie Bienert
+  \item Benoit Falquet
+  \item Haocheng Li
+  \item Jeff Luong
+  \item Lyndsee Midori Zhang
+  \item Simona Rossomanno
+}
+
+Other contributors:
+\itemize{
+  \item Joseph N. Paulson \email{paulson.joseph@gene.com} [contributor]
+  \item Chendi Liao \email{chendi.liao@roche.com} [contributor]
+}
 
 }
