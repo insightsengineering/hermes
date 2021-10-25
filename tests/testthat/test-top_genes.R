@@ -70,3 +70,19 @@ test_that("top genes gives the names of the genes in the correct order", {
   expected_names <- rownames(object)[top_5_indices]
   expect_identical(ordered_names, expected_names)
 })
+
+# autoplot-HermesDataTopGenes ----
+
+test_that("autoplot for HermesDataTopGenes works as expected with default options", {
+  object <- top_genes(hermes_data)
+  result <- autoplot(object)
+
+  vdiffr::expect_doppelganger("autoplot for HermesDataTopGenes with default options", result)
+})
+
+test_that("autoplot for HermesDataTopGenes works as expected with custom options", {
+  object <- top_genes(hermes_data)
+  result <- autoplot(object, x_lab = "genes", y_lab = "mean count", title = "bla")
+
+  vdiffr::expect_doppelganger("autoplot for HermesDataTopGenes with custom options", result)
+})

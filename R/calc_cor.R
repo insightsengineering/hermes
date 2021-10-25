@@ -1,6 +1,8 @@
 #' @include HermesData-methods.R
 NULL
 
+# correlate-AnyHermesData ----
+
 #' Correlation between Sample Counts of `AnyHermesData`
 #'
 #' @description `r lifecycle::badge("experimental")`
@@ -50,6 +52,8 @@ setMethod(
   }
 )
 
+# HermesDataCor ----
+
 #' @rdname calc_cor
 #' @aliases HermesDataCor
 #' @exportClass HermesDataCor
@@ -59,6 +63,8 @@ setMethod(
   contains = "matrix",
   slots = c(flag_data = "DataFrame")
 )
+
+# autoplot-HermesDataCor ----
 
 #' @describeIn calc_cor This `autoplot()` method uses the [ComplexHeatmap::Heatmap()] function
 #'   to plot the correlations between samples saved in a [`HermesDataCor`] object.
@@ -94,12 +100,12 @@ setMethod(
                         ...) {
     df <- object@flag_data
     left_annotation <- ComplexHeatmap::rowAnnotation(
-      low_depth_flag = factor(df$low_depth_flag),
-      col = list(low_depth_flag = flag_colors)
+      "Low Depth" = factor(df$low_depth_flag),
+      col = list("Low Depth" = flag_colors)
     )
     top_annotation <- ComplexHeatmap::HeatmapAnnotation(
-      tech_failure_flag = factor(df$tech_failure_flag),
-      col = list(tech_failure_flag = flag_colors)
+      "Technical Failure" = factor(df$tech_failure_flag),
+      col = list("Technical Failure" = flag_colors)
     )
     mat <- as(object, "matrix")
     ComplexHeatmap::Heatmap(
