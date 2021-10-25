@@ -11,6 +11,7 @@
 #' @import SummarizedExperiment
 #' @importFrom circlize add_transparency
 #' @importFrom ComplexHeatmap add_heatmap
+#' @importFrom forcats as_factor
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom purrr accumulate
 #' @importFrom R6 is.R6
