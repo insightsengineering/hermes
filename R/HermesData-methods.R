@@ -717,12 +717,12 @@ setMethod(
   f = "show",
   signature = c("HermesDataSummary"),
   definition = function(object) {
-    utils.nest::cat_nl(
+    cat_with_newline(
       object@class_name, "object with",
       object@n_samples, "samples of", object@n_genes, "genes."
     )
     sum_depth <- summary(object@lib_sizes)
-    utils.nest::cat_nl(
+    cat_with_newline(
       "- Library sizes across samples: ",
       "mean ", sum_depth["Mean"], ", median ", sum_depth["Median"], ", range ",
       sum_depth["Min."], " to ", sum_depth["Max."],
@@ -745,7 +745,7 @@ setMethod(
       )
     }
     if (object@no_qc_flags_filled) {
-      utils.nest::cat_nl(
+      cat_with_newline(
         "- QC flags still need to be added"
       )
     } else {
@@ -764,7 +764,7 @@ setMethod(
 # show ----
 
 .show.AnyHermesData <- function(object) { # nolint
-  utils.nest::cat_nl(
+  cat_with_newline(
     "class:",
     S4Vectors::classNameForDisplay(object)
   )

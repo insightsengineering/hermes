@@ -14,66 +14,68 @@
 #' @usage lhs \%>\% rhs
 NULL
 
-#' Conversion of Character to Factor Variables in a `DataFrame`
+#' Conversion to Factors with Explicit Missing Level in a `data.frame`
 #'
-#' @description `r lifecycle::badge("deprecated")`
+#' @description `r lifecycle::badge("experimental")`
 #'
-#' This utility function converts all character variables in a [`S4Vectors::DataFrame`]
-#' to factor variables with explicit missing level.
+#' This helper function converts all character and logical variables
+#' to factor variables in a `data.frame`. It also sets an explicit missing data level
+#' for all factor variables that have at least one `NA`.
 #'
-#' @details This is using [tern::df_explicit_na()] which only works for classic [`data.frame`]
-#' objects. We avoid a conversion of the whole `data` to [`data.frame`] since that could be
-#' problematic when not supported classes are used in other non-character columns.
-#'
-#' @param data (`DataFrame`)\cr input [`S4Vectors::DataFrame`].
-#' @param omit_columns (`character` or `NULL`)\cr which columns should be omitted from
-#'   the conversion.
-#' @param na_level (`string`)\cr missing level to be used.
+#' @param data (`data.frame`)\cr input data with at least one column.
+#' @param na_level (`string`)\cr explicit missing level to be used.
 #'
 #' @return The modified data.
 #'
 #' @export
 #'
 #' @examples
-#' dat <- colData(summarized_experiment)
-#' any(sapply(dat, is.character))
-#' dat_converted <- suppressWarnings(df_char_to_factor(dat))
-#' any(sapply(dat_converted, is.character))
-df_char_to_factor <- function(data,
-                              omit_columns = NULL,
-                              na_level = "<Missing>") {
-  lifecycle::deprecate_warn("0.1.0.9000", "df_char_to_factor()", "df_cols_to_factor()")
+#' dat <- data.frame(
+#'   a = c(NA, 2),
+#'   b = c("A", NA),
+#'   c = c("C", "D"),
+#'   d = factor(c(NA, "X")),
+#'   e = factor(c("Y", "Z"))
+#' )
+#' h_df_factors_with_explicit_na(dat)
+h_df_factors_with_explicit_na <- function(data, na_level = "<Missing>") {
+  assert_data_frame(data, min.cols = 1L)
+  assert_string(na_level, min.chars = 1L)
 
-  assert_that(is(data, "DataFrame"))
-  col_is_char <- sapply(data, is.character)
-  if (!any(col_is_char)) {
-    return(data)
-  }
-  data[, col_is_char] <- tern::df_explicit_na(
-    as.data.frame(data[, col_is_char]),  # It is safe to convert the character columns only here.
-    omit_columns = omit_columns,
-    char_as_factor = TRUE,
+  # Conversion of all logical or character variables to factor.
+  var_is_char_or_logical <- sapply(data, is.logical) | sapply(data, is.character)
+  data[, var_is_char_or_logical] <- lapply(
+    data[, var_is_char_or_logical, drop = FALSE],
+    factor
+  )
+
+  # Add explicit missing level to all factors that have any `NA`.
+  var_is_factor_with_na <- sapply(data, is.factor) & sapply(data, anyNA)
+  data[, var_is_factor_with_na] <- lapply(
+    data[, var_is_factor_with_na, drop = FALSE],
+    forcats::fct_explicit_na,
     na_level = na_level
   )
+
   data
 }
 
-#' Conversion of Character to Factor Variables in a `DataFrame`
+#' Conversion of Eligible Columns to Factor Variables in a `DataFrame`
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This utility function converts all character variables in a [`S4Vectors::DataFrame`]
-#' to factor variables with explicit missing level.
+#' This utility function converts all eligible character and logical variables in a
+#' [`S4Vectors::DataFrame`] to factor variables. All factor variables get amended
+#' with an explicit missing level.
 #'
-#' @details This is using [tern::df_explicit_na()] which only works for classic [`data.frame`]
-#' objects. We avoid a conversion of the whole `data` to [`data.frame`] since that could be
-#' problematic when not supported classes are used in other non-character columns.
+#' @note All required `rowData` and `colData` variables cannot be converted
+#'   to ensure proper downstream behavior. These are automatically omitted if found in `data`
+#'   and therefore do not need to be specified in `omit_columns`.
 #'
 #' @param data (`DataFrame`)\cr input [`S4Vectors::DataFrame`].
 #' @param omit_columns (`character` or `NULL`)\cr which columns should be omitted from
-#'   the conversion. Note that all required `rowData` and `colData` variables cannot be converted
-#'   to ensure proper downstream behavior.
-#' @param na_level (`string`)\cr missing level to be used.
+#'   the possible conversion to factor and explicit missing level application.
+#' @param na_level (`string`)\cr explicit missing level to be used for factor variables.
 #'
 #' @return The modified data.
 #'
@@ -89,22 +91,21 @@ df_cols_to_factor <- function(data,
                               omit_columns = NULL,
                               na_level = "<Missing>") {
   assert_that(is(data, "DataFrame"))
-  col_is_char_or_logical <- sapply(data, function(x) is.character(x) || is.logical(x))
-  if (!any(col_is_char_or_logical)) {
-    return(data)
-  }
+  col_is_char_or_logical <- sapply(data, is.character) | sapply(data, is.logical)
   omit_columns <- union(
     omit_columns,
     c(.row_data_cols, .col_data_cols)
   )
-  data[, col_is_char_or_logical] <- tern::df_explicit_na(
-    # It is safe to convert the character or logical columns only here.
-    as.data.frame(data[, col_is_char_or_logical]),
-    omit_columns = omit_columns,
-    char_as_factor = TRUE,
-    logical_as_factor = TRUE,
-    na_level = na_level
+  cols_to_convert <- setdiff(
+    names(which(col_is_char_or_logical)),
+    omit_columns
   )
+  if (length(cols_to_convert)) {
+    data[, cols_to_convert] <- h_df_factors_with_explicit_na(
+      as.data.frame(data[, cols_to_convert]),
+      na_level = na_level
+    )
+  }
   data
 }
 
@@ -370,54 +371,4 @@ cut_quantile <- function(x,
 cat_with_newline <- function(...) {
   cat(...)
   cat("\n", append = TRUE)
-}
-
-#' Conversion of Character to Factor Variables in a `DataFrame`. For categorical
-#' and logical variables, the new factors include a new level with missing data
-#' label
-#'
-#' @description `r lifecycle::badge("experimental")`
-#'
-#' This helper function makes character to factor Variables in a `DataFrame`
-#' with explicit missing data level.
-#'
-#' @details This is using [forcats::fct_explicit_na] to add explicit missing
-#' data level.
-#'
-#' @param data (`DataFrame`)\cr input [`S4Vectors::DataFrame`].
-#' @param na_level (`string`)\cr missing level to be used.
-#'
-#' @return The modified data.
-#'
-#' @export
-#'
-#' @examples
-#' dat <- colData(summarized_experiment)
-#' any(sapply(dat, is.character))
-#' any(sapply(dat, is.logical))
-#' dat_hermes_convert <- hermes_explicit_na(dat)
-#' any(sapply(dat_hermes_convert, function(x) is.character(x) || is.logical(x)))
-hermes_explicit_na <- function(data, na_level = "<Missing>") {
-  assert_that(is(data, "DataFrame"))
-
-  var_is_logical <- sapply(data, is.logical)
-  data[,var_is_logical] <- lapply(data[,var_is_logical, drop = FALSE], as.character)
-  # note: drop=FALSE is necessary to avoid the situation when only one column
-  # is selected and data[,var_is_logical] becomes a vector. The lapply() function
-  # will work for each element in the vector as a list, respectively
-
-  var_is_character <- sapply(data, is.character)
-  data[,var_is_character] <- lapply(data[,var_is_character, drop = FALSE], factor)
-
-  var_has_missing <- sapply(data, anyNA)
-  var_is_factor <- sapply(data, is.factor)
-  # note: add var_is_factor is necessary. Because if there is a factor variable
-  # in the dataframe with missing, var_is_character & var_has_missing
-  # can not detect it
-  var_to_add_NA_level <- var_is_factor & var_has_missing
-  data[,var_to_add_NA_level] <- lapply(data[,var_to_add_NA_level, drop = FALSE],
-                                       forcats::fct_explicit_na,
-                                       na_level = na_level
-  )
-  data
 }

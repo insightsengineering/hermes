@@ -33,6 +33,7 @@ Imports:
     dplyr,
     edgeR,
     EnvStats,
+    forcats,
     GenomicRanges,
     ggplot2,
     ggrepel,
@@ -49,10 +50,8 @@ Imports:
     rlang,
     stats,
     S4Vectors,
-    tern,
     tidyr,
-    utils,
-    utils.nest (>= 0.2.11)
+    utils
 Suggests:
     DelayedArray,
     DT,
