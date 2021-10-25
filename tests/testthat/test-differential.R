@@ -114,3 +114,22 @@ test_that("diff_expression fails as expected with inappropriate inputs", {
   expect_error(diff_expression(object, "COUNRTY", "anbc"))
   expect_error(diff_expression(gse, "SEX", "deseq2"))
 })
+
+
+# autoplot-HermesDataDiffExpr ----
+
+test_that("autoplot for HermesDataDiffExpr works as expected with default options", {
+  colData(hermes_data) <- df_cols_to_factor(colData(hermes_data))
+  object <- diff_expression(hermes_data, "SEX", "voom")
+  result <- autoplot(object)
+
+  vdiffr::expect_doppelganger("autoplot for HermesDataDiffExpr with default options", result)
+})
+
+test_that("autoplot for HermesDataDiffExpr works as expected with custom options", {
+  colData(hermes_data) <- df_cols_to_factor(colData(hermes_data))
+  object <- diff_expression(hermes_data, "SEX", "voom")
+  result <- autoplot(object, adj_p_val_thresh = 0.5, log2_fc_thresh = 10)
+
+  vdiffr::expect_doppelganger("autoplot for HermesDataDiffExpr with custom options", result)
+})

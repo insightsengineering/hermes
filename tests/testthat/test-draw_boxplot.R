@@ -1,6 +1,4 @@
 test_that("draw_boxplot works when there are duplicate labels in gene spec", {
-  skip_on_ci()
-
   genes <- gene_spec(c(A = "GeneID:11185", A = "GeneID:10677"))
   result <- draw_boxplot(
     hermes_data,
@@ -8,5 +6,6 @@ test_that("draw_boxplot works when there are duplicate labels in gene spec", {
     genes = genes,
     violin = TRUE
   )
-  expect_class(result, "ggplot")
+
+  vdiffr::expect_doppelganger("draw_boxplot with duplicate labels", result)
 })
