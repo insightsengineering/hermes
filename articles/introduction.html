@@ -91,7 +91,7 @@
       <h1 data-toc-skip>Introduction to <code>hermes</code>
 </h1>
             
-            <h4 class="date">2021-10-22</h4>
+            <h4 class="date">2021-10-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/insightsengineering/hermes/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -573,9 +573,6 @@
 <p>In addition to the above QC analyses, simple differential expression analysis is supported by <code>hermes</code>. In addition to the filtered object (normalization of counts is not required) the variable name of the factor to contrast the samples needs to be provided to <code><a href="../reference/diff_expression.html">diff_expression()</a></code>.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/df_cols_to_factor.html">df_cols_to_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 method overwritten by 'tern':</span>
-<span class="co">#&gt;   method   from </span>
-<span class="co">#&gt;   tidy.glm broom</span>
 <span class="va">diff_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diff_expression.html">diff_expression</a></span><span class="op">(</span><span class="va">object</span>, group <span class="op">=</span> <span class="st">"SEX"</span>, method <span class="op">=</span> <span class="st">"voom"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">diff_res</span><span class="op">)</span>
 <span class="co">#&gt;                 log2_fc     stat        p_val    adj_p_val</span>
