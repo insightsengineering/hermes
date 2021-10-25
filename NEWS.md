@@ -1,4 +1,5 @@
-# hermes 0.1.1.9000
+# hermes 0.1.2
+* First public release of the `hermes` package.
 
 ### Miscellaneous
 * New utility function `cut_quantile` for cutting a numeric vector into quantiles.
@@ -37,7 +38,7 @@
 * When providing `SummarizedExperiment` objects containing `DelayedMatrix` assays to the `HermesData()` constructor, these are silently converted to `matrix` assays to ensure downstream functionality.
 
 # hermes 0.1.0
-* First release of the `hermes` package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze RNAseq counts data for differential expression.
+* First internal release of the `hermes` package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze RNAseq counts data for differential expression.
 * `hermes` is a successor of the `rnaseqTools` R package. The core functionality is built on the BioConductor ecosystem, especially the `SummarizedExperiment` class. New users should first begin by reading the "Introduction to `hermes`" vignette to become familiar with the `hermes` concepts.
 
 ### New Features
