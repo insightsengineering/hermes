@@ -63,6 +63,7 @@ reference:
       - h_parens
       - h_all_duplicated
       - h_unique_labels
+      - h_df_factors_with_explicit_na
   - title: Example Data
     contents:
       - expression_set
@@ -134,4 +135,3 @@ reference:
       - .row_data_annotation_cols
   - title: Deprecated Functions
     contents:
-      - df_char_to_factor
