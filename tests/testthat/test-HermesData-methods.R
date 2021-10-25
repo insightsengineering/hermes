@@ -409,7 +409,7 @@ test_that("show works as expected for HermesData", {
   expect_match(result, "genes(5085):", fixed = TRUE)
   expect_match(result, "samples(20):", fixed = TRUE)
   expect_match(result, "additional gene information(3):", fixed = TRUE)
-  expect_match(result, "additional sample information(85):", fixed = TRUE)
+  expect_match(result, "additional sample information(72):", fixed = TRUE)
 })
 
 test_that("show works as expected for RangedHermesData", {
