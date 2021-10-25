@@ -34,3 +34,21 @@ test_that("autoplot method does not give warnings on HermesDataCor objects", {
   result <- expect_silent(autoplot(object))
   expect_s4_class(result, "Heatmap")
 })
+
+test_that("autoplot for HermesDataCor works as expected with default options", {
+  object <- correlate(hermes_data)
+  result <- autoplot(object)
+
+  vdiffr::expect_doppelganger("autoplot for HermesDataCor with default options", result)
+})
+
+test_that("autoplot for HermesDataCor works as expected with custom options", {
+  object <- correlate(hermes_data)
+  result <- autoplot(
+    object,
+    flag_colors = c("FALSE" = "blue", "TRUE" = "yellow"),
+    cor_colors = circlize::colorRamp2(c(0, 0.5, 1), c("blue", "orange", "pink"))
+  )
+
+  vdiffr::expect_doppelganger("autoplot for HermesDataCor with custom options", result)
+})

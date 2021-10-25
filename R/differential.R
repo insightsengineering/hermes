@@ -294,7 +294,7 @@ setMethod(
       )
     ) +
       geom_point() +
-      ggrepel::geom_text_repel(na.rm = TRUE, show.legend = FALSE) +
+      ggrepel::geom_text_repel(na.rm = TRUE, show.legend = FALSE, max.overlaps = 100) +
       xlab("log2 fold change") +
       ylab("-log10 adjusted p-value") +
       labs(color = "Difference") +
