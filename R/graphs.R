@@ -222,7 +222,8 @@ draw_genes_barplot <- function(object,
     geom_bar(aes(fill = .data$low_expression_flag)) +
     ggtitle("Stacked Barplot of Filtered Genes by Chromosome") +
     xlab("Chromosome") +
-    ylab("Number of Genes")
+    ylab("Number of Genes") +
+    labs(fill = "Low Expression")
 }
 
 # autoplot(AnyHermesData) ----
