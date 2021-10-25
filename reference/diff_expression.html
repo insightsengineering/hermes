@@ -233,39 +233,39 @@ are present in which case the default parametric dispersions estimation will not
 <span class='fu'>colData</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='df_cols_to_factor.html'>df_cols_to_factor</a></span><span class='op'>(</span><span class='fu'>colData</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>res1</span> <span class='op'>&lt;-</span> <span class='fu'>diff_expression</span><span class='op'>(</span><span class='va'>object</span>, group <span class='op'>=</span> <span class='st'>"SEX"</span>, method <span class='op'>=</span> <span class='st'>"voom"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>res1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 log2_fc     stat        p_val    adj_p_val
-#&gt; GeneID:8284   10.806719 30.32528 3.423258e-18 8.185009e-15
-#&gt; GeneID:8653   11.348382 23.48803 4.949871e-16 5.917571e-13
-#&gt; GeneID:9086    9.743027 20.11158 9.768002e-15 6.365053e-12
-#&gt; GeneID:246126 10.798669 19.81008 1.303130e-14 6.365053e-12
-#&gt; GeneID:7404   11.067256 19.68639 1.468386e-14 6.365053e-12
-#&gt; GeneID:8287   11.599664 19.59967 1.597253e-14 6.365053e-12</div><div class='input'><span class='va'>res2</span> <span class='op'>&lt;-</span> <span class='fu'>diff_expression</span><span class='op'>(</span><span class='va'>object</span>, group <span class='op'>=</span> <span class='st'>"SEX"</span>, method <span class='op'>=</span> <span class='st'>"deseq2"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                  log2_fc      stat       p_val adj_p_val
+#&gt; GeneID:344558  1.4951365  3.768257 0.001217934 0.7815544
+#&gt; GeneID:51227  -1.0670584 -3.766113 0.001224023 0.7815544
+#&gt; GeneID:10280  -0.7518694 -3.461800 0.002478362 0.7815544
+#&gt; GeneID:9435    1.8555120  3.414364 0.002764727 0.7815544
+#&gt; GeneID:51575  -0.7238103 -3.326330 0.003384750 0.7815544
+#&gt; GeneID:123036  2.8900474  3.246333 0.004064925 0.7815544</div><div class='input'><span class='va'>res2</span> <span class='op'>&lt;-</span> <span class='fu'>diff_expression</span><span class='op'>(</span><span class='va'>object</span>, group <span class='op'>=</span> <span class='st'>"SEX"</span>, method <span class='op'>=</span> <span class='st'>"deseq2"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>res2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;               log2_fc     stat         p_val     adj_p_val
-#&gt; GeneID:8284 10.970130 22.88851 6.046865e-116 1.418595e-112
-#&gt; GeneID:8653 11.582723 19.63453  7.839942e-86  9.196252e-83
-#&gt; GeneID:8287 11.045649 19.60398  1.429972e-85  1.118238e-82
-#&gt; GeneID:7404 10.468401 19.16270  7.584164e-82  4.448112e-79
-#&gt; GeneID:7544  9.531687 16.90756  3.957860e-64  1.857028e-61
-#&gt; GeneID:6192 10.323359 14.50244  1.169159e-47  4.571410e-45</div><div class='input'>
+</div><div class='output co'>#&gt;                  log2_fc      stat        p_val   adj_p_val
+#&gt; GeneID:64344  -2.9129064 -4.864176 1.149347e-06 0.002694069
+#&gt; GeneID:9002    2.3092323  4.215740 2.489604e-05 0.020061145
+#&gt; GeneID:167681 -4.0974632 -4.201788 2.648146e-05 0.020061145
+#&gt; GeneID:51227  -1.1573425 -4.143302 3.423404e-05 0.020061145
+#&gt; GeneID:4359    2.8926465  4.004010 6.227765e-05 0.029195764
+#&gt; GeneID:10280  -0.7997803 -3.876433 1.059991e-04 0.031057749</div><div class='input'>
 <span class='co'># Pass method arguments to the internally used helper functions.</span>
 <span class='va'>res3</span> <span class='op'>&lt;-</span> <span class='fu'>diff_expression</span><span class='op'>(</span><span class='va'>object</span>, group <span class='op'>=</span> <span class='st'>"SEX"</span>, method <span class='op'>=</span> <span class='st'>"voom"</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span>, trend <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>res3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 log2_fc     stat        p_val    adj_p_val
-#&gt; GeneID:8284   10.806719 30.34872 3.415649e-18 8.166818e-15
-#&gt; GeneID:8653   11.348382 23.41794 6.866368e-16 8.208744e-13
-#&gt; GeneID:9086    9.743027 20.05696 1.027730e-14 8.191005e-12
-#&gt; GeneID:246126 10.798669 19.77146 1.428302e-14 8.537675e-12
-#&gt; GeneID:7404   11.067256 19.61206 1.992982e-14 8.770408e-12
-#&gt; GeneID:8287   11.599664 19.50908 2.200855e-14 8.770408e-12</div><div class='input'><span class='va'>res4</span> <span class='op'>&lt;-</span> <span class='fu'>diff_expression</span><span class='op'>(</span><span class='va'>object</span>, group <span class='op'>=</span> <span class='st'>"SEX"</span>, method <span class='op'>=</span> <span class='st'>"deseq2"</span>, fitType <span class='op'>=</span> <span class='st'>"local"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                  log2_fc      stat       p_val adj_p_val
+#&gt; GeneID:51227  -1.0670584 -3.765145 0.001226726 0.7884829
+#&gt; GeneID:344558  1.4951365  3.759186 0.001243851 0.7884829
+#&gt; GeneID:10280  -0.7518694 -3.467915 0.002443545 0.7884829
+#&gt; GeneID:9435    1.8555120  3.390300 0.002922073 0.7884829
+#&gt; GeneID:51575  -0.7238103 -3.325713 0.003389426 0.7884829
+#&gt; GeneID:123036  2.8900474  3.232786 0.004230256 0.7884829</div><div class='input'><span class='va'>res4</span> <span class='op'>&lt;-</span> <span class='fu'>diff_expression</span><span class='op'>(</span><span class='va'>object</span>, group <span class='op'>=</span> <span class='st'>"SEX"</span>, method <span class='op'>=</span> <span class='st'>"deseq2"</span>, fitType <span class='op'>=</span> <span class='st'>"local"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>res4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;               log2_fc     stat         p_val     adj_p_val
-#&gt; GeneID:8284 10.970540 23.27571 7.813889e-120 1.833138e-116
-#&gt; GeneID:8287 11.046108 20.18723  1.267710e-90  1.487024e-87
-#&gt; GeneID:8653 11.583142 20.03429  2.767702e-89  2.164343e-86
-#&gt; GeneID:7404 10.469131 19.80223  2.848032e-87  1.670371e-84
-#&gt; GeneID:7544  9.532262 17.41606  6.232116e-68  2.924109e-65
-#&gt; GeneID:6192 10.323522 14.91175  2.764169e-50  1.080790e-47</div><div class='input'>
+</div><div class='output co'>#&gt;                  log2_fc      stat        p_val   adj_p_val
+#&gt; GeneID:64344  -2.9128847 -4.892128 9.975152e-07 0.002338176
+#&gt; GeneID:9002    2.3091854  4.256818 2.073572e-05 0.014702529
+#&gt; GeneID:167681 -4.0975071 -4.300519 1.703986e-05 0.014702529
+#&gt; GeneID:51227  -1.1573487 -4.213992 2.508964e-05 0.014702529
+#&gt; GeneID:4359    2.8925392  4.055798 4.996349e-05 0.021309899
+#&gt; GeneID:10280  -0.7997974 -3.958566 7.540117e-05 0.021309899</div><div class='input'>
 <span class='co'># Create the corresponding volcano plots.</span>
 <span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>res1</span><span class='op'>)</span>
 </div><div class='img'><img src='diff_expression-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>res3</span><span class='op'>)</span>

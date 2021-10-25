@@ -157,7 +157,7 @@
 <span class="co">#&gt;   LowExpressionFlag</span>
 <span class="co">#&gt; samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R</span>
 <span class="co">#&gt;   06520019C0023R</span>
-<span class="co">#&gt; additional sample information(87): Filename SampleID ... LowDepthFlag</span>
+<span class="co">#&gt; additional sample information(74): Filename SampleID ... LowDepthFlag</span>
 <span class="co">#&gt;   TechnicalFailureFlag</span></code></pre></div>
 <p>Note that in this case deprecated names were used for the <code>rowData</code> and <code>colData</code> variables, therefore they appear under “additional” gene and sample information. However we can still call the default constructor because the new names will be filled with missing values, e.g.:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -208,7 +208,7 @@
 <span class="co">#&gt; - Included assays (1): counts</span>
 <span class="co">#&gt; - Additional gene information (7): GeneID StartBP ... SYMBOL</span>
 <span class="co">#&gt;   chromosome_name</span>
-<span class="co">#&gt; - Additional sample information (86): Filename SampleID ... SUBID</span>
+<span class="co">#&gt; - Additional sample information (73): Filename SampleID ... STDSSDY</span>
 <span class="co">#&gt;   technical_failure_flag</span>
 <span class="co">#&gt; - Low expression genes (3021): GeneID:10677 GeneID:101928428 ...</span>
 <span class="co">#&gt;   GeneID:9084 GeneID:9426</span>
@@ -234,7 +234,7 @@
 <span class="co">#&gt;   LowExpressionFlag</span>
 <span class="co">#&gt; samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R</span>
 <span class="co">#&gt;   06520019C0023R</span>
-<span class="co">#&gt; additional sample information(87): Filename SampleID ... LowDepthFlag</span>
+<span class="co">#&gt; additional sample information(74): Filename SampleID ... LowDepthFlag</span>
 <span class="co">#&gt;   TechnicalFailureFlag</span></code></pre></div>
 </div>
 <div id="importing-a-matrix" class="section level3">
@@ -255,7 +255,7 @@
 <span class="co">#&gt; additional gene information(3): GeneID SYMBOL chromosome_name</span>
 <span class="co">#&gt; samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R</span>
 <span class="co">#&gt;   06520019C0023R</span>
-<span class="co">#&gt; additional sample information(85): Filename SampleID ... STDSSDY SUBID</span>
+<span class="co">#&gt; additional sample information(72): Filename SampleID ... TTYPE STDSSDY</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">object3</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>Note that we can easily access the counts assay (matrix) in the final object with <code><a href="../reference/counts,AnyHermesData-method.html">counts()</a></code>:</p>
@@ -363,32 +363,28 @@
 <span class="co">#&gt;  [1] "Filename"          "SampleID"          "AGEGRP"           </span>
 <span class="co">#&gt;  [4] "AGE18"             "STDDRS"            "STDDRSD"          </span>
 <span class="co">#&gt;  [7] "STDSSDT"           "TRTDRS"            "TRTDRSD"          </span>
-<span class="co">#&gt; [10] "SITENM"            "BHDCIRC"           "BHDCIRCU"         </span>
-<span class="co">#&gt; [13] "ADAFL"             "BLANP"             "BKPS"             </span>
-<span class="co">#&gt; [16] "BLKS"              "BTANNER"           "FRPST"            </span>
-<span class="co">#&gt; [19] "DURIDX"            "DURSAF"            "DURSUR"           </span>
-<span class="co">#&gt; [22] "LNTHRPY"           "AENCIFL"           "STUDYID"          </span>
-<span class="co">#&gt; [25] "USUBJID"           "SUBJID"            "RFSTDTC"          </span>
-<span class="co">#&gt; [28] "RFENDTC"           "RFXSTDTC"          "RFXENDTC"         </span>
-<span class="co">#&gt; [31] "RFICDTC"           "RFPENDTC"          "DTHDTC"           </span>
-<span class="co">#&gt; [34] "DTHFL"             "SITEID"            "INVID"            </span>
-<span class="co">#&gt; [37] "INVNAM"            "BRTHDTC"           "AGE"              </span>
-<span class="co">#&gt; [40] "AGEU"              "SEX"               "RACE"             </span>
-<span class="co">#&gt; [43] "ETHNIC"            "ARMCD"             "ARM"              </span>
-<span class="co">#&gt; [46] "ACTARMCD"          "ACTARM"            "COUNTRY"          </span>
-<span class="co">#&gt; [49] "DMDTC"             "DMDY"              "RACE1"            </span>
-<span class="co">#&gt; [52] "RACE2"             "RACE3"             "RACE4"            </span>
-<span class="co">#&gt; [55] "RACE5"             "RACE6"             "IBRTHDT"          </span>
-<span class="co">#&gt; [58] "IBRTHDTF"          "BAGE"              "BAGEU"            </span>
-<span class="co">#&gt; [61] "BWT"               "BWTU"              "BHT"              </span>
-<span class="co">#&gt; [64] "BHTU"              "BBMI"              "ITTFL"            </span>
-<span class="co">#&gt; [67] "SAFFL"             "INFCODT"           "RANDDT"           </span>
-<span class="co">#&gt; [70] "TRTSDTC"           "TRTSDTM"           "TRTSTMF"          </span>
-<span class="co">#&gt; [73] "TRTEDTM"           "TRTETMF"           "TRTDUR"           </span>
-<span class="co">#&gt; [76] "DISCSTUD"          "DISCDEAT"          "DISCAE"           </span>
-<span class="co">#&gt; [79] "DISTRTFL"          "AEWITHFL"          "ALIVDT"           </span>
-<span class="co">#&gt; [82] "COHORT"            "TTYPE"             "STDSSDY"          </span>
-<span class="co">#&gt; [85] "SUBID"             "low_depth_flag"    "tech_failure_flag"</span>
+<span class="co">#&gt; [10] "BHDCIRC"           "BHDCIRCU"          "ADAFL"            </span>
+<span class="co">#&gt; [13] "BLANP"             "BKPS"              "BLKS"             </span>
+<span class="co">#&gt; [16] "BTANNER"           "FRPST"             "DURIDX"           </span>
+<span class="co">#&gt; [19] "DURSAF"            "DURSUR"            "LNTHRPY"          </span>
+<span class="co">#&gt; [22] "AENCIFL"           "STUDYID"           "USUBJID"          </span>
+<span class="co">#&gt; [25] "RFSTDTC"           "RFENDTC"           "RFXSTDTC"         </span>
+<span class="co">#&gt; [28] "RFXENDTC"          "RFICDTC"           "RFPENDTC"         </span>
+<span class="co">#&gt; [31] "DTHDTC"            "DTHFL"             "SITEID"           </span>
+<span class="co">#&gt; [34] "INVID"             "AGE"               "AGEU"             </span>
+<span class="co">#&gt; [37] "SEX"               "RACE"              "ETHNIC"           </span>
+<span class="co">#&gt; [40] "ARMCD"             "ARM"               "ACTARMCD"         </span>
+<span class="co">#&gt; [43] "ACTARM"            "COUNTRY"           "DMDTC"            </span>
+<span class="co">#&gt; [46] "DMDY"              "BAGE"              "BAGEU"            </span>
+<span class="co">#&gt; [49] "BWT"               "BWTU"              "BHT"              </span>
+<span class="co">#&gt; [52] "BHTU"              "BBMI"              "ITTFL"            </span>
+<span class="co">#&gt; [55] "SAFFL"             "INFCODT"           "RANDDT"           </span>
+<span class="co">#&gt; [58] "TRTSDTC"           "TRTSDTM"           "TRTSTMF"          </span>
+<span class="co">#&gt; [61] "TRTEDTM"           "TRTETMF"           "TRTDUR"           </span>
+<span class="co">#&gt; [64] "DISCSTUD"          "DISCDEAT"          "DISCAE"           </span>
+<span class="co">#&gt; [67] "DISTRTFL"          "AEWITHFL"          "ALIVDT"           </span>
+<span class="co">#&gt; [70] "COHORT"            "TTYPE"             "STDSSDY"          </span>
+<span class="co">#&gt; [73] "low_depth_flag"    "tech_failure_flag"</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">rowData</a></span><span class="op">(</span><span class="va">object_flagged</span><span class="op">)</span><span class="op">$</span><span class="va">chromosome</span><span class="op">)</span>
 <span class="co">#&gt; [1] "7"          "12"         "GL000220.1" "17"         "16"        </span>
 <span class="co">#&gt; [6] "13"</span>
@@ -575,13 +571,13 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/df_cols_to_factor.html">df_cols_to_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">)</span>
 <span class="va">diff_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diff_expression.html">diff_expression</a></span><span class="op">(</span><span class="va">object</span>, group <span class="op">=</span> <span class="st">"SEX"</span>, method <span class="op">=</span> <span class="st">"voom"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">diff_res</span><span class="op">)</span>
-<span class="co">#&gt;                 log2_fc     stat        p_val    adj_p_val</span>
-<span class="co">#&gt; GeneID:8653   11.263500 25.61834 1.707755e-16 5.242762e-13</span>
-<span class="co">#&gt; GeneID:8284   11.408555 25.36512 2.062050e-16 5.242762e-13</span>
-<span class="co">#&gt; GeneID:9086    9.957058 22.79621 1.553519e-15 2.633215e-12</span>
-<span class="co">#&gt; GeneID:246126 10.930743 22.31276 2.326134e-15 2.957098e-12</span>
-<span class="co">#&gt; GeneID:7404   11.042007 21.57429 4.378847e-15 4.155683e-12</span>
-<span class="co">#&gt; GeneID:8287   11.610590 21.44460 4.903460e-15 4.155683e-12</span></code></pre></div>
+<span class="co">#&gt;                  log2_fc      stat        p_val adj_p_val</span>
+<span class="co">#&gt; GeneID:8000   -2.3200712 -4.239244 0.0004209192 0.9118348</span>
+<span class="co">#&gt; GeneID:51227  -1.0467295 -4.032550 0.0006788432 0.9118348</span>
+<span class="co">#&gt; GeneID:344558  1.6896266  3.824046 0.0010993677 0.9118348</span>
+<span class="co">#&gt; GeneID:51575  -0.7760844 -3.746293 0.0013155805 0.9118348</span>
+<span class="co">#&gt; GeneID:151242 -3.4358998 -3.570103 0.0019741997 0.9118348</span>
+<span class="co">#&gt; GeneID:8904   -0.6100354 -3.542864 0.0021017199 0.9118348</span></code></pre></div>
 <p>Note that we use here the utility function <code><a href="../reference/df_cols_to_factor.html">df_cols_to_factor()</a></code> which converts by default all character and logical variables to factor variables. This is one possible way here to ensure that the utilized group variable is a factor.</p>
 <p>Afterwards a standard volcano plot can be produced.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">

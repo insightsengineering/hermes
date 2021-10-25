@@ -197,15 +197,15 @@ sample variable.</p></div>
 <span class='co'># Correlate them.</span>
 <span class='va'>r2_all</span> <span class='op'>&lt;-</span> <span class='fu'>h_pca_df_r2_matrix</span><span class='op'>(</span><span class='va'>pca</span>, <span class='va'>df</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>r2_all</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  num [1:18, 1:43] 0.1934 0.5657 0.0296 0.1216 0.1712 ...
+</div><div class='output co'>#&gt;  num [1:18, 1:39] 0.102 0.183 0.147 0.391 0.662 ...
 #&gt;  - attr(*, "dimnames")=List of 2
 #&gt;   ..$ : chr [1:18] "PC1" "PC2" "PC3" "PC4" ...
-#&gt;   ..$ : chr [1:43] "AGEGRP" "AGE18" "STDDRS" "STDDRSD" ...</div><div class='input'>
+#&gt;   ..$ : chr [1:39] "AGEGRP" "AGE18" "STDDRS" "STDDRSD" ...</div><div class='input'>
 <span class='co'># We can see that only about half of the columns from `df` were</span>
 <span class='co'># used for the correlations.</span>
 <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>r2_all</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 43</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 87</div></pre>
+</div><div class='output co'>#&gt; [1] 39</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 74</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

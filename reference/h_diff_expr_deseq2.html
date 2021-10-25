@@ -187,23 +187,23 @@ doi: <a href='https://doi.org/10.1186/s13059-014-0550-8'>10.1186/s13059-014-0550
 <span class='co'># Then perform the `DESeq2` differential expression analysis.</span>
 <span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_deseq2</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;               log2_fc     stat         p_val     adj_p_val
-#&gt; GeneID:8284 11.311113 23.81607 2.276737e-125 6.837042e-122
-#&gt; GeneID:8653 11.602721 21.71646 1.434198e-104 2.153449e-101
-#&gt; GeneID:8287 11.228368 21.32513 6.636919e-101  6.643556e-98
-#&gt; GeneID:7404 10.641322 20.84374  1.737070e-96  1.304105e-93
-#&gt; GeneID:7544  9.702381 18.44387  5.840928e-76  3.508061e-73
-#&gt; GeneID:6192 10.572069 15.66683  2.549966e-55  1.276258e-52</div><div class='input'>
+</div><div class='output co'>#&gt;                 log2_fc      stat        p_val    adj_p_val
+#&gt; GeneID:9834    5.859486  5.440035 5.327024e-08 0.0001852739
+#&gt; GeneID:221188  3.450713  4.805489 1.543734e-06 0.0026845539
+#&gt; GeneID:151242 -4.316426 -4.707534 2.507316e-06 0.0029068155
+#&gt; GeneID:9002    2.324969  4.390859 1.129039e-05 0.0097580091
+#&gt; GeneID:64344  -2.880611 -4.343419 1.402819e-05 0.0097580091
+#&gt; GeneID:4359    2.914210  4.206676 2.591542e-05 0.0113396717</div><div class='input'>
 <span class='co'># Change of the `fitType` can be required in some cases.</span>
 <span class='va'>result2</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_deseq2</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span>, fitType <span class='op'>=</span> <span class='st'>"local"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;              log2_fc     stat         p_val     adj_p_val
-#&gt; GeneID:8284 11.31288 24.45581 4.365248e-132 1.220523e-128
-#&gt; GeneID:8653 11.60317 22.29130 4.488205e-110 6.274511e-107
-#&gt; GeneID:8287 11.22922 22.13839 1.349731e-108 1.257950e-105
-#&gt; GeneID:7404 10.64261 21.72314 1.239952e-104 8.667267e-102
-#&gt; GeneID:7544  9.70351 19.13415  1.312126e-81  7.337409e-79
-#&gt; GeneID:6192 10.57244 16.20828  4.407047e-59  2.053684e-56</div></pre>
+</div><div class='output co'>#&gt;                  log2_fc      stat        p_val    adj_p_val
+#&gt; GeneID:9834    5.8595097  5.436419 5.436203e-08 0.0001605311
+#&gt; GeneID:221188  3.4507368  4.796226 1.616827e-06 0.0023872456
+#&gt; GeneID:151242 -4.3163441 -4.693049 2.691627e-06 0.0026494579
+#&gt; GeneID:9002    2.3249808  4.379230 1.190996e-05 0.0073970422
+#&gt; GeneID:64344  -2.8805945 -4.368250 1.252462e-05 0.0073970422
+#&gt; GeneID:51575  -0.7889652 -4.255997 2.081193e-05 0.0076822022</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
