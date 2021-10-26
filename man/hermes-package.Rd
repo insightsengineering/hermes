@@ -32,8 +32,11 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item Joseph N. Paulson \email{paulson.joseph@gene.com} [contributor]
+  \item Tim Treis [contributor]
+  \item Mark Yan [contributor]
+  \item Naomi Chang [contributor]
   \item Chendi Liao \email{chendi.liao@roche.com} [contributor]
+  \item Joseph N. Paulson \email{paulson.joseph@gene.com} [contributor]
 }
 
 }
