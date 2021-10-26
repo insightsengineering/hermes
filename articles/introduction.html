@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to `hermes` • hermes</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -13,6 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to `hermes`">
 <meta property="og:description" content="hermes">
+<meta property="og:image" content="https://insightsengineering.github.io/hermes/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -37,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -104,7 +111,7 @@
 <h2 class="hasAnchor">
 <a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
 <p><code>hermes</code> is a successor of the Roche internal <code>rnaseqTools</code> R package, and therefore many code ideas have been borrowed from it. Therefore we would like to thank the <code>rnaseqTools</code> authors for their work. In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of <code>hermes</code>. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal <code>biokitr</code> R package and discussed them with its maintainer Daniel Marbach.</p>
-<p>Finally, as with any NEST product, <code>hermes</code> is only possible because of the whole NEST project team’s work, and we are grateful for the entire team’s support.</p>
+<p>Finally, <code>hermes</code> originated as part of the NEST project. We are grateful for the entire team’s support.</p>
 <p>Thanks a lot to everyone involved!</p>
 </div>
 <div id="introduction" class="section level2">
@@ -526,7 +533,7 @@
 <span class="co">#&gt; Proportion of Variance 0.047520 0.039550 0.035920 0.033160 0.030850 0.025700</span>
 <span class="co">#&gt; Cumulative Proportion  0.754200 0.793750 0.829670 0.862830 0.893680 0.919380</span>
 <span class="co">#&gt;                           PC13     PC14     PC15     PC16     PC17             </span>
-<span class="co">#&gt; Standard deviation     6.92755 6.532485 5.501383 5.151959 3.983283 2.290846e-14</span>
+<span class="co">#&gt; Standard deviation     6.92755 6.532485 5.501383 5.151959 3.983283 2.302918e-14</span>
 <span class="co">#&gt; Proportion of Variance 0.02369 0.021060 0.014940 0.013100 0.007830 0.000000e+00</span>
 <span class="co">#&gt; Cumulative Proportion  0.94307 0.964130 0.979070 0.992170 1.000000 1.000000e+00</span>
 <span class="fu">autoplot</span><span class="op">(</span><span class="va">pca_res</span><span class="op">)</span></code></pre></div>
@@ -602,7 +609,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by NEST.</p>
+  <p>Developed by Daniel Sabanés Bové, Namrata Bhatia, Stefanie Bienert, Benoit Falquet, Haocheng Li, Jeff Luong, Lyndsee Midori Zhang, Simona Rossomanno.</p>
 </div>
 
 <div class="pkgdown">
