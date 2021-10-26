@@ -24,7 +24,8 @@ knitr::opts_chunk$set(
 `hermes` is a successor of the Roche internal `rnaseqTools` R package, and therefore many code ideas have been borrowed from it. Therefore we would like to thank the `rnaseqTools` authors for their work.
 In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of `hermes`. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal `biokitr` R package and discussed them with its maintainer Daniel Marbach.
 
-Finally, as with any NEST product, `hermes` is only possible because of the whole NEST project team's work, and we are grateful for the entire team's support.
+Finally, `hermes` originated as part of the NEST project. 
+We are grateful for the entire team's support.
 
 Thanks a lot to everyone involved!
 
