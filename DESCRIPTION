@@ -1,10 +1,22 @@
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
 Type: Package
-Date: 2021-10-13
-Version: 0.1.1.9000
+Date: 2021-10-27
+Version: 0.1.2
 Authors@R: c(
-  person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre"))
+  person("Daniel", "Sabanés Bové", email = "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
+  person("Namrata", "Bhatia", role = "aut"),
+  person("Stefanie", "Bienert", role = "aut"),
+  person("Benoit", "Falquet", role = "aut"),
+  person("Haocheng", "Li", role = "aut"),
+  person("Jeff", "Luong", role = "aut"),
+  person("Lyndsee", "Midori Zhang", role = "aut"),
+  person("Simona", "Rossomanno", role = "aut"),
+  person("Tim", "Treis", role = "ctb"),
+  person("Mark", "Yan", role = "ctb"),
+  person("Naomi", "Chang", role = "ctb"),
+  person("Chendi", "Liao", email = "chendi.liao@roche.com", role = "ctb"),
+  person("Joseph N.", "Paulson", email = "paulson.joseph@gene.com", role = "ctb")
   )
 Description: Preprocessing, analyzing, and reporting of RNA-seq data.
 License: Apache License 2.0 | file LICENSE
@@ -60,7 +72,6 @@ Suggests:
     knitr,
     rmarkdown,
     statmod,
-    test.nest (>= 0.2.11),
     testthat (>= 2.0),
     vdiffr,
     withr

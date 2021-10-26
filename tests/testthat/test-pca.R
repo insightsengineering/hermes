@@ -26,8 +26,6 @@ test_that("calc_pca function works for RangedHermesData with only 2 samples and 
  })
 
 test_that("calc_pca function fails for RangedHermesData with only 2 samples and vst/rlog transformation", {
-  test.nest::skip_if_too_deep(3)
-
   object <- HermesData(get_rse())
   expect_is(object, "RangedHermesData")
   result <- expect_error(normalize(object, c("vst", "rlog")))

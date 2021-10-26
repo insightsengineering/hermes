@@ -4,7 +4,7 @@
 httr::set_config(httr::config(ssl_verifypeer = FALSE))
 
 test_that("connect_biomart works as expected", {
-  test.nest::skip_if_too_deep(5)
+  skip_on_ci()
 
   result <- connect_biomart("ENSG")
   expect_s4_class(result, "ConnectionBiomart")
@@ -18,7 +18,7 @@ test_that("connect_biomart works as expected", {
 # h_get_annotation_biomart ----
 
 test_that("h_get_annotation_biomart works as expected", {
-  test.nest::skip_if_too_deep(5)
+  skip_on_ci()
 
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   result <- h_get_annotation_biomart(
@@ -59,7 +59,7 @@ test_that("h_strip_prefix works as expected", {
 # h_get_size_biomart ----
 
 test_that("h_get_size_biomart works as expected", {
-  test.nest::skip_if_too_deep(5)
+  skip_on_ci()
 
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   expect_identical(
@@ -99,7 +99,7 @@ test_that("h_get_size_biomart works as expected", {
 # h_ensembl_to_entrez_ids ----
 
 test_that("h_ensembl_to_entrez_ids works as expected", {
-  test.nest::skip_if_too_deep(5)
+  skip_on_ci()
 
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   result <- h_ensembl_to_entrez_ids(c("ENSG00000135407", "ENSG00000241644"), mart)
@@ -136,7 +136,7 @@ test_that("h_get_granges_by_id works as expected", {
 # query-ConnectionBiomart ----
 
 test_that("query to Biomart works as expected", {
-  test.nest::skip_if_too_deep(5)
+  skip_on_ci()
 
   object <- hermes_data[1:10, ]
   connection <- connect_biomart(prefix(object))
