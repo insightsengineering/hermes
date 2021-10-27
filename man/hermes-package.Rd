@@ -26,7 +26,7 @@ Authors:
   \item Benoit Falquet
   \item Haocheng Li
   \item Jeff Luong
-  \item Lyndsee Midori Zhang
+  \item Lyndsee Midori Zhang \email{zhang.lyndsee@gene.com}
   \item Simona Rossomanno
 }
 
