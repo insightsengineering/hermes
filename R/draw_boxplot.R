@@ -77,7 +77,6 @@ draw_boxplot <- function(object,
   )
   assert_flag(violin)
   assert_flag(jitter)
-
   point_aes <- if (!is.null(color_var)) {
     aes(group = .data$fill, color = .data$color)
   } else {
@@ -93,15 +92,13 @@ draw_boxplot <- function(object,
   }
   dodge_width <- ifelse(violin, 0.9, 0.75)
   jitter_width <- if (jitter) NULL else 0
-  p <- p +
-    geom_point(
+  p <- p + geom_point(
       mapping = point_aes,
       position = position_jitterdodge(
         dodge.width = dodge_width,
         jitter.width = jitter_width
       )
-    ) +
-    labs(x = x_var, y = assay_name, fill = "Gene")
+    ) + labs(x = x_var, y = assay_name, fill = "Gene")
   if (is.null(x_var)) {
     p <- p + scale_x_discrete(breaks = NULL)
   }

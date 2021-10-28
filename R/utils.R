@@ -98,7 +98,8 @@ df_cols_to_factor <- function(data,
                               omit_columns = NULL,
                               na_level = "<Missing>") {
   assert_that(is(data, "DataFrame"))
-  col_is_char_or_logical <- sapply(data, is.character) | sapply(data, is.logical)
+  col_is_char_or_logical <- vapply(data, is.character, logical(1)) |
+    vapply(data, is.logical, logical(1))
   omit_columns <- union(
     omit_columns,
     c(.row_data_cols, .col_data_cols)

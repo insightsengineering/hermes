@@ -36,7 +36,12 @@ LazyData: true
 VignetteBuilder: knitr 
 URL: https://github.com/insightsengineering/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
-biocViews: RNASeq
+biocViews: 
+    RNASeq,
+    DifferentialExpression,
+    Normalization,
+    Preprocessing,
+    QualityControl
 Depends: 
     ggfortify,
     R (>= 4.0),
