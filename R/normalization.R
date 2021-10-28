@@ -246,8 +246,8 @@ h_vst <- function(object,
   },
   error = function(e) {
     stop(
-      "During calculation of variance-stabilized transformation (VST) hit error, ",
-      "try again with more genes. Original error: ", e
+      "Problem during calculation of variance-stabilized transformation (VST), ",
+      "try again with more genes. More details: ", e
     )
   })
 }
