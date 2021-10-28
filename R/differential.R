@@ -48,15 +48,12 @@ h_diff_expr_voom <- function(object, design, ...) {
     number = Inf, # Retain all genes.
     sort.by = "p" # Sort by p-value.
   )
-  with(
-    top_tab,
-    data.frame(
-      log2_fc = logFC,
-      stat = t,
-      p_val = P.Value,
-      adj_p_val = adj.P.Val,
-      row.names = rownames(top_tab)
-    )
+  data.frame(
+    log2_fc = top_tab$logFC,
+    stat = top_tab$t,
+    p_val = top_tab$P.Value,
+    adj_p_val = top_tab$adj.P.Val,
+    row.names = rownames(top_tab)
   )
 }
 
@@ -112,15 +109,12 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
   deseq_data_res_df <- as.data.frame(deseq_data_res)
   adj_pval_order <- order(deseq_data_res_df$padj)
   deseq_data_res_df_sorted <- deseq_data_res_df[adj_pval_order, ]
-  with(
-    deseq_data_res_df_sorted,
-    data.frame(
-      log2_fc = log2FoldChange,
-      stat = stat,
-      p_val = pvalue,
-      adj_p_val = padj,
-      row.names = rownames(deseq_data_res_df_sorted)
-    )
+  data.frame(
+    log2_fc = deseq_data_res_df_sorted$log2FoldChange,
+    stat = deseq_data_res_df_sorted$stat,
+    p_val = deseq_data_res_df_sorted$pvalue,
+    adj_p_val = deseq_data_res_df_sorted$padj,
+    row.names = rownames(deseq_data_res_df_sorted)
   )
 }
 
