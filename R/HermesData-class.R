@@ -128,10 +128,10 @@ HermesData <- function(object) { # nolint
   } else if (all(grepl("^GeneID", gene_ids))) {
     "GeneID"
   } else {
-    stop(paste(
-      "hermes requires either common prefix 'ENSG' (EnsemblID)",
+    stop(
+      "hermes requires either common prefix 'ENSG' (EnsemblID) ",
       "or 'GeneID' (EntrezID) for the row names (gene IDs)"
-    ))
+    )
   }
 
   if (is(object, "RangedSummarizedExperiment")) {

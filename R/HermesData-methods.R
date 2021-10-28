@@ -159,10 +159,10 @@ setReplaceMethod(
     )
     row_is_all_na <- apply(X = value[, .row_data_annotation_cols], MARGIN = 1L, FUN = all_na)
     if (any(row_is_all_na)) {
-      warning(paste(
-        "required annotations completely missing for", sum(row_is_all_na), "genes,",
+      warning(
+        "required annotations completely missing for ", sum(row_is_all_na), " genes, ",
         "see attribute `annotation.missing.genes` for the corresponding gene IDs"
-      ))
+      )
       attr(object, "annotation.missing.genes") <- names(which(row_is_all_na))
     }
     rowData(object)[, .row_data_annotation_cols] <- value[, .row_data_annotation_cols]
@@ -890,9 +890,9 @@ setMethod(
     exp_lengths <- lengths(experiments(X))
     if (any(exp_lengths == 0)) {
       null_experiments <- experiments(X)[exp_lengths == 0]
-      warning(paste(
-        "Specified function failed on", toString(names(null_experiments))
-      ))
+      warning(
+        "Specified function failed on ", toString(names(null_experiments))
+      )
     }
     experiments(X) <- experiments(X)[exp_lengths > 0]
     X
