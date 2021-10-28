@@ -94,6 +94,8 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
 #' @param object (`SummarizedExperiment`)\cr input to create the [`HermesData`] object from.
 #'   If this is a `RangedSummarizedExperiment`, then the result will be
 #'   [`RangedHermesData`].
+#' @return An object of class [`AnyHermesData`] ([`HermesData`] or [`RangedHermesData`]).
+#'
 #' @export
 #' @examples
 #'

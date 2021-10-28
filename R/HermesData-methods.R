@@ -659,6 +659,8 @@ setGeneric("summary")
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param ... not used.
+#' @return An object of the corresponding summary class, here
+#'   [`HermesDataSummary`].
 #'
 #' @export
 #'
@@ -800,6 +802,8 @@ setMethod(
 #' @aliases show
 #'
 #' @param object (`AnyHermesData`)\cr input.
+#' @return None (invisible `NULL`), only used for the side effect of printing to
+#'   the console.
 #'
 #' @note The same method is used for both [`HermesData`] and [`RangedHermesData`]
 #'   objects. We need to define this separately to have this method used instead of

@@ -6,6 +6,8 @@
 #'
 #' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
 #'
+#' @return The result of the corresponding function call.
+#'
 #' @name %>%
 #' @rdname pipe
 #' @keywords internal

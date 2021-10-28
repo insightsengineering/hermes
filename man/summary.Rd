@@ -22,6 +22,10 @@ summary(object, ...)
 
 \item{...}{not used.}
 }
+\value{
+An object of the corresponding summary class, here
+\code{\link{HermesDataSummary}}.
+}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
