@@ -263,7 +263,10 @@ setMethod(
       nonzero_boxplot = draw_nonzero_boxplot(object),
       genes_barplot = draw_genes_barplot(object)
     )
-    sapply(result, grid::grid.draw)
+    lapply(
+      X = result,
+      FUN = grid::grid.draw
+    )
     invisible(result)
   }
 )

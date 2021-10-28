@@ -212,7 +212,11 @@ h_get_size_biomart <- function(gene_ids,
     mart = mart
   )
   ids <- unique(coords[, "ensembl_gene_id"])
-  granges_list <- sapply(ids, h_get_granges_by_id, coords = coords)
+  granges_list <- lapply(
+    X = ids,
+    FUN = h_get_granges_by_id,
+    coords = coords
+  )
   exons <- GenomicRanges::GRangesList(granges_list, compress = FALSE)
   unique_exons <- GenomicRanges::reduce(exons)
   unique_exon_sizes <- GenomicRanges::width(unique_exons)

@@ -31,8 +31,8 @@ and therefore do not need to be specified in \code{omit_columns}.
 }
 \examples{
 dat <- colData(summarized_experiment)
-any(sapply(dat, is.character))
-any(sapply(dat, is.logical))
+any(vapply(dat, is.character, logical(1)))
+any(vapply(dat, is.logical, logical(1)))
 dat_converted <- df_cols_to_factor(dat)
-any(sapply(dat_converted, function(x) is.character(x) || is.logical(x)))
+any(vapply(dat_converted, function(x) is.character(x) || is.logical(x), logical(1)))
 }

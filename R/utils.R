@@ -45,14 +45,16 @@ h_df_factors_with_explicit_na <- function(data, na_level = "<Missing>") {
   assert_string(na_level, min.chars = 1L)
 
   # Conversion of all logical or character variables to factor.
-  var_is_char_or_logical <- sapply(data, is.logical) | sapply(data, is.character)
+  var_is_char_or_logical <- vapply(data, is.logical, logical(1)) |
+    vapply(data, is.character, logical(1))
   data[, var_is_char_or_logical] <- lapply(
     data[, var_is_char_or_logical, drop = FALSE],
     factor
   )
 
   # Add explicit missing level to all factors that have any `NA`.
-  var_is_factor_with_na <- sapply(data, is.factor) & sapply(data, anyNA)
+  var_is_factor_with_na <- vapply(data, is.factor, logical(1)) &
+    vapply(data, anyNA, logical(1))
   data[, var_is_factor_with_na] <- lapply(
     data[, var_is_factor_with_na, drop = FALSE],
     forcats::fct_explicit_na,
@@ -85,10 +87,10 @@ h_df_factors_with_explicit_na <- function(data, na_level = "<Missing>") {
 #'
 #' @examples
 #' dat <- colData(summarized_experiment)
-#' any(sapply(dat, is.character))
-#' any(sapply(dat, is.logical))
+#' any(vapply(dat, is.character, logical(1)))
+#' any(vapply(dat, is.logical, logical(1)))
 #' dat_converted <- df_cols_to_factor(dat)
-#' any(sapply(dat_converted, function(x) is.character(x) || is.logical(x)))
+#' any(vapply(dat_converted, function(x) is.character(x) || is.logical(x), logical(1)))
 df_cols_to_factor <- function(data,
                               omit_columns = NULL,
                               na_level = "<Missing>") {
