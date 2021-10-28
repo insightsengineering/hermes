@@ -1,5 +1,6 @@
-# hermes 0.1.2
+# hermes 0.99.0
 * First public release of the `hermes` package.
+* Submission to BioConductor.
 
 ### Miscellaneous
 * New utility function `cut_quantile` for cutting a numeric vector into quantiles.
