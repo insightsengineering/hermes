@@ -14,6 +14,9 @@
 #' @export
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
+#'
+#' @examples
+#' hermes_data %>% filter() %>% normalize() %>% summary()
 NULL
 
 #' Conversion to Factors with Explicit Missing Level in a `data.frame`
