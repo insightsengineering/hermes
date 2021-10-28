@@ -28,7 +28,7 @@ RdMacros: Rdpack, lifecycle
 VignetteBuilder: knitr 
 URL: https://github.com/insightsengineering/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
-biocViews:
+biocViews: RNASeq
 Depends: 
     ggfortify,
     R (>= 3.6),
