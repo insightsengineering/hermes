@@ -29,7 +29,6 @@ Description: Provides classes and functions for quality control, filtering,
   analyses are available.
 License: Apache License 2.0 | file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 RdMacros: Rdpack, lifecycle
@@ -39,7 +38,7 @@ BugReports: https://github.com/insightsengineering/hermes/issues
 biocViews: RNASeq
 Depends: 
     ggfortify,
-    R (>= 3.6),
+    R (>= 4.0),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
