@@ -668,10 +668,10 @@ setGeneric("summary")
 #' object <- hermes_data
 #' object_summary <- summary(object)
 #'
-#' # We can access parts of this S4 object with the slot operator.
+#' # We can access parts of this S4 object with the `slot` function.
 #' str(object_summary)
 #' slotNames(object_summary)
-#' object_summary@lib_sizes
+#' slot(object_summary, "lib_sizes")
 setMethod(
   f = "summary",
   signature = c("AnyHermesData"),
