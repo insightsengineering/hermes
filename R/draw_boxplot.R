@@ -113,6 +113,7 @@ draw_boxplot <- function(object,
 
 #' @describeIn draw_boxplot Helper function to prepare the data frame required
 #'   for plotting.
+#' @export
 h_draw_boxplot_df <- function(object,
                               assay_name,
                               genes,

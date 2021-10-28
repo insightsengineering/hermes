@@ -8,7 +8,7 @@
 
 \item{null.ok}{(\code{flag})\cr whether \code{x} may also be \code{NULL}.}
 
-\item{.var.name}{(\code{string}) \cr name of the checked object to print in
+\item{.var.name}{(\code{string})\cr name of the checked object to print in
 assertions; defaults to the heuristic implemented in \code{\link[checkmate:vname]{checkmate::vname()}}.}
 
 \item{add}{(\code{AssertCollection} or \code{NULL})\cr collection to store
