@@ -150,7 +150,7 @@ h_short_list <- function(x, sep = ", ", thresh = 3L) {
 
   n <- length(x)
   if (n > thresh) {
-    x <- c(x[1:2], "...", x[n])
+    x <- c(x[c(1L, 2L)], "...", x[n])
   }
   paste(x, collapse = sep)
 }
