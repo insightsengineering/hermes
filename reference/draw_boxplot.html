@@ -92,7 +92,7 @@ a gene signature." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
 
@@ -163,7 +163,9 @@ a gene signature.</p>
   facet_var <span class='op'>=</span> <span class='cn'>NULL</span>,
   violin <span class='op'>=</span> <span class='cn'>FALSE</span>,
   jitter <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>h_draw_boxplot_df</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>assay_name</span>, <span class='va'>genes</span>, <span class='va'>x_var</span>, <span class='va'>color_var</span>, <span class='va'>facet_var</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -208,6 +210,13 @@ from input sample variables.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The <code>ggplot</code> boxplot.</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>h_draw_boxplot_df</code>: Helper function to prepare the data frame required
+for plotting.</p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
