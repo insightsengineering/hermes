@@ -72,11 +72,8 @@ draw_barplot <- function(object,
 
   assay_matrix <- assay(object, assay_name)
   x_cont <- x_spec$extract(assay_matrix)
-
   col_data <- colData(object)
-
   df <- data.frame(x = cut_quantile(x_cont, percentiles))
-
   if (!is.null(facet_var)) {
     assert_names(names(col_data), must.include = facet_var)
     df$facet <- col_data[[facet_var]]
@@ -90,12 +87,10 @@ draw_barplot <- function(object,
     geom_bar() +
     labs(x = x_spec$get_label())
   if (!is.null(facet_var)) {
-    p <- p +
-      facet_wrap(~ facet)
+    p <- p + facet_wrap(~ facet)
   }
   if (!is.null(fill_var)) {
-    p <- p +
-      aes(fill = .data$fill) +
+    p <- p + aes(fill = .data$fill) +
       labs(fill = fill_var)
   }
   p

@@ -28,6 +28,9 @@ If this is a \code{RangedSummarizedExperiment}, then the result will be
 \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment()}} internally. Note that if \code{rowRanges}
 is passed instead of \code{rowData}, then the result will be a \code{\link{RangedHermesData}} object.}
 }
+\value{
+An object of class \code{\link{AnyHermesData}} (\code{\link{HermesData}} or \code{\link{RangedHermesData}}).
+}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 

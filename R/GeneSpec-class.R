@@ -196,6 +196,10 @@ GeneSpec <- R6::R6Class(
 #' @return A new [`GeneSpec`] object.
 #'
 #' @export
+#'
+#' @examples
+#' gene_spec("GeneID:11185")
+#' gene_spec(c("GeneID:11185", "GeneID:10677", "GeneID:101928428"), fun = colMeans)
 gene_spec <- function(genes = NULL,
                       fun = NULL,
                       fun_name = deparse(substitute(fun))) {

@@ -24,3 +24,7 @@ A new \code{\link{GeneSpec}} object.
 
 Creates a new \code{\link{GeneSpec}} object.
 }
+\examples{
+gene_spec("GeneID:11185")
+gene_spec(c("GeneID:11185", "GeneID:10677", "GeneID:101928428"), fun = colMeans)
+}

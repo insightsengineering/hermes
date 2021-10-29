@@ -94,6 +94,8 @@ S4Vectors::setValidity2("AnyHermesData", function(object) {
 #' @param object (`SummarizedExperiment`)\cr input to create the [`HermesData`] object from.
 #'   If this is a `RangedSummarizedExperiment`, then the result will be
 #'   [`RangedHermesData`].
+#' @return An object of class [`AnyHermesData`] ([`HermesData`] or [`RangedHermesData`]).
+#'
 #' @export
 #' @examples
 #'
@@ -126,10 +128,10 @@ HermesData <- function(object) { # nolint
   } else if (all(grepl("^GeneID", gene_ids))) {
     "GeneID"
   } else {
-    stop(paste(
-      "hermes requires either common prefix 'ENSG' (EnsemblID)",
+    stop(
+      "hermes requires either common prefix 'ENSG' (EnsemblID) ",
       "or 'GeneID' (EntrezID) for the row names (gene IDs)"
-    ))
+    )
   }
 
   if (is(object, "RangedSummarizedExperiment")) {

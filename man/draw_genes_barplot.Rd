@@ -6,7 +6,7 @@
 \usage{
 draw_genes_barplot(
   object,
-  chromosomes = c(1:22, "X", "Y", "MT"),
+  chromosomes = c(seq_len(22), "X", "Y", "MT"),
   include_others = TRUE
 )
 }

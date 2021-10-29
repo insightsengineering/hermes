@@ -19,6 +19,13 @@ Corresponding object that contains the correlation results.
 
 New generic function to calculate correlations for one or two objects.
 }
+\examples{
+sample_cors <- correlate(hermes_data)
+autoplot(sample_cors)
+
+pca_sample_var_cors <- correlate(calc_pca(hermes_data), hermes_data)
+autoplot(pca_sample_var_cors)
+}
 \seealso{
 \link{pca_cor_samplevar} and \link{calc_cor} which are the methods included for this generic function.
 }

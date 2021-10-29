@@ -67,14 +67,65 @@ draw_boxplot <- function(object,
                          facet_var = NULL,
                          violin = FALSE,
                          jitter = FALSE) {
+  df <- h_draw_boxplot_df(
+    object = object,
+    assay_name = assay_name,
+    genes = genes,
+    x_var = x_var,
+    color_var = color_var,
+    facet_var = facet_var
+  )
+  assert_flag(violin)
+  assert_flag(jitter)
+  point_aes <- if (!is.null(color_var)) {
+    aes(group = .data$fill, color = .data$color)
+  } else {
+    aes(group = .data$fill)
+  }
+  p <- ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill)) +
+    labs(x = genes$get_label())
+  p <- if (!violin) {
+    p + geom_boxplot(outlier.shape = ifelse(jitter, NA, 19)) +
+      stat_boxplot(geom = "errorbar")
+  } else {
+    p + geom_violin(draw_quantiles = c(0.75, 0.5, 0.25))
+  }
+  dodge_width <- ifelse(violin, 0.9, 0.75)
+  jitter_width <- if (jitter) NULL else 0
+  p <- p + geom_point(
+      mapping = point_aes,
+      position = position_jitterdodge(
+        dodge.width = dodge_width,
+        jitter.width = jitter_width
+      )
+    ) + labs(x = x_var, y = assay_name, fill = "Gene")
+  if (is.null(x_var)) {
+    p <- p + scale_x_discrete(breaks = NULL)
+  }
+  if (!is.null(color_var)) {
+    p <- p + labs(color = color_var)
+  }
+  if (!is.null(facet_var)) {
+    p <- p + facet_wrap(~facet)
+  }
+  p
+}
+
+#' @describeIn draw_boxplot Helper function to prepare the data frame required
+#'   for plotting.
+#' @export
+h_draw_boxplot_df <- function(object,
+                              assay_name,
+                              genes,
+                              x_var,
+                              color_var,
+                              facet_var) {
   assert_class(object, "AnyHermesData")
   assert_string(assay_name)
   assert_class(genes, "GeneSpec")
   assert_string(x_var, null.ok = TRUE)
   assert_string(color_var, null.ok = TRUE)
   assert_string(facet_var, null.ok = TRUE)
-  assert_flag(violin)
-  assert_flag(jitter)
 
   assay_matrix <- assay(object, assay_name)
   col_data <- colData(object)
@@ -86,7 +137,6 @@ draw_boxplot <- function(object,
   } else {
     factor(0)
   }
-
   fill_vals <- if (genes$returns_vector()) {
     genes$get_label()
   } else {
@@ -97,7 +147,6 @@ draw_boxplot <- function(object,
     y = as.numeric(t(genes$extract(assay_matrix))),
     fill = factor(rep(fill_vals, each = ncol(assay_matrix)))
   )
-
   if (!is.null(facet_var)) {
     assert_names(names(col_data), must.include = facet_var)
     df$facet <- col_data[[facet_var]]
@@ -106,43 +155,5 @@ draw_boxplot <- function(object,
     assert_names(names(col_data), must.include = color_var)
     df$color <- col_data[[color_var]]
   }
-  point_aes <- if (!is.null(color_var)) {
-    aes(group = .data$fill, color = .data$color)
-  } else {
-    aes(group = .data$fill)
-  }
-  p <- ggplot(df, aes(x = .data$x, y = .data$y, fill = .data$fill)) +
-    labs(x = genes$get_label())
-  p <- if (!violin) {
-    p +
-      geom_boxplot(outlier.shape = ifelse(jitter, NA, 19)) +
-      stat_boxplot(geom = "errorbar")
-  } else {
-    p +
-      geom_violin(draw_quantiles = c(0.75, 0.5, 0.25))
-  }
-  dodge_width <- ifelse(violin, 0.9, 0.75)
-  jitter_width <- if (jitter) NULL else 0
-  p <- p +
-    geom_point(
-      mapping = point_aes,
-      position = position_jitterdodge(
-        dodge.width = dodge_width,
-        jitter.width = jitter_width
-      )
-    ) +
-    labs(x = x_var, y = assay_name, fill = "Gene")
-  if (is.null(x_var)) {
-    p <- p +
-      scale_x_discrete(breaks = NULL)
-  }
-  if (!is.null(color_var)) {
-    p <- p +
-      labs(color = color_var)
-  }
-  if (!is.null(facet_var)) {
-    p <- p +
-      facet_wrap(~facet)
-  }
-  p
+  df
 }

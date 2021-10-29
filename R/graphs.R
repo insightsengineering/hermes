@@ -195,7 +195,7 @@ draw_nonzero_boxplot <- function(object,
 #' # Display chromosomes 1 and 2 only.
 #' draw_genes_barplot(object, chromosomes = c("1", "2"), include_others = FALSE)
 draw_genes_barplot <- function(object,
-                               chromosomes = c(1:22, "X", "Y", "MT"),
+                               chromosomes = c(seq_len(22), "X", "Y", "MT"),
                                include_others = TRUE) {
   assert_that(
     is_hermes_data(object),
@@ -263,7 +263,10 @@ setMethod(
       nonzero_boxplot = draw_nonzero_boxplot(object),
       genes_barplot = draw_genes_barplot(object)
     )
-    sapply(result, grid::grid.draw)
+    lapply(
+      X = result,
+      FUN = grid::grid.draw
+    )
     invisible(result)
   }
 )

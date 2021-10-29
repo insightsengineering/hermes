@@ -1,8 +1,8 @@
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
 Type: Package
-Date: 2021-10-27
-Version: 0.1.2
+Date: 2021-10-28
+Version: 0.99.0
 Authors@R: c(
   person("Daniel", "Sabanés Bové", email = "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
   person("Namrata", "Bhatia", role = "aut"),
@@ -18,20 +18,33 @@ Authors@R: c(
   person("Chendi", "Liao", email = "chendi.liao@roche.com", role = "ctb"),
   person("Joseph N.", "Paulson", email = "paulson.joseph@gene.com", role = "ctb")
   )
-Description: Preprocessing, analyzing, and reporting of RNA-seq data.
+Description: Provides classes and functions for quality control, filtering, 
+  normalization and differential expression analysis of pre-processed RNA-seq 
+  data. Data can be imported from `SummarizedExperiment` as well as `matrix`
+  objects and can be annotated from BioMart. Filtering for genes without too 
+  low expression or containing required annotations, as well as filtering for
+  samples with sufficient correlation to other samples or total number of reads 
+  is supported. The standard normalization methods including `cpm`, `rpkm` and 
+  `tpm` can be used, and `DESeq2` as well as `voom` differential expression 
+  analyses are available.
 License: Apache License 2.0 | file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 RdMacros: Rdpack, lifecycle
+LazyData: true
 VignetteBuilder: knitr 
 URL: https://github.com/insightsengineering/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
-biocViews:
+biocViews: 
+    RNASeq,
+    DifferentialExpression,
+    Normalization,
+    Preprocessing,
+    QualityControl
 Depends: 
     ggfortify,
-    R (>= 3.6),
+    R (>= 4.0),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,

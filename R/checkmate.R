@@ -28,6 +28,8 @@ NULL
 #' Check whether `x` is a (single) proportion.
 #'
 #' @inheritParams assertion_arguments
+#' @return `TRUE` if successful, otherwise a string with the error message.
+#'
 #' @seealso [`assertions`] for more details.
 #'
 #' @export
