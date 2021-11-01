@@ -61,7 +61,7 @@ Imports:
     forcats,
     GenomicRanges,
     ggplot2,
-    ggrepel,
+    ggrepel (>= 0.9),
     IRanges,
     lifecycle,
     limma,
