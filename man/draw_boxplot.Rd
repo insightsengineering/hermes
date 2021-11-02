@@ -2,6 +2,7 @@
 % Please edit documentation in R/draw_boxplot.R
 \name{draw_boxplot}
 \alias{draw_boxplot}
+\alias{h_draw_boxplot_df}
 \title{Boxplot for Gene Expression Values}
 \usage{
 draw_boxplot(
@@ -14,6 +15,8 @@ draw_boxplot(
   violin = FALSE,
   jitter = FALSE
 )
+
+h_draw_boxplot_df(object, assay_name, genes, x_var, color_var, facet_var)
 }
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr input.}
@@ -44,6 +47,12 @@ The \code{ggplot} boxplot.
 This produces boxplots of the gene expression values of a single gene, multiple genes or
 a gene signature.
 }
+\section{Functions}{
+\itemize{
+\item \code{h_draw_boxplot_df}: Helper function to prepare the data frame required
+for plotting.
+}}
+
 \examples{
 object <- hermes_data
 draw_boxplot(

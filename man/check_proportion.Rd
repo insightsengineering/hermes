@@ -37,6 +37,9 @@ message for the testthat reporter, see \code{\link[testthat:expect_that]{testtha
 \item{label}{(\code{string})\cr name of the checked object to print in
 messages. Defaults to the heuristic implemented in \code{\link[checkmate:vname]{checkmate::vname()}}.}
 }
+\value{
+\code{TRUE} if successful, otherwise a string with the error message.
+}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 

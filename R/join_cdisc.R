@@ -93,10 +93,10 @@ inner_join_cdisc <- function(gene_data,
   result_patients <- unique(result[[patient_key]])
   patients_not_in_cdisc <- setdiff(gene_patients, result_patients)
   if (length(patients_not_in_cdisc) > 0) {
-    warning(paste(
-      "Patients", toString(patients_not_in_cdisc),
-      "from gene data set were lost because they could not be joined to CDISC data set"
-    ))
+    warning(
+      "Patients ", toString(patients_not_in_cdisc),
+      " from gene data set were lost because they could not be joined to CDISC data set"
+    )
   }
 
   as.data.frame(result)

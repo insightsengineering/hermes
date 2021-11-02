@@ -159,10 +159,10 @@ setReplaceMethod(
     )
     row_is_all_na <- apply(X = value[, .row_data_annotation_cols], MARGIN = 1L, FUN = all_na)
     if (any(row_is_all_na)) {
-      warning(paste(
-        "required annotations completely missing for", sum(row_is_all_na), "genes,",
+      warning(
+        "required annotations completely missing for ", sum(row_is_all_na), " genes, ",
         "see attribute `annotation.missing.genes` for the corresponding gene IDs"
-      ))
+      )
       attr(object, "annotation.missing.genes") <- names(which(row_is_all_na))
     }
     rowData(object)[, .row_data_annotation_cols] <- value[, .row_data_annotation_cols]
@@ -659,6 +659,8 @@ setGeneric("summary")
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param ... not used.
+#' @return An object of the corresponding summary class, here
+#'   [`HermesDataSummary`].
 #'
 #' @export
 #'
@@ -666,10 +668,10 @@ setGeneric("summary")
 #' object <- hermes_data
 #' object_summary <- summary(object)
 #'
-#' # We can access parts of this S4 object with the slot operator.
+#' # We can access parts of this S4 object with the `slot` function.
 #' str(object_summary)
 #' slotNames(object_summary)
-#' object_summary@lib_sizes
+#' slot(object_summary, "lib_sizes")
 setMethod(
   f = "summary",
   signature = c("AnyHermesData"),
@@ -800,6 +802,8 @@ setMethod(
 #' @aliases show
 #'
 #' @param object (`AnyHermesData`)\cr input.
+#' @return None (invisible `NULL`), only used for the side effect of printing to
+#'   the console.
 #'
 #' @note The same method is used for both [`HermesData`] and [`RangedHermesData`]
 #'   objects. We need to define this separately to have this method used instead of
@@ -838,6 +842,12 @@ setMethod(
 #'
 #' @seealso [pca_cor_samplevar] and [calc_cor] which are the methods included for this generic function.
 #' @export
+#' @examples
+#' sample_cors <- correlate(hermes_data)
+#' autoplot(sample_cors)
+#'
+#' pca_sample_var_cors <- correlate(calc_pca(hermes_data), hermes_data)
+#' autoplot(pca_sample_var_cors)
 setGeneric("correlate", function(object, ...) standardGeneric("correlate"))
 
 # autoplot ----
@@ -886,9 +896,9 @@ setMethod(
     exp_lengths <- lengths(experiments(X))
     if (any(exp_lengths == 0)) {
       null_experiments <- experiments(X)[exp_lengths == 0]
-      warning(paste(
-        "Specified function failed on", toString(names(null_experiments))
-      ))
+      warning(
+        "Specified function failed on ", toString(names(null_experiments))
+      )
     }
     experiments(X) <- experiments(X)[exp_lengths > 0]
     X

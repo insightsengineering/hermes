@@ -77,23 +77,20 @@ draw_scatterplot <- function(object,
     assert_names(names(col_data), must.include = color_var)
     df$color <- col_data[[color_var]]
   }
+
   p <- ggplot(df, aes(x = .data$x, y = .data$y)) +
     labs(x = x_spec$get_label(), y = y_spec$get_label())
   if (!is.null(color_var)) {
-    p <- p +
-      geom_point(aes(color = .data$color)) +
+    p <- p + geom_point(aes(color = .data$color)) +
       labs(color = color_var)
   } else {
-    p <- p +
-      geom_point()
+    p <- p + geom_point()
   }
   if (smooth_method != "none") {
-    p <- p +
-      geom_smooth(method = smooth_method, formula = y ~ x)
+    p <- p + geom_smooth(method = smooth_method, formula = y ~ x)
   }
   if (!is.null(facet_var)) {
-    p <- p +
-      facet_wrap(~ facet)
+    p <- p + facet_wrap(~ facet)
   }
   p
 }

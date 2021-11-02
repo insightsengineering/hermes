@@ -64,6 +64,7 @@ reference:
       - h_all_duplicated
       - h_unique_labels
       - h_df_factors_with_explicit_na
+      - h_draw_boxplot_df
   - title: Example Data
     contents:
       - expression_set

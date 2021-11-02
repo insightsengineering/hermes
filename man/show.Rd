@@ -13,6 +13,10 @@
 \arguments{
 \item{object}{(\code{AnyHermesData})\cr input.}
 }
+\value{
+None (invisible \code{NULL}), only used for the side effect of printing to
+the console.
+}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
