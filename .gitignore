@@ -40,6 +40,9 @@ design/*.html
 # R Environment Variables
 .Renviron
 
+# RStudio project file
+*.Rproj
+
 # MacOS Files
 .DS_Store
 .Rproj.user
