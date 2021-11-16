@@ -49,7 +49,7 @@ h_pca_var_rsquared <- function(pca, x) {
   design <- stats::model.matrix(~x)
   # Transpose such that PCs are in rows, and samples in columns.
   y0 <- t(pca)
-  suppressWarnings(utils::capture.output(fit <- limma::lmFit(y0, design = design)))
+  utils::capture.output(fit <- limma::lmFit(y0, design = design))
   had_problems <- apply(fit$coefficients, 1L, function(row) any(is.na(row)))
   sst <- rowSums(y0^2)
   ssr <- sst - fit$df.residual * fit$sigma^2
