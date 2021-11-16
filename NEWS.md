@@ -1,4 +1,4 @@
-# hermes 0.99.1
+# hermes 0.99.2
 * First public release of the `hermes` package.
 * Submission to BioConductor.
 
@@ -7,6 +7,7 @@
 * New utility function `cat_with_newline` for concatenating and printing with newline.
 * New check function `check_proportion` which checks for a single proportion.
 * Better legends on the genes barplot and the correlation heatmap.
+* Improved vignette layout using the BioConductor style.
 
 # hermes 0.1.1
 

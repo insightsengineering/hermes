@@ -1,8 +1,8 @@
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
 Type: Package
-Date: 2021-11-02
-Version: 0.99.1
+Date: 2021-11-16
+Version: 0.99.2
 Authors@R: c(
   person("Daniel", "Sabanés Bové", email = "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
   person("Namrata", "Bhatia", role = "aut"),
@@ -44,7 +44,7 @@ biocViews:
     QualityControl
 Depends: 
     ggfortify,
-    R (>= 4.0),
+    R (>= 4.1),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
@@ -78,6 +78,7 @@ Imports:
     tidyr,
     utils
 Suggests:
+    BiocStyle,
     DelayedArray,
     DT,
     grid,
