@@ -1,58 +1,47 @@
+Type: Package
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
-Type: Package
+Version: 0.99.0.9000
 Date: 2021-10-28
-Version: 0.99.0
 Authors@R: c(
-  person("Daniel", "Sabanés Bové", email = "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
-  person("Namrata", "Bhatia", role = "aut"),
-  person("Stefanie", "Bienert", role = "aut"),
-  person("Benoit", "Falquet", role = "aut"),
-  person("Haocheng", "Li", role = "aut"),
-  person("Jeff", "Luong", role = "aut"),
-  person("Lyndsee", "Midori Zhang", email = "zhang.lyndsee@gene.com", role = "aut"),
-  person("Simona", "Rossomanno", role = "aut"),
-  person("Tim", "Treis", role = "ctb"),
-  person("Mark", "Yan", role = "ctb"),
-  person("Naomi", "Chang", role = "ctb"),
-  person("Chendi", "Liao", email = "chendi.liao@roche.com", role = "ctb"),
-  person("Joseph N.", "Paulson", email = "paulson.joseph@gene.com", role = "ctb")
+    person("Daniel", "Sabanés Bové", , "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
+    person("Namrata", "Bhatia", role = "aut"),
+    person("Stefanie", "Bienert", role = "aut"),
+    person("Benoit", "Falquet", role = "aut"),
+    person("Haocheng", "Li", role = "aut"),
+    person("Jeff", "Luong", role = "aut"),
+    person("Lyndsee", "Midori Zhang", , "zhang.lyndsee@gene.com", role = "aut"),
+    person("Simona", "Rossomanno", role = "aut"),
+    person("Tim", "Treis", role = "ctb"),
+    person("Mark", "Yan", role = "ctb"),
+    person("Naomi", "Chang", role = "ctb"),
+    person("Chendi", "Liao", , "chendi.liao@roche.com", role = "ctb"),
+    person("Joseph N.", "Paulson", , "paulson.joseph@gene.com", role = "ctb")
   )
-Description: Provides classes and functions for quality control, filtering, 
-  normalization and differential expression analysis of pre-processed RNA-seq 
-  data. Data can be imported from `SummarizedExperiment` as well as `matrix`
-  objects and can be annotated from BioMart. Filtering for genes without too 
-  low expression or containing required annotations, as well as filtering for
-  samples with sufficient correlation to other samples or total number of reads 
-  is supported. The standard normalization methods including `cpm`, `rpkm` and 
-  `tpm` can be used, and `DESeq2` as well as `voom` differential expression 
-  analyses are available.
+Description: Provides classes and functions for quality control,
+    filtering, normalization and differential expression analysis of
+    pre-processed RNA-seq data. Data can be imported from
+    `SummarizedExperiment` as well as `matrix` objects and can be
+    annotated from BioMart. Filtering for genes without too low expression
+    or containing required annotations, as well as filtering for samples
+    with sufficient correlation to other samples or total number of reads
+    is supported. The standard normalization methods including `cpm`,
+    `rpkm` and `tpm` can be used, and `DESeq2` as well as `voom`
+    differential expression analyses are available.
 License: Apache License 2.0 | file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
-RdMacros: Rdpack, lifecycle
-LazyData: true
-VignetteBuilder: knitr 
 URL: https://github.com/insightsengineering/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
-biocViews: 
-    RNASeq,
-    DifferentialExpression,
-    Normalization,
-    Preprocessing,
-    QualityControl
 Depends: 
     ggfortify,
     R (>= 4.0),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
-    biomaRt,
     Biobase,
     BiocGenerics,
-    circlize,
+    biomaRt,
     checkmate,
+    circlize,
     ComplexHeatmap,
     DESeq2,
     dplyr,
@@ -73,8 +62,8 @@ Imports:
     R6,
     Rdpack,
     rlang,
-    stats,
     S4Vectors,
+    stats,
     tidyr,
     utils
 Suggests:
@@ -88,6 +77,17 @@ Suggests:
     testthat (>= 2.0),
     vdiffr,
     withr
+VignetteBuilder: 
+    knitr
+RdMacros: 
+    lifecycle,
+    Rdpack
+biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
+    QualityControl
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
 Collate: 
     'GeneSpec-class.R'
     'HermesData-validate.R'
