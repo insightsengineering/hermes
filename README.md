@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Project Status: Active – The project has reached a stable, usable
+[![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
  
@@ -26,6 +26,17 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 -   Performs differential expression analysis.
 
 ## Installation
+
+### BioConductor
+
+You can install the current release from BioConductor with:
+
+``` r
+# install.packages("BiocManager")
+BiocManager::install("hermes")
+```
+
+### GitHub
 
 You can install the development version from GitHub with:
 
