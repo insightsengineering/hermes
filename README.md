@@ -32,7 +32,9 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 You can install the current release from BioConductor with:
 
 ``` r
-# install.packages("BiocManager")
+if (!require("BiocManager")) {
+  install.packages("BiocManager")
+}
 BiocManager::install("hermes")
 ```
 
@@ -41,7 +43,9 @@ BiocManager::install("hermes")
 You can install the development version from GitHub with:
 
 ``` r
-# install.packages("devtools")
+if (!require("devtools")) {
+  install.packages("devtools")
+}
 devtools::install_github("insightsengineering/hermes")
 ```
 

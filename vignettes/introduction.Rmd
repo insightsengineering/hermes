@@ -49,7 +49,9 @@ First let's see how we can install the `hermes` package.
 You can install the current release from BioConductor with:
 
 ```{r bioc-installation, eval = FALSE}
-# install.packages("BiocManager")
+if (!require("BiocManager")) {
+  install.packages("BiocManager")
+}
 BiocManager::install("hermes")
 ```
 
@@ -58,7 +60,9 @@ BiocManager::install("hermes")
 You can install the unstable development version from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
+if (!require("devtools")) {
+  install.packages("devtools")
+}
 devtools::install_github("insightsengineering/hermes")
 ```
 
