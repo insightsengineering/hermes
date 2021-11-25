@@ -15,19 +15,19 @@ knitr::opts_chunk$set(
 ```
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-\ 
+\
 
 > `hermes` facilitates preprocessing, analyzing, and reporting of RNA-seq data.
 
-* Imports RNAseq count data into the `hermes` ready format.
-* Annotates gene information automatically from a central database (e.g. BioMart).
-* Adds quality control (QC) flags to genes and samples.
-* Filters the data set.
-* Normalizes the counts.
-* Quickly produces descriptive plots.
-* Performs principal components analysis.
-* Produces a templated QC report.
-* Performs differential expression analysis.
+- Imports RNAseq count data into the `hermes` ready format.
+- Annotates gene information automatically from a central database (e.g. BioMart).
+- Adds quality control (QC) flags to genes and samples.
+- Filters the data set.
+- Normalizes the counts.
+- Quickly produces descriptive plots.
+- Performs principal components analysis.
+- Produces a templated QC report.
+- Performs differential expression analysis.
 
 ## Installation
 
