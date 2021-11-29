@@ -92,7 +92,7 @@ rowData columns and the colData columns." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -183,42 +183,46 @@ select samples.</p></td>
 <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>SummarizedExperiment::subset,SummarizedExperiment-method()</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-<span class='va'>a</span>
-</div><div class='output co'>#&gt; class: HermesData
-#&gt; assays(1): counts
-#&gt; genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426
-#&gt; additional gene information(3): GeneID SYMBOL chromosome_name
-#&gt; samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R
-#&gt;   06520019C0023R
-#&gt; additional sample information(72): Filename SampleID ... TTYPE STDSSDY</div><div class='input'>
-<span class='co'># Subset both genes and samples.</span>
-<span class='fu'>subset</span><span class='op'>(</span><span class='va'>a</span>, subset <span class='op'>=</span> <span class='va'>low_expression_flag</span>, select <span class='op'>=</span> <span class='va'>DISCSTUD</span> <span class='op'>==</span> <span class='st'>"N"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; class: HermesData
-#&gt; assays(1): counts
-#&gt; genes(3021): GeneID:10677 GeneID:101928428 ... GeneID:9084 GeneID:9426
-#&gt; additional gene information(3): GeneID SYMBOL chromosome_name
-#&gt; samples(6): 06520067C0018R 06520105C0017R ... 06520023C0018R
-#&gt;   06520099B0017R
-#&gt; additional sample information(72): Filename SampleID ... TTYPE STDSSDY</div><div class='input'>
-<span class='co'># Subset only genes.</span>
-<span class='fu'>subset</span><span class='op'>(</span><span class='va'>a</span>, subset <span class='op'>=</span> <span class='va'>chromosome</span> <span class='op'>==</span> <span class='st'>"2"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; class: HermesData
-#&gt; assays(1): counts
-#&gt; genes(326): GeneID:101929282 GeneID:51455 ... GeneID:101927614
-#&gt;   GeneID:285172
-#&gt; additional gene information(3): GeneID SYMBOL chromosome_name
-#&gt; samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R
-#&gt;   06520019C0023R
-#&gt; additional sample information(72): Filename SampleID ... TTYPE STDSSDY</div><div class='input'>
-<span class='co'># Subset only samples.</span>
-<span class='fu'>subset</span><span class='op'>(</span><span class='va'>a</span>, select <span class='op'>=</span> <span class='va'>AGE</span> <span class='op'>&gt;</span> <span class='fl'>18</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; class: HermesData
-#&gt; assays(1): counts
-#&gt; genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426
-#&gt; additional gene information(3): GeneID SYMBOL chromosome_name
-#&gt; samples(4): 06520011B0023R 06520103C0017R 06520001B0023R 06520080B0023R
-#&gt; additional sample information(72): Filename SampleID ... TTYPE STDSSDY</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span></span>
+<span class='r-in'><span class='va'>a</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> class: HermesData</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> assays(1): counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional gene information(3): GeneID SYMBOL chromosome_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   06520019C0023R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional sample information(72): Filename SampleID ... TTYPE STDSSDY</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Subset both genes and samples.</span></span>
+<span class='r-in'><span class='fu'>subset</span><span class='op'>(</span><span class='va'>a</span>, subset <span class='op'>=</span> <span class='va'>low_expression_flag</span>, select <span class='op'>=</span> <span class='va'>DISCSTUD</span> <span class='op'>==</span> <span class='st'>"N"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> class: HermesData</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> assays(1): counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> genes(3021): GeneID:10677 GeneID:101928428 ... GeneID:9084 GeneID:9426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional gene information(3): GeneID SYMBOL chromosome_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> samples(6): 06520067C0018R 06520105C0017R ... 06520023C0018R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   06520099B0017R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional sample information(72): Filename SampleID ... TTYPE STDSSDY</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Subset only genes.</span></span>
+<span class='r-in'><span class='fu'>subset</span><span class='op'>(</span><span class='va'>a</span>, subset <span class='op'>=</span> <span class='va'>chromosome</span> <span class='op'>==</span> <span class='st'>"2"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> class: HermesData</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> assays(1): counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> genes(326): GeneID:101929282 GeneID:51455 ... GeneID:101927614</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   GeneID:285172</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional gene information(3): GeneID SYMBOL chromosome_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   06520019C0023R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional sample information(72): Filename SampleID ... TTYPE STDSSDY</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Subset only samples.</span></span>
+<span class='r-in'><span class='fu'>subset</span><span class='op'>(</span><span class='va'>a</span>, select <span class='op'>=</span> <span class='va'>AGE</span> <span class='op'>&gt;</span> <span class='fl'>18</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> class: HermesData</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> assays(1): counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional gene information(3): GeneID SYMBOL chromosome_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> samples(4): 06520011B0023R 06520103C0017R 06520001B0023R 06520080B0023R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional sample information(72): Filename SampleID ... TTYPE STDSSDY</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

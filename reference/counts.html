@@ -91,7 +91,7 @@ These methods access and set the counts assay in a AnyHermesData object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -190,81 +190,84 @@ it does not influence actual assignment of <code>dimnames</code> to the assay
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>counts</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "matrix" "array" </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                  06520011B0023R 06520067C0018R 06520063C0043R 06520105C0017R
-#&gt; GeneID:11185                  3             66             35             10
-#&gt; GeneID:10677               1668            236             95           1945
-#&gt; GeneID:101928428              0              0              0              0
-#&gt; GeneID:100422835              0              0              0              0
-#&gt; GeneID:102466731              0              0              0              0
-#&gt; GeneID:64881                113             11            153             22
-#&gt;                  06520092C0017R 06520103C0017R 06520001B0023R 06520022C0017R
-#&gt; GeneID:11185                 68            123             65             10
-#&gt; GeneID:10677                570            149            216            182
-#&gt; GeneID:101928428              0              0              0              0
-#&gt; GeneID:100422835              0              0              0              0
-#&gt; GeneID:102466731              0              0              0              0
-#&gt; GeneID:64881                  0             20              1              5
-#&gt;                  06520062C0017R 06520046C0018R 06520101B0017R 06520047C0017R
-#&gt; GeneID:11185                106             23             72              4
-#&gt; GeneID:10677                138            748            314            189
-#&gt; GeneID:101928428              0              0              0              0
-#&gt; GeneID:100422835              0              0              0              0
-#&gt; GeneID:102466731              0              0              0              0
-#&gt; GeneID:64881                131            586              0            119
-#&gt;                  06520024B0014R 06520080B0023R 06520093C0017R 06520070C0018R
-#&gt; GeneID:11185                 36              0             50            479
-#&gt; GeneID:10677                176            213            313            345
-#&gt; GeneID:101928428              0              0              0              0
-#&gt; GeneID:100422835              0              0              0              0
-#&gt; GeneID:102466731              0              0              0              0
-#&gt; GeneID:64881                  9             62              0            482
-#&gt;                  06520023C0018R 06520099B0017R 06520015C0016R 06520019C0023R
-#&gt; GeneID:11185                235             35             75             47
-#&gt; GeneID:10677               1922            269            385            687
-#&gt; GeneID:101928428              0              0              0              0
-#&gt; GeneID:100422835              0              0              0              0
-#&gt; GeneID:102466731              0              0              0              0
-#&gt; GeneID:64881               1315              0           3047            135</div><div class='input'><span class='fu'>counts</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>counts</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>100L</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>counts</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                  06520011B0023R 06520067C0018R 06520063C0043R 06520105C0017R
-#&gt; GeneID:11185                103            166            135            110
-#&gt; GeneID:10677               1768            336            195           2045
-#&gt; GeneID:101928428            100            100            100            100
-#&gt; GeneID:100422835            100            100            100            100
-#&gt; GeneID:102466731            100            100            100            100
-#&gt; GeneID:64881                213            111            253            122
-#&gt;                  06520092C0017R 06520103C0017R 06520001B0023R 06520022C0017R
-#&gt; GeneID:11185                168            223            165            110
-#&gt; GeneID:10677                670            249            316            282
-#&gt; GeneID:101928428            100            100            100            100
-#&gt; GeneID:100422835            100            100            100            100
-#&gt; GeneID:102466731            100            100            100            100
-#&gt; GeneID:64881                100            120            101            105
-#&gt;                  06520062C0017R 06520046C0018R 06520101B0017R 06520047C0017R
-#&gt; GeneID:11185                206            123            172            104
-#&gt; GeneID:10677                238            848            414            289
-#&gt; GeneID:101928428            100            100            100            100
-#&gt; GeneID:100422835            100            100            100            100
-#&gt; GeneID:102466731            100            100            100            100
-#&gt; GeneID:64881                231            686            100            219
-#&gt;                  06520024B0014R 06520080B0023R 06520093C0017R 06520070C0018R
-#&gt; GeneID:11185                136            100            150            579
-#&gt; GeneID:10677                276            313            413            445
-#&gt; GeneID:101928428            100            100            100            100
-#&gt; GeneID:100422835            100            100            100            100
-#&gt; GeneID:102466731            100            100            100            100
-#&gt; GeneID:64881                109            162            100            582
-#&gt;                  06520023C0018R 06520099B0017R 06520015C0016R 06520019C0023R
-#&gt; GeneID:11185                335            135            175            147
-#&gt; GeneID:10677               2022            369            485            787
-#&gt; GeneID:101928428            100            100            100            100
-#&gt; GeneID:100422835            100            100            100            100
-#&gt; GeneID:102466731            100            100            100            100
-#&gt; GeneID:64881               1415            100           3147            235</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>counts</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "matrix" "array" </span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520011B0023R 06520067C0018R 06520063C0043R 06520105C0017R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                  3             66             35             10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677               1668            236             95           1945</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881                113             11            153             22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520092C0017R 06520103C0017R 06520001B0023R 06520022C0017R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                 68            123             65             10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677                570            149            216            182</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881                  0             20              1              5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520062C0017R 06520046C0018R 06520101B0017R 06520047C0017R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                106             23             72              4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677                138            748            314            189</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881                131            586              0            119</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520024B0014R 06520080B0023R 06520093C0017R 06520070C0018R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                 36              0             50            479</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677                176            213            313            345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881                  9             62              0            482</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520023C0018R 06520099B0017R 06520015C0016R 06520019C0023R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                235             35             75             47</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677               1922            269            385            687</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731              0              0              0              0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881               1315              0           3047            135</span>
+<span class='r-in'><span class='fu'>counts</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>counts</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>100L</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>counts</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520011B0023R 06520067C0018R 06520063C0043R 06520105C0017R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                103            166            135            110</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677               1768            336            195           2045</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881                213            111            253            122</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520092C0017R 06520103C0017R 06520001B0023R 06520022C0017R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                168            223            165            110</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677                670            249            316            282</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881                100            120            101            105</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520062C0017R 06520046C0018R 06520101B0017R 06520047C0017R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                206            123            172            104</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677                238            848            414            289</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881                231            686            100            219</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520024B0014R 06520080B0023R 06520093C0017R 06520070C0018R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                136            100            150            579</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677                276            313            413            445</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881                109            162            100            582</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520023C0018R 06520099B0017R 06520015C0016R 06520019C0023R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185                335            135            175            147</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677               2022            369            485            787</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731            100            100            100            100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881               1415            100           3147            235</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

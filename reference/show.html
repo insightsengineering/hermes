@@ -91,7 +91,7 @@ A show method that displays high-level information of AnyHermesData objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -178,15 +178,16 @@ objects. We need to define this separately to have this method used instead of
 the one inherited from <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>SummarizedExperiment::SummarizedExperiment</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-<span class='va'>object</span>
-</div><div class='output co'>#&gt; class: HermesData
-#&gt; assays(1): counts
-#&gt; genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426
-#&gt; additional gene information(3): GeneID SYMBOL chromosome_name
-#&gt; samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R
-#&gt;   06520019C0023R
-#&gt; additional sample information(72): Filename SampleID ... TTYPE STDSSDY</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span></span>
+<span class='r-in'><span class='va'>object</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> class: HermesData</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> assays(1): counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional gene information(3): GeneID SYMBOL chromosome_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   06520019C0023R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional sample information(72): Filename SampleID ... TTYPE STDSSDY</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

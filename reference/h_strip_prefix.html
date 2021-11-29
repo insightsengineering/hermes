@@ -92,7 +92,7 @@ a vector of gene IDs, such that only the digits are returned." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -179,8 +179,9 @@ delimiter before the digits.</p></td>
 so that they can be queried from BioMart</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>h_strip_prefix</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GeneID:11185"</span>, <span class='st'>"GeneID:10677"</span><span class='op'>)</span>, prefix <span class='op'>=</span> <span class='st'>"GeneID"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "11185" "10677"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>h_strip_prefix</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GeneID:11185"</span>, <span class='st'>"GeneID:10677"</span><span class='op'>)</span>, prefix <span class='op'>=</span> <span class='st'>"GeneID"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "11185" "10677"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

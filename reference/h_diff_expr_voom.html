@@ -93,7 +93,7 @@ for given counts in a AnyHermesData object and a corresponding design matrix." /
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -194,31 +194,33 @@ doi: <a href='https://doi.org/10.1186/gb-2014-15-2-r29'>10.1186/gb-2014-15-2-r29
 .</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-
-<span class='co'># Create the design matrix corresponding to the factor of interest.</span>
-<span class='va'>design</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SEX</span>, <span class='fu'>colData</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># Then perform the differential expression analysis.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_voom</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                  log2_fc      stat        p_val adj_p_val
-#&gt; GeneID:8000   -2.3200712 -4.239244 0.0004209192 0.9118348
-#&gt; GeneID:51227  -1.0467295 -4.032550 0.0006788432 0.9118348
-#&gt; GeneID:344558  1.6896266  3.824046 0.0010993677 0.9118348
-#&gt; GeneID:51575  -0.7760844 -3.746293 0.0013155805 0.9118348
-#&gt; GeneID:151242 -3.4358998 -3.570103 0.0019741997 0.9118348
-#&gt; GeneID:8904   -0.6100354 -3.542864 0.0021017199 0.9118348</div><div class='input'>
-<span class='co'># Sometimes we might want to specify method details.</span>
-<span class='va'>result2</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_voom</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span>, trend <span class='op'>=</span> <span class='cn'>TRUE</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                  log2_fc      stat        p_val adj_p_val
-#&gt; GeneID:8000   -2.3200712 -3.848050 0.0008857274 0.8995289
-#&gt; GeneID:51227  -1.0467295 -3.724654 0.0011933484 0.8995289
-#&gt; GeneID:344558  1.6896266  3.684191 0.0013155791 0.8995289
-#&gt; GeneID:51575  -0.7760844 -3.498308 0.0020551283 0.8995289
-#&gt; GeneID:151242 -3.4358998 -3.441687 0.0023525055 0.8995289
-#&gt; GeneID:123036  2.9002547  3.431263 0.0024329189 0.8995289</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Create the design matrix corresponding to the factor of interest.</span></span>
+<span class='r-in'><span class='va'>design</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SEX</span>, <span class='fu'><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>colData</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Then perform the differential expression analysis.</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_voom</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  log2_fc      stat        p_val adj_p_val</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:8000   -2.3200712 -4.239244 0.0004209192 0.9118348</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:51227  -1.0467295 -4.032550 0.0006788432 0.9118348</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:344558  1.6896266  3.824046 0.0010993677 0.9118348</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:51575  -0.7760844 -3.746293 0.0013155805 0.9118348</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:151242 -3.4358998 -3.570103 0.0019741997 0.9118348</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:8904   -0.6100354 -3.542864 0.0021017199 0.9118348</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Sometimes we might want to specify method details.</span></span>
+<span class='r-in'><span class='va'>result2</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_voom</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span>, trend <span class='op'>=</span> <span class='cn'>TRUE</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  log2_fc      stat        p_val adj_p_val</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:8000   -2.3200712 -3.848050 0.0008857274 0.8995289</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:51227  -1.0467295 -3.724654 0.0011933484 0.8995289</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:344558  1.6896266  3.684191 0.0013155791 0.8995289</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:51575  -0.7760844 -3.498308 0.0020551283 0.8995289</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:151242 -3.4358998 -3.441687 0.0023525055 0.8995289</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:123036  2.9002547  3.431263 0.0024329189 0.8995289</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

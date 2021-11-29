@@ -92,7 +92,7 @@ with additional validation criteria." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -225,7 +225,7 @@ converting it again into a <code>HermesData</code> object.</p>
 method, which allows us to turn off the validity checks in internal
 functions where intermediate objects may not be valid within the scope of
 the function.</p></li>
-<li><p>It can be helpful to convert character and logical variables to factors in <code>colData()</code>
+<li><p>It can be helpful to convert character and logical variables to factors in <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>colData()</a></code>
 (before or after the <code>HermesData</code> creation). We provide the utility function
 <code><a href='df_cols_to_factor.html'>df_cols_to_factor()</a></code> to simplify this task, but leave it to the user to allow
 for full control of the details.</p></li>
@@ -233,36 +233,38 @@ for full control of the details.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Convert an `ExpressionSet` to a `RangedSummarizedExperiment`.</span>
-<span class='va'>ranged_summarized_experiment</span> <span class='op'>&lt;-</span> <span class='fu'>makeSummarizedExperimentFromExpressionSet</span><span class='op'>(</span><span class='va'>expression_set</span><span class='op'>)</span>
-
-<span class='co'># Then convert to `RangedHermesData`.</span>
-<span class='fu'>HermesData</span><span class='op'>(</span><span class='va'>ranged_summarized_experiment</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; class: RangedHermesData
-#&gt; assays(1): counts
-#&gt; genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426
-#&gt; additional gene information(12): HGNC HGNCGeneName ... chromosome_name
-#&gt;   LowExpressionFlag
-#&gt; samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R
-#&gt;   06520019C0023R
-#&gt; additional sample information(74): Filename SampleID ... LowDepthFlag
-#&gt;   TechnicalFailureFlag</div><div class='input'>
-<span class='co'># Create objects starting from a `SummarizedExperiment`.</span>
-<span class='va'>hermes_data</span> <span class='op'>&lt;-</span> <span class='fu'>HermesData</span><span class='op'>(</span><span class='va'>summarized_experiment</span><span class='op'>)</span>
-<span class='va'>hermes_data</span>
-</div><div class='output co'>#&gt; class: HermesData
-#&gt; assays(1): counts
-#&gt; genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426
-#&gt; additional gene information(12): HGNC HGNCGeneName ... chromosome_name
-#&gt;   LowExpressionFlag
-#&gt; samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R
-#&gt;   06520019C0023R
-#&gt; additional sample information(74): Filename SampleID ... LowDepthFlag
-#&gt;   TechnicalFailureFlag</div><div class='input'>
-<span class='co'># Create objects from a matrix. Note that additional arguments are not required but possible.</span>
-<span class='va'>counts_matrix</span> <span class='op'>&lt;-</span> <span class='fu'>assay</span><span class='op'>(</span><span class='va'>summarized_experiment</span><span class='op'>)</span>
-<span class='va'>counts_hermes_data</span> <span class='op'>&lt;-</span> <span class='fu'>HermesDataFromMatrix</span><span class='op'>(</span><span class='va'>counts_matrix</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Convert an `ExpressionSet` to a `RangedSummarizedExperiment`.</span></span>
+<span class='r-in'><span class='va'>ranged_summarized_experiment</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/SummarizedExperiment/man/makeSummarizedExperimentFromExpressionSet.html'>makeSummarizedExperimentFromExpressionSet</a></span><span class='op'>(</span><span class='va'>expression_set</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Then convert to `RangedHermesData`.</span></span>
+<span class='r-in'><span class='fu'>HermesData</span><span class='op'>(</span><span class='va'>ranged_summarized_experiment</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> class: RangedHermesData</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> assays(1): counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional gene information(12): HGNC HGNCGeneName ... chromosome_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   LowExpressionFlag</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   06520019C0023R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional sample information(74): Filename SampleID ... LowDepthFlag</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   TechnicalFailureFlag</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Create objects starting from a `SummarizedExperiment`.</span></span>
+<span class='r-in'><span class='va'>hermes_data</span> <span class='op'>&lt;-</span> <span class='fu'>HermesData</span><span class='op'>(</span><span class='va'>summarized_experiment</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>hermes_data</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> class: HermesData</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> assays(1): counts</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> genes(5085): GeneID:11185 GeneID:10677 ... GeneID:9087 GeneID:9426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional gene information(12): HGNC HGNCGeneName ... chromosome_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   LowExpressionFlag</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> samples(20): 06520011B0023R 06520067C0018R ... 06520015C0016R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   06520019C0023R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> additional sample information(74): Filename SampleID ... LowDepthFlag</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   TechnicalFailureFlag</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Create objects from a matrix. Note that additional arguments are not required but possible.</span></span>
+<span class='r-in'><span class='va'>counts_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>assay</a></span><span class='op'>(</span><span class='va'>summarized_experiment</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>counts_hermes_data</span> <span class='op'>&lt;-</span> <span class='fu'>HermesDataFromMatrix</span><span class='op'>(</span><span class='va'>counts_matrix</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

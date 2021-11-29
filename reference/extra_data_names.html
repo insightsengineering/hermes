@@ -93,7 +93,7 @@ patient characteristics, or gene characteristics." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -151,7 +151,7 @@ patient characteristics, or gene characteristics." />
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
-<p>The methods access the names of the variables in <code>colData()</code> and <code>rowData()</code> of
+<p>The methods access the names of the variables in <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>colData()</a></code> and <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>rowData()</a></code> of
 the object which are not required by design. So these can be additional sample or
 patient characteristics, or gene characteristics.</p>
     </div>
@@ -182,24 +182,26 @@ patient characteristics, or gene characteristics.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The character vector with the additional variable names in either
-<code>colData()</code> or <code>rowData()</code>.</p>
+<code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>colData()</a></code> or <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>rowData()</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-<span class='fu'>extraColDataNames</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "Filename" "SampleID" "AGEGRP"   "AGE18"    "STDDRS"   "STDDRSD" 
-#&gt;  [7] "STDSSDT"  "TRTDRS"   "TRTDRSD"  "BHDCIRC"  "BHDCIRCU" "ADAFL"   
-#&gt; [13] "BLANP"    "BKPS"     "BLKS"     "BTANNER"  "FRPST"    "DURIDX"  
-#&gt; [19] "DURSAF"   "DURSUR"   "LNTHRPY"  "AENCIFL"  "STUDYID"  "USUBJID" 
-#&gt; [25] "RFSTDTC"  "RFENDTC"  "RFXSTDTC" "RFXENDTC" "RFICDTC"  "RFPENDTC"
-#&gt; [31] "DTHDTC"   "DTHFL"    "SITEID"   "INVID"    "AGE"      "AGEU"    
-#&gt; [37] "SEX"      "RACE"     "ETHNIC"   "ARMCD"    "ARM"      "ACTARMCD"
-#&gt; [43] "ACTARM"   "COUNTRY"  "DMDTC"    "DMDY"     "BAGE"     "BAGEU"   
-#&gt; [49] "BWT"      "BWTU"     "BHT"      "BHTU"     "BBMI"     "ITTFL"   
-#&gt; [55] "SAFFL"    "INFCODT"  "RANDDT"   "TRTSDTC"  "TRTSDTM"  "TRTSTMF" 
-#&gt; [61] "TRTEDTM"  "TRTETMF"  "TRTDUR"   "DISCSTUD" "DISCDEAT" "DISCAE"  
-#&gt; [67] "DISTRTFL" "AEWITHFL" "ALIVDT"   "COHORT"   "TTYPE"    "STDSSDY" </div><div class='input'><span class='fu'>extraRowDataNames</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "GeneID"          "SYMBOL"          "chromosome_name"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span></span>
+<span class='r-in'><span class='fu'>extraColDataNames</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "Filename" "SampleID" "AGEGRP"   "AGE18"    "STDDRS"   "STDDRSD" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "STDSSDT"  "TRTDRS"   "TRTDRSD"  "BHDCIRC"  "BHDCIRCU" "ADAFL"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] "BLANP"    "BKPS"     "BLKS"     "BTANNER"  "FRPST"    "DURIDX"  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19] "DURSAF"   "DURSUR"   "LNTHRPY"  "AENCIFL"  "STUDYID"  "USUBJID" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25] "RFSTDTC"  "RFENDTC"  "RFXSTDTC" "RFXENDTC" "RFICDTC"  "RFPENDTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31] "DTHDTC"   "DTHFL"    "SITEID"   "INVID"    "AGE"      "AGEU"    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [37] "SEX"      "RACE"     "ETHNIC"   "ARMCD"    "ARM"      "ACTARMCD"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [43] "ACTARM"   "COUNTRY"  "DMDTC"    "DMDY"     "BAGE"     "BAGEU"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [49] "BWT"      "BWTU"     "BHT"      "BHTU"     "BBMI"     "ITTFL"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [55] "SAFFL"    "INFCODT"  "RANDDT"   "TRTSDTC"  "TRTSDTM"  "TRTSTMF" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [61] "TRTEDTM"  "TRTETMF"  "TRTDUR"   "DISCSTUD" "DISCDEAT" "DISCAE"  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [67] "DISTRTFL" "AEWITHFL" "ALIVDT"   "COHORT"   "TTYPE"    "STDSSDY" </span>
+<span class='r-in'><span class='fu'>extraRowDataNames</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "GeneID"          "SYMBOL"          "chromosome_name"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

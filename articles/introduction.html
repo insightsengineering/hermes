@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -97,8 +97,18 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to <code>hermes</code>
 </h1>
+                        <h4 class="author">Daniel Sabanés Bové</h4>
+                  <a class="author_email" href="mailto:#"></a><a href="mailto:daniel.sabanes_bove@roche.com" class="email">daniel.sabanes_bove@roche.com</a>
+      
+                              <h4 class="author">Namrata Bhatia</h4>
+                        <h4 class="author">Stefanie Bienert</h4>
+                        <h4 class="author">Benoit Falquet</h4>
+                        <h4 class="author">Haocheng Li</h4>
+                        <h4 class="author">Jeff Luong</h4>
+                        <h4 class="author">Lyndsee Midori Zhang</h4>
+                        <h4 class="author">Simona Rossomanno</h4>
+                        <h4 class="author">Tim Treis</h4>
             
-            <h4 class="date">2021-11-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/insightsengineering/hermes/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -107,18 +117,43 @@
 
     
     
-<div id="acknowledgments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
+<div id="acknowledgments" class="section level1">
+<h1 class="hasAnchor">
+<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h1>
 <p><code>hermes</code> is a successor of the Roche internal <code>rnaseqTools</code> R package, and therefore many code ideas have been borrowed from it. Therefore we would like to thank the <code>rnaseqTools</code> authors for their work. In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of <code>hermes</code>. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal <code>biokitr</code> R package and discussed them with its maintainer Daniel Marbach.</p>
 <p>Finally, <code>hermes</code> originated as part of the NEST project. We are grateful for the entire team’s support.</p>
 <p>Thanks a lot to everyone involved!</p>
 </div>
-<div id="introduction" class="section level2">
+<div id="installation" class="section level1">
+<h1 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h1>
+<p>First let’s see how we can install the <code>hermes</code> package.</p>
+<div id="bioconductor" class="section level2">
 <h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>The <code>hermes</code> R package provides classes, methods and functions to import, quality-check, filter, normalize, analyze RNAseq counts data. The core functionality is built on the BioConductor ecosystem, especially <code>SummarizedExperiment</code>. New users should first begin by reading the “Introduction to <code>hermes</code>” vignette to become familiar with the <code>hermes</code> concepts.</p>
+<a href="#bioconductor" class="anchor"></a>BioConductor</h2>
+<p>You can install the current release from BioConductor with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"hermes"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="github" class="section level2">
+<h2 class="hasAnchor">
+<a href="#github" class="anchor"></a>GitHub</h2>
+<p>You can install the unstable development version from GitHub with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"insightsengineering/hermes"</span><span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1>
+<p>The <code>hermes</code> R package provides classes, methods and functions to import, quality-check, filter, normalize, analyze RNAseq counts data. The core functionality is built on the BioConductor ecosystem, especially <code>SummarizedExperiment</code>. New users should first begin by reading the “Introduction to <code>hermes</code>” vignette to become familiar with the <code>hermes</code> concepts.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"introduction"</span>, package <span class="op">=</span> <span class="st">"hermes"</span><span class="op">)</span></code></pre></div>
 <p>In this vignette you are going to learn how to:</p>
 <ul>
@@ -133,29 +168,29 @@
 <li>Perform differential expression analysis.</li>
 </ul>
 <p>The packages used in this vignette are:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/insightsengineering/hermes/">hermes</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/SummarizedExperiment">SummarizedExperiment</a></span><span class="op">)</span></code></pre></div>
 <p>The datasets used in this vignette are:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">?</span><span class="va">expression_set</span>
 <span class="op">?</span><span class="va">summarized_experiment</span></code></pre></div>
 </div>
-<div id="importing-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#importing-data" class="anchor"></a>Importing Data</h2>
+<div id="importing-data" class="section level1">
+<h1 class="hasAnchor">
+<a href="#importing-data" class="anchor"></a>Importing Data</h1>
 <p>The data for <code>hermes</code> needs to be imported into the <code>HermesData</code> or <code>RangedHermesData</code> format.</p>
-<div id="importing-a-summarizedexperiment" class="section level3">
-<h3 class="hasAnchor">
+<div id="importing-a-summarizedexperiment" class="section level2">
+<h2 class="hasAnchor">
 <a href="#importing-a-summarizedexperiment" class="anchor"></a>Importing a <code>SummarizedExperiment</code>
-</h3>
+</h2>
 <p>The simplest way to import data is from a <code>SummarizedExperiment</code> (SE) object. This is because a <code>HermesData</code> object is just a special SE, with few additional requirements and slots.</p>
 <p>In a nutshell, the object needs to have a <code>counts</code> assay, have certain gene and sample variables, and have unique row and column names. The row names, i.e. the gene names, must start with a common prefix <code>GeneID</code> or <code>ENSG</code> to enable easy annotations. See <code><a href="../reference/HermesData-class.html">?HermesData</a></code> for the detailed requirements.</p>
 <p>When the SE follows the minimum conventions, we can just call the <code>HermesData</code> constructor on it:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HermesData-class.html">HermesData</a></span><span class="op">(</span><span class="va">summarized_experiment</span><span class="op">)</span></code></pre></div>
 <p>And we have a <code>HermesData</code> object.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">object</span>
 <span class="co">#&gt; class: HermesData</span>
 <span class="co">#&gt; assays(1): counts</span>
@@ -167,7 +202,7 @@
 <span class="co">#&gt; additional sample information(74): Filename SampleID ... LowDepthFlag</span>
 <span class="co">#&gt;   TechnicalFailureFlag</span></code></pre></div>
 <p>Note that in this case deprecated names were used for the <code>rowData</code> and <code>colData</code> variables, therefore they appear under “additional” gene and sample information. However we can still call the default constructor because the new names will be filled with missing values, e.g.:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/annotation,AnyHermesData-method.html">annotation</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; DataFrame with 6 rows and 4 columns</span>
 <span class="co">#&gt;                     symbol      desc chromosome      size</span>
@@ -179,8 +214,8 @@
 <span class="co">#&gt; GeneID:102466731        NA        NA         NA        NA</span>
 <span class="co">#&gt; GeneID:64881            NA        NA         NA        NA</span></code></pre></div>
 <p>If we want to map old column names to new column names to avoid duplication with new missing value columns, we can do this using the <code><a href="../reference/rename,SummarizedExperiment-method.html">rename()</a></code> method. For example here:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">object</span> <span class="op">&lt;-</span> <span class="va">summarized_experiment</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">object</span> <span class="op">&lt;-</span> <span class="va">summarized_experiment</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/rename,SummarizedExperiment-method.html">rename</a></span><span class="op">(</span>
     row_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
       symbol <span class="op">=</span> <span class="st">"HGNC"</span>,
@@ -193,10 +228,10 @@
       low_depth_flag <span class="op">=</span> <span class="st">"LowDepthFlag"</span>,
       technical_failure_flag <span class="op">=</span> <span class="st">"TechnicalFailureFlag"</span>
     <span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="../reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/HermesData-class.html">HermesData</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>For example we can now see in the annotations that we successfully carried over the information since we mapped the old annotations to the new required names above:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/annotation,AnyHermesData-method.html">annotation</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; DataFrame with 6 rows and 4 columns</span>
 <span class="co">#&gt;                        symbol                   desc  chromosome      size</span>
@@ -208,7 +243,7 @@
 <span class="co">#&gt; GeneID:102466731     MIR6769A         microRNA 6769a          16        73</span>
 <span class="co">#&gt; GeneID:64881           PCDH20       protocadherin 20          13      5838</span></code></pre></div>
 <p>For a bit more details we can also call <code><a href="../reference/summary.html">summary()</a></code> on the object.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/summary.html">summary</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 <span class="co">#&gt; HermesData object with 20 samples of 5085 genes.</span>
 <span class="co">#&gt; - Library sizes across samples: mean 5476759, median 5365970, range 4632496 to 7262374</span>
@@ -222,15 +257,15 @@
 <span class="co">#&gt; - Samples with too low depth or technical failures (20): NA NA ... NA</span>
 <span class="co">#&gt;   NA</span></code></pre></div>
 <p>For the below, let’s use the already prepared <code>HermesData</code> object.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">object</span> <span class="op">&lt;-</span> <span class="va">hermes_data</span></code></pre></div>
 </div>
-<div id="importing-an-expressionset" class="section level3">
-<h3 class="hasAnchor">
+<div id="importing-an-expressionset" class="section level2">
+<h2 class="hasAnchor">
 <a href="#importing-an-expressionset" class="anchor"></a>Importing an <code>ExpressionSet</code>
-</h3>
+</h2>
 <p>If we start from an <code>ExpressionSet</code>, we can first convert it to a <code>RangedSummarizedExperiment</code> and then import it to <code>RangedHermesData</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/makeSummarizedExperimentFromExpressionSet.html">makeSummarizedExperimentFromExpressionSet</a></span><span class="op">(</span><span class="va">expression_set</span><span class="op">)</span>
 <span class="va">object2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HermesData-class.html">HermesData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span>
 <span class="va">object2</span>
@@ -244,11 +279,11 @@
 <span class="co">#&gt; additional sample information(74): Filename SampleID ... LowDepthFlag</span>
 <span class="co">#&gt;   TechnicalFailureFlag</span></code></pre></div>
 </div>
-<div id="importing-a-matrix" class="section level3">
-<h3 class="hasAnchor">
-<a href="#importing-a-matrix" class="anchor"></a>Importing a Matrix</h3>
+<div id="importing-a-matrix" class="section level2">
+<h2 class="hasAnchor">
+<a href="#importing-a-matrix" class="anchor"></a>Importing a Matrix</h2>
 <p>In general we can also import a matrix of counts. We just have to pass the required gene and sample information as data frames to the constructor.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">counts_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">assay</a></span><span class="op">(</span><span class="va">hermes_data</span><span class="op">)</span>
 <span class="va">object3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HermesData-class.html">HermesDataFromMatrix</a></span><span class="op">(</span>
   counts <span class="op">=</span> <span class="va">counts_matrix</span>,
@@ -266,7 +301,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">object3</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>Note that we can easily access the counts assay (matrix) in the final object with <code><a href="../reference/counts,AnyHermesData-method.html">counts()</a></code>:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cnts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/counts,AnyHermesData-method.html">counts</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 <span class="va">cnts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="co">#&gt;                  06520011B0023R 06520067C0018R 06520063C0043R</span>
@@ -275,59 +310,59 @@
 <span class="co">#&gt; GeneID:101928428              0              0              0</span></code></pre></div>
 </div>
 </div>
-<div id="annotations" class="section level2">
-<h2 class="hasAnchor">
-<a href="#annotations" class="anchor"></a>Annotations</h2>
+<div id="annotations" class="section level1">
+<h1 class="hasAnchor">
+<a href="#annotations" class="anchor"></a>Annotations</h1>
 <p><code>hermes</code> provides a modular approach for querying gene annotations, in order to allow for future extensions in this or other downstream packages.</p>
-<div id="connection-to-database" class="section level3">
-<h3 class="hasAnchor">
-<a href="#connection-to-database" class="anchor"></a>Connection to Database</h3>
+<div id="connection-to-database" class="section level2">
+<h2 class="hasAnchor">
+<a href="#connection-to-database" class="anchor"></a>Connection to Database</h2>
 <p>The first step is to connect to a database. In <code>hermes</code> the only option is currently databases that utilize the BioMart software suite. However due to the generic function design, it is simple to extend <code>hermes</code> with other data base connections.</p>
 <p>In order to save time during vignette build, we zoom in here on a subset of the original <code>object</code> containing only the first 10 genes.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">small_object</span> <span class="op">&lt;-</span> <span class="va">object</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span></code></pre></div>
 <p>The corresponding function takes the common gene ID prefix as argument to determine the format of the gene IDs and the filter variable to use in the query later on.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/set_config.html">set_config</a></span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/config.html">config</a></span><span class="op">(</span>ssl_verifypeer <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span><span class="op">)</span>
 <span class="va">connection</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect_biomart.html">connect_biomart</a></span><span class="op">(</span><span class="fu"><a href="../reference/prefix.html">prefix</a></span><span class="op">(</span><span class="va">small_object</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Here we are using the <code><a href="../reference/prefix.html">prefix()</a></code> method to access the prefix saved in the <code>HermesData</code> object.</p>
 </div>
-<div id="querying-and-saving-annotations" class="section level3">
-<h3 class="hasAnchor">
-<a href="#querying-and-saving-annotations" class="anchor"></a>Querying and Saving Annotations</h3>
+<div id="querying-and-saving-annotations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#querying-and-saving-annotations" class="anchor"></a>Querying and Saving Annotations</h2>
 <p>Then the second step is to query the gene annotations and save them in the object.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/annotation,AnyHermesData-method.html">annotation</a></span><span class="op">(</span><span class="va">small_object</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/query.html">query</a></span><span class="op">(</span><span class="fu"><a href="../reference/genes.html">genes</a></span><span class="op">(</span><span class="va">small_object</span><span class="op">)</span>, <span class="va">connection</span><span class="op">)</span></code></pre></div>
 <p>Here we are using the <code><a href="../reference/genes.html">genes()</a></code> method to access the gene IDs (row names) of the <code>HermesData</code> object. Note that not all genes might be found in the data base and the corresponding rows would then be <code>NA</code> in the annotations.</p>
 </div>
 </div>
-<div id="quality-control-flags" class="section level2">
-<h2 class="hasAnchor">
-<a href="#quality-control-flags" class="anchor"></a>Quality Control Flags</h2>
+<div id="quality-control-flags" class="section level1">
+<h1 class="hasAnchor">
+<a href="#quality-control-flags" class="anchor"></a>Quality Control Flags</h1>
 <p><code>hermes</code> provides automatic gene and sample flagging, as well as manual sample flagging functionality.</p>
-<div id="automatic-gene-and-sample-flagging" class="section level3">
-<h3 class="hasAnchor">
-<a href="#automatic-gene-and-sample-flagging" class="anchor"></a>Automatic Gene and Sample Flagging</h3>
+<div id="automatic-gene-and-sample-flagging" class="section level2">
+<h2 class="hasAnchor">
+<a href="#automatic-gene-and-sample-flagging" class="anchor"></a>Automatic Gene and Sample Flagging</h2>
 <p>For genes, it is counted how many samples don’t pass a minimum expression CPM (counts per million reads mapped) threshold. If too many, then this gene is flagged as a “low expression” gene.</p>
 <p>For samples, two flags are provided. The “technical failure” flag is based on the average Pearson correlation with other samples. The “low depth” flag is based on the library size, i.e. the total sum of counts for a sample across all genes.</p>
 <p>Thresholds for the above flags can be initialized with <code><a href="../reference/control_quality.html">control_quality()</a></code>, and the flags are added with <code><a href="../reference/add_quality_flags.html">add_quality_flags()</a></code>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_controls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/control_quality.html">control_quality</a></span><span class="op">(</span>min_cpm <span class="op">=</span> <span class="fl">10</span>, min_cpm_prop <span class="op">=</span> <span class="fl">0.4</span>, min_corr <span class="op">=</span> <span class="fl">0.4</span>, min_depth <span class="op">=</span> <span class="fl">1e4</span><span class="op">)</span>
 <span class="co">#&gt; Loading required namespace: testthat</span>
 <span class="va">object_flagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_quality_flags.html">add_quality_flags</a></span><span class="op">(</span><span class="va">object</span>, control <span class="op">=</span> <span class="va">my_controls</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="manual-sample-flagging" class="section level3">
-<h3 class="hasAnchor">
-<a href="#manual-sample-flagging" class="anchor"></a>Manual Sample Flagging</h3>
+<div id="manual-sample-flagging" class="section level2">
+<h2 class="hasAnchor">
+<a href="#manual-sample-flagging" class="anchor"></a>Manual Sample Flagging</h2>
 <p>Sometimes it is necessary to manually flag certain samples as technical failures, e.g. after looking at one of the analyses discussed below. This is possible, too.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">object_flagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_tech_failure.html">set_tech_failure</a></span><span class="op">(</span><span class="va">object_flagged</span>, sample_ids <span class="op">=</span> <span class="st">"06520011B0023R"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="accessing-flags" class="section level3">
-<h3 class="hasAnchor">
-<a href="#accessing-flags" class="anchor"></a>Accessing Flags</h3>
+<div id="accessing-flags" class="section level2">
+<h2 class="hasAnchor">
+<a href="#accessing-flags" class="anchor"></a>Accessing Flags</h2>
 <p>All flags have access functions.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/add_quality_flags.html">get_tech_failure</a></span><span class="op">(</span><span class="va">object_flagged</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 06520011B0023R 06520067C0018R 06520063C0043R 06520105C0017R 06520092C0017R </span>
 <span class="co">#&gt;           TRUE          FALSE          FALSE          FALSE          FALSE </span>
@@ -345,23 +380,23 @@
 <span class="co">#&gt;             TRUE             TRUE</span></code></pre></div>
 </div>
 </div>
-<div id="filtering-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#filtering-data" class="anchor"></a>Filtering Data</h2>
+<div id="filtering-data" class="section level1">
+<h1 class="hasAnchor">
+<a href="#filtering-data" class="anchor"></a>Filtering Data</h1>
 <p>We can either filter based on the default QC flags, or based on custom variables from the gene or sample information.</p>
-<div id="based-on-default-qc-flags" class="section level3">
-<h3 class="hasAnchor">
-<a href="#based-on-default-qc-flags" class="anchor"></a>Based on Default QC Flags</h3>
+<div id="based-on-default-qc-flags" class="section level2">
+<h2 class="hasAnchor">
+<a href="#based-on-default-qc-flags" class="anchor"></a>Based on Default QC Flags</h2>
 <p>This is simple with the <code><a href="../reference/filter.html">filter()</a></code> function. It is also possible to selectively only filter the genes or the samples using the <code>what</code> argument.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">object_flagged_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">object_flagged</span><span class="op">)</span>
 <span class="va">object_flagged_genes_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">object_flagged</span>, what <span class="op">=</span> <span class="st">"genes"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="based-on-custom-variables" class="section level3">
-<h3 class="hasAnchor">
-<a href="#based-on-custom-variables" class="anchor"></a>Based on Custom Variables</h3>
+<div id="based-on-custom-variables" class="section level2">
+<h2 class="hasAnchor">
+<a href="#based-on-custom-variables" class="anchor"></a>Based on Custom Variables</h2>
 <p>This can be done with the <code><a href="../reference/subset.html">subset()</a></code> function. Genes can be filtered with the <code>subset</code> argument via expressions using the gene information variables, and samples can be filtered with the <code>select</code> argument using the sample information variables. In order to see which ones are available these can be queries first.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">rowData</a></span><span class="op">(</span><span class="va">object_flagged</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "symbol"              "desc"                "GeneID"             </span>
 <span class="co">#&gt; [4] "chromosome"          "size"                "SYMBOL"             </span>
@@ -404,35 +439,35 @@
 <span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="normalizing-counts" class="section level2">
-<h2 class="hasAnchor">
-<a href="#normalizing-counts" class="anchor"></a>Normalizing Counts</h2>
+<div id="normalizing-counts" class="section level1">
+<h1 class="hasAnchor">
+<a href="#normalizing-counts" class="anchor"></a>Normalizing Counts</h1>
 <p>Normalizing counts within samples (CPM), genes (RPKM) or across both (TPM) can be achieved with the <code><a href="../reference/normalize,AnyHermesData-method.html">normalize()</a></code> function. The <code><a href="../reference/normalize,AnyHermesData-method.html">normalize()</a></code> function can also transform the counts by the variance stabilizing transformation (<code>vst</code>) and the regularized log transformation (<code>rlog</code>) as proposed in the <code>DESeq2</code> package.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">object_normalized</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/normalize,AnyHermesData-method.html">normalize</a></span><span class="op">(</span><span class="va">object_flagged_filtered</span><span class="op">)</span>
 <span class="co">#&gt; -- note: fitType='parametric', but the dispersion trend was not well captured by the</span>
 <span class="co">#&gt;    function: y = a/x + b, and a local regression fit was automatically substituted.</span>
 <span class="co">#&gt;    specify fitType='local' or 'mean' to avoid this message next time.</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">object_rlog_normalized</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/normalize,AnyHermesData-method.html">normalize</a></span><span class="op">(</span><span class="va">object_flagged_filtered</span>, <span class="st">"rlog"</span><span class="op">)</span>
 <span class="co">#&gt; -- note: fitType='parametric', but the dispersion trend was not well captured by the</span>
 <span class="co">#&gt;    function: y = a/x + b, and a local regression fit was automatically substituted.</span>
 <span class="co">#&gt;    specify fitType='local' or 'mean' to avoid this message next time.</span></code></pre></div>
 <p>The corresponding assays are saved in the object and can be accessed with <code><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">assay()</a></code>.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">assay</a></span><span class="op">(</span><span class="va">object_normalized</span>, <span class="st">"tpm"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="co">#&gt;               06520067C0018R 06520063C0043R 06520105C0017R</span>
 <span class="co">#&gt; GeneID:10677        4.096418       3.323016       7.714990</span>
 <span class="co">#&gt; GeneID:286205       2.985506       3.182624       3.769962</span>
 <span class="co">#&gt; GeneID:8365        11.711741      12.421108      12.466491</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">assay</a></span><span class="op">(</span><span class="va">object_rlog_normalized</span>, <span class="st">"rlog"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="co">#&gt;               06520067C0018R 06520063C0043R 06520105C0017R</span>
 <span class="co">#&gt; GeneID:10677        8.101651       7.153488      10.281393</span>
 <span class="co">#&gt; GeneID:286205      10.101287       9.859074      10.104426</span>
 <span class="co">#&gt; GeneID:8365        10.023097      10.163191       9.935722</span></code></pre></div>
 <p>The used control settings can be accessed afterwards from the metadata of the object:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/metadata.html">metadata</a></span><span class="op">(</span><span class="va">object_normalized</span><span class="op">)</span>
 <span class="co">#&gt; $control_quality_flags</span>
 <span class="co">#&gt; $control_quality_flags$min_cpm</span>
@@ -461,7 +496,7 @@
 <span class="co">#&gt; $control_normalize$fit_type</span>
 <span class="co">#&gt; [1] "parametric"</span></code></pre></div>
 <p>Note that also the filtering settings are saved in here. For custom normalization options, use <code><a href="../reference/control_normalize.html">control_normalize()</a></code>. For example, to not use log scale but the original scale of the counts:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">object_normalized_original</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/normalize,AnyHermesData-method.html">normalize</a></span><span class="op">(</span>
   <span class="va">object_flagged_filtered</span>,
   control <span class="op">=</span> <span class="fu"><a href="../reference/control_normalize.html">control_normalize</a></span><span class="op">(</span>log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -475,53 +510,54 @@
 <span class="co">#&gt; GeneID:286205       6.920033       8.079569        12.6418</span>
 <span class="co">#&gt; GeneID:8365      3353.172671    5483.360511      5658.6256</span></code></pre></div>
 </div>
-<div id="descriptive-summaries-and-plots" class="section level2">
+<div id="descriptive-plots" class="section level1">
+<h1 class="hasAnchor">
+<a href="#descriptive-plots" class="anchor"></a>Descriptive Plots</h1>
+<div id="simple-plots" class="section level2">
 <h2 class="hasAnchor">
-<a href="#descriptive-summaries-and-plots" class="anchor"></a>Descriptive Summaries and Plots</h2>
-<div id="simple-plots" class="section level3">
-<h3 class="hasAnchor">
-<a href="#simple-plots" class="anchor"></a>Simple Plots</h3>
-<p>A series of simple descriptive plots can be obtained by just calling <code>autoplot()</code> on an object.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-29-1.png" width="672"><img src="introduction_files/figure-html/unnamed-chunk-29-2.png" width="672"><img src="introduction_files/figure-html/unnamed-chunk-29-3.png" width="672"><img src="introduction_files/figure-html/unnamed-chunk-29-4.png" width="672"><img src="introduction_files/figure-html/unnamed-chunk-29-5.png" width="672"></p>
-<p>Note that individual plots from these can be produced with the series of <code>draw_*()</code> functions, see <code><a href="../reference/autoplot,AnyHermesData-method.html">?plot_all</a></code> for the detailed list. Then, these can be customized further. For example, we can change the number and color of the bins in the library size histogram:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/draw_libsize_hist.html">draw_libsize_hist</a></span><span class="op">(</span><span class="va">object</span>, bins <span class="op">=</span> <span class="fl">10L</span>, fill <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-30-1.png" width="672"></p>
-</div>
-<div id="top-genes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#top-genes" class="anchor"></a>Top Genes</h3>
-<p>Top genes can be calculated and visualized in a barplot.</p>
+<a href="#simple-plots" class="anchor"></a>Simple Plots</h2>
+<p>A series of simple descriptive plots can be obtained by just calling <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> on an object.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">most_expr_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/top_genes.html">top_genes</a></span><span class="op">(</span><span class="va">object_normalized</span>, assay_name <span class="op">=</span> <span class="st">"tpm"</span><span class="op">)</span>
-<span class="fu">autoplot</span><span class="op">(</span><span class="va">most_expr_genes</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-31-1.png" width="672"></p>
-<p>By passing another summary function, also the variability can be ranked for example.</p>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-29-1.png" width="700"><img src="introduction_files/figure-html/unnamed-chunk-29-2.png" width="700"><img src="introduction_files/figure-html/unnamed-chunk-29-3.png" width="700"><img src="introduction_files/figure-html/unnamed-chunk-29-4.png" width="700"><img src="introduction_files/figure-html/unnamed-chunk-29-5.png" width="700"></p>
+<p>Note that individual plots from these can be produced with the series of <code>draw_*()</code> functions, see <code><a href="../reference/autoplot,AnyHermesData-method.html">?plot_all</a></code> for the detailed list. Then, these can be customized further. For example, we can change the number and color of the bins in the library size histogram:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">most_var_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/top_genes.html">top_genes</a></span><span class="op">(</span><span class="va">object_normalized</span>, summary_fun <span class="op">=</span> <span class="va">rowSds</span><span class="op">)</span>
-<span class="fu">autoplot</span><span class="op">(</span><span class="va">most_var_genes</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-32-1.png" width="672"></p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/draw_libsize_hist.html">draw_libsize_hist</a></span><span class="op">(</span><span class="va">object</span>, bins <span class="op">=</span> <span class="fl">10L</span>, fill <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-30-1.png" width="700"></p>
 </div>
-<div id="correlation-between-samples" class="section level3">
-<h3 class="hasAnchor">
-<a href="#correlation-between-samples" class="anchor"></a>Correlation between Samples</h3>
-<p>A sample correlation matrix between samples can be obtained with the <code><a href="../reference/correlate.html">correlate()</a></code> function. This can be visualized in a heatmap using <code>autoplot()</code> again. See <code><a href="../reference/correlate,AnyHermesData-method.html">?calc_cor</a></code> for detailed options.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cor_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/correlate.html">correlate</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-<span class="fu">autoplot</span><span class="op">(</span><span class="va">cor_mat</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-33-1.png" width="672"></p>
-</div>
-</div>
-<div id="principal-components-analysis-pca" class="section level2">
+<div id="top-genes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#principal-components-analysis-pca" class="anchor"></a>Principal Components Analysis (PCA)</h2>
-<div id="pca-of-samples" class="section level3">
-<h3 class="hasAnchor">
-<a href="#pca-of-samples" class="anchor"></a>PCA of Samples</h3>
-<p>PCA can be performed with <code><a href="../reference/calc_pca.html">calc_pca()</a></code>. The result can be summarized or plotted.</p>
+<a href="#top-genes" class="anchor"></a>Top Genes</h2>
+<p>Top genes can be calculated and visualized in a barplot.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">most_expr_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/top_genes.html">top_genes</a></span><span class="op">(</span><span class="va">object_normalized</span>, assay_name <span class="op">=</span> <span class="st">"tpm"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">most_expr_genes</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-31-1.png" width="700"></p>
+<p>By passing another summary function, also the variability can be ranked for example.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">most_var_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/top_genes.html">top_genes</a></span><span class="op">(</span><span class="va">object_normalized</span>, summary_fun <span class="op">=</span> <span class="va">rowSds</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">most_var_genes</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-32-1.png" width="700"></p>
+</div>
+<div id="correlation-between-samples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#correlation-between-samples" class="anchor"></a>Correlation between Samples</h2>
+<p>A sample correlation matrix between samples can be obtained with the <code><a href="../reference/correlate.html">correlate()</a></code> function. This can be visualized in a heatmap using <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> again. See <code><a href="../reference/correlate,AnyHermesData-method.html">?calc_cor</a></code> for detailed options.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cor_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/correlate.html">correlate</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">cor_mat</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-33-1.png" width="700"></p>
+</div>
+</div>
+<div id="principal-components" class="section level1">
+<h1 class="hasAnchor">
+<a href="#principal-components" class="anchor"></a>Principal Components</h1>
+<p>Let’s see how we can perform Principal Components Analysis (PCA).</p>
+<div id="pca-of-samples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#pca-of-samples" class="anchor"></a>PCA of Samples</h2>
+<p>PCA can be performed with <code><a href="../reference/calc_pca.html">calc_pca()</a></code>. The result can be summarized or plotted.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pca_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_pca.html">calc_pca</a></span><span class="op">(</span><span class="va">object_normalized</span>, assay_name <span class="op">=</span> <span class="st">"tpm"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/summary.html">summary</a></span><span class="op">(</span><span class="va">pca_res</span><span class="op">)</span><span class="op">$</span><span class="va">importance</span>
 <span class="co">#&gt;                             PC1      PC2      PC3      PC4      PC5      PC6</span>
@@ -536,30 +572,30 @@
 <span class="co">#&gt; Standard deviation     6.92755 6.532485 5.501383 5.151959 3.983283 2.302918e-14</span>
 <span class="co">#&gt; Proportion of Variance 0.02369 0.021060 0.014940 0.013100 0.007830 0.000000e+00</span>
 <span class="co">#&gt; Cumulative Proportion  0.94307 0.964130 0.979070 0.992170 1.000000 1.000000e+00</span>
-<span class="fu">autoplot</span><span class="op">(</span><span class="va">pca_res</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-34-1.png" width="672"></p>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">pca_res</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-34-1.png" width="700"></p>
 <p>Note that various options are available for the plot, for example we can look at different principal components, and color the samples by sample variables. See <code><a href="https://rdrr.io/pkg/ggfortify/man/autoplot.pca_common.html">?ggfortify::autoplot.prcomp</a></code> for details.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span>
   <span class="va">pca_res</span>,
   x <span class="op">=</span> <span class="fl">2</span>, y <span class="op">=</span> <span class="fl">3</span>,
   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">object_normalized</span><span class="op">)</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"SEX"</span>
 <span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-35-1.png" width="672"></p>
+<p><img src="introduction_files/figure-html/unnamed-chunk-35-1.png" width="700"></p>
 </div>
-<div id="correlation-with-sample-variables" class="section level3">
-<h3 class="hasAnchor">
-<a href="#correlation-with-sample-variables" class="anchor"></a>Correlation with Sample Variables</h3>
-<p>Subsequently it is easy to correlate the obtained principal components with the sample variables. We obtain a matrix of R-squared (R2) values for all combinations, which can again be visualized as a heatmap. See <code><a href="../reference/correlate,HermesDataPca-method.html">?pca_cor_samplevar</a></code> for details.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pca_cor</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/correlate.html">correlate</a></span><span class="op">(</span><span class="va">pca_res</span>, <span class="va">object_normalized</span><span class="op">)</span>
-<span class="fu">autoplot</span><span class="op">(</span><span class="va">pca_cor</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-36-1.png" width="672"></p>
-</div>
-</div>
-<div id="quality-control-report-template" class="section level2">
+<div id="correlation-with-sample-variables" class="section level2">
 <h2 class="hasAnchor">
-<a href="#quality-control-report-template" class="anchor"></a>Quality Control Report Template</h2>
+<a href="#correlation-with-sample-variables" class="anchor"></a>Correlation with Sample Variables</h2>
+<p>Subsequently it is easy to correlate the obtained principal components with the sample variables. We obtain a matrix of R-squared (R2) values for all combinations, which can again be visualized as a heatmap. See <code><a href="../reference/correlate,HermesDataPca-method.html">?pca_cor_samplevar</a></code> for details.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pca_cor</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/correlate.html">correlate</a></span><span class="op">(</span><span class="va">pca_res</span>, <span class="va">object_normalized</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">pca_cor</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-36-1.png" width="700"></p>
+</div>
+</div>
+<div id="qc-report-template" class="section level1">
+<h1 class="hasAnchor">
+<a href="#qc-report-template" class="anchor"></a>QC Report Template</h1>
 <p>In order to quickly obtain a quality control report for a new RNAseq data set, you can proceed as follows.</p>
 <ol style="list-style-type: decimal">
 <li>Save your input <code>SummarizedExperiment</code> using R’s <code><a href="https://rdrr.io/r/base/save.html">save()</a></code> function in a binary data file (e.g. ending with <code>.rda</code> suffix).</li>
@@ -570,11 +606,11 @@
 </ol>
 <p>The report contains the above mentioned descriptive plots and PCA analyses and can be a useful starting point for your analysis.</p>
 </div>
-<div id="differential-expression-analysis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#differential-expression-analysis" class="anchor"></a>Differential Expression Analysis</h2>
+<div id="differential-expression" class="section level1">
+<h1 class="hasAnchor">
+<a href="#differential-expression" class="anchor"></a>Differential Expression</h1>
 <p>In addition to the above QC analyses, simple differential expression analysis is supported by <code>hermes</code>. In addition to the filtered object (normalization of counts is not required) the variable name of the factor to contrast the samples needs to be provided to <code><a href="../reference/diff_expression.html">diff_expression()</a></code>.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/df_cols_to_factor.html">df_cols_to_factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">)</span>
 <span class="va">diff_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diff_expression.html">diff_expression</a></span><span class="op">(</span><span class="va">object</span>, group <span class="op">=</span> <span class="st">"SEX"</span>, method <span class="op">=</span> <span class="st">"voom"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">diff_res</span><span class="op">)</span>
@@ -587,14 +623,109 @@
 <span class="co">#&gt; GeneID:8904   -0.6100354 -3.542864 0.0021017199 0.9118348</span></code></pre></div>
 <p>Note that we use here the utility function <code><a href="../reference/df_cols_to_factor.html">df_cols_to_factor()</a></code> which converts by default all character and logical variables to factor variables. This is one possible way here to ensure that the utilized group variable is a factor.</p>
 <p>Afterwards a standard volcano plot can be produced.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">diff_res</span>, log2_fc_thresh <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-38-1.png" width="672"></p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">diff_res</span>, log2_fc_thresh <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-38-1.png" width="700"></p>
 </div>
-<div id="summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h2>
+<div id="summary" class="section level1">
+<h1 class="hasAnchor">
+<a href="#summary" class="anchor"></a>Summary</h1>
 <p>The <code>hermes</code> R package provides classes, methods and functions to import, quality-check, filter, normalize and analyze RNAseq counts data. In particular, the robust object-oriented framework allows for easy extensions in the future to address user feature requests. These and other feedback are very welcome - thank you very much in advance for your thoughts on <code>hermes</code>!</p>
+</div>
+<div id="session-info" class="section level1 unnumbered">
+<h1 class="hasAnchor">
+<a href="#session-info" class="anchor"></a>Session Info</h1>
+<p>Here is the output of <code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code> on the system on which this document was compiled running pandoc 2.11.4:</p>
+<pre><code>#&gt; R version 4.1.0 (2021-05-18)
+#&gt; Platform: x86_64-pc-linux-gnu (64-bit)
+#&gt; Running under: Ubuntu 20.04.3 LTS
+#&gt; 
+#&gt; Matrix products: default
+#&gt; BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+#&gt; 
+#&gt; locale:
+#&gt;  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+#&gt;  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+#&gt;  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+#&gt;  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+#&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+#&gt; 
+#&gt; attached base packages:
+#&gt; [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+#&gt; [8] methods   base     
+#&gt; 
+#&gt; other attached packages:
+#&gt;  [1] hermes_0.99.2.9001          SummarizedExperiment_1.22.0
+#&gt;  [3] Biobase_2.52.0              GenomicRanges_1.44.0       
+#&gt;  [5] GenomeInfoDb_1.28.4         IRanges_2.26.0             
+#&gt;  [7] S4Vectors_0.30.2            BiocGenerics_0.38.0        
+#&gt;  [9] MatrixGenerics_1.4.3        matrixStats_0.61.0         
+#&gt; [11] ggfortify_0.4.13            ggplot2_3.3.5              
+#&gt; [13] BiocStyle_2.20.2           
+#&gt; 
+#&gt; loaded via a namespace (and not attached):
+#&gt;   [1] colorspace_2.0-2            rjson_0.2.20               
+#&gt;   [3] EnvStats_2.4.0              ellipsis_0.3.2             
+#&gt;   [5] rprojroot_2.0.2             circlize_0.4.13            
+#&gt;   [7] XVector_0.32.0              GlobalOptions_0.1.2        
+#&gt;   [9] fs_1.5.0                    clue_0.3-59                
+#&gt;  [11] farver_2.1.0                waldo_0.3.1                
+#&gt;  [13] MultiAssayExperiment_1.18.0 ggrepel_0.9.1              
+#&gt;  [15] bit64_4.0.5                 AnnotationDbi_1.54.1       
+#&gt;  [17] fansi_0.5.0                 xml2_1.3.2                 
+#&gt;  [19] splines_4.1.0               codetools_0.2-18           
+#&gt;  [21] doParallel_1.0.16           cachem_1.0.6               
+#&gt;  [23] geneplotter_1.70.0          knitr_1.36                 
+#&gt;  [25] jsonlite_1.7.2              Cairo_1.5-12.2             
+#&gt;  [27] annotate_1.70.0             cluster_2.1.2              
+#&gt;  [29] dbplyr_2.1.1                png_0.1-7                  
+#&gt;  [31] BiocManager_1.30.16         compiler_4.1.0             
+#&gt;  [33] httr_1.4.2                  backports_1.4.0            
+#&gt;  [35] assertthat_0.2.1            Matrix_1.3-4               
+#&gt;  [37] fastmap_1.1.0               limma_3.48.3               
+#&gt;  [39] htmltools_0.5.2             prettyunits_1.1.1          
+#&gt;  [41] tools_4.1.0                 gtable_0.3.0               
+#&gt;  [43] glue_1.5.0                  GenomeInfoDbData_1.2.6     
+#&gt;  [45] dplyr_1.0.7                 rappdirs_0.3.3             
+#&gt;  [47] Rcpp_1.0.7                  jquerylib_0.1.4            
+#&gt;  [49] pkgdown_1.6.1               vctrs_0.3.8                
+#&gt;  [51] Biostrings_2.60.2           iterators_1.0.13           
+#&gt;  [53] xfun_0.28                   stringr_1.4.0              
+#&gt;  [55] rbibutils_2.2.4             testthat_3.1.0             
+#&gt;  [57] lifecycle_1.0.1             XML_3.99-0.6               
+#&gt;  [59] edgeR_3.34.1                zlibbioc_1.38.0            
+#&gt;  [61] scales_1.1.1                ragg_1.2.0                 
+#&gt;  [63] hms_1.1.1                   RColorBrewer_1.1-2         
+#&gt;  [65] ComplexHeatmap_2.8.0        yaml_2.2.1                 
+#&gt;  [67] curl_4.3.2                  memoise_2.0.0              
+#&gt;  [69] gridExtra_2.3               sass_0.4.0                 
+#&gt;  [71] biomaRt_2.48.3              stringi_1.7.5              
+#&gt;  [73] RSQLite_2.2.7               highr_0.9                  
+#&gt;  [75] genefilter_1.74.1           desc_1.4.0                 
+#&gt;  [77] foreach_1.5.1               checkmate_2.0.0            
+#&gt;  [79] filelock_1.0.2              BiocParallel_1.26.2        
+#&gt;  [81] shape_1.4.6                 Rdpack_2.1.2               
+#&gt;  [83] rlang_0.4.12                pkgconfig_2.0.3            
+#&gt;  [85] systemfonts_1.0.3           bitops_1.0-7               
+#&gt;  [87] evaluate_0.14               lattice_0.20-45            
+#&gt;  [89] purrr_0.3.4                 labeling_0.4.2             
+#&gt;  [91] bit_4.0.4                   tidyselect_1.1.1           
+#&gt;  [93] DESeq2_1.32.0               magrittr_2.0.1             
+#&gt;  [95] bookdown_0.24               R6_2.5.1                   
+#&gt;  [97] generics_0.1.1              DelayedArray_0.18.0        
+#&gt;  [99] DBI_1.1.1                   pillar_1.6.4               
+#&gt; [101] withr_2.4.2                 survival_3.2-13            
+#&gt; [103] KEGGREST_1.32.0             RCurl_1.98-1.3             
+#&gt; [105] tibble_3.1.6                crayon_1.4.2               
+#&gt; [107] utf8_1.2.2                  BiocFileCache_2.0.0        
+#&gt; [109] rmarkdown_2.11              GetoptLong_1.0.5           
+#&gt; [111] progress_1.2.2              locfit_1.5-9.4             
+#&gt; [113] grid_4.1.0                  blob_1.2.2                 
+#&gt; [115] forcats_0.5.1               digest_0.6.28              
+#&gt; [117] xtable_1.8-4                tidyr_1.1.4                
+#&gt; [119] textshaping_0.3.6           munsell_0.5.0              
+#&gt; [121] bslib_0.3.1</code></pre>
 </div>
   </div>
 

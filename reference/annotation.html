@@ -91,7 +91,7 @@ These methods access and set the gene annotations stored in a AnyHermesData obje
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -199,17 +199,18 @@ that additional annotations beyond the required ones may be supplied and
 will be stored.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>annotation</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; DataFrame with 6 rows and 4 columns
-#&gt;                        symbol                   desc  chromosome      size
-#&gt;                   &lt;character&gt;            &lt;character&gt; &lt;character&gt; &lt;integer&gt;
-#&gt; GeneID:11185             INMT indolethylamine N-me..           7      5468
-#&gt; GeneID:10677             AVIL               advillin          12     18694
-#&gt; GeneID:101928428 LOC101928428 RNA-binding protein ..  GL000220.1       138
-#&gt; GeneID:100422835      MIR3183          microRNA 3183          17        84
-#&gt; GeneID:102466731     MIR6769A         microRNA 6769a          16        73
-#&gt; GeneID:64881           PCDH20       protocadherin 20          13      5838</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>annotation</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> DataFrame with 6 rows and 4 columns</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                        symbol                   desc  chromosome      size</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;character&gt;            &lt;character&gt; &lt;character&gt; &lt;integer&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185             INMT indolethylamine N-me..           7      5468</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677             AVIL               advillin          12     18694</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428 LOC101928428 RNA-binding protein ..  GL000220.1       138</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:100422835      MIR3183          microRNA 3183          17        84</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:102466731     MIR6769A         microRNA 6769a          16        73</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64881           PCDH20       protocadherin 20          13      5838</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

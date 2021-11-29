@@ -114,7 +114,7 @@ rlog: The transformation to the log2 scale values with approximately homoskedast
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -259,69 +259,78 @@ The <code>control</code> is saved in the <code>metadata</code> of the object for
     <div class='dont-index'><p><code><a href='control_normalize.html'>control_normalize()</a></code> to define the normalization method settings.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-
-<span class='co'># By default, log values are used with a prior count of 1 added to original counts.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>normalize</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-<span class='fu'>assayNames</span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "counts" "cpm"    "rpkm"   "tpm"    "voom"   "vst"   </div><div class='input'><span class='va'>tpm</span> <span class='op'>&lt;-</span> <span class='fu'>assay</span><span class='op'>(</span><span class='va'>result</span>, <span class='st'>"tpm"</span><span class='op'>)</span>
-<span class='va'>tpm</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;                  06520011B0023R 06520067C0018R 06520063C0043R
-#&gt; GeneID:11185          0.8626554       3.993877       3.591742
-#&gt; GeneID:10677          7.0670966       4.054655       3.289554
-#&gt; GeneID:101928428      0.0000000       0.000000       0.000000</div><div class='input'>
-<span class='co'># We can also work on original scale.</span>
-<span class='va'>result_orig</span> <span class='op'>&lt;-</span> <span class='fu'>normalize</span><span class='op'>(</span><span class='va'>a</span>, control <span class='op'>=</span> <span class='fu'><a href='control_normalize.html'>control_normalize</a></span><span class='op'>(</span>log <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>tpm_orig</span> <span class='op'>&lt;-</span> <span class='fu'>assay</span><span class='op'>(</span><span class='va'>result_orig</span>, <span class='st'>"tpm"</span><span class='op'>)</span>
-<span class='va'>tpm_orig</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;                  06520011B0023R 06520067C0018R 06520063C0043R
-#&gt; GeneID:11185          0.8183821       14.93224       11.05653
-#&gt; GeneID:10677        133.0936048       15.61778        8.77810
-#&gt; GeneID:101928428      0.0000000        0.00000        0.00000</div><div class='input'>
-<span class='co'># Separate calculation of the CPM normalized counts.</span>
-<span class='va'>counts_cpm</span> <span class='op'>&lt;-</span> <span class='fu'>h_cpm</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_cpm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  num [1:5085, 1:20] -0.453 8.252 -2.453 -2.453 -2.453 ...
-#&gt;  - attr(*, "dimnames")=List of 2
-#&gt;   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...
-#&gt;   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</div><div class='input'>
-<span class='co'># Separate calculation of the RPKM normalized counts.</span>
-<span class='va'>counts_rpkm</span> <span class='op'>&lt;-</span> <span class='fu'>h_rpkm</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_rpkm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  num [1:5085, 1:20] -2.904 4.027 0.404 1.12 1.323 ...
-#&gt;  - attr(*, "dimnames")=List of 2
-#&gt;   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...
-#&gt;   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</div><div class='input'>
-<span class='co'># Separate calculation of the TPM normalized counts.</span>
-<span class='va'>counts_tpm</span> <span class='op'>&lt;-</span> <span class='fu'>h_tpm</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_tpm</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  num [1:5085, 1:20] 0.863 7.067 0 0 0 ...
-#&gt;  - attr(*, "dimnames")=List of 2
-#&gt;   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...
-#&gt;   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</div><div class='input'>
-<span class='co'># Separate calculation of the VOOM normalized counts.</span>
-<span class='va'>counts_voom</span> <span class='op'>&lt;-</span> <span class='fu'>h_voom</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_voom</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  num [1:5085, 1:20] -0.645 8.251 -3.453 -3.453 -3.453 ...
-#&gt;  - attr(*, "dimnames")=List of 2
-#&gt;   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...
-#&gt;   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</div><div class='input'>
-<span class='co'># Separate calculation of the vst transformation.</span>
-<span class='va'>counts_vst</span> <span class='op'>&lt;-</span> <span class='fu'>h_vst</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_vst</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  num [1:5085, 1:20] 3.03 10.6 1.78 1.78 1.78 ...
-#&gt;  - attr(*, "dimnames")=List of 2
-#&gt;   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...
-#&gt;   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</div><div class='input'>
-<span class='co'># Separate calculation of the rlog transformation.</span>
-<span class='va'>counts_rlog</span> <span class='op'>&lt;-</span> <span class='fu'>h_rlog</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_rlog</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  num [1:5085, 1:20] 2.97 10.13 0 0 0 ...
-#&gt;  - attr(*, "dimnames")=List of 2
-#&gt;   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...
-#&gt;   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...
-#&gt;  - attr(*, "betaPriorVar")= num 7.01
-#&gt;  - attr(*, "intercept")= num [1:5085, 1] 5.26 8.49 -Inf -Inf -Inf ...</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># By default, log values are used with a prior count of 1 added to original counts.</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>normalize</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>assayNames</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "counts" "cpm"    "rpkm"   "tpm"    "voom"   "vst"   </span>
+<span class='r-in'><span class='va'>tpm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>assay</a></span><span class='op'>(</span><span class='va'>result</span>, <span class='st'>"tpm"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>tpm</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520011B0023R 06520067C0018R 06520063C0043R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185          0.8626554       3.993877       3.591742</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677          7.0670966       4.054655       3.289554</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428      0.0000000       0.000000       0.000000</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># We can also work on original scale.</span></span>
+<span class='r-in'><span class='va'>result_orig</span> <span class='op'>&lt;-</span> <span class='fu'>normalize</span><span class='op'>(</span><span class='va'>a</span>, control <span class='op'>=</span> <span class='fu'><a href='control_normalize.html'>control_normalize</a></span><span class='op'>(</span>log <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>tpm_orig</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>assay</a></span><span class='op'>(</span><span class='va'>result_orig</span>, <span class='st'>"tpm"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>tpm_orig</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  06520011B0023R 06520067C0018R 06520063C0043R</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:11185          0.8183821       14.93224       11.05653</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:10677        133.0936048       15.61778        8.77810</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:101928428      0.0000000        0.00000        0.00000</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Separate calculation of the CPM normalized counts.</span></span>
+<span class='r-in'><span class='va'>counts_cpm</span> <span class='op'>&lt;-</span> <span class='fu'>h_cpm</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_cpm</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  num [1:5085, 1:20] -0.453 8.252 -2.453 -2.453 -2.453 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "dimnames")=List of 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Separate calculation of the RPKM normalized counts.</span></span>
+<span class='r-in'><span class='va'>counts_rpkm</span> <span class='op'>&lt;-</span> <span class='fu'>h_rpkm</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_rpkm</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  num [1:5085, 1:20] -2.904 4.027 0.404 1.12 1.323 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "dimnames")=List of 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Separate calculation of the TPM normalized counts.</span></span>
+<span class='r-in'><span class='va'>counts_tpm</span> <span class='op'>&lt;-</span> <span class='fu'>h_tpm</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_tpm</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  num [1:5085, 1:20] 0.863 7.067 0 0 0 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "dimnames")=List of 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Separate calculation of the VOOM normalized counts.</span></span>
+<span class='r-in'><span class='va'>counts_voom</span> <span class='op'>&lt;-</span> <span class='fu'>h_voom</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_voom</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  num [1:5085, 1:20] -0.645 8.251 -3.453 -3.453 -3.453 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "dimnames")=List of 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Separate calculation of the vst transformation.</span></span>
+<span class='r-in'><span class='va'>counts_vst</span> <span class='op'>&lt;-</span> <span class='fu'>h_vst</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_vst</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  num [1:5085, 1:20] 3.03 10.6 1.78 1.78 1.78 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "dimnames")=List of 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Separate calculation of the rlog transformation.</span></span>
+<span class='r-in'><span class='va'>counts_rlog</span> <span class='op'>&lt;-</span> <span class='fu'>h_rlog</span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>counts_rlog</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  num [1:5085, 1:20] 2.97 10.13 0 0 0 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "dimnames")=List of 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:5085] "GeneID:11185" "GeneID:10677" "GeneID:101928428" "GeneID:100422835" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : chr [1:20] "06520011B0023R" "06520067C0018R" "06520063C0043R" "06520105C0017R" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "betaPriorVar")= num 7.01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "intercept")= num [1:5085, 1] 5.26 8.49 -Inf -Inf -Inf ...</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -92,7 +92,7 @@ DESeq2::DESeq() for a given AnyHermesData input and design matrix." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -187,31 +187,33 @@ doi: <a href='https://doi.org/10.1186/s13059-014-0550-8'>10.1186/s13059-014-0550
 .</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-
-<span class='co'># Create the design matrix corresponding to the factor of interest.</span>
-<span class='va'>design</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SEX</span>, <span class='fu'>colData</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># Then perform the `DESeq2` differential expression analysis.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_deseq2</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 log2_fc      stat        p_val    adj_p_val
-#&gt; GeneID:9834    5.859486  5.440035 5.327024e-08 0.0001852739
-#&gt; GeneID:221188  3.450713  4.805489 1.543734e-06 0.0026845539
-#&gt; GeneID:151242 -4.316426 -4.707534 2.507316e-06 0.0029068155
-#&gt; GeneID:9002    2.324969  4.390859 1.129039e-05 0.0097580091
-#&gt; GeneID:64344  -2.880611 -4.343419 1.402819e-05 0.0097580091
-#&gt; GeneID:4359    2.914210  4.206676 2.591542e-05 0.0113396717</div><div class='input'>
-<span class='co'># Change of the `fitType` can be required in some cases.</span>
-<span class='va'>result2</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_deseq2</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span>, fitType <span class='op'>=</span> <span class='st'>"local"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                  log2_fc      stat        p_val    adj_p_val
-#&gt; GeneID:9834    5.8595097  5.436419 5.436203e-08 0.0001605311
-#&gt; GeneID:221188  3.4507368  4.796226 1.616827e-06 0.0023872456
-#&gt; GeneID:151242 -4.3163441 -4.693049 2.691627e-06 0.0026494579
-#&gt; GeneID:9002    2.3249808  4.379230 1.190996e-05 0.0073970422
-#&gt; GeneID:64344  -2.8805945 -4.368250 1.252462e-05 0.0073970422
-#&gt; GeneID:51575  -0.7889652 -4.255997 2.081193e-05 0.0076822022</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Create the design matrix corresponding to the factor of interest.</span></span>
+<span class='r-in'><span class='va'>design</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SEX</span>, <span class='fu'><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>colData</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Then perform the `DESeq2` differential expression analysis.</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_deseq2</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 log2_fc      stat        p_val    adj_p_val</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:9834    5.859486  5.440035 5.327024e-08 0.0001852739</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:221188  3.450713  4.805489 1.543734e-06 0.0026845539</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:151242 -4.316426 -4.707534 2.507316e-06 0.0029068155</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:9002    2.324969  4.390859 1.129039e-05 0.0097580091</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64344  -2.880611 -4.343419 1.402819e-05 0.0097580091</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:4359    2.914210  4.206676 2.591542e-05 0.0113396717</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Change of the `fitType` can be required in some cases.</span></span>
+<span class='r-in'><span class='va'>result2</span> <span class='op'>&lt;-</span> <span class='fu'>h_diff_expr_deseq2</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>design</span>, fitType <span class='op'>=</span> <span class='st'>"local"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>result2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  log2_fc      stat        p_val    adj_p_val</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:9834    5.8595097  5.436419 5.436203e-08 0.0001605311</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:221188  3.4507368  4.796226 1.616827e-06 0.0023872456</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:151242 -4.3163441 -4.693049 2.691627e-06 0.0026494579</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:9002    2.3249808  4.379230 1.190996e-05 0.0073970422</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:64344  -2.8805945 -4.368250 1.252462e-05 0.0073970422</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:51575  -0.7889652 -4.255997 2.081193e-05 0.0076822022</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

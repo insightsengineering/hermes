@@ -97,7 +97,7 @@ The corresponding autoplot() method then visualizes the result as a barplot." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@ contains two columns:</p><ul>
 <li><p><code>name</code>: the gene names.</p></li>
 </ul>
 
-<p>The corresponding <code>autoplot()</code> method then visualizes the result as a barplot.</p>
+<p>The corresponding <code><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot()</a></code> method then visualizes the result as a barplot.</p>
     </div>
 
     <pre class="usage"><span class='fu'>top_genes</span><span class='op'>(</span>
@@ -173,7 +173,7 @@ contains two columns:</p><ul>
 <span class='op'>)</span>
 
 <span class='co'># S4 method for HermesDataTopGenes</span>
-<span class='fu'>autoplot</span><span class='op'>(</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span>
   <span class='va'>object</span>,
   x_lab <span class='op'>=</span> <span class='st'>"HGNC gene names"</span>,
   y_lab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>@</span><span class='va'>summary_fun_name</span>, <span class='st'>"("</span>, <span class='va'>object</span><span class='op'>@</span><span class='va'>assay_name</span>, <span class='st'>")"</span><span class='op'>)</span>,
@@ -242,53 +242,57 @@ on the x-axis.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span>
-
-<span class='co'># Default uses average of raw counts across samples to rank genes.</span>
-<span class='fu'>top_genes</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Object of class "HermesDataTopGenes"
-#&gt;              expression         name
-#&gt; GeneID:2335   390085.60  GeneID:2335
-#&gt; GeneID:79026  302684.20 GeneID:79026
-#&gt; GeneID:4627    60247.10  GeneID:4627
-#&gt; GeneID:667     59502.90   GeneID:667
-#&gt; GeneID:26986   58479.75 GeneID:26986
-#&gt; GeneID:6218    57782.15  GeneID:6218
-#&gt; GeneID:6205    50484.85  GeneID:6205
-#&gt; GeneID:811     42460.70   GeneID:811
-#&gt; GeneID:23215   41407.95 GeneID:23215
-#&gt; GeneID:4035    35884.20  GeneID:4035
-#&gt; Slot "summary_fun_name":
-#&gt; [1] "rowMeans"
-#&gt; 
-#&gt; Slot "assay_name":
-#&gt; [1] "counts"
-#&gt; </div><div class='input'>
-<span class='co'># Instead of showing top 10 genes, can also set a minimum threshold on average counts.</span>
-<span class='fu'>top_genes</span><span class='op'>(</span><span class='va'>object</span>, n_top <span class='op'>=</span> <span class='cn'>NULL</span>, min_threshold <span class='op'>=</span> <span class='fl'>50000</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Object of class "HermesDataTopGenes"
-#&gt;              expression         name
-#&gt; GeneID:2335   390085.60  GeneID:2335
-#&gt; GeneID:79026  302684.20 GeneID:79026
-#&gt; GeneID:4627    60247.10  GeneID:4627
-#&gt; GeneID:667     59502.90   GeneID:667
-#&gt; GeneID:26986   58479.75 GeneID:26986
-#&gt; GeneID:6218    57782.15  GeneID:6218
-#&gt; GeneID:6205    50484.85  GeneID:6205
-#&gt; Slot "summary_fun_name":
-#&gt; [1] "rowMeans"
-#&gt; 
-#&gt; Slot "assay_name":
-#&gt; [1] "counts"
-#&gt; </div><div class='input'>
-<span class='co'># We can also use the maximum of raw counts across samples, by specifying a different</span>
-<span class='co'># summary statistics function.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>top_genes</span><span class='op'>(</span><span class='va'>object</span>, summary_fun <span class='op'>=</span> <span class='va'>rowMax</span><span class='op'>)</span>
-
-<span class='co'># Finally we can produce barplots based on the results.</span>
-<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>result</span>, title <span class='op'>=</span> <span class='st'>"My top genes"</span><span class='op'>)</span>
-</div><div class='img'><img src='top_genes-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>result</span>, y_lab <span class='op'>=</span> <span class='st'>"Counts"</span>, title <span class='op'>=</span> <span class='st'>"My top genes"</span><span class='op'>)</span>
-</div><div class='img'><img src='top_genes-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Default uses average of raw counts across samples to rank genes.</span></span>
+<span class='r-in'><span class='fu'>top_genes</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Object of class "HermesDataTopGenes"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>              expression         name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:2335   390085.60  GeneID:2335</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:79026  302684.20 GeneID:79026</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:4627    60247.10  GeneID:4627</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:667     59502.90   GeneID:667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:26986   58479.75 GeneID:26986</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:6218    57782.15  GeneID:6218</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:6205    50484.85  GeneID:6205</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:811     42460.70   GeneID:811</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:23215   41407.95 GeneID:23215</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:4035    35884.20  GeneID:4035</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Slot "summary_fun_name":</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "rowMeans"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Slot "assay_name":</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "counts"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Instead of showing top 10 genes, can also set a minimum threshold on average counts.</span></span>
+<span class='r-in'><span class='fu'>top_genes</span><span class='op'>(</span><span class='va'>object</span>, n_top <span class='op'>=</span> <span class='cn'>NULL</span>, min_threshold <span class='op'>=</span> <span class='fl'>50000</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Object of class "HermesDataTopGenes"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>              expression         name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:2335   390085.60  GeneID:2335</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:79026  302684.20 GeneID:79026</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:4627    60247.10  GeneID:4627</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:667     59502.90   GeneID:667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:26986   58479.75 GeneID:26986</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:6218    57782.15  GeneID:6218</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GeneID:6205    50484.85  GeneID:6205</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Slot "summary_fun_name":</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "rowMeans"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Slot "assay_name":</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "counts"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># We can also use the maximum of raw counts across samples, by specifying a different</span></span>
+<span class='r-in'><span class='co'># summary statistics function.</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>top_genes</span><span class='op'>(</span><span class='va'>object</span>, summary_fun <span class='op'>=</span> <span class='va'>rowMax</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Finally we can produce barplots based on the results.</span></span>
+<span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>result</span>, title <span class='op'>=</span> <span class='st'>"My top genes"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='top_genes-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>result</span>, y_lab <span class='op'>=</span> <span class='st'>"Counts"</span>, title <span class='op'>=</span> <span class='st'>"My top genes"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='top_genes-2.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

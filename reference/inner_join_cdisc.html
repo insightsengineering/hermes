@@ -91,7 +91,7 @@ This is a useful function when trying to join genetic with CDISC data sets." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -189,167 +189,169 @@ This is a useful function when trying to join genetic with CDISC data sets." />
 from <code>gene_data</code> and not from <code>cdisc_data</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>gene_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='col_data_with_genes.html'>col_data_with_genes</a></span><span class='op'>(</span><span class='va'>hermes_data</span>, <span class='st'>"counts"</span>, <span class='fu'><a href='gene_spec.html'>gene_spec</a></span><span class='op'>(</span><span class='st'>"GeneID:1820"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>cdisc_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  USUBJID <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>gene_data</span><span class='op'>$</span><span class='va'>USUBJID</span>, <span class='fl'>10</span><span class='op'>)</span>,
-  extra <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>
-<span class='op'>)</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>inner_join_cdisc</span><span class='op'>(</span><span class='va'>gene_data</span>, <span class='va'>cdisc_data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Patients AB12345-CHN-7-id-28, AB12345-CHN-4-id-73, AB12345-RUS-1-id-52, AB12345-PAK-11-id-268, AB12345-CHN-13-id-102, AB12345-CHN-17-id-84, AB12345-BRA-11-id-9, AB12345-CHN-4-id-115, AB12345-CHN-15-id-245, AB12345-CHN-4-id-370 from gene data set were lost because they could not be joined to CDISC data set</span></div><div class='input'><span class='va'>result</span>
-</div><div class='output co'>#&gt;                  USUBJID Filename       SampleID         AGEGRP AGE18 STDDRS
-#&gt; 1   AB12345-CHN-1-id-307     eset 06520046C0018R 12 - &lt;18 years  &lt; 18  DEATH
-#&gt; 2  AB12345-CHN-11-id-220     eset 06520105C0017R 12 - &lt;18 years  &lt; 18       
-#&gt; 3  AB12345-CHN-15-id-201     eset 06520103C0017R    &gt;= 18 years &gt;= 18  DEATH
-#&gt; 4  AB12345-CHN-15-id-262     eset 06520067C0018R   2 - &lt;6 years  &lt; 18       
-#&gt; 5   AB12345-CHN-3-id-128     eset 06520011B0023R    &gt;= 18 years &gt;= 18  DEATH
-#&gt; 6   AB12345-CHN-7-id-267     eset 06520092C0017R 12 - &lt;18 years  &lt; 18  DEATH
-#&gt; 7  AB12345-NGA-11-id-173     eset 06520062C0017R  6 - &lt;12 years  &lt; 18  DEATH
-#&gt; 8   AB12345-RUS-3-id-378     eset 06520063C0043R 12 - &lt;18 years  &lt; 18  DEATH
-#&gt; 9   AB12345-USA-1-id-261     eset 06520022C0017R 12 - &lt;18 years  &lt; 18       
-#&gt; 10   AB12345-USA-1-id-45     eset 06520001B0023R    &gt;= 18 years &gt;= 18  DEATH
-#&gt;                                STDDRSD    STDSSDT              TRTDRS
-#&gt; 1  DEATH DUE TO PROGRESSION OF DISEASE 07/24/2016 PROGRESSIVE DISEASE
-#&gt; 2                                                 PROGRESSIVE DISEASE
-#&gt; 3  DEATH DUE TO PROGRESSION OF DISEASE 08/12/2016 PROGRESSIVE DISEASE
-#&gt; 4                                                 PROGRESSIVE DISEASE
-#&gt; 5  DEATH DUE TO PROGRESSION OF DISEASE 05/31/2016       ADVERSE EVENT
-#&gt; 6  DEATH DUE TO PROGRESSION OF DISEASE 02/16/2017 PROGRESSIVE DISEASE
-#&gt; 7  DEATH DUE TO PROGRESSION OF DISEASE 09/11/2016 PROGRESSIVE DISEASE
-#&gt; 8  DEATH DUE TO PROGRESSION OF DISEASE 08/05/2016 PROGRESSIVE DISEASE
-#&gt; 9                                                 PROGRESSIVE DISEASE
-#&gt; 10 DEATH DUE TO PROGRESSION OF DISEASE 01/08/2016 PROGRESSIVE DISEASE
-#&gt;                   TRTDRSD BHDCIRC BHDCIRCU ADAFL BLANP BKPS BLKS BTANNER
-#&gt; 1  PROGRESSION OF DISEASE      NA              Y    NA   80   80      NA
-#&gt; 2  PROGRESSION OF DISEASE      NA              Y   100   NA  100      NA
-#&gt; 3  PROGRESSION OF DISEASE      NA              Y    NA   90   90      NA
-#&gt; 4  PROGRESSION OF DISEASE      NA              Y    NA  100  100      NA
-#&gt; 5           ADVERSE EVENT      NA              Y   100   NA  100      NA
-#&gt; 6  PROGRESSION OF DISEASE      NA              Y   100   NA  100      NA
-#&gt; 7  PROGRESSION OF DISEASE      NA              Y    NA  100  100      NA
-#&gt; 8  PROGRESSION OF DISEASE      NA              Y    90   NA   90      NA
-#&gt; 9  PROGRESSION OF DISEASE      NA              Y    NA   90   90      NA
-#&gt; 10 PROGRESSION OF DISEASE      NA              Y    NA   90   90      NA
-#&gt;             FRPST     DURIDX    DURSAF    DURSUR LNTHRPY AENCIFL STUDYID
-#&gt; 1  POST-MENARCHAL  61.667351 1.6755647  5.158111       5      NA AB12345
-#&gt; 2   PRE-MENARCHAL  14.981520 3.0882957  5.815195       4      NA AB12345
-#&gt; 3                  10.841889 0.9856263  3.055441       4      NA AB12345
-#&gt; 4                 131.088296 1.6755647 19.252567       3      NA AB12345
-#&gt; 5                  55.030801 0.9856263  5.026694       3      NA AB12345
-#&gt; 6                   7.687885 3.0225873 12.418891       1      NA AB12345
-#&gt; 7                  99.285421 3.5811088  6.340862       7      NA AB12345
-#&gt; 8                  93.568789 0.9856263  4.665298       3      NA AB12345
-#&gt; 9                  41.626283 1.6755647 18.858316       3      NA AB12345
-#&gt; 10                 45.733060 0.6570842  2.299795       2      NA AB12345
-#&gt;             RFSTDTC          RFENDTC         RFXSTDTC         RFXENDTC
-#&gt; 1  2016-03-10T14:05 2016-03-31T15:49 2016-03-10T14:05 2016-03-31T15:49
-#&gt; 2  2017-04-11T12:35 2017-06-14T11:45 2017-04-11T12:35 2017-06-14T11:45
-#&gt; 3  2016-05-31T14:10 2016-05-31T14:10 2016-05-31T14:10 2016-05-31T14:10
-#&gt; 4  2016-01-11T14:30 2016-02-01T13:30 2016-01-11T14:30 2016-02-01T13:30
-#&gt; 5  2016-01-14T12:37 2016-01-14T12:37 2016-01-14T12:37 2016-01-14T12:37
-#&gt; 6  2016-02-12T11:05 2016-04-14T12:00 2016-02-12T11:05 2016-04-14T12:00
-#&gt; 7  2016-03-21T15:40 2016-06-08T18:00 2016-03-21T15:40 2016-06-08T18:00
-#&gt; 8  2016-03-24T14:25 2016-03-24T14:25 2016-03-24T14:25 2016-03-24T14:25
-#&gt; 9  2016-02-08T12:37 2016-02-29T14:15 2016-02-08T12:37 2016-02-29T14:15
-#&gt; 10 2015-11-05T11:00 2015-11-05T11:00 2015-11-05T11:00 2015-11-05T11:00
-#&gt;       RFICDTC   RFPENDTC     DTHDTC DTHFL SITEID  INVID AGE  AGEU SEX
-#&gt; 1  2016-02-18 2016-07-24 2016-07-24     Y 283495 223804  12 YEARS   F
-#&gt; 2  2017-04-03                             283694 456732  15 YEARS   M
-#&gt; 3  2016-05-11 2016-08-12 2016-08-12     Y 282087 468105  27 YEARS   F
-#&gt; 4  2016-01-07                             282087 468105   2 YEARS   F
-#&gt; 5  2015-12-30 2016-05-31 2016-05-31     Y 283495 223804  19 YEARS   F
-#&gt; 6  2016-02-04 2017-02-16 2017-02-16     Y 280959  20842  16 YEARS   M
-#&gt; 7  2016-03-02 2016-09-11 2016-09-11     Y 283497 241874   7 YEARS   F
-#&gt; 8  2016-03-16 2016-08-05 2016-08-05     Y 284024 457432  13 YEARS   M
-#&gt; 9  2016-02-01                             281049 457179  16 YEARS   F
-#&gt; 10 2015-10-30 2016-01-08 2016-01-08     Y 283971 235545  19 YEARS   F
-#&gt;                         RACE                 ETHNIC ARMCD       ARM ACTARMCD
-#&gt; 1                      WHITE NOT HISPANIC OR LATINO  COH3  COHORT 3     COH3
-#&gt; 2                      WHITE NOT HISPANIC OR LATINO COH12 COHORT 12    COH12
-#&gt; 3                    UNKNOWN           NOT REPORTED COH9E COHORT 9E    COH9E
-#&gt; 4                    UNKNOWN           NOT REPORTED  COH1  COHORT 1     COH1
-#&gt; 5                   MULTIPLE NOT HISPANIC OR LATINO  COH1  COHORT 1     COH1
-#&gt; 6                      WHITE NOT HISPANIC OR LATINO COH9O COHORT 9O    COH9O
-#&gt; 7  BLACK OR AFRICAN AMERICAN     HISPANIC OR LATINO  COH6  COHORT 6     COH6
-#&gt; 8                      WHITE NOT HISPANIC OR LATINO  COH8  COHORT 8     COH8
-#&gt; 9                      ASIAN NOT HISPANIC OR LATINO  COH1  COHORT 1     COH1
-#&gt; 10                   UNKNOWN     HISPANIC OR LATINO  COH6  COHORT 6     COH6
-#&gt;       ACTARM COUNTRY      DMDTC DMDY BAGE BAGEU    BWT BWTU   BHT BHTU     BBMI
-#&gt; 1   COHORT 3     CHN 2016-02-18  -21   12 YEARS  50.00   kg 157.0   cm 20.28480
-#&gt; 2  COHORT 12     CHN 2017-04-04   -7   15 YEARS  26.15   kg 136.0   cm 14.13819
-#&gt; 3   COHORT 9     CHN 2016-05-25   -6   27 YEARS  61.60   kg 173.0   cm 20.58204
-#&gt; 4   COHORT 1     CHN 2016-01-07   -4    2 YEARS  64.60   kg 177.1   cm 20.59659
-#&gt; 5   COHORT 1     CHN 2015-12-30  -15   19 YEARS  40.60   kg 154.0   cm 17.11924
-#&gt; 6   COHORT 9     CHN 2016-02-04   -8   16 YEARS  45.20   kg 161.1   cm 17.41596
-#&gt; 7   COHORT 6     NGA 2016-03-02  -19    7 YEARS  53.90   kg 176.0   cm 17.40057
-#&gt; 8   COHORT 8     RUS 2016-03-22   -2   13 YEARS  25.40   kg 125.0   cm 16.25600
-#&gt; 9   COHORT 1     USA 2016-02-01   -7   16 YEARS 104.70   kg 172.0   cm 35.39075
-#&gt; 10  COHORT 6     USA 2015-10-30   -6   19 YEARS  57.00   kg 172.0   cm 19.26717
-#&gt;    ITTFL SAFFL    INFCODT     RANDDT          TRTSDTC             TRTSDTM
-#&gt; 1      Y     Y 2016-02-18 2016-03-09 2016-03-10T14:05 2016-03-10 14:05:00
-#&gt; 2      Y     Y 2017-04-03 2017-04-11 2017-04-11T12:35 2017-04-11 12:35:00
-#&gt; 3      Y     Y 2016-05-11 2016-05-31 2016-05-31T14:10 2016-05-31 14:10:00
-#&gt; 4      Y     Y 2016-01-07 2016-01-11 2016-01-11T14:30 2016-01-11 14:30:00
-#&gt; 5      Y     Y 2015-12-30 2016-01-14 2016-01-14T12:37 2016-01-14 12:37:00
-#&gt; 6      Y     Y 2016-02-04 2016-02-09 2016-02-12T11:05 2016-02-12 11:05:00
-#&gt; 7      Y     Y 2016-03-02 2016-03-21 2016-03-21T15:40 2016-03-21 15:40:00
-#&gt; 8      Y     Y 2016-03-16 2016-03-24 2016-03-24T14:25 2016-03-24 14:25:00
-#&gt; 9      Y     Y 2016-02-01 2016-02-03 2016-02-08T12:37 2016-02-08 12:37:00
-#&gt; 10     Y     Y 2015-10-30 2015-11-05 2015-11-05T11:00 2015-11-05 11:00:00
-#&gt;    TRTSTMF             TRTEDTM TRTETMF TRTDUR DISCSTUD DISCDEAT DISCAE DISTRTFL
-#&gt; 1        S 2016-03-31 16:55:59       S     22        Y        Y      N        Y
-#&gt; 2        S 2017-06-14 12:15:59       S     65        N        N      N        Y
-#&gt; 3        S 2016-05-31 15:10:59       S      1        Y        Y      N        Y
-#&gt; 4        S 2016-02-01 14:30:59       S     22        N        N      N        Y
-#&gt; 5        S 2016-01-14 13:37:59       S      1        Y        Y      N        Y
-#&gt; 6        S 2016-04-14 12:30:59       S     63        Y        Y      N        Y
-#&gt; 7        S 2016-06-08 18:30:59       S     80        Y        Y      N        Y
-#&gt; 8        S 2016-03-24 15:30:59       S      1        Y        Y      N        Y
-#&gt; 9        S 2016-02-29 14:48:59       S     22        N        N      N        Y
-#&gt; 10       S 2015-11-05 12:00:59       S      1        Y        Y      N        Y
-#&gt;    AEWITHFL     ALIVDT
-#&gt; 1         N 2016-07-24
-#&gt; 2         N 2017-09-27
-#&gt; 3         N 2016-08-12
-#&gt; 4         N 2017-08-15
-#&gt; 5         Y 2016-05-31
-#&gt; 6         N 2017-02-16
-#&gt; 7         N 2016-09-11
-#&gt; 8         N 2016-08-05
-#&gt; 9         N 2017-08-28
-#&gt; 10        N 2016-01-08
-#&gt;                                                           COHORT
-#&gt; 1                                       Cohort 3 (NEUROBLASTOMA)
-#&gt; 2                    Cohort 12 (ATYPICAL TERATOID RHABOID TUMOR)
-#&gt; 3  Cohort 9 (OTHER TUMOR TYPES WITH DOCUMENTED PD-L1 EXPRESSION)
-#&gt; 4                                       Cohort 1 (EWING SARCOMA)
-#&gt; 5                                       Cohort 1 (EWING SARCOMA)
-#&gt; 6  Cohort 9 (OTHER TUMOR TYPES WITH DOCUMENTED PD-L1 EXPRESSION)
-#&gt; 7                                        Cohort 6 (OSTEOSARCOMA)
-#&gt; 8                                         Cohort 8 (WILMS TUMOR)
-#&gt; 9                                       Cohort 1 (EWING SARCOMA)
-#&gt; 10                                       Cohort 6 (OSTEOSARCOMA)
-#&gt;                                                                                                                                        TTYPE
-#&gt; 1                                                                                                                              NEUROBLASTOMA
-#&gt; 2                                                                                                           ATYPICAL TERATOID RHABDOID TUMOR
-#&gt; 3                                                 GERM CELL TUMOR - YOLK SAC TUMOR (ENDODERMAL SINUS TUMOR) WITH DOCUMENTED PD-L1 EXPRESSION
-#&gt; 4                                                                                                                              EWING SARCOMA
-#&gt; 5                                                                                                                              EWING SARCOMA
-#&gt; 6  OTHER TUMOR TYPES WITH DOCUMENTED PD-L1 EXPRESSION ON EITHER TUMOR CELLS OR IMMUNE CELLS (TUMORS TYPE MUST NOT BE INCLUDED IN LIST ABOVE)
-#&gt; 7                                                                                                                               OSTEOSARCOMA
-#&gt; 8                                                                                                                                WILMS TUMOR
-#&gt; 9                                                                                                                              EWING SARCOMA
-#&gt; 10                                                                                                                              OSTEOSARCOMA
-#&gt;    STDSSDY low_depth_flag tech_failure_flag GeneID.1820 extra
-#&gt; 1      137          FALSE             FALSE          16    10
-#&gt; 2       NA          FALSE             FALSE          54     4
-#&gt; 3       74          FALSE             FALSE         567     6
-#&gt; 4       NA          FALSE             FALSE         153     2
-#&gt; 5      139          FALSE             FALSE          49     1
-#&gt; 6      371          FALSE             FALSE         111     5
-#&gt; 7      175           TRUE             FALSE         180     9
-#&gt; 8      135           TRUE             FALSE          94     3
-#&gt; 9       NA          FALSE             FALSE         171     8
-#&gt; 10      65          FALSE             FALSE         118     7</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>gene_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='col_data_with_genes.html'>col_data_with_genes</a></span><span class='op'>(</span><span class='va'>hermes_data</span>, <span class='st'>"counts"</span>, <span class='fu'><a href='gene_spec.html'>gene_spec</a></span><span class='op'>(</span><span class='st'>"GeneID:1820"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cdisc_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  USUBJID <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>gene_data</span><span class='op'>$</span><span class='va'>USUBJID</span>, <span class='fl'>10</span><span class='op'>)</span>,</span>
+<span class='r-in'>  extra <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>inner_join_cdisc</span><span class='op'>(</span><span class='va'>gene_data</span>, <span class='va'>cdisc_data</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Patients AB12345-CHN-7-id-28, AB12345-CHN-4-id-73, AB12345-RUS-1-id-52, AB12345-PAK-11-id-268, AB12345-CHN-13-id-102, AB12345-CHN-17-id-84, AB12345-BRA-11-id-9, AB12345-CHN-4-id-115, AB12345-CHN-15-id-245, AB12345-CHN-4-id-370 from gene data set were lost because they could not be joined to CDISC data set</span>
+<span class='r-in'><span class='va'>result</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  USUBJID Filename       SampleID         AGEGRP AGE18 STDDRS</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   AB12345-CHN-1-id-307     eset 06520046C0018R 12 - &lt;18 years  &lt; 18  DEATH</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  AB12345-CHN-11-id-220     eset 06520105C0017R 12 - &lt;18 years  &lt; 18       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  AB12345-CHN-15-id-201     eset 06520103C0017R    &gt;= 18 years &gt;= 18  DEATH</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  AB12345-CHN-15-id-262     eset 06520067C0018R   2 - &lt;6 years  &lt; 18       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   AB12345-CHN-3-id-128     eset 06520011B0023R    &gt;= 18 years &gt;= 18  DEATH</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   AB12345-CHN-7-id-267     eset 06520092C0017R 12 - &lt;18 years  &lt; 18  DEATH</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  AB12345-NGA-11-id-173     eset 06520062C0017R  6 - &lt;12 years  &lt; 18  DEATH</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   AB12345-RUS-3-id-378     eset 06520063C0043R 12 - &lt;18 years  &lt; 18  DEATH</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   AB12345-USA-1-id-261     eset 06520022C0017R 12 - &lt;18 years  &lt; 18       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10   AB12345-USA-1-id-45     eset 06520001B0023R    &gt;= 18 years &gt;= 18  DEATH</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                STDDRSD    STDSSDT              TRTDRS</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  DEATH DUE TO PROGRESSION OF DISEASE 07/24/2016 PROGRESSIVE DISEASE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                                                 PROGRESSIVE DISEASE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  DEATH DUE TO PROGRESSION OF DISEASE 08/12/2016 PROGRESSIVE DISEASE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                 PROGRESSIVE DISEASE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  DEATH DUE TO PROGRESSION OF DISEASE 05/31/2016       ADVERSE EVENT</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  DEATH DUE TO PROGRESSION OF DISEASE 02/16/2017 PROGRESSIVE DISEASE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  DEATH DUE TO PROGRESSION OF DISEASE 09/11/2016 PROGRESSIVE DISEASE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  DEATH DUE TO PROGRESSION OF DISEASE 08/05/2016 PROGRESSIVE DISEASE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                                 PROGRESSIVE DISEASE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 DEATH DUE TO PROGRESSION OF DISEASE 01/08/2016 PROGRESSIVE DISEASE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   TRTDRSD BHDCIRC BHDCIRCU ADAFL BLANP BKPS BLKS BTANNER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  PROGRESSION OF DISEASE      NA              Y    NA   80   80      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  PROGRESSION OF DISEASE      NA              Y   100   NA  100      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  PROGRESSION OF DISEASE      NA              Y    NA   90   90      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  PROGRESSION OF DISEASE      NA              Y    NA  100  100      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5           ADVERSE EVENT      NA              Y   100   NA  100      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  PROGRESSION OF DISEASE      NA              Y   100   NA  100      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  PROGRESSION OF DISEASE      NA              Y    NA  100  100      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  PROGRESSION OF DISEASE      NA              Y    90   NA   90      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  PROGRESSION OF DISEASE      NA              Y    NA   90   90      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 PROGRESSION OF DISEASE      NA              Y    NA   90   90      NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             FRPST     DURIDX    DURSAF    DURSUR LNTHRPY AENCIFL STUDYID</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  POST-MENARCHAL  61.667351 1.6755647  5.158111       5      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   PRE-MENARCHAL  14.981520 3.0882957  5.815195       4      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                  10.841889 0.9856263  3.055441       4      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                 131.088296 1.6755647 19.252567       3      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                  55.030801 0.9856263  5.026694       3      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                   7.687885 3.0225873 12.418891       1      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                  99.285421 3.5811088  6.340862       7      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                  93.568789 0.9856263  4.665298       3      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                  41.626283 1.6755647 18.858316       3      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                 45.733060 0.6570842  2.299795       2      NA AB12345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             RFSTDTC          RFENDTC         RFXSTDTC         RFXENDTC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  2016-03-10T14:05 2016-03-31T15:49 2016-03-10T14:05 2016-03-31T15:49</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2017-04-11T12:35 2017-06-14T11:45 2017-04-11T12:35 2017-06-14T11:45</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  2016-05-31T14:10 2016-05-31T14:10 2016-05-31T14:10 2016-05-31T14:10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  2016-01-11T14:30 2016-02-01T13:30 2016-01-11T14:30 2016-02-01T13:30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  2016-01-14T12:37 2016-01-14T12:37 2016-01-14T12:37 2016-01-14T12:37</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  2016-02-12T11:05 2016-04-14T12:00 2016-02-12T11:05 2016-04-14T12:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  2016-03-21T15:40 2016-06-08T18:00 2016-03-21T15:40 2016-06-08T18:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  2016-03-24T14:25 2016-03-24T14:25 2016-03-24T14:25 2016-03-24T14:25</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2016-02-08T12:37 2016-02-29T14:15 2016-02-08T12:37 2016-02-29T14:15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2015-11-05T11:00 2015-11-05T11:00 2015-11-05T11:00 2015-11-05T11:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       RFICDTC   RFPENDTC     DTHDTC DTHFL SITEID  INVID AGE  AGEU SEX</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  2016-02-18 2016-07-24 2016-07-24     Y 283495 223804  12 YEARS   F</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2017-04-03                             283694 456732  15 YEARS   M</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  2016-05-11 2016-08-12 2016-08-12     Y 282087 468105  27 YEARS   F</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  2016-01-07                             282087 468105   2 YEARS   F</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  2015-12-30 2016-05-31 2016-05-31     Y 283495 223804  19 YEARS   F</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  2016-02-04 2017-02-16 2017-02-16     Y 280959  20842  16 YEARS   M</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  2016-03-02 2016-09-11 2016-09-11     Y 283497 241874   7 YEARS   F</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  2016-03-16 2016-08-05 2016-08-05     Y 284024 457432  13 YEARS   M</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2016-02-01                             281049 457179  16 YEARS   F</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2015-10-30 2016-01-08 2016-01-08     Y 283971 235545  19 YEARS   F</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         RACE                 ETHNIC ARMCD       ARM ACTARMCD</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                      WHITE NOT HISPANIC OR LATINO  COH3  COHORT 3     COH3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                      WHITE NOT HISPANIC OR LATINO COH12 COHORT 12    COH12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                    UNKNOWN           NOT REPORTED COH9E COHORT 9E    COH9E</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                    UNKNOWN           NOT REPORTED  COH1  COHORT 1     COH1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                   MULTIPLE NOT HISPANIC OR LATINO  COH1  COHORT 1     COH1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                      WHITE NOT HISPANIC OR LATINO COH9O COHORT 9O    COH9O</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  BLACK OR AFRICAN AMERICAN     HISPANIC OR LATINO  COH6  COHORT 6     COH6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                      WHITE NOT HISPANIC OR LATINO  COH8  COHORT 8     COH8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                      ASIAN NOT HISPANIC OR LATINO  COH1  COHORT 1     COH1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                   UNKNOWN     HISPANIC OR LATINO  COH6  COHORT 6     COH6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       ACTARM COUNTRY      DMDTC DMDY BAGE BAGEU    BWT BWTU   BHT BHTU     BBMI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   COHORT 3     CHN 2016-02-18  -21   12 YEARS  50.00   kg 157.0   cm 20.28480</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  COHORT 12     CHN 2017-04-04   -7   15 YEARS  26.15   kg 136.0   cm 14.13819</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   COHORT 9     CHN 2016-05-25   -6   27 YEARS  61.60   kg 173.0   cm 20.58204</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   COHORT 1     CHN 2016-01-07   -4    2 YEARS  64.60   kg 177.1   cm 20.59659</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   COHORT 1     CHN 2015-12-30  -15   19 YEARS  40.60   kg 154.0   cm 17.11924</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   COHORT 9     CHN 2016-02-04   -8   16 YEARS  45.20   kg 161.1   cm 17.41596</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   COHORT 6     NGA 2016-03-02  -19    7 YEARS  53.90   kg 176.0   cm 17.40057</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   COHORT 8     RUS 2016-03-22   -2   13 YEARS  25.40   kg 125.0   cm 16.25600</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   COHORT 1     USA 2016-02-01   -7   16 YEARS 104.70   kg 172.0   cm 35.39075</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10  COHORT 6     USA 2015-10-30   -6   19 YEARS  57.00   kg 172.0   cm 19.26717</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ITTFL SAFFL    INFCODT     RANDDT          TRTSDTC             TRTSDTM</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1      Y     Y 2016-02-18 2016-03-09 2016-03-10T14:05 2016-03-10 14:05:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2      Y     Y 2017-04-03 2017-04-11 2017-04-11T12:35 2017-04-11 12:35:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3      Y     Y 2016-05-11 2016-05-31 2016-05-31T14:10 2016-05-31 14:10:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4      Y     Y 2016-01-07 2016-01-11 2016-01-11T14:30 2016-01-11 14:30:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5      Y     Y 2015-12-30 2016-01-14 2016-01-14T12:37 2016-01-14 12:37:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6      Y     Y 2016-02-04 2016-02-09 2016-02-12T11:05 2016-02-12 11:05:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7      Y     Y 2016-03-02 2016-03-21 2016-03-21T15:40 2016-03-21 15:40:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8      Y     Y 2016-03-16 2016-03-24 2016-03-24T14:25 2016-03-24 14:25:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9      Y     Y 2016-02-01 2016-02-03 2016-02-08T12:37 2016-02-08 12:37:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10     Y     Y 2015-10-30 2015-11-05 2015-11-05T11:00 2015-11-05 11:00:00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    TRTSTMF             TRTEDTM TRTETMF TRTDUR DISCSTUD DISCDEAT DISCAE DISTRTFL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        S 2016-03-31 16:55:59       S     22        Y        Y      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2        S 2017-06-14 12:15:59       S     65        N        N      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3        S 2016-05-31 15:10:59       S      1        Y        Y      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4        S 2016-02-01 14:30:59       S     22        N        N      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5        S 2016-01-14 13:37:59       S      1        Y        Y      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6        S 2016-04-14 12:30:59       S     63        Y        Y      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7        S 2016-06-08 18:30:59       S     80        Y        Y      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8        S 2016-03-24 15:30:59       S      1        Y        Y      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9        S 2016-02-29 14:48:59       S     22        N        N      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10       S 2015-11-05 12:00:59       S      1        Y        Y      N        Y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    AEWITHFL     ALIVDT</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1         N 2016-07-24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2         N 2017-09-27</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3         N 2016-08-12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4         N 2017-08-15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5         Y 2016-05-31</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6         N 2017-02-16</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7         N 2016-09-11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8         N 2016-08-05</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9         N 2017-08-28</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10        N 2016-01-08</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                           COHORT</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                                       Cohort 3 (NEUROBLASTOMA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                    Cohort 12 (ATYPICAL TERATOID RHABOID TUMOR)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  Cohort 9 (OTHER TUMOR TYPES WITH DOCUMENTED PD-L1 EXPRESSION)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                       Cohort 1 (EWING SARCOMA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                       Cohort 1 (EWING SARCOMA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  Cohort 9 (OTHER TUMOR TYPES WITH DOCUMENTED PD-L1 EXPRESSION)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                                        Cohort 6 (OSTEOSARCOMA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                                         Cohort 8 (WILMS TUMOR)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                       Cohort 1 (EWING SARCOMA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                                       Cohort 6 (OSTEOSARCOMA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                                                                        TTYPE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                                                                                                                              NEUROBLASTOMA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                                                                                                           ATYPICAL TERATOID RHABDOID TUMOR</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                 GERM CELL TUMOR - YOLK SAC TUMOR (ENDODERMAL SINUS TUMOR) WITH DOCUMENTED PD-L1 EXPRESSION</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                                                                                              EWING SARCOMA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                                                                                                              EWING SARCOMA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  OTHER TUMOR TYPES WITH DOCUMENTED PD-L1 EXPRESSION ON EITHER TUMOR CELLS OR IMMUNE CELLS (TUMORS TYPE MUST NOT BE INCLUDED IN LIST ABOVE)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                                                                                                                               OSTEOSARCOMA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                                                                                                                                WILMS TUMOR</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                                                                                                              EWING SARCOMA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                                                                                                                              OSTEOSARCOMA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    STDSSDY low_depth_flag tech_failure_flag GeneID.1820 extra</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1      137          FALSE             FALSE          16    10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2       NA          FALSE             FALSE          54     4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3       74          FALSE             FALSE         567     6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4       NA          FALSE             FALSE         153     2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5      139          FALSE             FALSE          49     1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6      371          FALSE             FALSE         111     5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7      175           TRUE             FALSE         180     9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8      135           TRUE             FALSE          94     3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9       NA          FALSE             FALSE         171     8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10      65          FALSE             FALSE         118     7</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

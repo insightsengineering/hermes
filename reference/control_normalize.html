@@ -91,7 +91,7 @@ This control function allows for easy customization of the normalization setting
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -192,33 +192,35 @@ See <code>estimateDispersions</code> for details.</p></td>
     <p>To be used with the <code><a href='normalize,AnyHermesData-method.html'>normalize()</a></code> function.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>control_normalize</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $log
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $lib_sizes
-#&gt; NULL
-#&gt; 
-#&gt; $prior_count
-#&gt; [1] 1
-#&gt; 
-#&gt; $fit_type
-#&gt; [1] "parametric"
-#&gt; </div><div class='input'><span class='fu'>control_normalize</span><span class='op'>(</span>log <span class='op'>=</span> <span class='cn'>FALSE</span>, lib_sizes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1e6L</span>, <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $log
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $lib_sizes
-#&gt;  [1] 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000
-#&gt; [10] 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000
-#&gt; [19] 1000000 1000000
-#&gt; 
-#&gt; $prior_count
-#&gt; [1] 1
-#&gt; 
-#&gt; $fit_type
-#&gt; [1] "parametric"
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>control_normalize</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $log</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lib_sizes</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $prior_count</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $fit_type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "parametric"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>control_normalize</span><span class='op'>(</span>log <span class='op'>=</span> <span class='cn'>FALSE</span>, lib_sizes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1e6L</span>, <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $log</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $lib_sizes</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19] 1000000 1000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $prior_count</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $fit_type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "parametric"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

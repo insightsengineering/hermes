@@ -92,7 +92,7 @@ samples (columns in assays)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -185,13 +185,14 @@ class).</p></li>
     <div class='dont-index'><p><code><a href='rbind.html'>rbind</a></code> to row bind objects.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>
-<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span><span class='op'>[</span>, <span class='fl'>11</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>]</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>cbind</span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>b</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "HermesData"
-#&gt; attr(,"package")
-#&gt; [1] "hermes"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span></span>
+<span class='r-in'><span class='va'>b</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span><span class='op'>[</span>, <span class='fl'>11</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>]</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>cbind</span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>b</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "HermesData"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"package")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "hermes"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

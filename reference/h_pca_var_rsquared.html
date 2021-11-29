@@ -92,7 +92,7 @@ and all Principal Components (PCs) separately (one linear model is fit for each 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -178,20 +178,20 @@ and all Principal Components (PCs) separately (one linear model is fit for each 
 be returned for those.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='add_quality_flags.html'>add_quality_flags</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='filter.html'>filter</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='normalize,AnyHermesData-method.html'>normalize</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># Obtain the principal components.</span>
-<span class='va'>pca</span> <span class='op'>&lt;-</span> <span class='fu'><a href='calc_pca.html'>calc_pca</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>$</span><span class='va'>x</span>
-
-<span class='co'># Obtain the sample variable.</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>$</span><span class='va'>AGE18</span>
-
-<span class='co'># Correlate them.</span>
-<span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>h_pca_var_rsquared</span><span class='op'>(</span><span class='va'>pca</span>, <span class='va'>x</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='add_quality_flags.html'>add_quality_flags</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='filter.html'>filter</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='normalize,AnyHermesData-method.html'>normalize</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Obtain the principal components.</span></span>
+<span class='r-in'><span class='va'>pca</span> <span class='op'>&lt;-</span> <span class='fu'><a href='calc_pca.html'>calc_pca</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>$</span><span class='va'>x</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Obtain the sample variable.</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>colData</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>$</span><span class='va'>AGE18</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Correlate them.</span></span>
+<span class='r-in'><span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>h_pca_var_rsquared</span><span class='op'>(</span><span class='va'>pca</span>, <span class='va'>x</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

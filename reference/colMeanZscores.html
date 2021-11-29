@@ -91,7 +91,7 @@ This helper function returns the Z-score from an assay stored as a matrix." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -170,21 +170,22 @@ in columns, no missing values are allowed.</p></td>
 column in <code>x</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='add_quality_flags.html'>add_quality_flags</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='filter.html'>filter</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='normalize,AnyHermesData-method.html'>normalize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>assay</span><span class='op'>(</span><span class='st'>"counts"</span><span class='op'>)</span>
-
-<span class='fu'>colMeanZscores</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 06520011B0023R 06520067C0018R 06520063C0043R 06520105C0017R 06520092C0017R 
-#&gt;   5.195107e-04  -1.189550e-03   1.155081e-04   3.308070e-04  -1.130575e-03 
-#&gt; 06520103C0017R 06520001B0023R 06520022C0017R 06520062C0017R 06520101B0017R 
-#&gt;   1.688234e-03   5.201127e-05  -1.145377e-03   1.922514e-03  -1.779591e-03 
-#&gt; 06520047C0017R 06520024B0014R 06520080B0023R 06520093C0017R 06520070C0018R 
-#&gt;   2.320730e-04  -4.893309e-04   9.562463e-04  -3.677371e-04  -9.567040e-04 
-#&gt; 06520023C0018R 06520099B0017R 06520015C0016R 06520019C0023R 
-#&gt;  -5.682047e-04   7.648360e-04   2.441182e-04   8.012106e-04 </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='add_quality_flags.html'>add_quality_flags</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='filter.html'>filter</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='normalize,AnyHermesData-method.html'>normalize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>assay</a></span><span class='op'>(</span><span class='st'>"counts"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>colMeanZscores</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 06520011B0023R 06520067C0018R 06520063C0043R 06520105C0017R 06520092C0017R </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5.195107e-04  -1.189550e-03   1.155081e-04   3.308070e-04  -1.130575e-03 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 06520103C0017R 06520001B0023R 06520022C0017R 06520062C0017R 06520101B0017R </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1.688234e-03   5.201127e-05  -1.145377e-03   1.922514e-03  -1.779591e-03 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 06520047C0017R 06520024B0014R 06520080B0023R 06520093C0017R 06520070C0018R </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2.320730e-04  -4.893309e-04   9.562463e-04  -3.677371e-04  -9.567040e-04 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 06520023C0018R 06520099B0017R 06520015C0016R 06520019C0023R </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -5.682047e-04   7.648360e-04   2.441182e-04   8.012106e-04 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

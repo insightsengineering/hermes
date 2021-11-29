@@ -93,7 +93,7 @@ A corresponding autoplot() method then can visualize the results in a heatmap." 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
       </span>
     </div>
 
@@ -153,14 +153,14 @@ A corresponding autoplot() method then can visualize the results in a heatmap." 
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='[Stable]' /></a></p>
 <p>This <code><a href='correlate.html'>correlate()</a></code> method analyses the correlations (in R2 values) between all sample variables
 in a <code><a href='HermesData-class.html'>AnyHermesData</a></code> object and the principal components of the samples.</p>
-<p>A corresponding <code>autoplot()</code> method then can visualize the results in a heatmap.</p>
+<p>A corresponding <code><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot()</a></code> method then can visualize the results in a heatmap.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for HermesDataPca</span>
 <span class='fu'><a href='correlate.html'>correlate</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>data</span><span class='op'>)</span>
 
 <span class='co'># S4 method for HermesDataPcaCor</span>
-<span class='fu'>autoplot</span><span class='op'>(</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span>
   <span class='va'>object</span>,
   cor_colors <span class='op'>=</span> <span class='fu'>circlize</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/circlize/man/colorRamp2.html'>colorRamp2</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"white"</span>, <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>,
   <span class='va'>...</span>
@@ -204,28 +204,31 @@ to visualize a <code>HermesDataPcaCor</code> object.</p></li>
     <div class='dont-index'><p><code><a href='h_pca_df_r2_matrix.html'>h_pca_df_r2_matrix()</a></code> which is used internally for the details.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='add_quality_flags.html'>add_quality_flags</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='filter.html'>filter</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='normalize,AnyHermesData-method.html'>normalize</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># Perform PCA and then correlate the prinicipal components with the sample variables.</span>
-<span class='va'>object_pca</span> <span class='op'>&lt;-</span> <span class='fu'><a href='calc_pca.html'>calc_pca</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='correlate.html'>correlate</a></span><span class='op'>(</span><span class='va'>object_pca</span>, <span class='va'>object</span><span class='op'>)</span>
-
-<span class='co'># Visualize the correlations in a heatmap.</span>
-<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='img'><img src='pca_cor_samplevar-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># We can also choose to not reorder the columns.</span>
-<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>result</span>, cluster_columns <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='pca_cor_samplevar-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># We can also choose break-points for color customization.</span>
-<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>result</span>,
-         cor_colors <span class='op'>=</span> <span class='fu'>circlize</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/circlize/man/colorRamp2.html'>colorRamp2</a></span><span class='op'>(</span>
-         <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>, <span class='op'>-</span><span class='fl'>0.25</span>, <span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>1</span><span class='op'>)</span>,
-         <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"green"</span>, <span class='st'>"purple"</span>, <span class='st'>"yellow"</span>, <span class='st'>"orange"</span>, <span class='st'>"red"</span>, <span class='st'>"brown"</span><span class='op'>)</span>
-         <span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='pca_cor_samplevar-3.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='va'>hermes_data</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='add_quality_flags.html'>add_quality_flags</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='filter.html'>filter</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='normalize,AnyHermesData-method.html'>normalize</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Perform PCA and then correlate the prinicipal components with the sample variables.</span></span>
+<span class='r-in'><span class='va'>object_pca</span> <span class='op'>&lt;-</span> <span class='fu'><a href='calc_pca.html'>calc_pca</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='correlate.html'>correlate</a></span><span class='op'>(</span><span class='va'>object_pca</span>, <span class='va'>object</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Visualize the correlations in a heatmap.</span></span>
+<span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pca_cor_samplevar-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># We can also choose to not reorder the columns.</span></span>
+<span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>result</span>, cluster_columns <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pca_cor_samplevar-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># We can also choose break-points for color customization.</span></span>
+<span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>result</span>,</span>
+<span class='r-in'>         cor_colors <span class='op'>=</span> <span class='fu'>circlize</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/circlize/man/colorRamp2.html'>colorRamp2</a></span><span class='op'>(</span></span>
+<span class='r-in'>         <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>, <span class='op'>-</span><span class='fl'>0.25</span>, <span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>         <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"green"</span>, <span class='st'>"purple"</span>, <span class='st'>"yellow"</span>, <span class='st'>"orange"</span>, <span class='st'>"red"</span>, <span class='st'>"brown"</span><span class='op'>)</span></span>
+<span class='r-in'>         <span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pca_cor_samplevar-3.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
