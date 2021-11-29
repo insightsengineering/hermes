@@ -1,15 +1,13 @@
-
+<!-- markdownlint-disable-file -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
- 
-
 # hermes
 <p align="center">
 <img src='man/figures/logo.png' align="right" height="131.5" alt="hermes-logo"/>
 </p>
+
+[![Project Status: Active - The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)  
 
 > `hermes` facilitates preprocessing, analyzing, and reporting of
 > RNA-seq data.
@@ -27,10 +25,25 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 ## Installation
 
+### BioConductor
+
+You can install the current release from BioConductor with:
+
+``` r
+if (!require("BiocManager")) {
+  install.packages("BiocManager")
+}
+BiocManager::install("hermes")
+```
+
+### GitHub
+
 You can install the development version from GitHub with:
 
 ``` r
-# install.packages("devtools")
+if (!require("devtools")) {
+  install.packages("devtools")
+}
 devtools::install_github("insightsengineering/hermes")
 ```
 
