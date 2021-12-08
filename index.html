@@ -53,7 +53,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9004</span>
       </span>
     </div>
 
@@ -83,17 +83,6 @@
 <li>
   <a href="news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="index.html">latest</a></li>
-   <li><a href="pre-release/index.html">pre-release</a></li>
-   <li><a href="v0.1.1/index.html">v0.1.1</a></li>
-   <li><a href="v0.1.0/index.html">v0.1.0</a></li>
-</ul></li>
-<!-- end_releases -->
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -137,25 +126,26 @@ Other releases
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
+<div id="github" class="section level3">
+<h3 class="hasAnchor">
+<a href="#github" class="anchor"></a>GitHub</h3>
+<p>You can install the latest stable release from GitHub with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"insightsengineering/hermes"</span>, ref <span class="op">=</span> <span class="st">"v0.1.1"</span><span class="op">)</span></code></pre></div>
+</div>
 <div id="bioconductor" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bioconductor" class="anchor"></a>BioConductor</h3>
-<p>You can install the current release from BioConductor with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<p>Currently <code>hermes</code> is on development version 3.15 of BioConductor, which requires development R 4.2. Please be aware of this. The actual release will happen when 3.15 is released, expected in Q2 2022.</p>
+<p>If you like you can install the current development version from BioConductor with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"hermes"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="github" class="section level3">
-<h3 class="hasAnchor">
-<a href="#github" class="anchor"></a>GitHub</h3>
-<p>You can install the development version from GitHub with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"insightsengineering/hermes"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="getting-started" class="section level2">
