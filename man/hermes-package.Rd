@@ -28,15 +28,12 @@ Authors:
   \item Jeff Luong
   \item Lyndsee Midori Zhang \email{zhang.lyndsee@gene.com}
   \item Simona Rossomanno
-}
-
-Other contributors:
-\itemize{
-  \item Tim Treis [contributor]
-  \item Mark Yan [contributor]
-  \item Naomi Chang [contributor]
-  \item Chendi Liao \email{chendi.liao@roche.com} [contributor]
-  \item Joseph N. Paulson \email{paulson.joseph@gene.com} [contributor]
+  \item Tim Treis
+  \item Mark Yan
+  \item Naomi Chang
+  \item Chendi Liao \email{chendi.liao@roche.com}
+  \item Carolyn Zhang
+  \item Joseph N. Paulson \email{paulson.joseph@gene.com}
 }
 
 }

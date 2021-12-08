@@ -4,19 +4,20 @@ Title: Preprocessing, analyzing, and reporting of RNA-seq data
 Version: 0.99.2.9003
 Date: 2021-11-24
 Authors@R: c(
-    person("Daniel", "Sabanés Bové", , "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
+    person("Daniel", "Sabanés Bové", email = "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
     person("Namrata", "Bhatia", role = "aut"),
     person("Stefanie", "Bienert", role = "aut"),
     person("Benoit", "Falquet", role = "aut"),
     person("Haocheng", "Li", role = "aut"),
     person("Jeff", "Luong", role = "aut"),
-    person("Lyndsee", "Midori Zhang", , "zhang.lyndsee@gene.com", role = "aut"),
+    person("Lyndsee", "Midori Zhang", email = "zhang.lyndsee@gene.com", role = "aut"),
     person("Simona", "Rossomanno", role = "aut"),
-    person("Tim", "Treis", role = "ctb"),
-    person("Mark", "Yan", role = "ctb"),
-    person("Naomi", "Chang", role = "ctb"),
-    person("Chendi", "Liao", , "chendi.liao@roche.com", role = "ctb"),
-    person("Joseph N.", "Paulson", , "paulson.joseph@gene.com", role = "ctb")
+    person("Tim", "Treis", role = "aut"),
+    person("Mark", "Yan", role = "aut"),
+    person("Naomi", "Chang", role = "aut"),
+    person("Chendi", "Liao", email = "chendi.liao@roche.com", role = "aut"),
+    person("Carolyn Zhang", role = "aut"),
+    person("Joseph N.", "Paulson", email = "paulson.joseph@gene.com", role = "aut")
   )
 Description: Provides classes and functions for quality control,
     filtering, normalization and differential expression analysis of
