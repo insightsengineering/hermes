@@ -25,26 +25,30 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 ## Installation
 
+### GitHub
+
+You can install the latest stable release from GitHub with:
+
+``` r
+if (!require("devtools")) {
+  install.packages("devtools")
+}
+devtools::install_github("insightsengineering/hermes", ref = "v0.1.1")
+```
+
 ### BioConductor
 
-You can install the current release from BioConductor with:
+Currently `hermes` is on development version 3.15 of BioConductor, which
+requires development R 4.2. Please be aware of this. The actual release will
+happen when 3.15 is released, expected in Q2 2022.
+
+If you like you can install the current development version from BioConductor with:
 
 ``` r
 if (!require("BiocManager")) {
   install.packages("BiocManager")
 }
 BiocManager::install("hermes")
-```
-
-### GitHub
-
-You can install the development version from GitHub with:
-
-``` r
-if (!require("devtools")) {
-  install.packages("devtools")
-}
-devtools::install_github("insightsengineering/hermes")
 ```
 
 ## Getting Started
