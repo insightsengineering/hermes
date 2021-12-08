@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2.9003</span>
       </span>
     </div>
 
@@ -74,17 +74,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="../pre-release/index.html">pre-release</a></li>
-   <li><a href="../v0.1.1/index.html">v0.1.1</a></li>
-   <li><a href="../v0.1.0/index.html">v0.1.0</a></li>
-</ul></li>
-<!-- end_releases -->
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -119,6 +108,11 @@ Other releases
                         <h4 class="author">Lyndsee Midori Zhang</h4>
                         <h4 class="author">Simona Rossomanno</h4>
                         <h4 class="author">Tim Treis</h4>
+                        <h4 class="author">Mark Yan</h4>
+                        <h4 class="author">Naomi Chang</h4>
+                        <h4 class="author">Chendi Liao</h4>
+                        <h4 class="author">Carolyn Zhang</h4>
+                        <h4 class="author">Joseph N. Paulson</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/insightsengineering/hermes/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
@@ -131,7 +125,8 @@ Other releases
 <div id="acknowledgments" class="section level1">
 <h1 class="hasAnchor">
 <a href="#acknowledgments" class="anchor"></a>Acknowledgments</h1>
-<p><code>hermes</code> is a successor of the Roche internal <code>rnaseqTools</code> R package, and therefore many code ideas have been borrowed from it. Therefore we would like to thank the <code>rnaseqTools</code> authors for their work. In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of <code>hermes</code>. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal <code>biokitr</code> R package and discussed them with its maintainer Daniel Marbach.</p>
+<p><code>hermes</code> is a successor of the Roche internal <code>rnaseqTools</code> R package, and therefore many code ideas have been borrowed from it. Therefore we would like to thank the <code>rnaseqTools</code> authors for their work.</p>
+<p>In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of <code>hermes</code>. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal <code>biokitr</code> R package and discussed them with its maintainer Daniel Marbach.</p>
 <p>Finally, <code>hermes</code> originated as part of the NEST project. We are grateful for the entire team’s support.</p>
 <p>Thanks a lot to everyone involved!</p>
 </div>
@@ -142,7 +137,7 @@ Other releases
 <div id="bioconductor" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bioconductor" class="anchor"></a>BioConductor</h2>
-<p>You can install the current release from BioConductor with:</p>
+<p>With the development version (3.15) of BioConductor, you can install the current package version with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
@@ -157,7 +152,7 @@ Other releases
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"insightsengineering/hermes"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"insightsengineering/hermes"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="introduction" class="section level1">
@@ -646,8 +641,8 @@ Other releases
 <div id="session-info" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session Info</h1>
-<p>Here is the output of <code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code> on the system on which this document was compiled running pandoc 2.11.4:</p>
-<pre><code>#&gt; R version 4.1.0 (2021-05-18)
+<p>Here is the output of <code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code> on the system on which this document was compiled running pandoc 2.14.0.3:</p>
+<pre><code>#&gt; R version 4.1.2 (2021-11-01)
 #&gt; Platform: x86_64-pc-linux-gnu (64-bit)
 #&gt; Running under: Ubuntu 20.04.3 LTS
 #&gt; 
@@ -663,15 +658,15 @@ Other releases
 #&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 #&gt; 
 #&gt; attached base packages:
-#&gt; [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
-#&gt; [8] methods   base     
+#&gt; [1] stats4    stats     graphics  grDevices utils     datasets  methods  
+#&gt; [8] base     
 #&gt; 
 #&gt; other attached packages:
-#&gt;  [1] hermes_0.99.2.9001          SummarizedExperiment_1.22.0
-#&gt;  [3] Biobase_2.52.0              GenomicRanges_1.44.0       
-#&gt;  [5] GenomeInfoDb_1.28.4         IRanges_2.26.0             
-#&gt;  [7] S4Vectors_0.30.2            BiocGenerics_0.38.0        
-#&gt;  [9] MatrixGenerics_1.4.3        matrixStats_0.61.0         
+#&gt;  [1] hermes_0.99.2.9003          SummarizedExperiment_1.24.0
+#&gt;  [3] Biobase_2.54.0              GenomicRanges_1.46.1       
+#&gt;  [5] GenomeInfoDb_1.30.0         IRanges_2.28.0             
+#&gt;  [7] S4Vectors_0.32.3            BiocGenerics_0.40.0        
+#&gt;  [9] MatrixGenerics_1.6.0        matrixStats_0.61.0         
 #&gt; [11] ggfortify_0.4.13            ggplot2_3.3.5              
 #&gt; [13] BiocStyle_2.20.2           
 #&gt; 
@@ -679,60 +674,60 @@ Other releases
 #&gt;   [1] colorspace_2.0-2            rjson_0.2.20               
 #&gt;   [3] EnvStats_2.4.0              ellipsis_0.3.2             
 #&gt;   [5] rprojroot_2.0.2             circlize_0.4.13            
-#&gt;   [7] XVector_0.32.0              GlobalOptions_0.1.2        
-#&gt;   [9] fs_1.5.0                    clue_0.3-59                
+#&gt;   [7] XVector_0.34.0              GlobalOptions_0.1.2        
+#&gt;   [9] fs_1.5.0                    clue_0.3-60                
 #&gt;  [11] farver_2.1.0                waldo_0.3.1                
-#&gt;  [13] MultiAssayExperiment_1.18.0 ggrepel_0.9.1              
-#&gt;  [15] bit64_4.0.5                 AnnotationDbi_1.54.1       
+#&gt;  [13] MultiAssayExperiment_1.20.0 ggrepel_0.9.1              
+#&gt;  [15] bit64_4.0.5                 AnnotationDbi_1.56.2       
 #&gt;  [17] fansi_0.5.0                 xml2_1.3.2                 
-#&gt;  [19] splines_4.1.0               codetools_0.2-18           
+#&gt;  [19] splines_4.1.2               codetools_0.2-18           
 #&gt;  [21] doParallel_1.0.16           cachem_1.0.6               
-#&gt;  [23] geneplotter_1.70.0          knitr_1.36                 
-#&gt;  [25] jsonlite_1.7.2              Cairo_1.5-12.2             
-#&gt;  [27] annotate_1.70.0             cluster_2.1.2              
-#&gt;  [29] dbplyr_2.1.1                png_0.1-7                  
-#&gt;  [31] BiocManager_1.30.16         compiler_4.1.0             
-#&gt;  [33] httr_1.4.2                  backports_1.4.0            
-#&gt;  [35] assertthat_0.2.1            Matrix_1.3-4               
-#&gt;  [37] fastmap_1.1.0               limma_3.48.3               
-#&gt;  [39] htmltools_0.5.2             prettyunits_1.1.1          
-#&gt;  [41] tools_4.1.0                 gtable_0.3.0               
-#&gt;  [43] glue_1.5.0                  GenomeInfoDbData_1.2.6     
-#&gt;  [45] dplyr_1.0.7                 rappdirs_0.3.3             
-#&gt;  [47] Rcpp_1.0.7                  jquerylib_0.1.4            
-#&gt;  [49] pkgdown_1.6.1               vctrs_0.3.8                
-#&gt;  [51] Biostrings_2.60.2           iterators_1.0.13           
-#&gt;  [53] xfun_0.28                   stringr_1.4.0              
-#&gt;  [55] rbibutils_2.2.4             testthat_3.1.0             
-#&gt;  [57] lifecycle_1.0.1             XML_3.99-0.6               
-#&gt;  [59] edgeR_3.34.1                zlibbioc_1.38.0            
-#&gt;  [61] scales_1.1.1                ragg_1.2.0                 
-#&gt;  [63] hms_1.1.1                   RColorBrewer_1.1-2         
-#&gt;  [65] ComplexHeatmap_2.8.0        yaml_2.2.1                 
-#&gt;  [67] curl_4.3.2                  memoise_2.0.0              
+#&gt;  [23] geneplotter_1.72.0          knitr_1.36                 
+#&gt;  [25] jsonlite_1.7.2              annotate_1.72.0            
+#&gt;  [27] cluster_2.1.2               dbplyr_2.1.1               
+#&gt;  [29] png_0.1-7                   BiocManager_1.30.16        
+#&gt;  [31] compiler_4.1.2              httr_1.4.2                 
+#&gt;  [33] backports_1.4.0             assertthat_0.2.1           
+#&gt;  [35] Matrix_1.3-4                fastmap_1.1.0              
+#&gt;  [37] limma_3.50.0                htmltools_0.5.2            
+#&gt;  [39] prettyunits_1.1.1           tools_4.1.2                
+#&gt;  [41] gtable_0.3.0                glue_1.5.0                 
+#&gt;  [43] GenomeInfoDbData_1.2.7      dplyr_1.0.7                
+#&gt;  [45] rappdirs_0.3.3              Rcpp_1.0.7                 
+#&gt;  [47] jquerylib_0.1.4             pkgdown_1.6.1              
+#&gt;  [49] vctrs_0.3.8                 Biostrings_2.62.0          
+#&gt;  [51] iterators_1.0.13            xfun_0.28                  
+#&gt;  [53] stringr_1.4.0               rbibutils_2.2.4            
+#&gt;  [55] testthat_3.1.0              lifecycle_1.0.1            
+#&gt;  [57] XML_3.99-0.8                edgeR_3.36.0               
+#&gt;  [59] zlibbioc_1.40.0             scales_1.1.1               
+#&gt;  [61] ragg_1.2.0                  hms_1.1.1                  
+#&gt;  [63] parallel_4.1.2              RColorBrewer_1.1-2         
+#&gt;  [65] ComplexHeatmap_2.10.0       yaml_2.2.1                 
+#&gt;  [67] curl_4.3.2                  memoise_2.0.1              
 #&gt;  [69] gridExtra_2.3               sass_0.4.0                 
-#&gt;  [71] biomaRt_2.48.3              stringi_1.7.5              
-#&gt;  [73] RSQLite_2.2.7               highr_0.9                  
-#&gt;  [75] genefilter_1.74.1           desc_1.4.0                 
+#&gt;  [71] biomaRt_2.50.1              stringi_1.7.5              
+#&gt;  [73] RSQLite_2.2.8               highr_0.9                  
+#&gt;  [75] genefilter_1.76.0           desc_1.4.0                 
 #&gt;  [77] foreach_1.5.1               checkmate_2.0.0            
-#&gt;  [79] filelock_1.0.2              BiocParallel_1.26.2        
+#&gt;  [79] filelock_1.0.2              BiocParallel_1.28.2        
 #&gt;  [81] shape_1.4.6                 Rdpack_2.1.2               
 #&gt;  [83] rlang_0.4.12                pkgconfig_2.0.3            
 #&gt;  [85] systemfonts_1.0.3           bitops_1.0-7               
 #&gt;  [87] evaluate_0.14               lattice_0.20-45            
 #&gt;  [89] purrr_0.3.4                 labeling_0.4.2             
 #&gt;  [91] bit_4.0.4                   tidyselect_1.1.1           
-#&gt;  [93] DESeq2_1.32.0               magrittr_2.0.1             
+#&gt;  [93] DESeq2_1.34.0               magrittr_2.0.1             
 #&gt;  [95] bookdown_0.24               R6_2.5.1                   
-#&gt;  [97] generics_0.1.1              DelayedArray_0.18.0        
+#&gt;  [97] generics_0.1.1              DelayedArray_0.20.0        
 #&gt;  [99] DBI_1.1.1                   pillar_1.6.4               
 #&gt; [101] withr_2.4.2                 survival_3.2-13            
-#&gt; [103] KEGGREST_1.32.0             RCurl_1.98-1.3             
+#&gt; [103] KEGGREST_1.34.0             RCurl_1.98-1.5             
 #&gt; [105] tibble_3.1.6                crayon_1.4.2               
-#&gt; [107] utf8_1.2.2                  BiocFileCache_2.0.0        
+#&gt; [107] utf8_1.2.2                  BiocFileCache_2.2.0        
 #&gt; [109] rmarkdown_2.11              GetoptLong_1.0.5           
 #&gt; [111] progress_1.2.2              locfit_1.5-9.4             
-#&gt; [113] grid_4.1.0                  blob_1.2.2                 
+#&gt; [113] grid_4.1.2                  blob_1.2.2                 
 #&gt; [115] forcats_0.5.1               digest_0.6.28              
 #&gt; [117] xtable_1.8-4                tidyr_1.1.4                
 #&gt; [119] textshaping_0.3.6           munsell_0.5.0              
@@ -751,7 +746,7 @@ Other releases
 
 
       <footer><div class="copyright">
-  <p>Developed by Daniel Sabanés Bové, Namrata Bhatia, Stefanie Bienert, Benoit Falquet, Haocheng Li, Jeff Luong, Lyndsee Midori Zhang, Simona Rossomanno.</p>
+  <p>Developed by Daniel Sabanés Bové, Namrata Bhatia, Stefanie Bienert, Benoit Falquet, Haocheng Li, Jeff Luong, Lyndsee Midori Zhang, Simona Rossomanno, Tim Treis, Mark Yan, Naomi Chang, Chendi Liao, Carolyn Zhang, Joseph N. Paulson.</p>
 </div>
 
 <div class="pkgdown">
