@@ -51,7 +51,7 @@ draw_barplot(
   fill_var = "AGE18"
 )
 
- draw_barplot(
+draw_barplot(
   object,
   assay_name = "counts",
   x_spec = gene_spec(g[1:3], colMedians, "Median"),

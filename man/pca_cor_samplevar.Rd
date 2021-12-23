@@ -63,11 +63,13 @@ autoplot(result)
 autoplot(result, cluster_columns = FALSE)
 
 # We can also choose break-points for color customization.
-autoplot(result,
-         cor_colors = circlize::colorRamp2(
-         c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1),
-         c("blue", "green", "purple", "yellow", "orange", "red", "brown")
-         ))
+autoplot(
+  result,
+  cor_colors = circlize::colorRamp2(
+    c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1),
+    c("blue", "green", "purple", "yellow", "orange", "red", "brown")
+  )
+)
 }
 \seealso{
 \code{\link[=h_pca_df_r2_matrix]{h_pca_df_r2_matrix()}} which is used internally for the details.

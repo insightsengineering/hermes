@@ -27,7 +27,7 @@ which is used downstream for the query.
 This connects to the Ensembl data base of BioMart for human genes.
 }
 \examples{
-if(interactive()){
+if (interactive()) {
   connection <- connect_biomart("ENSG")
 }
 }

@@ -26,5 +26,5 @@ out of a character vector, e.g. \code{letters}.
 \examples{
 h_short_list(letters)
 h_short_list(letters[1:3])
-h_short_list(LETTERS[1:5], sep= ";", thresh = 5L)
+h_short_list(LETTERS[1:5], sep = ";", thresh = 5L)
 }

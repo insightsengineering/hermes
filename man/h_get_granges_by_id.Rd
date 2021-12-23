@@ -23,13 +23,15 @@ in given \code{data.frame} with coordinates as returned by \code{biomaRt::getBM(
 them to a \code{GRanges} object.
 }
 \examples{
-if(interactive()){
+if (interactive()) {
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-  attrs <- c("ensembl_gene_id",
-             "ensembl_exon_id",
-             "chromosome_name",
-             "exon_chrom_start",
-             "exon_chrom_end")
+  attrs <- c(
+    "ensembl_gene_id",
+    "ensembl_exon_id",
+    "chromosome_name",
+    "exon_chrom_start",
+    "exon_chrom_end"
+  )
   coords <- biomaRt::getBM(
     filters = "entrezgene_id",
     attributes = attrs,

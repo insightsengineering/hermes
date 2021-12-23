@@ -25,7 +25,7 @@ This helper function queries BioMart for lengths of genes by adding up all
 exon lengths after reducing overlaps.
 }
 \examples{
-if(interactive()){
+if (interactive()) {
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   h_get_size_biomart("11185", "entrezgene_id", mart)
   h_get_size_biomart("ENSG00000215417", "ensembl_gene_id", mart)
