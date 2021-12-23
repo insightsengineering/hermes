@@ -220,7 +220,7 @@ test_that("h_parens works as expected for character vectors", {
 test_that("colPrinComp1 function works as expected for standard matrix input", {
   set.seed(123)
   cnts <- matrix(data = rpois(30, 5), nrow = 3, ncol = 10)
-  cnts[2L, ] <- 5  # Constant gene.
+  cnts[2L, ] <- 5 # Constant gene.
   result <- expect_silent(colPrinComp1(cnts))
   expect_numeric(result)
   expect_length(result, 10L)
@@ -237,7 +237,7 @@ test_that("colPrinComp1 function returns an error when data are not numeric", {
 test_that("colMeanZScores function works as expected for standard matrix input", {
   set.seed(123)
   cnts <- matrix(data = rpois(30, 5), nrow = 3, ncol = 10)
-  cnts[2L, ] <- 5  # Constant gene.
+  cnts[2L, ] <- 5 # Constant gene.
   result <- expect_silent(colMeanZscores(cnts))
   expect_numeric(result)
   expect_length(result, 10L)

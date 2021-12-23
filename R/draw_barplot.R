@@ -32,7 +32,7 @@
 #'   fill_var = "AGE18"
 #' )
 #'
-#'  draw_barplot(
+#' draw_barplot(
 #'   object,
 #'   assay_name = "counts",
 #'   x_spec = gene_spec(g[1:3], colMedians, "Median"),
@@ -53,7 +53,7 @@ draw_barplot <- function(object,
                          x_spec,
                          facet_var = NULL,
                          fill_var = NULL,
-                         percentiles = c(1/3, 2/3)) {
+                         percentiles = c(1 / 3, 2 / 3)) {
   assert_class(object, "AnyHermesData")
   assert_string(assay_name)
   assert_class(x_spec, "GeneSpec")
@@ -87,7 +87,7 @@ draw_barplot <- function(object,
     geom_bar() +
     labs(x = x_spec$get_label())
   if (!is.null(facet_var)) {
-    p <- p + facet_wrap(~ facet)
+    p <- p + facet_wrap(~facet)
   }
   if (!is.null(fill_var)) {
     p <- p + aes(fill = .data$fill) +

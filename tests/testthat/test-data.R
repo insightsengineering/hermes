@@ -27,5 +27,4 @@ test_that("hermes_data is a subset of summarized_experiment", {
   expect_equal(strip_df(row_data_se), strip_df(rowData(dat_hd)))
   expect_equal(strip_df(colData(dat_se)), strip_df(colData(dat_hd)))
   expect_equal(dat_se@assays@data$counts, assay(dat_hd))
-
 })

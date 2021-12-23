@@ -30,7 +30,7 @@ test_that("h_diff_expr_voom can pass arguments to limma::eBayes", {
 
 test_that("h_diff_expr_voom fails if design matrix is not correct", {
   object <- hermes_data
-  design_too_wide <- model.matrix(~SEX + COUNTRY, colData(object))
+  design_too_wide <- model.matrix(~ SEX + COUNTRY, colData(object))
   expect_error(h_diff_expr_voom(object, design_too_wide))
   design_diff_obs <- model.matrix(~SEX, colData(object)[1:10, ])
   expect_error(h_diff_expr_voom(object, design_diff_obs))
@@ -68,7 +68,7 @@ test_that("h_diff_expr_deseq2 can pass arguments to DESeq2::DESeq", {
 
 test_that("h_diff_expr_deseq2 fails if design matrix is not correct", {
   object <- hermes_data
-  design_too_wide <- model.matrix(~SEX + COUNTRY, colData(object))
+  design_too_wide <- model.matrix(~ SEX + COUNTRY, colData(object))
   expect_error(h_diff_expr_voom(object, design_too_wide))
   design_diff_obs <- model.matrix(~SEX, colData(object)[1:10, ])
   expect_error(h_diff_expr_deseq2(object, design_diff_obs))
