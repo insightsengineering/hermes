@@ -16,7 +16,10 @@
 #' @usage lhs \%>\% rhs
 #'
 #' @examples
-#' hermes_data %>% filter() %>% normalize() %>% summary()
+#' hermes_data %>%
+#'   filter() %>%
+#'   normalize() %>%
+#'   summary()
 NULL
 
 #' Conversion to Factors with Explicit Missing Level in a `data.frame`
@@ -146,7 +149,7 @@ all_na <- function(x) {
 #' @examples
 #' h_short_list(letters)
 #' h_short_list(letters[1:3])
-#' h_short_list(LETTERS[1:5], sep= ";", thresh = 5L)
+#' h_short_list(LETTERS[1:5], sep = ";", thresh = 5L)
 h_short_list <- function(x, sep = ", ", thresh = 3L) {
   assert_character(x)
   assert_string(sep, min.chars = 1L)
@@ -249,7 +252,7 @@ colMeanZscores <- function(x) {
   z_vals[!gene_is_constant, ] <- apply(
     z_vals[!gene_is_constant, , drop = FALSE],
     MARGIN = 1L,
-    FUN = scale,  # Note: scale() with centering and scaling is the z-score.
+    FUN = scale, # Note: scale() with centering and scaling is the z-score.
     center = TRUE,
     scale = TRUE
   )
@@ -325,7 +328,7 @@ h_all_duplicated <- function(x) {
 #' x[1:4] <- NA
 #' cut_quantile(x)
 cut_quantile <- function(x,
-                         percentiles = c(1/3, 2/3),
+                         percentiles = c(1 / 3, 2 / 3),
                          digits = 0) {
   assert_numeric(x)
   assert_numeric(percentiles, lower = 0, upper = 1)

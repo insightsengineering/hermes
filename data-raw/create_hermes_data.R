@@ -19,9 +19,11 @@ se_col_data <- se_col_data %>%
   dplyr::rename(low_depth_flag = LowDepthFlag) %>%
   dplyr::rename(tech_failure_flag = TechnicalFailureFlag)
 
-hermes_data <- SummarizedExperiment(assays = SimpleList(counts = assay(as.matrix(se_counts))),
-                                    colData = DataFrame(se_col_data),
-                                    rowData = DataFrame(se_row_data))
+hermes_data <- SummarizedExperiment(
+  assays = SimpleList(counts = assay(as.matrix(se_counts))),
+  colData = DataFrame(se_col_data),
+  rowData = DataFrame(se_row_data)
+)
 
 hermes_data <- HermesData(hermes_data)
 

@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' if(interactive()){
+#' if (interactive()) {
 #'   connection <- connect_biomart("ENSG")
 #' }
 connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
@@ -61,7 +61,7 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
 #' @export
 #'
 #' @examples
-#' if(interactive()){
+#' if (interactive()) {
 #'   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 #'   h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
 #' }
@@ -182,7 +182,7 @@ h_strip_prefix <- function(gene_ids, prefix) {
 #' @export
 #'
 #' @examples
-#' if(interactive()){
+#' if (interactive()) {
 #'   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 #'   h_get_size_biomart("11185", "entrezgene_id", mart)
 #'   h_get_size_biomart("ENSG00000215417", "ensembl_gene_id", mart)
@@ -283,13 +283,15 @@ h_ensembl_to_entrez_ids <- function(gene_ids,
 #' @export
 #'
 #' @examples
-#' if(interactive()){
+#' if (interactive()) {
 #'   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-#'   attrs <- c("ensembl_gene_id",
-#'              "ensembl_exon_id",
-#'              "chromosome_name",
-#'              "exon_chrom_start",
-#'              "exon_chrom_end")
+#'   attrs <- c(
+#'     "ensembl_gene_id",
+#'     "ensembl_exon_id",
+#'     "chromosome_name",
+#'     "exon_chrom_start",
+#'     "exon_chrom_end"
+#'   )
 #'   coords <- biomaRt::getBM(
 #'     filters = "entrezgene_id",
 #'     attributes = attrs,
@@ -320,7 +322,7 @@ h_get_granges_by_id <- function(coords, id) {
 #'
 #' @export
 #' @examples
-#' if(interactive()){
+#' if (interactive()) {
 #'   object <- hermes_data
 #'   connection <- connect_biomart(prefix(object))
 #'   result <- query(genes(object), connection)
@@ -332,13 +334,11 @@ setMethod(
   signature = c(genes = "character", connection = "ConnectionBiomart"),
   definition = function(genes, connection) {
     pre <- prefix(connection)
-    gene_ids <- switch(
-      pre,
+    gene_ids <- switch(pre,
       GeneID = h_strip_prefix(genes, prefix = pre),
       ENSG = genes
     )
-    id_var <- switch(
-      pre,
+    id_var <- switch(pre,
       GeneID = "entrezgene_id",
       ENSG = "ensembl_gene_id"
     )

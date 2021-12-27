@@ -346,7 +346,7 @@ setMethod(
 #' subset(a, subset = chromosome == "2")
 #'
 #' # Subset only samples.
-#'subset(a, select = AGE > 18)
+#' subset(a, select = AGE > 18)
 NULL
 
 # filter ----

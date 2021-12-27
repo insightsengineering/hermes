@@ -34,7 +34,7 @@ Helper function to query annotations from \code{biomaRt}, for cleaned up gene ID
 a specific ID variable and given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}}.
 }
 \examples{
-if(interactive()){
+if (interactive()) {
   mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   h_get_annotation_biomart(c("11185", "10677"), id_var = "entrezgene_id", mart = mart)
 }

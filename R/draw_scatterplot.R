@@ -90,7 +90,7 @@ draw_scatterplot <- function(object,
     p <- p + geom_smooth(method = smooth_method, formula = y ~ x)
   }
   if (!is.null(facet_var)) {
-    p <- p + facet_wrap(~ facet)
+    p <- p + facet_wrap(~facet)
   }
   p
 }

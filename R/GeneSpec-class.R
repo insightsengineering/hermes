@@ -109,7 +109,7 @@ GeneSpec <- R6::R6Class(
     },
     #' @description Predicate whether the extract returns a vector or not.
     returns_vector = function() {
-     (length(private$genes) == 1) || is.function(private$fun)
+      (length(private$genes) == 1) || is.function(private$fun)
     },
     #' @description Returns a string which can be used e.g. for plot labels.
     #' @param genes (`character`)\cr for which subset of genes the labels should be returned.

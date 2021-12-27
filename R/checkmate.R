@@ -38,8 +38,9 @@ NULL
 #' check_proportion(0.25)
 check_proportion <- function(x, null.ok = FALSE) {
   ok <- test_number(x, lower = 0, upper = 1)
-  if (!ok)
+  if (!ok) {
     return("Must be a 'proportion': number between 0 and 1")
+  }
   return(TRUE)
 }
 

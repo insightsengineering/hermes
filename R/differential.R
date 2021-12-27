@@ -197,8 +197,7 @@ diff_expression <- function(object,
   }
   form <- stats::as.formula(paste("~", group))
   design <- stats::model.matrix(form, data = colData(object))
-  result <- switch(
-    method,
+  result <- switch(method,
     "voom" = h_diff_expr_voom(object, design, ...),
     "deseq2" = h_diff_expr_deseq2(object, design, ...)
   )
@@ -282,7 +281,7 @@ setMethod(
       data = df,
       aes(
         x = .data$log2_fc,
-        y = - log10(.data$adj_p_val),
+        y = -log10(.data$adj_p_val),
         color = .data$diff_expr,
         label = .data$label
       )
@@ -292,7 +291,7 @@ setMethod(
       xlab("log2 fold change") +
       ylab("-log10 adjusted p-value") +
       labs(color = "Difference") +
-      geom_vline(xintercept = c(- 1, 1) * log2_fc_thresh, col = "black") +
-      geom_hline(yintercept = - log10(adj_p_val_thresh), col = "black")
+      geom_vline(xintercept = c(-1, 1) * log2_fc_thresh, col = "black") +
+      geom_hline(yintercept = -log10(adj_p_val_thresh), col = "black")
   }
 )

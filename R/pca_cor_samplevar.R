@@ -42,7 +42,7 @@ h_pca_var_rsquared <- function(pca, x) {
   )
   use_sample <- !is.na(x)
   x <- x[use_sample]
-  if(is_constant(x)){
+  if (is_constant(x)) {
     warning("sample variable is constant and R2 values cannot be calculated")
   }
   pca <- pca[use_sample, ]
@@ -216,11 +216,13 @@ setMethod(
 #' autoplot(result, cluster_columns = FALSE)
 #'
 #' # We can also choose break-points for color customization.
-#' autoplot(result,
-#'          cor_colors = circlize::colorRamp2(
-#'          c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1),
-#'          c("blue", "green", "purple", "yellow", "orange", "red", "brown")
-#'          ))
+#' autoplot(
+#'   result,
+#'   cor_colors = circlize::colorRamp2(
+#'     c(-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1),
+#'     c("blue", "green", "purple", "yellow", "orange", "red", "brown")
+#'   )
+#' )
 setMethod(
   f = "autoplot",
   signature = c(object = "HermesDataPcaCor"),
