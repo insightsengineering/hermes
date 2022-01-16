@@ -34,7 +34,6 @@ URL: https://github.com/insightsengineering/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
 Depends: 
     ggfortify,
-    R (>= 4.1),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
