@@ -1,7 +1,20 @@
-# connect_biomart ----
+# If not on CI or Bioconductor,
+# create object `.mart` with constant Ensembl version.
+on_ci <- isTRUE(as.logical(Sys.getenv("CI")))
+on_bioc <- !(identical(Sys.getenv("BBS_HOME"), ""))
+.mart <- if (on_ci || on_bioc) {
+  NULL
+} else {
+  as(
+    connect_biomart(version = "104"),
+    "Mart"
+  )
+}
 
 # To avoid SSL connection issues.
 httr::set_config(httr::config(ssl_verifypeer = FALSE))
+
+# connect_biomart ----
 
 test_that("connect_biomart works as expected", {
   skip_on_ci()
@@ -16,17 +29,29 @@ test_that("connect_biomart works as expected", {
   expect_identical(prefix(result), "GeneID")
 })
 
+test_that("connect_biomart can specify older version of Ensembl", {
+  skip_on_ci()
+  skip_on_bioc()
+
+  result <- expect_silent(connect_biomart("ENSG", version = "103"))
+  expect_s4_class(result, "ConnectionBiomart")
+  expect_identical(prefix(result), "ENSG")
+
+  result <- expect_silent(connect_biomart("GeneID", version = "104"))
+  expect_s4_class(result, "ConnectionBiomart")
+  expect_identical(prefix(result), "GeneID")
+})
+
 # h_get_annotation_biomart ----
 
 test_that("h_get_annotation_biomart works as expected", {
   skip_on_ci()
   skip_on_bioc()
 
-  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   result <- h_get_annotation_biomart(
     gene_ids = c("11185", "10677"),
     id_var = "entrezgene_id",
-    mart = mart
+    mart = .mart
   )
   expected <- data.frame(
     hgnc_symbol = c("INMT", "AVIL"),
@@ -64,12 +89,11 @@ test_that("h_get_size_biomart works as expected", {
   skip_on_ci()
   skip_on_bioc()
 
-  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
   expect_identical(
     h_get_size_biomart(
       "11185",
       id_var = "entrezgene_id",
-      mart = mart
+      mart = .mart
     ),
     c("11185" = 3376L)
   )
@@ -77,7 +101,7 @@ test_that("h_get_size_biomart works as expected", {
     h_get_size_biomart(
       "ENSG00000215417",
       id_var = "ensembl_gene_id",
-      mart = mart
+      mart = .mart
     ),
     c(ENSG00000215417 = 3774L)
   )
@@ -85,7 +109,7 @@ test_that("h_get_size_biomart works as expected", {
     h_get_size_biomart(
       c("11185", "10677"),
       id_var = "entrezgene_id",
-      mart = mart
+      mart = .mart
     ),
     c("11185" = 3376L, "10677" = 5889L)
   )
@@ -93,7 +117,7 @@ test_that("h_get_size_biomart works as expected", {
     h_get_size_biomart(
       c("ENSG00000135407", "ENSG00000215417"),
       id_var = "ensembl_gene_id",
-      mart = mart
+      mart = .mart
     ),
     c(ENSG00000135407 = 5889L, ENSG00000215417 = 3774L)
   )
@@ -105,8 +129,7 @@ test_that("h_ensembl_to_entrez_ids works as expected", {
   skip_on_ci()
   skip_on_bioc()
 
-  mart <- biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-  result <- h_ensembl_to_entrez_ids(c("ENSG00000135407", "ENSG00000241644"), mart)
+  result <- h_ensembl_to_entrez_ids(c("ENSG00000135407", "ENSG00000241644"), .mart)
   expected <- c("10677", "11185")
   expect_identical(result, expected)
 })
@@ -144,7 +167,7 @@ test_that("query to Biomart works as expected", {
   skip_on_bioc()
 
   object <- hermes_data[1:10, ]
-  connection <- connect_biomart(prefix(object))
+  connection <- connect_biomart(prefix(object), version = "104")
   result <- query(genes(object), connection)
   expect_s4_class(result, "DataFrame")
   expect_subset(.row_data_annotation_cols, names(result))

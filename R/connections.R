@@ -7,8 +7,12 @@
 #' which is used downstream for the query.
 #'
 #' @details This connects to the Ensembl data base of BioMart for human genes.
+#'   A specific version can be optionally chosen to ensure reproducibility of results
+#'   once a new release is available, as accessed data might then change.
 #'
 #' @param prefix (`string`)\cr gene ID prefix.
+#' @param version (`string` or `NULL`)\cr optional Ensembl version to use. If `NULL`
+#'   the latest available release is used.
 #'
 #' @return [`ConnectionBiomart`] object.
 #'
@@ -18,10 +22,26 @@
 #' if (interactive()) {
 #'   connection <- connect_biomart("ENSG")
 #' }
-connect_biomart <- function(prefix = c("ENSG", "GeneID")) {
+connect_biomart <- function(prefix = c("ENSG", "GeneID"),
+                            version = NULL) {
   prefix <- match.arg(prefix)
+  assert_string(version, null.ok = TRUE)
+
+  tryCatch(
+    withCallingHandlers(
+      expr = {
+        mart <- biomaRt::useEnsembl("ensembl", version = version)
+      },
+      warning = function(w) {
+        if (grepl("Ensembl will soon enforce the use of https", x = w)) {
+          invokeRestart("muffleWarning")
+        }
+      }
+    )
+  )
+  mart <- biomaRt::useDataset("hsapiens_gene_ensembl", mart = mart)
   .ConnectionBiomart(
-    biomaRt::useMart("ensembl", dataset = "hsapiens_gene_ensembl"),
+    mart,
     prefix = prefix
   )
 }
