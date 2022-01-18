@@ -1,4 +1,4 @@
-# hermes 0.99.2.9006
+# hermes 0.99.2.9006.1
 * First public release of the `hermes` package.
 * Submission to BioConductor.
 
