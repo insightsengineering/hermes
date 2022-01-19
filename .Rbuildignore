@@ -15,3 +15,4 @@ TODO\.md
 ^staged_dependencies\.yaml$
 ^\.gitlab-ci\.yml$
 coverage.*
+.pre-commit-config.yaml
