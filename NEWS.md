@@ -1,14 +1,18 @@
 # hermes 0.99.2.9006.2
+
+### Meta
 * First public release of the `hermes` package.
 * Submission to BioConductor.
+
+### Enhancements
+* Better legends on the genes barplot and the correlation heatmap.
+* Improved vignette layout using the BioConductor style.
+* Additional `version` argument for `connect_biomart` to specify an Ensembl version.
 
 ### Miscellaneous
 * New utility function `cut_quantile` for cutting a numeric vector into quantiles.
 * New utility function `cat_with_newline` for concatenating and printing with newline.
 * New check function `check_proportion` which checks for a single proportion.
-* Better legends on the genes barplot and the correlation heatmap.
-* Improved vignette layout using the BioConductor style.
-* Additional `version` argument for `connect_biomart` to specify an Ensembl version.
 
 # hermes 0.1.1
 
