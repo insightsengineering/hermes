@@ -1,4 +1,4 @@
-# hermes 0.99.5
+# hermes 0.99.5.9000
 
 ### Meta
 * First public release of the `hermes` package.
