@@ -1,8 +1,8 @@
 Type: Package
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
-Version: 0.99.2.9006
-Date: 2021-11-24
+Version: 0.99.5
+Date: 2022-01-27
 Authors@R: c(
     person("Daniel", "Sabanés Bové", , "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
     person("Namrata", "Bhatia", role = "aut"),
@@ -32,9 +32,9 @@ Description: Provides classes and functions for quality control,
 License: Apache License 2.0 | file LICENSE
 URL: https://github.com/insightsengineering/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
-Depends: 
+Depends:
     ggfortify,
-    R (>= 4.1),
+    R (>= 3.5),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
@@ -77,11 +77,10 @@ Suggests:
     rmarkdown,
     statmod,
     testthat (>= 2.0),
-    vdiffr,
-    withr
-VignetteBuilder: 
+    vdiffr
+VignetteBuilder:
     knitr
-RdMacros: 
+RdMacros:
     lifecycle,
     Rdpack
 biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
@@ -90,7 +89,7 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Collate: 
+Collate:
     'GeneSpec-class.R'
     'HermesData-validate.R'
     'HermesData-class.R'
