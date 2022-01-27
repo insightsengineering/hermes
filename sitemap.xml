@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://insightsengineering.github.io/hermes/404.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/hermes/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/hermes/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/hermes/articles/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/hermes/authors.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/hermes/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/hermes/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/hermes/pull_request_template.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/hermes/reference/GeneSpec.html</loc>
@@ -163,6 +184,9 @@
     <loc>https://insightsengineering.github.io/hermes/reference/hermes_data.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/hermes/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/hermes/reference/inner_join_cdisc.html</loc>
   </url>
   <url>
@@ -230,8 +254,5 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/hermes/reference/wrap_in_mae.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/hermes/articles/introduction.html</loc>
   </url>
 </urlset>
