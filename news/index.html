@@ -23,36 +23,20 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.5.9001.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+  <a href="../articles/hermes.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/introduction.html">Introduction to `hermes`</a>
-    </li>
-  </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/hermes" class="external-link">
     <span class="fa fa-github"></span>
@@ -73,72 +57,129 @@ Other releases
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.99.5" id="hermes-0995">hermes 0.99.5<a class="anchor" aria-label="anchor" href="#hermes-0995"></a></h2>
+<h2 class="page-header" data-toc-text="0.99.5.9001.2" id="hermes-099590012">hermes 0.99.5.9001.2<a class="anchor" aria-label="anchor" href="#hermes-099590012"></a></h2>
 <div class="section level4">
-<h4 id="meta-0-99-5">Meta<a class="anchor" aria-label="anchor" href="#meta-0-99-5"></a></h4>
+<h4 id="meta-0-99-5-9001-2">Meta<a class="anchor" aria-label="anchor" href="#meta-0-99-5-9001-2"></a></h4>
 <ul><li>First public release of the <code>hermes</code> package.</li>
 <li>Submission to BioConductor.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="enhancements-0-99-5">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-99-5"></a></h4>
-<ul><li>Better legends on the genes barplot and the correlation heatmap.</li>
+<h4 id="enhancements-0-99-5-9001-2">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-99-5-9001-2"></a></h4>
+<ul><li>Better legends on the genes barplot and the correlation
+heatmap.</li>
 <li>Improved vignette layout using the BioConductor style.</li>
-<li>Additional <code>version</code> argument for <code>connect_biomart</code> to specify an Ensembl version.</li>
+<li>Additional <code>version</code> argument for
+<code>connect_biomart</code> to specify an Ensembl version.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="miscellaneous-0-99-5">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-99-5"></a></h4>
-<ul><li>New utility function <code>cut_quantile</code> for cutting a numeric vector into quantiles.</li>
-<li>New utility function <code>cat_with_newline</code> for concatenating and printing with newline.</li>
-<li>New check function <code>check_proportion</code> which checks for a single proportion.</li>
+<h4 id="miscellaneous-0-99-5-9001-2">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-99-5-9001-2"></a></h4>
+<ul><li>New utility function <code>cut_quantile</code> for cutting a numeric
+vector into quantiles.</li>
+<li>New utility function <code>cat_with_newline</code> for concatenating
+and printing with newline.</li>
+<li>New check function <code>check_proportion</code> which checks for a
+single proportion.</li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.1" id="hermes-011">hermes 0.1.1<a class="anchor" aria-label="anchor" href="#hermes-011"></a></h2>
 <div class="section level4">
 <h4 id="new-features-0-1-1">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-1-1"></a></h4>
-<ul><li>New function <code>draw_scatterplot</code> to produce scatterplots of two genes or gene signatures.</li>
-<li>New function <code>draw_boxplot</code> for boxplots of gene expression values.</li>
-<li>New function <code>draw_barplot</code> for barplots of dichotomized gene expression counts into two or three percentile categories.</li>
-<li>New helper function <code>wrap_in_mae</code> that wraps a single <code>SummarizedExperiment</code> object into an MAE object.</li>
-<li>New method <code>rename</code> that makes renaming columns of <code>rowData</code> and <code>colData</code> as well as assay names in existing <code>SummarizedExperiment</code> objects much easier, as a step before converting to <code>HermesData</code>.</li>
-<li>New method <code>lapply</code> that allows user to apply a function on all experiments in a <code>MultiAssayExperiment</code>.</li>
-<li>New method <code>isEmpty</code> that checks whether a <code>SummarizedExperiment</code> object is empty.</li>
-<li>New gene filtering option <code>n_top</code> in the <code>calc_pca</code> function, which allows filtering genes with greatest variability across samples.</li>
-<li>New class <code>GeneSpec</code> for specification of genes or gene signatures, see <code><a href="../reference/gene_spec.html">?gene_spec</a></code> for simple construction. Inclusion of gene signature functions <code>colPrinComp1</code> and <code>colMeanZscores</code> to supplement standard column statistics functions.</li>
-<li>New helper function <code>col_data_with_genes</code> which extracts the sample variables saved in <code>colData</code> together with selected gene information as a combined data set.</li>
-<li>New helper function <code>inner_join_cdisc</code> which joins genetic with CDISC data sets.</li>
+<ul><li>New function <code>draw_scatterplot</code> to produce scatterplots
+of two genes or gene signatures.</li>
+<li>New function <code>draw_boxplot</code> for boxplots of gene
+expression values.</li>
+<li>New function <code>draw_barplot</code> for barplots of dichotomized
+gene expression counts into two or three percentile categories.</li>
+<li>New helper function <code>wrap_in_mae</code> that wraps a single
+<code>SummarizedExperiment</code> object into an MAE object.</li>
+<li>New method <code>rename</code> that makes renaming columns of
+<code>rowData</code> and <code>colData</code> as well as assay names in
+existing <code>SummarizedExperiment</code> objects much easier, as a
+step before converting to <code>HermesData</code>.</li>
+<li>New method <code>lapply</code> that allows user to apply a function
+on all experiments in a <code>MultiAssayExperiment</code>.</li>
+<li>New method <code>isEmpty</code> that checks whether a
+<code>SummarizedExperiment</code> object is empty.</li>
+<li>New gene filtering option <code>n_top</code> in the
+<code>calc_pca</code> function, which allows filtering genes with
+greatest variability across samples.</li>
+<li>New class <code>GeneSpec</code> for specification of genes or gene
+signatures, see <code><a href="../reference/gene_spec.html">?gene_spec</a></code> for simple construction.
+Inclusion of gene signature functions <code>colPrinComp1</code> and
+<code>colMeanZscores</code> to supplement standard column statistics
+functions.</li>
+<li>New helper function <code>col_data_with_genes</code> which extracts
+the sample variables saved in <code>colData</code> together with
+selected gene information as a combined data set.</li>
+<li>New helper function <code>inner_join_cdisc</code> which joins
+genetic with CDISC data sets.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-0-1-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-1"></a></h4>
 <ul><li>
-<code><a href="../reference/normalize.html">normalize()</a></code> now also works when the <code>hermes</code> package is not loaded, i.e. you can use it with <code><a href="../reference/normalize.html">hermes::normalize()</a></code>.</li>
+<code><a href="../reference/normalize.html">normalize()</a></code> now also works when the <code>hermes</code>
+package is not loaded, i.e. you can use it with
+<code><a href="../reference/normalize.html">hermes::normalize()</a></code>.</li>
 <li>
-<code><a href="../reference/correlate.html">correlate()</a></code> now also works when there are factor variables in the sample variables of the <code>HermesData</code> object.</li>
+<code><a href="../reference/correlate.html">correlate()</a></code> now also works when there are factor
+variables in the sample variables of the <code>HermesData</code>
+object.</li>
 <li>
-<code><a href="../reference/quality_flags.html">add_quality_flags()</a></code> does no longer return <code>NA</code> as the technical failure flags for the samples if there is only a single gene contained in the input, but instead a vector of <code>FALSE</code> to ensure correct downstream functionality.</li>
+<code><a href="../reference/quality_flags.html">add_quality_flags()</a></code> does no longer return
+<code>NA</code> as the technical failure flags for the samples if there
+is only a single gene contained in the input, but instead a vector of
+<code>FALSE</code> to ensure correct downstream functionality.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="miscellaneous-0-1-1">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-1-1"></a></h4>
-<ul><li>Updated <code>LICENCE</code> and <code>README</code> with new package references.</li>
-<li>The <code>multi_assay_experiment</code> now contains <code>HermesData</code> experiments, different patient IDs, one experiment with normalized assays, and multiple samples per patient in one experiment.</li>
-<li>The main <code>HermesData</code> example is now saved in the package as <code>hermes_data</code>, and the previous <code>summarized_experiment</code> is still available. Note that patient IDs have been changed in the new version to align with the <code>multi_assay_experiment</code>.</li>
-<li>Renaming of required <code>rowData</code> and <code>colData</code> columns to be more consistent with standards and use lowercase snake-case names.</li>
-<li>Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.</li>
-<li>Instead of gene starts and ends, the total length of gene exons is now used as the annotation column <code>size</code>. Corresponding queries from BioMart are used to return this gene size.</li>
+<ul><li>Updated <code>LICENCE</code> and <code>README</code> with new
+package references.</li>
+<li>The <code>multi_assay_experiment</code> now contains
+<code>HermesData</code> experiments, different patient IDs, one
+experiment with normalized assays, and multiple samples per patient in
+one experiment.</li>
+<li>The main <code>HermesData</code> example is now saved in the package
+as <code>hermes_data</code>, and the previous
+<code>summarized_experiment</code> is still available. Note that patient
+IDs have been changed in the new version to align with the
+<code>multi_assay_experiment</code>.</li>
+<li>Renaming of required <code>rowData</code> and <code>colData</code>
+columns to be more consistent with standards and use lowercase
+snake-case names.</li>
+<li>Annotation querying and setting is now more flexible in that it also
+allows to query more annotations than the required ones.</li>
+<li>Instead of gene starts and ends, the total length of gene exons is
+now used as the annotation column <code>size</code>. Corresponding
+queries from BioMart are used to return this gene size.</li>
 <li>
-<code>df_char_to_factor</code> has been deprecated (and can still be used with a warning) and replaced with <code>df_cols_to_factor</code>, which also converts logical variables to factor variables.</li>
-<li>When providing <code>SummarizedExperiment</code> objects containing <code>DelayedMatrix</code> assays to the <code><a href="../reference/HermesData-class.html">HermesData()</a></code> constructor, these are silently converted to <code>matrix</code> assays to ensure downstream functionality.</li>
+<code>df_char_to_factor</code> has been deprecated (and can still be
+used with a warning) and replaced with <code>df_cols_to_factor</code>,
+which also converts logical variables to factor variables.</li>
+<li>When providing <code>SummarizedExperiment</code> objects containing
+<code>DelayedMatrix</code> assays to the <code><a href="../reference/HermesData-class.html">HermesData()</a></code>
+constructor, these are silently converted to <code>matrix</code> assays
+to ensure downstream functionality.</li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="hermes-010">hermes 0.1.0<a class="anchor" aria-label="anchor" href="#hermes-010"></a></h2>
-<ul><li>First internal release of the <code>hermes</code> package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze RNAseq counts data for differential expression.</li>
+<ul><li>First internal release of the <code>hermes</code> package, which
+contains classes, methods and functions to import, quality-check,
+filter, normalize, and analyze RNAseq counts data for differential
+expression.</li>
 <li>
-<code>hermes</code> is a successor of the <code>rnaseqTools</code> R package. The core functionality is built on the BioConductor ecosystem, especially the <code>SummarizedExperiment</code> class. New users should first begin by reading the “Introduction to <code>hermes</code>” vignette to become familiar with the <code>hermes</code> concepts.</li>
+<code>hermes</code> is a successor of the <code>rnaseqTools</code> R
+package. The core functionality is built on the BioConductor ecosystem,
+especially the <code>SummarizedExperiment</code> class. New users should
+first begin by reading the “Introduction to <code>hermes</code>”
+vignette to become familiar with the <code>hermes</code> concepts.</li>
 </ul><div class="section level4">
 <h4 id="new-features-0-1-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0"></a></h4>
-<ul><li>Import RNAseq count data into the <code>hermes</code> ready format.</li>
-<li>Annotate gene information from the Ensembl database via <code>biomaRt</code>.</li>
+<ul><li>Import RNAseq count data into the <code>hermes</code> ready
+format.</li>
+<li>Annotate gene information from the Ensembl database via
+<code>biomaRt</code>.</li>
 <li>Add quality control (QC) flags to genes and samples.</li>
 <li>Filter and subset the data set.</li>
 <li>Normalize the counts.</li>
@@ -158,11 +199,15 @@ Other releases
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Daniel Sabanés Bové, Namrata Bhatia, Stefanie Bienert, Benoit Falquet, Haocheng Li, Jeff Luong, Lyndsee Midori Zhang, Simona Rossomanno, Tim Treis, Mark Yan, Naomi Chang, Chendi Liao, Carolyn Zhang, Joseph N. Paulson.</p>
+  <p></p><p>Developed by Daniel Sabanés Bové, Namrata Bhatia, Stefanie Bienert,
+Benoit Falquet, Haocheng Li, Jeff Luong, Lyndsee Midori Zhang, Simona
+Rossomanno, Tim Treis, Mark Yan, Naomi Chang, Chendi Liao, Carolyn
+Zhang, Joseph N. Paulson.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>
