@@ -45,3 +45,7 @@ design/*.html
 .Rproj.user
 
 coverage.*
+
+# Documentation
+docs/
+pkgdown/
