@@ -114,3 +114,5 @@ Collate:
     'quality.R'
     'top_genes.R'
     'utils.R'
+Config/Needs/website:
+    insightsengineering/nesttemplate
