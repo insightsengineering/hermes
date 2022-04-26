@@ -41,7 +41,7 @@ Imports:
     Biobase,
     BiocGenerics,
     biomaRt,
-    checkmate,
+    checkmate (>= 2.1),
     circlize,
     ComplexHeatmap,
     DESeq2,

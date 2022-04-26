@@ -310,7 +310,7 @@ test_that("h_map_pos works as expected", {
 test_that("h_map_pos fails as expected when old names are not found", {
   expect_error(
     h_map_pos(c("a", "b"), c(d = "b", e = "z")),
-    "Must be a subset of {'a','b'}, but is {'b','z'}",
+    "Must be a subset of {'a','b'}, but has additional elements {'z'}",
     fixed = TRUE
   )
 })
