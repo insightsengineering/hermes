@@ -45,3 +45,9 @@ design/*.html
 .Rproj.user
 
 coverage.*
+
+tests/testthat/junit-result.xml
+
+tests/testthat/Rplots.pdf
+
+tests/testthat/testthat-problems.rds

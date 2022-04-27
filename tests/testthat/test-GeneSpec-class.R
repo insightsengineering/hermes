@@ -159,8 +159,7 @@ test_that("GeneSpec extract method works as expected", {
   rownames(mat2) <- letters[4:6]
   expect_error(
     spec3$extract(mat2),
-    "Must include the elements {a,b}",
-    fixed = TRUE
+    "include the elements \\{'a','b'\\}"
   )
 })
 
@@ -238,8 +237,7 @@ test_that("GeneSpec extract_data_frame method works as expected", {
   rownames(mat2) <- letters[4:6]
   expect_error(
     spec3$extract_data_frame(mat2),
-    "Must include the elements {a,b}",
-    fixed = TRUE
+    "include the elements \\{'a','b'\\}"
   )
 })
 
