@@ -36,4 +36,9 @@ Authors:
   \item Joseph N. Paulson \email{paulson.joseph@gene.com}
 }
 
+Other contributors:
+\itemize{
+  \item F. Hoffmann-La Roche AG [copyright holder, funder]
+}
+
 }
