@@ -16,3 +16,4 @@ TODO\.md
 ^\.gitlab-ci\.yml$
 coverage.*
 .pre-commit-config.yaml
+^\.pre-commit-config\.yaml$
