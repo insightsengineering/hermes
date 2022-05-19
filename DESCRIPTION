@@ -17,7 +17,8 @@ Authors@R: c(
     person("Naomi", "Chang", role = "aut"),
     person("Chendi", "Liao", , "chendi.liao@roche.com", role = "aut"),
     person("Carolyn Zhang", role = "aut"),
-    person("Joseph N.", "Paulson", , "paulson.joseph@gene.com", role = "aut")
+    person("Joseph N.", "Paulson", , "paulson.joseph@gene.com", role = "aut"),
+    person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: Provides classes and functions for quality control,
     filtering, normalization and differential expression analysis of
