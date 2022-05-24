@@ -3,6 +3,11 @@ name: Check 🛠
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
     branches:
       - main
       - pre-release
@@ -10,6 +15,7 @@ on:
     branches:
       - main
       - pre-release
+  workflow_dispatch:
 
 jobs:
   audit:
@@ -20,13 +26,6 @@ jobs:
     uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@main
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
-  bioccheck:
-    name: BiocCheck 🩺
-    uses: insightsengineering/r.pkg.template/.github/workflows/bioccheck.yaml@main
-    secrets:
-      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
-    with:
-      enable-bioccheck: true
   coverage:
     if: github.event_name == 'pull_request'
     name: Coverage 📔 
