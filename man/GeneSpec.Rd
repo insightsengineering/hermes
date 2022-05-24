@@ -40,19 +40,19 @@ x_spec$extract_data_frame(mat)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{GeneSpec$new()}}
-\item \href{#method-get_genes}{\code{GeneSpec$get_genes()}}
-\item \href{#method-get_gene_labels}{\code{GeneSpec$get_gene_labels()}}
-\item \href{#method-returns_vector}{\code{GeneSpec$returns_vector()}}
-\item \href{#method-get_label}{\code{GeneSpec$get_label()}}
-\item \href{#method-extract}{\code{GeneSpec$extract()}}
-\item \href{#method-extract_data_frame}{\code{GeneSpec$extract_data_frame()}}
-\item \href{#method-clone}{\code{GeneSpec$clone()}}
+\item \href{#method-GeneSpec-new}{\code{GeneSpec$new()}}
+\item \href{#method-GeneSpec-get_genes}{\code{GeneSpec$get_genes()}}
+\item \href{#method-GeneSpec-get_gene_labels}{\code{GeneSpec$get_gene_labels()}}
+\item \href{#method-GeneSpec-returns_vector}{\code{GeneSpec$returns_vector()}}
+\item \href{#method-GeneSpec-get_label}{\code{GeneSpec$get_label()}}
+\item \href{#method-GeneSpec-extract}{\code{GeneSpec$extract()}}
+\item \href{#method-GeneSpec-extract_data_frame}{\code{GeneSpec$extract_data_frame()}}
+\item \href{#method-GeneSpec-clone}{\code{GeneSpec$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-GeneSpec-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSpec-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a new \code{\link{GeneSpec}} object.
 \subsection{Usage}{
@@ -78,8 +78,8 @@ A new \code{\link{GeneSpec}} object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_genes"></a>}}
-\if{latex}{\out{\hypertarget{method-get_genes}{}}}
+\if{html}{\out{<a id="method-GeneSpec-get_genes"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSpec-get_genes}{}}}
 \subsection{Method \code{get_genes()}}{
 Returns the genes.
 \subsection{Usage}{
@@ -88,8 +88,8 @@ Returns the genes.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_gene_labels"></a>}}
-\if{latex}{\out{\hypertarget{method-get_gene_labels}{}}}
+\if{html}{\out{<a id="method-GeneSpec-get_gene_labels"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSpec-get_gene_labels}{}}}
 \subsection{Method \code{get_gene_labels()}}{
 Returns the gene labels (substituted by gene IDs if not available).
 \subsection{Usage}{
@@ -105,8 +105,8 @@ Returns the gene labels (substituted by gene IDs if not available).
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-returns_vector"></a>}}
-\if{latex}{\out{\hypertarget{method-returns_vector}{}}}
+\if{html}{\out{<a id="method-GeneSpec-returns_vector"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSpec-returns_vector}{}}}
 \subsection{Method \code{returns_vector()}}{
 Predicate whether the extract returns a vector or not.
 \subsection{Usage}{
@@ -115,8 +115,8 @@ Predicate whether the extract returns a vector or not.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_label"></a>}}
-\if{latex}{\out{\hypertarget{method-get_label}{}}}
+\if{html}{\out{<a id="method-GeneSpec-get_label"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSpec-get_label}{}}}
 \subsection{Method \code{get_label()}}{
 Returns a string which can be used e.g. for plot labels.
 \subsection{Usage}{
@@ -132,8 +132,8 @@ Returns a string which can be used e.g. for plot labels.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-extract"></a>}}
-\if{latex}{\out{\hypertarget{method-extract}{}}}
+\if{html}{\out{<a id="method-GeneSpec-extract"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSpec-extract}{}}}
 \subsection{Method \code{extract()}}{
 Extract the gene values from an assay as specified.
 \subsection{Usage}{
@@ -154,8 +154,8 @@ genes in the rows.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-extract_data_frame"></a>}}
-\if{latex}{\out{\hypertarget{method-extract_data_frame}{}}}
+\if{html}{\out{<a id="method-GeneSpec-extract_data_frame"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSpec-extract_data_frame}{}}}
 \subsection{Method \code{extract_data_frame()}}{
 Extract the gene values as a \code{data.frame}.
 \subsection{Usage}{
@@ -176,8 +176,8 @@ in the rows.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-GeneSpec-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSpec-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
