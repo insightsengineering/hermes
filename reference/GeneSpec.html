@@ -25,7 +25,7 @@ the summary function and the name of the summary function."><meta property="og:i
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hermes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.5.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.5.9003</span>
       </span>
     </div>
 
@@ -39,15 +39,6 @@ the summary function and the name of the summary function."><meta property="og:i
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/hermes" class="external-link">
     <span class="fa fa-github"></span>
@@ -81,15 +72,15 @@ the summary function and the name of the summary function.</p>
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
-<ul><li><p><a href="#method-new"><code>GeneSpec$new()</code></a></p></li>
-<li><p><a href="#method-get_genes"><code>GeneSpec$get_genes()</code></a></p></li>
-<li><p><a href="#method-get_gene_labels"><code>GeneSpec$get_gene_labels()</code></a></p></li>
-<li><p><a href="#method-returns_vector"><code>GeneSpec$returns_vector()</code></a></p></li>
-<li><p><a href="#method-get_label"><code>GeneSpec$get_label()</code></a></p></li>
-<li><p><a href="#method-extract"><code>GeneSpec$extract()</code></a></p></li>
-<li><p><a href="#method-extract_data_frame"><code>GeneSpec$extract_data_frame()</code></a></p></li>
-<li><p><a href="#method-clone"><code>GeneSpec$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-new"></a><div class="section">
+<ul><li><p><a href="#method-GeneSpec-new"><code>GeneSpec$new()</code></a></p></li>
+<li><p><a href="#method-GeneSpec-get_genes"><code>GeneSpec$get_genes()</code></a></p></li>
+<li><p><a href="#method-GeneSpec-get_gene_labels"><code>GeneSpec$get_gene_labels()</code></a></p></li>
+<li><p><a href="#method-GeneSpec-returns_vector"><code>GeneSpec$returns_vector()</code></a></p></li>
+<li><p><a href="#method-GeneSpec-get_label"><code>GeneSpec$get_label()</code></a></p></li>
+<li><p><a href="#method-GeneSpec-extract"><code>GeneSpec$extract()</code></a></p></li>
+<li><p><a href="#method-GeneSpec-extract_data_frame"><code>GeneSpec$extract_data_frame()</code></a></p></li>
+<li><p><a href="#method-GeneSpec-clone"><code>GeneSpec$clone()</code></a></p></li>
+</ul></div><p></p><hr><a id="method-GeneSpec-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Creates a new <code>GeneSpec</code> object.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
@@ -120,7 +111,7 @@ used then multiple genes are not summarized but returned as a matrix from the
 <p>A new <code>GeneSpec</code> object.</p>
 </div>
 
-</div><p></p><hr><a id="method-get_genes"></a><div class="section">
+</div><p></p><hr><a id="method-GeneSpec-get_genes"></a><div class="section">
 <h3 id="method-get-genes-">Method <code>get_genes()</code><a class="anchor" aria-label="anchor" href="#method-get-genes-"></a></h3>
 <p>Returns the genes.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
@@ -128,7 +119,7 @@ used then multiple genes are not summarized but returned as a matrix from the
 </div>
 
 
-</div><p></p><hr><a id="method-get_gene_labels"></a><div class="section">
+</div><p></p><hr><a id="method-GeneSpec-get_gene_labels"></a><div class="section">
 <h3 id="method-get-gene-labels-">Method <code>get_gene_labels()</code><a class="anchor" aria-label="anchor" href="#method-get-gene-labels-"></a></h3>
 <p>Returns the gene labels (substituted by gene IDs if not available).</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
@@ -144,7 +135,7 @@ used then multiple genes are not summarized but returned as a matrix from the
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-returns_vector"></a><div class="section">
+</div><p></p><hr><a id="method-GeneSpec-returns_vector"></a><div class="section">
 <h3 id="method-returns-vector-">Method <code>returns_vector()</code><a class="anchor" aria-label="anchor" href="#method-returns-vector-"></a></h3>
 <p>Predicate whether the extract returns a vector or not.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
@@ -152,7 +143,7 @@ used then multiple genes are not summarized but returned as a matrix from the
 </div>
 
 
-</div><p></p><hr><a id="method-get_label"></a><div class="section">
+</div><p></p><hr><a id="method-GeneSpec-get_label"></a><div class="section">
 <h3 id="method-get-label-">Method <code>get_label()</code><a class="anchor" aria-label="anchor" href="#method-get-label-"></a></h3>
 <p>Returns a string which can be used e.g. for plot labels.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
@@ -168,7 +159,7 @@ used then multiple genes are not summarized but returned as a matrix from the
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-extract"></a><div class="section">
+</div><p></p><hr><a id="method-GeneSpec-extract"></a><div class="section">
 <h3 id="method-extract-">Method <code>extract()</code><a class="anchor" aria-label="anchor" href="#method-extract-"></a></h3>
 <p>Extract the gene values from an assay as specified.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
@@ -190,7 +181,7 @@ specified genes.</p></dd>
 genes in the rows.</p>
 </div>
 
-</div><p></p><hr><a id="method-extract_data_frame"></a><div class="section">
+</div><p></p><hr><a id="method-GeneSpec-extract_data_frame"></a><div class="section">
 <h3 id="method-extract-data-frame-">Method <code>extract_data_frame()</code><a class="anchor" aria-label="anchor" href="#method-extract-data-frame-"></a></h3>
 <p>Extract the gene values as a <code>data.frame</code>.</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
@@ -212,7 +203,7 @@ specified genes.</p></dd>
 in the rows.</p>
 </div>
 
-</div><p></p><hr><a id="method-clone"></a><div class="section">
+</div><p></p><hr><a id="method-GeneSpec-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
@@ -264,17 +255,17 @@ in the rows.</p>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="va">x_spec</span><span class="op">$</span><span class="fu">extract</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2] [,3] [,4] [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A           11   10   10    8    6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GeneID:52   14   10    8   11   15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A           15    8    9    4   10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GeneID:52    6   10    9    9   14</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># We can also extract these as a `data.frame`.</span></span>
 <span class="r-in"><span class="va">x_spec</span><span class="op">$</span><span class="fu">extract_data_frame</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    A GeneID.52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 11        14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 10        10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 10         8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  8        11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  6        15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 15         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  8        10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  9         9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4         9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 10        14</span>
 </code></pre></div>
     </div>
   </div>
