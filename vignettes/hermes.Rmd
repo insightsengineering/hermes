@@ -75,12 +75,7 @@ devtools::install_github("insightsengineering/hermes")
 
 # Introduction
 
-The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize, analyze RNAseq counts data. The core functionality is built on the BioConductor ecosystem, especially `SummarizedExperiment`.
-New users should first begin by reading the "Introduction to `hermes`" vignette to become familiar with the `hermes` concepts.
-
-```{r, eval=FALSE}
-vignette(topic = "introduction", package = "hermes")
-```
+The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize, analyze RNAseq counts data. The core functionality is built on the BioConductor ecosystem, especially `SummarizedExperiment`. This is the vignette to read for new users of this package.
 
 In this vignette you are going to learn how to:
 
