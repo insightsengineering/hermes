@@ -2,9 +2,7 @@
 url: https://insightsengineering.github.io/hermes
 
 template:
-  params:
-    bootswatch: cerulean
-    ganalytics: "UA-125641273-1"
+  package: nesttemplate
 
 navbar:
   right:
