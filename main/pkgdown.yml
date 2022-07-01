@@ -1,0 +1,10 @@
+pandoc: 2.17.1.1
+pkgdown: 2.0.5
+pkgdown_sha: ~
+articles:
+  hermes: hermes.html
+last_built: 2022-07-01T07:03Z
+urls:
+  reference: https://insightsengineering.github.io/hermes/main/reference
+  article: https://insightsengineering.github.io/hermes/main/articles
+
