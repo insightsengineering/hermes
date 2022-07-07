@@ -21,3 +21,4 @@ TODO\.md
 coverage.*
 .pre-commit-config.yaml
 ^\.pre-commit-config\.yaml$
+SECURITY.md
