@@ -1,4 +1,4 @@
-# hermes 0.99.5.9006
+# hermes 0.99.5.9007
 
 ### Meta
 * First public release of the `hermes` package.
