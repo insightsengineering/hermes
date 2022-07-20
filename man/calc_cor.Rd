@@ -50,10 +50,10 @@ An \code{autoplot()} method then afterwards can produce the corresponding heatma
 }
 \section{Functions}{
 \itemize{
-\item \code{autoplot,HermesDataCor-method}: This \code{autoplot()} method uses the \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}} function
+\item \code{autoplot(HermesDataCor)}: This \code{autoplot()} method uses the \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}} function
 to plot the correlations between samples saved in a \code{\link{HermesDataCor}} object.
-}}
 
+}}
 \examples{
 object <- hermes_data
 

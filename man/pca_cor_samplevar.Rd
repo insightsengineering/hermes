@@ -42,10 +42,10 @@ A corresponding \code{autoplot()} method then can visualize the results in a hea
 }
 \section{Functions}{
 \itemize{
-\item \code{autoplot,HermesDataPcaCor-method}: This plot method uses the \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}} function
+\item \code{autoplot(HermesDataPcaCor)}: This plot method uses the \code{\link[ComplexHeatmap:Heatmap]{ComplexHeatmap::Heatmap()}} function
 to visualize a \code{\link{HermesDataPcaCor}} object.
-}}
 
+}}
 \examples{
 object <- hermes_data \%>\%
   add_quality_flags() \%>\%

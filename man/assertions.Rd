@@ -57,20 +57,20 @@ linked below.
 }
 \section{Functions}{
 \itemize{
-\item \code{is_class}: checks the class.
+\item \code{is_class()}: checks the class.
 
-\item \code{is_hermes_data}: checks whether \code{x} is an \code{\link{AnyHermesData}} object.
+\item \code{is_hermes_data()}: checks whether \code{x} is an \code{\link{AnyHermesData}} object.
 
-\item \code{is_counts_vector}: checks for a vector of counts (positive integers).
+\item \code{is_counts_vector()}: checks for a vector of counts (positive integers).
 
-\item \code{is_list_with}: checks for a list containing elements.
+\item \code{is_list_with()}: checks for a list containing elements.
 
-\item \code{one_provided}: checks that exactly one of the two inputs \code{one}, \code{two} is not \code{NULL}.
+\item \code{one_provided()}: checks that exactly one of the two inputs \code{one}, \code{two} is not \code{NULL}.
 
-\item \code{is_constant}: checks whether the vector \code{x} is constant (only supports \code{numeric}, \code{factor},
+\item \code{is_constant()}: checks whether the vector \code{x} is constant (only supports \code{numeric}, \code{factor},
 \code{character}, \code{logical}). \code{NA}s are removed first.
-}}
 
+}}
 \examples{
 # Assert a general class.
 a <- 5

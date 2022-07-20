@@ -58,9 +58,9 @@ Possible method choices are:
 }
 \section{Functions}{
 \itemize{
-\item \code{autoplot,HermesDataDiffExpr-method}: generates a volcano plot for a \code{\link{HermesDataDiffExpr}} object.
-}}
+\item \code{autoplot(HermesDataDiffExpr)}: generates a volcano plot for a \code{\link{HermesDataDiffExpr}} object.
 
+}}
 \note{
 \itemize{
 \item We provide the \code{\link[=df_cols_to_factor]{df_cols_to_factor()}} utility function that makes it easy to convert the

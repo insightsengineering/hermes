@@ -68,11 +68,11 @@ provided.
 }
 \section{Functions}{
 \itemize{
-\item \code{autoplot,HermesDataTopGenes-method}: Creates a bar plot from a \link{HermesDataTopGenes} object,
+\item \code{autoplot(HermesDataTopGenes)}: Creates a bar plot from a \link{HermesDataTopGenes} object,
 where the y axis shows the expression statistics for each of the top genes
 on the x-axis.
-}}
 
+}}
 \examples{
 object <- hermes_data
 

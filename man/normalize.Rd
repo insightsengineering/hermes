@@ -74,19 +74,19 @@ count data for all genes into approximately homoskedastic values (having constan
 }
 \section{Functions}{
 \itemize{
-\item \code{h_cpm}: calculates the Counts per Million (CPM) normalized counts.
+\item \code{h_cpm()}: calculates the Counts per Million (CPM) normalized counts.
 
-\item \code{h_rpkm}: calculates the Reads per Kilobase per Million (RPKM) normalized counts.
+\item \code{h_rpkm()}: calculates the Reads per Kilobase per Million (RPKM) normalized counts.
 
-\item \code{h_tpm}: calculates the Transcripts per Million (TPM) normalized counts.
+\item \code{h_tpm()}: calculates the Transcripts per Million (TPM) normalized counts.
 
-\item \code{h_voom}: calculates the VOOM normalized counts. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\item \code{h_voom()}: calculates the VOOM normalized counts. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-\item \code{h_vst}: variance stabilizing transformation (\code{vst}) from \code{DESeq2} package.
+\item \code{h_vst()}: variance stabilizing transformation (\code{vst}) from \code{DESeq2} package.
 
-\item \code{h_rlog}: regularized log transformation (\code{rlog}) from \code{DESeq2} package.
+\item \code{h_rlog()}: regularized log transformation (\code{rlog}) from \code{DESeq2} package.
+
 }}
-
 \examples{
 a <- hermes_data
 

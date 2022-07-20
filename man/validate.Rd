@@ -40,21 +40,21 @@ defined by successfully passing these validation checks.
 }
 \section{Functions}{
 \itemize{
-\item \code{validate_counts}: validates that the first assay is \code{counts} containing
+\item \code{validate_counts()}: validates that the first assay is \code{counts} containing
 non-missing, integer, non-negative values.
 
-\item \code{validate_cols}: validates that required column names are contained in
+\item \code{validate_cols()}: validates that required column names are contained in
 actual column names.
 
-\item \code{validate_row_data}: validates that the object contains \code{rowData} with
+\item \code{validate_row_data()}: validates that the object contains \code{rowData} with
 required columns.
 
-\item \code{validate_col_data}: validates that the object contains \code{colData} with
+\item \code{validate_col_data()}: validates that the object contains \code{colData} with
 required columns.
 
-\item \code{validate_names}: validates that the object contains row and column names.
+\item \code{validate_names()}: validates that the object contains row and column names.
 
-\item \code{validate_prefix}: validates that the object prefix is a string
+\item \code{validate_prefix()}: validates that the object prefix is a string
 and only contains alphabetic characters.
-}}
 
+}}

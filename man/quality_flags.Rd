@@ -62,22 +62,22 @@ object creation.
 }
 \section{Functions}{
 \itemize{
-\item \code{h_low_expression_flag}: creates the low expression flag for genes
+\item \code{h_low_expression_flag()}: creates the low expression flag for genes
 given control settings.
 
-\item \code{h_low_depth_flag}: creates the low depth (library size) flag for samples
+\item \code{h_low_depth_flag()}: creates the low depth (library size) flag for samples
 given control settings.
 
-\item \code{h_tech_failure_flag}: creates the technical failure flag for samples
+\item \code{h_tech_failure_flag()}: creates the technical failure flag for samples
 given control settings.
 
-\item \code{get_tech_failure}: get the technical failure flags for all samples.
+\item \code{get_tech_failure()}: get the technical failure flags for all samples.
 
-\item \code{get_low_depth}: get the low depth failure flags for all samples.
+\item \code{get_low_depth()}: get the low depth failure flags for all samples.
 
-\item \code{get_low_expression}: get the low expression failure flags for all genes.
+\item \code{get_low_expression()}: get the low expression failure flags for all genes.
+
 }}
-
 \examples{
 # Adding default quality flags to `AnyHermesData` object.
 object <- hermes_data
