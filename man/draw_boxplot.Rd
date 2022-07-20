@@ -49,10 +49,10 @@ a gene signature.
 }
 \section{Functions}{
 \itemize{
-\item \code{h_draw_boxplot_df}: Helper function to prepare the data frame required
+\item \code{h_draw_boxplot_df()}: Helper function to prepare the data frame required
 for plotting.
-}}
 
+}}
 \examples{
 object <- hermes_data
 draw_boxplot(

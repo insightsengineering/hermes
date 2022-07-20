@@ -31,9 +31,9 @@ These methods access and set the counts assay in a \code{\link{AnyHermesData}} o
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{object = AnyHermesData,value = matrix}: 
-}}
+\item \code{counts(object = AnyHermesData) <- value}: 
 
+}}
 \examples{
 a <- hermes_data
 result <- counts(a)
