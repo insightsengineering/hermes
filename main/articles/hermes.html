@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to `hermes`">
 <meta property="og:description" content="hermes">
@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hermes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.5.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.5.9007</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,12 +57,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" href="https://insightsengineering.github.io/hermes/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -759,7 +753,7 @@ advance for your thoughts on <code>hermes</code>!</p>
 <h2 class="unnumbered" id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
 <p>Here is the output of <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> on the system on
-which this document was compiled running pandoc 2.17.1.1:</p>
+which this document was compiled running pandoc 2.18:</p>
 <pre><code><span><span class="co">#&gt; R version 4.2.1 (2022-06-23)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
 <span><span class="co">#&gt; Running under: Ubuntu 20.04.4 LTS</span></span>
@@ -781,7 +775,7 @@ which this document was compiled running pandoc 2.17.1.1:</p>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] hermes_0.99.5.9005          SummarizedExperiment_1.26.1</span></span>
+<span><span class="co">#&gt;  [1] hermes_0.99.5.9007          SummarizedExperiment_1.26.1</span></span>
 <span><span class="co">#&gt;  [3] Biobase_2.56.0              GenomicRanges_1.48.0       </span></span>
 <span><span class="co">#&gt;  [5] GenomeInfoDb_1.32.2         IRanges_2.30.0             </span></span>
 <span><span class="co">#&gt;  [7] S4Vectors_0.34.0            BiocGenerics_0.42.0        </span></span>
@@ -795,7 +789,7 @@ which this document was compiled running pandoc 2.17.1.1:</p>
 <span><span class="co">#&gt;   [5] rprojroot_2.0.3             circlize_0.4.15            </span></span>
 <span><span class="co">#&gt;   [7] XVector_0.36.0              GlobalOptions_0.1.2        </span></span>
 <span><span class="co">#&gt;   [9] fs_1.5.2                    clue_0.3-61                </span></span>
-<span><span class="co">#&gt;  [11] farver_2.1.0                MultiAssayExperiment_1.22.0</span></span>
+<span><span class="co">#&gt;  [11] farver_2.1.1                MultiAssayExperiment_1.22.0</span></span>
 <span><span class="co">#&gt;  [13] ggrepel_0.9.1               bit64_4.0.5                </span></span>
 <span><span class="co">#&gt;  [15] AnnotationDbi_1.58.0        fansi_1.0.3                </span></span>
 <span><span class="co">#&gt;  [17] xml2_1.3.3                  splines_4.2.1              </span></span>
@@ -808,12 +802,12 @@ which this document was compiled running pandoc 2.17.1.1:</p>
 <span><span class="co">#&gt;  [31] httr_1.4.3                  backports_1.4.1            </span></span>
 <span><span class="co">#&gt;  [33] assertthat_0.2.1            Matrix_1.4-1               </span></span>
 <span><span class="co">#&gt;  [35] fastmap_1.1.0               limma_3.52.2               </span></span>
-<span><span class="co">#&gt;  [37] cli_3.3.0                   htmltools_0.5.2            </span></span>
+<span><span class="co">#&gt;  [37] cli_3.3.0                   htmltools_0.5.3            </span></span>
 <span><span class="co">#&gt;  [39] prettyunits_1.1.1           tools_4.2.1                </span></span>
 <span><span class="co">#&gt;  [41] gtable_0.3.0                glue_1.6.2                 </span></span>
 <span><span class="co">#&gt;  [43] GenomeInfoDbData_1.2.8      dplyr_1.0.9                </span></span>
-<span><span class="co">#&gt;  [45] rappdirs_0.3.3              Rcpp_1.0.8.3               </span></span>
-<span><span class="co">#&gt;  [47] jquerylib_0.1.4             pkgdown_2.0.5              </span></span>
+<span><span class="co">#&gt;  [45] rappdirs_0.3.3              Rcpp_1.0.9                 </span></span>
+<span><span class="co">#&gt;  [47] jquerylib_0.1.4             pkgdown_2.0.6              </span></span>
 <span><span class="co">#&gt;  [49] vctrs_0.4.1                 Biostrings_2.64.0          </span></span>
 <span><span class="co">#&gt;  [51] iterators_1.0.14            xfun_0.31                  </span></span>
 <span><span class="co">#&gt;  [53] stringr_1.4.0               brio_1.1.3                 </span></span>
@@ -825,32 +819,32 @@ which this document was compiled running pandoc 2.17.1.1:</p>
 <span><span class="co">#&gt;  [65] RColorBrewer_1.1-3          ComplexHeatmap_2.12.0      </span></span>
 <span><span class="co">#&gt;  [67] yaml_2.3.5                  curl_4.3.2                 </span></span>
 <span><span class="co">#&gt;  [69] memoise_2.0.1               gridExtra_2.3              </span></span>
-<span><span class="co">#&gt;  [71] sass_0.4.1                  biomaRt_2.52.0             </span></span>
-<span><span class="co">#&gt;  [73] stringi_1.7.6               RSQLite_2.2.14             </span></span>
+<span><span class="co">#&gt;  [71] sass_0.4.2                  biomaRt_2.52.0             </span></span>
+<span><span class="co">#&gt;  [73] stringi_1.7.8               RSQLite_2.2.15             </span></span>
 <span><span class="co">#&gt;  [75] highr_0.9                   genefilter_1.78.0          </span></span>
 <span><span class="co">#&gt;  [77] desc_1.4.1                  foreach_1.5.2              </span></span>
 <span><span class="co">#&gt;  [79] checkmate_2.1.0             filelock_1.0.2             </span></span>
 <span><span class="co">#&gt;  [81] BiocParallel_1.30.3         shape_1.4.6                </span></span>
-<span><span class="co">#&gt;  [83] Rdpack_2.3.1                rlang_1.0.3                </span></span>
+<span><span class="co">#&gt;  [83] Rdpack_2.3.1                rlang_1.0.4                </span></span>
 <span><span class="co">#&gt;  [85] pkgconfig_2.0.3             systemfonts_1.0.4          </span></span>
 <span><span class="co">#&gt;  [87] bitops_1.0-7                evaluate_0.15              </span></span>
 <span><span class="co">#&gt;  [89] lattice_0.20-45             purrr_0.3.4                </span></span>
 <span><span class="co">#&gt;  [91] labeling_0.4.2              bit_4.0.4                  </span></span>
 <span><span class="co">#&gt;  [93] tidyselect_1.1.2            DESeq2_1.36.0              </span></span>
 <span><span class="co">#&gt;  [95] magrittr_2.0.3              bookdown_0.27              </span></span>
-<span><span class="co">#&gt;  [97] R6_2.5.1                    generics_0.1.2             </span></span>
+<span><span class="co">#&gt;  [97] R6_2.5.1                    generics_0.1.3             </span></span>
 <span><span class="co">#&gt;  [99] DelayedArray_0.22.0         DBI_1.1.3                  </span></span>
-<span><span class="co">#&gt; [101] pillar_1.7.0                withr_2.5.0                </span></span>
-<span><span class="co">#&gt; [103] survival_3.3-1              KEGGREST_1.36.2            </span></span>
+<span><span class="co">#&gt; [101] pillar_1.8.0                withr_2.5.0                </span></span>
+<span><span class="co">#&gt; [103] survival_3.3-1              KEGGREST_1.36.3            </span></span>
 <span><span class="co">#&gt; [105] RCurl_1.98-1.7              tibble_3.1.7               </span></span>
 <span><span class="co">#&gt; [107] crayon_1.5.1                utf8_1.2.2                 </span></span>
 <span><span class="co">#&gt; [109] BiocFileCache_2.4.0         rmarkdown_2.14             </span></span>
 <span><span class="co">#&gt; [111] GetoptLong_1.0.5            progress_1.2.2             </span></span>
-<span><span class="co">#&gt; [113] locfit_1.5-9.5              grid_4.2.1                 </span></span>
+<span><span class="co">#&gt; [113] locfit_1.5-9.6              grid_4.2.1                 </span></span>
 <span><span class="co">#&gt; [115] blob_1.2.3                  forcats_0.5.1              </span></span>
 <span><span class="co">#&gt; [117] digest_0.6.29               xtable_1.8-4               </span></span>
 <span><span class="co">#&gt; [119] tidyr_1.2.0                 textshaping_0.3.6          </span></span>
-<span><span class="co">#&gt; [121] munsell_0.5.0               bslib_0.3.1</span></span></code></pre>
+<span><span class="co">#&gt; [121] munsell_0.5.0               bslib_0.4.0</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -865,7 +859,7 @@ which this document was compiled running pandoc 2.17.1.1:</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
