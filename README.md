@@ -59,3 +59,10 @@ You can get started by reading the introduction vignette:
 library(hermes)
 vignette("introduction", package = "hermes")
 ```
+
+[![Stargazers repo roster for @insightsengineering/hermes](https://reporoster.com/stars/insightsengineering/hermes)](https://github.com/insightsengineering/hermes/stargazers)
+[![Forkers repo roster for @insightsengineering/hermes](https://reporoster.com/forks/insightsengineering/hermes)](https://github.com/insightsengineering/hermes/network/members)
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/insightsengineering/hermes.svg)](https://starchart.cc/insightsengineering/hermes)
