@@ -1,0 +1,37 @@
+---
+title: "Design: Add Heatmap Depicting (normalized) Counts"
+author: "Alex Richardson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+A plot method for `AnyHermesData` objects to produce following plots in default setting: 
+1. Generate a heatmap of a single assay, data normalized
+2. Title based on input dataset
+3. How should the function behave if there are several assays?
+4. Organize by assay name or other parameters?
+5. Use filter/subset function to remove genes that are zero value for all samples?
+
+
+## Idea
+
+```{r}
+library(hermes)
+library(dplyr)
+
+result <- (assays(normalize(hermes_data))[[1]])[1:20,]
+
+dim(result)
+
+Heatmap_plot <- ComplexHeatmap::Heatmap(result)
+draw(Heatmap_plot)
+
+```
+
