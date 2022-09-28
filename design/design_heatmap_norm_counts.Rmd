@@ -24,10 +24,12 @@ A plot method for `AnyHermesData` objects to produce following plots in default 
 7. Collapse by column groups in dataset, eg country, indication, etc?
 8. Colored bands (annotations) above dendrogram, with key or labels - or label dendrogram?
 
-
 ## Idea
 
-```{r Heatmap normalize concept}
+OK let's first try out how we can obtain an object that can be an input
+for the heatmap function:
+
+```{r}
 library(hermes)
 library(dplyr)
 library(ComplexHeatmap)
@@ -37,33 +39,38 @@ library(ComplexHeatmap)
 
 result <- hermes_data %>%
   normalize(methods = 'voom') %>%
-  add_quality_flags() %>%
-  # subset(subset = !low_expression_flag) %>%
-  assays()
+  add_quality_flags()
+
+result2 <- filter(result)
 
 result <- result[[1]]
 dim(result)
 
 result
-# We subset from "not low expression" to remove the genes that don't show up in the samples, but we don't see the rows of full zeroes disappearing
+```
 
+We subset from "not low expression" to remove the genes that don't show up in the samples, but we don't see the rows of full zeroes disappearing:
+
+```{r}
 notZeroVector <- rowSums(result)
 notZeroVector <- notZeroVector > mean(notZeroVector)
 result <- result[notZeroVector,]
+```
 
-dim(result)
-length(notZeroVector)
+And here is how we can then obtain the heatmap:
 
+```{r}
 Heatmap_plot <- ComplexHeatmap::Heatmap(result)
 draw(Heatmap_plot)
-
 ```
+
+## Prototype
+
+Here is the prototype function:
 
 ```{r Prototype}
 
-NormalizedHeatmap <- function(datasetInput,
-                              remove_low_expression = FALSE,
-                              remove_zero_expression = TRUE)
+NormalizedHeatmap <- function(datasetInput)
   {
   filteredData <- datasetInput %>%
     normalize(methods = 'voom') %>%
@@ -73,18 +80,9 @@ NormalizedHeatmap <- function(datasetInput,
   filteredData <- filteredData[[1]]
   
   # Example for "remove low expression" is to remove those with total expression in the sample lower than the mean, this can be edited with a threshold, or removing the zero-expression genes in the assay. The subset method with argument select = !low_expression_flag did not seem to filter anything out when applied to this example assay.
-  if (remove_low_expression){
-    notLowVector <- rowSums(filteredData)
-    notLowVector <- notLowVector > mean(notLowVector)
-    filteredData <- filteredData[notLowVector,]
-  }
   
-  if (remove_zero_expression){
-    notZeroVector <- rowSums(filteredData)
-    notZeroVector <- notZeroVector > 0
-    filteredData <- filteredData[notZeroVector,]
-  }
   
+ 
   Heatmap_plot <- ComplexHeatmap::Heatmap(result)
   draw(Heatmap_plot)
 
