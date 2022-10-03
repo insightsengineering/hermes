@@ -12,7 +12,7 @@ editor_options:
 
 ## Objective
 
-A plot method for `AnyHermesData` objects to produce following plots in default setting: 
+A plot method for `AnyHermesData` objects to produce the following plots in default setting: 
 1. Generate a heatmap of a single assay, data normalized
 2. Title based on input dataset
 3. How should the function behave if there are several assays?
@@ -30,26 +30,22 @@ OK let's first try out how we can obtain an object that can be an input
 for the heatmap function:
 
 ```{r}
+
 library(hermes)
 library(dplyr)
 library(ComplexHeatmap)
 
-# result <- (assays(normalize(hermes_data))[[1]])[1:20,] %>%
-  # subset(a, subset = low_expression_flag, select = DISCSTUD == "N")
+result <- hermes_data 
 
-result <- hermes_data %>%
-  normalize(methods = 'voom') %>%
-  add_quality_flags()
+# For some reason the hermes_data object is a single assay now, not sure if I altered a global variable on this branch
 
-result2 <- filter(result)
-
-result <- result[[1]]
+# result <- result[[1]]
 dim(result)
 
 result
 ```
 
-We subset from "not low expression" to remove the genes that don't show up in the samples, but we don't see the rows of full zeroes disappearing:
+We subset from "not low expression" to remove the genes that don't show up in the samples. This can be done by the user before using the draw_heatmap function.
 
 ```{r}
 notZeroVector <- rowSums(result)
@@ -68,28 +64,27 @@ draw(Heatmap_plot)
 
 Here is the prototype function:
 
-```{r Prototype}
+```{r}
 
-NormalizedHeatmap <- function(datasetInput)
+draw_heatmap <- function(datasetInput,
+                         assay_name = "counts")
   {
   filteredData <- datasetInput %>%
-    normalize(methods = 'voom') %>%
-    add_quality_flags() %>%
     assays()
   
   filteredData <- filteredData[[1]]
-  
-  # Example for "remove low expression" is to remove those with total expression in the sample lower than the mean, this can be edited with a threshold, or removing the zero-expression genes in the assay. The subset method with argument select = !low_expression_flag did not seem to filter anything out when applied to this example assay.
-  
-  
  
-  Heatmap_plot <- ComplexHeatmap::Heatmap(result)
+  Heatmap_plot <- ComplexHeatmap::Heatmap(filteredData)
   draw(Heatmap_plot)
+  }
 
-}
+draw_heatmap(hermes_data)
 
-NormalizedHeatmap(hermes_data)
+# And the filtered subset:
+
+draw_heatmap(result)
 
 ```
 
 
+  
