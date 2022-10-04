@@ -23,6 +23,7 @@ A plot method for `AnyHermesData` objects to produce the following plots in defa
 6. Review differential expression for relevance to heatmap taxonomy
 7. Collapse by column groups in dataset, eg country, indication, etc?
 8. Colored bands (annotations) above dendrogram, with key or labels - or label dendrogram?
+  a. How is the dendrogram determined? Is it useful to supplement with labels, annotations, colors?
 
 ## Idea
 
@@ -35,12 +36,15 @@ library(hermes)
 library(dplyr)
 library(ComplexHeatmap)
 
-result <- hermes_data 
+result <- hermes_data %>%
+    normalize(methods = 'voom') %>%
+    add_quality_flags()
 
-# For some reason the hermes_data object is a single assay now, not sure if I altered a global variable on this branch
-
-# result <- result[[1]]
 dim(result)
+
+# Now the filter method option
+# No, commenting it out for now
+# result <- filter(result[[1]])
 
 result
 ```
@@ -74,15 +78,15 @@ draw_heatmap <- function(datasetInput,
   
   filteredData <- filteredData[[1]]
  
-  Heatmap_plot <- ComplexHeatmap::Heatmap(filteredData)
+  Heatmap_plot <- ComplexHeatmap::Heatmap(filteredData, name = assay_name)
   draw(Heatmap_plot)
   }
 
 draw_heatmap(hermes_data)
 
-# And the filtered subset:
+# And a smaller subset:
 
-draw_heatmap(result)
+draw_heatmap(result[1:40])
 
 ```
 
