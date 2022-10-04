@@ -31,7 +31,6 @@ OK let's first try out how we can obtain an object that can be an input
 for the heatmap function:
 
 ```{r}
-
 library(hermes)
 library(dplyr)
 library(ComplexHeatmap)
@@ -42,20 +41,30 @@ result <- hermes_data %>%
 
 dim(result)
 
-# Now the filter method option
-# No, commenting it out for now
-# result <- filter(result[[1]])
-
 result
 ```
 
-We subset from "not low expression" to remove the genes that don't show up in the samples. This can be done by the user before using the draw_heatmap function.
+### Filtering
+
+We subset from "not low expression" to remove the genes that don't show up in the samples. This can be done by the user before using the `draw_heatmap()` function.
+
+One way is to manually compare the sums of the gene counts across all samples
+vs. 0 and subset accordingly:
 
 ```{r}
-notZeroVector <- rowSums(result)
-notZeroVector <- notZeroVector > mean(notZeroVector)
-result <- result[notZeroVector,]
+gene_has_positive_count <- rowSums(counts(result)) > 0
+result2 <- result[gene_has_positive_count, ]
 ```
+
+Or we could just rely on the "low expression" quality flag that is given
+for each gene - this is not the same though:
+
+```{r}
+gene_has_low_expression <- get_low_expression(result)
+table(gene_has_positive_count, gene_has_low_expression)
+result3 <- hermes::filter(result, what = "genes")
+```
+
 
 And here is how we can then obtain the heatmap:
 
@@ -64,31 +73,71 @@ Heatmap_plot <- ComplexHeatmap::Heatmap(result)
 draw(Heatmap_plot)
 ```
 
+### Labels from sample variables
+
+```{r}
+cd <- colData(result)
+names(cd)
+```
+
+So for example we could want to color the samples (columns) of the heatmap
+by 
+
+```{r}
+cd$AGEGRP
+```
+
+for example.
+
+
 ## Prototype
 
 Here is the prototype function:
 
 ```{r}
-
-draw_heatmap <- function(datasetInput,
-                         assay_name = "counts")
-  {
-  filteredData <- datasetInput %>%
-    assays()
+draw_heatmap <- function(object,
+                         assay_name = "counts",
+                         color_extremes = c(0.01, 0.99),
+                         col_data_annotation = NULL,
+                         ...) {
+  # To do in production: add assertions for arguments.
   
-  filteredData <- filteredData[[1]]
- 
-  Heatmap_plot <- ComplexHeatmap::Heatmap(filteredData, name = assay_name)
-  draw(Heatmap_plot)
+  selected_assay <- assay(object, assay_name)
+  color_probs <- c(color_extremes[1L], 0.5, color_extremes[2L])
+  color_quantiles <- stats::quantile(x = selected_assay, probs = color_probs)
+  colors <- circlize::colorRamp2(
+    color_quantiles,
+    c("blue", "white", "red")
+  )
+  
+  if (!is.null(col_data_annotation)) {
+    assert_character(col_data_annotation, any.missing = FALSE)
+    cd <- colData(object)
+    assert_names(names(cd), must.include = col_data_annotation)
+    df <- cd[col_data_annotation]
+    sample_annotation <- ComplexHeatmap::HeatmapAnnotation(df = df)
+    sample_order <- order(df)
+  } else {
+    sample_annotation <- sample_order <- NULL
   }
+  
+  ComplexHeatmap::Heatmap(
+    selected_assay, 
+    name = assay_name,
+    col = colors,
+    top_annotation = sample_annotation,
+    column_order = sample_order,
+    ...
+  )
+}
 
-draw_heatmap(hermes_data)
+draw_heatmap(result3)
 
 # And a smaller subset:
 
 draw_heatmap(result[1:40])
 
+draw_heatmap(result[1:40], col_data_annotation = c("AGEGRP"))
+
+draw_heatmap(result[1:40], col_data_annotation = c("AGEGRP", "COHORT"))
 ```
-
-
-  
