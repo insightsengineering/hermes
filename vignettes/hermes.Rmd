@@ -2,8 +2,6 @@
 title: "Introduction to `hermes`"
 package: hermes
 author:
-  - name: Daniel Sabanés Bové
-    email: daniel.sabanes_bove@roche.com
   - Namrata Bhatia
   - Stefanie Bienert
   - Benoit Falquet
@@ -17,13 +15,16 @@ author:
   - Chendi Liao
   - Carolyn Zhang
   - Joseph N. Paulson
+  - Alex Richardson
+  - name: Daniel Sabanés Bové
+    email: daniel.sabanes_bove@roche.com
 output: 
   BiocStyle::html_document:
     toc_float: true
 vignette: |
   %\VignetteIndexEntry{Introduction to `hermes`}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 editor_options:
   chunk_output_type: console
 ---

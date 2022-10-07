@@ -105,6 +105,7 @@ Collate:
     'dplyr_compatibility.R'
     'draw_barplot.R'
     'draw_boxplot.R'
+    'draw_heatmap.R'
     'draw_scatterplot.R'
     'graphs.R'
     'join_cdisc.R'
