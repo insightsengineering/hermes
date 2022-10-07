@@ -9,7 +9,7 @@
 #' @param color_extremes (`numeric`)\cr percentiles of dataset intended to be displayed.
 #' @param col_data_annotation (`string` or `NULL`)\cr optional grouping variable, taken
 #'   from input sample variables.
-#' @param ...(`string` or `NULL` or `??`)\cr additional arguments to pass to the ComplexHeatmap function
+#' @param ... additional arguments to pass to the ComplexHeatmap function
 #'
 #' @return The `ComplexHeatmap::Heatmap` heatmap
 #'
