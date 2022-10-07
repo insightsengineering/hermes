@@ -18,9 +18,8 @@
 #' @examples
 #' result <- hermes_data %>%
 #'   normalize(methods = "voom") %>%
-#'   add_quality_flags()
-#'
-#' result2 <- hermes::filter(result, what = "genes")
+#'   add_quality_flags() %>%
+#'   filter(what = "genes")
 #'
 #'
 #' draw_heatmap(
