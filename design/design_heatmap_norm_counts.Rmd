@@ -63,11 +63,6 @@ gene_has_low_expression <- get_low_expression(result)
 table(gene_has_positive_count, gene_has_low_expression)
 result3 <- hermes::filter(result, what = "genes")
 
-notZeroVector <- rowSums(result)
-notZeroVector <- notZeroVector > mean(notZeroVector)
-result <- result[notZeroVector, ]
-
-
 ```
 
 
