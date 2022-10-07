@@ -16,7 +16,6 @@
 #' @export
 #'
 #' @examples
-#'
 #' result <- hermes_data %>%
 #'   normalize(methods = "voom") %>%
 #'   add_quality_flags()
