@@ -36,11 +36,10 @@ library(dplyr)
 library(ComplexHeatmap)
 
 result <- hermes_data %>%
-    normalize(methods = 'voom') %>%
-    add_quality_flags()
+  normalize(methods = "voom") %>%
+  add_quality_flags()
 
 dim(result)
-
 result
 ```
 
@@ -63,6 +62,12 @@ for each gene - this is not the same though:
 gene_has_low_expression <- get_low_expression(result)
 table(gene_has_positive_count, gene_has_low_expression)
 result3 <- hermes::filter(result, what = "genes")
+
+notZeroVector <- rowSums(result)
+notZeroVector <- notZeroVector > mean(notZeroVector)
+result <- result[notZeroVector, ]
+
+
 ```
 
 
@@ -133,11 +138,11 @@ draw_heatmap <- function(object,
 
 draw_heatmap(result3)
 
-# And a smaller subset:
+draw_heatmap(hermes_data)
 
-draw_heatmap(result[1:40])
+draw_heatmap(result[1:40], color_extremes = c(0.001,.999), col_data_annotation = c("AGEGRP"))
 
-draw_heatmap(result[1:40], col_data_annotation = c("AGEGRP"))
+```
 
 draw_heatmap(result[1:40], col_data_annotation = c("AGEGRP", "COHORT"))
 ```
