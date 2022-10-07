@@ -7,7 +7,7 @@
 #' @param object (`AnyHermesData`)\cr input.
 #' @param assay_name (`string`)\cr selects assay from input.
 #' @param color_extremes (`numeric`)\cr percentiles of dataset intended to be displayed.
-#' @param col_data_annotation (`string` or `NULL`)\cr optional grouping variable, taken
+#' @param col_data_annotation (`character` or `NULL`)\cr optional grouping variable(s), taken
 #'   from input sample variables.
 #' @param ... additional arguments to pass to the ComplexHeatmap function
 #'
