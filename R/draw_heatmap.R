@@ -2,7 +2,7 @@
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This produces a heatmap of the normalized gene expression counts and groups by various factors available in the assay dataset
+#' This produces a heatmap of the chosen assay and groups by various sample variables.
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param assay_name (`string`)\cr selects assay from input.
