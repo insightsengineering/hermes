@@ -19,10 +19,10 @@ draw_heatmap(
 
 \item{color_extremes}{(\code{numeric})\cr percentiles of dataset intended to be displayed.}
 
-\item{col_data_annotation}{(\code{string} or \code{NULL})\cr optional grouping variable, taken
+\item{col_data_annotation}{(\code{character} or \code{NULL})\cr optional grouping variable(s), taken
 from input sample variables.}
 
-\item{...(`string`}{or \code{NULL} or \verb{??})\cr additional arguments to pass to the ComplexHeatmap function}
+\item{...}{additional arguments to pass to the ComplexHeatmap function}
 }
 \value{
 The \code{ComplexHeatmap::Heatmap} heatmap
@@ -30,15 +30,13 @@ The \code{ComplexHeatmap::Heatmap} heatmap
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This produces a heatmap of the normalized gene expression counts and groups by various factors available in the assay dataset
+This produces a heatmap of the chosen assay and groups by various sample variables.
 }
 \examples{
-
 result <- hermes_data \%>\%
   normalize(methods = "voom") \%>\%
-  add_quality_flags()
-
-result2 <- hermes::filter(result, what = "genes")
+  add_quality_flags() \%>\%
+  filter(what = "genes")
 
 
 draw_heatmap(

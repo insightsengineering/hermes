@@ -77,7 +77,7 @@ draw(Heatmap_plot)
 
 ```{r}
 cd <- colData(result)
-names(cd)
+sort(names(cd))
 ```
 
 So for example we could want to color the samples (columns) of the heatmap
@@ -135,7 +135,7 @@ draw_heatmap(result3)
 
 draw_heatmap(hermes_data)
 
-draw_heatmap(result[1:40], color_extremes = c(0.001,.999), col_data_annotation = c("AGEGRP"))
+draw_heatmap(result[1:40], color_extremes = c(0.001,.999), col_data_annotation = c("AGEGRP", "COUNTRY"))
 
 ```
 

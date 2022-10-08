@@ -2,6 +2,7 @@
 title: "Introduction to `hermes`"
 package: hermes
 author:
+  - Alex Richardson
   - Namrata Bhatia
   - Stefanie Bienert
   - Benoit Falquet
@@ -15,7 +16,6 @@ author:
   - Chendi Liao
   - Carolyn Zhang
   - Joseph N. Paulson
-  - Alex Richardson
   - name: Daniel Sabanés Bové
     email: daniel.sabanes_bove@roche.com
 output: 
@@ -389,6 +389,21 @@ By passing another summary function, also the variability can be ranked for exam
 ```{r}
 most_var_genes <- top_genes(object_normalized, summary_fun = rowSds)
 autoplot(most_var_genes)
+```
+
+## Heatmap of Genes among Samples
+
+Relative expression of genes can be displayed using a heatmap
+
+```{r}
+draw_heatmap(object[1:20])
+```
+
+The heatmap can be grouped by labels in the HermesData object, such as "COUNTRY" or "AGEGRP".
+
+```{r}
+col_data_annotation = c("COUNTRY")
+draw_heatmap(object[1:20], col_data_annotation = col_data_annotation)
 ```
 
 ## Correlation between Samples
