@@ -6,7 +6,7 @@
 \usage{
 draw_heatmap(
   object,
-  assay_name = "counts",
+  assay_name,
   color_extremes = c(0.01, 0.99),
   col_data_annotation = NULL,
   ...
