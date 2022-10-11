@@ -399,7 +399,7 @@ Relative expression of genes can be displayed using a heatmap
 draw_heatmap(object[1:20], asasy_name = "counts",)
 ```
 
-The heatmap can be grouped by labels in the HermesData object, such as "COUNTRY" or "AGEGRP".
+The heatmap can be grouped by labels in the HermesData object, such as `"COUNTRY"` or `"AGEGRP"`.
 
 ```{r}
 col_data_annotation = c("COUNTRY")
