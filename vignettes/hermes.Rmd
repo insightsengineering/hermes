@@ -396,14 +396,14 @@ autoplot(most_var_genes)
 Relative expression of genes can be displayed using a heatmap
 
 ```{r}
-draw_heatmap(object[1:20])
+draw_heatmap(object[1:20], asasy_name = "counts",)
 ```
 
 The heatmap can be grouped by labels in the HermesData object, such as "COUNTRY" or "AGEGRP".
 
 ```{r}
 col_data_annotation = c("COUNTRY")
-draw_heatmap(object[1:20], col_data_annotation = col_data_annotation)
+draw_heatmap(object[1:20], asasy_name = "counts", col_data_annotation = col_data_annotation)
 ```
 
 ## Correlation between Samples
