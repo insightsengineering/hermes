@@ -44,7 +44,6 @@ draw_heatmap <- function(object,
                          color_extremes = c(0.01, 0.99),
                          col_data_annotation = NULL,
                          ...) {
-
   assert_class(object, "AnyHermesData")
   assert_string(assay_name)
   assert_numeric(
