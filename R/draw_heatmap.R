@@ -21,7 +21,6 @@
 #'   add_quality_flags() %>%
 #'   filter(what = "genes")
 #'
-#'
 #' draw_heatmap(
 #'   object = result2,
 #'   col_data_annotation = c("COUNTRY")
