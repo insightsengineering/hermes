@@ -9,7 +9,7 @@
 #' @param color_extremes (`numeric`)\cr min and max percentiles to inform the color scheme of the heatmap as blue and red respectively
 #' @param col_data_annotation (`character` or `NULL`)\cr optional grouping variable(s), taken
 #'   from input sample variables.
-#' @param ... additional arguments to pass to the ComplexHeatmap function
+#' @param ... additional arguments to pass to [ComplexHeatmap::Heatmap()].
 #'
 #' @return The `ComplexHeatmap::Heatmap` heatmap
 #'
