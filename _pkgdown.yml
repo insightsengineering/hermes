@@ -116,6 +116,7 @@ reference:
       - draw_libsize_densities
       - draw_nonzero_boxplot
       - draw_genes_barplot
+      - draw_heatmap
       - draw_scatterplot
       - draw_barplot
       - draw_boxplot

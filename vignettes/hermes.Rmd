@@ -2,13 +2,15 @@
 title: "Introduction to `hermes`"
 package: hermes
 author:
-  - Alex Richardson
+  - name: Daniel Sabanés Bové
+    email: daniel.sabanes_bove@roche.com
   - Namrata Bhatia
   - Stefanie Bienert
   - Benoit Falquet
   - Haocheng Li
   - Jeff Luong
   - Lyndsee Midori Zhang
+  - Alex Richardson
   - Simona Rossomanno
   - Tim Treis
   - Mark Yan
@@ -16,8 +18,6 @@ author:
   - Chendi Liao
   - Carolyn Zhang
   - Joseph N. Paulson
-  - name: Daniel Sabanés Bové
-    email: daniel.sabanes_bove@roche.com
 output: 
   BiocStyle::html_document:
     toc_float: true
@@ -402,7 +402,7 @@ draw_heatmap(object[1:20], assay_name = "counts")
 The heatmap can be grouped by labels in the HermesData object, such as `"COUNTRY"` or `"AGEGRP"`.
 
 ```{r}
-draw_heatmap(object[1:20], asasy_name = "counts", col_data_annotation = "COUNTRY")
+draw_heatmap(object[1:20], assay_name = "counts", col_data_annotation = "COUNTRY")
 ```
 
 ## Correlation between Samples

@@ -1,4 +1,14 @@
-# hermes 0.99.5.9009
+# hermes 1.0.1.9001
+
+### Enhancements
+* New plotting function `draw_heatmap` to produce heatmaps of (normalized) counts.
+
+# hermes 1.0.1
+
+### Enhancements
+* Additional `version` argument for `connect_biomart` to specify an Ensembl version.
+
+# hermes 1.0.0
 
 ### Meta
 * First public release of the `hermes` package.
@@ -7,7 +17,6 @@
 ### Enhancements
 * Better legends on the genes barplot and the correlation heatmap.
 * Improved vignette layout using the BioConductor style.
-* Additional `version` argument for `connect_biomart` to specify an Ensembl version.
 
 ### Miscellaneous
 * New utility function `cut_quantile` for cutting a numeric vector into quantiles.

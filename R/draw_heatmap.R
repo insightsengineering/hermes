@@ -22,22 +22,16 @@
 #'   filter(what = "genes")
 #'
 #' draw_heatmap(
-#'   object = result2,
-#'   col_data_annotation = c("COUNTRY")
+#'   object = result[1:10, ],
+#'   assay_name = "counts",
+#'   col_data_annotation = "COUNTRY"
 #' )
 #'
 #' draw_heatmap(
-#'   object = result2,
+#'   object = result[1:10, ],
 #'   assay_name = "counts",
 #'   color_extremes = c(0.001, 0.999),
-#'   col_data_annotation = c("AGEGRP")
-#' )
-#'
-#' draw_heatmap(
-#'   object = result2,
-#'   assay_name = "counts",
-#'   color_extremes = c(0.25, 0.75),
-#'   col_data_annotation = c("Ethnic")
+#'   col_data_annotation = "AGEGRP"
 #' )
 draw_heatmap <- function(object,
                          assay_name,
@@ -85,4 +79,3 @@ draw_heatmap <- function(object,
     ...
   )
 }
-
