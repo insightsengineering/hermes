@@ -17,7 +17,8 @@ draw_heatmap(
 
 \item{assay_name}{(\code{string})\cr selects assay from input.}
 
-\item{color_extremes}{(\code{numeric})\cr min and max percentiles to inform the color scheme of the heatmap as blue and red respectively}
+\item{color_extremes}{(\code{numeric})\cr min and max percentiles to inform the color scheme
+of the heatmap as blue and red respectively.}
 
 \item{col_data_annotation}{(\code{character} or \code{NULL})\cr optional grouping variable(s), taken
 from input sample variables.}
