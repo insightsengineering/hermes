@@ -57,7 +57,6 @@ draw_heatmap <- function(object,
   )
   assert_string(col_data_annotation, null.ok = TRUE)
 
-
   selected_assay <- assay(object, assay_name)
   color_probs <- c(color_extremes[1L], 0.5, color_extremes[2L])
   color_quantiles <- stats::quantile(x = selected_assay, probs = color_probs)
