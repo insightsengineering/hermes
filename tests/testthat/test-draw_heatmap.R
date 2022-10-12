@@ -1,6 +1,6 @@
 test_that("draw_heatmap works as expected", {
   result <- draw_heatmap(
-    hermes_data,
+    hermes_data[1:20],
     assay_name = "counts",
     color_extremes = c(0.01, 0.99),
     col_data_annotation = "SEX",
