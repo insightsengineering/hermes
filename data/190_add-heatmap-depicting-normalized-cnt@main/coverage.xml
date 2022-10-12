@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.888070692194403" branch-rate="0" lines-covered="1206" lines-valid="1358" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-10-12 19:10:29">
+<coverage line-rate="0.888070692194403" branch-rate="0" lines-covered="1206" lines-valid="1358" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-10-12 19:21:24">
   <sources/>
   <packages>
     <package name="hermes" line-rate="0.888070692194403" branch-rate="0" complexity="0">
@@ -1051,7 +1051,6 @@
           <methods>
             <method name="draw_heatmap" signature="" line-rate="0.971428571428571" branch-rate="0">
               <lines>
-                <line number="41" hits="1" branch="false"/>
                 <line number="42" hits="1" branch="false"/>
                 <line number="43" hits="1" branch="false"/>
                 <line number="44" hits="1" branch="false"/>
@@ -1063,22 +1062,22 @@
                 <line number="50" hits="1" branch="false"/>
                 <line number="51" hits="1" branch="false"/>
                 <line number="52" hits="1" branch="false"/>
-                <line number="54" hits="1" branch="false"/>
+                <line number="53" hits="1" branch="false"/>
                 <line number="55" hits="1" branch="false"/>
                 <line number="56" hits="1" branch="false"/>
                 <line number="57" hits="1" branch="false"/>
                 <line number="58" hits="1" branch="false"/>
                 <line number="59" hits="1" branch="false"/>
                 <line number="60" hits="1" branch="false"/>
-                <line number="62" hits="1" branch="false"/>
+                <line number="61" hits="1" branch="false"/>
                 <line number="63" hits="1" branch="false"/>
                 <line number="64" hits="1" branch="false"/>
                 <line number="65" hits="1" branch="false"/>
                 <line number="66" hits="1" branch="false"/>
                 <line number="67" hits="1" branch="false"/>
                 <line number="68" hits="1" branch="false"/>
-                <line number="70" hits="0" branch="false"/>
-                <line number="73" hits="1" branch="false"/>
+                <line number="69" hits="1" branch="false"/>
+                <line number="71" hits="0" branch="false"/>
                 <line number="74" hits="1" branch="false"/>
                 <line number="75" hits="1" branch="false"/>
                 <line number="76" hits="1" branch="false"/>
@@ -1086,11 +1085,11 @@
                 <line number="78" hits="1" branch="false"/>
                 <line number="79" hits="1" branch="false"/>
                 <line number="80" hits="1" branch="false"/>
+                <line number="81" hits="1" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="41" hits="1" branch="false"/>
             <line number="42" hits="1" branch="false"/>
             <line number="43" hits="1" branch="false"/>
             <line number="44" hits="1" branch="false"/>
@@ -1102,22 +1101,22 @@
             <line number="50" hits="1" branch="false"/>
             <line number="51" hits="1" branch="false"/>
             <line number="52" hits="1" branch="false"/>
-            <line number="54" hits="1" branch="false"/>
+            <line number="53" hits="1" branch="false"/>
             <line number="55" hits="1" branch="false"/>
             <line number="56" hits="1" branch="false"/>
             <line number="57" hits="1" branch="false"/>
             <line number="58" hits="1" branch="false"/>
             <line number="59" hits="1" branch="false"/>
             <line number="60" hits="1" branch="false"/>
-            <line number="62" hits="1" branch="false"/>
+            <line number="61" hits="1" branch="false"/>
             <line number="63" hits="1" branch="false"/>
             <line number="64" hits="1" branch="false"/>
             <line number="65" hits="1" branch="false"/>
             <line number="66" hits="1" branch="false"/>
             <line number="67" hits="1" branch="false"/>
             <line number="68" hits="1" branch="false"/>
-            <line number="70" hits="0" branch="false"/>
-            <line number="73" hits="1" branch="false"/>
+            <line number="69" hits="1" branch="false"/>
+            <line number="71" hits="0" branch="false"/>
             <line number="74" hits="1" branch="false"/>
             <line number="75" hits="1" branch="false"/>
             <line number="76" hits="1" branch="false"/>
@@ -1125,6 +1124,7 @@
             <line number="78" hits="1" branch="false"/>
             <line number="79" hits="1" branch="false"/>
             <line number="80" hits="1" branch="false"/>
+            <line number="81" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="draw_scatterplot.R" filename="R/draw_scatterplot.R" line-rate="0.875" branch-rate="0" complexity="0">
