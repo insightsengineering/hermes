@@ -217,7 +217,7 @@ h_parens <- function(x) {
 #'   assay("counts")
 #'
 #' colPrinComp1(object)
-colPrinComp1 <- function(x,
+colPrinComp1 <- function(x, # nolint
                          center = TRUE,
                          scale = TRUE) {
   assert_matrix(x, any.missing = FALSE, mode = "numeric")
@@ -251,7 +251,7 @@ colPrinComp1 <- function(x,
 #'   assay("counts")
 #'
 #' colMeanZscores(object)
-colMeanZscores <- function(x) {
+colMeanZscores <- function(x) { # nolint
   assert_matrix(x, any.missing = FALSE, mode = "numeric")
 
   gene_is_constant <- apply(x, MARGIN = 1L, FUN = S4Vectors::isConstant)
