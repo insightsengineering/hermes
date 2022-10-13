@@ -3,6 +3,9 @@
 ### Enhancements
 * New plotting function `draw_heatmap` to produce heatmaps of (normalized) counts.
 
+### Miscellaneous
+* The utility function `df_cols_to_factor` now also converts existing factors to having explicit missing levels.
+
 # hermes 1.0.1
 
 ### Enhancements

@@ -87,6 +87,19 @@ test_that("h_df_factors_with_explicit_na works with a single character variable 
   expect_identical(result, expected)
 })
 
+test_that("h_df_factors_with_explicit_na converts empty strings to explicit missings", {
+  dat <- data.frame(
+    a = c("", "B", "C"),
+    d = factor(c("X", "Y", ""))
+  )
+  result <- h_df_factors_with_explicit_na(dat)
+  expected <- data.frame(
+    a = factor(c("<Missing>", "B", "C"), levels = c("B", "C", "<Missing>")),
+    d = factor(c("X", "Y", "<Missing>"), levels = c("X", "Y", "<Missing>"))
+  )
+  expect_identical(result, expected)
+})
+
 test_that("h_df_factors_with_explicit_na fails as expected when no columns in data", {
   dat <- data.frame(a = 1)[, NULL]
   expect_error(
@@ -119,7 +132,7 @@ test_that("df_cols_to_factor works as expected with default settings", {
     a = factor(c("<Missing>", "B"), levels = c("B", "<Missing>")),
     b = array(1:4, c(2, 1, 2)),
     c = factor(c(TRUE, FALSE)),
-    d = factor(c("X", NA)),
+    d = factor(c("X", "<Missing>"), levels = c("X", "<Missing>")),
     e = factor(c("U", "<Missing>"), levels = c("U", "<Missing>")),
     chromosome = c("a", "b"),
     low_depth_flag = c(TRUE, FALSE)
@@ -142,7 +155,7 @@ test_that("df_cols_to_factor works as expected with custom settings", {
     a = c(NA, "B"),
     b = array(1:4, c(2, 1, 2)),
     c = factor(c(TRUE, "Misses"), levels = c("TRUE", "Misses")),
-    d = factor(c("X", NA)),
+    d = factor(c("X", "Misses"), levels = c("X", "Misses")),
     e = factor(c("U", "Misses"), levels = c("U", "Misses")),
     chromosome = c("a", "b"),
     low_depth_flag = c(TRUE, FALSE)
