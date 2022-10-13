@@ -28,7 +28,8 @@ NULL
 #'
 #' This helper function converts all character and logical variables
 #' to factor variables in a `data.frame`. It also sets an explicit missing data level
-#' for all factor variables that have at least one `NA`.
+#' for all factor variables that have at least one `NA`. Empty strings are handled
+#' as `NA`.
 #'
 #' @param data (`data.frame`)\cr input data with at least one column.
 #' @param na_level (`string`)\cr explicit missing level to be used.
@@ -58,9 +59,16 @@ h_df_factors_with_explicit_na <- function(data, na_level = "<Missing>") {
     factor
   )
 
+  # Convert empty strings to `NA` for all factors.
+  var_is_factor <- vapply(data, is.factor, logical(1))
+  data[, var_is_factor] <- lapply(
+    data[, var_is_factor, drop = FALSE],
+    forcats::fct_recode,
+    NULL = ""
+  )
+
   # Add explicit missing level to all factors that have any `NA`.
-  var_is_factor_with_na <- vapply(data, is.factor, logical(1)) &
-    vapply(data, anyNA, logical(1))
+  var_is_factor_with_na <- var_is_factor & vapply(data, anyNA, logical(1))
   data[, var_is_factor_with_na] <- lapply(
     data[, var_is_factor_with_na, drop = FALSE],
     forcats::fct_explicit_na,
@@ -76,7 +84,7 @@ h_df_factors_with_explicit_na <- function(data, na_level = "<Missing>") {
 #'
 #' This utility function converts all eligible character and logical variables in a
 #' [`S4Vectors::DataFrame`] to factor variables. All factor variables get amended
-#' with an explicit missing level.
+#' with an explicit missing level. This includes both `NA` and empty strings.
 #'
 #' @note All required `rowData` and `colData` variables cannot be converted
 #'   to ensure proper downstream behavior. These are automatically omitted if found in `data`
@@ -101,14 +109,14 @@ df_cols_to_factor <- function(data,
                               omit_columns = NULL,
                               na_level = "<Missing>") {
   assert_that(is(data, "DataFrame"))
-  col_is_char_or_logical <- vapply(data, is.character, logical(1)) |
-    vapply(data, is.logical, logical(1))
+  col_is_char_logical_factor <- vapply(data, is.character, logical(1)) |
+    vapply(data, is.logical, logical(1)) | vapply(data, is.factor, logical(1))
   omit_columns <- union(
     omit_columns,
     c(.row_data_cols, .col_data_cols)
   )
   cols_to_convert <- setdiff(
-    names(which(col_is_char_or_logical)),
+    names(which(col_is_char_logical_factor)),
     omit_columns
   )
   if (length(cols_to_convert)) {
@@ -209,7 +217,7 @@ h_parens <- function(x) {
 #'   assay("counts")
 #'
 #' colPrinComp1(object)
-colPrinComp1 <- function(x,
+colPrinComp1 <- function(x, # nolint
                          center = TRUE,
                          scale = TRUE) {
   assert_matrix(x, any.missing = FALSE, mode = "numeric")
@@ -243,7 +251,7 @@ colPrinComp1 <- function(x,
 #'   assay("counts")
 #'
 #' colMeanZscores(object)
-colMeanZscores <- function(x) {
+colMeanZscores <- function(x) { # nolint
   assert_matrix(x, any.missing = FALSE, mode = "numeric")
 
   gene_is_constant <- apply(x, MARGIN = 1L, FUN = S4Vectors::isConstant)

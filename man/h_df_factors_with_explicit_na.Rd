@@ -19,7 +19,8 @@ The modified data.
 
 This helper function converts all character and logical variables
 to factor variables in a \code{data.frame}. It also sets an explicit missing data level
-for all factor variables that have at least one \code{NA}.
+for all factor variables that have at least one \code{NA}. Empty strings are handled
+as \code{NA}.
 }
 \examples{
 dat <- data.frame(

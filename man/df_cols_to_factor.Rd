@@ -22,7 +22,7 @@ The modified data.
 
 This utility function converts all eligible character and logical variables in a
 \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} to factor variables. All factor variables get amended
-with an explicit missing level.
+with an explicit missing level. This includes both \code{NA} and empty strings.
 }
 \note{
 All required \code{rowData} and \code{colData} variables cannot be converted
