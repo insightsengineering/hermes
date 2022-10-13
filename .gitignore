@@ -50,4 +50,7 @@ tests/testthat/junit-result.xml
 
 tests/testthat/Rplots.pdf
 
+tests/vdiffr.Rout.fail
+
+
 tests/testthat/testthat-problems.rds

@@ -1,0 +1,143 @@
+---
+title: "Design: Add Heatmap Depicting (normalized) Counts"
+author: "Alex Richardson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective
+
+A plot method for `AnyHermesData` objects to produce the following plots in default setting: 
+1. Generate a heatmap of a single assay, data normalized
+2. Title based on input dataset
+3. How should the function behave if there are several assays?
+4. Organize by assay name or other parameters?
+5. Use filter/subset function to remove genes that are zero value for all samples? 
+  a. Use subset method of hermes package to filter by low expression using subset/rowData
+  b. Ultimate function will have arguments for "filter tech failure, low expr" etc
+6. Review differential expression for relevance to heatmap taxonomy
+7. Collapse by column groups in dataset, eg country, indication, etc?
+8. Colored bands (annotations) above dendrogram, with key or labels - or label dendrogram?
+  a. How is the dendrogram determined? Is it useful to supplement with labels, annotations, colors?
+
+## Idea
+
+OK let's first try out how we can obtain an object that can be an input
+for the heatmap function:
+
+```{r}
+library(hermes)
+library(dplyr)
+library(ComplexHeatmap)
+
+result <- hermes_data %>%
+  normalize(methods = "voom") %>%
+  add_quality_flags()
+
+dim(result)
+result
+```
+
+### Filtering
+
+We subset from "not low expression" to remove the genes that don't show up in the samples. This can be done by the user before using the `draw_heatmap()` function.
+
+One way is to manually compare the sums of the gene counts across all samples
+vs. 0 and subset accordingly:
+
+```{r}
+gene_has_positive_count <- rowSums(counts(result)) > 0
+result2 <- result[gene_has_positive_count, ]
+```
+
+Or we could just rely on the "low expression" quality flag that is given
+for each gene - this is not the same though:
+
+```{r}
+gene_has_low_expression <- get_low_expression(result)
+table(gene_has_positive_count, gene_has_low_expression)
+result3 <- hermes::filter(result, what = "genes")
+
+```
+
+
+And here is how we can then obtain the heatmap:
+
+```{r}
+Heatmap_plot <- ComplexHeatmap::Heatmap(result)
+draw(Heatmap_plot)
+```
+
+### Labels from sample variables
+
+```{r}
+cd <- colData(result)
+sort(names(cd))
+```
+
+So for example we could want to color the samples (columns) of the heatmap
+by 
+
+```{r}
+cd$AGEGRP
+```
+
+for example.
+
+
+## Prototype
+
+Here is the prototype function:
+
+```{r}
+draw_heatmap <- function(object,
+                         assay_name = "counts",
+                         color_extremes = c(0.01, 0.99),
+                         col_data_annotation = NULL,
+                         ...) {
+  # To do in production: add assertions for arguments.
+  
+  selected_assay <- assay(object, assay_name)
+  color_probs <- c(color_extremes[1L], 0.5, color_extremes[2L])
+  color_quantiles <- stats::quantile(x = selected_assay, probs = color_probs)
+  colors <- circlize::colorRamp2(
+    color_quantiles,
+    c("blue", "white", "red")
+  )
+  
+  if (!is.null(col_data_annotation)) {
+    assert_character(col_data_annotation, any.missing = FALSE)
+    cd <- colData(object)
+    assert_names(names(cd), must.include = col_data_annotation)
+    df <- cd[col_data_annotation]
+    sample_annotation <- ComplexHeatmap::HeatmapAnnotation(df = df)
+    sample_order <- order(df)
+  } else {
+    sample_annotation <- sample_order <- NULL
+  }
+  
+  ComplexHeatmap::Heatmap(
+    selected_assay, 
+    name = assay_name,
+    col = colors,
+    top_annotation = sample_annotation,
+    column_order = sample_order,
+    ...
+  )
+}
+
+draw_heatmap(result3)
+
+draw_heatmap(hermes_data)
+
+draw_heatmap(result[1:40], color_extremes = c(0.001,.999), col_data_annotation = c("AGEGRP", "COUNTRY"))
+
+```
+
+draw_heatmap(result[1:40], col_data_annotation = c("AGEGRP", "COHORT"))
+```

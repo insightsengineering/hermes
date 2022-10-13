@@ -10,6 +10,7 @@ author:
   - Haocheng Li
   - Jeff Luong
   - Lyndsee Midori Zhang
+  - Alex Richardson
   - Simona Rossomanno
   - Tim Treis
   - Mark Yan
@@ -22,8 +23,8 @@ output:
     toc_float: true
 vignette: |
   %\VignetteIndexEntry{Introduction to `hermes`}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 editor_options:
   chunk_output_type: console
 ---
@@ -390,9 +391,26 @@ most_var_genes <- top_genes(object_normalized, summary_fun = rowSds)
 autoplot(most_var_genes)
 ```
 
+## Heatmap of Genes among Samples
+
+Relative expression of genes can be displayed using a heatmap
+
+```{r}
+draw_heatmap(object[1:20], assay_name = "counts")
+```
+
+The heatmap can be grouped by labels in the `HermesData` object, 
+such as `"COUNTRY"` or `"AGEGRP"`.
+
+```{r}
+draw_heatmap(object[1:20], assay_name = "counts", col_data_annotation = "COUNTRY")
+```
+
 ## Correlation between Samples
 
-A sample correlation matrix between samples can be obtained with the `correlate()` function. This can be visualized in a heatmap using `autoplot()` again. See `?calc_cor` for detailed options.
+A sample correlation matrix between samples can be obtained with the 
+`correlate()` function. This can be visualized in a heatmap using `autoplot()` 
+again. See `?calc_cor` for detailed options.
 
 ```{r}
 cor_mat <- correlate(object)
