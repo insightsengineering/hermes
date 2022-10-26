@@ -611,11 +611,47 @@
 <text transform='translate(418.39,470.29) rotate(-90)' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='97.43px' lengthAdjust='spacingAndGlyphs'>06520047C0017R</text>
 <text transform='translate(439.08,470.29) rotate(-90)' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='96.77px' lengthAdjust='spacingAndGlyphs'>06520024B0014R</text>
 <text transform='translate(459.77,470.29) rotate(-90)' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='97.43px' lengthAdjust='spacingAndGlyphs'>06520046C0018R</text>
-<rect x='52.25' y='35.24' width='413.73' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='52.25' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='72.94' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='93.62' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='114.31' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='135.00' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='155.68' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='176.37' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='197.06' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='217.74' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='238.43' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='259.12' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='279.80' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='300.49' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='321.18' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='341.86' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='362.55' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='383.23' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='403.92' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='424.61' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='445.29' y='35.24' width='20.69' height='14.17' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
 <text x='468.82' y='46.46' style='font-size: 12.00px; font-family: sans;' textLength='91.38px' lengthAdjust='spacingAndGlyphs'>Technical Failure</text>
 <rect x='35.24' y='52.25' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
-<rect x='35.24' y='73.01' width='14.17' height='41.52' style='stroke-width: 0.75; stroke: none; fill: #FF0000;' />
-<rect x='35.24' y='114.53' width='14.17' height='352.93' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='73.01' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #FF0000;' />
+<rect x='35.24' y='93.77' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #FF0000;' />
+<rect x='35.24' y='114.53' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='135.29' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='156.05' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='176.81' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='197.57' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='218.33' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='239.09' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='259.86' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='280.62' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='301.38' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='322.14' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='342.90' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='363.66' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='384.42' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='405.18' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='425.94' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
+<rect x='35.24' y='446.70' width='14.17' height='20.76' style='stroke-width: 0.75; stroke: none; fill: #00FF00;' />
 <text transform='translate(46.46,470.29) rotate(-90)' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='57.38px' lengthAdjust='spacingAndGlyphs'>Low Depth</text>
 <text x='574.71' y='206.97' style='font-size: 10.00px; font-weight: bold; font-family: sans;' textLength='47.81px' lengthAdjust='spacingAndGlyphs'>Low Depth</text>
 <text x='588.88' y='222.05' style='font-size: 10.00px; font-family: sans;' textLength='31.69px' lengthAdjust='spacingAndGlyphs'>FALSE</text>
