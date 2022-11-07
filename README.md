@@ -7,7 +7,8 @@
 
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)  
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Code Coverage](https://raw.githubusercontent.com/insightsengineering/hermes/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/hermes/_xml_coverage_reports/data/main/coverage.xml)
 
 > `hermes` facilitates preprocessing, analyzing, and reporting of
 > RNA-seq data.
