@@ -5112,14 +5112,14 @@
 <circle cx='332.30' cy='521.37' r='1.95' style='stroke-width: 0.71; stroke: #00BA38; fill: #00BA38;' />
 <circle cx='332.33' cy='521.37' r='1.95' style='stroke-width: 0.71; stroke: #00BA38; fill: #00BA38;' />
 <circle cx='332.34' cy='521.37' r='1.95' style='stroke-width: 0.71; stroke: #00BA38; fill: #00BA38;' />
-<line x1='126.98' y1='40.37' x2='92.81' y2='46.31' style='stroke-width: 1.07; stroke: #F8766D;' />
-<text x='82.71' y='41.56' text-anchor='middle' style='font-size: 11.04px; fill: #F8766D; font-family: sans;' textLength='77.96px' lengthAdjust='spacingAndGlyphs'>GeneID:151242</text>
-<text x='82.79' y='58.84' text-anchor='middle' style='font-size: 11.04px; fill: #F8766D; font-family: sans;' textLength='77.96px' lengthAdjust='spacingAndGlyphs'>GeneID:390084</text>
-<text x='607.40' y='59.03' text-anchor='middle' style='font-size: 11.04px; fill: #619CFF; font-family: sans;' textLength='65.68px' lengthAdjust='spacingAndGlyphs'>GeneID:9834</text>
-<text x='543.73' y='41.65' text-anchor='middle' style='font-size: 11.04px; fill: #619CFF; font-family: sans;' textLength='65.68px' lengthAdjust='spacingAndGlyphs'>GeneID:7980</text>
-<text x='616.49' y='41.84' text-anchor='middle' style='font-size: 11.04px; fill: #619CFF; font-family: sans;' textLength='65.68px' lengthAdjust='spacingAndGlyphs'>GeneID:2262</text>
-<text x='534.53' y='56.66' text-anchor='middle' style='font-size: 11.04px; fill: #619CFF; font-family: sans;' textLength='65.68px' lengthAdjust='spacingAndGlyphs'>GeneID:6328</text>
-<text x='167.76' y='44.05' text-anchor='middle' style='font-size: 11.04px; fill: #F8766D; font-family: sans;' textLength='77.96px' lengthAdjust='spacingAndGlyphs'>GeneID:149998</text>
+<line x1='127.14' y1='40.35' x2='92.81' y2='46.31' style='stroke-width: 1.07; stroke: #F8766D;' />
+<text x='82.71' y='41.72' text-anchor='middle' style='font-size: 11.04px; fill: #F8766D; font-family: sans;' textLength='77.96px' lengthAdjust='spacingAndGlyphs'>GeneID:151242</text>
+<text x='82.73' y='58.82' text-anchor='middle' style='font-size: 11.04px; fill: #F8766D; font-family: sans;' textLength='77.96px' lengthAdjust='spacingAndGlyphs'>GeneID:390084</text>
+<text x='607.39' y='59.03' text-anchor='middle' style='font-size: 11.04px; fill: #619CFF; font-family: sans;' textLength='65.68px' lengthAdjust='spacingAndGlyphs'>GeneID:9834</text>
+<text x='543.58' y='41.65' text-anchor='middle' style='font-size: 11.04px; fill: #619CFF; font-family: sans;' textLength='65.68px' lengthAdjust='spacingAndGlyphs'>GeneID:7980</text>
+<text x='616.49' y='41.86' text-anchor='middle' style='font-size: 11.04px; fill: #619CFF; font-family: sans;' textLength='65.68px' lengthAdjust='spacingAndGlyphs'>GeneID:2262</text>
+<text x='534.53' y='56.75' text-anchor='middle' style='font-size: 11.04px; fill: #619CFF; font-family: sans;' textLength='65.68px' lengthAdjust='spacingAndGlyphs'>GeneID:6328</text>
+<text x='167.92' y='44.03' text-anchor='middle' style='font-size: 11.04px; fill: #F8766D; font-family: sans;' textLength='77.96px' lengthAdjust='spacingAndGlyphs'>GeneID:149998</text>
 <line x1='101.52' y1='545.11' x2='101.52' y2='22.78' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <line x1='563.16' y1='545.11' x2='563.16' y2='22.78' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <line x1='40.13' y1='92.42' x2='652.93' y2='92.42' style='stroke-width: 1.07; stroke-linecap: butt;' />
