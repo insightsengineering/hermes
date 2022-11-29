@@ -1,0 +1,3 @@
+# Ignore new debug snapshots
+*_.new.svg
+*_.new.png
