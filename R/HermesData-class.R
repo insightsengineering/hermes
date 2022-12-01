@@ -11,7 +11,8 @@ NULL
 #' with additional validation criteria.
 #'
 #' @details The additional criteria are:
-#' - The first assay must be `counts` containing non-missing, integer, non-negative values. Rename() can be used to edit the assay name to 'counts' if needed.
+#' - The first assay must be `counts` containing non-missing, integer, non-negative values.
+#' - Rename() can be used to edit the assay name to 'counts' if needed.
 #' - The following columns must be in `rowData`:
 #'   - `symbol` (also often called `HGNC` or similar, example: `"INMT"`)
 #'   - `desc` (the gene name, example: `"indolethylamine N-methyltransferase"`)
