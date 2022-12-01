@@ -51,7 +51,7 @@ head(names(rowData(x)))
 x <- rename(x, col_data = c(low_depth_flag = "LowDepthFlag"))
 tail(names(colData(x)))
 
-# Rename assay `counts` to `count`.
-x <- rename(x, assays = c(count = "counts"))
+# Rename assay `count` to `counts`.
+x <- rename(x, assays = c(counts = "count"))
 assayNames(x)
 }
