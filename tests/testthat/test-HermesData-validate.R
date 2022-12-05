@@ -11,7 +11,7 @@ test_that("validate_counts returns messages as expected for invalid objects", {
   object <- SummarizedExperiment(
     list(a = matrix(rnorm(4), 2, 2))
   )
-  expect_identical(validate_counts(object), "no 'counts' assay found")
+  expect_identical(validate_counts(object), "no 'counts' assay found, consider using rename() to change assay name")
 
   object <- SummarizedExperiment(
     list(a = matrix(rnorm(4), 2, 2), counts = matrix(1:4, 2, 2))

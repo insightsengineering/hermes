@@ -185,7 +185,7 @@ object_exp <- summarized_experiment %>%
 try(HermesData(object_exp))
 ```
 
-And we would use the following code to convert the assay name to 'counts', making it able to convert into HermesData object:
+And we would use the following code to convert the assay name to 'counts', making it able to convert into \\HermesData\\ object:
 
 ```{r}
 object_exp <- rename(object_exp,
