@@ -182,7 +182,6 @@ Likewise, when we receive the error "no 'counts' assay found", we can use the `r
 ```{r}
 object_exp <- summarized_experiment %>%
   rename(assays = c(count = "counts"))
-try(HermesData(object_exp))
 ```
 
 And we would use the following code to convert the assay name to 'counts', making it able to convert into \\HermesData\\ object:
