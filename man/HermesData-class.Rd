@@ -41,7 +41,7 @@ with additional validation criteria.
 The additional criteria are:
 \itemize{
 \item The first assay must be \code{counts} containing non-missing, integer, non-negative values.
-\item Rename() can be used to edit the assay name to 'counts' if needed.
+Note that \code{\link[=rename]{rename()}} can be used to edit the assay name to 'counts' if needed.
 \item The following columns must be in \code{rowData}:
 \itemize{
 \item \code{symbol} (also often called \code{HGNC} or similar, example: \code{"INMT"})
