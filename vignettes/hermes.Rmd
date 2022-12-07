@@ -176,6 +176,22 @@ For the below, let's use the already prepared `HermesData` object.
 object <- hermes_data
 ```
 
+Likewise, when we receive the error "no 'counts' assay found", we can use the `rename()` function to change the name of the assay in the `SummarizedExperiment` object to `counts`. For example, the following object of type `SummarizedExperiment` would have the assay name `count`, and would produce the assay name error:
+
+```{r}
+object_exp <- summarized_experiment %>%
+  rename(assays = c(count = "counts"))
+```
+
+And we would use the following code to convert the assay name to `counts`, making it able to convert into `HermesData` object:
+
+```{r}
+object_exp <- rename(object_exp,
+  assays = c(counts = "count")
+)
+object_exp <- HermesData(object_exp)
+```
+
 ## Importing an `ExpressionSet`
 
 If we start from an `ExpressionSet`, we can first convert it to a `RangedSummarizedExperiment` and then import it to `RangedHermesData`:

@@ -585,6 +585,8 @@ h_map_pos <- function(names, map) {
 #' @export
 #' @examples
 #' x <- summarized_experiment
+#' # Use deliberately a non-standard assay name in this example.
+#' assayNames(x) <- "count"
 #'
 #' # Rename `HGNC` to `symbol` in the `rowData`.
 #' x <- rename(x, row_data = c(symbol = "HGNC"))
@@ -594,8 +596,8 @@ h_map_pos <- function(names, map) {
 #' x <- rename(x, col_data = c(low_depth_flag = "LowDepthFlag"))
 #' tail(names(colData(x)))
 #'
-#' # Rename assay `counts` to `count`.
-#' x <- rename(x, assays = c(count = "counts"))
+#' # Rename assay `count` to `counts`.
+#' x <- rename(x, assays = c(counts = "count"))
 #' assayNames(x)
 setMethod(
   f = "rename",

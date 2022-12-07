@@ -29,7 +29,7 @@ NULL
 validate_counts <- function(object) {
   nams <- assayNames(object)
   if (!("counts" %in% nams)) {
-    return("no 'counts' assay found")
+    return("no 'counts' assay found, consider using rename() to change assay name")
   }
   if (nams[1] != "counts") {
     return("'counts' must be the first assay")
