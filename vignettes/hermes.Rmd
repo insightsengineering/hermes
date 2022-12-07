@@ -175,16 +175,15 @@ For the below, let's use the already prepared `HermesData` object.
 ```{r}
 object <- hermes_data
 ```
-## Renaming assay in SummarizedExperiment object
 
-Likewise, when we receive the error "no 'counts' assay found", we can use the `rename()` function to change the name of the assay in the SummarizedExperiment object to `counts`. For example, the following object of type SummarizedExperiment would have the assay name `count`, and would produce the assay name error:
+Likewise, when we receive the error "no 'counts' assay found", we can use the `rename()` function to change the name of the assay in the `SummarizedExperiment` object to `counts`. For example, the following object of type `SummarizedExperiment` would have the assay name `count`, and would produce the assay name error:
 
 ```{r}
 object_exp <- summarized_experiment %>%
   rename(assays = c(count = "counts"))
 ```
 
-And we would use the following code to convert the assay name to 'counts', making it able to convert into \\HermesData\\ object:
+And we would use the following code to convert the assay name to `counts`, making it able to convert into `HermesData` object:
 
 ```{r}
 object_exp <- rename(object_exp,

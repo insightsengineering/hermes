@@ -585,6 +585,8 @@ h_map_pos <- function(names, map) {
 #' @export
 #' @examples
 #' x <- summarized_experiment
+#' # Use deliberately a non-standard assay name in this example.
+#' assayNames(x) <- "count"
 #'
 #' # Rename `HGNC` to `symbol` in the `rowData`.
 #' x <- rename(x, row_data = c(symbol = "HGNC"))
