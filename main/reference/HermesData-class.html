@@ -20,7 +20,7 @@ with additional validation criteria."><meta property="og:image" content="https:/
     
     <a class="navbar-brand me-2" href="../index.html">hermes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,12 +37,6 @@ with additional validation criteria."><meta property="og:image" content="https:/
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/hermes/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -103,7 +97,8 @@ is passed instead of <code>rowData</code>, then the result will be a <code>Range
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The additional criteria are:</p><ul><li><p>The first assay must be <code>counts</code> containing non-missing, integer, non-negative values.</p></li>
+    <p>The additional criteria are:</p><ul><li><p>The first assay must be <code>counts</code> containing non-missing, integer, non-negative values.
+Note that <code><a href="rename.html">rename()</a></code> can be used to edit the assay name to <code>counts</code> if needed.</p></li>
 <li><p>The following columns must be in <code>rowData</code>:</p><ul><li><p><code>symbol</code> (also often called <code>HGNC</code> or similar, example: <code>"INMT"</code>)</p></li>
 <li><p><code>desc</code> (the gene name, example: <code>"indolethylamine N-methyltransferase"</code>)</p></li>
 <li><p><code>chromosome</code> (the chromosome as string, example: <code>"7"</code>)</p></li>
@@ -145,6 +140,10 @@ the function.</p></li>
 <code><a href="df_cols_to_factor.html">df_cols_to_factor()</a></code> to simplify this task, but leave it to the user to allow
 for full control of the details.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="rename.html">rename()</a></code> for renaming columns of the input data.</p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
