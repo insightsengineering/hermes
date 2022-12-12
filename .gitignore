@@ -43,14 +43,13 @@ design/*.html
 # MacOS Files
 .DS_Store
 .Rproj.user
-
 coverage.*
 
+# Test artifacts
 tests/testthat/junit-result.xml
-
 tests/testthat/Rplots.pdf
-
 tests/vdiffr.Rout.fail
-
-
 tests/testthat/testthat-problems.rds
+
+# knitr
+README.html
