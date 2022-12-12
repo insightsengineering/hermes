@@ -8,6 +8,7 @@ CPM
 DESeq
 Ensembl
 Entrez
+Forkers
 Hochberg
 Hoffmann
 Karapetyan
@@ -18,6 +19,7 @@ Obenchain
 RNAseq
 RPKM
 RStudio
+Repo
 Rmd
 Sabanés
 SummarizedExperiment
@@ -35,6 +37,7 @@ kilobases
 pandoc
 pre
 quartile
+repo
 reproducibility
 rpkm
 templated
@@ -42,5 +45,3 @@ testthat
 tpm
 voom
 yaml
-repo
-Forkers
