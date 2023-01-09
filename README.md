@@ -1,7 +1,7 @@
 
 <!-- markdownlint-disable-file -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-\# hermes
+# hermes
 <p align="center">
 <img src='man/figures/logo.png' align="right" height="131.5" alt="hermes-logo"/>
 </p>
