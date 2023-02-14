@@ -50,7 +50,7 @@ Imports:
     dplyr,
     edgeR,
     EnvStats,
-    forcats,
+    forcats (>= 1.0.0),
     GenomicRanges,
     ggplot2,
     ggrepel (>= 0.9),

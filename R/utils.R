@@ -71,8 +71,8 @@ h_df_factors_with_explicit_na <- function(data, na_level = "<Missing>") {
   var_is_factor_with_na <- var_is_factor & vapply(data, anyNA, logical(1))
   data[, var_is_factor_with_na] <- lapply(
     data[, var_is_factor_with_na, drop = FALSE],
-    forcats::fct_explicit_na,
-    na_level = na_level
+    forcats::fct_na_value_to_level,
+    level = na_level
   )
 
   data
