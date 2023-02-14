@@ -5,6 +5,7 @@
 
 ### Miscellaneous
 * The utility function `df_cols_to_factor` now also converts existing factors to having explicit missing levels.
+* Version bump on `forcats` dependency.
 
 # hermes 1.0.1
 
@@ -36,7 +37,7 @@
 * New method `rename` that makes renaming columns of `rowData` and `colData` as well as assay names in existing `SummarizedExperiment` objects much easier, as a step before converting to `HermesData`.
 * New method `lapply` that allows user to apply a function on all experiments in a `MultiAssayExperiment`.
 * New method `isEmpty` that checks whether a `SummarizedExperiment` object is empty.
-* New gene filtering option `n_top` in the `calc_pca` function, which allows filtering genes with greatest variability across samples. 
+* New gene filtering option `n_top` in the `calc_pca` function, which allows filtering genes with greatest variability across samples.
 * New class `GeneSpec` for specification of genes or gene signatures, see `?gene_spec` for simple construction. Inclusion of gene signature functions `colPrinComp1` and `colMeanZscores` to supplement standard column statistics functions.
 * New helper function `col_data_with_genes` which extracts the sample variables saved in `colData` together with selected gene information as a combined data set.
 * New helper function `inner_join_cdisc` which joins genetic with CDISC data sets.
