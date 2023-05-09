@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.888481291269259" branch-rate="0" lines-covered="1211" lines-valid="1363" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2023-02-16 09:46:37">
-  <sources/>
+<!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
+<coverage line-rate="0.888481291269259" branch-rate="0" lines-covered="1211" lines-valid="1363" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-05-09 10:06:08">
+  <sources>
+    <source>/__w/hermes/hermes/hermes</source>
+  </sources>
   <packages>
     <package name="hermes" line-rate="0.888481291269259" branch-rate="0" complexity="0">
       <classes>
         <class name="assertthat.R" filename="R/assertthat.R" line-rate="0.947368421052632" branch-rate="0" complexity="0">
           <methods>
-            <method name="is_class" signature="" line-rate="1" branch-rate="0">
+            <method name="is_class" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="24" hits="390" branch="false"/>
               </lines>
             </method>
-            <method name="is_hermes_data" signature="" line-rate="1" branch-rate="0">
+            <method name="is_hermes_data" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="43" hits="303" branch="false"/>
               </lines>
             </method>
-            <method name="is_counts_vector" signature="" line-rate="1" branch-rate="0">
+            <method name="is_counts_vector" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="61" hits="19" branch="false"/>
               </lines>
             </method>
-            <method name="is_list_with" signature="" line-rate="1" branch-rate="0">
+            <method name="is_list_with" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="82" hits="115" branch="false"/>
                 <line number="83" hits="115" branch="false"/>
                 <line number="84" hits="115" branch="false"/>
               </lines>
             </method>
-            <method name="one_provided" signature="" line-rate="1" branch-rate="0">
+            <method name="one_provided" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="111" hits="22" branch="false"/>
                 <line number="112" hits="22" branch="false"/>
               </lines>
             </method>
-            <method name="is_constant" signature="" line-rate="0.909090909090909" branch-rate="0">
+            <method name="is_constant" signature="" line-rate="0.909090909090909" branch-rate="0" complexity="0">
               <lines>
                 <line number="138" hits="464" branch="false"/>
                 <line number="139" hits="464" branch="false"/>
@@ -74,7 +77,7 @@
         </class>
         <class name="calc_cor.R" filename="R/calc_cor.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="AnyHermesData" signature="" line-rate="1" branch-rate="0">
+            <method name="AnyHermesData" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="44" hits="8" branch="false"/>
                 <line number="45" hits="7" branch="false"/>
@@ -176,7 +179,7 @@
                 <line number="128" hits="13" branch="false"/>
               </lines>
             </method>
-            <method name="HermesDataCor" signature="" line-rate="1" branch-rate="0">
+            <method name="HermesDataCor" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="101" hits="3" branch="false"/>
                 <line number="102" hits="3" branch="false"/>
@@ -229,7 +232,7 @@
         </class>
         <class name="checkmate.R" filename="R/checkmate.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="check_proportion" signature="" line-rate="1" branch-rate="0">
+            <method name="check_proportion" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="40" hits="63" branch="false"/>
                 <line number="41" hits="63" branch="false"/>
@@ -247,7 +250,7 @@
         </class>
         <class name="connections.R" filename="R/connections.R" line-rate="0.125874125874126" branch-rate="0" complexity="0">
           <methods>
-            <method name="connect_biomart" signature="" line-rate="0" branch-rate="0">
+            <method name="connect_biomart" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="27" hits="0" branch="false"/>
                 <line number="28" hits="0" branch="false"/>
@@ -270,7 +273,7 @@
                 <line number="46" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="h_get_annotation_biomart" signature="" line-rate="0" branch-rate="0">
+            <method name="h_get_annotation_biomart" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="91" hits="0" branch="false"/>
                 <line number="92" hits="0" branch="false"/>
@@ -306,7 +309,7 @@
                 <line number="122" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="query" signature="" line-rate="0" branch-rate="0">
+            <method name="query" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="155" hits="0" branch="false"/>
                 <line number="156" hits="0" branch="false"/>
@@ -317,7 +320,7 @@
                 <line number="161" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="h_strip_prefix" signature="" line-rate="1" branch-rate="0">
+            <method name="h_strip_prefix" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="185" hits="3" branch="false"/>
                 <line number="186" hits="3" branch="false"/>
@@ -326,7 +329,7 @@
                 <line number="189" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="h_get_size_biomart" signature="" line-rate="0" branch-rate="0">
+            <method name="h_get_size_biomart" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="215" hits="0" branch="false"/>
                 <line number="216" hits="0" branch="false"/>
@@ -364,7 +367,7 @@
                 <line number="255" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="h_ensembl_to_entrez_ids" signature="" line-rate="0" branch-rate="0">
+            <method name="h_ensembl_to_entrez_ids" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="277" hits="0" branch="false"/>
                 <line number="278" hits="0" branch="false"/>
@@ -378,7 +381,7 @@
                 <line number="287" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="h_get_granges_by_id" signature="" line-rate="1" branch-rate="0">
+            <method name="h_get_granges_by_id" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="324" hits="1" branch="false"/>
                 <line number="325" hits="1" branch="false"/>
@@ -395,7 +398,7 @@
                 <line number="336" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="character#ConnectionBiomart" signature="" line-rate="0" branch-rate="0">
+            <method name="character#ConnectionBiomart" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="356" hits="0" branch="false"/>
                 <line number="357" hits="0" branch="false"/>
@@ -571,7 +574,7 @@
         </class>
         <class name="differential.R" filename="R/differential.R" line-rate="0.97029702970297" branch-rate="0" complexity="0">
           <methods>
-            <method name="h_diff_expr_voom" signature="" line-rate="1" branch-rate="0">
+            <method name="h_diff_expr_voom" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="37" hits="10" branch="false"/>
                 <line number="38" hits="10" branch="false"/>
@@ -596,7 +599,7 @@
                 <line number="57" hits="7" branch="false"/>
               </lines>
             </method>
-            <method name="h_diff_expr_deseq2" signature="" line-rate="1" branch-rate="0">
+            <method name="h_diff_expr_deseq2" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="93" hits="6" branch="false"/>
                 <line number="94" hits="6" branch="false"/>
@@ -626,7 +629,7 @@
                 <line number="118" hits="5" branch="false"/>
               </lines>
             </method>
-            <method name="diff_expression" signature="" line-rate="0.842105263157895" branch-rate="0">
+            <method name="diff_expression" signature="" line-rate="0.842105263157895" branch-rate="0" complexity="0">
               <lines>
                 <line number="181" hits="9" branch="false"/>
                 <line number="182" hits="9" branch="false"/>
@@ -649,7 +652,7 @@
                 <line number="204" hits="6" branch="false"/>
               </lines>
             </method>
-            <method name="HermesDataDiffExpr" signature="" line-rate="1" branch-rate="0">
+            <method name="HermesDataDiffExpr" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="259" hits="2" branch="false"/>
                 <line number="260" hits="2" branch="false"/>
@@ -795,13 +798,13 @@
         </class>
         <class name="dplyr_compatibility.R" filename="R/dplyr_compatibility.R" line-rate="0.666666666666667" branch-rate="0" complexity="0">
           <methods>
-            <method name="data.frame" signature="" line-rate="1" branch-rate="0">
+            <method name="data.frame" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="10" hits="1" branch="false"/>
                 <line number="36" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="ts" signature="" line-rate="0" branch-rate="0">
+            <method name="ts" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="23" hits="0" branch="false"/>
               </lines>
@@ -815,7 +818,7 @@
         </class>
         <class name="draw_barplot.R" filename="R/draw_barplot.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="draw_barplot" signature="" line-rate="1" branch-rate="0">
+            <method name="draw_barplot" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="57" hits="1" branch="false"/>
                 <line number="58" hits="1" branch="false"/>
@@ -893,7 +896,7 @@
         </class>
         <class name="draw_boxplot.R" filename="R/draw_boxplot.R" line-rate="0.929577464788732" branch-rate="0" complexity="0">
           <methods>
-            <method name="draw_boxplot" signature="" line-rate="0.871794871794872" branch-rate="0">
+            <method name="draw_boxplot" signature="" line-rate="0.871794871794872" branch-rate="0" complexity="0">
               <lines>
                 <line number="70" hits="1" branch="false"/>
                 <line number="71" hits="1" branch="false"/>
@@ -936,7 +939,7 @@
                 <line number="111" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="h_draw_boxplot_df" signature="" line-rate="1" branch-rate="0">
+            <method name="h_draw_boxplot_df" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="123" hits="2" branch="false"/>
                 <line number="124" hits="2" branch="false"/>
@@ -1049,7 +1052,7 @@
         </class>
         <class name="draw_heatmap.R" filename="R/draw_heatmap.R" line-rate="0.971428571428571" branch-rate="0" complexity="0">
           <methods>
-            <method name="draw_heatmap" signature="" line-rate="0.971428571428571" branch-rate="0">
+            <method name="draw_heatmap" signature="" line-rate="0.971428571428571" branch-rate="0" complexity="0">
               <lines>
                 <line number="42" hits="1" branch="false"/>
                 <line number="43" hits="1" branch="false"/>
@@ -1129,7 +1132,7 @@
         </class>
         <class name="draw_scatterplot.R" filename="R/draw_scatterplot.R" line-rate="0.875" branch-rate="0" complexity="0">
           <methods>
-            <method name="draw_scatterplot" signature="" line-rate="0.875" branch-rate="0">
+            <method name="draw_scatterplot" signature="" line-rate="0.875" branch-rate="0" complexity="0">
               <lines>
                 <line number="56" hits="1" branch="false"/>
                 <line number="57" hits="1" branch="false"/>
@@ -1203,7 +1206,7 @@
         </class>
         <class name="GeneSpec-class.R" filename="R/GeneSpec-class.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="h_unique_labels" signature="" line-rate="1" branch-rate="0">
+            <method name="h_unique_labels" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="18" hits="47" branch="false"/>
                 <line number="19" hits="5" branch="false"/>
@@ -1223,7 +1226,7 @@
                 <line number="37" hits="27" branch="false"/>
               </lines>
             </method>
-            <method name="initialize" signature="" line-rate="1" branch-rate="0">
+            <method name="initialize" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="90" hits="41" branch="false"/>
                 <line number="91" hits="41" branch="false"/>
@@ -1234,24 +1237,24 @@
                 <line number="97" hits="41" branch="false"/>
               </lines>
             </method>
-            <method name="get_genes" signature="" line-rate="1" branch-rate="0">
+            <method name="get_genes" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="101" hits="29" branch="false"/>
               </lines>
             </method>
-            <method name="get_gene_labels" signature="" line-rate="1" branch-rate="0">
+            <method name="get_gene_labels" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="106" hits="26" branch="false"/>
                 <line number="107" hits="26" branch="false"/>
                 <line number="108" hits="25" branch="false"/>
               </lines>
             </method>
-            <method name="returns_vector" signature="" line-rate="1" branch-rate="0">
+            <method name="returns_vector" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="112" hits="41" branch="false"/>
               </lines>
             </method>
-            <method name="get_label" signature="" line-rate="1" branch-rate="0">
+            <method name="get_label" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="117" hits="14" branch="false"/>
                 <line number="118" hits="14" branch="false"/>
@@ -1262,7 +1265,7 @@
                 <line number="126" hits="8" branch="false"/>
               </lines>
             </method>
-            <method name="extract" signature="" line-rate="1" branch-rate="0">
+            <method name="extract" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="135" hits="27" branch="false"/>
                 <line number="136" hits="25" branch="false"/>
@@ -1282,7 +1285,7 @@
                 <line number="151" hits="10" branch="false"/>
               </lines>
             </method>
-            <method name="extract_data_frame" signature="" line-rate="1" branch-rate="0">
+            <method name="extract_data_frame" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="160" hits="12" branch="false"/>
                 <line number="161" hits="10" branch="false"/>
@@ -1298,7 +1301,7 @@
                 <line number="172" hits="10" branch="false"/>
               </lines>
             </method>
-            <method name="gene_spec" signature="" line-rate="1" branch-rate="0">
+            <method name="gene_spec" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="206" hits="9" branch="false"/>
                 <line number="207" hits="9" branch="false"/>
@@ -1381,7 +1384,7 @@
         </class>
         <class name="graphs.R" filename="R/graphs.R" line-rate="0.97196261682243" branch-rate="0" complexity="0">
           <methods>
-            <method name="draw_libsize_hist" signature="" line-rate="1" branch-rate="0">
+            <method name="draw_libsize_hist" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="20" hits="3" branch="false"/>
                 <line number="21" hits="3" branch="false"/>
@@ -1402,7 +1405,7 @@
                 <line number="36" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="draw_libsize_qq" signature="" line-rate="1" branch-rate="0">
+            <method name="draw_libsize_qq" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="62" hits="3" branch="false"/>
                 <line number="63" hits="3" branch="false"/>
@@ -1421,7 +1424,7 @@
                 <line number="76" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="draw_libsize_densities" signature="" line-rate="0.842105263157895" branch-rate="0">
+            <method name="draw_libsize_densities" signature="" line-rate="0.842105263157895" branch-rate="0" complexity="0">
               <lines>
                 <line number="97" hits="3" branch="false"/>
                 <line number="98" hits="3" branch="false"/>
@@ -1444,7 +1447,7 @@
                 <line number="117" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="draw_nonzero_boxplot" signature="" line-rate="1" branch-rate="0">
+            <method name="draw_nonzero_boxplot" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="148" hits="4" branch="false"/>
                 <line number="149" hits="4" branch="false"/>
@@ -1466,7 +1469,7 @@
                 <line number="167" hits="4" branch="false"/>
               </lines>
             </method>
-            <method name="draw_genes_barplot" signature="" line-rate="1" branch-rate="0">
+            <method name="draw_genes_barplot" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="200" hits="4" branch="false"/>
                 <line number="201" hits="4" branch="false"/>
@@ -1493,7 +1496,7 @@
                 <line number="226" hits="4" branch="false"/>
               </lines>
             </method>
-            <method name="AnyHermesData" signature="" line-rate="1" branch-rate="0">
+            <method name="AnyHermesData" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="44" hits="8" branch="false"/>
                 <line number="45" hits="7" branch="false"/>
@@ -1708,7 +1711,7 @@
         </class>
         <class name="HermesData-class.R" filename="R/HermesData-class.R" line-rate="0.885714285714286" branch-rate="0" complexity="0">
           <methods>
-            <method name="HermesData" signature="" line-rate="0.862068965517241" branch-rate="0">
+            <method name="HermesData" signature="" line-rate="0.862068965517241" branch-rate="0" complexity="0">
               <lines>
                 <line number="109" hits="80" branch="false"/>
                 <line number="110" hits="80" branch="false"/>
@@ -1741,7 +1744,7 @@
                 <line number="143" hits="65" branch="false"/>
               </lines>
             </method>
-            <method name="HermesDataFromMatrix" signature="" line-rate="1" branch-rate="0">
+            <method name="HermesDataFromMatrix" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="159" hits="3" branch="false"/>
                 <line number="163" hits="3" branch="false"/>
@@ -1792,7 +1795,7 @@
         </class>
         <class name="HermesData-methods.R" filename="R/HermesData-methods.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="AnyHermesData" signature="" line-rate="1" branch-rate="0">
+            <method name="AnyHermesData" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="44" hits="8" branch="false"/>
                 <line number="45" hits="7" branch="false"/>
@@ -1894,7 +1897,7 @@
                 <line number="128" hits="13" branch="false"/>
               </lines>
             </method>
-            <method name="AnyHermesData#DataFrame" signature="" line-rate="1" branch-rate="0">
+            <method name="AnyHermesData#DataFrame" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="156" hits="3" branch="false"/>
                 <line number="157" hits="3" branch="false"/>
@@ -1915,29 +1918,29 @@
                 <line number="174" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="AnyHermesData#matrix" signature="" line-rate="1" branch-rate="0">
+            <method name="AnyHermesData#matrix" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="227" hits="1" branch="false"/>
                 <line number="228" hits="1" branch="false"/>
                 <line number="229" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="ANY" signature="" line-rate="1" branch-rate="0">
+            <method name="ANY" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="251" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="genes" signature="" line-rate="1" branch-rate="0">
+            <method name="genes" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="270" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="filter" signature="" line-rate="1" branch-rate="0">
+            <method name="filter" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="365" hits="10" branch="false"/>
               </lines>
             </method>
-            <method name="h_has_req_annotations" signature="" line-rate="1" branch-rate="0">
+            <method name="h_has_req_annotations" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="391" hits="9" branch="false"/>
                 <line number="392" hits="9" branch="false"/>
@@ -1947,17 +1950,17 @@
                 <line number="396" hits="9" branch="false"/>
               </lines>
             </method>
-            <method name="extraColDataNames" signature="" line-rate="1" branch-rate="0">
+            <method name="extraColDataNames" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="493" hits="6" branch="false"/>
               </lines>
             </method>
-            <method name="extraRowDataNames" signature="" line-rate="1" branch-rate="0">
+            <method name="extraRowDataNames" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="513" hits="6" branch="false"/>
               </lines>
             </method>
-            <method name="h_map_pos" signature="" line-rate="1" branch-rate="0">
+            <method name="h_map_pos" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="546" hits="7" branch="false"/>
                 <line number="547" hits="7" branch="false"/>
@@ -1975,7 +1978,7 @@
                 <line number="559" hits="6" branch="false"/>
               </lines>
             </method>
-            <method name="SummarizedExperiment" signature="" line-rate="1" branch-rate="0">
+            <method name="SummarizedExperiment" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="610" hits="5" branch="false"/>
                 <line number="611" hits="1" branch="false"/>
@@ -1994,7 +1997,7 @@
                 <line number="937" hits="5" branch="false"/>
               </lines>
             </method>
-            <method name="HermesDataSummary" signature="" line-rate="1" branch-rate="0">
+            <method name="HermesDataSummary" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="724" hits="2" branch="false"/>
                 <line number="725" hits="2" branch="false"/>
@@ -2035,7 +2038,7 @@
                 <line number="763" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name=".show.AnyHermesData" signature="" line-rate="1" branch-rate="0">
+            <method name=".show.AnyHermesData" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="771" hits="2" branch="false"/>
                 <line number="772" hits="2" branch="false"/>
@@ -2063,12 +2066,12 @@
                 <line number="794" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="correlate" signature="" line-rate="1" branch-rate="0">
+            <method name="correlate" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="853" hits="14" branch="false"/>
               </lines>
             </method>
-            <method name="MultiAssayExperiment" signature="" line-rate="1" branch-rate="0">
+            <method name="MultiAssayExperiment" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="890" hits="3" branch="false"/>
                 <line number="891" hits="3" branch="false"/>
@@ -2288,7 +2291,7 @@
         </class>
         <class name="HermesData-validate.R" filename="R/HermesData-validate.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="validate_counts" signature="" line-rate="1" branch-rate="0">
+            <method name="validate_counts" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="30" hits="99" branch="false"/>
                 <line number="31" hits="99" branch="false"/>
@@ -2306,7 +2309,7 @@
                 <line number="51" hits="95" branch="false"/>
               </lines>
             </method>
-            <method name="validate_cols" signature="" line-rate="1" branch-rate="0">
+            <method name="validate_cols" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="60" hits="207" branch="false"/>
                 <line number="61" hits="12" branch="false"/>
@@ -2314,21 +2317,21 @@
                 <line number="64" hits="195" branch="false"/>
               </lines>
             </method>
-            <method name="validate_row_data" signature="" line-rate="1" branch-rate="0">
+            <method name="validate_row_data" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="71" hits="99" branch="false"/>
                 <line number="72" hits="99" branch="false"/>
                 <line number="73" hits="99" branch="false"/>
               </lines>
             </method>
-            <method name="validate_col_data" signature="" line-rate="1" branch-rate="0">
+            <method name="validate_col_data" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="79" hits="99" branch="false"/>
                 <line number="80" hits="99" branch="false"/>
                 <line number="81" hits="99" branch="false"/>
               </lines>
             </method>
-            <method name="validate_names" signature="" line-rate="1" branch-rate="0">
+            <method name="validate_names" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="86" hits="101" branch="false"/>
                 <line number="88" hits="101" branch="false"/>
@@ -2342,7 +2345,7 @@
                 <line number="101" hits="101" branch="false"/>
               </lines>
             </method>
-            <method name="validate_prefix" signature="" line-rate="1" branch-rate="0">
+            <method name="validate_prefix" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="107" hits="98" branch="false"/>
                 <line number="108" hits="98" branch="false"/>
@@ -2406,7 +2409,7 @@
         </class>
         <class name="join_cdisc.R" filename="R/join_cdisc.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="col_data_with_genes" signature="" line-rate="1" branch-rate="0">
+            <method name="col_data_with_genes" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="26" hits="2" branch="false"/>
                 <line number="27" hits="2" branch="false"/>
@@ -2427,7 +2430,7 @@
                 <line number="44" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="inner_join_cdisc" signature="" line-rate="1" branch-rate="0">
+            <method name="inner_join_cdisc" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="76" hits="5" branch="false"/>
                 <line number="77" hits="5" branch="false"/>
@@ -2494,7 +2497,7 @@
         </class>
         <class name="normalization.R" filename="R/normalization.R" line-rate="0.98" branch-rate="0" complexity="0">
           <methods>
-            <method name="control_normalize" signature="" line-rate="1" branch-rate="0">
+            <method name="control_normalize" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="28" hits="62" branch="false"/>
                 <line number="29" hits="62" branch="false"/>
@@ -2510,7 +2513,7 @@
                 <line number="39" hits="57" branch="false"/>
               </lines>
             </method>
-            <method name="AnyHermesData" signature="" line-rate="1" branch-rate="0">
+            <method name="AnyHermesData" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="44" hits="8" branch="false"/>
                 <line number="45" hits="7" branch="false"/>
@@ -2612,7 +2615,7 @@
                 <line number="128" hits="13" branch="false"/>
               </lines>
             </method>
-            <method name="h_cpm" signature="" line-rate="1" branch-rate="0">
+            <method name="h_cpm" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="142" hits="19" branch="false"/>
                 <line number="143" hits="19" branch="false"/>
@@ -2626,7 +2629,7 @@
                 <line number="151" hits="15" branch="false"/>
               </lines>
             </method>
-            <method name="h_rpkm" signature="" line-rate="1" branch-rate="0">
+            <method name="h_rpkm" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="164" hits="37" branch="false"/>
                 <line number="165" hits="37" branch="false"/>
@@ -2642,7 +2645,7 @@
                 <line number="175" hits="29" branch="false"/>
               </lines>
             </method>
-            <method name="h_tpm" signature="" line-rate="0.833333333333333" branch-rate="0">
+            <method name="h_tpm" signature="" line-rate="0.833333333333333" branch-rate="0" complexity="0">
               <lines>
                 <line number="188" hits="18" branch="false"/>
                 <line number="189" hits="15" branch="false"/>
@@ -2652,7 +2655,7 @@
                 <line number="194" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="h_voom" signature="" line-rate="0.928571428571429" branch-rate="0">
+            <method name="h_voom" signature="" line-rate="0.928571428571429" branch-rate="0" complexity="0">
               <lines>
                 <line number="208" hits="20" branch="false"/>
                 <line number="209" hits="20" branch="false"/>
@@ -2670,7 +2673,7 @@
                 <line number="223" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="h_vst" signature="" line-rate="1" branch-rate="0">
+            <method name="h_vst" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="237" hits="19" branch="false"/>
                 <line number="238" hits="19" branch="false"/>
@@ -2692,7 +2695,7 @@
                 <line number="254" hits="15" branch="false"/>
               </lines>
             </method>
-            <method name="h_rlog" signature="" line-rate="1" branch-rate="0">
+            <method name="h_rlog" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="267" hits="8" branch="false"/>
                 <line number="268" hits="8" branch="false"/>
@@ -2810,7 +2813,7 @@
         </class>
         <class name="pca_cor_samplevar.R" filename="R/pca_cor_samplevar.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="h_pca_var_rsquared" signature="" line-rate="1" branch-rate="0">
+            <method name="h_pca_var_rsquared" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="37" hits="165" branch="false"/>
                 <line number="38" hits="165" branch="false"/>
@@ -2834,7 +2837,7 @@
                 <line number="58" hits="162" branch="false"/>
               </lines>
             </method>
-            <method name="h_pca_df_r2_matrix" signature="" line-rate="1" branch-rate="0">
+            <method name="h_pca_df_r2_matrix" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="108" hits="5" branch="false"/>
                 <line number="109" hits="5" branch="false"/>
@@ -2861,7 +2864,7 @@
                 <line number="137" hits="4" branch="false"/>
               </lines>
             </method>
-            <method name="HermesDataPca" signature="" line-rate="1" branch-rate="0">
+            <method name="HermesDataPca" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="177" hits="4" branch="false"/>
                 <line number="178" hits="4" branch="false"/>
@@ -2874,7 +2877,7 @@
                 <line number="185" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="HermesDataPcaCor" signature="" line-rate="1" branch-rate="0">
+            <method name="HermesDataPcaCor" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="235" hits="1" branch="false"/>
                 <line number="236" hits="1" branch="false"/>
@@ -2950,7 +2953,7 @@
         </class>
         <class name="pca.R" filename="R/pca.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="calc_pca" signature="" line-rate="1" branch-rate="0">
+            <method name="calc_pca" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="51" hits="14" branch="false"/>
                 <line number="52" hits="14" branch="false"/>
@@ -3016,7 +3019,7 @@
         </class>
         <class name="quality.R" filename="R/quality.R" line-rate="0.96" branch-rate="0" complexity="0">
           <methods>
-            <method name="control_quality" signature="" line-rate="1" branch-rate="0">
+            <method name="control_quality" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="36" hits="33" branch="false"/>
                 <line number="37" hits="33" branch="false"/>
@@ -3032,7 +3035,7 @@
                 <line number="48" hits="15" branch="false"/>
               </lines>
             </method>
-            <method name="add_quality_flags" signature="" line-rate="0.785714285714286" branch-rate="0">
+            <method name="add_quality_flags" signature="" line-rate="0.785714285714286" branch-rate="0" complexity="0">
               <lines>
                 <line number="103" hits="6" branch="false"/>
                 <line number="104" hits="6" branch="false"/>
@@ -3050,7 +3053,7 @@
                 <line number="122" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="h_low_expression_flag" signature="" line-rate="1" branch-rate="0">
+            <method name="h_low_expression_flag" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="141" hits="10" branch="false"/>
                 <line number="142" hits="10" branch="false"/>
@@ -3062,7 +3065,7 @@
                 <line number="148" hits="5" branch="false"/>
               </lines>
             </method>
-            <method name="h_low_depth_flag" signature="" line-rate="1" branch-rate="0">
+            <method name="h_low_depth_flag" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="164" hits="9" branch="false"/>
                 <line number="165" hits="9" branch="false"/>
@@ -3075,7 +3078,7 @@
                 <line number="173" hits="5" branch="false"/>
               </lines>
             </method>
-            <method name="h_tech_failure_flag" signature="" line-rate="1" branch-rate="0">
+            <method name="h_tech_failure_flag" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="189" hits="9" branch="false"/>
                 <line number="190" hits="9" branch="false"/>
@@ -3091,7 +3094,7 @@
                 <line number="202" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="get_tech_failure" signature="" line-rate="1" branch-rate="0">
+            <method name="get_tech_failure" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="211" hits="24" branch="false"/>
                 <line number="212" hits="22" branch="false"/>
@@ -3099,7 +3102,7 @@
                 <line number="214" hits="22" branch="false"/>
               </lines>
             </method>
-            <method name="get_low_depth" signature="" line-rate="1" branch-rate="0">
+            <method name="get_low_depth" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="222" hits="22" branch="false"/>
                 <line number="223" hits="20" branch="false"/>
@@ -3107,7 +3110,7 @@
                 <line number="225" hits="20" branch="false"/>
               </lines>
             </method>
-            <method name="get_low_expression" signature="" line-rate="1" branch-rate="0">
+            <method name="get_low_expression" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="233" hits="22" branch="false"/>
                 <line number="234" hits="20" branch="false"/>
@@ -3115,7 +3118,7 @@
                 <line number="236" hits="20" branch="false"/>
               </lines>
             </method>
-            <method name="set_tech_failure" signature="" line-rate="1" branch-rate="0">
+            <method name="set_tech_failure" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="262" hits="5" branch="false"/>
                 <line number="263" hits="3" branch="false"/>
@@ -3208,7 +3211,7 @@
         </class>
         <class name="top_genes.R" filename="R/top_genes.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="top_genes" signature="" line-rate="1" branch-rate="0">
+            <method name="top_genes" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="46" hits="21" branch="false"/>
                 <line number="47" hits="21" branch="false"/>
@@ -3250,7 +3253,7 @@
                 <line number="87" hits="10" branch="false"/>
               </lines>
             </method>
-            <method name="HermesDataTopGenes" signature="" line-rate="1" branch-rate="0">
+            <method name="HermesDataTopGenes" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="125" hits="2" branch="false"/>
                 <line number="126" hits="2" branch="false"/>
@@ -3324,7 +3327,7 @@
         </class>
         <class name="utils.R" filename="R/utils.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="h_df_factors_with_explicit_na" signature="" line-rate="1" branch-rate="0">
+            <method name="h_df_factors_with_explicit_na" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="51" hits="16" branch="false"/>
                 <line number="52" hits="15" branch="false"/>
@@ -3349,7 +3352,7 @@
                 <line number="78" hits="15" branch="false"/>
               </lines>
             </method>
-            <method name="df_cols_to_factor" signature="" line-rate="1" branch-rate="0">
+            <method name="df_cols_to_factor" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="111" hits="8" branch="false"/>
                 <line number="112" hits="8" branch="false"/>
@@ -3370,12 +3373,12 @@
                 <line number="128" hits="8" branch="false"/>
               </lines>
             </method>
-            <method name="all_na" signature="" line-rate="1" branch-rate="0">
+            <method name="all_na" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="138" hits="308" branch="false"/>
               </lines>
             </method>
-            <method name="h_short_list" signature="" line-rate="1" branch-rate="0">
+            <method name="h_short_list" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="162" hits="15" branch="false"/>
                 <line number="163" hits="15" branch="false"/>
@@ -3386,13 +3389,13 @@
                 <line number="170" hits="13" branch="false"/>
               </lines>
             </method>
-            <method name="h_parens" signature="" line-rate="1" branch-rate="0">
+            <method name="h_parens" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="192" hits="21" branch="false"/>
                 <line number="193" hits="18" branch="false"/>
               </lines>
             </method>
-            <method name="colPrinComp1" signature="" line-rate="1" branch-rate="0">
+            <method name="colPrinComp1" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="223" hits="2" branch="false"/>
                 <line number="224" hits="1" branch="false"/>
@@ -3403,7 +3406,7 @@
                 <line number="231" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="colMeanZscores" signature="" line-rate="1" branch-rate="0">
+            <method name="colMeanZscores" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="255" hits="1" branch="false"/>
                 <line number="257" hits="1" branch="false"/>
@@ -3419,7 +3422,7 @@
                 <line number="267" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="wrap_in_mae" signature="" line-rate="1" branch-rate="0">
+            <method name="wrap_in_mae" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="290" hits="3" branch="false"/>
                 <line number="291" hits="3" branch="false"/>
@@ -3427,14 +3430,14 @@
                 <line number="293" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="h_all_duplicated" signature="" line-rate="1" branch-rate="0">
+            <method name="h_all_duplicated" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="310" hits="29" branch="false"/>
                 <line number="311" hits="29" branch="false"/>
                 <line number="312" hits="29" branch="false"/>
               </lines>
             </method>
-            <method name="cut_quantile" signature="" line-rate="1" branch-rate="0">
+            <method name="cut_quantile" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="341" hits="9" branch="false"/>
                 <line number="342" hits="9" branch="false"/>
@@ -3460,7 +3463,7 @@
                 <line number="370" hits="7" branch="false"/>
               </lines>
             </method>
-            <method name="cat_with_newline" signature="" line-rate="1" branch-rate="0">
+            <method name="cat_with_newline" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="391" hits="10" branch="false"/>
                 <line number="392" hits="10" branch="false"/>
