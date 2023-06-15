@@ -28,7 +28,7 @@ draw_libsize_hist <- function(object,
     stat_bin(
       bins = bins,
       geom = "text",
-      aes(label = ifelse(.data$after_stat(count) > 0, .data$after_stat(count), "")),
+      aes(label = ifelse(after_stat(count) > 0, after_stat(count), "")),
       vjust = -0.25
     ) +
     ggtitle("Histogram of Library Sizes") +
