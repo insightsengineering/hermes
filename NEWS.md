@@ -7,8 +7,6 @@
 * The utility function `df_cols_to_factor` now also converts existing factors to having explicit missing levels.
 * Version bump on `forcats` dependency.
 * Removed `ggplot2` deprecation warning `..count..`. 
-
-
 # hermes 1.0.1
 
 ### Enhancements
