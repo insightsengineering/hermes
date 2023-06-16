@@ -1,7 +1,7 @@
 # draw_libsize_hist ----
 
 test_that("draw_libsize_hist works as expected", {
-  result <- draw_libsize_hist(hermes_data, bins = 10L, fill = "blue")
+  result <- expect_silent(draw_libsize_hist(hermes_data, bins = 10L, fill = "blue"))
 
   vdiffr::expect_doppelganger("draw_libsize_hist with 10 blue bins", result)
 })
@@ -9,7 +9,7 @@ test_that("draw_libsize_hist works as expected", {
 # draw_libsize_qq ----
 
 test_that("draw_libsize_qq works as expected", {
-  result <- draw_libsize_qq(hermes_data, color = "blue", linetype = "solid")
+  result <- expect_silent(draw_libsize_qq(hermes_data, color = "blue", linetype = "solid"))
 
   vdiffr::expect_doppelganger("draw_libsize_qq with blue solid lines", result)
 })
