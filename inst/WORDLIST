@@ -1,6 +1,5 @@
 Armen
 Benjamini
-BioConductor
 BioMart
 Bové
 CDISC
@@ -15,10 +14,7 @@ Kilobase
 Marbach
 Midori
 Obenchain
-RNAseq
 RPKM
-RStudio
-Rmd
 Sabanés
 SummarizedExperiment
 TPM
@@ -32,7 +28,6 @@ funder
 getter
 homoskedastic
 kilobases
-pandoc
 pre
 quartile
 repo
@@ -42,4 +37,3 @@ templated
 testthat
 tpm
 voom
-yaml
