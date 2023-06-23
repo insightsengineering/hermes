@@ -6,7 +6,7 @@
 \title{Example \code{ExpressionSet} Data}
 \format{
 A \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}} object with 20 samples covering 5085
-features (Entrez gene IDs).
+features (\code{Entrez} gene IDs).
 }
 \source{
 This is an artificial dataset designed to resemble real data.

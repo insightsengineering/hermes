@@ -2,7 +2,7 @@
 % Please edit documentation in R/connections.R
 \name{h_get_granges_by_id}
 \alias{h_get_granges_by_id}
-\title{Conversion of BioMart Coordinates into \code{GRanges}}
+\title{Conversion of \code{BioMart} Coordinates into \code{GRanges}}
 \usage{
 h_get_granges_by_id(coords, id)
 }
@@ -10,7 +10,7 @@ h_get_granges_by_id(coords, id)
 \item{coords}{(\code{data.frame})\cr as returned by \code{biomaRt::getBM()}, containing the columns
 \code{ensembl_gene_id}, \code{chromosome_name}, \code{exon_chrom_start}, \code{exon_chrom_end}.}
 
-\item{id}{(\code{string})\cr single Ensembl gene ID to convert the coordinates for.}
+\item{id}{(\code{string})\cr single \code{Ensembl} gene ID to convert the coordinates for.}
 }
 \value{
 \code{GRange} objects for the respective single gene ID.

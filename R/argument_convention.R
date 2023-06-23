@@ -12,7 +12,7 @@
 #' @param add (`AssertCollection` or `NULL`)\cr collection to store
 #'   assertion messages, see [`checkmate::AssertCollection`].
 #' @param info (`string`)\cr extra information to be included in the
-#'   message for the testthat reporter, see [testthat::expect_that()].
+#'   message for the `testthat` reporter, see [testthat::expect_that()].
 #' @param label (`string`)\cr name of the checked object to print in
 #'   messages. Defaults to the heuristic implemented in [checkmate::vname()].
 #'

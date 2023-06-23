@@ -1,7 +1,7 @@
 
 <!-- markdownlint-disable-file -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-# hermes
+\# hermes
 <p align="center">
 <img src='man/figures/logo.png' align="right" height="131.5" alt="hermes-logo"/>
 </p>
@@ -16,7 +16,7 @@
 
 ![GitHub
 forks](https://img.shields.io/github/forks/insightsengineering/hermes?style=social)
-![GitHub Repo
+![GitHub repo
 stars](https://img.shields.io/github/stars/insightsengineering/hermes?style=social)
 
 ![GitHub commit
@@ -43,9 +43,9 @@ Issues](https://img.shields.io/github/issues-raw/insightsengineering/hermes?colo
 > `hermes` facilitates preprocessing, analyzing, and reporting of
 > RNA-seq data.
 
-- Imports RNAseq count data into the `hermes` ready format.
+- Imports `RNAseq` count data into the `hermes` ready format.
 - Annotates gene information automatically from a central database
-  (e.g. BioMart).
+  (e.g. `BioMart`).
 - Adds quality control (QC) flags to genes and samples.
 - Filters the data set.
 - Normalizes the counts.
@@ -56,9 +56,9 @@ Issues](https://img.shields.io/github/issues-raw/insightsengineering/hermes?colo
 
 ## Installation
 
-### BioConductor
+### `BioConductor`
 
-You can install the current release from BioConductor with:
+You can install the current release from `BioConductor` with:
 
 ``` r
 if (!require("BiocManager")) {

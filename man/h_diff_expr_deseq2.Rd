@@ -2,7 +2,7 @@
 % Please edit documentation in R/differential.R
 \name{h_diff_expr_deseq2}
 \alias{h_diff_expr_deseq2}
-\title{DESeq2 Differential Expression Analysis}
+\title{\code{DESeq2} Differential Expression Analysis}
 \usage{
 h_diff_expr_deseq2(object, design, ...)
 }

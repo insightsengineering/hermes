@@ -44,14 +44,14 @@ col_data_with_genes <- function(object,
   )
 }
 
-#' Inner Joining a Genes with a CDISC Data Set
+#' Inner Joining a Genes with a `CDISC` Data Set
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This is a useful function when trying to join genetic with CDISC data sets.
+#' This is a useful function when trying to join genetic with `CDISC` data sets.
 #'
 #' @param gene_data (`data.frame` or `DataFrame`)\cr genetic data.
-#' @param cdisc_data (`data.frame`)\cr CDISC data (typically patient level data).
+#' @param cdisc_data (`data.frame`)\cr `CDISC` data (typically patient level data).
 #' @param patient_key (`string`)\cr patient identifier.
 #' @param additional_keys (`character`)\cr potential additional keys for the two data sets.
 #'

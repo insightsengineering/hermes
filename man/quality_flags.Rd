@@ -41,10 +41,10 @@ The input object with added quality flags.
 The function \code{add_quality_flags()} adds quality flag information to a \code{\link{AnyHermesData}} object:
 \itemize{
 \item \code{low_expression_flag}: for each gene, counts how many samples don't pass a minimum
-expression Counts per Million (CPM) threshold. If too many, then it flags this gene
+expression Counts per Million (\code{CPM}) threshold. If too many, then it flags this gene
 as a "low expression" gene.
 \item \code{tech_failure_flag}: first calculates the Pearson correlation matrix of the sample wise
-CPM values, resulting in a matrix measuring the correlation between samples.
+\code{CPM} values, resulting in a matrix measuring the correlation between samples.
 Then compares the average correlation per sample with a threshold - if it is too low,
 then the sample is flagged as a "technical failure" sample.
 \item \code{low_depth_flag}: computes the library size (total number of counts) per sample.
@@ -52,7 +52,7 @@ If this number is too low, the sample is flagged as a "low depth" sample.
 }
 
 Separate helper functions are internally used to create the flags, and
-separate getter functions allow easy access to the quality control flags in an object.
+separate \code{getter} functions allow easy access to the quality control flags in an object.
 }
 \details{
 While \code{object} already has the variables mentioned above as part of the
