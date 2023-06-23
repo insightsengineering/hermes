@@ -37,7 +37,7 @@ library(hermes)
 .ConnectionBiomart <- setClass( # nolint
   "ConnectionBiomart",
   contains = "Mart",
-  slots = c(prefix = "character")  
+  slots = c(prefix = "character")
 )
 ```
 
@@ -193,8 +193,8 @@ h_strip_prefix(c("GeneID:11185", "GeneID:10677"), prefix = "GeneID")
 ### biomaRt query helper
 
 ```{r}
-h_get_annotation_biomart <- function(gene_ids, 
-                                     id_type, 
+h_get_annotation_biomart <- function(gene_ids,
+                                     id_type,
                                      mart) {
   df_gene <- biomaRt::getBM(
     attributes = c(
@@ -222,7 +222,7 @@ h_get_annotation_biomart <- function(gene_ids,
   df <- merge(df_gene, df_protein, by = id_type, all = TRUE)
   df <- df[match(gene_ids, df[[id_type]]), ]
   rownames(df) <- gene_ids
-  df[, - which(colnames(df) == id_type)]
+  df[, -which(colnames(df) == id_type)]
 }
 ```
 
@@ -242,9 +242,8 @@ h_get_annotation_biomart(c("11185", "10677"), "entrezgene_id", as(connection, "M
   } else {
     genes
   }
-  id_attribute <- switch(
-    pre,
-    GeneID = "entrezgene_id", 
+  id_attribute <- switch(pre,
+    GeneID = "entrezgene_id",
     ENSG = "ensembl_gene_id"
   )
   mart <- as(connection, "Mart")
@@ -271,7 +270,7 @@ Let's try it out.
 ```{r}
 new_genes <- c("GeneID:283887", "GeneID:101929152", "GeneID:100129543", "GeneID:283981", "GeneID:27244")
 res_biomart <- .query_biomart(
-  new_genes, 
+  new_genes,
   connection
 )
 ```
@@ -296,9 +295,9 @@ This looks better. Hm. So let's try to convert the IDs first.
 
 ```{r}
 bm_conversion <- getBM(
-  filters = "entrezgene_id", 
-  attributes = c("ensembl_gene_id", "entrezgene_id"), 
-  values = h_strip_prefix(new_genes, "GeneID"), 
+  filters = "entrezgene_id",
+  attributes = c("ensembl_gene_id", "entrezgene_id"),
+  values = h_strip_prefix(new_genes, "GeneID"),
   mart = as(connection, "Mart")
 )
 bm_conversion
@@ -312,7 +311,7 @@ Now for the IDs that have been found:
 ```{r}
 connection@prefix <- "ENSG"
 res_ensembl_biomart <- .query_biomart(
-  bm_conversion$ensembl_gene_id, 
+  bm_conversion$ensembl_gene_id,
   connection
 )
 res_ensembl_biomart
