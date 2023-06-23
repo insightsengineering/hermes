@@ -57,7 +57,7 @@ h_diff_expr_voom <- function(object, design, ...) {
   )
 }
 
-#' DESeq2 Differential Expression Analysis
+#' `DESeq2` Differential Expression Analysis
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'

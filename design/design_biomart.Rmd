@@ -285,7 +285,7 @@ rowData(object)[new_genes, ]
 
 Hm, this shows that for quite a few genes we don't get any results.
 
-Let's see if we query instead with the Ensembl ID:
+Let's see if we query instead with the `Ensembl` ID:
 
 ```{r}
 h_get_annotation_biomart("101929152", id_type = "entrezgene_id", mart = as(connection, "Mart"))
@@ -304,7 +304,7 @@ bm_conversion <- getBM(
 bm_conversion
 ```
 
-So this shows that 2 genes were not found given their Entrez ID. Generally, conversion between the 
+So this shows that 2 genes were not found given their `Entrez` ID. Generally, conversion between the 
 two ID systems should be avoided (see e.g. discussion here: https://support.bioconductor.org/p/111608/ and https://support.bioconductor.org/p/115813/).
 
 Now for the IDs that have been found:
@@ -319,10 +319,10 @@ res_ensembl_biomart
 ```
 
 Everything works ok.
-So it seems that this method of querying annotations only works well for Ensembl IDs. 
+So it seems that this method of querying annotations only works well for `Ensembl` IDs. 
 We could therefore restrict this for now to the "ENSG" prefix. Basically in a first release version
 we would just support annotations for "ENSG" IDs. Which is ok since that seems to be more
-standard than the older Entrez Gene IDs.
+standard than the older `Entrez` Gene IDs.
 
 In addition, in production we need to: 
 - make the annotation replacement method more flexible.
@@ -331,7 +331,7 @@ so they still have `NA`.
 - make the normalization method that requires gene width fail if a gene has `NA` width.
 - make the filtering method have a new argument that specifies whether to filter out genes that don't have any annotation. So that once the object is filtered it could safely go into the normalization method.
 
-Given this, it seems still ok to have the user query Entrez Gene IDs. They will just get less annotated
+Given this, it seems still ok to have the user query `Entrez` Gene IDs. They will just get less annotated
 genes back like that. And we need to highlight the limitations in the documentation / vignette.
 
 ### Define the method

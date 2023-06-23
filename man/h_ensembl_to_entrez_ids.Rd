@@ -2,22 +2,22 @@
 % Please edit documentation in R/connections.R
 \name{h_ensembl_to_entrez_ids}
 \alias{h_ensembl_to_entrez_ids}
-\title{Translation of Ensembl to Entrez Gene IDs}
+\title{Translation of \code{Ensembl} to \code{Entrez} Gene IDs}
 \usage{
 h_ensembl_to_entrez_ids(gene_ids, mart)
 }
 \arguments{
-\item{gene_ids}{(\code{character})\cr Ensembl gene IDs.}
+\item{gene_ids}{(\code{character})\cr \code{Ensembl} gene IDs.}
 
 \item{mart}{(\code{Mart})\cr given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}} object.}
 }
 \value{
-Character vector of Entrez gene IDs.
+Character vector of \code{Entrez} gene IDs.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper function queries BioMart to translate Ensembl to Entrez Gene IDs.
+This helper function queries \code{BioMart} to translate \code{Ensembl} to \code{Entrez} Gene IDs.
 }
 \examples{
 if (interactive()) {

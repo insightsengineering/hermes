@@ -15,7 +15,7 @@ assertions; defaults to the heuristic implemented in \code{\link[checkmate:vname
 assertion messages, see \code{\link[checkmate:AssertCollection]{checkmate::AssertCollection}}.}
 
 \item{info}{(\code{string})\cr extra information to be included in the
-message for the testthat reporter, see \code{\link[testthat:expect_that]{testthat::expect_that()}}.}
+message for the \code{testthat} reporter, see \code{\link[testthat:expect_that]{testthat::expect_that()}}.}
 
 \item{label}{(\code{string})\cr name of the checked object to print in
 messages. Defaults to the heuristic implemented in \code{\link[checkmate:vname]{checkmate::vname()}}.}

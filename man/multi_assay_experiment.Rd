@@ -8,7 +8,7 @@
 A \code{\link[MultiAssayExperiment:MultiAssayExperiment]{MultiAssayExperiment::MultiAssayExperiment}} object with 3 separate \code{\link{HermesData}}
 objects.
 \itemize{
-\item The first object contains 5 samples and covers 1000 features (Entrez gene IDs).
+\item The first object contains 5 samples and covers 1000 features (\code{Entrez} gene IDs).
 \item The second object contains 9 samples with 2500 features.
 \item The third object contains 6 samples with 1300 features.
 }

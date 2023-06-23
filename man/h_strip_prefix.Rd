@@ -22,8 +22,8 @@ This helper function removes the prefix and possible delimiter from
 a vector of gene IDs, such that only the digits are returned.
 }
 \note{
-This is currently used to strip away the \code{GeneID} prefix from Entrez gene IDs
-so that they can be queried from BioMart
+This is currently used to strip away the \code{GeneID} prefix from \code{Entrez} gene IDs
+so that they can be queried from \code{BioMart}
 }
 \examples{
 h_strip_prefix(c("GeneID:11185", "GeneID:10677"), prefix = "GeneID")

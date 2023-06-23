@@ -5,12 +5,12 @@
 #' Control function which specifies the quality flag settings.
 #' One or more settings can be customized. Not specified settings are left at defaults.
 #'
-#' @param min_cpm (non-negative `number`)\cr minimum Counts per Million (CPM) for
+#' @param min_cpm (non-negative `number`)\cr minimum Counts per Million (`CPM`) for
 #'   each gene within the sample.
 #' @param min_cpm_prop (`proportion`)\cr minimum proportion of samples with
-#'   acceptable CPM of certain gene for low expression flagging.
+#'   acceptable `CPM` of certain gene for low expression flagging.
 #' @param min_corr (`proportion`)\cr minimum Pearson correlation coefficient of
-#'   CPM between samples for technical failure flagging.
+#'   `CPM` between samples for technical failure flagging.
 #' @param min_depth (non-negative `count` or `NULL`)\cr minimum library depth
 #'   for low depth flagging. If `NULL`, this will be calculated as the first
 #'   quartile minus 1.5 times the inter-quartile range of the library size
@@ -54,17 +54,17 @@ control_quality <- function(min_cpm = 1,
 #'
 #' The function `add_quality_flags()` adds quality flag information to a [`AnyHermesData`] object:
 #' - `low_expression_flag`: for each gene, counts how many samples don't pass a minimum
-#'   expression Counts per Million (CPM) threshold. If too many, then it flags this gene
+#'   expression Counts per Million (`CPM`) threshold. If too many, then it flags this gene
 #'   as a "low expression" gene.
 #' - `tech_failure_flag`: first calculates the Pearson correlation matrix of the sample wise
-#'   CPM values, resulting in a matrix measuring the correlation between samples.
+#'   `CPM` values, resulting in a matrix measuring the correlation between samples.
 #'   Then compares the average correlation per sample with a threshold - if it is too low,
 #'   then the sample is flagged as a "technical failure" sample.
 #' - `low_depth_flag`: computes the library size (total number of counts) per sample.
 #'   If this number is too low, the sample is flagged as a "low depth" sample.
 #'
 #' Separate helper functions are internally used to create the flags, and
-#' separate getter functions allow easy access to the quality control flags in an object.
+#' separate `getter` functions allow easy access to the quality control flags in an object.
 #'
 #' @rdname quality_flags
 #'

@@ -2,11 +2,7 @@ Armen
 Benjamini
 BioMart
 Bové
-CDISC
-CPM
 DESeq
-Ensembl
-Entrez
 Hochberg
 Hoffmann
 Karapetyan
@@ -14,18 +10,14 @@ Kilobase
 Marbach
 Midori
 Obenchain
-RPKM
 Sabanés
 SummarizedExperiment
-TPM
-VOOM
 Zhang
 cloneable
 cpm
 dichotomize
 dispersions
 funder
-getter
 homoskedastic
 kilobases
 pre
@@ -34,6 +26,5 @@ repo
 reproducibility
 rpkm
 templated
-testthat
 tpm
 voom
