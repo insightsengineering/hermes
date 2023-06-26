@@ -6,14 +6,14 @@
 \alias{ConnectionBiomart-class}
 \alias{.ConnectionBiomart}
 \alias{ConnectionBiomart}
-\title{Connection to BioMart}
+\title{Connection to \code{BioMart}}
 \usage{
 connect_biomart(prefix = c("ENSG", "GeneID"), version = NULL)
 }
 \arguments{
 \item{prefix}{(\code{string})\cr gene ID prefix.}
 
-\item{version}{(\code{string} or \code{NULL})\cr optional Ensembl version to use. If \code{NULL}
+\item{version}{(\code{string} or \code{NULL})\cr optional \code{Ensembl} version to use. If \code{NULL}
 the latest available release is used.}
 }
 \value{
@@ -27,7 +27,7 @@ the \code{biomaRt} object of class \code{\link[biomaRt:Mart-class]{biomaRt::Mart
 which is used downstream for the query.
 }
 \details{
-This connects to the Ensembl data base of BioMart for human genes.
+This connects to the \code{Ensembl} data base of \code{BioMart} for human genes.
 A specific version can be optionally chosen to ensure reproducibility of results
 once a new release is available, as accessed data might then change.
 }

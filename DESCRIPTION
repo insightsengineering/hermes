@@ -23,13 +23,13 @@ Authors@R: c(
   )
 Description: Provides classes and functions for quality control,
     filtering, normalization and differential expression analysis of
-    pre-processed RNA-seq data. Data can be imported from
+    pre-processed `RNA-seq` data. Data can be imported from
     `SummarizedExperiment` as well as `matrix` objects and can be
-    annotated from BioMart. Filtering for genes without too low expression
+    annotated from `BioMart`. Filtering for genes without too low expression
     or containing required annotations, as well as filtering for samples
     with sufficient correlation to other samples or total number of reads
-    is supported. The standard normalization methods including `cpm`,
-    `rpkm` and `tpm` can be used, and `DESeq2` as well as `voom`
+    is supported. The standard normalization methods including cpm,
+    rpkm and tpm can be used, and 'DESeq2`   as well as voom
     differential expression analyses are available.
 License: Apache License 2.0 | file LICENSE
 URL: https://github.com/insightsengineering/hermes/
@@ -88,6 +88,7 @@ RdMacros:
 biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
     QualityControl
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

@@ -6,7 +6,7 @@
 #' object into a [`HermesData`] object.
 #'
 #' @format A [`Biobase::ExpressionSet`] object with 20 samples covering 5085
-#'   features (Entrez gene IDs).
+#'   features (`Entrez` gene IDs).
 #' @source This is an artificial dataset designed to resemble real data.
 #' @seealso
 #'   - [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()] to convert into a
@@ -23,7 +23,7 @@
 #' [`HermesData`] object. It already contains the required columns in `rowData` and `colData`.
 #'
 #' @format A [SummarizedExperiment::SummarizedExperiment] object with 20 samples covering
-#'   5085 features (Entrez gene IDs).
+#'   5085 features (`Entrez` gene IDs).
 #' @source This is an artificial dataset designed to resemble real data.
 #' @seealso [`expression_set`] which contains similar data as a [`Biobase::ExpressionSet`].
 "summarized_experiment"
@@ -37,7 +37,7 @@
 #' contains the required columns in `rowData` and `colData`.
 #'
 #' @format A [hermes::HermesData] object with 20 samples covering
-#'   5085 features (Entrez gene IDs).
+#'   5085 features (`Entrez` gene IDs).
 #' @source This is an artificial dataset designed to resemble real data.
 #' @seealso [`summarized_experiment`] for the underlying [`SummarizedExperiment::SummarizedExperiment`]
 #'   object.
@@ -51,7 +51,7 @@
 #'
 #' @format A [`MultiAssayExperiment::MultiAssayExperiment`] object with 3 separate [`HermesData`]
 #'   objects.
-#'   - The first object contains 5 samples and covers 1000 features (Entrez gene IDs).
+#'   - The first object contains 5 samples and covers 1000 features (`Entrez` gene IDs).
 #'   - The second object contains 9 samples with 2500 features.
 #'   - The third object contains 6 samples with 1300 features.
 #' @source This is an artificial dataset designed to resemble real data.

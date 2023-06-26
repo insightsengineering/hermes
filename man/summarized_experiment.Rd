@@ -6,7 +6,7 @@
 \title{Example \code{SummarizedExperiment} Data}
 \format{
 A \link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment} object with 20 samples covering
-5085 features (Entrez gene IDs).
+5085 features (\code{Entrez} gene IDs).
 }
 \source{
 This is an artificial dataset designed to resemble real data.

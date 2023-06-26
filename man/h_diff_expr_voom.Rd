@@ -2,7 +2,7 @@
 % Please edit documentation in R/differential.R
 \name{h_diff_expr_voom}
 \alias{h_diff_expr_voom}
-\title{\code{limma}/\code{voom} Differential Expression Analysis}
+\title{\code{limma}/voom Differential Expression Analysis}
 \usage{
 h_diff_expr_voom(object, design, ...)
 }
@@ -21,7 +21,7 @@ A data frame with columns \code{log2_fc} (estimated log2 fold change),
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This helper functions performs the differential expression analysis with the \code{voom}
+This helper functions performs the differential expression analysis with the voom
 method from the \code{limma} package (via \code{\link[limma:voom]{limma::voom()}}, \code{\link[limma:lmFit]{limma::lmFit()}} and \code{\link[limma:ebayes]{limma::eBayes()}})
 for given counts in a \link{AnyHermesData} object and a corresponding \code{design} matrix.
 }

@@ -52,18 +52,18 @@ in the object.
 
 Possible normalization methods (which are implemented with separate helper functions):
 \itemize{
-\item \code{cpm}: Counts per Million (CPM). Separately by sample, the original counts of the genes
+\item cpm: Counts per Million (\code{CPM}). Separately by sample, the original counts of the genes
 are divided by the library size of this sample, and multiplied by one million. This is the
 appropriate normalization for between-sample comparisons.
-\item \code{rpkm}: Reads per Kilobase of transcript per Million reads mapped (RPKM). Each gene count is
+\item rpkm: Reads per Kilobase of transcript per Million reads mapped (RPKM). Each gene count is
 divided by the gene size (in kilobases) and then again divided by the library sizes of each
 sample (in millions). This allows for within-sample comparisons, as it takes
 into account the gene sizes - longer genes will always have more counts than shorter genes.
-\item \code{tpm}: Transcripts per Million (TPM). This addresses the problem of RPKM being inconsistent
+\item tpm: Transcripts per Million (TPM). This addresses the problem of RPKM being inconsistent
 across samples (which can be seen that the sum of all RPKM values will vary from sample to
 sample). Therefore here we divide the RPKM by the sum of all RPKM values for each sample,
 and multiply by one million.
-\item \code{voom}: VOOM normalization. This is essentially just a slight variation of CPM where
+\item voom: VOOM normalization. This is essentially just a slight variation of \code{CPM} where
 a \code{prior_count} of 0.5 is combined with \code{lib_sizes} increased by 1 for each sample. Note that
 this is not required for the corresponding differential expression analysis, but just provided
 as a complementary experimental normalization approach here.
@@ -74,7 +74,7 @@ count data for all genes into approximately homoskedastic values (having constan
 }
 \section{Functions}{
 \itemize{
-\item \code{h_cpm()}: calculates the Counts per Million (CPM) normalized counts.
+\item \code{h_cpm()}: calculates the Counts per Million (\code{CPM}) normalized counts.
 
 \item \code{h_rpkm()}: calculates the Reads per Kilobase per Million (RPKM) normalized counts.
 
