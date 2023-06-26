@@ -64,7 +64,7 @@ rlog: The transformation to the log2 scale values with approximately homoskedast
     
     <a class="navbar-brand me-2" href="../index.html">hermes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9012</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9013</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,12 +81,6 @@ rlog: The transformation to the log2 scale values with approximately homoskedast
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/hermes/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -113,18 +107,18 @@ rlog: The transformation to the log2 scale values with approximately homoskedast
 <p>The <code>normalize()</code> method is normalizing the input <code><a href="HermesData-class.html">AnyHermesData</a></code> according to one or more
 specified normalization methods. The results are saved as additional assays
 in the object.</p>
-<p>Possible normalization methods (which are implemented with separate helper functions):</p><ul><li><p><code>cpm</code>: Counts per Million (CPM). Separately by sample, the original counts of the genes
+<p>Possible normalization methods (which are implemented with separate helper functions):</p><ul><li><p>cpm: Counts per Million (<code>CPM</code>). Separately by sample, the original counts of the genes
 are divided by the library size of this sample, and multiplied by one million. This is the
 appropriate normalization for between-sample comparisons.</p></li>
-<li><p><code>rpkm</code>: Reads per Kilobase of transcript per Million reads mapped (RPKM). Each gene count is
+<li><p>rpkm: Reads per Kilobase of transcript per Million reads mapped (RPKM). Each gene count is
 divided by the gene size (in kilobases) and then again divided by the library sizes of each
 sample (in millions). This allows for within-sample comparisons, as it takes
 into account the gene sizes - longer genes will always have more counts than shorter genes.</p></li>
-<li><p><code>tpm</code>: Transcripts per Million (TPM). This addresses the problem of RPKM being inconsistent
+<li><p>tpm: Transcripts per Million (TPM). This addresses the problem of RPKM being inconsistent
 across samples (which can be seen that the sum of all RPKM values will vary from sample to
 sample). Therefore here we divide the RPKM by the sum of all RPKM values for each sample,
 and multiply by one million.</p></li>
-<li><p><code>voom</code>: VOOM normalization. This is essentially just a slight variation of CPM where
+<li><p>voom: VOOM normalization. This is essentially just a slight variation of <code>CPM</code> where
 a <code>prior_count</code> of 0.5 is combined with <code>lib_sizes</code> increased by 1 for each sample. Note that
 this is not required for the corresponding differential expression analysis, but just provided
 as a complementary experimental normalization approach here.</p></li>
@@ -184,7 +178,7 @@ The <code>control</code> is saved in the <code>metadata</code> of the object for
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
-<ul><li><p><code>h_cpm()</code>: calculates the Counts per Million (CPM) normalized counts.</p></li>
+<ul><li><p><code>h_cpm()</code>: calculates the Counts per Million (<code>CPM</code>) normalized counts.</p></li>
 <li><p><code>h_rpkm()</code>: calculates the Reads per Kilobase per Million (RPKM) normalized counts.</p></li>
 <li><p><code>h_tpm()</code>: calculates the Transcripts per Million (TPM) normalized counts.</p></li>
 <li><p><code>h_voom()</code>: calculates the VOOM normalized counts. <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a></p></li>

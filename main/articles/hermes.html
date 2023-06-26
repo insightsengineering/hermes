@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hermes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9012</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9013</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,12 +57,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/hermes/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -135,9 +129,10 @@ been borrowed from it. Therefore we would like to thank the
 <p>In particular, we would like to acknowledge Chendi Liao and Joe
 Paulson for their guidance and explanations during the development of
 <code>hermes</code>. We also discussed the class design with Valerie
-Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We
-borrowed some ideas from the Roche internal <code>biokitr</code> R
-package and discussed them with its maintainer Daniel Marbach.</p>
+Obenchain, and discussed <code>RNAseq</code> data standards with Armen
+Karapetyan. We borrowed some ideas from the Roche internal
+<code>biokitr</code> R package and discussed them with its maintainer
+Daniel Marbach.</p>
 <p>Finally, <code>hermes</code> originated as part of the NEST project.
 We are grateful for the entire team’s support.</p>
 <p>Thanks a lot to everyone involved!</p>
@@ -148,15 +143,16 @@ We are grateful for the entire team’s support.</p>
 <p>First let’s see how we can install the <code>hermes</code>
 package.</p>
 <div class="section level3">
-<h3 id="bioconductor">BioConductor<a class="anchor" aria-label="anchor" href="#bioconductor"></a>
+<h3 id="bioconductor">
+<code>BioConductor</code><a class="anchor" aria-label="anchor" href="#bioconductor"></a>
 </h3>
-<p>With the development version (3.15) of BioConductor, you can install
-the current package version with:</p>
+<p>With the development version (3.15) of <code>BioConductor</code>, you
+can install the current package version with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"hermes"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"hermes"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="github">GitHub<a class="anchor" aria-label="anchor" href="#github"></a>
@@ -174,16 +170,17 @@ with:</p>
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>The <code>hermes</code> R package provides classes, methods and
-functions to import, quality-check, filter, normalize, analyze RNAseq
-counts data. The core functionality is built on the BioConductor
-ecosystem, especially <code>SummarizedExperiment</code>. This is the
-vignette to read for new users of this package.</p>
+functions to import, quality-check, filter, normalize, analyze
+<code>RNAseq</code> counts data. The core functionality is built on the
+<code>BioConductor</code> ecosystem, especially
+<code>SummarizedExperiment</code>. This is the vignette to read for new
+users of this package.</p>
 <p>In this vignette you are going to learn how to:</p>
 <ul>
-<li>Import RNAseq count data into the <code>hermes</code> ready
-format.</li>
+<li>Import <code>RNAseq</code> count data into the <code>hermes</code>
+ready format.</li>
 <li>Annotate gene information automatically from a central database
-(e.g. BioMart).</li>
+(e.g. <code>BioMart</code>).</li>
 <li>Add quality control (QC) flags to genes and samples.</li>
 <li>Filter the data set.</li>
 <li>Normalize the counts.</li>
@@ -385,9 +382,10 @@ downstream packages.</p>
 <h3 id="connection-to-database">Connection to Database<a class="anchor" aria-label="anchor" href="#connection-to-database"></a>
 </h3>
 <p>The first step is to connect to a database. In <code>hermes</code>
-the only option is currently databases that utilize the BioMart software
-suite. However due to the generic function design, it is simple to
-extend <code>hermes</code> with other data base connections.</p>
+the only option is currently databases that utilize the
+<code>BioMart</code> software suite. However due to the generic function
+design, it is simple to extend <code>hermes</code> with other data base
+connections.</p>
 <p>In order to save time during vignette build, we zoom in here on a
 subset of the original <code>object</code> containing only the first 10
 genes.</p>
@@ -424,8 +422,8 @@ well as manual sample flagging functionality.</p>
 <h3 id="automatic-gene-and-sample-flagging">Automatic Gene and Sample Flagging<a class="anchor" aria-label="anchor" href="#automatic-gene-and-sample-flagging"></a>
 </h3>
 <p>For genes, it is counted how many samples don’t pass a minimum
-expression CPM (counts per million reads mapped) threshold. If too many,
-then this gene is flagged as a “low expression” gene.</p>
+expression <code>CPM</code> (counts per million reads mapped) threshold.
+If too many, then this gene is flagged as a “low expression” gene.</p>
 <p>For samples, two flags are provided. The “technical failure” flag is
 based on the average Pearson correlation with other samples. The “low
 depth” flag is based on the library size, i.e. the total sum of counts
@@ -538,12 +536,12 @@ order to see which ones are available these can be queries first.</p>
 <div class="section level2">
 <h2 id="normalizing-counts">Normalizing Counts<a class="anchor" aria-label="anchor" href="#normalizing-counts"></a>
 </h2>
-<p>Normalizing counts within samples (CPM), genes (RPKM) or across both
-(TPM) can be achieved with the <code><a href="../reference/normalize.html">normalize()</a></code> function. The
-<code><a href="../reference/normalize.html">normalize()</a></code> function can also transform the counts by the
-variance stabilizing transformation (<code>vst</code>) and the
-regularized log transformation (<code>rlog</code>) as proposed in the
-<code>DESeq2</code> package.</p>
+<p>Normalizing counts within samples (<code>CPM</code>), genes (RPKM) or
+across both (TPM) can be achieved with the <code><a href="../reference/normalize.html">normalize()</a></code>
+function. The <code><a href="../reference/normalize.html">normalize()</a></code> function can also transform the
+counts by the variance stabilizing transformation (<code>vst</code>) and
+the regularized log transformation (<code>rlog</code>) as proposed in
+the <code>DESeq2</code> package.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">object_normalized</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/normalize.html">normalize</a></span><span class="op">(</span><span class="va">object_flagged_filtered</span><span class="op">)</span></span>
 <span><span class="co">#&gt; -- note: fitType='parametric', but the dispersion trend was not well captured by the</span></span>
@@ -647,8 +645,6 @@ histogram:</p>
 ranked for example.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">most_var_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/top_genes.html">top_genes</a></span><span class="op">(</span><span class="va">object_normalized</span>, summary_fun <span class="op">=</span> <span class="va">rowSds</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: useNames = NA is deprecated. Instead, specify either useNames = TRUE</span></span>
-<span><span class="co">#&gt; or useNames = TRUE.</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">most_var_genes</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hermes_files/figure-html/unnamed-chunk-33-1.png" width="700"></p>
 </div>
@@ -732,20 +728,20 @@ heatmap. See <code><a href="../reference/pca_cor_samplevar.html">?pca_cor_sample
 <div class="section level2">
 <h2 id="qc-report-template">QC Report Template<a class="anchor" aria-label="anchor" href="#qc-report-template"></a>
 </h2>
-<p>In order to quickly obtain a quality control report for a new RNAseq
-data set, you can proceed as follows.</p>
+<p>In order to quickly obtain a quality control report for a new
+<code>RNAseq</code> data set, you can proceed as follows.</p>
 <ol style="list-style-type: decimal">
 <li>Save your input <code>SummarizedExperiment</code> using R’s
 <code><a href="https://rdrr.io/r/base/save.html" class="external-link">save()</a></code> function in a binary data file (e.g. ending with
 <code>.rda</code> suffix).</li>
-<li>Load the <code>hermes</code> package in RStudio and click on:
-<code>File</code> &gt; <code>New File</code> &gt;
+<li>Load the <code>hermes</code> package in <code>RStudio</code> and
+click on: <code>File</code> &gt; <code>New File</code> &gt;
 <code>R Markdown</code> &gt; <code>From Template</code> and select the
 QC report template from <code>hermes</code>. <img src="rmd_template_selection.png" style="width:4in" alt="Rmd_template_selection">
 </li>
-<li>Fill in the few parameters in the yaml header, including the
-required file paths for the input file from above, and where the
-resulting <code>HermesData</code> object should be saved.</li>
+<li>Fill in the few parameters in the <code>yaml</code> header,
+including the required file paths for the input file from above, and
+where the resulting <code>HermesData</code> object should be saved.</li>
 <li>Knit the document.</li>
 </ol>
 <p>The report contains the above mentioned descriptive plots and PCA
@@ -783,24 +779,25 @@ to ensure that the utilized group variable is a factor.</p>
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
 <p>The <code>hermes</code> R package provides classes, methods and
-functions to import, quality-check, filter, normalize and analyze RNAseq
-counts data. In particular, the robust object-oriented framework allows
-for easy extensions in the future to address user feature requests.
-These and other feedback are very welcome - thank you very much in
-advance for your thoughts on <code>hermes</code>!</p>
+functions to import, quality-check, filter, normalize and analyze
+<code>RNAseq</code> counts data. In particular, the robust
+object-oriented framework allows for easy extensions in the future to
+address user feature requests. These and other feedback are very welcome
+- thank you very much in advance for your thoughts on
+<code>hermes</code>!</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
 <p>Here is the output of <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> on the system on
-which this document was compiled running pandoc 2.19.2:</p>
-<pre><code><span><span class="co">#&gt; R version 4.2.2 (2022-10-31)</span></span>
+which this document was compiled running <code>pandoc</code> 3.1.1:</p>
+<pre><code><span><span class="co">#&gt; R version 4.3.1 (2023-06-16)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
 <span><span class="co">#&gt; Running under: Ubuntu 22.04.2 LTS</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3</span></span>
-<span><span class="co">#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so</span></span>
+<span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span><span class="co">#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; locale:</span></span>
 <span><span class="co">#&gt;  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
@@ -810,80 +807,82 @@ which this document was compiled running pandoc 2.19.2:</p>
 <span><span class="co">#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
 <span><span class="co">#&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; time zone: Etc/UTC</span></span>
+<span><span class="co">#&gt; tzcode source: system (glibc)</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attached base packages:</span></span>
 <span><span class="co">#&gt; [1] stats4    stats     graphics  grDevices utils     datasets  methods  </span></span>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] hermes_1.0.1.9012           SummarizedExperiment_1.28.0</span></span>
-<span><span class="co">#&gt;  [3] Biobase_2.58.0              GenomicRanges_1.50.2       </span></span>
-<span><span class="co">#&gt;  [5] GenomeInfoDb_1.34.9         IRanges_2.32.0             </span></span>
-<span><span class="co">#&gt;  [7] S4Vectors_0.36.2            BiocGenerics_0.44.0        </span></span>
-<span><span class="co">#&gt;  [9] MatrixGenerics_1.10.0       matrixStats_1.0.0          </span></span>
+<span><span class="co">#&gt;  [1] hermes_1.0.1.9013           SummarizedExperiment_1.30.2</span></span>
+<span><span class="co">#&gt;  [3] Biobase_2.60.0              GenomicRanges_1.52.0       </span></span>
+<span><span class="co">#&gt;  [5] GenomeInfoDb_1.36.0         IRanges_2.34.0             </span></span>
+<span><span class="co">#&gt;  [7] S4Vectors_0.38.1            BiocGenerics_0.46.0        </span></span>
+<span><span class="co">#&gt;  [9] MatrixGenerics_1.12.2       matrixStats_1.0.0          </span></span>
 <span><span class="co">#&gt; [11] ggfortify_0.4.16            ggplot2_3.4.2              </span></span>
-<span><span class="co">#&gt; [13] BiocStyle_2.26.0           </span></span>
+<span><span class="co">#&gt; [13] BiocStyle_2.28.0           </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;   [1] colorspace_2.1-0            rjson_0.2.21               </span></span>
-<span><span class="co">#&gt;   [3] EnvStats_2.7.0              rprojroot_2.0.3            </span></span>
-<span><span class="co">#&gt;   [5] circlize_0.4.15             XVector_0.38.0             </span></span>
-<span><span class="co">#&gt;   [7] GlobalOptions_0.1.2         fs_1.6.2                   </span></span>
-<span><span class="co">#&gt;   [9] clue_0.3-64                 farver_2.1.1               </span></span>
-<span><span class="co">#&gt;  [11] MultiAssayExperiment_1.24.0 ggrepel_0.9.3              </span></span>
-<span><span class="co">#&gt;  [13] bit64_4.0.5                 AnnotationDbi_1.60.2       </span></span>
-<span><span class="co">#&gt;  [15] fansi_1.0.4                 xml2_1.3.4                 </span></span>
-<span><span class="co">#&gt;  [17] codetools_0.2-19            doParallel_1.0.17          </span></span>
-<span><span class="co">#&gt;  [19] cachem_1.0.8                geneplotter_1.76.0         </span></span>
-<span><span class="co">#&gt;  [21] knitr_1.43                  jsonlite_1.8.5             </span></span>
-<span><span class="co">#&gt;  [23] annotate_1.76.0             cluster_2.1.4              </span></span>
-<span><span class="co">#&gt;  [25] dbplyr_2.3.2                png_0.1-8                  </span></span>
-<span><span class="co">#&gt;  [27] BiocManager_1.30.20         compiler_4.2.2             </span></span>
-<span><span class="co">#&gt;  [29] httr_1.4.6                  backports_1.4.1            </span></span>
-<span><span class="co">#&gt;  [31] assertthat_0.2.1            Matrix_1.5-4.1             </span></span>
-<span><span class="co">#&gt;  [33] fastmap_1.1.1               limma_3.54.2               </span></span>
-<span><span class="co">#&gt;  [35] cli_3.6.1                   htmltools_0.5.5            </span></span>
-<span><span class="co">#&gt;  [37] prettyunits_1.1.1           tools_4.2.2                </span></span>
-<span><span class="co">#&gt;  [39] gtable_0.3.3                glue_1.6.2                 </span></span>
-<span><span class="co">#&gt;  [41] GenomeInfoDbData_1.2.9      dplyr_1.1.2                </span></span>
-<span><span class="co">#&gt;  [43] rappdirs_0.3.3              Rcpp_1.0.10                </span></span>
-<span><span class="co">#&gt;  [45] jquerylib_0.1.4             pkgdown_2.0.7              </span></span>
-<span><span class="co">#&gt;  [47] vctrs_0.6.2                 Biostrings_2.66.0          </span></span>
-<span><span class="co">#&gt;  [49] iterators_1.0.14            xfun_0.39                  </span></span>
-<span><span class="co">#&gt;  [51] stringr_1.5.0               brio_1.1.3                 </span></span>
-<span><span class="co">#&gt;  [53] rbibutils_2.2.13            testthat_3.1.8             </span></span>
-<span><span class="co">#&gt;  [55] lifecycle_1.0.3             XML_3.99-0.14              </span></span>
-<span><span class="co">#&gt;  [57] edgeR_3.40.2                zlibbioc_1.44.0            </span></span>
-<span><span class="co">#&gt;  [59] scales_1.2.1                ragg_1.2.5                 </span></span>
-<span><span class="co">#&gt;  [61] hms_1.1.3                   parallel_4.2.2             </span></span>
-<span><span class="co">#&gt;  [63] RColorBrewer_1.1-3          ComplexHeatmap_2.14.0      </span></span>
-<span><span class="co">#&gt;  [65] yaml_2.3.7                  curl_5.0.0                 </span></span>
-<span><span class="co">#&gt;  [67] memoise_2.0.1               gridExtra_2.3              </span></span>
-<span><span class="co">#&gt;  [69] sass_0.4.6                  biomaRt_2.54.1             </span></span>
-<span><span class="co">#&gt;  [71] stringi_1.7.12              RSQLite_2.3.1              </span></span>
-<span><span class="co">#&gt;  [73] highr_0.10                  desc_1.4.2                 </span></span>
-<span><span class="co">#&gt;  [75] foreach_1.5.2               checkmate_2.2.0            </span></span>
-<span><span class="co">#&gt;  [77] filelock_1.0.2              BiocParallel_1.32.6        </span></span>
-<span><span class="co">#&gt;  [79] shape_1.4.6                 Rdpack_2.4                 </span></span>
-<span><span class="co">#&gt;  [81] rlang_1.1.1                 pkgconfig_2.0.3            </span></span>
-<span><span class="co">#&gt;  [83] systemfonts_1.0.4           bitops_1.0-7               </span></span>
-<span><span class="co">#&gt;  [85] evaluate_0.21               lattice_0.21-8             </span></span>
-<span><span class="co">#&gt;  [87] purrr_1.0.1                 labeling_0.4.2             </span></span>
-<span><span class="co">#&gt;  [89] bit_4.0.5                   tidyselect_1.2.0           </span></span>
-<span><span class="co">#&gt;  [91] DESeq2_1.38.3               magrittr_2.0.3             </span></span>
-<span><span class="co">#&gt;  [93] bookdown_0.34               R6_2.5.1                   </span></span>
-<span><span class="co">#&gt;  [95] magick_2.7.4                generics_0.1.3             </span></span>
-<span><span class="co">#&gt;  [97] DelayedArray_0.24.0         DBI_1.1.3                  </span></span>
-<span><span class="co">#&gt;  [99] pillar_1.9.0                withr_2.5.0                </span></span>
-<span><span class="co">#&gt; [101] KEGGREST_1.38.0             RCurl_1.98-1.12            </span></span>
-<span><span class="co">#&gt; [103] tibble_3.2.1                crayon_1.5.2               </span></span>
-<span><span class="co">#&gt; [105] utf8_1.2.3                  BiocFileCache_2.6.1        </span></span>
-<span><span class="co">#&gt; [107] rmarkdown_2.22              GetoptLong_1.0.5           </span></span>
-<span><span class="co">#&gt; [109] progress_1.2.2              locfit_1.5-9.7             </span></span>
-<span><span class="co">#&gt; [111] grid_4.2.2                  blob_1.2.4                 </span></span>
-<span><span class="co">#&gt; [113] forcats_1.0.0               digest_0.6.31              </span></span>
-<span><span class="co">#&gt; [115] xtable_1.8-4                tidyr_1.3.0                </span></span>
-<span><span class="co">#&gt; [117] textshaping_0.3.6           munsell_0.5.0              </span></span>
-<span><span class="co">#&gt; [119] bslib_0.4.2</span></span></code></pre>
+<span><span class="co">#&gt;   [1] Rdpack_2.4                  DBI_1.1.3                  </span></span>
+<span><span class="co">#&gt;   [3] bitops_1.0-7                gridExtra_2.3              </span></span>
+<span><span class="co">#&gt;   [5] testthat_3.1.9              biomaRt_2.56.1             </span></span>
+<span><span class="co">#&gt;   [7] rlang_1.1.1                 magrittr_2.0.3             </span></span>
+<span><span class="co">#&gt;   [9] clue_0.3-64                 GetoptLong_1.0.5           </span></span>
+<span><span class="co">#&gt;  [11] compiler_4.3.1              RSQLite_2.3.1              </span></span>
+<span><span class="co">#&gt;  [13] png_0.1-8                   systemfonts_1.0.4          </span></span>
+<span><span class="co">#&gt;  [15] vctrs_0.6.3                 stringr_1.5.0              </span></span>
+<span><span class="co">#&gt;  [17] pkgconfig_2.0.3             shape_1.4.6                </span></span>
+<span><span class="co">#&gt;  [19] crayon_1.5.2                fastmap_1.1.1              </span></span>
+<span><span class="co">#&gt;  [21] magick_2.7.4                dbplyr_2.3.2               </span></span>
+<span><span class="co">#&gt;  [23] backports_1.4.1             XVector_0.40.0             </span></span>
+<span><span class="co">#&gt;  [25] labeling_0.4.2              utf8_1.2.3                 </span></span>
+<span><span class="co">#&gt;  [27] rmarkdown_2.22              ragg_1.2.5                 </span></span>
+<span><span class="co">#&gt;  [29] purrr_1.0.1                 bit_4.0.5                  </span></span>
+<span><span class="co">#&gt;  [31] xfun_0.39                   MultiAssayExperiment_1.26.0</span></span>
+<span><span class="co">#&gt;  [33] zlibbioc_1.46.0             cachem_1.0.8               </span></span>
+<span><span class="co">#&gt;  [35] jsonlite_1.8.5              progress_1.2.2             </span></span>
+<span><span class="co">#&gt;  [37] EnvStats_2.7.0              blob_1.2.4                 </span></span>
+<span><span class="co">#&gt;  [39] highr_0.10                  DelayedArray_0.26.3        </span></span>
+<span><span class="co">#&gt;  [41] BiocParallel_1.34.2         prettyunits_1.1.1          </span></span>
+<span><span class="co">#&gt;  [43] parallel_4.3.1              cluster_2.1.4              </span></span>
+<span><span class="co">#&gt;  [45] R6_2.5.1                    bslib_0.5.0                </span></span>
+<span><span class="co">#&gt;  [47] stringi_1.7.12              RColorBrewer_1.1-3         </span></span>
+<span><span class="co">#&gt;  [49] limma_3.56.2                brio_1.1.3                 </span></span>
+<span><span class="co">#&gt;  [51] jquerylib_0.1.4             Rcpp_1.0.10                </span></span>
+<span><span class="co">#&gt;  [53] bookdown_0.34               assertthat_0.2.1           </span></span>
+<span><span class="co">#&gt;  [55] iterators_1.0.14            knitr_1.43                 </span></span>
+<span><span class="co">#&gt;  [57] Matrix_1.5-4.1              tidyselect_1.2.0           </span></span>
+<span><span class="co">#&gt;  [59] yaml_2.3.7                  doParallel_1.0.17          </span></span>
+<span><span class="co">#&gt;  [61] codetools_0.2-19            curl_5.0.1                 </span></span>
+<span><span class="co">#&gt;  [63] lattice_0.21-8              tibble_3.2.1               </span></span>
+<span><span class="co">#&gt;  [65] withr_2.5.0                 KEGGREST_1.40.0            </span></span>
+<span><span class="co">#&gt;  [67] evaluate_0.21               desc_1.4.2                 </span></span>
+<span><span class="co">#&gt;  [69] BiocFileCache_2.8.0         xml2_1.3.4                 </span></span>
+<span><span class="co">#&gt;  [71] Biostrings_2.68.1           circlize_0.4.15            </span></span>
+<span><span class="co">#&gt;  [73] filelock_1.0.2              pillar_1.9.0               </span></span>
+<span><span class="co">#&gt;  [75] BiocManager_1.30.21         checkmate_2.2.0            </span></span>
+<span><span class="co">#&gt;  [77] foreach_1.5.2               generics_0.1.3             </span></span>
+<span><span class="co">#&gt;  [79] rprojroot_2.0.3             RCurl_1.98-1.12            </span></span>
+<span><span class="co">#&gt;  [81] hms_1.1.3                   munsell_0.5.0              </span></span>
+<span><span class="co">#&gt;  [83] scales_1.2.1                glue_1.6.2                 </span></span>
+<span><span class="co">#&gt;  [85] tools_4.3.1                 locfit_1.5-9.8             </span></span>
+<span><span class="co">#&gt;  [87] forcats_1.0.0               fs_1.6.2                   </span></span>
+<span><span class="co">#&gt;  [89] XML_3.99-0.14               grid_4.3.1                 </span></span>
+<span><span class="co">#&gt;  [91] tidyr_1.3.0                 rbibutils_2.2.13           </span></span>
+<span><span class="co">#&gt;  [93] edgeR_3.42.4                AnnotationDbi_1.62.1       </span></span>
+<span><span class="co">#&gt;  [95] colorspace_2.1-0            GenomeInfoDbData_1.2.10    </span></span>
+<span><span class="co">#&gt;  [97] cli_3.6.1                   rappdirs_0.3.3             </span></span>
+<span><span class="co">#&gt;  [99] textshaping_0.3.6           fansi_1.0.4                </span></span>
+<span><span class="co">#&gt; [101] S4Arrays_1.0.4              ComplexHeatmap_2.16.0      </span></span>
+<span><span class="co">#&gt; [103] dplyr_1.1.2                 gtable_0.3.3               </span></span>
+<span><span class="co">#&gt; [105] DESeq2_1.40.1               sass_0.4.6                 </span></span>
+<span><span class="co">#&gt; [107] digest_0.6.31               ggrepel_0.9.3              </span></span>
+<span><span class="co">#&gt; [109] farver_2.1.1                rjson_0.2.21               </span></span>
+<span><span class="co">#&gt; [111] memoise_2.0.1               htmltools_0.5.5            </span></span>
+<span><span class="co">#&gt; [113] pkgdown_2.0.7               lifecycle_1.0.3            </span></span>
+<span><span class="co">#&gt; [115] httr_1.4.6                  GlobalOptions_0.1.2        </span></span>
+<span><span class="co">#&gt; [117] bit64_4.0.5</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

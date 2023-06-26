@@ -20,7 +20,7 @@ exon lengths after reducing overlaps."><meta property="og:image" content="https:
     
     <a class="navbar-brand me-2" href="../index.html">hermes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9012</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9013</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,12 +37,6 @@ exon lengths after reducing overlaps."><meta property="og:image" content="https:
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/hermes/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -66,7 +60,7 @@ exon lengths after reducing overlaps."><meta property="og:image" content="https:
 
     <div class="ref-description section level2">
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a></p>
-<p>This helper function queries BioMart for lengths of genes by adding up all
+<p>This helper function queries <code>BioMart</code> for lengths of genes by adding up all
 exon lengths after reducing overlaps.</p>
     </div>
 
@@ -79,11 +73,11 @@ exon lengths after reducing overlaps.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>gene_ids</dt>
 <dd><p>(<code>character</code>)<br> gene IDs, e.g. <code>10329</code>, i.e. already
-without the Entrez <code>GeneID</code> prefix, or <code>ENSG00000241644</code> for Ensembl gene ID.</p></dd>
+without the <code>Entrez</code> <code>GeneID</code> prefix, or <code>ENSG00000241644</code> for <code>Ensembl</code> gene ID.</p></dd>
 
 
 <dt>id_var</dt>
-<dd><p>(<code>string</code>)<br> corresponding gene ID variable name in BioMart,
+<dd><p>(<code>string</code>)<br> corresponding gene ID variable name in <code>BioMart</code>,
 i.e. <code>entrezgene_id</code> or <code>ensembl_gene_id</code>.</p></dd>
 
 

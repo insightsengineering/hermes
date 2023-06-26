@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hermes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9012</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9013</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,12 +33,6 @@
 <li class="active nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/hermes/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -60,20 +54,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.1.9012" id="hermes-1019012">hermes 1.0.1.9012<a class="anchor" aria-label="anchor" href="#hermes-1019012"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.1.9013" id="hermes-1019013">hermes 1.0.1.9013<a class="anchor" aria-label="anchor" href="#hermes-1019013"></a></h2>
 <div class="section level4">
-<h4 id="enhancements-1-0-1-9012">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-0-1-9012"></a></h4>
+<h4 id="enhancements-1-0-1-9013">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-0-1-9013"></a></h4>
 <ul><li>New plotting function <code>draw_heatmap</code> to produce heatmaps of (normalized) counts.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="miscellaneous-1-0-1-9012">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-1-0-1-9012"></a></h4>
+<h4 id="miscellaneous-1-0-1-9013">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-1-0-1-9013"></a></h4>
 <ul><li>The utility function <code>df_cols_to_factor</code> now also converts existing factors to having explicit missing levels.</li>
 <li>Version bump on <code>forcats</code> dependency.</li>
 <li>Removed <code>ggplot2</code> deprecation warning <code>..count..</code>. # hermes 1.0.1</li>
 </ul></div>
 <div class="section level4">
-<h4 id="enhancements-1-0-1-9012-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-0-1-9012-1"></a></h4>
-<ul><li>Additional <code>version</code> argument for <code>connect_biomart</code> to specify an Ensembl version.</li>
+<h4 id="enhancements-1-0-1-9013-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-0-1-9013-1"></a></h4>
+<ul><li>Additional <code>version</code> argument for <code>connect_biomart</code> to specify an <code>Ensembl</code> version.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -81,12 +75,12 @@
 <div class="section level4">
 <h4 id="meta-1-0-0">Meta<a class="anchor" aria-label="anchor" href="#meta-1-0-0"></a></h4>
 <ul><li>First public release of the <code>hermes</code> package.</li>
-<li>Submission to BioConductor.</li>
+<li>Submission to <code>BioConductor</code>.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="enhancements-1-0-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-0-0"></a></h4>
 <ul><li>Better legends on the genes barplot and the correlation heatmap.</li>
-<li>Improved vignette layout using the BioConductor style.</li>
+<li>Improved vignette layout using the <code>BioConductor</code> style.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="miscellaneous-1-0-0">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-1-0-0"></a></h4>
@@ -127,7 +121,7 @@
 <li>The main <code>HermesData</code> example is now saved in the package as <code>hermes_data</code>, and the previous <code>summarized_experiment</code> is still available. Note that patient IDs have been changed in the new version to align with the <code>multi_assay_experiment</code>.</li>
 <li>Renaming of required <code>rowData</code> and <code>colData</code> columns to be more consistent with standards and use lowercase snake-case names.</li>
 <li>Annotation querying and setting is now more flexible in that it also allows to query more annotations than the required ones.</li>
-<li>Instead of gene starts and ends, the total length of gene exons is now used as the annotation column <code>size</code>. Corresponding queries from BioMart are used to return this gene size.</li>
+<li>Instead of gene starts and ends, the total length of gene exons is now used as the annotation column <code>size</code>. Corresponding queries from <code>BioMart</code> are used to return this gene size.</li>
 <li>
 <code>df_char_to_factor</code> has been deprecated (and can still be used with a warning) and replaced with <code>df_cols_to_factor</code>, which also converts logical variables to factor variables.</li>
 <li>When providing <code>SummarizedExperiment</code> objects containing <code>DelayedMatrix</code> assays to the <code><a href="../reference/HermesData-class.html">HermesData()</a></code> constructor, these are silently converted to <code>matrix</code> assays to ensure downstream functionality.</li>
@@ -135,19 +129,19 @@
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="hermes-010">hermes 0.1.0<a class="anchor" aria-label="anchor" href="#hermes-010"></a></h2>
-<ul><li>First internal release of the <code>hermes</code> package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze RNAseq counts data for differential expression.</li>
+<ul><li>First internal release of the <code>hermes</code> package, which contains classes, methods and functions to import, quality-check, filter, normalize, and analyze <code>RNAseq</code> counts data for differential expression.</li>
 <li>
-<code>hermes</code> is a successor of the <code>rnaseqTools</code> R package. The core functionality is built on the BioConductor ecosystem, especially the <code>SummarizedExperiment</code> class. New users should first begin by reading the “Introduction to <code>hermes</code>” vignette to become familiar with the <code>hermes</code> concepts.</li>
+<code>hermes</code> is a successor of the <code>rnaseqTools</code> R package. The core functionality is built on the <code>BioConductor</code> ecosystem, especially the <code>SummarizedExperiment</code> class. New users should first begin by reading the “Introduction to <code>hermes</code>” vignette to become familiar with the <code>hermes</code> concepts.</li>
 </ul><div class="section level4">
 <h4 id="new-features-0-1-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0"></a></h4>
-<ul><li>Import RNAseq count data into the <code>hermes</code> ready format.</li>
-<li>Annotate gene information from the Ensembl database via <code>biomaRt</code>.</li>
+<ul><li>Import <code>RNAseq</code> count data into the <code>hermes</code> ready format.</li>
+<li>Annotate gene information from the <code>Ensembl</code> database via <code>biomaRt</code>.</li>
 <li>Add quality control (QC) flags to genes and samples.</li>
 <li>Filter and subset the data set.</li>
 <li>Normalize the counts.</li>
 <li>Produce descriptive plots.</li>
 <li>Perform principal components analysis.</li>
-<li>Produce a templated QC Rmd report.</li>
+<li>Produce a templated QC <code>Rmd</code> report.</li>
 <li>Perform differential expression analysis.</li>
 </ul></div>
 </div>
