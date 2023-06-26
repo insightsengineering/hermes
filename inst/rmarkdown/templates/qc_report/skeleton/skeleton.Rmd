@@ -61,7 +61,7 @@ params:
     value: null
     input: numeric
   pca_assay_name:
-    label: Assay with normalized counts to use (`cpm`, `tpm`, `rpkm`, or `voom`)
+    label: Assay with normalized counts to use (cpm, tpm, rpkm, or voom)
     value: tpm
     input: text
   pca_batch_var:

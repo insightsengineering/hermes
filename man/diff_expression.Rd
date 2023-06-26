@@ -52,7 +52,7 @@ A corresponding \code{autoplot()} method is visualizing the results as a volcano
 \details{
 Possible method choices are:
 \itemize{
-\item \code{voom}: uses \code{\link[limma:voom]{limma::voom()}}, see \code{\link[=h_diff_expr_voom]{h_diff_expr_voom()}} for details.
+\item voom: uses \code{\link[limma:voom]{limma::voom()}}, see \code{\link[=h_diff_expr_voom]{h_diff_expr_voom()}} for details.
 \item \code{deseq2}: uses \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}, see \code{\link[=h_diff_expr_deseq2]{h_diff_expr_deseq2()}} for details.
 }
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/join_cdisc.R
 \name{inner_join_cdisc}
 \alias{inner_join_cdisc}
-\title{Inner Joining a Genes with a \code{CDISC} Data Set}
+\title{Inner Joining a Genes with a CDISC Data Set}
 \usage{
 inner_join_cdisc(
   gene_data,
@@ -14,7 +14,7 @@ inner_join_cdisc(
 \arguments{
 \item{gene_data}{(\code{data.frame} or \code{DataFrame})\cr genetic data.}
 
-\item{cdisc_data}{(\code{data.frame})\cr \code{CDISC} data (typically patient level data).}
+\item{cdisc_data}{(\code{data.frame})\cr CDISC data (typically patient level data).}
 
 \item{patient_key}{(\code{string})\cr patient identifier.}
 
@@ -26,7 +26,7 @@ A \code{data.frame} which contains columns from both data sets merged by the key
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This is a useful function when trying to join genetic with \code{CDISC} data sets.
+This is a useful function when trying to join genetic with CDISC data sets.
 }
 \note{
 Columns which are contained in both data sets but are not specified as keys are taken

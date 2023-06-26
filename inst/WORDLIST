@@ -2,6 +2,7 @@ Armen
 Benjamini
 BioMart
 Bové
+CDISC
 DESeq
 Hochberg
 Hoffmann
@@ -10,8 +11,11 @@ Kilobase
 Marbach
 Midori
 Obenchain
+RPKM
 Sabanés
 SummarizedExperiment
+TPM
+VOOM
 Zhang
 cloneable
 cpm
