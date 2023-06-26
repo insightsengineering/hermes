@@ -1,4 +1,4 @@
-# hermes 1.0.1.9013
+# hermes 1.0.1.9014
 
 ### Enhancements
 * New plotting function `draw_heatmap` to produce heatmaps of (normalized) counts.
