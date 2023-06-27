@@ -1,5 +1,5 @@
 # If not on CI or Bioconductor,
-# create object `.mart` with constant Ensembl version.
+# create object `.mart` with constant `Ensembl` version.
 on_ci <- isTRUE(as.logical(Sys.getenv("CI")))
 on_bioc <- !(identical(Sys.getenv("BBS_HOME"), ""))
 .mart <- if (on_ci || on_bioc) {

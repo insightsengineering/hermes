@@ -12,14 +12,14 @@ control_quality(
 )
 }
 \arguments{
-\item{min_cpm}{(non-negative \code{number})\cr minimum Counts per Million (CPM) for
+\item{min_cpm}{(non-negative \code{number})\cr minimum Counts per Million (\code{CPM}) for
 each gene within the sample.}
 
 \item{min_cpm_prop}{(\code{proportion})\cr minimum proportion of samples with
-acceptable CPM of certain gene for low expression flagging.}
+acceptable \code{CPM} of certain gene for low expression flagging.}
 
 \item{min_corr}{(\code{proportion})\cr minimum Pearson correlation coefficient of
-CPM between samples for technical failure flagging.}
+\code{CPM} between samples for technical failure flagging.}
 
 \item{min_depth}{(non-negative \code{count} or \code{NULL})\cr minimum library depth
 for low depth flagging. If \code{NULL}, this will be calculated as the first

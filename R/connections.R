@@ -1,4 +1,4 @@
-#' Connection to BioMart
+#' Connection to `BioMart`
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -6,12 +6,12 @@
 #' the `biomaRt` object of class [`biomaRt::Mart`][biomaRt::Mart-class] and the prefix of the object
 #' which is used downstream for the query.
 #'
-#' @details This connects to the Ensembl data base of BioMart for human genes.
+#' @details This connects to the `Ensembl` data base of `BioMart` for human genes.
 #'   A specific version can be optionally chosen to ensure reproducibility of results
 #'   once a new release is available, as accessed data might then change.
 #'
 #' @param prefix (`string`)\cr gene ID prefix.
-#' @param version (`string` or `NULL`)\cr optional Ensembl version to use. If `NULL`
+#' @param version (`string` or `NULL`)\cr optional `Ensembl` version to use. If `NULL`
 #'   the latest available release is used.
 #'
 #' @return [`ConnectionBiomart`] object.
@@ -56,7 +56,7 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID"),
   slots = c(prefix = "character")
 )
 
-#' Get Annotations from BioMart
+#' Get Annotations from `BioMart`
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -64,8 +64,8 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID"),
 #' a specific ID variable and given [`biomaRt::Mart`][biomaRt::Mart-class].
 #'
 #' @param gene_ids (`character`)\cr gene IDs, e.g. `10329`, i.e. already
-#'   without the Entrez `GeneID` prefix, or `ENSG00000241644` for Ensembl gene ID.
-#' @param id_var (`string`)\cr corresponding gene ID variable name in BioMart,
+#'   without the `Entrez` `GeneID` prefix, or `ENSG00000241644` for `Ensembl` gene ID.
+#' @param id_var (`string`)\cr corresponding gene ID variable name in `BioMart`,
 #'   i.e. `entrezgene_id` or `ensembl_gene_id`.
 #' @param mart (`Mart`)\cr given [`biomaRt::Mart`][biomaRt::Mart-class] object.
 #'
@@ -136,8 +136,8 @@ h_get_annotation_biomart <- function(gene_ids,
 #'   is extensible: It is simple to add new connections and corresponding query methods
 #'   for other data bases, e.g. company internal data bases. Please make sure to
 #'   follow the required format of the returned value.
-#' - The BioMart queries might not return information for all the genes. This can be
-#'   due to different versions being used in the gene IDs and the queried Ensembl data base.
+#' - The `BioMart` queries might not return information for all the genes. This can be
+#'   due to different versions being used in the gene IDs and the queried `Ensembl` data base.
 #'
 #' @param genes (`character`)\cr gene IDs.
 #' @param connection (connection class)\cr data base connection object.
@@ -176,8 +176,8 @@ setGeneric(
 #' @return Character vector that contains only the digits for each gene ID.
 #' @export
 #'
-#' @note This is currently used to strip away the `GeneID` prefix from Entrez gene IDs
-#'   so that they can be queried from BioMart
+#' @note This is currently used to strip away the `GeneID` prefix from `Entrez` gene IDs
+#'   so that they can be queried from `BioMart`
 #'
 #' @examples
 #' h_strip_prefix(c("GeneID:11185", "GeneID:10677"), prefix = "GeneID")
@@ -193,7 +193,7 @@ h_strip_prefix <- function(gene_ids, prefix) {
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function queries BioMart for lengths of genes by adding up all
+#' This helper function queries `BioMart` for lengths of genes by adding up all
 #' exon lengths after reducing overlaps.
 #'
 #' @inheritParams h_get_annotation_biomart
@@ -255,16 +255,16 @@ h_get_size_biomart <- function(gene_ids,
   total_exon_size[gene_ids]
 }
 
-#' Translation of Ensembl to Entrez Gene IDs
+#' Translation of `Ensembl` to `Entrez` Gene IDs
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' This helper function queries BioMart to translate Ensembl to Entrez Gene IDs.
+#' This helper function queries `BioMart` to translate `Ensembl` to `Entrez` Gene IDs.
 #'
-#' @param gene_ids (`character`)\cr Ensembl gene IDs.
+#' @param gene_ids (`character`)\cr `Ensembl` gene IDs.
 #' @inheritParams h_get_annotation_biomart
 #'
-#' @return Character vector of Entrez gene IDs.
+#' @return Character vector of `Entrez` gene IDs.
 #' @export
 #'
 #' @examples
@@ -287,7 +287,7 @@ h_ensembl_to_entrez_ids <- function(gene_ids,
   as.character(result)
 }
 
-#' Conversion of BioMart Coordinates into `GRanges`
+#' Conversion of `BioMart` Coordinates into `GRanges`
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
@@ -297,7 +297,7 @@ h_ensembl_to_entrez_ids <- function(gene_ids,
 #'
 #' @param coords (`data.frame`)\cr as returned by `biomaRt::getBM()`, containing the columns
 #'   `ensembl_gene_id`, `chromosome_name`, `exon_chrom_start`, `exon_chrom_end`.
-#' @param id (`string`)\cr single Ensembl gene ID to convert the coordinates for.
+#' @param id (`string`)\cr single `Ensembl` gene ID to convert the coordinates for.
 #'
 #' @return `GRange` objects for the respective single gene ID.
 #' @export

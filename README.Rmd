@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/hermes/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/hermes/_xml_coverage_reports/data/main/coverage.xml)
 
 ![GitHub forks](https://img.shields.io/github/forks/insightsengineering/hermes?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/insightsengineering/hermes?style=social)
+![GitHub repo stars](https://img.shields.io/github/stars/insightsengineering/hermes?style=social)
 
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/insightsengineering/hermes)
 ![GitHub contributors](https://img.shields.io/github/contributors/insightsengineering/hermes)
@@ -36,8 +36,8 @@ knitr::opts_chunk$set(
 
 > `hermes` facilitates preprocessing, analyzing, and reporting of RNA-seq data.
 
-- Imports RNAseq count data into the `hermes` ready format.
-- Annotates gene information automatically from a central database (e.g. BioMart).
+- Imports `RNAseq` count data into the `hermes` ready format.
+- Annotates gene information automatically from a central database (e.g. `BioMart`).
 - Adds quality control (QC) flags to genes and samples.
 - Filters the data set.
 - Normalizes the counts.
@@ -48,9 +48,9 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-### BioConductor
+### `BioConductor`
 
-You can install the current release from BioConductor with:
+You can install the current release from `BioConductor` with:
 
 ```{r bioc-installation, eval = FALSE}
 if (!require("BiocManager")) {

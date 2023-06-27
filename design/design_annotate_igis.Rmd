@@ -12,9 +12,9 @@ editor_options:
   
 ## Objective
 
-We would like to be able to use existing R APIs for annotating genes based on gene IDs as the starting point. Thereby we can keep up to date with new Ensembl versions that are published and are flexible whether IGIS (gRED) or GI-HDAP (pRED) is used.
+We would like to be able to use existing R APIs for annotating genes based on gene IDs as the starting point. Thereby we can keep up to date with new `Ensembl` versions that are published and are flexible whether IGIS (gRED) or GI-HDAP (pRED) is used.
 
-For gRED molecules, the canonical source for Ensembl (Entrez for legacy) annotations is IGIS. Therefore we want to be able to fetch the required feature data columns for the genes based on the IDs from IGIS. 
+For gRED molecules, the canonical source for `Ensembl` (`Entrez` for legacy) annotations is IGIS. Therefore we want to be able to fetch the required feature data columns for the genes based on the IDs from IGIS. 
 
 Fortunately, the nice R-package `igis` is available. 
 
@@ -45,7 +45,7 @@ Just for illustration we create a new class here, but it would be the same for `
 ```{r}
 # this will be folded into both HermesData and RangedHermesData class definitions:
 .HD <- setClass(
-  Class = "HD", 
+  Class = "HD",
   contains = "HermesData",
   slots = c(prefix = "character")
 )
@@ -93,7 +93,7 @@ we require that its rownames equal the GeneID column in rowData.
 ```{r}
 library(igis)
 
-#' @importFrom GenomicFeatures genes 
+#' @importFrom GenomicFeatures genes
 setMethod(
   f = "genes",
   signature = c(x = "AnyHermesData"),
@@ -118,8 +118,7 @@ connect <- function(prefix = c("ENSG", "GeneID"), db = "igis") {
   prefix <- match.arg(prefix)
   db <- match.arg(db)
   if (db == "igis") {
-    version <- switch(
-      prefix,
+    version <- switch(prefix,
       ENSG = "4.0",
       GeneID = "3.0"
     )
@@ -170,16 +169,16 @@ setMethod(
   signature = c(genes = "character", connection = "Igis"),
   definition = function(genes, connection) {
     trans <- igis::transcriptsByGeneId(
-      geneIds = genes, 
-      canonical = TRUE, 
+      geneIds = genes,
+      canonical = TRUE,
       igis = connection
     )
     df <- cbind(
       setNames(
         mcols(trans),
         c(
-          "symbol", 
-          "GeneID", 
+          "symbol",
+          "GeneID",
           "desc"
         )
       ),
@@ -218,7 +217,7 @@ setReplaceMethod(
   signature = c(object = "AnyHermesData", value = "DataFrame"),
   function(object, value) {
     # In production add here more checks/assertions if needed (e.g. test
-    # whether wrong things could be inserted here into rowData) - 
+    # whether wrong things could be inserted here into rowData) -
     # do we need to align the row names etc.
     # and then finally insert:
     rowData(object)[, .row_data_annotation_cols] <- value[, .row_data_annotation_cols]
@@ -271,9 +270,9 @@ transcripts
 
 cons <- igis::variationConsequence(
   igis = connection,
-  allele = 'T',
+  allele = "T",
   location = transcripts,
-  species = 'human'
+  species = "human"
 )
 
 cons$biotype
@@ -281,7 +280,7 @@ cons$biotype
 
 #### Multiple genes lookup
 
-So probably we can do the same principle as what was done for `igis::transcriptsByGeneId()` in that instead of providing one specific gene, we provide a list of all genes. Note that below we also have the other prefix (`GeneID` which means Entrez or IGIS version 3).
+So probably we can do the same principle as what was done for `igis::transcriptsByGeneId()` in that instead of providing one specific gene, we provide a list of all genes. Note that below we also have the other prefix (`GeneID` which means `Entrez` or IGIS version 3).
 
 ```{r}
 object <- HermesData(summarized_experiment)
@@ -302,9 +301,9 @@ So let's try this:
 ```{r, eval = FALSE}
 all_cons <- igis::variationConsequence(
   igis = connection,
-  allele = 'T',
+  allele = "T",
   location = all_transcripts,
-  species = 'human'
+  species = "human"
 )
 ```
 
@@ -344,19 +343,16 @@ better to postpone this feature implementation to the next cycle.
 As an alternative we could have worked around this for now, e.g. via querying each range separately:
 
 ```{r, eval = FALSE}
-  
-  for (i in 1:length(genes(object))) {
-          
-          gene_type <- igis::variationConsequence(
-                    allele = 'T',
-                    location = transcripts[i,],
-                    igis = connection,
-                    species = 'human'
-                )
-          
-          df <- cbind(transcripts[i,], gene_type$biotype)
-  }
+for (i in 1:length(genes(object))) {
+  gene_type <- igis::variationConsequence(
+    allele = "T",
+    location = transcripts[i, ],
+    igis = connection,
+    species = "human"
+  )
 
+  df <- cbind(transcripts[i, ], gene_type$biotype)
+}
 ```
 
 However this will be pretty slow, so does not seem like a good option.
