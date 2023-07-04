@@ -1,4 +1,5 @@
 test_that("draw_heatmap works as expected", {
+  set.seed(123)
   result <- draw_heatmap(
     hermes_data[1:20],
     assay_name = "counts",

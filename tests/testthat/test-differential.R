@@ -115,17 +115,30 @@ test_that("diff_expression fails as expected with inappropriate inputs", {
 # autoplot-HermesDataDiffExpr ----
 
 test_that("autoplot for HermesDataDiffExpr works as expected with default options", {
-  colData(hermes_data) <- df_cols_to_factor(colData(hermes_data))
-  object <- diff_expression(hermes_data, "SEX", "voom")
+  dat <- hermes_data
+  colData(dat) <- df_cols_to_factor(colData(dat))
+  object <- diff_expression(dat, "SEX", "voom")
   result <- autoplot(object)
 
+  set.seed(123)
   vdiffr::expect_doppelganger("autoplot for HermesDataDiffExpr with default options", result)
 })
 
 test_that("autoplot for HermesDataDiffExpr works as expected with custom options", {
-  colData(hermes_data) <- df_cols_to_factor(colData(hermes_data))
-  object <- diff_expression(hermes_data, "SEX", "voom")
+  dat <- hermes_data
+  colData(dat) <- df_cols_to_factor(colData(dat))
+  object <- diff_expression(dat, "SEX", "voom")
   result <- autoplot(object, adj_p_val_thresh = 0.92, log2_fc_thresh = 3)
 
-  vdiffr::expect_doppelganger("autoplot for HermesDataDiffExpr with custom options", result)
+  x <- layer_data(result, 1)
+  x <- x[!is.na(x$label), ]
+  expect_equal(x$x, c(-3.44, -3.19, 3.39, 3.21, 3.8, 3.12, -3.13), tolerance = 1e-2)
+  expect_equal(x$y, rep(0.04008, 7), tolerance = 1e-2)
+  expect_identical(
+    x$label,
+    c(
+      "GeneID:151242", "GeneID:390084", "GeneID:9834", "GeneID:7980",
+      "GeneID:2262", "GeneID:6328", "GeneID:149998"
+    )
+  )
 })
