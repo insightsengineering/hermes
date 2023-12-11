@@ -64,8 +64,8 @@ repos:
           (.*/|)LICENSE|
           (.*/|)\.Rbuildignore|
           (.*/|)\.lintr|
-          (.*/|)_pkgdown.y[a]ml|
-          (.*/|)staged_dependencies.yaml|
+          (.*/|)_pkgdown.y[a]?ml|
+          (.*/|)staged_dependencies.y[a]?ml|
           (.*/|)\.pre-commit-.*|
           \.github/.*|
           .*\.[rR]|
