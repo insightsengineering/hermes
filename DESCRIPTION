@@ -89,6 +89,7 @@ biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
     QualityControl
 Encoding: UTF-8
 Language: en-US
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.0.9000
 Collate:
