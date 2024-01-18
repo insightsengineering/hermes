@@ -1,264 +1,261 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/404.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/404.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/CONTRIBUTING.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/LICENSE-text.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/articles/hermes.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/articles/hermes.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/articles/index.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/authors.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/authors.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/index.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/news/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/news/index.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/pull_request_template.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/pull_request_template.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/GeneSpec.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/GeneSpec.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/HermesData-class.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/HermesData-class.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/all_na.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/all_na.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/annotation.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/annotation.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/assertion_arguments.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/assertion_arguments.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/assertions.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/assertions.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/calc_cor.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/calc_cor.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/calc_pca.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/calc_pca.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/cat_with_newline.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/cat_with_newline.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/cbind.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/cbind.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/check_proportion.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/check_proportion.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/colMeanZscores.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/colMeanZscores.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/colPrinComp1.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/colPrinComp1.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/col_data_with_genes.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/col_data_with_genes.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/connect_biomart.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/connect_biomart.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/control_normalize.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/control_normalize.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/control_quality.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/control_quality.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/correlate.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/correlate.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/counts.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/counts.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/cut_quantile.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/cut_quantile.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/df_cols_to_factor.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/df_cols_to_factor.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/diff_expression.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/diff_expression.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/draw_barplot.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/draw_barplot.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/draw_boxplot.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/draw_boxplot.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/draw_genes_barplot.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/draw_genes_barplot.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/draw_heatmap.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/draw_heatmap.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/draw_libsize_densities.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/draw_libsize_densities.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/draw_libsize_hist.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/draw_libsize_hist.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/draw_libsize_qq.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/draw_libsize_qq.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/draw_nonzero_boxplot.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/draw_nonzero_boxplot.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/draw_scatterplot.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/draw_scatterplot.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/expression_set.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/expression_set.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/extra_data_names.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/extra_data_names.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/filter.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/filter.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/gene_spec.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/gene_spec.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/genes.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/genes.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_all_duplicated.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_all_duplicated.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_df_factors_with_explicit_na.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_df_factors_with_explicit_na.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_diff_expr_deseq2.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_diff_expr_deseq2.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_diff_expr_voom.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_diff_expr_voom.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_ensembl_to_entrez_ids.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_ensembl_to_entrez_ids.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_get_annotation_biomart.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_get_annotation_biomart.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_get_granges_by_id.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_get_granges_by_id.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_get_size_biomart.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_get_size_biomart.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_has_req_annotations.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_has_req_annotations.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_map_pos.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_map_pos.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_parens.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_parens.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_pca_df_r2_matrix.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_pca_df_r2_matrix.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_pca_var_rsquared.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_pca_var_rsquared.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_short_list.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_short_list.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_strip_prefix.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_strip_prefix.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/h_unique_labels.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/h_unique_labels.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/hermes-package.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/hermes-package.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/hermes_data.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/hermes_data.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/index.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/inner_join_cdisc.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/inner_join_cdisc.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/isEmpty.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/isEmpty.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/lapply.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/lapply.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/metadata.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/metadata.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/multi_assay_experiment.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/multi_assay_experiment.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/normalize.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/normalize.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/pca_cor_samplevar.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/pca_cor_samplevar.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/pipe.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/plot_all.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/plot_all.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/prefix.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/prefix.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/quality_flags.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/quality_flags.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/query.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/query.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/rbind.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/rbind.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/rename.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/rename.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/samples.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/samples.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/set_tech_failure.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/set_tech_failure.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/show.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/show.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/subset.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/subset.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/summarized_experiment.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/summarized_experiment.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/summary.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/summary.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/top_genes.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/top_genes.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/validate.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/validate.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/hermes/main/reference/wrap_in_mae.html</loc>
+    <loc>https://insightsengineering.github.io/hermes/reference/wrap_in_mae.html</loc>
   </url>
 </urlset>
