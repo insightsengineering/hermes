@@ -31,7 +31,7 @@ Description: Provides classes and functions for quality control,
     number of reads is supported. The standard normalization methods
     including cpm, rpkm and tpm can be used, and 'DESeq2` as well as voom
     differential expression analyses are available.
-License: Apache License 2.0 | file LICENSE
+License: Apache License 2.0
 URL: https://github.com/insightsengineering/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
 Depends:
