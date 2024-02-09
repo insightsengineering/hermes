@@ -12,7 +12,6 @@
 Useful links:
 \itemize{
   \item \url{https://insightsengineering.github.io/hermes/}
-  \item \url{https://github.com/insightsengineering/hermes/}
   \item Report bugs at \url{https://github.com/insightsengineering/hermes/issues}
 }
 
