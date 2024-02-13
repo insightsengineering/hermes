@@ -8,8 +8,6 @@ Your input is deeply valued, whether an issue, a pull request, or even feedback,
 
 [👶 Getting started](#getting-started)
 
-[📔 Code of Conduct](#code-of-conduct)
-
 [🗃 License](#license)
 
 [📜 Issues](#issues)
