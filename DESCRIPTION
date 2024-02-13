@@ -1,7 +1,7 @@
 Type: Package
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
-Version: 1.0.1.9023
+Version: 1.7.1
 Date: 2024-02-13
 Authors@R: c(
     person("Daniel", "Sabanés Bové", , "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
@@ -36,7 +36,7 @@ URL: https://insightsengineering.github.io/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
 Depends:
     ggfortify,
-    R (>= 3.5),
+    R (>= 4.1),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
