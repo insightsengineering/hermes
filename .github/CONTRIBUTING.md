@@ -26,10 +26,6 @@ Your input is deeply valued, whether an issue, a pull request, or even feedback,
 
 Please refer the project [documentation][docs] for a brief introduction. Please also see other [articles][articles] within the project documentation for additional information.
 
-## Code of Conduct
-
-A [Code of Conduct](CODE_OF_CONDUCT.md) governs this project. Participants and contributors are expected to follow the rules outlined therein.
-
 ## License
 
 All your contributions will be covered by this project's [license][license].
