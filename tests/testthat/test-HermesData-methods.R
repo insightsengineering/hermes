@@ -446,10 +446,10 @@ test_that("lapply works as expected with safe = TRUE argument when converting ex
   expect_equal(dim(mae[[3]]), dim(result[[2]]))
 })
 
-test_that("lapply fails as expected with safe = FALSE arugment when converting experiments in an MAE to HermesData", {
+test_that("lapply fails as expected with safe = FALSE argument when converting experiments in an MAE to HermesData", {
   mae <- multi_assay_experiment
   mae[[1]] <- rename(mae[[1]], assay = c(count = "counts"))
-  expect_error(lapply(mae, HermesData, safe = FALSE), "invalid class")
+  expect_error(lapply(mae, HermesData, safe = FALSE), "no 'counts' assay found", fixed = TRUE)
 })
 
 # isEmpty ----
