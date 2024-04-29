@@ -22,3 +22,6 @@ coverage.*
 .pre-commit-config.yaml
 ^\.pre-commit-config\.yaml$
 ^pkgdown$
+^.revdeprefs\.yaml$
+^revdep$
+^\.covrignore$
