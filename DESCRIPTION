@@ -1,7 +1,7 @@
 Type: Package
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
-Version: 1.0.1.9021
+Version: 1.7.1.9002
 Date: 2024-06-27
 Authors@R: c(
     person("Daniel", "Sabanés Bové", , "daniel.sabanes_bove@rconis.com", role = c("aut", "cre")),
@@ -32,11 +32,11 @@ Description: Provides classes and functions for quality control,
     including cpm, rpkm and tpm can be used, and 'DESeq2` as well as voom
     differential expression analyses are available.
 License: Apache License 2.0
-URL: https://github.com/insightsengineering/hermes/
+URL: https://insightsengineering.github.io/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
 Depends:
     ggfortify,
-    R (>= 3.5),
+    R (>= 4.1),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,

@@ -53,3 +53,5 @@ tests/testthat/testthat-problems.rds
 
 # knitr
 README.html
+tests/testthat/_snaps/**/*.new.md
+tests/testthat/_snaps/**/*.new.svg
