@@ -1,4 +1,9 @@
-# hermes 1.7.1.9002
+# hermes 1.7.2
+
+### Miscellaneous
+* Changed maintainer's email address.
+
+# hermes 1.7.1
 
 ### Enhancements
 * New plotting function `draw_heatmap` to produce heatmaps of (normalized) counts.
