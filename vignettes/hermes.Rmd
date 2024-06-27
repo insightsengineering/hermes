@@ -2,8 +2,6 @@
 title: "Introduction to `hermes`"
 package: hermes
 author:
-  - name: Daniel Sabanés Bové
-    email: daniel.sabanes_bove@roche.com
   - Namrata Bhatia
   - Stefanie Bienert
   - Benoit Falquet
@@ -18,6 +16,8 @@ author:
   - Chendi Liao
   - Carolyn Zhang
   - Joseph N. Paulson
+  - name: Daniel Sabanés Bové
+    email: daniel.sabanes_bove@rconis.com
 output: 
   BiocStyle::html_document:
     toc_float: true
