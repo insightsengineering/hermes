@@ -1,4 +1,4 @@
-# hermes 1.7.2
+# hermes 1.7.2.9000
 
 ### Miscellaneous
 * Changed maintainer's email address.
