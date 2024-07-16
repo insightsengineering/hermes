@@ -20,8 +20,8 @@ test_that("draw_libsize_densities works as expected", {
   result <- draw_libsize_densities(hermes_data)
 
   result <- ggplot2::layer_data(result) %>%
-    mutate(across(where(is.numeric), function(x) signif(x, 2))) %>%
-    slice(1:40)
+    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), function(x) signif(x, 2))) %>%
+    dplyr::slice(1:40)
 
   expect_snapshot(result)
 })
