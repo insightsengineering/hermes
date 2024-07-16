@@ -1,7 +1,7 @@
 # hermes 1.7.2.9000
 
 ### Miscellaneous
-* Changed maintainer's email address.
+* Changed maintainer email address.
 
 # hermes 1.7.1
 

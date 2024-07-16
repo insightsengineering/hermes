@@ -6,7 +6,7 @@ test_that("rbind function works as expected for HermesData objects", {
   h2 <- HermesData(object[2])
   h3 <- HermesData(object)
   result <- expect_silent(rbind(h1, h2))
-  expect_is(result, "HermesData")
+  expect_s4_class(result, "HermesData")
   expect_equal(dim(result), dim(h3))
   expect_equal(rowData(result), rowData(h3))
   expect_equal(colData(result), colData(h3))
@@ -17,9 +17,9 @@ test_that("rbind function works as expected when binding SummarizedExperiment wi
   se <- object[1]
   h1 <- HermesData(object[2])
   result1 <- expect_silent(rbind(se, h1))
-  expect_is(result1, "SummarizedExperiment")
+  expect_s4_class(result1, "SummarizedExperiment")
   result2 <- expect_silent(rbind(h1, se))
-  expect_is(result2, "SummarizedExperiment")
+  expect_s4_class(result2, "SummarizedExperiment")
 })
 
 test_that("rbind function fails as expected when rbind results in duplicated rownames", {
@@ -35,7 +35,7 @@ test_that("cbind function works as expected for HermesData objects", {
   h2 <- HermesData(object[, 2])
   h3 <- HermesData(object)
   result <- expect_silent(cbind(h1, h2))
-  expect_is(result, "HermesData")
+  expect_s4_class(result, "HermesData")
   expect_equal(dim(result), dim(h3))
   expect_equal(rowData(result), rowData(h3))
   expect_equal(colData(result), colData(h3))
@@ -46,9 +46,9 @@ test_that("cbind function works as expected when binding SummarizedExperiment wi
   se <- object[, 1]
   h1 <- HermesData(object[, 2])
   result1 <- expect_silent(cbind(se, h1))
-  expect_is(result1, "SummarizedExperiment")
+  expect_s4_class(result1, "SummarizedExperiment")
   result2 <- expect_silent(cbind(h1, se))
-  expect_is(result2, "SummarizedExperiment")
+  expect_s4_class(result2, "SummarizedExperiment")
 })
 
 test_that("rbind function fails as expected when rbind results in duplicated colnames", {
@@ -147,7 +147,7 @@ test_that("counts accessor works as expected", {
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(counts(h1))
-  expect_is(result, "matrix")
+  expect_matrix(result)
   expect_identical(dim(result), dim(h1))
 })
 
@@ -156,7 +156,7 @@ test_that("counts setter works as expected with `withDimnames = FALSE`", {
   h1 <- HermesData(object)
   value <- matrix(0L, nrow = nrow(h1), ncol = ncol(h1))
   expect_silent(counts(h1, withDimnames = FALSE) <- value)
-  expect_equivalent(counts(h1), value)
+  expect_equal(counts(h1), value, ignore_attr = TRUE)
 })
 
 # prefix ----
@@ -195,7 +195,7 @@ test_that("subset function works as expected for HermesData objects", {
     subset = low_expression_flag,
     select = !tech_failure_flag
   ))
-  expect_is(result, "HermesData")
+  expect_s4_class(result, "HermesData")
   expect_identical(nrow(result), sum(rowData(h)$low_expression_flag))
   expect_identical(ncol(result), sum(!h$tech_failure_flag))
   expect_true(all(rowData(result)$low_expression_flag))
@@ -225,7 +225,7 @@ test_that("filter works as expected with default settings for HermesData", {
   object <- get_se()
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
-  expect_is(result, "HermesData")
+  expect_s4_class(result, "HermesData")
   # Only one gene and one sample fulfill filter criteria:
   expect_identical(dim(result), c(1L, 1L))
 })
@@ -234,7 +234,7 @@ test_that("filter works as expected with default settings for RangedHermesData",
   object <- get_rse()
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
-  expect_is(result, "RangedHermesData")
+  expect_s4_class(result, "RangedHermesData")
   # Only one gene and one sample fulfill filter criteria:
   expect_identical(dim(result), c(1L, 1L))
 })
@@ -243,8 +243,8 @@ test_that("filter works as expected on one dimension for HermesData", {
   object <- hermes_data
   result1 <- expect_silent(filter(object, what = "genes"))
   result2 <- expect_silent(filter(object, what = "samples"))
-  expect_is(result1, "HermesData")
-  expect_is(result2, "HermesData")
+  expect_s4_class(result1, "HermesData")
+  expect_s4_class(result2, "HermesData")
   expect_identical(ncol(result1), ncol(object))
   expect_identical(nrow(result2), nrow(object))
 })
@@ -253,7 +253,7 @@ test_that("filter works as expected with default settings for RangedHermesData",
   object <- get_rse()
   h1 <- HermesData(object)
   result <- expect_silent(filter(h1))
-  expect_is(result, "RangedHermesData")
+  expect_s4_class(result, "RangedHermesData")
   # Only one gene and one sample fulfill filter criteria:
   expect_identical(dim(result), c(1L, 1L))
 })
@@ -425,11 +425,11 @@ test_that("show works as expected for RangedHermesData", {
 
 test_that("lapply works as expected for an MAE", {
   mae <- multi_assay_experiment
-  result <- expect_message(lapply(mae, normalize))
-  expect_is(result, "MultiAssayExperiment")
-  expect_is(result[[1]], "HermesData")
-  expect_is(result[[2]], "HermesData")
-  expect_is(result[[3]], "HermesData")
+  expect_message(result <- lapply(mae, normalize))
+  expect_s4_class(result, "MultiAssayExperiment")
+  expect_s4_class(result[[1]], "HermesData")
+  expect_s4_class(result[[2]], "HermesData")
+  expect_s4_class(result[[3]], "HermesData")
   expect_equal(dim(mae[[1]]), dim(result[[1]]))
   expect_equal(dim(mae[[2]]), dim(result[[2]]))
   expect_equal(dim(mae[[3]]), dim(result[[3]]))
@@ -438,10 +438,10 @@ test_that("lapply works as expected for an MAE", {
 test_that("lapply works as expected with safe = TRUE argument when converting experiments in an MAE to HermesData", {
   mae <- multi_assay_experiment
   mae[[1]] <- rename(mae[[1]], assay = c(count = "counts"))
-  result <- expect_warning(lapply(mae, HermesData), "Specified function failed on hd1")
-  expect_is(result, "MultiAssayExperiment")
-  expect_is(result[[1]], "HermesData")
-  expect_is(result[[2]], "HermesData")
+  expect_warning(result <- lapply(mae, HermesData), "Specified function failed on hd1")
+  expect_s4_class(result, "MultiAssayExperiment")
+  expect_s4_class(result[[1]], "HermesData")
+  expect_s4_class(result[[2]], "HermesData")
   expect_equal(dim(mae[[2]]), dim(result[[1]]))
   expect_equal(dim(mae[[3]]), dim(result[[2]]))
 })

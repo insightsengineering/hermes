@@ -1,16 +1,16 @@
 test_that("expression_set can be used", {
   dat <- expect_silent(expression_set)
-  expect_is(dat, "ExpressionSet")
+  expect_s4_class(dat, "ExpressionSet")
 })
 
 test_that("hermes_data can be used", {
   dat <- expect_silent(hermes_data)
-  expect_is(dat, "HermesData")
+  expect_s4_class(dat, "HermesData")
 })
 
 test_that("summarized_experiment can be used", {
   dat <- expect_silent(summarized_experiment)
-  expect_is(dat, "SummarizedExperiment")
+  expect_s4_class(dat, "SummarizedExperiment")
 })
 
 test_that("hermes_data is a subset of summarized_experiment", {

@@ -9,7 +9,7 @@ test_that("draw_boxplot works when there are duplicate labels in gene spec", {
     violin = TRUE
   )
 
-  vdiffr::expect_doppelganger("draw_boxplot with duplicate labels", result)
+  expect_snapshot(ggplot2::layer_data(result, 2))
 })
 
 # h_draw_boxplot_df ----

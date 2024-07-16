@@ -267,7 +267,7 @@ test_that("colMeanZScores function returns an error when data are not numeric", 
 test_that("wrap_in_mae function works as expected for standard SummarizedExperiment object", {
   object <- summarized_experiment
   result <- expect_silent(wrap_in_mae(object))
-  expect_is(result, "MultiAssayExperiment")
+  expect_s4_class(result, "MultiAssayExperiment")
   expect_identical(result[[1]], object)
 })
 
