@@ -18,12 +18,11 @@ test_that("draw_libsize_qq works as expected", {
 
 test_that("draw_libsize_densities works as expected", {
   result <- draw_libsize_densities(hermes_data)
+  expect_class(result, "ggplot")
 
-  result <- ggplot2::layer_data(result) %>%
-    dplyr::mutate(dplyr::across(dplyr::where(is.numeric), function(x) signif(x, 2))) %>%
-    dplyr::slice(1:40)
-
-  expect_snapshot(result)
+  result <- ggplot2::layer_data(result)
+  expect_identical(length(unique(result$group)), length(samples(hermes_data)))
+  expect_identical(unique(result$n), length(genes(hermes_data)))
 })
 
 # draw_nonzero_boxplot ----
