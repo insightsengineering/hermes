@@ -2,13 +2,13 @@
 
 test_that("control_quality function works as expected with default settings", {
   result <- control_quality()
-  expect_list(result)
+  expect_list(result, len = 4)
   expect_named(result, c("min_cpm", "min_cpm_prop", "min_corr", "min_depth"))
 })
 
 test_that("control_quality function works as expected with custom settings", {
   result <- expect_silent(control_quality(min_cpm = 5, min_cpm_prop = .001, min_corr = .1, min_depth = 3))
-  expect_list(result)
+  expect_list(result, len = 4)
   expect_identical(result$min_cpm, 5)
   expect_identical(result$min_cpm_prop, .001)
   expect_identical(result$min_corr, .1)

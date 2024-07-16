@@ -17,9 +17,13 @@ test_that("draw_libsize_qq works as expected", {
 # draw_libsize_densities ----
 
 test_that("draw_libsize_densities works as expected", {
+  set.seed(451)
   result <- draw_libsize_densities(hermes_data)
 
-  expect_snapshot(ggplot2::layer_data(result))
+  result <- ggplot2::layer_data(result) %>%
+    mutate(across(where(is.numeric), function(x) round(x, 2)))
+
+  expect_snapshot(result)
 })
 
 # draw_nonzero_boxplot ----
@@ -60,14 +64,14 @@ test_that("draw_genes_barplot works as expected with custom options", {
 test_that("autoplot function works as expected on HermesData", {
   object <- hermes_data
   result <- autoplot(object)
-  expect_list(result)
+  expect_list(result, types = "ggplot", len = 5)
   expect_named(result, c("libsize_hist", "libsize_qq", "libsize_densities", "nonzero_boxplot", "genes_barplot"))
 })
 
 test_that("autoplot function works as expected on RangedHermesData", {
   object <- HermesData(get_rse())
   result <- autoplot(object)
-  expect_list(result)
+  expect_list(result, types = "ggplot", len = 5)
   expect_named(result, c("libsize_hist", "libsize_qq", "libsize_densities", "nonzero_boxplot", "genes_barplot"))
 })
 

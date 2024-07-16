@@ -2,13 +2,13 @@
 
 test_that("control_normalize function works as expected with default settings", {
   result <- control_normalize()
-  expect_list(result)
+  expect_list(result, len = 4)
   expect_named(result, c("log", "lib_sizes", "prior_count", "fit_type"))
 })
 
 test_that("control_normalize function works as expected with custom settings", {
   result <- expect_silent(control_normalize(log = TRUE, lib_sizes = 60000000L, prior_count = 3, fit_type = "mean"))
-  expect_list(result)
+  expect_list(result, len = 4)
   expect_identical(result$log, TRUE)
   expect_identical(result$lib_sizes, 60000000L)
   expect_identical(result$prior_count, 3)
