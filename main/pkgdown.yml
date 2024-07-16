@@ -3,7 +3,7 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   hermes: hermes.html
-last_built: 2024-06-27T14:03Z
+last_built: 2024-07-16T16:23Z
 urls:
   reference: https://insightsengineering.github.io/hermes/reference
   article: https://insightsengineering.github.io/hermes/articles
