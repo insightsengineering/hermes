@@ -1,8 +1,8 @@
 Type: Package
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
-Version: 1.7.2.9000
-Date: 2024-06-27
+Version: 1.7.2.9001
+Date: 2024-07-16
 Authors@R: c(
     person("Daniel", "Sabanés Bové", , "daniel.sabanes_bove@rconis.com", role = c("aut", "cre")),
     person("Namrata", "Bhatia", role = "aut"),
@@ -87,12 +87,12 @@ RdMacros:
     Rdpack
 biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
     QualityControl
+Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Config/testthat/edition: 3
 Collate:
     'GeneSpec-class.R'
     'HermesData-validate.R'
