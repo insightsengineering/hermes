@@ -223,9 +223,10 @@ test_that("GeneSpec extract_data_frame method works as expected", {
   )
 
   spec4 <- expect_silent(GeneSpec$new())
-  expect_equivalent(
+  expect_equal(
     spec4$extract_data_frame(mat),
-    as.data.frame(t(mat[NULL, ]))
+    as.data.frame(t(mat[NULL, ])),
+    ignore_attr = TRUE
   )
 
   expect_error(

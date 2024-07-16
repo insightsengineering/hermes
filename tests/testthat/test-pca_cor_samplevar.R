@@ -5,7 +5,7 @@ test_that("h_pca_var_rsquared works as expected", {
   pca <- expect_silent(calc_pca(object)$x)
   x <- expect_silent(colData(object)$low_depth_flag)
   r2 <- expect_silent(h_pca_var_rsquared(pca, x))
-  expect_is(r2, "numeric")
+  expect_numeric(r2)
   expect_true(noNA(r2))
   expect_identical(ncol(pca), length(r2))
 })
@@ -22,8 +22,11 @@ test_that("h_pca_var_rsquared returns warning when something is not estimable", 
   pca <- rbind(X = -1, Y = 1)
   x <- c(FALSE, FALSE)
   expect_warning(
-    h_pca_var_rsquared(pca, x),
-    "sample variable is constant and R2 values cannot be calculated"
+    expect_warning(
+      h_pca_var_rsquared(pca, x),
+      "sample variable is constant and R2 values cannot be calculated"
+    ),
+    "Partial NA coefficients"
   )
 })
 
@@ -34,7 +37,7 @@ test_that("h_pca_df_r2_matrix works as expected", {
   pca <- expect_silent(calc_pca(object)$x)
   df <- expect_silent(as.data.frame(df_cols_to_factor(colData(object))))
   result <- expect_silent(h_pca_df_r2_matrix(pca, df))
-  expect_is(result, "matrix")
+  expect_matrix(result)
   expect_identical(nrow(result), ncol(pca))
   expect_lt(ncol(result), ncol(df))
   expect_true(all(colnames(result) %in% colnames(df)))

@@ -70,8 +70,8 @@ test_that("inner_join_cdisc warns when patients are lost from gene_data", {
     USUBJID = 1:2,
     b = 7:8
   )
-  result <- expect_warning(
-    inner_join_cdisc(gene_data, cdisc_data),
+  expect_warning(
+    result <- inner_join_cdisc(gene_data, cdisc_data),
     "Patients 3 from gene data set were lost"
   )
   expected <- data.frame(

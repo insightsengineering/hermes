@@ -8,5 +8,5 @@ test_that("draw_barplot works when there are duplicate labels in gene spec", {
     fill_var = "AGE18"
   )
 
-  vdiffr::expect_doppelganger("draw_barplot with duplicate labels", result)
+  expect_snapshot(ggplot2::layer_data(result))
 })

@@ -56,14 +56,14 @@ test_that("draw_genes_barplot works as expected with custom options", {
 test_that("autoplot function works as expected on HermesData", {
   object <- hermes_data
   result <- autoplot(object)
-  expect_is(result, "list")
+  expect_list(result)
   expect_named(result, c("libsize_hist", "libsize_qq", "libsize_densities", "nonzero_boxplot", "genes_barplot"))
 })
 
 test_that("autoplot function works as expected on RangedHermesData", {
   object <- HermesData(get_rse())
   result <- autoplot(object)
-  expect_is(result, "list")
+  expect_list(result)
   expect_named(result, c("libsize_hist", "libsize_qq", "libsize_densities", "nonzero_boxplot", "genes_barplot"))
 })
 

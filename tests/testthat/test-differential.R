@@ -4,7 +4,7 @@ test_that("h_diff_expr_voom works as expected", {
   object <- hermes_data
   design <- model.matrix(~SEX, colData(object))
   result <- h_diff_expr_voom(object, design)
-  expect_is(result, "data.frame")
+  expect_data_frame(result)
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
   expect_true(S4Vectors::isSorted(result$p_val))
   expect_setequal(rownames(object), rownames(result))
@@ -23,7 +23,7 @@ test_that("h_diff_expr_voom can pass arguments to limma::eBayes", {
     winsor.tail.p = c(0.02, 0.2),
     stdev.coef.lim = c(0.09, 5)
   ))
-  expect_is(result, "data.frame")
+  expect_data_frame(result)
   result_orig <- h_diff_expr_voom(object, design)
   expect_false(identical(rownames(result), rownames(result_orig)))
 })
@@ -42,7 +42,7 @@ test_that("h_diff_expr_deseq2 works as expected", {
   object <- hermes_data
   design <- model.matrix(~SEX, colData(object))
   result <- h_diff_expr_deseq2(object, design)
-  expect_is(result, "data.frame")
+  expect_data_frame(result)
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
   expect_true(S4Vectors::isSorted(result$adj_p_val))
   expect_setequal(rownames(object), rownames(result))
@@ -61,7 +61,7 @@ test_that("h_diff_expr_deseq2 can pass arguments to DESeq2::DESeq", {
     useT = TRUE,
     minmu = 0.7
   ))
-  expect_is(result, "data.frame")
+  expect_data_frame(result)
   result_orig <- h_diff_expr_deseq2(object, design)
   expect_false(identical(rownames(result), rownames(result_orig)))
 })

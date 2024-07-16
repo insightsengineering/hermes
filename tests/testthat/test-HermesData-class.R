@@ -3,7 +3,7 @@
 test_that("HermesData objects can be created with default constructor .HermesData", {
   object <- get_se()
   result <- expect_silent(.HermesData(object, prefix = "GeneID"))
-  expect_is(result, "HermesData")
+  expect_s4_class(result, "HermesData")
   expect_true(validObject(result))
 })
 
@@ -24,7 +24,7 @@ test_that("HermesData prefix slot can not be assigned numeric", {
 test_that("RangedHermesData objects can be created with default constructor .RangedHermesData", {
   object <- get_rse()
   result <- expect_silent(.RangedHermesData(object, prefix = "ENSG"))
-  expect_is(result, "RangedHermesData")
+  expect_s4_class(result, "RangedHermesData")
   expect_true(validObject(result))
 })
 
@@ -46,7 +46,7 @@ test_that("RangedHermesData validation fails as expected", {
 test_that("SummarizedExperiment can be created from ExpressionSet", {
   object <- expression_set
   result <- expect_silent(makeSummarizedExperimentFromExpressionSet(object))
-  expect_is(result, "SummarizedExperiment")
+  expect_s4_class(result, "SummarizedExperiment")
   expect_true(validObject(result))
 })
 
@@ -54,7 +54,7 @@ test_that("SummarizedExperiment can be created from ExpressionSet", {
 
 test_that("HermesData objects can be created with constructor HermesData", {
   result <- expect_silent(hermes_data)
-  expect_is(result, "HermesData")
+  expect_s4_class(result, "HermesData")
 })
 
 test_that("HermesData constructor fails with readable error message when there are no assays", {
@@ -105,7 +105,7 @@ test_that("HermesData converts DelayedMatrix assays correctly to matrix assays",
 
 test_that("RangedHermesData objects can be created with constructor HermesData", {
   result <- expect_silent(HermesData(get_rse()))
-  expect_is(result, "RangedHermesData")
+  expect_s4_class(result, "RangedHermesData")
 })
 
 # HermesDataFromMatrix ----
@@ -117,13 +117,13 @@ test_that("HermesData objects can be created with constructor HermesDataFromMatr
     rowData = rowData(summarized_experiment),
     colData = colData(summarized_experiment)
   ))
-  expect_is(result, "HermesData")
+  expect_s4_class(result, "HermesData")
 })
 
 test_that("HermesDataFromMatrix also works when just passing the count matrix", {
   counts <- assay(summarized_experiment)
   result <- expect_silent(HermesDataFromMatrix(counts))
-  expect_is(result, "HermesData")
+  expect_s4_class(result, "HermesData")
 })
 
 test_that("RangedHermesData objects can be created with constructor HermesDataFromMatrix", {
@@ -134,5 +134,5 @@ test_that("RangedHermesData objects can be created with constructor HermesDataFr
     rowRanges = rowRanges(rse),
     colData = colData(rse)
   ))
-  expect_is(result, "RangedHermesData")
+  expect_s4_class(result, "RangedHermesData")
 })
