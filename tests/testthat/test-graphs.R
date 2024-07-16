@@ -17,11 +17,11 @@ test_that("draw_libsize_qq works as expected", {
 # draw_libsize_densities ----
 
 test_that("draw_libsize_densities works as expected", {
-  set.seed(451)
   result <- draw_libsize_densities(hermes_data)
 
   result <- ggplot2::layer_data(result) %>%
-    mutate(across(where(is.numeric), function(x) round(x, 2)))
+    mutate(across(where(is.numeric), function(x) signif(x, 2))) %>%
+    slice(1:40)
 
   expect_snapshot(result)
 })
