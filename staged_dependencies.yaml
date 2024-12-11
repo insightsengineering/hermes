@@ -1,0 +1,8 @@
+current_repo:
+  repo: insightsengineering/hermes
+  host: https://github.com
+upstream_repos:
+downstream_repos:
+  insightsengineering/teal.modules.hermes:
+    repo: insightsengineering/teal.modules.hermes
+    host: https://github.com
