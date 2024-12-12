@@ -41,4 +41,4 @@ jobs:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
     with:
       default-landing-page: latest-tag
-      installation-method: setup-r-dependencies
+      deps-installation-method: setup-r-dependencies
