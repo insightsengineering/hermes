@@ -19,9 +19,9 @@ features of interest (rows in assays).
 \itemize{
 \item Note that this just inherits
 \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::rbind,SummarizedExperiment-method()}}. When binding a
-\code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+\code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 object, then the result will be a
-\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object (the more general
+\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object (the more general
 class).
 \item Note that we need to have unique gene IDs (row names) and the same prefix
 across the combined object.

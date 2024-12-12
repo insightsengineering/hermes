@@ -17,12 +17,12 @@ hermes_data
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-This example \code{\link{HermesData}} is created from the underlying \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+This example \code{\link{HermesData}} is created from the underlying \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 object by renaming descriptors to align with standard specification. It already
 contains the required columns in \code{rowData} and \code{colData}.
 }
 \seealso{
-\code{\link{summarized_experiment}} for the underlying \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+\code{\link{summarized_experiment}} for the underlying \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 object.
 }
 \keyword{datasets}
