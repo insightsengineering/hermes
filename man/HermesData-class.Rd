@@ -25,7 +25,7 @@ If this is a \code{RangedSummarizedExperiment}, then the result will be
 \item{counts}{(\code{matrix})\cr counts to create the \code{\link{HermesData}} object from.}
 
 \item{...}{additional arguments, e.g. \code{rowData}, \code{colData}, etc. passed to
-\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment()}} internally. Note that if \code{rowRanges}
+\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment()}} internally. Note that if \code{rowRanges}
 is passed instead of \code{rowData}, then the result will be a \code{\link{RangedHermesData}} object.}
 }
 \value{
@@ -34,7 +34,7 @@ An object of class \code{\link{AnyHermesData}} (\code{\link{HermesData}} or \cod
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-The \code{\link{HermesData}} class is an extension of \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+The \code{\link{HermesData}} class is an extension of \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 with additional validation criteria.
 }
 \details{
@@ -66,7 +66,7 @@ same time with the \code{\link{AnyHermesData}} signature.
 
 A \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}} object can be imported by using the
 \code{\link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()}} function to
-first convert it to a \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object before
+first convert it to a \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object before
 converting it again into a \code{\link{HermesData}} object.
 }
 \section{Slots}{

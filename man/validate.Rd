@@ -35,7 +35,7 @@ case validation passes.
 }
 \description{
 These functions are used internally only and therefore not exported. They work on
-\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} objects, and \code{\link{AnyHermesData}} objects are
+\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} objects, and \code{\link{AnyHermesData}} objects are
 defined by successfully passing these validation checks.
 }
 \section{Functions}{
