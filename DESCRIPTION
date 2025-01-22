@@ -78,8 +78,8 @@ Suggests:
     knitr,
     rmarkdown,
     statmod,
-    testthat (>= 3.2.0),
-    vdiffr
+    testthat (>= 3.2.2),
+    vdiffr (>= 1.0.8)
 VignetteBuilder:
     knitr
 RdMacros:
