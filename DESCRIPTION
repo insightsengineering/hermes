@@ -78,7 +78,7 @@ Suggests:
     knitr,
     rmarkdown,
     statmod,
-    testthat (>= 3.0),
+    testthat (>= 3.2.0),
     vdiffr
 VignetteBuilder:
     knitr
