@@ -84,7 +84,7 @@ VignetteBuilder:
     knitr
 RdMacros:
     lifecycle,
-    Rdpack
+    Rdpack (>= 2.6.2)
 biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
     QualityControl
 Config/testthat/edition: 3
