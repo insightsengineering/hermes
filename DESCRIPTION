@@ -37,7 +37,7 @@ BugReports: https://github.com/insightsengineering/hermes/issues
 Depends:
     ggfortify,
     R (>= 4.1),
-    SummarizedExperiment (>= 1.36.0)
+    SummarizedExperiment (>= 1.16.0)
 Imports:
     assertthat,
     Biobase,
