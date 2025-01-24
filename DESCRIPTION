@@ -37,7 +37,7 @@ BugReports: https://github.com/insightsengineering/hermes/issues
 Depends:
     ggfortify,
     R (>= 4.1),
-    SummarizedExperiment (>= 1.16)
+    SummarizedExperiment (>= 1.16.0)
 Imports:
     assertthat,
     Biobase,
@@ -58,12 +58,12 @@ Imports:
     lifecycle,
     limma,
     magrittr,
-    matrixStats,
+    matrixStats (>= 1.5.0),
     methods,
     MultiAssayExperiment,
     purrr,
     R6,
-    Rdpack,
+    Rdpack (>= 2.6.2),
     rlang,
     S4Vectors,
     stats,
@@ -78,8 +78,8 @@ Suggests:
     knitr,
     rmarkdown,
     statmod,
-    testthat (>= 2.0),
-    vdiffr
+    testthat (>= 3.2.2),
+    vdiffr (>= 1.0.8)
 VignetteBuilder:
     knitr
 RdMacros:
