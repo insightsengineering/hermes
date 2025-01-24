@@ -63,7 +63,7 @@ Imports:
     MultiAssayExperiment (>= 1.32.0),
     purrr,
     R6,
-    Rdpack,
+    Rdpack (>= 2.6.2),
     rlang,
     S4Vectors,
     stats,
@@ -83,8 +83,8 @@ Suggests:
 VignetteBuilder:
     knitr
 RdMacros:
-    lifecycle,
-    Rdpack (>= 2.6.2)
+    lifecycle,  
+    Rdpack
 biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
     QualityControl
 Config/testthat/edition: 3
