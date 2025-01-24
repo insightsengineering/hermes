@@ -83,7 +83,7 @@ Suggests:
 VignetteBuilder:
     knitr
 RdMacros:
-    lifecycle,  
+    lifecycle,
     Rdpack
 biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
     QualityControl
