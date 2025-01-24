@@ -60,7 +60,7 @@ Imports:
     magrittr,
     matrixStats (>= 1.5.0),
     methods,
-    MultiAssayExperiment (>= 1.32.0),
+    MultiAssayExperiment,
     purrr,
     R6,
     Rdpack (>= 2.6.2),
