@@ -38,7 +38,7 @@ control_quality <- function(min_cpm = 1,
   )
   expect_proportion(min_cpm_prop)
   expect_proportion(min_corr)
-  expect_count(min_depth, positive = TRUE, null.ok = TRUE)
+  assert_numeric(min_depth, lower = 0, null.ok = TRUE)
 
   list(
     min_cpm = min_cpm,
