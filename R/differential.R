@@ -256,7 +256,7 @@ setMethod(
   definition = function(object,
                         adj_p_val_thresh = 0.05,
                         log2_fc_thresh = 2.5) {
-    expect_proportion(adj_p_val_thresh)
+    assert_proportion(adj_p_val_thresh)
     assert_that(
       is.number(log2_fc_thresh),
       log2_fc_thresh > 0
