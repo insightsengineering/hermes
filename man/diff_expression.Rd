@@ -42,8 +42,6 @@ provided factor)
 }
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 The \code{diff_expression()} function performs differential expression analysis
 using a method of preference.
 

@@ -29,8 +29,6 @@ used when \code{genes} are filtered.}
 The filtered \code{\link{AnyHermesData}} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This filters a \code{\link{AnyHermesData}} object using the default QC flags and required annotations.
 }
 \details{

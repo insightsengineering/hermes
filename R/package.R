@@ -14,7 +14,6 @@
 #' @importFrom dplyr mutate
 #' @importFrom forcats as_factor
 #' @importFrom ggrepel geom_label_repel
-#' @importFrom lifecycle deprecate_soft
 #' @importFrom purrr accumulate
 #' @importFrom R6 is.R6
 #' @importFrom Rdpack append_to_Rd_list

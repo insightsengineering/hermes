@@ -15,8 +15,6 @@ h_df_factors_with_explicit_na(data, na_level = "<Missing>")
 The modified data.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper function converts all character and logical variables
 to factor variables in a \code{data.frame}. It also sets an explicit missing data level
 for all factor variables that have at least one \code{NA}. Empty strings are handled

@@ -36,8 +36,6 @@ quality control flags, produced by \code{\link[=control_quality]{control_quality
 The input object with added quality flags.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 The function \code{add_quality_flags()} adds quality flag information to a \code{\link{AnyHermesData}} object:
 \itemize{
 \item \code{low_expression_flag}: for each gene, counts how many samples don't pass a minimum

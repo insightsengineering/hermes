@@ -4,8 +4,6 @@
 \alias{GeneSpec}
 \title{R6 Class Representing a Gene (Signature) Specification}
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 A \code{GeneSpec} consists of the gene IDs (possibly named with labels),
 the summary function and the name of the summary function.
 }

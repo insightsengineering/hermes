@@ -1,6 +1,6 @@
 #' Barplot for Gene Expression Percentiles
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This produces a barplot of the dichotomized gene expression counts into two or three
 #' categories based on custom defined percentiles.

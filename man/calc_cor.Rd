@@ -38,8 +38,6 @@ produced by \code{\link[circlize:colorRamp2]{circlize::colorRamp2()}}.}
 A \code{\link{HermesDataCor}} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 The \code{correlate()} method can calculate the correlation matrix between the sample vectors of
 counts from a specified assay. This produces a \code{\link{HermesDataCor}} object, which is an extension
 of a \code{\link{matrix}} with additional quality flags in the slot \code{flag_data}

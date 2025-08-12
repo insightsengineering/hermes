@@ -1,6 +1,6 @@
 #' Additional Assertions for `checkmate`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' We provide additional assertion functions which can be used together with
 #' the `checkmate` functions. These are described in individual help pages
@@ -23,7 +23,7 @@ NULL
 
 #' Check for proportion
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Check whether `x` is a (single) proportion.
 #'

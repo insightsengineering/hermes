@@ -235,7 +235,7 @@ setReplaceMethod(
 
 #' Prefix Accessor
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Generic function to access the prefix from an object.
 #'
@@ -367,7 +367,7 @@ setGeneric("filter", function(object, ...) standardGeneric("filter"))
 
 #' Predicate for Required Annotations
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function determines for each gene in the object whether all required
 #' annotation columns are filled.
@@ -469,7 +469,7 @@ setMethod(
 
 #' Extra Variable Names Accessor Methods
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' The methods access the names of the variables in `colData()` and `rowData()` of
 #' the object which are not required by design. So these can be additional sample or
@@ -562,7 +562,7 @@ h_map_pos <- function(names, map) {
 
 #' Renaming Contents of `SummarizedExperiment` Objects
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This method renames columns of the `rowData` and `colData`, as well as assays, of
 #' [`SummarizedExperiment::SummarizedExperiment`] objects. This increases the flexibility
@@ -631,7 +631,7 @@ setMethod(
 
 #' Summary Method for `AnyHermesData` Objects
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Provides a concise summary of the content of [`AnyHermesData`] objects.
 #'
@@ -797,7 +797,7 @@ setMethod(
 
 #' Show Method for `AnyHermesData` Objects
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' A show method that displays high-level information of [`AnyHermesData`] objects.
 #'
@@ -834,7 +834,7 @@ setMethod(
 
 #' Generic Function for Correlation Calculations
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' New generic function to calculate correlations for one or two objects.
 #'
@@ -861,7 +861,7 @@ setGeneric("autoplot")
 
 #' `lapply` method for `MultiAssayExperiment`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Apply a function on all experiments in an MAE.
 #'
@@ -912,7 +912,7 @@ setMethod(
 
 #' Checking for Empty `SummarizedExperiment`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This method checks whether a [`SummarizedExperiment::SummarizedExperiment`] object is empty.
 #'

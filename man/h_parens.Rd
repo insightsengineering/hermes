@@ -14,8 +14,6 @@ Character vector with parentheses, except when \code{x} is a blank string
 in which case it is returned unaltered.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper function adds parentheses around each element of a character
 vector.
 }

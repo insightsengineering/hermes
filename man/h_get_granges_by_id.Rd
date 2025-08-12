@@ -16,8 +16,6 @@ h_get_granges_by_id(coords, id)
 \code{GRange} objects for the respective single gene ID.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This function extracts the chromosome number, the start position and the end position of transcripts
 in given \code{data.frame} with coordinates as returned by \code{biomaRt::getBM()} and converts
 them to a \code{GRanges} object.

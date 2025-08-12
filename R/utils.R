@@ -2,7 +2,7 @@
 
 #' Pipe operator
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
 #'
@@ -24,7 +24,7 @@ NULL
 
 #' Conversion to Factors with Explicit Missing Level in a `data.frame`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function converts all character and logical variables
 #' to factor variables in a `data.frame`. It also sets an explicit missing data level
@@ -80,7 +80,7 @@ h_df_factors_with_explicit_na <- function(data, na_level = "<Missing>") {
 
 #' Conversion of Eligible Columns to Factor Variables in a `DataFrame`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This utility function converts all eligible character and logical variables in a
 #' [`S4Vectors::DataFrame`] to factor variables. All factor variables get amended
@@ -140,7 +140,7 @@ all_na <- function(x) {
 
 #' Make a Short List of a Character Vector
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function makes a short list string, e.g. "a, b, ..., z"
 #' out of a character vector, e.g. `letters`.
@@ -172,7 +172,7 @@ h_short_list <- function(x, sep = ", ", thresh = 3L) {
 
 #' Parenthesize a Character Vector
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function adds parentheses around each element of a character
 #' vector.
@@ -195,7 +195,7 @@ h_parens <- function(x) {
 
 #' First Principal Component (PC1) Gene Signature
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function returns the first principal component from an assay
 #' stored as a `matrix`.
@@ -233,7 +233,7 @@ colPrinComp1 <- function(x, # nolint
 
 #' Mean Z-score Gene Signature
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function returns the Z-score from an assay stored as a `matrix`.
 #'
@@ -269,7 +269,7 @@ colMeanZscores <- function(x) { # nolint
 
 #' Wrap in MAE
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function wraps `SummarizedExperiment` objects into an
 #' a `MultiAssayExperiment` (MAE) object.
@@ -314,7 +314,7 @@ h_all_duplicated <- function(x) {
 
 #' Cutting a Numeric Vector into a Factor of Quantile Bins
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This function transforms a numeric vector into a factor corresponding to the quantile intervals.
 #' The intervals are left-open and right-closed.
@@ -372,7 +372,7 @@ cut_quantile <- function(x,
 
 #' Concatenate and Print with Newline
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This function concatenates inputs like [cat()]
 #' and prints them with newline.

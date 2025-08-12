@@ -19,8 +19,6 @@ A data frame with columns \code{log2_fc} (estimated log2 fold change),
 \code{stat} (moderated t-statistic), \code{p_val} (raw p-value), \code{adj_p_pval} (Benjamini-Hochberg adjusted p-value).
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper functions performs the differential expression analysis with the voom
 method from the \code{limma} package (via \code{\link[limma:voom]{limma::voom()}}, \code{\link[limma:lmFit]{limma::lmFit()}} and \code{\link[limma:ebayes]{limma::eBayes()}})
 for given counts in a \link{AnyHermesData} object and a corresponding \code{design} matrix.

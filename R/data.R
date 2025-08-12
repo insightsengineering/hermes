@@ -45,7 +45,7 @@
 
 #' Example `MultiAssayExperiment` Data
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This example [`MultiAssayExperiment::MultiAssayExperiment`] can be used as test data.
 #'

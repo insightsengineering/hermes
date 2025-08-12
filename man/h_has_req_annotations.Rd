@@ -16,8 +16,6 @@ Named logical vector with one value for each gene in \code{object}, which is \co
 required annotation columns are filled, and otherwise \code{FALSE}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper function determines for each gene in the object whether all required
 annotation columns are filled.
 }

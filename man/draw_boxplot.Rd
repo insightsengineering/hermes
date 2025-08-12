@@ -42,8 +42,6 @@ from input sample variables.}
 The \code{ggplot} boxplot.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This produces boxplots of the gene expression values of a single gene, multiple genes or
 a gene signature.
 }

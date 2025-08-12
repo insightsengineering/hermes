@@ -5,7 +5,7 @@ NULL
 
 #' `HermesData` and `RangedHermesData`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' The [`HermesData`] class is an extension of [`SummarizedExperiment::SummarizedExperiment`]
 #' with additional validation criteria.

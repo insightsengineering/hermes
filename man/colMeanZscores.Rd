@@ -15,8 +15,6 @@ A numeric vector containing the mean Z-score values for each
 column in \code{x}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper function returns the Z-score from an assay stored as a \code{matrix}.
 }
 \examples{

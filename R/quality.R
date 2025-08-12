@@ -238,7 +238,7 @@ get_low_expression <- function(object) {
 
 #' Set Technical Failure Flags
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Setter function which allows the user to define a sample manually as a technical failure.
 #'

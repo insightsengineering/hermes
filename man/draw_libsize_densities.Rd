@@ -15,8 +15,6 @@ draw_libsize_densities(object, log = TRUE)
 The \code{ggplot} object with the density plot.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This creates a density plot of the (log) counts distributions of the \link{AnyHermesData} object where each line
 on the plot corresponds to a sample.
 }

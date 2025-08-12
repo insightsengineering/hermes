@@ -21,8 +21,6 @@ calc_pca(object, assay_name = "counts", n_top = NULL)
 A \link{HermesDataPca} object which is an extension of the \link[stats:prcomp]{stats::prcomp} class.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 The \code{calc_pca()} function performs principal components analysis of the gene count
 vectors across all samples.
 

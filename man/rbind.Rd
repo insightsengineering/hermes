@@ -10,8 +10,6 @@
 The combined \code{\link{AnyHermesData}} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This method combines \code{\link{AnyHermesData}} objects with the same samples but different
 features of interest (rows in assays).
 }

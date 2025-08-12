@@ -34,8 +34,6 @@ to new (left-hand side names) assay names.}
 The \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object with renamed contents.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This method renames columns of the \code{rowData} and \code{colData}, as well as assays, of
 \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} objects. This increases the flexibility
 since renaming can be done before conversion to a \code{\link{HermesData}} object.

@@ -1,6 +1,6 @@
 #' Derivation of Top Genes
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' `top_genes()` creates a [`HermesDataTopGenes`] object, which extends [`data.frame`]. It
 #' contains two columns:

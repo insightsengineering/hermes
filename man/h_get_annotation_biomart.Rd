@@ -28,8 +28,6 @@ A data frame with columns:
 }
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Helper function to query annotations from \code{biomaRt}, for cleaned up gene IDs of
 a specific ID variable and given \code{\link[biomaRt:Mart-class]{biomaRt::Mart}}.
 }

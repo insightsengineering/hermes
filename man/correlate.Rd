@@ -15,8 +15,6 @@ correlate(object, ...)
 Corresponding object that contains the correlation results.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 New generic function to calculate correlations for one or two objects.
 }
 \examples{

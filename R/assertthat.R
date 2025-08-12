@@ -1,6 +1,6 @@
 #' Additional Assertions for `assert_that`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' We provide additional assertion functions which can be used together with
 #' [assertthat::assert_that()].

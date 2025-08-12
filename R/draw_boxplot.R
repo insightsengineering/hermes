@@ -1,6 +1,6 @@
 #' Boxplot for Gene Expression Values
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This produces boxplots of the gene expression values of a single gene, multiple genes or
 #' a gene signature.
