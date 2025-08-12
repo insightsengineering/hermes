@@ -2,7 +2,7 @@
 
 #' Row Binding of `AnyHermesData` Objects
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This method combines [`AnyHermesData`] objects with the same samples but different
 #' features of interest (rows in assays).
@@ -36,7 +36,7 @@ NULL
 
 #' Column Binding of `AnyHermesData` Objects
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This method combines [`AnyHermesData`] objects with the same ranges but different
 #' samples (columns in assays).
@@ -69,7 +69,7 @@ NULL
 
 #' Metadata Accessor and Setter
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' These methods access or set the metadata in a [`AnyHermesData`] object.
 #'
@@ -97,7 +97,7 @@ NULL
 
 #' Annotation Accessor and Setter
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' These methods access and set the gene annotations stored in a [`AnyHermesData`] object.
 #'
@@ -179,7 +179,7 @@ setReplaceMethod(
 
 #' Counts Accessor and Setter
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' These methods access and set the counts assay in a [`AnyHermesData`] object.
 #'
@@ -256,7 +256,7 @@ setGeneric("prefix", def = function(object, ...) {
 
 #' Gene IDs Accessor
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' Access the gene IDs, i.e. row names, of a [`AnyHermesData`] object with a
 #' nicely named accessor method.
@@ -287,7 +287,7 @@ setMethod(
 
 #' Sample IDs Accessor
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' Access the sample IDs, i.e. col names, of a [`AnyHermesData`] object with a
 #' nicely named accessor method.
@@ -318,7 +318,7 @@ setMethod(
 
 #' Subsetting `AnyHermesData` Objects
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This method subsets [`AnyHermesData`] objects, based on expressions involving the
 #' `rowData` columns and the `colData` columns.
@@ -354,7 +354,7 @@ NULL
 
 #' Filter `AnyHermesData` on Subset Passing Default QC Flags
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This filters a [`AnyHermesData`] object using the default QC flags and required annotations.
 #'

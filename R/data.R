@@ -1,6 +1,6 @@
 #' Example `ExpressionSet` Data
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This example data can be used to try out conversion of a [`Biobase::ExpressionSet`]
 #' object into a [`HermesData`] object.
@@ -17,7 +17,7 @@
 
 #' Example `SummarizedExperiment` Data
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This example [`SummarizedExperiment::SummarizedExperiment`] can be used to create a
 #' [`HermesData`] object. It already contains the required columns in `rowData` and `colData`.
@@ -30,7 +30,7 @@
 
 #' Example `HermesData` Data
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This example [`hermes::HermesData`] is created from the underlying [`SummarizedExperiment::SummarizedExperiment`]
 #' object by renaming descriptors to align with standard specification. It already

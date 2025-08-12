@@ -4,7 +4,7 @@ NULL
 
 #' Calculation of R2 between Sample Variable and Principal Components
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This helper function calculates R2 values between one sample variable from [`AnyHermesData`]
 #' and all Principal Components (PCs) separately (one linear model is fit for each PC).
@@ -60,7 +60,7 @@ h_pca_var_rsquared <- function(pca, x) {
 
 #' Calculation of R2 Matrix between Sample Variables and Principal Components
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This function processes sample variables from [`AnyHermesData`] and the
 #' corresponding principal components matrix, and then generates the matrix of R2 values.
@@ -141,7 +141,7 @@ h_pca_df_r2_matrix <- function(pca, df) {
 
 #' Correlation of Principal Components with Sample Variables
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This `correlate()` method analyses the correlations (in R2 values) between all sample variables
 #' in a [`AnyHermesData`] object and the principal components of the samples.

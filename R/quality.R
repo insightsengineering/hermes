@@ -1,6 +1,6 @@
 #' Control for Specified Quality Flags
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' Control function which specifies the quality flag settings.
 #' One or more settings can be customized. Not specified settings are left at defaults.
@@ -50,7 +50,7 @@ control_quality <- function(min_cpm = 1,
 
 #' Add Quality Flags
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' The function `add_quality_flags()` adds quality flag information to a [`AnyHermesData`] object:
 #' - `low_expression_flag`: for each gene, counts how many samples don't pass a minimum
