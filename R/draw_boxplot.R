@@ -88,7 +88,7 @@ draw_boxplot <- function(object,
     p + geom_boxplot(outlier.shape = ifelse(jitter, NA, 19)) +
       stat_boxplot(geom = "errorbar")
   } else {
-    p + geom_violin(draw_quantiles = c(0.75, 0.5, 0.25))
+    p + geom_violin(quantiles.linetype = c(0.75, 0.5, 0.25))
   }
   dodge_width <- ifelse(violin, 0.9, 0.75)
   jitter_width <- if (jitter) NULL else 0

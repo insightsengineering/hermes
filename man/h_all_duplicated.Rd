@@ -14,7 +14,7 @@ h_all_duplicated(x)
 Logical vector flagging all occurrences of duplicate values as \code{TRUE}.
 }
 \description{
-The difference here to \code{\link[=duplicated]{duplicated()}} is that also the first occurrence
+The difference here to \code{\link[BiocGenerics:duplicated]{BiocGenerics::duplicated()}} is that also the first occurrence
 of a duplicate is flagged as \code{TRUE}.
 }
 \examples{
