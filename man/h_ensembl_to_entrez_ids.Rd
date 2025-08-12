@@ -15,8 +15,6 @@ h_ensembl_to_entrez_ids(gene_ids, mart)
 Character vector of \code{Entrez} gene IDs.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper function queries \code{BioMart} to translate \code{Ensembl} to \code{Entrez} Gene IDs.
 }
 \examples{

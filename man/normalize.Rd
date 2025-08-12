@@ -44,8 +44,6 @@ The \code{\link{AnyHermesData}} object with additional assays containing the nor
 The \code{control} is saved in the \code{metadata} of the object for future reference.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 The \code{normalize()} method is normalizing the input \code{\link{AnyHermesData}} according to one or more
 specified normalization methods. The results are saved as additional assays
 in the object.

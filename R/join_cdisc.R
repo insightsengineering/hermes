@@ -1,6 +1,6 @@
 #' Sample Variables with Selected Gene Information
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This obtains the sample variables of a `HermesData` object together
 #' with selected gene information.
@@ -46,7 +46,7 @@ col_data_with_genes <- function(object,
 
 #' Inner Joining a Genes with a CDISC Data Set
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This is a useful function when trying to join genetic with CDISC data sets.
 #'

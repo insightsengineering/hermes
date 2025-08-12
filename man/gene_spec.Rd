@@ -20,8 +20,6 @@ used then multiple genes are not summarized but returned as a matrix from the
 A new \code{\link{GeneSpec}} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Creates a new \code{\link{GeneSpec}} object.
 }
 \examples{

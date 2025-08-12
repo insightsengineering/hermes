@@ -21,8 +21,6 @@ where the function fails.}
 \code{MultiAssayExperiment} object with specified function applied.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 Apply a function on all experiments in an MAE.
 }
 \examples{

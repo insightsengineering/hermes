@@ -5,7 +5,7 @@ NULL
 
 #' Correlation between Sample Counts of `AnyHermesData`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' The `correlate()` method can calculate the correlation matrix between the sample vectors of
 #' counts from a specified assay. This produces a [`HermesDataCor`] object, which is an extension

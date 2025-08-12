@@ -24,8 +24,6 @@ inner_join_cdisc(
 A \code{data.frame} which contains columns from both data sets merged by the keys.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This is a useful function when trying to join genetic with CDISC data sets.
 }
 \note{

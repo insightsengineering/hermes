@@ -20,8 +20,6 @@ the latest available release is used.}
 \code{\link{ConnectionBiomart}} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 \code{connect_biomart()} creates a connection object of class \code{\link{ConnectionBiomart}} which contains
 the \code{biomaRt} object of class \code{\link[biomaRt:Mart-class]{biomaRt::Mart}} and the prefix of the object
 which is used downstream for the query.

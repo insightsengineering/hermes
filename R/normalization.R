@@ -1,6 +1,6 @@
 #' Control Settings for Counts Normalization
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' This control function allows for easy customization of the normalization settings.
 #'
@@ -43,7 +43,7 @@ control_normalize <- function(log = TRUE,
 
 #' Normalization of `AnyHermesData` Objects
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #'
 #' The `normalize()` method is normalizing the input [`AnyHermesData`] according to one or more
 #' specified normalization methods. The results are saved as additional assays

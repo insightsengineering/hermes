@@ -1,6 +1,6 @@
 #' Histogram of Library Sizes
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This creates a histogram of the library sizes of the [AnyHermesData] object.
 #'
@@ -38,7 +38,7 @@ draw_libsize_hist <- function(object,
 
 #' Q-Q Plot of Library Sizes
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This creates a Q-Q plot of the library sizes of the [AnyHermesData] object.
 #'
@@ -78,7 +78,7 @@ draw_libsize_qq <- function(object,
 
 #' Density Plot of (Log) Counts Distributions
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This creates a density plot of the (log) counts distributions of the [AnyHermesData] object where each line
 #' on the plot corresponds to a sample.
@@ -119,7 +119,7 @@ draw_libsize_densities <- function(object,
 
 #' Boxplot of Non-Zero Genes
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This draws a boxplot, with overlaid data points, of the number of
 #' non-zero expressed genes per sample.
@@ -169,7 +169,7 @@ draw_nonzero_boxplot <- function(object,
 
 #' Stacked Barplot of Low Expression Genes by Chromosome
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This creates a barplot of chromosomes for the [AnyHermesData] object with the proportions of low expression genes.
 #'
@@ -230,7 +230,7 @@ draw_genes_barplot <- function(object,
 
 #' All Standard Plots in Default Setting
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This generates all standard plots - histogram and q-q plot of library sizes, density plot of the (log) counts
 #' distributions, boxplot of the number of number of non-zero expressed genes per sample, and a stacked barplot of low

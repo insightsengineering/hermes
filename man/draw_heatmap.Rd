@@ -29,8 +29,6 @@ from input sample variables.}
 The \code{ComplexHeatmap::Heatmap} heatmap
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This produces a heatmap of the chosen assay and groups by various sample variables.
 }
 \examples{

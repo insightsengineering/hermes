@@ -1,6 +1,6 @@
 #' Connection to `BioMart`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' `connect_biomart()` creates a connection object of class [`ConnectionBiomart`] which contains
 #' the `biomaRt` object of class [`biomaRt::Mart`][biomaRt::Mart-class] and the prefix of the object
@@ -58,7 +58,7 @@ connect_biomart <- function(prefix = c("ENSG", "GeneID"),
 
 #' Get Annotations from `BioMart`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Helper function to query annotations from `biomaRt`, for cleaned up gene IDs of
 #' a specific ID variable and given [`biomaRt::Mart`][biomaRt::Mart-class].
@@ -126,7 +126,7 @@ h_get_annotation_biomart <- function(gene_ids,
 
 #' Query Gene Annotations from a Connection
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' The generic function `query()` is the interface for querying gene annotations from
 #' a data base connection.
@@ -164,7 +164,7 @@ setGeneric(
 
 #' Stripping Prefix from Gene IDs
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function removes the prefix and possible delimiter from
 #' a vector of gene IDs, such that only the digits are returned.
@@ -191,7 +191,7 @@ h_strip_prefix <- function(gene_ids, prefix) {
 
 #' Total Length of All Exons for Genes
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function queries `BioMart` for lengths of genes by adding up all
 #' exon lengths after reducing overlaps.
@@ -257,7 +257,7 @@ h_get_size_biomart <- function(gene_ids,
 
 #' Translation of `Ensembl` to `Entrez` Gene IDs
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper function queries `BioMart` to translate `Ensembl` to `Entrez` Gene IDs.
 #'
@@ -289,7 +289,7 @@ h_ensembl_to_entrez_ids <- function(gene_ids,
 
 #' Conversion of `BioMart` Coordinates into `GRanges`
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This function extracts the chromosome number, the start position and the end position of transcripts
 #' in given `data.frame` with coordinates as returned by `biomaRt::getBM()` and converts

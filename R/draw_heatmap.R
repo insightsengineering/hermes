@@ -1,6 +1,6 @@
 #' Heatmap for Gene Expression Counts
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This produces a heatmap of the chosen assay and groups by various sample variables.
 #'

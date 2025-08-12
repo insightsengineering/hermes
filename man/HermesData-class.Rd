@@ -32,8 +32,6 @@ is passed instead of \code{rowData}, then the result will be a \code{\link{Range
 An object of class \code{\link{AnyHermesData}} (\code{\link{HermesData}} or \code{\link{RangedHermesData}}).
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 The \code{\link{HermesData}} class is an extension of \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 with additional validation criteria.
 }

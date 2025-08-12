@@ -19,8 +19,6 @@ A numeric vector containing the principal component values for each
 column in \code{x}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper function returns the first principal component from an assay
 stored as a \code{matrix}.
 }

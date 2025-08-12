@@ -32,7 +32,6 @@ repos:
           - httr
           - bioc::IRanges
           - knitr
-          - lifecycle
           - bioc::limma
           - magrittr
           - matrixStats
@@ -103,7 +102,6 @@ repos:
           - httr
           - bioc::IRanges
           - knitr
-          - lifecycle
           - bioc::limma
           - magrittr
           - matrixStats

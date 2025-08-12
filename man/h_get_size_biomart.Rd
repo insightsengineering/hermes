@@ -19,8 +19,6 @@ i.e. \code{entrezgene_id} or \code{ensembl_gene_id}.}
 Named integer vector indicating the gene lengths.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper function queries \code{BioMart} for lengths of genes by adding up all
 exon lengths after reducing overlaps.
 }

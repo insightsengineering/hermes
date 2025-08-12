@@ -47,8 +47,6 @@ summary statistics threshold.}
 A \link{HermesDataTopGenes} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 \code{top_genes()} creates a \code{\link{HermesDataTopGenes}} object, which extends \code{\link{data.frame}}. It
 contains two columns:
 \itemize{

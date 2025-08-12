@@ -16,8 +16,6 @@ The MAE object with the only experiment being \code{x} having the given
 \code{name}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper function wraps \code{SummarizedExperiment} objects into an
 a \code{MultiAssayExperiment} (MAE) object.
 }

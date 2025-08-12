@@ -19,8 +19,6 @@ to be generated. Duplicated values are removed.}
 The factor with a description of the available quantiles as levels.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This function transforms a numeric vector into a factor corresponding to the quantile intervals.
 The intervals are left-open and right-closed.
 }

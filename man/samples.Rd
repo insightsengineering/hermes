@@ -14,8 +14,6 @@
 The character vector with the sample IDs.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 Access the sample IDs, i.e. col names, of a \code{\link{AnyHermesData}} object with a
 nicely named accessor method.
 }

@@ -1,6 +1,6 @@
 #' Scatterplot for Gene Expression Values
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This produces a scatterplot of two genes or gene signatures.
 #'

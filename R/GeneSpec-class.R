@@ -39,7 +39,7 @@ h_unique_labels <- function(ids, nms = NULL) {
 
 #' R6 Class Representing a Gene (Signature) Specification
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' A `GeneSpec` consists of the gene IDs (possibly named with labels),
 #' the summary function and the name of the summary function.
@@ -182,7 +182,7 @@ GeneSpec <- R6::R6Class(
 
 #' `GeneSpec` Constructor
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' Creates a new [`GeneSpec`] object.
 #'

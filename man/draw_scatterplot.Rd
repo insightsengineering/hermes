@@ -36,8 +36,6 @@ regression line (\code{lm}), local polynomial regression (\code{loess}) or \code
 The \code{ggplot} scatterplot.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This produces a scatterplot of two genes or gene signatures.
 }
 \examples{

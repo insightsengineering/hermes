@@ -28,8 +28,6 @@ See \code{\link[DESeq2:estimateDispersions]{estimateDispersions}} for details.}
 List with the above settings used to perform the normalization procedure.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This control function allows for easy customization of the normalization settings.
 }
 \note{

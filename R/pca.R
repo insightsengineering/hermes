@@ -1,6 +1,6 @@
 #' Principal Components Analysis Calculation
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' The `calc_pca()` function performs principal components analysis of the gene count
 #' vectors across all samples.

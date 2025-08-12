@@ -1,6 +1,6 @@
 #' `limma`/voom Differential Expression Analysis
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper functions performs the differential expression analysis with the voom
 #' method from the `limma` package (via [limma::voom()], [limma::lmFit()] and [limma::eBayes()])
@@ -59,7 +59,7 @@ h_diff_expr_voom <- function(object, design, ...) {
 
 #' `DESeq2` Differential Expression Analysis
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper functions performs the differential expression analysis with
 #' [DESeq2::DESeq()] for a given [AnyHermesData] input and `design` matrix.
@@ -120,7 +120,7 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
 
 #' Differential Expression Analysis
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' The `diff_expression()` function performs differential expression analysis
 #' using a method of preference.

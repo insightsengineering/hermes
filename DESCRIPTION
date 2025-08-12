@@ -55,7 +55,6 @@ Imports:
     ggplot2,
     ggrepel (>= 0.9),
     IRanges,
-    lifecycle,
     limma,
     magrittr,
     matrixStats (>= 1.5.0),
@@ -83,7 +82,6 @@ Suggests:
 VignetteBuilder:
     knitr
 RdMacros:
-    lifecycle,
     Rdpack
 biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
     QualityControl

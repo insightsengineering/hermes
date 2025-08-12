@@ -18,8 +18,6 @@ then the list will be shortened using the \code{...} ellipsis.}
 String with the short list.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 This helper function makes a short list string, e.g. "a, b, ..., z"
 out of a character vector, e.g. \code{letters}.
 }
