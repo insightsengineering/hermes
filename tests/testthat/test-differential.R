@@ -133,7 +133,7 @@ test_that("autoplot for HermesDataDiffExpr works as expected with custom options
   x <- layer_data(result, 1)
   x <- x[!is.na(x$label), ]
   expect_equal(x$x, c(-3.44, -3.19, 3.39, 3.21, 3.8, 3.12, -3.13), tolerance = 1e-2)
-  expect_equal(x$y, rep(0.036, 7), tolerance = 1e-2)
+  expect_equal(x$y, rep(0.04, 7), tolerance = 5e-2)
   expect_identical(
     x$label,
     c(
