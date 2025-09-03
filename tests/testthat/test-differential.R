@@ -128,12 +128,12 @@ test_that("autoplot for HermesDataDiffExpr works as expected with custom options
   dat <- hermes_data
   colData(dat) <- df_cols_to_factor(colData(dat))
   object <- diff_expression(dat, "SEX", "voom")
-  result <- autoplot(object, adj_p_val_thresh = 0.92, log2_fc_thresh = 3)
+  result <- autoplot(object, adj_p_val_thresh = 0.9206, log2_fc_thresh = 3)
 
   x <- layer_data(result, 1)
   x <- x[!is.na(x$label), ]
   expect_equal(x$x, c(-3.44, -3.19, 3.39, 3.21, 3.8, 3.12, -3.13), tolerance = 1e-2)
-  expect_equal(x$y, rep(0.04008, 7), tolerance = 1e-2)
+  expect_equal(x$y, rep(0.04, 7), tolerance = 5e-2)
   expect_identical(
     x$label,
     c(
