@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="GeneSpec-class" timestamp="2025-08-12T10:02:56Z" hostname="e03797136d05" tests="87" skipped="0" failures="0" errors="0" time="0.331">
+  <testsuite name="GeneSpec-class" timestamp="2025-09-03T08:06:24Z" hostname="b0678e5eeb18" tests="87" skipped="0" failures="0" errors="0" time="0.329">
     <testcase time="0.0149999999999997" classname="GeneSpec_class" name="h_unique_labels_returns_NULL_if_ids_is_NULL"/>
     <testcase time="0.0200000000000005" classname="GeneSpec_class" name="h_unique_labels_returns_ids_if_nms_are_NULL"/>
-    <testcase time="0.0129999999999999" classname="GeneSpec_class" name="h_unique_labels_just_returns_names_if_they_are_already_unique"/>
+    <testcase time="0.0119999999999996" classname="GeneSpec_class" name="h_unique_labels_just_returns_names_if_they_are_already_unique"/>
     <testcase time="0.00600000000000023" classname="GeneSpec_class" name="h_unique_labels_ensures_uniqueness_by_appending_ids_in_parentheses"/>
-    <testcase time="0.00499999999999989" classname="GeneSpec_class" name="h_unique_labels_replaces_empty_names_by_ids"/>
-    <testcase time="0.00600000000000023" classname="GeneSpec_class" name="h_unique_labels_replaces_empty_names_by_ids_and_afterwards_ensures_uniqueness"/>
-    <testcase time="0.00699999999999967" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
-    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
-    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
+    <testcase time="0.00600000000000023" classname="GeneSpec_class" name="h_unique_labels_replaces_empty_names_by_ids"/>
+    <testcase time="0.00499999999999989" classname="GeneSpec_class" name="h_unique_labels_replaces_empty_names_by_ids_and_afterwards_ensures_uniqueness"/>
+    <testcase time="0.00800000000000001" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
     <testcase time="0.00100000000000033" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
-    <testcase time="0.00100000000000033" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
+    <testcase time="0.00299999999999923" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
+    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
     <testcase time="0.000999999999999446" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
+    <testcase time="0.00100000000000033" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_initialization_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_initialization_also_works_with_duplicate_labels"/>
     <testcase time="0.00100000000000033" classname="GeneSpec_class" name="GeneSpec_initialization_also_works_with_duplicate_labels"/>
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_initialization_also_works_with_duplicate_labels"/>
     <testcase time="0.00399999999999956" classname="GeneSpec_class" name="GeneSpec_initialization_also_works_with_duplicate_labels"/>
     <testcase time="0.00400000000000045" classname="GeneSpec_class" name="GeneSpec_returns_vector_method_works_as_expected"/>
-    <testcase time="0.00299999999999923" classname="GeneSpec_class" name="GeneSpec_returns_vector_method_works_as_expected"/>
-    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_returns_vector_method_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_returns_vector_method_works_as_expected"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_returns_vector_method_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_returns_vector_method_works_as_expected"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_returns_vector_method_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_returns_vector_method_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
-    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
-    <testcase time="0.00699999999999967" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
-    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
+    <testcase time="0.00700000000000056" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_get_gene_labels_method_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_get_label_method_works_as_expected"/>
-    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_get_label_method_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_get_label_method_works_as_expected"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_get_label_method_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_get_label_method_works_as_expected"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_get_label_method_works_as_expected"/>
@@ -44,12 +44,12 @@
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_get_label_method_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
     <testcase time="0.00400000000000045" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
-    <testcase time="0.00299999999999923" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
-    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
-    <testcase time="0.00299999999999923" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
-    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
+    <testcase time="0.000999999999999446" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
@@ -57,791 +57,792 @@
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_method_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
-    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
-    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
-    <testcase time="0.000999999999999446" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
     <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
-    <testcase time="0.000999999999999446" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
-    <testcase time="0.00500000000000078" classname="GeneSpec_class" name="GeneSpec_extract_method_also_works_with_duplicate_labels"/>
+    <testcase time="0.00100000000000033" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
+    <testcase time="0.00100000000000033" classname="GeneSpec_class" name="GeneSpec_extract_method_ensures_correct_names_for_result"/>
+    <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_method_also_works_with_duplicate_labels"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_method_also_works_with_duplicate_labels"/>
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
-    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
-    <testcase time="0.00299999999999923" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
-    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
+    <testcase time="0.00400000000000045" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
+    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
     <testcase time="0.00399999999999956" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
     <testcase time="0.00100000000000033" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
+    <testcase time="0.00400000000000045" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
-    <testcase time="0.00500000000000078" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
+    <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
-    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
-    <testcase time="0.00100000000000033" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
-    <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
     <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
     <testcase time="0.000999999999999446" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
+    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
-    <testcase time="0.00500000000000078" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_also_works_with_duplicate_labels"/>
+    <testcase time="0.000999999999999446" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
+    <testcase time="0.00200000000000067" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_ensures_correct_names_for_result"/>
+    <testcase time="0.00499999999999989" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_also_works_with_duplicate_labels"/>
     <testcase time="0.00199999999999978" classname="GeneSpec_class" name="GeneSpec_extract_data_frame_method_also_works_with_duplicate_labels"/>
-    <testcase time="0.0199999999999996" classname="GeneSpec_class" name="gene_spec_constructor_works_as_expected"/>
-    <testcase time="0.0150000000000006" classname="GeneSpec_class" name="gene_spec_constructor_works_as_expected"/>
+    <testcase time="0.0200000000000005" classname="GeneSpec_class" name="gene_spec_constructor_works_as_expected"/>
+    <testcase time="0.0149999999999997" classname="GeneSpec_class" name="gene_spec_constructor_works_as_expected"/>
   </testsuite>
-  <testsuite name="HermesData-class" timestamp="2025-08-12T10:02:56Z" hostname="e03797136d05" tests="41" skipped="0" failures="0" errors="0" time="1.48">
+  <testsuite name="HermesData-class" timestamp="2025-09-03T08:06:24Z" hostname="b0678e5eeb18" tests="41" skipped="0" failures="0" errors="0" time="1.459">
     <testcase time="0.0549999999999997" classname="HermesData_class" name="HermesData_objects_can_be_created_with_default_constructor_.HermesData"/>
     <testcase time="0.00100000000000033" classname="HermesData_class" name="HermesData_objects_can_be_created_with_default_constructor_.HermesData"/>
-    <testcase time="0.0109999999999992" classname="HermesData_class" name="HermesData_objects_can_be_created_with_default_constructor_.HermesData"/>
-    <testcase time="0.0450000000000008" classname="HermesData_class" name="HermesData_validation_fails_as_expected"/>
-    <testcase time="0.0189999999999992" classname="HermesData_class" name="HermesData_prefix_slot_can_not_be_assigned_numeric"/>
+    <testcase time="0.0110000000000001" classname="HermesData_class" name="HermesData_objects_can_be_created_with_default_constructor_.HermesData"/>
+    <testcase time="0.0439999999999996" classname="HermesData_class" name="HermesData_validation_fails_as_expected"/>
+    <testcase time="0.0190000000000001" classname="HermesData_class" name="HermesData_prefix_slot_can_not_be_assigned_numeric"/>
     <testcase time="0.0540000000000003" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_default_constructor_.RangedHermesData"/>
     <testcase time="0.00199999999999978" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_default_constructor_.RangedHermesData"/>
     <testcase time="0.0129999999999999" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_default_constructor_.RangedHermesData"/>
     <testcase time="0.0380000000000003" classname="HermesData_class" name="RangedHermesData_validation_fails_as_expected"/>
-    <testcase time="0.0840000000000005" classname="HermesData_class" name="SummarizedExperiment_can_be_created_from_ExpressionSet"/>
+    <testcase time="0.0830000000000002" classname="HermesData_class" name="SummarizedExperiment_can_be_created_from_ExpressionSet"/>
     <testcase time="0.000999999999999446" classname="HermesData_class" name="SummarizedExperiment_can_be_created_from_ExpressionSet"/>
     <testcase time="0.00999999999999979" classname="HermesData_class" name="SummarizedExperiment_can_be_created_from_ExpressionSet"/>
     <testcase time="0.00500000000000078" classname="HermesData_class" name="HermesData_objects_can_be_created_with_constructor_HermesData"/>
     <testcase time="0.000999999999999446" classname="HermesData_class" name="HermesData_objects_can_be_created_with_constructor_HermesData"/>
-    <testcase time="0.0150000000000006" classname="HermesData_class" name="HermesData_constructor_fails_with_readable_error_message_when_there_are_no_assays"/>
-    <testcase time="0.0449999999999999" classname="HermesData_class" name="HermesData_determines_prefix_correctly"/>
+    <testcase time="0.0140000000000002" classname="HermesData_class" name="HermesData_constructor_fails_with_readable_error_message_when_there_are_no_assays"/>
+    <testcase time="0.0429999999999993" classname="HermesData_class" name="HermesData_determines_prefix_correctly"/>
     <testcase time="0.00300000000000011" classname="HermesData_class" name="HermesData_determines_prefix_correctly"/>
     <testcase time="0.0579999999999998" classname="HermesData_class" name="HermesData_determines_prefix_correctly"/>
     <testcase time="0.00300000000000011" classname="HermesData_class" name="HermesData_determines_prefix_correctly"/>
-    <testcase time="0.109999999999999" classname="HermesData_class" name="HermesData_accepts_SummarizedExperiment_object_with_rowData_or_colData"/>
+    <testcase time="0.108000000000001" classname="HermesData_class" name="HermesData_accepts_SummarizedExperiment_object_with_rowData_or_colData"/>
     <testcase time="0.00300000000000011" classname="HermesData_class" name="HermesData_accepts_SummarizedExperiment_object_with_rowData_or_colData"/>
-    <testcase time="0.00300000000000011" classname="HermesData_class" name="HermesData_accepts_SummarizedExperiment_object_with_rowData_or_colData"/>
-    <testcase time="0.00799999999999912" classname="HermesData_class" name="HermesData_accepts_SummarizedExperiment_object_with_rowData_or_colData"/>
+    <testcase time="0.00299999999999923" classname="HermesData_class" name="HermesData_accepts_SummarizedExperiment_object_with_rowData_or_colData"/>
+    <testcase time="0.00800000000000001" classname="HermesData_class" name="HermesData_accepts_SummarizedExperiment_object_with_rowData_or_colData"/>
     <testcase time="0.00500000000000078" classname="HermesData_class" name="HermesData_accepts_SummarizedExperiment_object_with_rowData_or_colData"/>
-    <testcase time="0.0220000000000002" classname="HermesData_class" name="HermesData_creates_missing_columns_with_NAs_correctly"/>
+    <testcase time="0.020999999999999" classname="HermesData_class" name="HermesData_creates_missing_columns_with_NAs_correctly"/>
     <testcase time="0.00300000000000011" classname="HermesData_class" name="HermesData_creates_missing_columns_with_NAs_correctly"/>
-    <testcase time="0.0299999999999994" classname="HermesData_class" name="HermesData_creates_missing_columns_with_NAs_correctly"/>
-    <testcase time="0.00399999999999956" classname="HermesData_class" name="HermesData_creates_missing_columns_with_NAs_correctly"/>
+    <testcase time="0.0310000000000006" classname="HermesData_class" name="HermesData_creates_missing_columns_with_NAs_correctly"/>
+    <testcase time="0.00300000000000011" classname="HermesData_class" name="HermesData_creates_missing_columns_with_NAs_correctly"/>
     <testcase time="0.00300000000000011" classname="HermesData_class" name="HermesData_creates_missing_columns_with_NAs_correctly"/>
     <testcase time="0.0350000000000001" classname="HermesData_class" name="HermesData_converts_DelayedMatrix_assays_correctly_to_matrix_assays"/>
     <testcase time="0.0380000000000003" classname="HermesData_class" name="HermesData_converts_DelayedMatrix_assays_correctly_to_matrix_assays"/>
-    <testcase time="0.00699999999999967" classname="HermesData_class" name="HermesData_converts_DelayedMatrix_assays_correctly_to_matrix_assays"/>
+    <testcase time="0.00599999999999845" classname="HermesData_class" name="HermesData_converts_DelayedMatrix_assays_correctly_to_matrix_assays"/>
     <testcase time="0.00400000000000134" classname="HermesData_class" name="HermesData_converts_DelayedMatrix_assays_correctly_to_matrix_assays"/>
-    <testcase time="0.0539999999999985" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_constructor_HermesData"/>
-    <testcase time="0.00100000000000122" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_constructor_HermesData"/>
-    <testcase time="0.0439999999999987" classname="HermesData_class" name="HermesData_objects_can_be_created_with_constructor_HermesDataFromMatrix"/>
-    <testcase time="0.00200000000000067" classname="HermesData_class" name="HermesData_objects_can_be_created_with_constructor_HermesDataFromMatrix"/>
+    <testcase time="0.052999999999999" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_constructor_HermesData"/>
+    <testcase time="0.00200000000000067" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_constructor_HermesData"/>
+    <testcase time="0.0440000000000005" classname="HermesData_class" name="HermesData_objects_can_be_created_with_constructor_HermesDataFromMatrix"/>
+    <testcase time="0.000999999999999446" classname="HermesData_class" name="HermesData_objects_can_be_created_with_constructor_HermesDataFromMatrix"/>
     <testcase time="0.0449999999999999" classname="HermesData_class" name="HermesDataFromMatrix_also_works_when_just_passing_the_count_matrix"/>
-    <testcase time="0.00200000000000067" classname="HermesData_class" name="HermesDataFromMatrix_also_works_when_just_passing_the_count_matrix"/>
-    <testcase time="0.593" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_constructor_HermesDataFromMatrix"/>
-    <testcase time="0.000999999999999446" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_constructor_HermesDataFromMatrix"/>
+    <testcase time="0.000999999999999446" classname="HermesData_class" name="HermesDataFromMatrix_also_works_when_just_passing_the_count_matrix"/>
+    <testcase time="0.582000000000001" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_constructor_HermesDataFromMatrix"/>
+    <testcase time="0.00199999999999889" classname="HermesData_class" name="RangedHermesData_objects_can_be_created_with_constructor_HermesDataFromMatrix"/>
   </testsuite>
-  <testsuite name="HermesData-methods" timestamp="2025-08-12T10:02:58Z" hostname="e03797136d05" tests="131" skipped="0" failures="0" errors="0" time="4.923">
-    <testcase time="0.115" classname="HermesData_methods" name="rbind_function_works_as_expected_for_HermesData_objects"/>
+  <testsuite name="HermesData-methods" timestamp="2025-09-03T08:06:25Z" hostname="b0678e5eeb18" tests="131" skipped="0" failures="0" errors="0" time="4.899">
+    <testcase time="0.114000000000001" classname="HermesData_methods" name="rbind_function_works_as_expected_for_HermesData_objects"/>
     <testcase time="0.000999999999999446" classname="HermesData_methods" name="rbind_function_works_as_expected_for_HermesData_objects"/>
     <testcase time="0.00400000000000134" classname="HermesData_methods" name="rbind_function_works_as_expected_for_HermesData_objects"/>
-    <testcase time="0.00399999999999956" classname="HermesData_methods" name="rbind_function_works_as_expected_for_HermesData_objects"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="rbind_function_works_as_expected_for_HermesData_objects"/>
-    <testcase time="0.048" classname="HermesData_methods" name="rbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
+    <testcase time="0.00299999999999834" classname="HermesData_methods" name="rbind_function_works_as_expected_for_HermesData_objects"/>
+    <testcase time="0.0470000000000006" classname="HermesData_methods" name="rbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
     <testcase time="0.000999999999999446" classname="HermesData_methods" name="rbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
-    <testcase time="0.0180000000000007" classname="HermesData_methods" name="rbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
+    <testcase time="0.0170000000000012" classname="HermesData_methods" name="rbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
     <testcase time="0.000999999999999446" classname="HermesData_methods" name="rbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
-    <testcase time="0.0310000000000006" classname="HermesData_methods" name="rbind_function_fails_as_expected_when_rbind_results_in_duplicated_rownames"/>
-    <testcase time="0.0899999999999999" classname="HermesData_methods" name="cbind_function_works_as_expected_for_HermesData_objects"/>
-    <testcase time="0.00199999999999889" classname="HermesData_methods" name="cbind_function_works_as_expected_for_HermesData_objects"/>
+    <testcase time="0.0299999999999994" classname="HermesData_methods" name="rbind_function_fails_as_expected_when_rbind_results_in_duplicated_rownames"/>
+    <testcase time="0.0890000000000004" classname="HermesData_methods" name="cbind_function_works_as_expected_for_HermesData_objects"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="cbind_function_works_as_expected_for_HermesData_objects"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="cbind_function_works_as_expected_for_HermesData_objects"/>
-    <testcase time="0.00400000000000134" classname="HermesData_methods" name="cbind_function_works_as_expected_for_HermesData_objects"/>
-    <testcase time="0.00299999999999834" classname="HermesData_methods" name="cbind_function_works_as_expected_for_HermesData_objects"/>
-    <testcase time="0.0520000000000014" classname="HermesData_methods" name="cbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
-    <testcase time="0.00199999999999889" classname="HermesData_methods" name="cbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
-    <testcase time="0.0180000000000007" classname="HermesData_methods" name="cbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="cbind_function_works_as_expected_for_HermesData_objects"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="cbind_function_works_as_expected_for_HermesData_objects"/>
+    <testcase time="0.0510000000000002" classname="HermesData_methods" name="cbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
     <testcase time="0.000999999999999446" classname="HermesData_methods" name="cbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
-    <testcase time="0.126000000000001" classname="HermesData_methods" name="rbind_function_fails_as_expected_when_rbind_results_in_duplicated_colnames"/>
-    <testcase time="0.0399999999999991" classname="HermesData_methods" name="metadata_accessor_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="HermesData_methods" name="metadata_accessor_works_as_expected"/>
+    <testcase time="0.0179999999999989" classname="HermesData_methods" name="cbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="cbind_function_works_as_expected_when_binding_SummarizedExperiment_with_HermesData"/>
+    <testcase time="0.127000000000001" classname="HermesData_methods" name="rbind_function_fails_as_expected_when_rbind_results_in_duplicated_colnames"/>
+    <testcase time="0.0410000000000004" classname="HermesData_methods" name="metadata_accessor_works_as_expected"/>
+    <testcase time="0.00299999999999834" classname="HermesData_methods" name="metadata_accessor_works_as_expected"/>
     <testcase time="0.0400000000000009" classname="HermesData_methods" name="metadata_setter_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="HermesData_methods" name="metadata_setter_works_as_expected"/>
-    <testcase time="0.0409999999999986" classname="HermesData_methods" name="annotation_accessor_works_as_expected"/>
-    <testcase time="0.00100000000000122" classname="HermesData_methods" name="annotation_accessor_works_as_expected"/>
-    <testcase time="0.00199999999999889" classname="HermesData_methods" name="annotation_accessor_works_as_expected"/>
+    <testcase time="0.00399999999999956" classname="HermesData_methods" name="metadata_setter_works_as_expected"/>
+    <testcase time="0.0400000000000009" classname="HermesData_methods" name="annotation_accessor_works_as_expected"/>
+    <testcase time="0.000999999999999446" classname="HermesData_methods" name="annotation_accessor_works_as_expected"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="annotation_accessor_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="annotation_accessor_works_as_expected"/>
     <testcase time="0.0630000000000006" classname="HermesData_methods" name="annotation_setter_works_as_expected_when_the_columns_are_set_equal"/>
-    <testcase time="0.00500000000000078" classname="HermesData_methods" name="annotation_setter_works_as_expected_when_the_columns_are_set_equal"/>
-    <testcase time="0.00299999999999834" classname="HermesData_methods" name="annotation_setter_works_as_expected_when_the_columns_are_set_equal"/>
-    <testcase time="0.0820000000000007" classname="HermesData_methods" name="annotation_setter_works_also_when_there_are_more_columns_provided_in_the_value"/>
+    <testcase time="0.00399999999999956" classname="HermesData_methods" name="annotation_setter_works_as_expected_when_the_columns_are_set_equal"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="annotation_setter_works_as_expected_when_the_columns_are_set_equal"/>
+    <testcase time="0.0830000000000002" classname="HermesData_methods" name="annotation_setter_works_also_when_there_are_more_columns_provided_in_the_value"/>
     <testcase time="0.00399999999999956" classname="HermesData_methods" name="annotation_setter_works_also_when_there_are_more_columns_provided_in_the_value"/>
     <testcase time="0.00200000000000067" classname="HermesData_methods" name="annotation_setter_works_also_when_there_are_more_columns_provided_in_the_value"/>
-    <testcase time="0.00200000000000067" classname="HermesData_methods" name="annotation_setter_works_also_when_there_are_more_columns_provided_in_the_value"/>
+    <testcase time="0.000999999999999446" classname="HermesData_methods" name="annotation_setter_works_also_when_there_are_more_columns_provided_in_the_value"/>
     <testcase time="0.0489999999999995" classname="HermesData_methods" name="annotation_setter_gives_a_warning_saves_gene_IDs_in_attribute_if_gene_info_is_missing"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="annotation_setter_gives_a_warning_saves_gene_IDs_in_attribute_if_gene_info_is_missing"/>
-    <testcase time="0.0329999999999995" classname="HermesData_methods" name="counts_accessor_works_as_expected"/>
-    <testcase time="0.000999999999999446" classname="HermesData_methods" name="counts_accessor_works_as_expected"/>
+    <testcase time="0.032" classname="HermesData_methods" name="counts_accessor_works_as_expected"/>
+    <testcase time="0.00100000000000122" classname="HermesData_methods" name="counts_accessor_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="counts_accessor_works_as_expected"/>
-    <testcase time="0.0500000000000007" classname="HermesData_methods" name="counts_setter_works_as_expected_with_withDimnames_FALSE_"/>
-    <testcase time="0.00600000000000023" classname="HermesData_methods" name="counts_setter_works_as_expected_with_withDimnames_FALSE_"/>
+    <testcase time="0.0499999999999989" classname="HermesData_methods" name="counts_setter_works_as_expected_with_withDimnames_FALSE_"/>
+    <testcase time="0.00500000000000078" classname="HermesData_methods" name="counts_setter_works_as_expected_with_withDimnames_FALSE_"/>
     <testcase time="0.0309999999999988" classname="HermesData_methods" name="prefix_accessor_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="prefix_accessor_works_as_expected"/>
     <testcase time="0.0300000000000011" classname="HermesData_methods" name="genes_accessor_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="genes_accessor_works_as_expected"/>
     <testcase time="0.0309999999999988" classname="HermesData_methods" name="samples_accessor_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="samples_accessor_works_as_expected"/>
-    <testcase time="0.0460000000000012" classname="HermesData_methods" name="subset_function_works_as_expected_for_HermesData_objects"/>
-    <testcase time="0.000999999999999446" classname="HermesData_methods" name="subset_function_works_as_expected_for_HermesData_objects"/>
+    <testcase time="0.0440000000000005" classname="HermesData_methods" name="subset_function_works_as_expected_for_HermesData_objects"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="subset_function_works_as_expected_for_HermesData_objects"/>
     <testcase time="0.00399999999999956" classname="HermesData_methods" name="subset_function_works_as_expected_for_HermesData_objects"/>
     <testcase time="0.00399999999999956" classname="HermesData_methods" name="subset_function_works_as_expected_for_HermesData_objects"/>
-    <testcase time="0.00400000000000134" classname="HermesData_methods" name="subset_function_works_as_expected_for_HermesData_objects"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="subset_function_works_as_expected_for_HermesData_objects"/>
     <testcase time="0.00399999999999956" classname="HermesData_methods" name="subset_function_works_as_expected_for_HermesData_objects"/>
-    <testcase time="0.0329999999999995" classname="HermesData_methods" name="h_has_req_annotations_works_as_expected"/>
-    <testcase time="0.0190000000000001" classname="HermesData_methods" name="h_has_req_annotations_works_as_expected"/>
+    <testcase time="0.0340000000000007" classname="HermesData_methods" name="h_has_req_annotations_works_as_expected"/>
+    <testcase time="0.0179999999999989" classname="HermesData_methods" name="h_has_req_annotations_works_as_expected"/>
     <testcase time="0.0380000000000003" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_HermesData"/>
     <testcase time="0.00200000000000067" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_HermesData"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_HermesData"/>
     <testcase time="0.0779999999999994" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
-    <testcase time="0.000999999999999446" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
-    <testcase time="0.00400000000000134" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
-    <testcase time="0.0229999999999997" classname="HermesData_methods" name="filter_works_as_expected_on_one_dimension_for_HermesData"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
+    <testcase time="0.00399999999999956" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
+    <testcase time="0.0220000000000002" classname="HermesData_methods" name="filter_works_as_expected_on_one_dimension_for_HermesData"/>
     <testcase time="0.00900000000000034" classname="HermesData_methods" name="filter_works_as_expected_on_one_dimension_for_HermesData"/>
     <testcase time="0.000999999999999446" classname="HermesData_methods" name="filter_works_as_expected_on_one_dimension_for_HermesData"/>
-    <testcase time="0.00199999999999889" classname="HermesData_methods" name="filter_works_as_expected_on_one_dimension_for_HermesData"/>
+    <testcase time="0.000999999999999446" classname="HermesData_methods" name="filter_works_as_expected_on_one_dimension_for_HermesData"/>
+    <testcase time="0.00400000000000134" classname="HermesData_methods" name="filter_works_as_expected_on_one_dimension_for_HermesData"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="filter_works_as_expected_on_one_dimension_for_HermesData"/>
-    <testcase time="0.00300000000000011" classname="HermesData_methods" name="filter_works_as_expected_on_one_dimension_for_HermesData"/>
-    <testcase time="0.0620000000000012" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
+    <testcase time="0.0619999999999994" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
     <testcase time="0.000999999999999446" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
-    <testcase time="0.00399999999999956" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
-    <testcase time="0.048" classname="HermesData_methods" name="filter_shows_readable_error_message_when_there_are_NA_in_flag_variables"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="filter_works_as_expected_with_default_settings_for_RangedHermesData"/>
+    <testcase time="0.0489999999999995" classname="HermesData_methods" name="filter_shows_readable_error_message_when_there_are_NA_in_flag_variables"/>
     <testcase time="0.048" classname="HermesData_methods" name="filter_gives_a_warning_if_all_samples_are_filtered_out"/>
-    <testcase time="0.0549999999999997" classname="HermesData_methods" name="filter_gives_a_warning_if_all_genes_are_filtered_out"/>
-    <testcase time="0.0470000000000006" classname="HermesData_methods" name="filter_by_default_correctly_filters_out_genes_which_don_t_have_required_size_"/>
-    <testcase time="0.00399999999999956" classname="HermesData_methods" name="filter_by_default_correctly_filters_out_genes_which_don_t_have_required_size_"/>
+    <testcase time="0.0550000000000015" classname="HermesData_methods" name="filter_gives_a_warning_if_all_genes_are_filtered_out"/>
+    <testcase time="0.0469999999999988" classname="HermesData_methods" name="filter_by_default_correctly_filters_out_genes_which_don_t_have_required_size_"/>
+    <testcase time="0.00400000000000134" classname="HermesData_methods" name="filter_by_default_correctly_filters_out_genes_which_don_t_have_required_size_"/>
     <testcase time="0.00499999999999901" classname="HermesData_methods" name="h_map_pos_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="h_map_pos_works_as_expected"/>
     <testcase time="0.0080000000000009" classname="HermesData_methods" name="h_map_pos_fails_as_expected_when_old_names_are_not_found"/>
-    <testcase time="0.00699999999999967" classname="HermesData_methods" name="rename_works_with_rowData_columns"/>
-    <testcase time="0.0179999999999989" classname="HermesData_methods" name="rename_works_with_colData_columns"/>
-    <testcase time="0.00700000000000145" classname="HermesData_methods" name="rename_works_with_assay_names"/>
-    <testcase time="0.0909999999999993" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
-    <testcase time="0.000999999999999446" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
-    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
-    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
-    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
-    <testcase time="0.00399999999999956" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
+    <testcase time="0.00799999999999912" classname="HermesData_methods" name="rename_works_with_rowData_columns"/>
+    <testcase time="0.0169999999999995" classname="HermesData_methods" name="rename_works_with_colData_columns"/>
+    <testcase time="0.00699999999999967" classname="HermesData_methods" name="rename_works_with_assay_names"/>
+    <testcase time="0.0910000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
     <testcase time="0.00200000000000067" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
-    <testcase time="0.00399999999999956" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
-    <testcase time="0.077" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.00299999999999834" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_HermesData"/>
+    <testcase time="0.0779999999999994" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.00100000000000122" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
-    <testcase time="0.00299999999999834" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
-    <testcase time="0.00400000000000134" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.00399999999999956" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
-    <testcase time="0.00299999999999834" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
-    <testcase time="0.0150000000000006" classname="HermesData_methods" name="show_for_summary_works_as_expected_for_HermesData_with_quality_flags"/>
-    <testcase time="0.000999999999999446" classname="HermesData_methods" name="show_for_summary_works_as_expected_for_HermesData_with_quality_flags"/>
-    <testcase time="0.0550000000000015" classname="HermesData_methods" name="show_for_summary_also_works_without_quality_flags"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.00300000000000011" classname="HermesData_methods" name="summary_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.0139999999999993" classname="HermesData_methods" name="show_for_summary_works_as_expected_for_HermesData_with_quality_flags"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="show_for_summary_works_as_expected_for_HermesData_with_quality_flags"/>
+    <testcase time="0.0549999999999997" classname="HermesData_methods" name="show_for_summary_also_works_without_quality_flags"/>
     <testcase time="0.00699999999999967" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
-    <testcase time="0.00199999999999889" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
-    <testcase time="0.00100000000000122" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
-    <testcase time="0.00199999999999889" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
-    <testcase time="0.00100000000000122" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
-    <testcase time="0.00199999999999889" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
-    <testcase time="0.0560000000000009" classname="HermesData_methods" name="show_works_as_expected_for_RangedHermesData"/>
-    <testcase time="0.000999999999999446" classname="HermesData_methods" name="show_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
+    <testcase time="0.000999999999999446" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
+    <testcase time="0.000999999999999446" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="show_works_as_expected_for_HermesData"/>
+    <testcase time="0.0559999999999992" classname="HermesData_methods" name="show_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.00200000000000067" classname="HermesData_methods" name="show_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.000999999999999446" classname="HermesData_methods" name="show_works_as_expected_for_RangedHermesData"/>
-    <testcase time="2.512" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="show_works_as_expected_for_RangedHermesData"/>
+    <testcase time="2.5" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
     <testcase time="0.00199999999999889" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
-    <testcase time="0.00200000000000067" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
-    <testcase time="0.00200000000000067" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
-    <testcase time="0.00499999999999901" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
-    <testcase time="0.00400000000000134" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
+    <testcase time="0.00199999999999889" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
+    <testcase time="0.00500000000000078" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
     <testcase time="0.00399999999999956" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
-    <testcase time="0.244999999999999" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
-    <testcase time="0.00100000000000122" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
+    <testcase time="0.00399999999999956" classname="HermesData_methods" name="lapply_works_as_expected_for_an_MAE"/>
+    <testcase time="0.245000000000001" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
+    <testcase time="0.000999999999999446" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
     <testcase time="0.00300000000000011" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
-    <testcase time="0.00199999999999889" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
-    <testcase time="0.00500000000000078" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
-    <testcase time="0.00399999999999956" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
-    <testcase time="0.0540000000000003" classname="HermesData_methods" name="lapply_fails_as_expected_with_safe_FALSE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
-    <testcase time="0.00799999999999912" classname="HermesData_methods" name="isEmpty_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="HermesData_methods" name="isEmpty_works_as_expected"/>
-    <testcase time="0.0120000000000005" classname="HermesData_methods" name="isEmpty_works_as_expected"/>
+    <testcase time="0.00200000000000067" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
+    <testcase time="0.00499999999999901" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
+    <testcase time="0.00400000000000134" classname="HermesData_methods" name="lapply_works_as_expected_with_safe_TRUE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
+    <testcase time="0.0549999999999997" classname="HermesData_methods" name="lapply_fails_as_expected_with_safe_FALSE_argument_when_converting_experiments_in_an_MAE_to_HermesData"/>
+    <testcase time="0.00600000000000023" classname="HermesData_methods" name="isEmpty_works_as_expected"/>
+    <testcase time="0.00399999999999956" classname="HermesData_methods" name="isEmpty_works_as_expected"/>
+    <testcase time="0.0109999999999992" classname="HermesData_methods" name="isEmpty_works_as_expected"/>
     <testcase time="0.00900000000000034" classname="HermesData_methods" name="isEmpty_works_as_expected"/>
-    <testcase time="0.0220000000000002" classname="HermesData_methods" name="isEmpty_works_as_expected"/>
+    <testcase time="0.0210000000000008" classname="HermesData_methods" name="isEmpty_works_as_expected"/>
   </testsuite>
-  <testsuite name="HermesData-validate" timestamp="2025-08-12T10:03:03Z" hostname="e03797136d05" tests="23" skipped="0" failures="0" errors="0" time="0.216">
-    <testcase time="0.020999999999999" classname="HermesData_validate" name="validate_counts_returns_NULL_for_a_valid_object"/>
-    <testcase time="0.0120000000000005" classname="HermesData_validate" name="validate_counts_returns_messages_as_expected_for_invalid_objects"/>
+  <testsuite name="HermesData-validate" timestamp="2025-09-03T08:06:30Z" hostname="b0678e5eeb18" tests="23" skipped="0" failures="0" errors="0" time="0.215">
+    <testcase time="0.0199999999999996" classname="HermesData_validate" name="validate_counts_returns_NULL_for_a_valid_object"/>
+    <testcase time="0.0129999999999999" classname="HermesData_validate" name="validate_counts_returns_messages_as_expected_for_invalid_objects"/>
     <testcase time="0.00900000000000034" classname="HermesData_validate" name="validate_counts_returns_messages_as_expected_for_invalid_objects"/>
     <testcase time="0.00999999999999979" classname="HermesData_validate" name="validate_counts_returns_messages_as_expected_for_invalid_objects"/>
     <testcase time="0.00600000000000023" classname="HermesData_validate" name="validate_cols_returns_NULL_when_columns_are_found"/>
-    <testcase time="0.00600000000000023" classname="HermesData_validate" name="validate_cols_returns_messages_as_expected_when_columns_are_not_found"/>
+    <testcase time="0.00499999999999901" classname="HermesData_validate" name="validate_cols_returns_messages_as_expected_when_columns_are_not_found"/>
     <testcase time="0.00199999999999889" classname="HermesData_validate" name="validate_cols_returns_messages_as_expected_when_columns_are_not_found"/>
-    <testcase time="0.0129999999999999" classname="HermesData_validate" name="validate_row_data_returns_NULL_for_a_valid_object"/>
-    <testcase time="0.0119999999999987" classname="HermesData_validate" name="validate_row_data_returns_messages_as_expected_for_invalid_object"/>
-    <testcase time="0.00900000000000034" classname="HermesData_validate" name="validate_row_data_returns_messages_as_expected_for_invalid_object"/>
-    <testcase time="0.0120000000000005" classname="HermesData_validate" name="validate_col_data_returns_NULL_for_a_valid_object"/>
-    <testcase time="0.0120000000000005" classname="HermesData_validate" name="validate_col_data_returns_messages_as_expected_for_invalid_object"/>
-    <testcase time="0.00799999999999912" classname="HermesData_validate" name="validate_col_data_returns_messages_as_expected_for_invalid_object"/>
-    <testcase time="0.0129999999999999" classname="HermesData_validate" name="validate_names_returns_NULL_for_a_valid_object"/>
-    <testcase time="0.0120000000000005" classname="HermesData_validate" name="validate_names_returns_messages_as_expected_for_invalid_object"/>
+    <testcase time="0.0140000000000011" classname="HermesData_validate" name="validate_row_data_returns_NULL_for_a_valid_object"/>
+    <testcase time="0.0109999999999992" classname="HermesData_validate" name="validate_row_data_returns_messages_as_expected_for_invalid_object"/>
+    <testcase time="0.00999999999999979" classname="HermesData_validate" name="validate_row_data_returns_messages_as_expected_for_invalid_object"/>
+    <testcase time="0.011000000000001" classname="HermesData_validate" name="validate_col_data_returns_NULL_for_a_valid_object"/>
+    <testcase time="0.0109999999999992" classname="HermesData_validate" name="validate_col_data_returns_messages_as_expected_for_invalid_object"/>
+    <testcase time="0.00900000000000034" classname="HermesData_validate" name="validate_col_data_returns_messages_as_expected_for_invalid_object"/>
+    <testcase time="0.0120000000000005" classname="HermesData_validate" name="validate_names_returns_NULL_for_a_valid_object"/>
+    <testcase time="0.0129999999999999" classname="HermesData_validate" name="validate_names_returns_messages_as_expected_for_invalid_object"/>
     <testcase time="0.00999999999999979" classname="HermesData_validate" name="validate_names_returns_messages_as_expected_for_invalid_object"/>
     <testcase time="0.00999999999999979" classname="HermesData_validate" name="validate_names_returns_messages_as_expected_for_invalid_object"/>
     <testcase time="0.00900000000000034" classname="HermesData_validate" name="validate_names_returns_messages_as_expected_for_invalid_object"/>
     <testcase time="0.00999999999999979" classname="HermesData_validate" name="validate_names_returns_messages_as_expected_for_invalid_object"/>
     <testcase time="0.00600000000000023" classname="HermesData_validate" name="validate_prefix_returns_NULL_for_a_valid_object"/>
     <testcase time="0.00699999999999967" classname="HermesData_validate" name="validate_prefix_returns_messages_as_expected_for_wrong_prefix_with_whitespace"/>
-    <testcase time="0.00500000000000078" classname="HermesData_validate" name="validate_prefix_returns_correct_message_when_prefix_has_two_elements"/>
-    <testcase time="0.00199999999999889" classname="HermesData_validate" name="validate_prefix_returns_correct_message_when_prefix_has_two_elements"/>
+    <testcase time="0.00499999999999901" classname="HermesData_validate" name="validate_prefix_returns_correct_message_when_prefix_has_two_elements"/>
+    <testcase time="0.00200000000000067" classname="HermesData_validate" name="validate_prefix_returns_correct_message_when_prefix_has_two_elements"/>
   </testsuite>
-  <testsuite name="assertthat" timestamp="2025-08-12T10:03:03Z" hostname="e03797136d05" tests="41" skipped="0" failures="0" errors="0" time="0.176">
+  <testsuite name="assertthat" timestamp="2025-09-03T08:06:30Z" hostname="b0678e5eeb18" tests="41" skipped="0" failures="0" errors="0" time="0.175">
     <testcase time="0.00900000000000034" classname="assertthat" name="is_class_works_correctly"/>
-    <testcase time="0.00200000000000067" classname="assertthat" name="is_class_works_correctly"/>
-    <testcase time="0.00799999999999912" classname="assertthat" name="assertion_with_is_class_gives_readable_error_message"/>
+    <testcase time="0.00199999999999889" classname="assertthat" name="is_class_works_correctly"/>
+    <testcase time="0.0080000000000009" classname="assertthat" name="assertion_with_is_class_gives_readable_error_message"/>
     <testcase time="0.00600000000000023" classname="assertthat" name="is_hermes_data_works_correctly"/>
-    <testcase time="0.00200000000000067" classname="assertthat" name="is_hermes_data_works_correctly"/>
-    <testcase time="0.00799999999999912" classname="assertthat" name="assertion_with_is_hermes_data_gives_readable_error_message"/>
+    <testcase time="0.00199999999999889" classname="assertthat" name="is_hermes_data_works_correctly"/>
+    <testcase time="0.0080000000000009" classname="assertthat" name="assertion_with_is_hermes_data_gives_readable_error_message"/>
     <testcase time="0.00600000000000023" classname="assertthat" name="is_counts_vector_accepts_positive_integer_vectors"/>
-    <testcase time="0.00300000000000011" classname="assertthat" name="is_counts_vector_accepts_positive_integer_vectors"/>
-    <testcase time="0.00500000000000078" classname="assertthat" name="is_counts_vector_rejects_other_inputs_as_expected"/>
+    <testcase time="0.00199999999999889" classname="assertthat" name="is_counts_vector_accepts_positive_integer_vectors"/>
+    <testcase time="0.00600000000000023" classname="assertthat" name="is_counts_vector_rejects_other_inputs_as_expected"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_counts_vector_rejects_other_inputs_as_expected"/>
+    <testcase time="0.00200000000000067" classname="assertthat" name="is_counts_vector_rejects_other_inputs_as_expected"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_counts_vector_rejects_other_inputs_as_expected"/>
-    <testcase time="0.00199999999999889" classname="assertthat" name="is_counts_vector_rejects_other_inputs_as_expected"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_counts_vector_rejects_other_inputs_as_expected"/>
     <testcase time="0.00699999999999967" classname="assertthat" name="is_counts_vector_gives_readable_error_message"/>
     <testcase time="0.00600000000000023" classname="assertthat" name="is_list_with_accepts_lists_with_the_required_elements"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_list_with_accepts_lists_with_the_required_elements"/>
+    <testcase time="0.00199999999999889" classname="assertthat" name="is_list_with_accepts_lists_with_the_required_elements"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_list_with_accepts_lists_with_the_required_elements"/>
-    <testcase time="0.00200000000000067" classname="assertthat" name="is_list_with_accepts_lists_with_the_required_elements"/>
     <testcase time="0.00600000000000023" classname="assertthat" name="is_list_with_rejects_non_lists_or_lists_that_are_not_fully_or_uniquely_named"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_list_with_rejects_non_lists_or_lists_that_are_not_fully_or_uniquely_named"/>
-    <testcase time="0.00299999999999834" classname="assertthat" name="is_list_with_rejects_non_lists_or_lists_that_are_not_fully_or_uniquely_named"/>
+    <testcase time="0.00200000000000067" classname="assertthat" name="is_list_with_rejects_non_lists_or_lists_that_are_not_fully_or_uniquely_named"/>
     <testcase time="0.00600000000000023" classname="assertthat" name="is_list_with_rejects_lists_that_don_t_contain_all_required_elements"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_list_with_rejects_lists_that_don_t_contain_all_required_elements"/>
-    <testcase time="0.00699999999999967" classname="assertthat" name="is_list_with_gives_readable_error_messages"/>
-    <testcase time="0.00500000000000078" classname="assertthat" name="is_list_with_gives_readable_error_messages"/>
+    <testcase time="0.00799999999999912" classname="assertthat" name="is_list_with_gives_readable_error_messages"/>
+    <testcase time="0.00399999999999956" classname="assertthat" name="is_list_with_gives_readable_error_messages"/>
     <testcase time="0.00600000000000023" classname="assertthat" name="one_provided_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="one_provided_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="one_provided_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="assertthat" name="one_provided_works_as_expected"/>
-    <testcase time="0.00600000000000023" classname="assertthat" name="is_constant_works_as_expected_with_numeric"/>
+    <testcase time="0.00200000000000067" classname="assertthat" name="one_provided_works_as_expected"/>
+    <testcase time="0.00699999999999967" classname="assertthat" name="is_constant_works_as_expected_with_numeric"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_constant_works_as_expected_with_numeric"/>
-    <testcase time="0.00299999999999834" classname="assertthat" name="is_constant_works_as_expected_with_numeric"/>
+    <testcase time="0.00300000000000011" classname="assertthat" name="is_constant_works_as_expected_with_numeric"/>
     <testcase time="0.00600000000000023" classname="assertthat" name="is_constant_works_as_expected_with_character"/>
-    <testcase time="0.00300000000000011" classname="assertthat" name="is_constant_works_as_expected_with_character"/>
+    <testcase time="0.00199999999999889" classname="assertthat" name="is_constant_works_as_expected_with_character"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_constant_works_as_expected_with_character"/>
     <testcase time="0.00600000000000023" classname="assertthat" name="is_constant_works_as_expected_with_factor"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_constant_works_as_expected_with_factor"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_constant_works_as_expected_with_factor"/>
     <testcase time="0.00600000000000023" classname="assertthat" name="is_constant_works_as_expected_with_logical"/>
-    <testcase time="0.00199999999999889" classname="assertthat" name="is_constant_works_as_expected_with_logical"/>
+    <testcase time="0.00300000000000011" classname="assertthat" name="is_constant_works_as_expected_with_logical"/>
     <testcase time="0.00300000000000011" classname="assertthat" name="is_constant_works_as_expected_with_logical"/>
   </testsuite>
-  <testsuite name="calc_cor" timestamp="2025-08-12T10:03:03Z" hostname="e03797136d05" tests="15" skipped="0" failures="0" errors="0" time="2.845">
-    <testcase time="0.016" classname="calc_cor" name="calc_cor_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00100000000000122" classname="calc_cor" name="calc_cor_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00199999999999889" classname="calc_cor" name="calc_cor_function_works_as_expected_with_default_settings"/>
+  <testsuite name="calc_cor" timestamp="2025-09-03T08:06:31Z" hostname="b0678e5eeb18" tests="15" skipped="0" failures="0" errors="0" time="2.822">
+    <testcase time="0.0149999999999988" classname="calc_cor" name="calc_cor_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00200000000000067" classname="calc_cor" name="calc_cor_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.000999999999999446" classname="calc_cor" name="calc_cor_function_works_as_expected_with_default_settings"/>
     <testcase time="0.0250000000000004" classname="calc_cor" name="calc_cor_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.000999999999999446" classname="calc_cor" name="calc_cor_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00100000000000122" classname="calc_cor" name="calc_cor_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00900000000000034" classname="calc_cor" name="calc_cor_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0179999999999989" classname="calc_cor" name="calc_cor_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00600000000000023" classname="calc_cor" name="calc_cor_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000078" classname="calc_cor" name="calc_cor_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0169999999999995" classname="calc_cor" name="calc_cor_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00699999999999967" classname="calc_cor" name="calc_cor_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999956" classname="calc_cor" name="calc_cor_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00999999999999979" classname="calc_cor" name="autoplot_method_does_not_give_warnings_on_HermesDataCor_objects"/>
-    <testcase time="0.193" classname="calc_cor" name="autoplot_method_does_not_give_warnings_on_HermesDataCor_objects"/>
-    <testcase time="0.000999999999999446" classname="calc_cor" name="autoplot_method_does_not_give_warnings_on_HermesDataCor_objects"/>
-    <testcase time="0.535" classname="calc_cor" name="autoplot_for_HermesDataCor_works_as_expected_with_default_options"/>
-    <testcase time="2.022" classname="calc_cor" name="autoplot_for_HermesDataCor_works_as_expected_with_custom_options"/>
+    <testcase time="0.192" classname="calc_cor" name="autoplot_method_does_not_give_warnings_on_HermesDataCor_objects"/>
+    <testcase time="0.00100000000000122" classname="calc_cor" name="autoplot_method_does_not_give_warnings_on_HermesDataCor_objects"/>
+    <testcase time="0.529999999999999" classname="calc_cor" name="autoplot_for_HermesDataCor_works_as_expected_with_default_options"/>
+    <testcase time="2.007" classname="calc_cor" name="autoplot_for_HermesDataCor_works_as_expected_with_custom_options"/>
   </testsuite>
-  <testsuite name="checkmate" timestamp="2025-08-12T10:03:06Z" hostname="e03797136d05" tests="4" skipped="0" failures="0" errors="0" time="0.017">
+  <testsuite name="checkmate" timestamp="2025-09-03T08:06:33Z" hostname="b0678e5eeb18" tests="4" skipped="0" failures="0" errors="0" time="0.017">
     <testcase time="0.00900000000000034" classname="checkmate" name="check_proportion_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="checkmate" name="check_proportion_works_as_expected"/>
     <testcase time="0.00199999999999889" classname="checkmate" name="check_proportion_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="checkmate" name="check_proportion_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="checkmate" name="check_proportion_works_as_expected"/>
   </testsuite>
-  <testsuite name="connections" timestamp="2025-08-12T10:03:06Z" hostname="e03797136d05" tests="12" skipped="6" failures="0" errors="0" time="0.126">
-    <testcase time="0.00799999999999912" classname="connections" name="connect_biomart_works_as_expected">
+  <testsuite name="connections" timestamp="2025-09-03T08:06:33Z" hostname="b0678e5eeb18" tests="12" skipped="6" failures="0" errors="0" time="0.123">
+    <testcase time="0.00700000000000145" classname="connections" name="connect_biomart_works_as_expected">
       <skipped message="Reason: On CI ('test-connections.R:20:3')"/>
     </testcase>
-    <testcase time="0.0130000000000017" classname="connections" name="connect_biomart_can_specify_older_version_of_Ensembl">
+    <testcase time="0.0139999999999993" classname="connections" name="connect_biomart_can_specify_older_version_of_Ensembl">
       <skipped message="Reason: On CI ('test-connections.R:33:3')"/>
     </testcase>
     <testcase time="0.0259999999999998" classname="connections" name="h_get_annotation_biomart_works_as_expected">
       <skipped message="Reason: On CI ('test-connections.R:48:3')"/>
     </testcase>
-    <testcase time="0.0150000000000006" classname="connections" name="h_strip_prefix_works_as_expected"/>
+    <testcase time="0.0139999999999993" classname="connections" name="h_strip_prefix_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="connections" name="h_strip_prefix_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="connections" name="h_strip_prefix_works_as_expected"/>
-    <testcase time="0.0150000000000006" classname="connections" name="h_get_size_biomart_works_as_expected">
+    <testcase time="0.00200000000000244" classname="connections" name="h_strip_prefix_works_as_expected"/>
+    <testcase time="0.0159999999999982" classname="connections" name="h_get_size_biomart_works_as_expected">
       <skipped message="Reason: On CI ('test-connections.R:89:3')"/>
     </testcase>
-    <testcase time="0.0139999999999993" classname="connections" name="h_ensembl_to_entrez_ids_works_as_expected">
+    <testcase time="0.0130000000000017" classname="connections" name="h_ensembl_to_entrez_ids_works_as_expected">
       <skipped message="Reason: On CI ('test-connections.R:129:3')"/>
     </testcase>
-    <testcase time="0.0180000000000007" classname="connections" name="h_get_granges_by_id_works_as_expected"/>
+    <testcase time="0.0179999999999971" classname="connections" name="h_get_granges_by_id_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="connections" name="h_get_granges_by_id_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="connections" name="h_get_granges_by_id_works_as_expected"/>
-    <testcase time="0.00499999999999901" classname="connections" name="query_to_Biomart_works_as_expected">
+    <testcase time="0.00400000000000134" classname="connections" name="query_to_Biomart_works_as_expected">
       <skipped message="Reason: On CI ('test-connections.R:166:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="data" timestamp="2025-08-12T10:03:06Z" hostname="e03797136d05" tests="11" skipped="0" failures="0" errors="0" time="0.146">
-    <testcase time="0.0150000000000006" classname="data" name="expression_set_can_be_used"/>
-    <testcase time="0.000999999999997669" classname="data" name="expression_set_can_be_used"/>
-    <testcase time="0.00500000000000256" classname="data" name="hermes_data_can_be_used"/>
-    <testcase time="0.000999999999997669" classname="data" name="hermes_data_can_be_used"/>
-    <testcase time="0.00500000000000256" classname="data" name="summarized_experiment_can_be_used"/>
+  <testsuite name="data" timestamp="2025-09-03T08:06:34Z" hostname="b0678e5eeb18" tests="11" skipped="0" failures="0" errors="0" time="0.147">
+    <testcase time="0.0159999999999982" classname="data" name="expression_set_can_be_used"/>
+    <testcase time="0.00100000000000122" classname="data" name="expression_set_can_be_used"/>
+    <testcase time="0.00400000000000134" classname="data" name="hermes_data_can_be_used"/>
+    <testcase time="0.00199999999999889" classname="data" name="hermes_data_can_be_used"/>
+    <testcase time="0.00400000000000134" classname="data" name="summarized_experiment_can_be_used"/>
     <testcase time="0.000999999999997669" classname="data" name="summarized_experiment_can_be_used"/>
-    <testcase time="0.00400000000000134" classname="data" name="hermes_data_is_a_subset_of_summarized_experiment"/>
+    <testcase time="0.00500000000000256" classname="data" name="hermes_data_is_a_subset_of_summarized_experiment"/>
     <testcase time="0.00199999999999889" classname="data" name="hermes_data_is_a_subset_of_summarized_experiment"/>
     <testcase time="0.0210000000000008" classname="data" name="hermes_data_is_a_subset_of_summarized_experiment"/>
-    <testcase time="0.0850000000000009" classname="data" name="hermes_data_is_a_subset_of_summarized_experiment"/>
+    <testcase time="0.0849999999999973" classname="data" name="hermes_data_is_a_subset_of_summarized_experiment"/>
     <testcase time="0.00600000000000023" classname="data" name="hermes_data_is_a_subset_of_summarized_experiment"/>
   </testsuite>
-  <testsuite name="differential" timestamp="2025-08-12T10:03:06Z" hostname="e03797136d05" tests="37" skipped="0" failures="0" errors="0" time="28.574">
-    <testcase time="1.038" classname="differential" name="h_diff_expr_voom_works_as_expected"/>
-    <testcase time="0.00199999999999889" classname="differential" name="h_diff_expr_voom_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="differential" name="h_diff_expr_voom_works_as_expected"/>
-    <testcase time="0.000999999999997669" classname="differential" name="h_diff_expr_voom_works_as_expected"/>
-    <testcase time="0.456000000000003" classname="differential" name="h_diff_expr_voom_can_pass_arguments_to_limma_eBayes"/>
+  <testsuite name="differential" timestamp="2025-09-03T08:06:34Z" hostname="b0678e5eeb18" tests="37" skipped="0" failures="0" errors="0" time="28.541">
+    <testcase time="1.027" classname="differential" name="h_diff_expr_voom_works_as_expected"/>
+    <testcase time="0.00100000000000122" classname="differential" name="h_diff_expr_voom_works_as_expected"/>
+    <testcase time="0.00399999999999778" classname="differential" name="h_diff_expr_voom_works_as_expected"/>
+    <testcase time="0.00100000000000122" classname="differential" name="h_diff_expr_voom_works_as_expected"/>
+    <testcase time="0.452000000000002" classname="differential" name="h_diff_expr_voom_can_pass_arguments_to_limma_eBayes"/>
     <testcase time="0.00199999999999889" classname="differential" name="h_diff_expr_voom_can_pass_arguments_to_limma_eBayes"/>
-    <testcase time="0.350000000000001" classname="differential" name="h_diff_expr_voom_can_pass_arguments_to_limma_eBayes"/>
-    <testcase time="0.122" classname="differential" name="h_diff_expr_voom_fails_if_design_matrix_is_not_correct"/>
-    <testcase time="0.117999999999999" classname="differential" name="h_diff_expr_voom_fails_if_design_matrix_is_not_correct"/>
-    <testcase time="4.588" classname="differential" name="h_diff_expr_deseq2_works_as_expected"/>
-    <testcase time="0.000999999999997669" classname="differential" name="h_diff_expr_deseq2_works_as_expected"/>
+    <testcase time="0.343999999999998" classname="differential" name="h_diff_expr_voom_can_pass_arguments_to_limma_eBayes"/>
+    <testcase time="0.122000000000003" classname="differential" name="h_diff_expr_voom_fails_if_design_matrix_is_not_correct"/>
+    <testcase time="0.102999999999998" classname="differential" name="h_diff_expr_voom_fails_if_design_matrix_is_not_correct"/>
+    <testcase time="4.627" classname="differential" name="h_diff_expr_deseq2_works_as_expected"/>
+    <testcase time="0.00100000000000122" classname="differential" name="h_diff_expr_deseq2_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="differential" name="h_diff_expr_deseq2_works_as_expected"/>
-    <testcase time="0.00200000000000244" classname="differential" name="h_diff_expr_deseq2_works_as_expected"/>
-    <testcase time="4.991" classname="differential" name="h_diff_expr_deseq2_can_pass_arguments_to_DESeq2_DESeq"/>
+    <testcase time="0.00199999999999889" classname="differential" name="h_diff_expr_deseq2_works_as_expected"/>
+    <testcase time="4.864" classname="differential" name="h_diff_expr_deseq2_can_pass_arguments_to_DESeq2_DESeq"/>
     <testcase time="0.00100000000000122" classname="differential" name="h_diff_expr_deseq2_can_pass_arguments_to_DESeq2_DESeq"/>
-    <testcase time="4.533" classname="differential" name="h_diff_expr_deseq2_can_pass_arguments_to_DESeq2_DESeq"/>
-    <testcase time="0.0919999999999987" classname="differential" name="h_diff_expr_deseq2_fails_if_design_matrix_is_not_correct"/>
-    <testcase time="0.100999999999999" classname="differential" name="h_diff_expr_deseq2_fails_if_design_matrix_is_not_correct"/>
-    <testcase time="5.281" classname="differential" name="diff_expression_works_as_expected_with_the_DESeq2_method"/>
-    <testcase time="0.00200000000000244" classname="differential" name="diff_expression_works_as_expected_with_the_DESeq2_method"/>
+    <testcase time="4.456" classname="differential" name="h_diff_expr_deseq2_can_pass_arguments_to_DESeq2_DESeq"/>
+    <testcase time="0.670999999999999" classname="differential" name="h_diff_expr_deseq2_fails_if_design_matrix_is_not_correct"/>
+    <testcase time="0.0850000000000009" classname="differential" name="h_diff_expr_deseq2_fails_if_design_matrix_is_not_correct"/>
+    <testcase time="4.482" classname="differential" name="diff_expression_works_as_expected_with_the_DESeq2_method"/>
     <testcase time="0.000999999999997669" classname="differential" name="diff_expression_works_as_expected_with_the_DESeq2_method"/>
+    <testcase time="0.00200000000000244" classname="differential" name="diff_expression_works_as_expected_with_the_DESeq2_method"/>
     <testcase time="0.00300000000000011" classname="differential" name="diff_expression_works_as_expected_with_the_DESeq2_method"/>
     <testcase time="0.00200000000000244" classname="differential" name="diff_expression_works_as_expected_with_the_DESeq2_method"/>
-    <testcase time="0.478999999999999" classname="differential" name="diff_expression_works_as_expected_with_the_voom_method"/>
-    <testcase time="0.00200000000000244" classname="differential" name="diff_expression_works_as_expected_with_the_voom_method"/>
+    <testcase time="0.472000000000001" classname="differential" name="diff_expression_works_as_expected_with_the_voom_method"/>
     <testcase time="0.00199999999999534" classname="differential" name="diff_expression_works_as_expected_with_the_voom_method"/>
-    <testcase time="0.00400000000000489" classname="differential" name="diff_expression_works_as_expected_with_the_voom_method"/>
+    <testcase time="0.00200000000000244" classname="differential" name="diff_expression_works_as_expected_with_the_voom_method"/>
+    <testcase time="0.00399999999999778" classname="differential" name="diff_expression_works_as_expected_with_the_voom_method"/>
     <testcase time="0.00300000000000011" classname="differential" name="diff_expression_works_as_expected_with_the_voom_method"/>
-    <testcase time="0.518999999999998" classname="differential" name="diff_expression_allows_passing_of_method_arguments_to_helper_functions"/>
-    <testcase time="4.556" classname="differential" name="diff_expression_allows_passing_of_method_arguments_to_helper_functions"/>
-    <testcase time="0.017000000000003" classname="differential" name="diff_expression_fails_as_expected_with_inappropriate_inputs"/>
-    <testcase time="0.00500000000000256" classname="differential" name="diff_expression_fails_as_expected_with_inappropriate_inputs"/>
+    <testcase time="1.074" classname="differential" name="diff_expression_allows_passing_of_method_arguments_to_helper_functions"/>
+    <testcase time="4.442" classname="differential" name="diff_expression_allows_passing_of_method_arguments_to_helper_functions"/>
+    <testcase time="0.0160000000000053" classname="differential" name="diff_expression_fails_as_expected_with_inappropriate_inputs"/>
     <testcase time="0.00499999999999545" classname="differential" name="diff_expression_fails_as_expected_with_inappropriate_inputs"/>
-    <testcase time="0.688000000000002" classname="differential" name="autoplot_for_HermesDataDiffExpr_works_as_expected_with_default_options"/>
-    <testcase time="0.594999999999999" classname="differential" name="autoplot_for_HermesDataDiffExpr_works_as_expected_with_custom_options"/>
+    <testcase time="0.00400000000000489" classname="differential" name="diff_expression_fails_as_expected_with_inappropriate_inputs"/>
+    <testcase time="0.684999999999995" classname="differential" name="autoplot_for_HermesDataDiffExpr_works_as_expected_with_default_options"/>
+    <testcase time="0.57" classname="differential" name="autoplot_for_HermesDataDiffExpr_works_as_expected_with_custom_options"/>
     <testcase time="0.00300000000000011" classname="differential" name="autoplot_for_HermesDataDiffExpr_works_as_expected_with_custom_options"/>
     <testcase time="0.00300000000000011" classname="differential" name="autoplot_for_HermesDataDiffExpr_works_as_expected_with_custom_options"/>
   </testsuite>
-  <testsuite name="draw_barplot" timestamp="2025-08-12T10:03:35Z" hostname="e03797136d05" tests="1" skipped="0" failures="0" errors="0" time="0.128">
-    <testcase time="0.128" classname="draw_barplot" name="draw_barplot_works_when_there_are_duplicate_labels_in_gene_spec"/>
+  <testsuite name="draw_barplot" timestamp="2025-09-03T08:07:02Z" hostname="b0678e5eeb18" tests="1" skipped="0" failures="0" errors="0" time="0.136">
+    <testcase time="0.136000000000003" classname="draw_barplot" name="draw_barplot_works_when_there_are_duplicate_labels_in_gene_spec"/>
   </testsuite>
-  <testsuite name="draw_boxplot" timestamp="2025-08-12T10:03:35Z" hostname="e03797136d05" tests="2" skipped="0" failures="0" errors="0" time="0.111">
-    <testcase time="0.0989999999999966" classname="draw_boxplot" name="draw_boxplot_works_when_there_are_duplicate_labels_in_gene_spec"/>
+  <testsuite name="draw_boxplot" timestamp="2025-09-03T08:07:02Z" hostname="b0678e5eeb18" tests="3" skipped="0" failures="0" errors="0" time="0.122">
+    <testcase time="0.027000000000001" classname="draw_boxplot" name="draw_boxplot_works_when_there_are_duplicate_labels_in_gene_spec"/>
+    <testcase time="0.0829999999999984" classname="draw_boxplot" name="draw_boxplot_works_when_there_are_duplicate_labels_in_gene_spec"/>
     <testcase time="0.0120000000000005" classname="draw_boxplot" name="h_draw_boxplot_df_works_as_expected"/>
   </testsuite>
-  <testsuite name="draw_heatmap" timestamp="2025-08-12T10:03:35Z" hostname="e03797136d05" tests="1" skipped="0" failures="0" errors="0" time="0.158">
-    <testcase time="0.158000000000001" classname="draw_heatmap" name="draw_heatmap_works_as_expected"/>
+  <testsuite name="draw_heatmap" timestamp="2025-09-03T08:07:03Z" hostname="b0678e5eeb18" tests="1" skipped="0" failures="0" errors="0" time="0.136">
+    <testcase time="0.135999999999996" classname="draw_heatmap" name="draw_heatmap_works_as_expected"/>
   </testsuite>
-  <testsuite name="draw_scatterplot" timestamp="2025-08-12T10:03:35Z" hostname="e03797136d05" tests="1" skipped="0" failures="0" errors="0" time="0.242">
-    <testcase time="0.242000000000004" classname="draw_scatterplot" name="draw_scatterplot_works_when_there_are_duplicate_labels_in_gene_specs"/>
+  <testsuite name="draw_scatterplot" timestamp="2025-09-03T08:07:03Z" hostname="b0678e5eeb18" tests="1" skipped="0" failures="0" errors="0" time="0.234">
+    <testcase time="0.234000000000002" classname="draw_scatterplot" name="draw_scatterplot_works_when_there_are_duplicate_labels_in_gene_specs"/>
   </testsuite>
-  <testsuite name="graphs" timestamp="2025-08-12T10:03:36Z" hostname="e03797136d05" tests="20" skipped="0" failures="0" errors="0" time="2.287">
-    <testcase time="0.0189999999999984" classname="graphs" name="draw_libsize_hist_works_as_expected"/>
-    <testcase time="0.0719999999999956" classname="graphs" name="draw_libsize_hist_works_as_expected"/>
-    <testcase time="0.0160000000000053" classname="graphs" name="draw_libsize_qq_works_as_expected"/>
-    <testcase time="0.0509999999999948" classname="graphs" name="draw_libsize_qq_works_as_expected"/>
-    <testcase time="0.0230000000000032" classname="graphs" name="draw_libsize_densities_works_as_expected"/>
-    <testcase time="0.0840000000000032" classname="graphs" name="draw_libsize_densities_works_as_expected"/>
-    <testcase time="0.00299999999999301" classname="graphs" name="draw_libsize_densities_works_as_expected"/>
-    <testcase time="0.110000000000007" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_default_options"/>
-    <testcase time="0.0730000000000004" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_default_options"/>
-    <testcase time="0.0729999999999933" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_default_options"/>
-    <testcase time="0.0860000000000056" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_custom_options"/>
-    <testcase time="0.0730000000000004" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_custom_options"/>
-    <testcase time="0.0749999999999957" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_custom_options"/>
-    <testcase time="0.155000000000001" classname="graphs" name="draw_genes_barplot_works_as_expected_with_default_options"/>
-    <testcase time="0.0700000000000003" classname="graphs" name="draw_genes_barplot_works_as_expected_with_custom_options"/>
-    <testcase time="0.738999999999997" classname="graphs" name="autoplot_function_works_as_expected_on_HermesData"/>
+  <testsuite name="graphs" timestamp="2025-09-03T08:07:03Z" hostname="b0678e5eeb18" tests="20" skipped="0" failures="0" errors="0" time="2.219">
+    <testcase time="0.0180000000000007" classname="graphs" name="draw_libsize_hist_works_as_expected"/>
+    <testcase time="0.078000000000003" classname="graphs" name="draw_libsize_hist_works_as_expected"/>
+    <testcase time="0.0159999999999982" classname="graphs" name="draw_libsize_qq_works_as_expected"/>
+    <testcase time="0.0489999999999995" classname="graphs" name="draw_libsize_qq_works_as_expected"/>
+    <testcase time="0.0210000000000008" classname="graphs" name="draw_libsize_densities_works_as_expected"/>
+    <testcase time="0.0799999999999983" classname="graphs" name="draw_libsize_densities_works_as_expected"/>
+    <testcase time="0.00200000000000244" classname="graphs" name="draw_libsize_densities_works_as_expected"/>
+    <testcase time="0.0929999999999964" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_default_options"/>
+    <testcase time="0.0700000000000003" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_default_options"/>
+    <testcase time="0.0710000000000051" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_default_options"/>
+    <testcase time="0.0829999999999984" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_custom_options"/>
+    <testcase time="0.0700000000000003" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_custom_options"/>
+    <testcase time="0.0799999999999983" classname="graphs" name="draw_nonzero_boxplot_works_as_expected_with_custom_options"/>
+    <testcase time="0.150999999999996" classname="graphs" name="draw_genes_barplot_works_as_expected_with_default_options"/>
+    <testcase time="0.0670000000000002" classname="graphs" name="draw_genes_barplot_works_as_expected_with_custom_options"/>
+    <testcase time="0.722000000000001" classname="graphs" name="autoplot_function_works_as_expected_on_HermesData"/>
     <testcase time="0.00100000000000477" classname="graphs" name="autoplot_function_works_as_expected_on_HermesData"/>
-    <testcase time="0.533000000000001" classname="graphs" name="autoplot_function_works_as_expected_on_RangedHermesData"/>
-    <testcase time="0.000999999999997669" classname="graphs" name="autoplot_function_works_as_expected_on_RangedHermesData"/>
-    <testcase time="0.0300000000000011" classname="graphs" name="autoplot_fails_as_expected_with_invalid_objects"/>
+    <testcase time="0.513999999999996" classname="graphs" name="autoplot_function_works_as_expected_on_RangedHermesData"/>
+    <testcase time="0.00100000000000477" classname="graphs" name="autoplot_function_works_as_expected_on_RangedHermesData"/>
+    <testcase time="0.0319999999999965" classname="graphs" name="autoplot_fails_as_expected_with_invalid_objects"/>
   </testsuite>
-  <testsuite name="join_cdisc" timestamp="2025-08-12T10:03:38Z" hostname="e03797136d05" tests="16" skipped="0" failures="0" errors="0" time="0.085">
-    <testcase time="0.0159999999999982" classname="join_cdisc" name="col_data_with_genes_works_as_expected"/>
-    <testcase time="0.000999999999997669" classname="join_cdisc" name="col_data_with_genes_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="join_cdisc" name="col_data_with_genes_works_as_expected"/>
-    <testcase time="0.0100000000000051" classname="join_cdisc" name="col_data_with_genes_works_with_duplicate_gene_names"/>
+  <testsuite name="join_cdisc" timestamp="2025-09-03T08:07:05Z" hostname="b0678e5eeb18" tests="16" skipped="0" failures="0" errors="0" time="0.077">
+    <testcase time="0.0129999999999981" classname="join_cdisc" name="col_data_with_genes_works_as_expected"/>
+    <testcase time="0.00200000000000244" classname="join_cdisc" name="col_data_with_genes_works_as_expected"/>
+    <testcase time="0.00200000000000244" classname="join_cdisc" name="col_data_with_genes_works_as_expected"/>
+    <testcase time="0.00900000000000034" classname="join_cdisc" name="col_data_with_genes_works_with_duplicate_gene_names"/>
     <testcase time="0.00300000000000011" classname="join_cdisc" name="col_data_with_genes_works_with_duplicate_gene_names"/>
     <testcase time="0.00300000000000011" classname="join_cdisc" name="col_data_with_genes_works_with_duplicate_gene_names"/>
-    <testcase time="0.0069999999999979" classname="join_cdisc" name="inner_join_cdisc_works_as_expected_in_the_simplest_case"/>
+    <testcase time="0.00599999999999312" classname="join_cdisc" name="inner_join_cdisc_works_as_expected_in_the_simplest_case"/>
     <testcase time="0.00300000000000011" classname="join_cdisc" name="inner_join_cdisc_works_as_expected_in_the_simplest_case"/>
-    <testcase time="0.00600000000000023" classname="join_cdisc" name="inner_join_cdisc_takes_preferentially_the_gene_data_columns_in_case_of_name_overlap"/>
+    <testcase time="0.00500000000000256" classname="join_cdisc" name="inner_join_cdisc_takes_preferentially_the_gene_data_columns_in_case_of_name_overlap"/>
     <testcase time="0.00300000000000011" classname="join_cdisc" name="inner_join_cdisc_takes_preferentially_the_gene_data_columns_in_case_of_name_overlap"/>
-    <testcase time="0.00900000000000034" classname="join_cdisc" name="inner_join_cdisc_warns_when_patients_are_lost_from_gene_data"/>
+    <testcase time="0.00800000000000267" classname="join_cdisc" name="inner_join_cdisc_warns_when_patients_are_lost_from_gene_data"/>
     <testcase time="0.00300000000000011" classname="join_cdisc" name="inner_join_cdisc_warns_when_patients_are_lost_from_gene_data"/>
-    <testcase time="0.00600000000000023" classname="join_cdisc" name="inner_join_cdisc_works_correctly_when_custom_patient_key_is_specified"/>
+    <testcase time="0.00499999999999545" classname="join_cdisc" name="inner_join_cdisc_works_correctly_when_custom_patient_key_is_specified"/>
     <testcase time="0.00300000000000011" classname="join_cdisc" name="inner_join_cdisc_works_correctly_when_custom_patient_key_is_specified"/>
     <testcase time="0.00600000000000023" classname="join_cdisc" name="inner_join_cdisc_works_correctly_when_additional_keys_are_specified"/>
     <testcase time="0.00300000000000011" classname="join_cdisc" name="inner_join_cdisc_works_correctly_when_additional_keys_are_specified"/>
   </testsuite>
-  <testsuite name="normalization" timestamp="2025-08-12T10:03:38Z" hostname="e03797136d05" tests="84" skipped="0" failures="0" errors="0" time="10.266">
-    <testcase time="0.00799999999999557" classname="normalization" name="control_normalize_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00100000000000477" classname="normalization" name="control_normalize_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.0159999999999982" classname="normalization" name="control_normalize_function_works_as_expected_with_custom_settings"/>
+  <testsuite name="normalization" timestamp="2025-09-03T08:07:05Z" hostname="b0678e5eeb18" tests="84" skipped="0" failures="0" errors="0" time="10.051">
+    <testcase time="0.007000000000005" classname="normalization" name="control_normalize_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.000999999999997669" classname="normalization" name="control_normalize_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00500000000000256" classname="normalization" name="control_normalize_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.000999999999997669" classname="normalization" name="control_normalize_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00300000000000011" classname="normalization" name="control_normalize_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00300000000000011" classname="normalization" name="control_normalize_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00200000000000244" classname="normalization" name="control_normalize_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00300000000000011" classname="normalization" name="control_normalize_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00199999999999534" classname="normalization" name="control_normalize_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00800000000000267" classname="normalization" name="control_normalize_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="normalization" name="control_normalize_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00400000000000489" classname="normalization" name="control_normalize_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="normalization" name="control_normalize_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999778" classname="normalization" name="control_normalize_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999778" classname="normalization" name="control_normalize_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00500000000000256" classname="normalization" name="control_normalize_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0110000000000028" classname="normalization" name="h_cpm_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00399999999999778" classname="normalization" name="control_normalize_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0100000000000051" classname="normalization" name="h_cpm_function_works_as_expected_with_default_settings"/>
     <testcase time="0.000999999999997669" classname="normalization" name="h_cpm_function_works_as_expected_with_default_settings"/>
     <testcase time="0.00300000000000011" classname="normalization" name="h_cpm_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.0330000000000013" classname="normalization" name="t_cpm_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00399999999999778" classname="normalization" name="t_cpm_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00200000000000244" classname="normalization" name="t_cpm_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.0309999999999988" classname="normalization" name="t_cpm_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00300000000000011" classname="normalization" name="t_cpm_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0379999999999967" classname="normalization" name="h_cpm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000256" classname="normalization" name="h_cpm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00200000000000244" classname="normalization" name="t_cpm_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00199999999999534" classname="normalization" name="t_cpm_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.0370000000000061" classname="normalization" name="h_cpm_function_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="normalization" name="h_cpm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000256" classname="normalization" name="h_cpm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000256" classname="normalization" name="h_cpm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0120000000000005" classname="normalization" name="h_rpkm_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00399999999999778" classname="normalization" name="h_rpkm_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.0319999999999965" classname="normalization" name="h_rpkm_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00400000000000489" classname="normalization" name="h_cpm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00499999999999545" classname="normalization" name="h_cpm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999778" classname="normalization" name="h_cpm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0110000000000028" classname="normalization" name="h_rpkm_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00300000000000011" classname="normalization" name="h_rpkm_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.0309999999999988" classname="normalization" name="h_rpkm_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00500000000000256" classname="normalization" name="h_rpkm_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00399999999999778" classname="normalization" name="h_rpkm_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0410000000000039" classname="normalization" name="h_rpkm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="normalization" name="h_rpkm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00300000000000011" classname="normalization" name="h_rpkm_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.0390000000000015" classname="normalization" name="h_rpkm_function_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00399999999999778" classname="normalization" name="h_rpkm_function_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00500000000000256" classname="normalization" name="h_rpkm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0240000000000009" classname="normalization" name="h_rpkm_function_fails_when_at_least_one_gene_has_missing_size_"/>
-    <testcase time="0.0120000000000005" classname="normalization" name="h_tpm_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.0329999999999941" classname="normalization" name="h_tpm_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00600000000000023" classname="normalization" name="h_tpm_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0420000000000016" classname="normalization" name="h_tpm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00900000000000034" classname="normalization" name="h_tpm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000256" classname="normalization" name="h_tpm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="normalization" name="h_tpm_function_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0450000000000017" classname="normalization" name="h_voom_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00399999999999778" classname="normalization" name="h_rpkm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0210000000000008" classname="normalization" name="h_rpkm_function_fails_when_at_least_one_gene_has_missing_size_"/>
+    <testcase time="0.0109999999999957" classname="normalization" name="h_tpm_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.0310000000000059" classname="normalization" name="h_tpm_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00499999999999545" classname="normalization" name="h_tpm_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.0390000000000015" classname="normalization" name="h_tpm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00800000000000267" classname="normalization" name="h_tpm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0150000000000006" classname="normalization" name="h_tpm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999778" classname="normalization" name="h_tpm_function_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0429999999999993" classname="normalization" name="h_voom_function_works_as_expected_with_default_settings"/>
     <testcase time="0.00200000000000244" classname="normalization" name="h_voom_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.0439999999999969" classname="normalization" name="h_voom_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.000999999999997669" classname="normalization" name="h_voom_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0430000000000064" classname="normalization" name="h_voom_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0419999999999945" classname="normalization" name="h_voom_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00100000000000477" classname="normalization" name="h_voom_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.0399999999999991" classname="normalization" name="h_voom_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="normalization" name="h_voom_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000256" classname="normalization" name="h_voom_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000256" classname="normalization" name="h_voom_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0439999999999969" classname="normalization" name="h_voom_works_when_there_are_no_samples"/>
-    <testcase time="0.00500000000000256" classname="normalization" name="h_voom_works_when_there_are_no_samples"/>
-    <testcase time="0.0389999999999944" classname="normalization" name="h_voom_works_when_there_are_no_genes"/>
-    <testcase time="0.00600000000000023" classname="normalization" name="h_voom_works_when_there_are_no_genes"/>
-    <testcase time="0.088000000000001" classname="normalization" name="normalize_works_as_expected_for_HermesData"/>
-    <testcase time="0.00200000000000244" classname="normalization" name="normalize_works_as_expected_for_HermesData"/>
+    <testcase time="0.00400000000000489" classname="normalization" name="h_voom_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00499999999999545" classname="normalization" name="h_voom_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0400000000000063" classname="normalization" name="h_voom_works_when_there_are_no_samples"/>
+    <testcase time="0.00499999999999545" classname="normalization" name="h_voom_works_when_there_are_no_samples"/>
+    <testcase time="0.036999999999999" classname="normalization" name="h_voom_works_when_there_are_no_genes"/>
+    <testcase time="0.00400000000000489" classname="normalization" name="h_voom_works_when_there_are_no_genes"/>
+    <testcase time="0.0730000000000004" classname="normalization" name="normalize_works_as_expected_for_HermesData"/>
+    <testcase time="0.00199999999999534" classname="normalization" name="normalize_works_as_expected_for_HermesData"/>
     <testcase time="0.00300000000000011" classname="normalization" name="normalize_works_as_expected_for_HermesData"/>
-    <testcase time="0.104999999999997" classname="normalization" name="normalize_works_as_expected_for_RangedHermesData"/>
-    <testcase time="0.00200000000000244" classname="normalization" name="normalize_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.105000000000004" classname="normalization" name="normalize_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.000999999999997669" classname="normalization" name="normalize_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.00399999999999778" classname="normalization" name="normalize_works_as_expected_for_RangedHermesData"/>
-    <testcase time="0.0560000000000045" classname="normalization" name="normalize_fails_as_expected_with_wrong_method_choice"/>
-    <testcase time="0.00499999999999545" classname="normalization" name="normalize_fails_as_expected_with_wrong_method_choice"/>
-    <testcase time="0.0650000000000048" classname="normalization" name="normalize_works_when_global_environment_overwrites_helper_function"/>
-    <testcase time="1.003" classname="normalization" name="h_vst_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00199999999999534" classname="normalization" name="h_vst_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.957999999999998" classname="normalization" name="h_vst_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00200000000000244" classname="normalization" name="h_vst_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0429999999999993" classname="normalization" name="h_vst_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000256" classname="normalization" name="h_vst_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0549999999999997" classname="normalization" name="normalize_fails_as_expected_with_wrong_method_choice"/>
+    <testcase time="0.00500000000000256" classname="normalization" name="normalize_fails_as_expected_with_wrong_method_choice"/>
+    <testcase time="0.0630000000000024" classname="normalization" name="normalize_works_when_global_environment_overwrites_helper_function"/>
+    <testcase time="0.974999999999994" classname="normalization" name="h_vst_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00200000000000244" classname="normalization" name="h_vst_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.933999999999997" classname="normalization" name="h_vst_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00100000000000477" classname="normalization" name="h_vst_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.0399999999999991" classname="normalization" name="h_vst_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00500000000000256" classname="normalization" name="h_vst_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="normalization" name="h_vst_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0790000000000006" classname="normalization" name="h_vst_fails_when_there_are_no_samples"/>
-    <testcase time="0.0769999999999982" classname="normalization" name="h_vst_fails_when_there_are_no_genes"/>
-    <testcase time="0.443000000000005" classname="normalization" name="h_vst_gives_understandable_error_for_an_object_with_few_genes"/>
-    <testcase time="3.069" classname="normalization" name="h_rlog_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00300000000000011" classname="normalization" name="h_rlog_function_works_as_expected_with_default_settings"/>
-    <testcase time="3.329" classname="normalization" name="h_rlog_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00200000000000244" classname="normalization" name="h_rlog_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0619999999999976" classname="normalization" name="h_rlog_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0069999999999979" classname="normalization" name="h_rlog_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999778" classname="normalization" name="h_vst_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0740000000000052" classname="normalization" name="h_vst_fails_when_there_are_no_samples"/>
+    <testcase time="0.0739999999999981" classname="normalization" name="h_vst_fails_when_there_are_no_genes"/>
+    <testcase time="0.426000000000002" classname="normalization" name="h_vst_gives_understandable_error_for_an_object_with_few_genes"/>
+    <testcase time="3.074" classname="normalization" name="h_rlog_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00200000000000244" classname="normalization" name="h_rlog_function_works_as_expected_with_default_settings"/>
+    <testcase time="3.268" classname="normalization" name="h_rlog_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00300000000000011" classname="normalization" name="h_rlog_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.0599999999999952" classname="normalization" name="h_rlog_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.007000000000005" classname="normalization" name="h_rlog_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.0069999999999979" classname="normalization" name="h_rlog_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0800000000000054" classname="normalization" name="h_rlog_fails_when_there_are_no_samples"/>
-    <testcase time="0.0769999999999982" classname="normalization" name="h_rlog_fails_when_there_are_no_genes"/>
+    <testcase time="0.0069999999999979" classname="normalization" name="h_rlog_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0760000000000005" classname="normalization" name="h_rlog_fails_when_there_are_no_samples"/>
+    <testcase time="0.0730000000000004" classname="normalization" name="h_rlog_fails_when_there_are_no_genes"/>
   </testsuite>
-  <testsuite name="pca" timestamp="2025-08-12T10:03:48Z" hostname="e03797136d05" tests="23" skipped="0" failures="0" errors="0" time="4.487">
-    <testcase time="1.113" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
-    <testcase time="0.0480000000000018" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
-    <testcase time="0.00199999999999534" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
+  <testsuite name="pca" timestamp="2025-09-03T08:07:15Z" hostname="b0678e5eeb18" tests="23" skipped="0" failures="0" errors="0" time="4.856">
+    <testcase time="1.688" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
+    <testcase time="0.0439999999999969" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
     <testcase time="0.00200000000000244" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
-    <testcase time="1.157" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_another_assay"/>
-    <testcase time="0.288000000000004" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_another_assay"/>
-    <testcase time="0.00300000000000011" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_another_assay"/>
-    <testcase time="0.000999999999997669" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_another_assay"/>
-    <testcase time="0.0799999999999983" classname="pca" name="calc_pca_function_works_for_RangedHermesData_with_only_2_samples_and_cpm_rpkm_tpm_voom_normalization"/>
-    <testcase time="0.0630000000000024" classname="pca" name="calc_pca_function_works_for_RangedHermesData_with_only_2_samples_and_cpm_rpkm_tpm_voom_normalization"/>
-    <testcase time="0.00599999999999312" classname="pca" name="calc_pca_function_works_for_RangedHermesData_with_only_2_samples_and_cpm_rpkm_tpm_voom_normalization"/>
-    <testcase time="0.00100000000000477" classname="pca" name="calc_pca_function_works_for_RangedHermesData_with_only_2_samples_and_cpm_rpkm_tpm_voom_normalization"/>
+    <testcase time="0.000999999999997669" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
+    <testcase time="1.084" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_another_assay"/>
+    <testcase time="0.259" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_another_assay"/>
+    <testcase time="0.00199999999999534" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_another_assay"/>
+    <testcase time="0.00200000000000244" classname="pca" name="calc_pca_function_works_as_expected_for_HermesData_with_another_assay"/>
+    <testcase time="0.0760000000000005" classname="pca" name="calc_pca_function_works_for_RangedHermesData_with_only_2_samples_and_cpm_rpkm_tpm_voom_normalization"/>
+    <testcase time="0.0619999999999976" classname="pca" name="calc_pca_function_works_for_RangedHermesData_with_only_2_samples_and_cpm_rpkm_tpm_voom_normalization"/>
+    <testcase time="0.00500000000000256" classname="pca" name="calc_pca_function_works_for_RangedHermesData_with_only_2_samples_and_cpm_rpkm_tpm_voom_normalization"/>
     <testcase time="0.000999999999997669" classname="pca" name="calc_pca_function_works_for_RangedHermesData_with_only_2_samples_and_cpm_rpkm_tpm_voom_normalization"/>
-    <testcase time="0.054000000000002" classname="pca" name="calc_pca_function_fails_for_RangedHermesData_with_only_2_samples_and_vst_rlog_transformation"/>
-    <testcase time="0.420000000000002" classname="pca" name="calc_pca_function_fails_for_RangedHermesData_with_only_2_samples_and_vst_rlog_transformation"/>
+    <testcase time="0.00100000000000477" classname="pca" name="calc_pca_function_works_for_RangedHermesData_with_only_2_samples_and_cpm_rpkm_tpm_voom_normalization"/>
+    <testcase time="0.0509999999999948" classname="pca" name="calc_pca_function_fails_for_RangedHermesData_with_only_2_samples_and_vst_rlog_transformation"/>
+    <testcase time="0.390999999999998" classname="pca" name="calc_pca_function_fails_for_RangedHermesData_with_only_2_samples_and_vst_rlog_transformation"/>
     <testcase time="0.00500000000000256" classname="pca" name="calc_pca_function_fails_for_RangedHermesData_with_only_2_samples_and_vst_rlog_transformation"/>
-    <testcase time="1.104" classname="pca" name="calc_pca_function_fails_as_expected_with_wrong_assay_choice"/>
+    <testcase time="1.053" classname="pca" name="calc_pca_function_fails_as_expected_with_wrong_assay_choice"/>
     <testcase time="0.0069999999999979" classname="pca" name="calc_pca_function_fails_as_expected_with_wrong_assay_choice"/>
-    <testcase time="0.00600000000000023" classname="pca" name="calc_pca_function_fails_as_expected_with_wrong_assay_choice"/>
-    <testcase time="0.0240000000000009" classname="pca" name="calc_pca_function_works_as_expected_with_n_top_option"/>
-    <testcase time="0.00399999999999778" classname="pca" name="calc_pca_function_works_as_expected_with_n_top_option"/>
-    <testcase time="0.0930000000000035" classname="pca" name="calc_pca_function_returns_less_genes_than_specified_in_n_top"/>
-    <testcase time="0.00499999999999545" classname="pca" name="calc_pca_function_returns_less_genes_than_specified_in_n_top"/>
+    <testcase time="0.00399999999999778" classname="pca" name="calc_pca_function_fails_as_expected_with_wrong_assay_choice"/>
+    <testcase time="0.0219999999999985" classname="pca" name="calc_pca_function_works_as_expected_with_n_top_option"/>
+    <testcase time="0.00400000000000489" classname="pca" name="calc_pca_function_works_as_expected_with_n_top_option"/>
+    <testcase time="0.088000000000001" classname="pca" name="calc_pca_function_returns_less_genes_than_specified_in_n_top"/>
+    <testcase time="0.00399999999999778" classname="pca" name="calc_pca_function_returns_less_genes_than_specified_in_n_top"/>
   </testsuite>
-  <testsuite name="pca_cor_samplevar" timestamp="2025-08-12T10:03:53Z" hostname="e03797136d05" tests="36" skipped="0" failures="0" errors="0" time="1.223">
-    <testcase time="0.105000000000004" classname="pca_cor_samplevar" name="h_pca_var_rsquared_works_as_expected"/>
+  <testsuite name="pca_cor_samplevar" timestamp="2025-09-03T08:07:20Z" hostname="b0678e5eeb18" tests="36" skipped="0" failures="0" errors="0" time="1.153">
+    <testcase time="0.0790000000000006" classname="pca_cor_samplevar" name="h_pca_var_rsquared_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="pca_cor_samplevar" name="h_pca_var_rsquared_works_as_expected"/>
     <testcase time="0.00499999999999545" classname="pca_cor_samplevar" name="h_pca_var_rsquared_works_as_expected"/>
-    <testcase time="0.00200000000000244" classname="pca_cor_samplevar" name="h_pca_var_rsquared_works_as_expected"/>
+    <testcase time="0.00100000000000477" classname="pca_cor_samplevar" name="h_pca_var_rsquared_works_as_expected"/>
     <testcase time="0.00399999999999778" classname="pca_cor_samplevar" name="h_pca_var_rsquared_works_as_expected"/>
-    <testcase time="0.00300000000000011" classname="pca_cor_samplevar" name="h_pca_var_rsquared_works_as_expected"/>
-    <testcase time="0.0480000000000018" classname="pca_cor_samplevar" name="h_pca_var_rsquared_fails_as_expected_with_invalid_inputs"/>
-    <testcase time="0.0069999999999979" classname="pca_cor_samplevar" name="h_pca_var_rsquared_fails_as_expected_with_invalid_inputs"/>
+    <testcase time="0.00399999999999778" classname="pca_cor_samplevar" name="h_pca_var_rsquared_works_as_expected"/>
+    <testcase time="0.0459999999999994" classname="pca_cor_samplevar" name="h_pca_var_rsquared_fails_as_expected_with_invalid_inputs"/>
     <testcase time="0.007000000000005" classname="pca_cor_samplevar" name="h_pca_var_rsquared_fails_as_expected_with_invalid_inputs"/>
-    <testcase time="0.019999999999996" classname="pca_cor_samplevar" name="h_pca_var_rsquared_returns_warning_when_something_is_not_estimable"/>
-    <testcase time="0.000999999999990564" classname="pca_cor_samplevar" name="h_pca_var_rsquared_returns_warning_when_something_is_not_estimable"/>
-    <testcase time="0.0510000000000019" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
-    <testcase time="0.124000000000009" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
-    <testcase time="0.0539999999999878" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
-    <testcase time="0.00200000000000955" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
+    <testcase time="0.00600000000000023" classname="pca_cor_samplevar" name="h_pca_var_rsquared_fails_as_expected_with_invalid_inputs"/>
+    <testcase time="0.0189999999999984" classname="pca_cor_samplevar" name="h_pca_var_rsquared_returns_warning_when_something_is_not_estimable"/>
+    <testcase time="0.00200000000000244" classname="pca_cor_samplevar" name="h_pca_var_rsquared_returns_warning_when_something_is_not_estimable"/>
+    <testcase time="0.0489999999999995" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
+    <testcase time="0.122999999999998" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
+    <testcase time="0.0509999999999948" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
+    <testcase time="0.00100000000000477" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
-    <testcase time="0.00199999999999534" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
+    <testcase time="0.00100000000000477" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_works_as_expected"/>
-    <testcase time="0.0480000000000018" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0649999999999977" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0589999999999975" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0619999999999976" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.007000000000005" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00799999999999557" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0550000000000068" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
-    <testcase time="0.0629999999999882" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
-    <testcase time="0.13000000000001" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
+    <testcase time="0.00699999999999079" classname="pca_cor_samplevar" name="h_pca_df_r2_matrix_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.054000000000002" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
+    <testcase time="0.0430000000000064" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
+    <testcase time="0.125" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
     <testcase time="0.00199999999999534" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="pca_cor_samplevar" name="correlate_method_on_HermesDataPca_works_as_expected"/>
-    <testcase time="0.0499999999999972" classname="pca_cor_samplevar" name="correlate_method_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.128" classname="pca_cor_samplevar" name="correlate_method_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000966" classname="pca_cor_samplevar" name="correlate_method_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00799999999999557" classname="pca_cor_samplevar" name="correlate_method_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.174999999999997" classname="pca_cor_samplevar" name="autoplot_method_does_not_give_warnings_on_HermesDataPcaCor_objects"/>
-    <testcase time="0.0240000000000009" classname="pca_cor_samplevar" name="autoplot_method_does_not_give_warnings_on_HermesDataPcaCor_objects"/>
-    <testcase time="0.00199999999999534" classname="pca_cor_samplevar" name="autoplot_method_does_not_give_warnings_on_HermesDataPcaCor_objects"/>
+    <testcase time="0.0460000000000065" classname="pca_cor_samplevar" name="correlate_method_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.125" classname="pca_cor_samplevar" name="correlate_method_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00499999999999545" classname="pca_cor_samplevar" name="correlate_method_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.007000000000005" classname="pca_cor_samplevar" name="correlate_method_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.170999999999992" classname="pca_cor_samplevar" name="autoplot_method_does_not_give_warnings_on_HermesDataPcaCor_objects"/>
+    <testcase time="0.0229999999999961" classname="pca_cor_samplevar" name="autoplot_method_does_not_give_warnings_on_HermesDataPcaCor_objects"/>
+    <testcase time="0.00100000000000477" classname="pca_cor_samplevar" name="autoplot_method_does_not_give_warnings_on_HermesDataPcaCor_objects"/>
   </testsuite>
-  <testsuite name="quality" timestamp="2025-08-12T10:03:54Z" hostname="e03797136d05" tests="98" skipped="0" failures="0" errors="0" time="0.836">
-    <testcase time="0.00800000000000978" classname="quality" name="control_quality_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.000999999999990564" classname="quality" name="control_quality_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00500000000000966" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.000999999999990564" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
+  <testsuite name="quality" timestamp="2025-09-03T08:07:21Z" hostname="b0678e5eeb18" tests="98" skipped="0" failures="0" errors="0" time="0.768">
+    <testcase time="0.00799999999999557" classname="quality" name="control_quality_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00100000000000477" classname="quality" name="control_quality_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00499999999999545" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00100000000000477" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00199999999999534" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00300000000000011" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00300000000000011" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00300000000000011" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00300000000000011" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00800000000000978" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000966" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000966" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00200000000000955" classname="quality" name="control_quality_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00799999999999557" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0150000000000006" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00400000000000489" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00400000000000489" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00499999999999545" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00400000000000489" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00400000000000489" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00400000000000489" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00500000000000966" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00500000000000966" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00400000000000489" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000966" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000966" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000966" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00399999999999068" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000966" classname="quality" name="control_quality_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0360000000000014" classname="quality" name="add_quality_flags_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.000999999999990564" classname="quality" name="add_quality_flags_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.0530000000000115" classname="quality" name="add_quality_flags_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00199999999999534" classname="quality" name="add_quality_flags_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0390000000000015" classname="quality" name="add_quality_flags_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00600000000000023" classname="quality" name="add_quality_flags_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="quality" name="add_quality_flags_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="quality" name="add_quality_flags_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0330000000000013" classname="quality" name="add_quality_flags_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00100000000000477" classname="quality" name="add_quality_flags_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.0319999999999965" classname="quality" name="add_quality_flags_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00200000000000955" classname="quality" name="add_quality_flags_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.0359999999999872" classname="quality" name="add_quality_flags_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00500000000000966" classname="quality" name="add_quality_flags_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00900000000000034" classname="quality" name="h_low_expression_flag_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00399999999999068" classname="quality" name="add_quality_flags_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00400000000000489" classname="quality" name="add_quality_flags_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00499999999999545" classname="quality" name="add_quality_flags_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00800000000000978" classname="quality" name="h_low_expression_flag_function_works_as_expected_with_default_settings"/>
     <testcase time="0.000999999999990564" classname="quality" name="h_low_expression_flag_function_works_as_expected_with_default_settings"/>
     <testcase time="0.00300000000000011" classname="quality" name="h_low_expression_flag_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00900000000000034" classname="quality" name="h_low_expression_flag_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00100000000000477" classname="quality" name="h_low_expression_flag_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00800000000000978" classname="quality" name="h_low_expression_flag_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.000999999999990564" classname="quality" name="h_low_expression_flag_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00300000000000011" classname="quality" name="h_low_expression_flag_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0390000000000015" classname="quality" name="h_low_expression_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0360000000000014" classname="quality" name="h_low_expression_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00400000000000489" classname="quality" name="h_low_expression_flag_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="quality" name="h_low_expression_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00400000000000489" classname="quality" name="h_low_expression_flag_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="quality" name="h_low_expression_flag_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000966" classname="quality" name="h_low_expression_flag_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="quality" name="h_low_expression_flag_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.0150000000000006" classname="quality" name="h_low_expression_flag_also_works_for_an_object_containing_only_a_single_sample"/>
-    <testcase time="0.00199999999999534" classname="quality" name="h_low_expression_flag_also_works_for_an_object_containing_only_a_single_sample"/>
-    <testcase time="0.00600000000000023" classname="quality" name="h_low_expression_flag_also_works_for_an_object_containing_only_a_single_sample"/>
-    <testcase time="0.00800000000000978" classname="quality" name="h_low_depth_flag_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00199999999999534" classname="quality" name="h_low_depth_flag_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.0130000000000052" classname="quality" name="h_low_expression_flag_also_works_for_an_object_containing_only_a_single_sample"/>
+    <testcase time="0.000999999999990564" classname="quality" name="h_low_expression_flag_also_works_for_an_object_containing_only_a_single_sample"/>
+    <testcase time="0.00500000000000966" classname="quality" name="h_low_expression_flag_also_works_for_an_object_containing_only_a_single_sample"/>
+    <testcase time="0.007000000000005" classname="quality" name="h_low_depth_flag_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00100000000000477" classname="quality" name="h_low_depth_flag_function_works_as_expected_with_default_settings"/>
     <testcase time="0.00300000000000011" classname="quality" name="h_low_depth_flag_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00799999999999557" classname="quality" name="h_low_depth_flag_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00699999999999079" classname="quality" name="h_low_depth_flag_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00100000000000477" classname="quality" name="h_low_depth_flag_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00300000000000011" classname="quality" name="h_low_depth_flag_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0400000000000063" classname="quality" name="h_low_depth_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0370000000000061" classname="quality" name="h_low_depth_flag_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="quality" name="h_low_depth_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00400000000000489" classname="quality" name="h_low_depth_flag_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00499999999999545" classname="quality" name="h_low_depth_flag_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00500000000000966" classname="quality" name="h_low_depth_flag_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="quality" name="h_low_depth_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00400000000000489" classname="quality" name="h_low_depth_flag_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00999999999999091" classname="quality" name="h_low_depth_flag_also_works_for_an_object_containing_only_a_single_gene"/>
     <testcase time="0.00100000000000477" classname="quality" name="h_low_depth_flag_also_works_for_an_object_containing_only_a_single_gene"/>
-    <testcase time="0.00199999999999534" classname="quality" name="h_low_depth_flag_also_works_for_an_object_containing_only_a_single_gene"/>
-    <testcase time="0.0110000000000099" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.000999999999990564" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.00300000000000011" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_default_settings"/>
-    <testcase time="0.0110000000000099" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.000999999999990564" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00100000000000477" classname="quality" name="h_low_depth_flag_also_works_for_an_object_containing_only_a_single_gene"/>
+    <testcase time="0.0109999999999957" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.00100000000000477" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.0029999999999859" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_default_settings"/>
+    <testcase time="0.0100000000000051" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00100000000000477" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_custom_settings"/>
     <testcase time="0.00300000000000011" classname="quality" name="h_tech_failure_flag_function_works_as_expected_with_custom_settings"/>
-    <testcase time="0.0380000000000109" classname="quality" name="h_tech_failure_flag_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="quality" name="h_tech_failure_flag_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="quality" name="h_tech_failure_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.0369999999999919" classname="quality" name="h_tech_failure_flag_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.00500000000000966" classname="quality" name="h_tech_failure_flag_fails_as_expected_with_invalid_settings"/>
-    <testcase time="0.00499999999999545" classname="quality" name="h_tech_failure_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999068" classname="quality" name="h_tech_failure_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00500000000000966" classname="quality" name="h_tech_failure_flag_fails_as_expected_with_invalid_settings"/>
+    <testcase time="0.00399999999999068" classname="quality" name="h_tech_failure_flag_fails_as_expected_with_invalid_settings"/>
     <testcase time="0.0100000000000051" classname="quality" name="h_tech_failure_flag_gives_all_FALSE_for_an_object_containing_only_a_single_gene"/>
-    <testcase time="0.000999999999990564" classname="quality" name="h_tech_failure_flag_gives_all_FALSE_for_an_object_containing_only_a_single_gene"/>
-    <testcase time="0.00400000000000489" classname="quality" name="h_tech_failure_flag_gives_all_FALSE_for_an_object_containing_only_a_single_gene"/>
     <testcase time="0.00100000000000477" classname="quality" name="h_tech_failure_flag_gives_all_FALSE_for_an_object_containing_only_a_single_gene"/>
-    <testcase time="0.032999999999987" classname="quality" name="get_tech_failure_function_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="quality" name="h_tech_failure_flag_gives_all_FALSE_for_an_object_containing_only_a_single_gene"/>
+    <testcase time="0.000999999999990564" classname="quality" name="h_tech_failure_flag_gives_all_FALSE_for_an_object_containing_only_a_single_gene"/>
+    <testcase time="0.0320000000000107" classname="quality" name="get_tech_failure_function_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="quality" name="get_tech_failure_function_works_as_expected"/>
-    <testcase time="0.0150000000000006" classname="quality" name="get_tech_failure_fails_as_expected_with_invalid_input"/>
-    <testcase time="0.00500000000000966" classname="quality" name="get_tech_failure_fails_as_expected_with_invalid_input"/>
-    <testcase time="0.0319999999999965" classname="quality" name="get_low_depth_function_works_as_expected"/>
+    <testcase time="0.0139999999999958" classname="quality" name="get_tech_failure_fails_as_expected_with_invalid_input"/>
+    <testcase time="0.00399999999999068" classname="quality" name="get_tech_failure_fails_as_expected_with_invalid_input"/>
+    <testcase time="0.0310000000000059" classname="quality" name="get_low_depth_function_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="quality" name="get_low_depth_function_works_as_expected"/>
-    <testcase time="0.0150000000000006" classname="quality" name="get_low_depth_fails_as_expected_with_invalid_input"/>
-    <testcase time="0.00499999999999545" classname="quality" name="get_low_depth_fails_as_expected_with_invalid_input"/>
-    <testcase time="0.0319999999999965" classname="quality" name="get_low_expression_function_works_as_expected"/>
+    <testcase time="0.0139999999999958" classname="quality" name="get_low_depth_fails_as_expected_with_invalid_input"/>
+    <testcase time="0.00500000000000966" classname="quality" name="get_low_depth_fails_as_expected_with_invalid_input"/>
+    <testcase time="0.039999999999992" classname="quality" name="get_low_expression_function_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="quality" name="get_low_expression_function_works_as_expected"/>
     <testcase time="0.01400000000001" classname="quality" name="get_low_expression_fails_as_expected_with_invalid_input"/>
     <testcase time="0.00499999999999545" classname="quality" name="get_low_expression_fails_as_expected_with_invalid_input"/>
-    <testcase time="0.00799999999999557" classname="quality" name="set_tech_failure_function_works_as_expected"/>
-    <testcase time="0.0100000000000051" classname="quality" name="set_tech_failure_function_works_as_expected"/>
+    <testcase time="0.00699999999999079" classname="quality" name="set_tech_failure_function_works_as_expected"/>
+    <testcase time="0.00900000000000034" classname="quality" name="set_tech_failure_function_works_as_expected"/>
     <testcase time="0.00400000000000489" classname="quality" name="set_tech_failure_function_works_as_expected"/>
-    <testcase time="0.0390000000000015" classname="quality" name="set_tech_failure_fails_as_expected_with_invalid_inputs"/>
+    <testcase time="0.0360000000000014" classname="quality" name="set_tech_failure_fails_as_expected_with_invalid_inputs"/>
     <testcase time="0.00499999999999545" classname="quality" name="set_tech_failure_fails_as_expected_with_invalid_inputs"/>
+    <testcase time="0.00400000000000489" classname="quality" name="set_tech_failure_fails_as_expected_with_invalid_inputs"/>
     <testcase time="0.00499999999999545" classname="quality" name="set_tech_failure_fails_as_expected_with_invalid_inputs"/>
     <testcase time="0.00500000000000966" classname="quality" name="set_tech_failure_fails_as_expected_with_invalid_inputs"/>
-    <testcase time="0.0209999999999866" classname="quality" name="set_tech_failure_fails_as_expected_with_invalid_inputs"/>
   </testsuite>
-  <testsuite name="top_genes" timestamp="2025-08-12T10:03:55Z" hostname="e03797136d05" tests="39" skipped="0" failures="0" errors="0" time="3.78">
-    <testcase time="0.01400000000001" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
+  <testsuite name="top_genes" timestamp="2025-09-03T08:07:22Z" hostname="b0678e5eeb18" tests="39" skipped="0" failures="0" errors="0" time="3.553">
+    <testcase time="0.0120000000000005" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
     <testcase time="0.000999999999990564" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
     <testcase time="0.00100000000000477" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
     <testcase time="0.00300000000000011" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
-    <testcase time="0.00300000000000011" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
-    <testcase time="1.09999999999999" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_another_assay"/>
+    <testcase time="0.00199999999999534" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_default_counts_assay"/>
+    <testcase time="1.057" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_another_assay"/>
     <testcase time="0.007000000000005" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_another_assay"/>
-    <testcase time="0.00100000000000477" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_another_assay"/>
-    <testcase time="0.0549999999999926" classname="top_genes" name="top_genes_function_works_as_expected_for_RangedHermesData"/>
-    <testcase time="0.007000000000005" classname="top_genes" name="top_genes_function_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.000999999999990564" classname="top_genes" name="top_genes_function_works_as_expected_for_HermesData_with_another_assay"/>
+    <testcase time="0.0500000000000114" classname="top_genes" name="top_genes_function_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.00600000000000023" classname="top_genes" name="top_genes_function_works_as_expected_for_RangedHermesData"/>
+    <testcase time="0.000999999999990564" classname="top_genes" name="top_genes_function_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.00100000000000477" classname="top_genes" name="top_genes_function_works_as_expected_for_RangedHermesData"/>
-    <testcase time="0.00199999999999534" classname="top_genes" name="top_genes_function_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.00300000000000011" classname="top_genes" name="top_genes_function_works_as_expected_for_RangedHermesData"/>
     <testcase time="0.00300000000000011" classname="top_genes" name="top_genes_function_works_as_expected_for_RangedHermesData"/>
-    <testcase time="1.11499999999999" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_assay_choice"/>
+    <testcase time="1.04899999999999" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_assay_choice"/>
     <testcase time="0.00500000000000966" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_assay_choice"/>
-    <testcase time="0.00499999999999545" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_assay_choice"/>
-    <testcase time="1.122" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_summary_function"/>
-    <testcase time="0.00600000000000023" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_summary_function"/>
-    <testcase time="0.007000000000005" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_summary_function"/>
+    <testcase time="0.00399999999999068" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_assay_choice"/>
+    <testcase time="1.05800000000001" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_summary_function"/>
+    <testcase time="0.00400000000000489" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_summary_function"/>
     <testcase time="0.00699999999999079" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_summary_function"/>
-    <testcase time="0.00600000000000023" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
-    <testcase time="0.00500000000000966" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
-    <testcase time="0.00399999999999068" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
-    <testcase time="0.00900000000000034" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
-    <testcase time="0.00900000000000034" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
-    <testcase time="0.0229999999999961" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
-    <testcase time="0.00900000000000034" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
-    <testcase time="0.00500000000000966" classname="top_genes" name="top_genes_function_works_as_expected_with_correct_selection_criteria"/>
-    <testcase time="0.00699999999999079" classname="top_genes" name="top_genes_function_works_as_expected_with_correct_selection_criteria"/>
+    <testcase time="0.007000000000005" classname="top_genes" name="top_genes_function_fails_as_expected_with_wrong_summary_function"/>
+    <testcase time="0.00499999999999545" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
+    <testcase time="0.00400000000000489" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
+    <testcase time="0.00400000000000489" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
+    <testcase time="0.00899999999998613" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
+    <testcase time="0.007000000000005" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
+    <testcase time="0.00799999999999557" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
+    <testcase time="0.00800000000000978" classname="top_genes" name="top_genes_function_fails_as_expected_with_when_selection_criteria_are_incorrect"/>
+    <testcase time="0.00499999999999545" classname="top_genes" name="top_genes_function_works_as_expected_with_correct_selection_criteria"/>
+    <testcase time="0.00600000000000023" classname="top_genes" name="top_genes_function_works_as_expected_with_correct_selection_criteria"/>
     <testcase time="0.00300000000000011" classname="top_genes" name="top_genes_function_works_as_expected_with_correct_selection_criteria"/>
     <testcase time="0.00600000000000023" classname="top_genes" name="top_genes_function_works_as_expected_with_correct_selection_criteria"/>
     <testcase time="0.00300000000000011" classname="top_genes" name="top_genes_function_works_as_expected_with_correct_selection_criteria"/>
-    <testcase time="0.00300000000000011" classname="top_genes" name="top_genes_function_works_as_expected_with_correct_selection_criteria"/>
+    <testcase time="0.00199999999999534" classname="top_genes" name="top_genes_function_works_as_expected_with_correct_selection_criteria"/>
     <testcase time="0.00900000000000034" classname="top_genes" name="top_genes_gives_the_names_of_the_genes_in_the_correct_order"/>
     <testcase time="0.00300000000000011" classname="top_genes" name="top_genes_gives_the_names_of_the_genes_in_the_correct_order"/>
-    <testcase time="0.00600000000000023" classname="top_genes" name="top_genes_gives_the_names_of_the_genes_in_the_correct_order"/>
-    <testcase time="0.100999999999999" classname="top_genes" name="autoplot_for_HermesDataTopGenes_works_as_expected_with_default_options"/>
-    <testcase time="0.100999999999999" classname="top_genes" name="autoplot_for_HermesDataTopGenes_works_as_expected_with_custom_options"/>
+    <testcase time="0.00500000000000966" classname="top_genes" name="top_genes_gives_the_names_of_the_genes_in_the_correct_order"/>
+    <testcase time="0.0919999999999987" classname="top_genes" name="autoplot_for_HermesDataTopGenes_works_as_expected_with_default_options"/>
+    <testcase time="0.0919999999999987" classname="top_genes" name="autoplot_for_HermesDataTopGenes_works_as_expected_with_custom_options"/>
   </testsuite>
-  <testsuite name="utils" timestamp="2025-08-12T10:03:59Z" hostname="e03797136d05" tests="62" skipped="0" failures="0" errors="0" time="0.512">
-    <testcase time="0.0130000000000052" classname="utils" name="h_df_factors_with_explicit_na_works_as_expected_with_default_settings"/>
-    <testcase time="0.00799999999999557" classname="utils" name="h_df_factors_with_explicit_na_works_as_expected_without_missing_values"/>
-    <testcase time="0.00799999999999557" classname="utils" name="h_df_factors_with_explicit_na_works_with_mixed_complete_and_incomplete_variables"/>
-    <testcase time="0.00800000000000978" classname="utils" name="h_df_factors_with_explicit_na_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00600000000000023" classname="utils" name="h_df_factors_with_explicit_na_works_with_a_single_character_variable_only"/>
-    <testcase time="0.00799999999999557" classname="utils" name="h_df_factors_with_explicit_na_converts_empty_strings_to_explicit_missings"/>
-    <testcase time="0.00799999999999557" classname="utils" name="h_df_factors_with_explicit_na_fails_as_expected_when_no_columns_in_data"/>
+  <testsuite name="utils" timestamp="2025-09-03T08:07:26Z" hostname="b0678e5eeb18" tests="62" skipped="0" failures="0" errors="0" time="0.467">
+    <testcase time="0.0120000000000005" classname="utils" name="h_df_factors_with_explicit_na_works_as_expected_with_default_settings"/>
+    <testcase time="0.00699999999999079" classname="utils" name="h_df_factors_with_explicit_na_works_as_expected_without_missing_values"/>
+    <testcase time="0.007000000000005" classname="utils" name="h_df_factors_with_explicit_na_works_with_mixed_complete_and_incomplete_variables"/>
+    <testcase time="0.007000000000005" classname="utils" name="h_df_factors_with_explicit_na_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00699999999999079" classname="utils" name="h_df_factors_with_explicit_na_works_with_a_single_character_variable_only"/>
+    <testcase time="0.00600000000000023" classname="utils" name="h_df_factors_with_explicit_na_converts_empty_strings_to_explicit_missings"/>
+    <testcase time="0.00800000000000978" classname="utils" name="h_df_factors_with_explicit_na_fails_as_expected_when_no_columns_in_data"/>
     <testcase time="0.00600000000000023" classname="utils" name="h_df_factors_with_explicit_na_works_without_any_rows"/>
-    <testcase time="0.027000000000001" classname="utils" name="df_cols_to_factor_works_as_expected_with_default_settings"/>
-    <testcase time="0.0229999999999961" classname="utils" name="df_cols_to_factor_works_as_expected_with_custom_settings"/>
+    <testcase time="0.0249999999999915" classname="utils" name="df_cols_to_factor_works_as_expected_with_default_settings"/>
+    <testcase time="0.0210000000000008" classname="utils" name="df_cols_to_factor_works_as_expected_with_custom_settings"/>
     <testcase time="0.00600000000000023" classname="utils" name="h_short_list_works_as_expected_with_default_arguments"/>
     <testcase time="0.00300000000000011" classname="utils" name="h_short_list_works_as_expected_with_default_arguments"/>
+    <testcase time="0.00200000000000955" classname="utils" name="h_short_list_works_as_expected_with_default_arguments"/>
     <testcase time="0.00300000000000011" classname="utils" name="h_short_list_works_as_expected_with_default_arguments"/>
-    <testcase time="0.00300000000000011" classname="utils" name="h_short_list_works_as_expected_with_default_arguments"/>
-    <testcase time="0.00500000000000966" classname="utils" name="h_short_list_works_as_expected_with_custom_arguments"/>
-    <testcase time="0.00300000000000011" classname="utils" name="h_short_list_works_as_expected_with_custom_arguments"/>
+    <testcase time="0.00599999999998602" classname="utils" name="h_short_list_works_as_expected_with_custom_arguments"/>
+    <testcase time="0.00200000000000955" classname="utils" name="h_short_list_works_as_expected_with_custom_arguments"/>
     <testcase time="0.00300000000000011" classname="utils" name="h_short_list_works_as_expected_with_custom_arguments"/>
     <testcase time="0.00499999999999545" classname="utils" name="h_short_list_works_as_expected_with_custom_arguments"/>
-    <testcase time="0.00499999999999545" classname="utils" name="h_short_list_works_as_expected_with_custom_arguments"/>
+    <testcase time="0.00400000000000489" classname="utils" name="h_short_list_works_as_expected_with_custom_arguments"/>
     <testcase time="0.00600000000000023" classname="utils" name="h_parens_works_as_expected_for_strings"/>
-    <testcase time="0.00300000000000011" classname="utils" name="h_parens_works_as_expected_for_strings"/>
-    <testcase time="0.00500000000000966" classname="utils" name="h_parens_works_as_expected_for_strings"/>
-    <testcase time="0.00399999999999068" classname="utils" name="h_parens_works_as_expected_for_strings"/>
+    <testcase time="0.00199999999999534" classname="utils" name="h_parens_works_as_expected_for_strings"/>
+    <testcase time="0.00499999999999545" classname="utils" name="h_parens_works_as_expected_for_strings"/>
+    <testcase time="0.00400000000000489" classname="utils" name="h_parens_works_as_expected_for_strings"/>
     <testcase time="0.00600000000000023" classname="utils" name="h_parens_works_as_expected_for_character_vectors"/>
     <testcase time="0.00300000000000011" classname="utils" name="h_parens_works_as_expected_for_character_vectors"/>
-    <testcase time="0.00500000000000966" classname="utils" name="h_parens_works_as_expected_for_character_vectors"/>
-    <testcase time="0.00600000000000023" classname="utils" name="colPrinComp1_function_works_as_expected_for_standard_matrix_input"/>
-    <testcase time="0.000999999999990564" classname="utils" name="colPrinComp1_function_works_as_expected_for_standard_matrix_input"/>
-    <testcase time="0.00100000000000477" classname="utils" name="colPrinComp1_function_works_as_expected_for_standard_matrix_input"/>
+    <testcase time="0.00400000000000489" classname="utils" name="h_parens_works_as_expected_for_character_vectors"/>
+    <testcase time="0.00499999999999545" classname="utils" name="colPrinComp1_function_works_as_expected_for_standard_matrix_input"/>
     <testcase time="0.00199999999999534" classname="utils" name="colPrinComp1_function_works_as_expected_for_standard_matrix_input"/>
-    <testcase time="0.00500000000000966" classname="utils" name="colPrinComp1_function_returns_an_error_when_data_are_not_numeric"/>
-    <testcase time="0.00399999999999068" classname="utils" name="colPrinComp1_function_returns_an_error_when_data_are_not_numeric"/>
-    <testcase time="0.00600000000000023" classname="utils" name="colMeanZScores_function_works_as_expected_for_standard_matrix_input"/>
-    <testcase time="0.00100000000000477" classname="utils" name="colMeanZScores_function_works_as_expected_for_standard_matrix_input"/>
+    <testcase time="0.00100000000000477" classname="utils" name="colPrinComp1_function_works_as_expected_for_standard_matrix_input"/>
+    <testcase time="0.00100000000000477" classname="utils" name="colPrinComp1_function_works_as_expected_for_standard_matrix_input"/>
+    <testcase time="0.00499999999999545" classname="utils" name="colPrinComp1_function_returns_an_error_when_data_are_not_numeric"/>
+    <testcase time="0.00400000000000489" classname="utils" name="colPrinComp1_function_returns_an_error_when_data_are_not_numeric"/>
+    <testcase time="0.00499999999999545" classname="utils" name="colMeanZScores_function_works_as_expected_for_standard_matrix_input"/>
     <testcase time="0.00100000000000477" classname="utils" name="colMeanZScores_function_works_as_expected_for_standard_matrix_input"/>
     <testcase time="0.00199999999999534" classname="utils" name="colMeanZScores_function_works_as_expected_for_standard_matrix_input"/>
+    <testcase time="0.00100000000000477" classname="utils" name="colMeanZScores_function_works_as_expected_for_standard_matrix_input"/>
     <testcase time="0.00499999999999545" classname="utils" name="colMeanZScores_function_returns_an_error_when_data_are_not_numeric"/>
     <testcase time="0.00400000000000489" classname="utils" name="colMeanZScores_function_returns_an_error_when_data_are_not_numeric"/>
-    <testcase time="0.0630000000000024" classname="utils" name="wrap_in_mae_function_works_as_expected_for_standard_SummarizedExperiment_object"/>
-    <testcase time="0.000999999999990564" classname="utils" name="wrap_in_mae_function_works_as_expected_for_standard_SummarizedExperiment_object"/>
-    <testcase time="0.00400000000000489" classname="utils" name="wrap_in_mae_function_works_as_expected_for_standard_SummarizedExperiment_object"/>
-    <testcase time="0.0619999999999976" classname="utils" name="wrap_in_mae_function_uses_the_correct_default_name_for_the_experiment"/>
-    <testcase time="0.00100000000000477" classname="utils" name="wrap_in_mae_function_uses_the_correct_default_name_for_the_experiment"/>
-    <testcase time="0.0760000000000076" classname="utils" name="wrap_in_mae_function_uses_the_custom_name_for_the_experiment"/>
-    <testcase time="0.00100000000000477" classname="utils" name="wrap_in_mae_function_uses_the_custom_name_for_the_experiment"/>
-    <testcase time="0.00600000000000023" classname="utils" name="h_all_duplicated_works_as_expected_for_numerics"/>
-    <testcase time="0.00300000000000011" classname="utils" name="h_all_duplicated_works_as_expected_for_numerics"/>
-    <testcase time="0.00499999999999545" classname="utils" name="h_all_duplicated_works_as_expected_for_character"/>
+    <testcase time="0.0579999999999927" classname="utils" name="wrap_in_mae_function_works_as_expected_for_standard_SummarizedExperiment_object"/>
+    <testcase time="0.00199999999999534" classname="utils" name="wrap_in_mae_function_works_as_expected_for_standard_SummarizedExperiment_object"/>
+    <testcase time="0.00300000000000011" classname="utils" name="wrap_in_mae_function_works_as_expected_for_standard_SummarizedExperiment_object"/>
+    <testcase time="0.054000000000002" classname="utils" name="wrap_in_mae_function_uses_the_correct_default_name_for_the_experiment"/>
+    <testcase time="0.00200000000000955" classname="utils" name="wrap_in_mae_function_uses_the_correct_default_name_for_the_experiment"/>
+    <testcase time="0.0629999999999882" classname="utils" name="wrap_in_mae_function_uses_the_custom_name_for_the_experiment"/>
+    <testcase time="0.00200000000000955" classname="utils" name="wrap_in_mae_function_uses_the_custom_name_for_the_experiment"/>
+    <testcase time="0.00499999999999545" classname="utils" name="h_all_duplicated_works_as_expected_for_numerics"/>
+    <testcase time="0.00199999999999534" classname="utils" name="h_all_duplicated_works_as_expected_for_numerics"/>
+    <testcase time="0.00500000000000966" classname="utils" name="h_all_duplicated_works_as_expected_for_character"/>
     <testcase time="0.00300000000000011" classname="utils" name="h_all_duplicated_works_as_expected_for_character"/>
-    <testcase time="0.007000000000005" classname="utils" name="cut_quantile_works_as_expected_with_default_settings"/>
-    <testcase time="0.000999999999990564" classname="utils" name="cut_quantile_works_as_expected_with_default_settings"/>
+    <testcase time="0.00600000000000023" classname="utils" name="cut_quantile_works_as_expected_with_default_settings"/>
+    <testcase time="0.00199999999999534" classname="utils" name="cut_quantile_works_as_expected_with_default_settings"/>
     <testcase time="0.00600000000000023" classname="utils" name="cut_quantile_works_as_expected_with_custom_settings"/>
-    <testcase time="0.00199999999999534" classname="utils" name="cut_quantile_works_as_expected_with_custom_settings"/>
+    <testcase time="0.00100000000000477" classname="utils" name="cut_quantile_works_as_expected_with_custom_settings"/>
     <testcase time="0.00600000000000023" classname="utils" name="cut_quantile_preserves_NAs_in_result"/>
-    <testcase time="0.00400000000000489" classname="utils" name="cut_quantile_preserves_NAs_in_result"/>
+    <testcase time="0.00300000000000011" classname="utils" name="cut_quantile_preserves_NAs_in_result"/>
     <testcase time="0.00600000000000023" classname="utils" name="cut_quantile_works_without_percentiles"/>
     <testcase time="0.00300000000000011" classname="utils" name="cut_quantile_works_without_percentiles"/>
-    <testcase time="0.00699999999999079" classname="utils" name="cut_quantile_works_without_percentiles_when_there_is_only_1_number"/>
+    <testcase time="0.00600000000000023" classname="utils" name="cut_quantile_works_without_percentiles_when_there_is_only_1_number"/>
     <testcase time="0.00600000000000023" classname="utils" name="cut_quantile_works_without_percentiles_when_there_are_only_2_numbers"/>
-    <testcase time="0.00800000000000978" classname="utils" name="cut_quantile_produces_an_error_if_quantile_boundaries_are_not_unique"/>
-    <testcase time="0.00699999999999079" classname="utils" name="cat_with_newline_works_as_expected"/>
+    <testcase time="0.00799999999999557" classname="utils" name="cut_quantile_produces_an_error_if_quantile_boundaries_are_not_unique"/>
+    <testcase time="0.00600000000000023" classname="utils" name="cat_with_newline_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="utils" name="cat_with_newline_works_as_expected"/>
   </testsuite>
-  <testsuite name="test" timestamp="2025-08-12T10:03:59Z" hostname="e03797136d05" tests="1" skipped="0" failures="0" errors="0" time="0.007">
+  <testsuite name="test" timestamp="2025-09-03T08:07:26Z" hostname="b0678e5eeb18" tests="1" skipped="0" failures="0" errors="0" time="0.007">
     <testcase time="0.007000000000005" classname="test" name="loading_hermes_works"/>
   </testsuite>
 </testsuites>
