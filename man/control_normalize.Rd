@@ -22,7 +22,7 @@ avoid taking log of zero, used only when \code{log = TRUE}.}
 
 \item{fit_type}{(\code{string})\cr method to estimate dispersion parameters
 in Negative Binomial model, used only when \code{\link[=normalize]{normalize()}} methods include \code{vst} and/or \code{rlog}.
-See \code{\link[DESeq2:estimateDispersions]{estimateDispersions}} for details.}
+See \code{\link[DESeq2]{estimateDispersions}} for details.}
 }
 \value{
 List with the above settings used to perform the normalization procedure.

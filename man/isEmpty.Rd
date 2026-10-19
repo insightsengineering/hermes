@@ -14,7 +14,7 @@
 Flag whether the \code{object} is empty.
 }
 \description{
-This method checks whether a \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object is empty.
+This method checks whether a \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}} object is empty.
 }
 \examples{
 isEmpty(summarized_experiment)

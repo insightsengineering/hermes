@@ -10,7 +10,7 @@ lhs \%>\% rhs
 The result of the corresponding function call.
 }
 \description{
-See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+See \code{\link[magrittr]{\%>\%}} for details.
 }
 \examples{
 hermes_data \%>\%

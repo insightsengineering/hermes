@@ -11,7 +11,7 @@ h_diff_expr_voom(object, design, ...)
 
 \item{design}{(\code{matrix})\cr design matrix.}
 
-\item{...}{additional arguments internally passed to \code{\link[limma:ebayes]{limma::eBayes()}} (\code{robust}, \code{trend}, \code{proportion},
+\item{...}{additional arguments internally passed to \code{\link[limma]{eBayes}} (\code{robust}, \code{trend}, \code{proportion},
 \code{winsor.tail.p}, \code{stdev.coef.lim}).}
 }
 \value{
@@ -20,7 +20,7 @@ A data frame with columns \code{log2_fc} (estimated log2 fold change),
 }
 \description{
 This helper functions performs the differential expression analysis with the voom
-method from the \code{limma} package (via \code{\link[limma:voom]{limma::voom()}}, \code{\link[limma:lmFit]{limma::lmFit()}} and \code{\link[limma:ebayes]{limma::eBayes()}})
+method from the \code{limma} package (via \code{\link[limma:voom]{limma::voom()}}, \code{\link[limma:lmFit]{limma::lmFit()}} and \code{\link[limma]{eBayes}})
 for given counts in a \link{AnyHermesData} object and a corresponding \code{design} matrix.
 }
 \examples{

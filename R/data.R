@@ -2,10 +2,10 @@
 #'
 #' @description
 #'
-#' This example data can be used to try out conversion of a [`Biobase::ExpressionSet`]
+#' This example data can be used to try out conversion of a \code{\link[Biobase]{ExpressionSet-class}}
 #' object into a [`HermesData`] object.
 #'
-#' @format A [`Biobase::ExpressionSet`] object with 20 samples covering 5085
+#' @format A \code{\link[Biobase]{ExpressionSet-class}} object with 20 samples covering 5085
 #'   features (`Entrez` gene IDs).
 #' @source This is an artificial dataset designed to resemble real data.
 #' @seealso
@@ -25,7 +25,7 @@
 #' @format A [SummarizedExperiment::SummarizedExperiment] object with 20 samples covering
 #'   5085 features (`Entrez` gene IDs).
 #' @source This is an artificial dataset designed to resemble real data.
-#' @seealso [`expression_set`] which contains similar data as a [`Biobase::ExpressionSet`].
+#' @seealso [`expression_set`] which contains similar data as a \code{\link[Biobase]{ExpressionSet-class}}.
 "summarized_experiment"
 
 #' Example `HermesData` Data

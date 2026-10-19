@@ -31,11 +31,11 @@ to new (left-hand side names) assay names.}
 \item{...}{additional arguments (not used here).}
 }
 \value{
-The \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object with renamed contents.
+The \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}} object with renamed contents.
 }
 \description{
 This method renames columns of the \code{rowData} and \code{colData}, as well as assays, of
-\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} objects. This increases the flexibility
+\code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}} objects. This increases the flexibility
 since renaming can be done before conversion to a \code{\link{HermesData}} object.
 }
 \examples{

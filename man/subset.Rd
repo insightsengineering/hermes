@@ -21,7 +21,7 @@ This method subsets \code{\link{AnyHermesData}} objects, based on expressions in
 }
 \note{
 Note that this just inherits
-\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::subset,SummarizedExperiment-method()}}.
+\code{\link[SummarizedExperiment:subset,SummarizedExperiment-method]{SummarizedExperiment::subset,SummarizedExperiment-method()}}.
 }
 \examples{
 a <- hermes_data

@@ -5,7 +5,7 @@
 \alias{summarized_experiment}
 \title{Example \code{SummarizedExperiment} Data}
 \format{
-A \link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment} object with 20 samples covering
+A \link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment} object with 20 samples covering
 5085 features (\code{Entrez} gene IDs).
 }
 \source{
@@ -15,10 +15,10 @@ This is an artificial dataset designed to resemble real data.
 summarized_experiment
 }
 \description{
-This example \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} can be used to create a
+This example \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}} can be used to create a
 \code{\link{HermesData}} object. It already contains the required columns in \code{rowData} and \code{colData}.
 }
 \seealso{
-\code{\link{expression_set}} which contains similar data as a \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}}.
+\code{\link{expression_set}} which contains similar data as a \code{\link[Biobase]{ExpressionSet-class}}.
 }
 \keyword{datasets}

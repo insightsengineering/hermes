@@ -16,10 +16,10 @@ features of interest (rows in assays).
 \note{
 \itemize{
 \item Note that this just inherits
-\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::rbind,SummarizedExperiment-method()}}. When binding a
-\code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+\code{\link[SummarizedExperiment:rbind,SummarizedExperiment-method]{SummarizedExperiment::rbind,SummarizedExperiment-method()}}. When binding a
+\code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}}
 object, then the result will be a
-\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object (the more general
+\code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}} object (the more general
 class).
 \item Note that we need to have unique gene IDs (row names) and the same prefix
 across the combined object.

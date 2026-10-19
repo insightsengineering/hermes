@@ -35,7 +35,7 @@ the analysis internally in \code{calc_pca()}. Centering and scaling is also appl
 \item Plots can be obtained with the \code{\link[ggplot2:autoplot]{ggplot2::autoplot()}} function
 with the corresponding method from the \code{ggfortify} package to plot the
 results of a principal components analysis saved in a \code{\link{HermesDataPca}}
-object. See \code{\link[ggfortify:autoplot.pca_common]{ggfortify::autoplot.prcomp()}} for details.
+object. See \code{\link[ggfortify:autoplot.prcomp]{ggfortify::autoplot.prcomp()}} for details.
 }
 }
 \examples{

@@ -5,7 +5,7 @@
 \alias{expression_set}
 \title{Example \code{ExpressionSet} Data}
 \format{
-A \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}} object with 20 samples covering 5085
+A \code{\link[Biobase]{ExpressionSet-class}} object with 20 samples covering 5085
 features (\code{Entrez} gene IDs).
 }
 \source{
@@ -15,15 +15,15 @@ This is an artificial dataset designed to resemble real data.
 expression_set
 }
 \description{
-This example data can be used to try out conversion of a \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}}
+This example data can be used to try out conversion of a \code{\link[Biobase]{ExpressionSet-class}}
 object into a \code{\link{HermesData}} object.
 }
 \seealso{
 \itemize{
 \item \code{\link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()}} to convert into a
-\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}.
+\code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}}.
 \item \code{\link{summarized_experiment}} which contains similar data already as a
-\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}.
+\code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}}.
 }
 }
 \keyword{datasets}

@@ -7,7 +7,7 @@
 df_cols_to_factor(data, omit_columns = NULL, na_level = "<Missing>")
 }
 \arguments{
-\item{data}{(\code{DataFrame})\cr input \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}}.}
+\item{data}{(\code{DataFrame})\cr input \code{\link[S4Vectors:DataFrame]{S4Vectors::DataFrame}}.}
 
 \item{omit_columns}{(\code{character} or \code{NULL})\cr which columns should be omitted from
 the possible conversion to factor and explicit missing level application.}
@@ -19,7 +19,7 @@ The modified data.
 }
 \description{
 This utility function converts all eligible character and logical variables in a
-\code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} to factor variables. All factor variables get amended
+\code{\link[S4Vectors:DataFrame]{S4Vectors::DataFrame}} to factor variables. All factor variables get amended
 with an explicit missing level. This includes both \code{NA} and empty strings.
 }
 \note{

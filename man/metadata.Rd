@@ -15,7 +15,7 @@ The metadata which is a list.
 These methods access or set the metadata in a \code{\link{AnyHermesData}} object.
 }
 \note{
-Note that this just inherits \code{\link[S4Vectors:Annotated-class]{S4Vectors::metadata,Annotated-method()}}.
+Note that this just inherits \code{\link[S4Vectors:metadata,Annotated-method]{S4Vectors::metadata,Annotated-method()}}.
 }
 \examples{
 a <- hermes_data

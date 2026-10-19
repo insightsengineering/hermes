@@ -30,7 +30,7 @@ NULL
 #' additional validation requirements. Methods can be defined for both classes at the
 #' same time with the [`AnyHermesData`] signature.
 #'
-#' A [`Biobase::ExpressionSet`] object can be imported by using the
+#' A \code{\link[Biobase]{ExpressionSet-class}} object can be imported by using the
 #' [SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()] function to
 #' first convert it to a [`SummarizedExperiment::SummarizedExperiment`] object before
 #' converting it again into a [`HermesData`] object.

@@ -1,7 +1,12 @@
-# hermes 1.7.2.9008
+# hermes 1.13.1
+
+### Bug Fixes
+* Fixed issue with `draw_boxplot` for new `ggplot2` version.
+
+# hermes 1.9.1
 
 ### Miscellaneous
-* Changed maintainer email address.
+* Change maintainer's email address.
 
 # hermes 1.7.1
 
@@ -11,16 +16,19 @@
 ### Miscellaneous
 * The utility function `df_cols_to_factor` now also converts existing factors to having explicit missing levels.
 * Version bump on `forcats` dependency.
-* Removed `ggplot2` deprecation warning `..count..`. 
+* Removed `ggplot2` deprecation warning `..count..`.
 
 # hermes 1.0.1
-
-### Enhancements
-* Additional `version` argument for `connect_biomart` to specify an `Ensembl` version.
+* Additional `version` argument for `connect_biomart` to specify an Ensembl version.
+* Fixed tests.
 
 # hermes 1.0.0
+* First BioConductor release.
 
-### Meta
+# hermes 0.99.4
+* Corrected authors.
+
+# hermes 0.99.2
 * First public release of the `hermes` package.
 * Submission to `BioConductor`.
 
@@ -32,6 +40,7 @@
 * New utility function `cut_quantile` for cutting a numeric vector into quantiles.
 * New utility function `cat_with_newline` for concatenating and printing with newline.
 * New check function `check_proportion` which checks for a single proportion.
+* Better legends on the genes barplot and the correlation heatmap.
 
 # hermes 0.1.1
 

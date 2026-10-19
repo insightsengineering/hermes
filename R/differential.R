@@ -3,12 +3,12 @@
 #' @description
 #'
 #' This helper functions performs the differential expression analysis with the voom
-#' method from the `limma` package (via [limma::voom()], [limma::lmFit()] and [limma::eBayes()])
+#' method from the `limma` package (via [limma::voom()], [limma::lmFit()] and \code{\link[limma]{eBayes}})
 #' for given counts in a [AnyHermesData] object and a corresponding `design` matrix.
 #'
 #' @param object (`AnyHermesData`)\cr input.
 #' @param design (`matrix`)\cr design matrix.
-#' @param ... additional arguments internally passed to [limma::eBayes()] (`robust`, `trend`, `proportion`,
+#' @param ... additional arguments internally passed to \code{\link[limma]{eBayes}} (`robust`, `trend`, `proportion`,
 #'   `winsor.tail.p`, `stdev.coef.lim`).
 #' @return A data frame with columns `log2_fc` (estimated log2 fold change),
 #'   `stat` (moderated t-statistic), `p_val` (raw p-value), `adj_p_pval` (Benjamini-Hochberg adjusted p-value).

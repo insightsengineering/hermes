@@ -16,10 +16,10 @@ samples (columns in assays).
 \note{
 \itemize{
 \item Note that this just inherits
-\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::cbind,SummarizedExperiment-method()}}. When binding a
-\code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+\code{\link[SummarizedExperiment:cbind,SummarizedExperiment-method]{SummarizedExperiment::cbind,SummarizedExperiment-method()}}. When binding a
+\code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}}
 object, then the result will be a
-\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object (the more general
+\code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}} object (the more general
 class).
 \item Note that the combined object needs to have unique sample IDs (column names).
 }

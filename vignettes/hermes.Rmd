@@ -2,6 +2,8 @@
 title: "Introduction to `hermes`"
 package: hermes
 author:
+  - name: Daniel Sabanés Bové
+    email: daniel.sabanes_bove@rconis.com
   - Namrata Bhatia
   - Stefanie Bienert
   - Benoit Falquet
@@ -341,19 +343,10 @@ achieved with the `normalize()` function. The `normalize()` function can also tr
 object_normalized <- normalize(object_flagged_filtered)
 ```
 
-```{r}
-object_rlog_normalized <- normalize(object_flagged_filtered, "rlog")
-```
-
-
 The corresponding assays are saved in the object and can be accessed with `assay()`.
 
 ```{r}
 assay(object_normalized, "tpm")[1:3, 1:3]
-```
-
-```{r}
-assay(object_rlog_normalized, "rlog")[1:3, 1:3]
 ```
 
 The used control settings can be accessed afterwards from the metadata of the object:

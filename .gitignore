@@ -39,11 +39,21 @@ design/*.html
 
 # R Environment Variables
 .Renviron
+.Rhistory
+
+# RStudio project file
+*.Rproj
 
 # MacOS Files
 .DS_Store
 .Rproj.user
 coverage.*
+
+tests/testthat/junit-result.xml
+
+tests/testthat/Rplots.pdf
+
+tests/testthat/testthat-problems.rds
 
 # Test artifacts
 tests/testthat/junit-result.xml

@@ -1,0 +1,32 @@
+{
+  "name": "Bioconductor Devel",
+  "image": "bioconductor/bioconductor_docker:devel",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/apt-get-packages:1": {
+      "packages": "texinfo,texlive-latex-base,texlive-latex-recommended,texlive-fonts-recommended,texlive-fonts-extra"
+    }
+  },
+  "platform": "linux/amd64",
+  "workspaceFolder": "/work",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/work,type=bind",
+  "mounts": [
+    "source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,type=bind"
+  ],
+  "remoteEnv": {
+    "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock"
+  },
+  "containerEnv": {
+    "CI": "true",
+    "NOT_CRAN": "true"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "REditorSupport.r",
+        "mhutchie.git-graph",
+        "openai.chatgpt"
+      ]
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh"
+}

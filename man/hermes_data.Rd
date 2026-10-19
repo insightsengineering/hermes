@@ -15,12 +15,12 @@ This is an artificial dataset designed to resemble real data.
 hermes_data
 }
 \description{
-This example \code{\link{HermesData}} is created from the underlying \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+This example \code{\link{HermesData}} is created from the underlying \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}}
 object by renaming descriptors to align with standard specification. It already
 contains the required columns in \code{rowData} and \code{colData}.
 }
 \seealso{
-\code{\link{summarized_experiment}} for the underlying \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+\code{\link{summarized_experiment}} for the underlying \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}}
 object.
 }
 \keyword{datasets}

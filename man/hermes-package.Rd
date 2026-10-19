@@ -21,6 +21,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Daniel Sabanés Bové \email{daniel.sabanes_bove@rconis.com}
   \item Namrata Bhatia
   \item Stefanie Bienert
   \item Benoit Falquet

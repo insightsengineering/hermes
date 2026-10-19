@@ -37,157 +37,171 @@ x_spec$extract_data_frame(mat)
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-GeneSpec-new}{\code{GeneSpec$new()}}
-\item \href{#method-GeneSpec-get_genes}{\code{GeneSpec$get_genes()}}
-\item \href{#method-GeneSpec-get_gene_labels}{\code{GeneSpec$get_gene_labels()}}
-\item \href{#method-GeneSpec-returns_vector}{\code{GeneSpec$returns_vector()}}
-\item \href{#method-GeneSpec-get_label}{\code{GeneSpec$get_label()}}
-\item \href{#method-GeneSpec-extract}{\code{GeneSpec$extract()}}
-\item \href{#method-GeneSpec-extract_data_frame}{\code{GeneSpec$extract_data_frame()}}
-\item \href{#method-GeneSpec-clone}{\code{GeneSpec$clone()}}
-}
+  \itemize{
+    \item \href{#method-GeneSpec-initialize}{\code{GeneSpec$new()}}
+    \item \href{#method-GeneSpec-get_genes}{\code{GeneSpec$get_genes()}}
+    \item \href{#method-GeneSpec-get_gene_labels}{\code{GeneSpec$get_gene_labels()}}
+    \item \href{#method-GeneSpec-returns_vector}{\code{GeneSpec$returns_vector()}}
+    \item \href{#method-GeneSpec-get_label}{\code{GeneSpec$get_label()}}
+    \item \href{#method-GeneSpec-extract}{\code{GeneSpec$extract()}}
+    \item \href{#method-GeneSpec-extract_data_frame}{\code{GeneSpec$extract_data_frame()}}
+    \item \href{#method-GeneSpec-clone}{\code{GeneSpec$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-GeneSpec-new"></a>}}
-\if{latex}{\out{\hypertarget{method-GeneSpec-new}{}}}
-\subsection{Method \code{new()}}{
-Creates a new \code{\link{GeneSpec}} object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$new(genes = NULL, fun = NULL, fun_name = deparse(substitute(fun)))}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{genes}}{(named \code{character} or \code{NULL})\cr the gene IDs, where the names
+\if{html}{\out{<a id="method-GeneSpec-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSpec-initialize}{}}}
+\subsection{\code{GeneSpec$new()}}{
+  Creates a new \code{\link{GeneSpec}} object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GeneSpec$new(genes = NULL, fun = NULL, fun_name = deparse(substitute(fun)))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{genes}}{(named \code{character} or \code{NULL})\cr the gene IDs, where the names
 are used as labels if available.}
-
-\item{\code{fun}}{(\code{function} or \code{NULL})\cr summary function. If \code{NULL} is
+      \item{\code{fun}}{(\code{function} or \code{NULL})\cr summary function. If \code{NULL} is
 used then multiple genes are not summarized but returned as a matrix from the
 \code{extract} method.}
+      \item{\code{fun_name}}{(\code{string})\cr name of the summary function.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new \code{\link{GeneSpec}} object.
+  }
+}
 
-\item{\code{fun_name}}{(\code{string})\cr name of the summary function.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new \code{\link{GeneSpec}} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GeneSpec-get_genes"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneSpec-get_genes}{}}}
-\subsection{Method \code{get_genes()}}{
-Returns the genes.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$get_genes()}\if{html}{\out{</div>}}
+\subsection{\code{GeneSpec$get_genes()}}{
+  Returns the genes.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GeneSpec$get_genes()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GeneSpec-get_gene_labels"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneSpec-get_gene_labels}{}}}
-\subsection{Method \code{get_gene_labels()}}{
-Returns the gene labels (substituted by gene IDs if not available).
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$get_gene_labels(genes = self$get_genes())}\if{html}{\out{</div>}}
+\subsection{\code{GeneSpec$get_gene_labels()}}{
+  Returns the gene labels (substituted by gene IDs if not available).
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GeneSpec$get_gene_labels(genes = self$get_genes())}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{genes}}{(\code{character})\cr for which subset of genes the labels should be returned.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{genes}}{(\code{character})\cr for which subset of genes the labels should be returned.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GeneSpec-returns_vector"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneSpec-returns_vector}{}}}
-\subsection{Method \code{returns_vector()}}{
-Predicate whether the extract returns a vector or not.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$returns_vector()}\if{html}{\out{</div>}}
+\subsection{\code{GeneSpec$returns_vector()}}{
+  Predicate whether the extract returns a vector or not.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GeneSpec$returns_vector()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GeneSpec-get_label"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneSpec-get_label}{}}}
-\subsection{Method \code{get_label()}}{
-Returns a string which can be used e.g. for plot labels.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$get_label(genes = self$get_genes())}\if{html}{\out{</div>}}
+\subsection{\code{GeneSpec$get_label()}}{
+  Returns a string which can be used e.g. for plot labels.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GeneSpec$get_label(genes = self$get_genes())}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{genes}}{(\code{character})\cr for which subset of genes the labels should be returned.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{genes}}{(\code{character})\cr for which subset of genes the labels should be returned.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GeneSpec-extract"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneSpec-extract}{}}}
-\subsection{Method \code{extract()}}{
-Extract the gene values from an assay as specified.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$extract(assay)}\if{html}{\out{</div>}}
+\subsection{\code{GeneSpec$extract()}}{
+  Extract the gene values from an assay as specified.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GeneSpec$extract(assay)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{assay}}{(\code{matrix})\cr original matrix with rownames containing the
+specified genes.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Either a vector with one value per column, or a matrix with multiple
+genes in the rows.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{assay}}{(\code{matrix})\cr original matrix with rownames containing the
-specified genes.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Either a vector with one value per column, or a matrix with multiple
-genes in the rows.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GeneSpec-extract_data_frame"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneSpec-extract_data_frame}{}}}
-\subsection{Method \code{extract_data_frame()}}{
-Extract the gene values as a \code{data.frame}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$extract_data_frame(assay)}\if{html}{\out{</div>}}
+\subsection{\code{GeneSpec$extract_data_frame()}}{
+  Extract the gene values as a \code{data.frame}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GeneSpec$extract_data_frame(assay)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{assay}}{(\code{matrix})\cr original matrix with rownames containing the
+specified genes.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{data.frame} with the genes in the columns and the samples
+in the rows.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{assay}}{(\code{matrix})\cr original matrix with rownames containing the
-specified genes.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{data.frame} with the genes in the columns and the samples
-in the rows.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GeneSpec-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneSpec-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSpec$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{GeneSpec$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{GeneSpec$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

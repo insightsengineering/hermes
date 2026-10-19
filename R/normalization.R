@@ -11,7 +11,7 @@
 #'   avoid taking log of zero, used only when `log = TRUE`.
 #' @param fit_type (`string`)\cr method to estimate dispersion parameters
 #'   in Negative Binomial model, used only when [normalize()] methods include `vst` and/or `rlog`.
-#'   See [`estimateDispersions`][DESeq2::estimateDispersions,DESeqDataSet-method()] for details.
+#'   See \code{\link[DESeq2]{estimateDispersions}} for details.
 #'
 #' @return List with the above settings used to perform the normalization procedure.
 #'

@@ -6,7 +6,7 @@ on_bioc <- !(identical(Sys.getenv("BBS_HOME"), ""))
   NULL
 } else {
   as(
-    connect_biomart(version = "104"),
+    connect_biomart(version = "116"),
     "Mart"
   )
 }
@@ -57,7 +57,7 @@ test_that("h_get_annotation_biomart works as expected", {
     hgnc_symbol = c("INMT", "AVIL"),
     entrezgene_description = c("indolethylamine N-methyltransferase", "advillin"),
     chromosome_name = c(7L, 12L),
-    size = c(3376L, 5889L),
+    size = c(11183L, 5919L),
     refseq_mrna = c("NM_006774", "NM_006576"),
     refseq_peptide = c("NP_006765", "NP_006567"),
     row.names = c("11185", "10677"),
@@ -95,7 +95,7 @@ test_that("h_get_size_biomart works as expected", {
       id_var = "entrezgene_id",
       mart = .mart
     ),
-    c("11185" = 3376L)
+    c("11185" = 11183L)
   )
   expect_identical(
     h_get_size_biomart(
@@ -103,7 +103,7 @@ test_that("h_get_size_biomart works as expected", {
       id_var = "ensembl_gene_id",
       mart = .mart
     ),
-    c(ENSG00000215417 = 3774L)
+    c(ENSG00000215417 = 12750L)
   )
   expect_identical(
     h_get_size_biomart(
@@ -111,7 +111,7 @@ test_that("h_get_size_biomart works as expected", {
       id_var = "entrezgene_id",
       mart = .mart
     ),
-    c("11185" = 3376L, "10677" = 5889L)
+    c("11185" = 11183L, "10677" = 5919L)
   )
   expect_identical(
     h_get_size_biomart(
@@ -119,7 +119,7 @@ test_that("h_get_size_biomart works as expected", {
       id_var = "ensembl_gene_id",
       mart = .mart
     ),
-    c(ENSG00000135407 = 5889L, ENSG00000215417 = 3774L)
+    c(ENSG00000135407 = 5919L, ENSG00000215417 = 12750L)
   )
 })
 
@@ -167,7 +167,7 @@ test_that("query to Biomart works as expected", {
   skip_on_bioc()
 
   object <- hermes_data[1:10, ]
-  connection <- connect_biomart(prefix(object), version = "104")
+  connection <- connect_biomart(prefix(object), version = "116")
   result <- query(genes(object), connection)
   expect_s4_class(result, "DataFrame")
   expect_subset(.row_data_annotation_cols, names(result))

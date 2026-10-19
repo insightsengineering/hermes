@@ -25,14 +25,14 @@ If this is a \code{RangedSummarizedExperiment}, then the result will be
 \item{counts}{(\code{matrix})\cr counts to create the \code{\link{HermesData}} object from.}
 
 \item{...}{additional arguments, e.g. \code{rowData}, \code{colData}, etc. passed to
-\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment()}} internally. Note that if \code{rowRanges}
+\code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment()}} internally. Note that if \code{rowRanges}
 is passed instead of \code{rowData}, then the result will be a \code{\link{RangedHermesData}} object.}
 }
 \value{
 An object of class \code{\link{AnyHermesData}} (\code{\link{HermesData}} or \code{\link{RangedHermesData}}).
 }
 \description{
-The \code{\link{HermesData}} class is an extension of \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+The \code{\link{HermesData}} class is an extension of \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}}
 with additional validation criteria.
 }
 \details{
@@ -58,13 +58,13 @@ and the column names are the sample names.
 }
 
 Analogously, \code{\link{RangedHermesData}} is an extension of
-\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::RangedSummarizedExperiment}} and has the same
+\code{\link[SummarizedExperiment:RangedSummarizedExperiment]{SummarizedExperiment::RangedSummarizedExperiment}} and has the same
 additional validation requirements. Methods can be defined for both classes at the
 same time with the \code{\link{AnyHermesData}} signature.
 
-A \code{\link[Biobase:class.ExpressionSet]{Biobase::ExpressionSet}} object can be imported by using the
+A \code{\link[Biobase]{ExpressionSet-class}} object can be imported by using the
 \code{\link[SummarizedExperiment:makeSummarizedExperimentFromExpressionSet]{SummarizedExperiment::makeSummarizedExperimentFromExpressionSet()}} function to
-first convert it to a \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object before
+first convert it to a \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment}} object before
 converting it again into a \code{\link{HermesData}} object.
 }
 \section{Slots}{
@@ -75,7 +75,7 @@ converting it again into a \code{\link{HermesData}} object.
 
 \note{
 \itemize{
-\item Note that we use \code{\link[S4Vectors:S4Vectors-internals]{S4Vectors::setValidity2()}} to define the validity
+\item Note that we use \code{\link[S4Vectors:setValidity2]{S4Vectors::setValidity2()}} to define the validity
 method, which allows us to turn off the validity checks in internal
 functions where intermediate objects may not be valid within the scope of
 the function.

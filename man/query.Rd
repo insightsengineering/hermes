@@ -15,7 +15,7 @@ query(genes, connection)
 \item{connection}{(connection class)\cr data base connection object.}
 }
 \value{
-A \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DataFrame}} with the gene annotations. It is required that:
+A \code{\link[S4Vectors:DataFrame]{S4Vectors::DataFrame}} with the gene annotations. It is required that:
 \itemize{
 \item The \code{rownames} are identical to the input \code{genes}.
 \item The \code{colnames} are equal to the annotation columns \code{\link{.row_data_annotation_cols}}.

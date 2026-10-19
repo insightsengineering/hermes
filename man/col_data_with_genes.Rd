@@ -23,7 +23,7 @@ with selected gene information.
 }
 \note{
 The class of the returned data set will depend on the class of \code{colData}, so usually
-will be \code{\link[S4Vectors:DataFrame-class]{S4Vectors::DFrame}}.
+will be \code{\link[S4Vectors:DFrame]{S4Vectors::DFrame}}.
 }
 \examples{
 result <- col_data_with_genes(hermes_data, "counts", gene_spec("GeneID:1820"))
